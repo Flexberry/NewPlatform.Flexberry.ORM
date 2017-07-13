@@ -3,17 +3,16 @@
 namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
 {
     using System;
-    using System.Drawing;
     using System.Linq;
     using ICSSoft.STORMNET.FunctionalLanguage;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;  
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 
     using Xunit;
 
     /// <summary>
     /// Проверка класса VariableDef.
     /// </summary>
-    
+
     public class VariableDefTest
     {
         /// <summary>
