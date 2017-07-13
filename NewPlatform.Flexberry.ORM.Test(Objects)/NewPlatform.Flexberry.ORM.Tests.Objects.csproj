@@ -43,6 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Net40|AnyCPU'">
     <OutputPath>bin\Debug-Net40\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug-Net40\NewPlatform.Flexberry.ORM.Tests.Objects.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net40|AnyCPU'">
     <OutputPath>bin\Release-Net40\</OutputPath>
@@ -53,7 +54,7 @@
     <OutputPath>bin\Debug-Net45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>NewPlatform.Flexberry.ORM.Test%28Objects%29.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug-Net45\NewPlatform.Flexberry.ORM.Tests.Objects.xml</DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <DebugType>full</DebugType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -66,7 +67,8 @@
     <OutputPath>bin\Release-Net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>NewPlatform.Flexberry.ORM.Test%28Objects%29.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>

@@ -424,7 +424,7 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 22
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://dis-tfs:8080/common
+		SccTeamFoundationServer = 
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = ICSSoft.STORMNET.Business\\ICSSoft.STORMNET.Business.csproj
 		SccProjectName1 = ICSSoft.STORMNET.Business
