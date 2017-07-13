@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NewPlatform.Flexberry.ORM.IntegratedTests</RootNamespace>
+    <AssemblyName>NewPlatform.Flexberry.ORM.IntegratedTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Tests.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Net45|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-Net45\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU'">
+    <OutputPath>bin\Release-Net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LogService">
+      <HintPath>..\packages\NewPlatform.Flexberry.LogService.1.1.0\lib\net45\LogService.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Mono.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=2.8.60318.667, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Core.2.8.5\lib\net40-Client\NuGet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.022\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Linq">
+      <HintPath>..\packages\Remotion.Linq.1.13.183.0\lib\net35\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
+  <ItemGroup>
+    <Compile Include="BaseIntegratedTest.cs" />
+    <Compile Include="Business\DetailsLoadTest.cs" />
+    <Compile Include="Business\LoadObjectTest.cs" />
+    <Compile Include="Business\SecondLoadObjectTest.cs" />
+    <Compile Include="Business\SQLDataServiceTest.cs" />
+    <Compile Include="Business\DataServiceSpeedTest.cs" />
+    <Compile Include="Business\PrimaryKeyStorageTest.cs" />
+    <Compile Include="Business\UpdateComplexObjectStructTest.cs" />
+    <Compile Include="Common\CommonTest.cs" />
+    <Compile Include="Common\ForeachWithMethodTest.cs" />
+    <Compile Include="Common\TypeFullNameTest.cs" />
+    <Compile Include="DataObject\DataObjectTest.cs" />
+    <Compile Include="DataObject\DetailArray.cs" />
+    <Compile Include="DataObject\EquivalenceMethods.cs" />
+    <Compile Include="DataObject\InformationTest.cs" />
+    <Compile Include="DataObject\KeyGenTest.cs" />
+    <Compile Include="DataObject\KeyGuidTest.cs" />
+    <Compile Include="DataObject\ObjectCreatorTest.cs" />
+    <Compile Include="DataObject\OrderPropertyTest.cs" />
+    <Compile Include="DataObject\TypeUsageProviderTest.cs" />
+    <Compile Include="DataObject\DataObjectCacheTest.cs" />
+    <Compile Include="ExternalLDef\ExternalLangDefTest.cs" />
+    <Compile Include="ExternalLDef\RestrictionsOnTheDateAndDetailleTests.cs" />
+    <Compile Include="FunctionalLanguage\CompatibilityTypeTestTest.cs" />
+    <Compile Include="FunctionalLanguage\Function.cs" />
+    <Compile Include="FunctionalLanguage\FunctionalLanguageDefTest.cs" />
+    <Compile Include="FunctionalLanguage\FunctionalLanguageTest.cs" />
+    <Compile Include="FunctionalLanguage\FunctionSerializeTest.cs" />
+    <Compile Include="FunctionalLanguage\LoadingCustomizationStructTest.cs" />
+    <Compile Include="FunctionalLanguage\LoadingData\DataServiceLoader.cs" />
+    <Compile Include="FunctionalLanguage\LoadingData\ExistAllExactTest.cs" />
+    <Compile Include="FunctionalLanguage\LoadingData\ExistAllTest.cs" />
+    <Compile Include="FunctionalLanguage\LoadingData\ExistDetailsTest.cs" />
+    <Compile Include="FunctionalLanguage\LoadingData\ExistExactTest.cs" />
+    <Compile Include="FunctionalLanguage\LoadingData\ExistTest.cs" />
+    <Compile Include="FunctionalLanguage\ObjectTypeTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceWithDisabledAuditTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceWithEnabledAuditTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.Audit\BaseAuditServiceTest.cs" />
+    <Compile Include="LINQProvider\LinqODataServiceTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsTypeTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsIntOrStringTest.cs" />
+    <Compile Include="LINQProvider\LoadCharTest.cs" />
+    <Compile Include="FunctionalLanguage\VariableDefTest.cs" />
+    <Compile Include="LINQProvider\LINQProviderTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsBooleanTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsComplexTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsDateTimeTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsDetailsTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsDynamicViewTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsGuidTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsMasterTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsNumericTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsParametersTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsStringTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsWithPseudoDetailsTest.cs" />
+    <Compile Include="LINQProvider\TestDynamicView.cs" />
+    <Compile Include="LINQProvider\TestLcsQueryProvider.cs" />
+    <Compile Include="LINQProvider\TestRegexToSql.cs" />
+    <Compile Include="LINQProvider\LinqToLcsChainWhereTest.cs" />
+    <Compile Include="LINQProvider\LinqToLcsEnumTest.cs" />
+    <Compile Include="LINQProvider\TestLinqProviderLogicForOData.cs" />
+    <Compile Include="LINQProvider\Utils.cs" />
+    <Compile Include="Postgres\Objects\Class_bool.cs" />
+    <Compile Include="Postgres\Objects\Class_byte.cs" />
+    <Compile Include="Postgres\Objects\Class_char.cs" />
+    <Compile Include="Postgres\Objects\Class_DateTime.cs" />
+    <Compile Include="Postgres\Objects\Class_decimal.cs" />
+    <Compile Include="Postgres\Objects\Class_double.cs" />
+    <Compile Include="Postgres\Objects\Class_float.cs" />
+    <Compile Include="Postgres\Objects\Class_guid.cs" />
+    <Compile Include="Postgres\Objects\Class_int.cs" />
+    <Compile Include="Postgres\Objects\Class_long.cs" />
+    <Compile Include="Postgres\Objects\Class_NullableDateTime.cs" />
+    <Compile Include="Postgres\Objects\Class_NullableDecimal.cs" />
+    <Compile Include="Postgres\Objects\Class_NullableInt.cs" />
+    <Compile Include="Postgres\Objects\Class_object.cs" />
+    <Compile Include="Postgres\Objects\Class_sbyte.cs" />
+    <Compile Include="Postgres\Objects\Class_short.cs" />
+    <Compile Include="Postgres\Objects\Class_string.cs" />
+    <Compile Include="Postgres\Objects\Class_uint.cs" />
+    <Compile Include="Postgres\Objects\Class_ulong.cs" />
+    <Compile Include="Postgres\Objects\Class_ushort.cs" />
+    <Compile Include="Postgres\Objects\Class_WebFile.cs" />
+    <Compile Include="Postgres\Objects\DetailClass.cs" />
+    <Compile Include="Postgres\Objects\DetailClass2.cs" />
+    <Compile Include="Postgres\Objects\MasterClass.cs" />
+    <Compile Include="Postgres\Objects\MasterRoot.cs" />
+    <Compile Include="Postgres\Objects\MyClass.cs" />
+    <Compile Include="Postgres\Objects\ДетейлКлассДлинноеИмя.cs" />
+    <Compile Include="Postgres\Objects\ДетейлКлассДлинноеИмя2.cs" />
+    <Compile Include="Postgres\Objects\ДочернийКлассДлинноеИмя.cs" />
+    <Compile Include="Postgres\Objects\ДочернийКлассДлинноеИмя2.cs" />
+    <Compile Include="Postgres\Objects\Класс.cs" />
+    <Compile Include="Postgres\Objects\МастерКлассДлинноеИмя.cs" />
+    <Compile Include="Postgres\Objects\МастерКлассДлинноеИмя2.cs" />
+    <Compile Include="Postgres\Objects\РодительскийКлассДлинноеИмя.cs" />
+    <Compile Include="Postgres\PostgresDataServiceTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\CaptionToolTests.cs" />
+    <Compile Include="Tools\ToolXMLTest.cs" />
+    <Compile Include="Tools\TransliterationTest.cs" />
+    <Compile Include="Tools\UtilsTest.cs" />
+    <Compile Include="UserDataTypes\ContactTest.cs" />
+    <Compile Include="UserDataTypes\EventTest.cs" />
+    <Compile Include="UserDataTypes\GeoDataTest.cs" />
+    <Compile Include="UserDataTypes\ImageTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataObject\Bitmap1.bmp" />
+    <Content Include="SqlScripts\MssqlScript.sql" />
+    <Content Include="SqlScripts\OracleScript.sql" />
+    <Content Include="Postgres\PostgresDataServiceTestScript.sql" />
+    <Content Include="SqlScripts\PostgresScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ICSSoft.STORMNET.Tests.snk" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Postgres\PostgresDataServiceTestScript.crp" />
+    <None Include="SqlScripts\NewPlatform.Flexberry.ORM.Tests.crp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CurrentUserService\CurrentUserService.csproj">
+      <Project>{dbfb4362-4180-4687-b092-a43d269fdd93}</Project>
+      <Name>CurrentUserService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalLangDef\ExternalLangDef.csproj">
+      <Project>{a063e5c7-3dcd-4b7b-8f3f-9f1108c71a6e}</Project>
+      <Name>ExternalLangDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.DRDataService\ICSSoft.STORMNET.Business.DRDataService.csproj">
+      <Project>{3ddd55a4-63cf-488e-85aa-fa65ead9f21e}</Project>
+      <Name>ICSSoft.STORMNET.Business.DRDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj">
+      <Project>{0f9bd531-9d79-433d-a2e7-e3a04fd72d5f}</Project>
+      <Name>ICSSoft.STORMNET.Business.LINQProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj">
+      <Project>{dd7c77e8-bbb6-462f-9604-ad08c8f85772}</Project>
+      <Name>ICSSoft.STORMNET.Business.LockService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">
+      <Project>{64e6f763-3ed4-479d-a767-ad9f475aa8e1}</Project>
+      <Name>ICSSoft.STORMNET.Business.MSSQLDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.ODBCDataService\ICSSoft.STORMNET.Business.ODBCDataService.csproj">
+      <Project>{68344b38-6e12-4905-8c04-7574594e5180}</Project>
+      <Name>ICSSoft.STORMNET.Business.ODBCDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj">
+      <Project>{5e29de24-8237-428e-bf7c-b5cfed45860a}</Project>
+      <Name>ICSSoft.STORMNET.Business.OracleDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj">
+      <Project>{e9f19c18-6a48-4354-a4fb-1b610243592f}</Project>
+      <Name>ICSSoft.STORMNET.Business.PostgresDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
+      <Project>{70245187-e302-4fa1-9725-0553c3b68be5}</Project>
+      <Name>ICSSoft.STORMNET.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
+      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
+      <Name>ICSSoft.STORMNET.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
+      <Project>{3d5d3908-bcb7-4f22-a5b0-bd626d67d1ae}</Project>
+      <Name>ICSSoft.STORMNET.DataObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj">
+      <Project>{329c3da0-05f7-45c4-b081-9daf7b78733f}</Project>
+      <Name>ICSSoft.STORMNET.FunctionalLanguage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
+      <Project>{d58c2e43-59ef-4d6f-b006-1a7bb6508689}</Project>
+      <Name>ICSSoft.STORMNET.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
+      <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
+      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test%28Objects%29\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
+      <Project>{3839079f-72ff-4038-82eb-bd49712418f4}</Project>
+      <Name>NewPlatform.Flexberry.ORM.Tests.Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Tests%28BusinessServers%29\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj">
+      <Project>{70d27598-b67e-41e6-8a1a-06dad5336c05}</Project>
+      <Name>NewPlatform.Flexberry.ORM.Tests.BusinessServers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityFactory\UnityFactory.csproj">
+      <Project>{ba7026d6-5a82-4e03-a26a-5e780b7ad64e}</Project>
+      <Name>UnityFactory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

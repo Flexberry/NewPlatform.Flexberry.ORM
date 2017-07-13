@@ -1,0 +1,59 @@
+﻿<?xml version="1.0"?>
+
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+  <!-- ===================================================== -->
+  <!-- ==================== Внимание! ====================== -->
+  <!-- ===================================================== -->
+  <!-- Все изменения в этом файле нужно так же переносить в 
+       файл config.uninstall.xdt в Flexberry Security, чтобы 
+       при деинсталляции Flexberry Security восстанавливалась 
+       конфигурация ОРМ по-умолчанию.                        -->
+  <!-- ===================================================== -->
+  <!-- ===================================================== -->
+  <!-- ===================================================== -->
+  
+  <!--Вставляем временный узел на случай, если в элементе configuration вообще ничего нет, чтобы вставка configSections не завершилась с ошибкой.-->
+  <ormInstallationTempNode xdt:Transform="Insert" />
+  
+  <!--При вставке элемента необходимо, чтобы узел, куда он вставляется, обязательно присутствовал, иначе преобразование завершится с ошибкой.
+      Поэтому, на случай, если узла configSections изначально не было, вставляем свой.-->
+  <configSections xdt:Transform="InsertBefore(/configuration/*[name()!=&quot;configSections&quot;])" />
+
+  <ormInstallationTempNode xdt:Transform="RemoveAll" />
+
+  <!--Вставка информации о секции конфигурации.-->
+  <configSections xdt:Locator="Condition(not(section[@name=&quot;unity&quot;]))">
+    <section name="unity"
+             type="Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration"
+             xdt:Transform="Insert" />
+  </configSections>
+
+  <!--Если узел configSections уже был до нас, то их будет больше одного, и нам нужно удалить лишние (вставленные нами заведомо располагаются после ранее присутствующего).-->
+  <configSections xdt:Locator="Condition(position()&gt;1 and not(section[@name!=&quot;unity&quot;]))" xdt:Transform="RemoveAll" />
+  
+  <!--Аналогично узлу configSections поступаем с самой конфигурационной секцией.-->
+  <unity xmlns="http://schemas.microsoft.com/practices/2010/unity" xdt:Transform="Insert" />
+
+  <!--Вставляем узел container в секцию unity.
+      В узле unity может быть определено пространство имен, а может быть не определено (в присутствующем ранее). Чтобы охватить все варианты, используем XPath и функцию local-name().-->
+  <unity
+    xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot; and not(*[local-name()=&quot;container&quot; and not(@name)])])">
+    <container xmlns="http://schemas.microsoft.com/practices/2010/unity" xdt:Transform="Insert" />
+  </unity>
+
+  <!--Вставляем в container нужный нам register. Комментарий вставляется для того, чтобы сообщить зависимым пакетам, что это настройка по умолчанию и можно ее изменить.-->
+  <container
+    xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]
+                       /*[local-name()=&quot;container&quot; and not(*[local-name()=&quot;register&quot; and @type=&quot;ICSSoft.STORMNET.Security.ISecurityManager, ICSSoft.STORMNET.DataObject&quot;])])">
+    <register xmlns="http://schemas.microsoft.com/practices/2010/unity"
+              type="ICSSoft.STORMNET.Security.ISecurityManager, ICSSoft.STORMNET.DataObject"
+              mapTo="ICSSoft.STORMNET.Security.EmptySecurityManager, ICSSoft.STORMNET.DataObject"
+              xdt:Transform="Insert"><!--Flexberry security setting. Used by Flexberry ORM.--></register>
+  </container>
+
+  <!--Удаление лишней секции unity, если их больше одной. Функция position() здесь не подойдет, так как она применится к селектору "/configuration/*" и не даст нужного результата.
+      Секций может быть максимум две (одна, которая была и одна добавленная нами), если конфигурационный файл был корректным до применения трансформаций. Поэтому следует удалять только узел с индексом 2.-->
+  <unity xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;][2])" xdt:Transform="RemoveAll"/>
+
+</configuration>

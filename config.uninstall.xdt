@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+  <!--Удаляем маппинг по умолчанию на EmptySecurityManager.-->
+  <register xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]/*[local-name()=&quot;container&quot;]
+                               /*[local-name()=&quot;register&quot; and contains(@mapTo,&quot;ICSSoft.STORMNET.Security.EmptySecurityManager&quot;)])" xdt:Transform="RemoveAll" />
+
+  <!--Удаляем контейнер, если в нем больше нет маппингов.-->
+  <container xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]/*[local-name()=&quot;container&quot; and not(*)])" xdt:Transform="RemoveAll" />
+
+  <!--Удаляем секцию unity, если она пустая.-->
+  <unity xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot; and not(*[local-name()!=&quot;alias&quot;])])" xdt:Transform="RemoveAll" />
+
+  <!--Удаляем регистрацию секции unity, если самой секции больше нет.-->
+  <section xdt:Locator="XPath(/configuration/configSections/section[@name=&quot;unity&quot; and not(/configuration/*[local-name()=&quot;unity&quot;])])" xdt:Transform="RemoveAll" />
+
+</configuration>
