@@ -40,8 +40,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private ICSSoft.STORMNET.UserDataTypes.NullableInt fIntPropertyForInformationTestClass;
         
-        private System.Drawing.Color fColorPropertyForInformationTestClass;
-        
         private bool fBoolPropertyForInformationTestClass;
         
         // *** Start programmer edit section *** (InformationTestClass CustomMembers)
@@ -144,38 +142,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (InformationTestClass.IntPropertyForInformationTestClass Set end)
 
                 // *** End programmer edit section *** (InformationTestClass.IntPropertyForInformationTestClass Set end)
-            }
-        }
-        
-        /// <summary>
-        /// ColorPropertyForInformationTestClass.
-        /// </summary>
-        // *** Start programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass CustomAttributes)
-
-        // *** End programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass CustomAttributes)
-        [PropertyStorage("ColorPropertyForInfTestClass")]
-        public virtual System.Drawing.Color ColorPropertyForInformationTestClass
-        {
-            get
-            {
-                // *** Start programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Get start)
-
-                // *** End programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Get start)
-                System.Drawing.Color result = this.fColorPropertyForInformationTestClass;
-                // *** Start programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Get end)
-
-                // *** End programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Get end)
-                return result;
-            }
-            set
-            {
-                // *** Start programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Set start)
-
-                // *** End programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Set start)
-                this.fColorPropertyForInformationTestClass = value;
-                // *** Start programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Set end)
-
-                // *** End programmer edit section *** (InformationTestClass.ColorPropertyForInformationTestClass Set end)
             }
         }
         

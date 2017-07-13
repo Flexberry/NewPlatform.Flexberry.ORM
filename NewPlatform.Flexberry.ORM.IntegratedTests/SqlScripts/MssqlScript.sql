@@ -14,8 +14,6 @@ CREATE TABLE [InformationTestClass] (
 
 	 [IntPropertyForInfTestClass] INT  NULL,
 
-	 [ColorPropertyForInfTestClass] VARCHAR(255)  NULL,
-
 	 [BoolPropertyForInfTestClass] BIT  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
