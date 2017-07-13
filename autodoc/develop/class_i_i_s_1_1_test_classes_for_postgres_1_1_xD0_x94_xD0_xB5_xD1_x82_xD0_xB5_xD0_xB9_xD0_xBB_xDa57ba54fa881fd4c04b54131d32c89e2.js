@@ -1,0 +1,4 @@
+var class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xB5_xD1_x82_xD0_xB5_xD0_xB9_xD0_xBB_xDa57ba54fa881fd4c04b54131d32c89e2 =
+[
+    [ "ДочернийКлассДлинноеИмя", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xB5_xD1_x82_xD0_xB5_xD0_xB9_xD0_xBB_xDa57ba54fa881fd4c04b54131d32c89e2.html#a39b2e3a764169af2021704e4cf126299", null ]
+];

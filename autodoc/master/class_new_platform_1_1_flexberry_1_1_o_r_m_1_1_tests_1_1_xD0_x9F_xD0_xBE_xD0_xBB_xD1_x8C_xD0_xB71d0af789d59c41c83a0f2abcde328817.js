@@ -1,0 +1,8 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71d0af789d59c41c83a0f2abcde328817 =
+[
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71731e8cf31e1409b200f50ff4584f097.html", null ],
+    [ "EMail", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71d0af789d59c41c83a0f2abcde328817.html#ab315378fed6ece3c66807d86d084d8fe", null ],
+    [ "ДатаРегистрации", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71d0af789d59c41c83a0f2abcde328817.html#a857d6e559245f21f10f521c2867f3bed", null ],
+    [ "Логин", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71d0af789d59c41c83a0f2abcde328817.html#a8f3ac83a9d9e2820efa7d71f00759dea", null ],
+    [ "ФИО", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71d0af789d59c41c83a0f2abcde328817.html#a01baa600ef5c9148a2ac80c20ea9834b", null ]
+];

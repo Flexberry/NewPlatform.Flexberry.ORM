@@ -1,0 +1,7 @@
+var class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xDc3eafeece40e5fccfe03f95fa99d5324 =
+[
+    [ "Views", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xD7ef5c4744abf816fe39256358d4d6d9d.html", null ],
+    [ "ДетейлКлассДлинноеИмя", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xDc3eafeece40e5fccfe03f95fa99d5324.html#a58e7c5b789679916d92a1f2503e6516f", null ],
+    [ "МастерКлассДлинноеИмя01", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xDc3eafeece40e5fccfe03f95fa99d5324.html#a9a9ef825b609b2f97412035f8da1e9e1", null ],
+    [ "МастерКлассДлинноеИмя02", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xDc3eafeece40e5fccfe03f95fa99d5324.html#a894afb1a314d74ca329ae00829027324", null ]
+];

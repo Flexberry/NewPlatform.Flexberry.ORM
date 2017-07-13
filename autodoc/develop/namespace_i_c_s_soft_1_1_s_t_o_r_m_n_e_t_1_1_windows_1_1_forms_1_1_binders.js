@@ -1,0 +1,4 @@
+var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_binders =
+[
+    [ "ControlProviderAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_binders_1_1_control_provider_attribute.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_binders_1_1_control_provider_attribute" ]
+];

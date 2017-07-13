@@ -1,0 +1,6 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_enum_test =
+[
+    [ "TestEnumLinqToLcsWithoutVariable", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_enum_test.html#a6f91db6fdc510ad55074906e50dfc5c2", null ],
+    [ "TestEnumLinqToLcsWithVariable", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_enum_test.html#aee0fa2636f2554eb04dfab14132ab26b", null ],
+    [ "TestSystemEnumLinqToLcsWithoutVariable", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_enum_test.html#a7fc434f177199b2587070114475b9dc1", null ]
+];

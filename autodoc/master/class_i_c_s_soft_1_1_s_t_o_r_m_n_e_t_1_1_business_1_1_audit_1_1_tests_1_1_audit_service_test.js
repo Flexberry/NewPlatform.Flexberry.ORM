@@ -1,0 +1,15 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test =
+[
+    [ "TestCopyAlteredNotSavedDataObjectMasterMasterProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a3314a0b4a7b7b82a952d82f11a026501", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterMasterPropertiesNull", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a3420708694977aef4141886fb1543174", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#aee4f54ae548f86186586ac77023190f8", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterPropertiesNull", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#abe7b7d6ef1a3c46b854f945cc6bdafb3", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterPropertiesNullLoaded", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#aae29d071477a7417c104471ee9e9eca6", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterPropertiesNullMaster", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a855db75c1dab8e866537767eec55f943", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterPropertiesNullOld", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a94ed0825633662c505d8af12ff4d8133", null ],
+    [ "TestCopyAlteredNotSavedDataObjectMasterPropertiesWithLoad", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#ab888a17c4221c7839fc619cac601e8dc", null ],
+    [ "TestCopyAlteredNotSavedDataObjectOwnProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a8f2ee35cb5c96dfad05b520cf8b51fee", null ],
+    [ "TestIsTypeAuditableWithDisabledAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a9cbc6d0c9fbf5449cee9edddead694d0", null ],
+    [ "TestIsTypeAuditableWithEnabledAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a149a8dd168b2d77a3cec5562c9121b7a", null ],
+    [ "TestIsTypeAuditableWithoutAuditSettings", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html#a872c90bb3bb801228d008646a877a29c", null ]
+];

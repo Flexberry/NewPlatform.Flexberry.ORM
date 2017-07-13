@@ -1,0 +1,4 @@
+var namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_external_l_def =
+[
+    [ "RestrictionsOnTheDateAndDetailleTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_external_l_def_1_1_restricti0def53d73dbc752b0269fbafb9043b89.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_external_l_def_1_1_restricti0def53d73dbc752b0269fbafb9043b89" ]
+];

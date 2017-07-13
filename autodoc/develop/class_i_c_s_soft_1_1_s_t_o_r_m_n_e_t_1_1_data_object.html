@@ -1,0 +1,2073 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>Flexberry ORM 4.0.0: Класс ICSSoft.STORMNET.DataObject</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Flexberry ORM 4.0.0
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Классы</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li><a href="classes.html"><span>Алфавитный&#160;указатель&#160;классов</span></a></li>
+      <li><a href="hierarchy.html"><span>Иерархия&#160;классов</span></a></li>
+      <li><a href="functions.html"><span>Члены&#160;классов</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="#pub-static-attribs">Статические открытые данные</a> &#124;
+<a href="#pro-methods">Защищенные члены</a> &#124;
+<a href="#pro-attribs">Защищенные данные</a> &#124;
+<a href="#properties">Свойства</a> &#124;
+<a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс ICSSoft.STORMNET.DataObject</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Базовый абстрактный класс, от которого наследуются все объекты данных STORM.NET  
+ <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#details">Подробнее...</a></p>
+<div class="dynheader">
+Граф наследования:ICSSoft.STORMNET.DataObject:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.png" usemap="#ICSSoft.STORMNET.DataObject_map" alt=""/>
+  <map id="ICSSoft.STORMNET.DataObject_map" name="ICSSoft.STORMNET.DataObject_map">
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_app_setting.html" title="Класс, содержащий настройки аудита по приложению " alt="ICSSoft.STORMNET.Business.Audit.Objects.AuditAppSetting" shape="rect" coords="3477,56,6944,80"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html" title="Класс, содержащий настройки аудита по приложению для класса " alt="ICSSoft.STORMNET.Business.Audit.Objects.AuditClassSetting" shape="rect" coords="3477,112,6944,136"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_d_s_setting.html" title="Класс, содержащий настройки аудита по приложению по сервисам данных " alt="ICSSoft.STORMNET.Business.Audit.Objects.AuditDSSetting" shape="rect" coords="3477,168,6944,192"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_field_setting.html" title="Класс, содержащий настройки аудита по приложению для полей класса " alt="ICSSoft.STORMNET.Business.Audit.Objects.AuditFieldSetting" shape="rect" coords="3477,224,6944,248"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_lock_data.html" title="The lock data. " alt="ICSSoft.STORMNET.Business.LockData" shape="rect" coords="3477,280,6944,304"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object.html" title="Спецкласс, предназначенный для выполнения групповых операций Update или Delete в источнике данных ..." alt="ICSSoft.STORMNET.Business.UpdaterObject" shape="rect" coords="3477,336,6944,360"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_functional_language_def.html" title="Определение языка ограничений для конструирования ограничивающих функций " alt="ICSSoft.STORMNET.FunctionalLanguage.FunctionalLanguageDef" shape="rect" coords="3477,392,6944,416"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_viewed_object.html" title="Нехранимая реализация DataObject с полями Caption и StringedView для различных классов языка задания ..." alt="ICSSoft.STORMNET.FunctionalLanguage.ViewedObject" shape="rect" coords="3477,448,6944,472"/>
+<area href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_s_t_o_r_m_adv_limit.html" title="Объектное представление сохраняемого в базе ограничения. Не содержит логики по десериализации. Сам класс знает только сериализованное Value. Десериализуется в своё нехранимое свойство AdvLimit при помощи AdvLimitComponent. " alt="ICSSoft.STORMNET.Windows.Forms.STORMAdvLimit" shape="rect" coords="3477,504,6944,528"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__bool.html" title="Class_bool. " alt="IIS.TestClassesForPostgres.Class_bool" shape="rect" coords="3477,560,6944,584"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__byte.html" title="Class_byte. " alt="IIS.TestClassesForPostgres.Class_byte" shape="rect" coords="3477,616,6944,640"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__char.html" title="Class_char. " alt="IIS.TestClassesForPostgres.Class_char" shape="rect" coords="3477,672,6944,696"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class___date_time.html" title="Class_DateTime. " alt="IIS.TestClassesForPostgres.Class_DateTime" shape="rect" coords="3477,728,6944,752"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__decimal.html" title="Class_decimal. " alt="IIS.TestClassesForPostgres.Class_decimal" shape="rect" coords="3477,784,6944,808"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__double.html" title="Class_double. " alt="IIS.TestClassesForPostgres.Class_double" shape="rect" coords="3477,840,6944,864"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__float.html" title="Class_float. " alt="IIS.TestClassesForPostgres.Class_float" shape="rect" coords="3477,896,6944,920"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__guid.html" title="Class_guid. " alt="IIS.TestClassesForPostgres.Class_guid" shape="rect" coords="3477,952,6944,976"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__int.html" title="Class_int. " alt="IIS.TestClassesForPostgres.Class_int" shape="rect" coords="3477,1008,6944,1032"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__long.html" title="Class_long. " alt="IIS.TestClassesForPostgres.Class_long" shape="rect" coords="3477,1064,6944,1088"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class___nullable_date_time.html" title="Class_NullableDateTime. " alt="IIS.TestClassesForPostgres.Class_NullableDateTime" shape="rect" coords="3477,1120,6944,1144"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class___nullable_decimal.html" title="Class_NullableDecimal. " alt="IIS.TestClassesForPostgres.Class_NullableDecimal" shape="rect" coords="3477,1176,6944,1200"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class___nullable_int.html" title="Class_NullableInt. " alt="IIS.TestClassesForPostgres.Class_NullableInt" shape="rect" coords="3477,1232,6944,1256"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__object.html" title="Class_object. " alt="IIS.TestClassesForPostgres.Class_object" shape="rect" coords="3477,1288,6944,1312"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__sbyte.html" title="Class_sbyte. " alt="IIS.TestClassesForPostgres.Class_sbyte" shape="rect" coords="3477,1344,6944,1368"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__short.html" title="Class_short. " alt="IIS.TestClassesForPostgres.Class_short" shape="rect" coords="3477,1400,6944,1424"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__string.html" title="Class_string. " alt="IIS.TestClassesForPostgres.Class_string" shape="rect" coords="3477,1456,6944,1480"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__uint.html" title="Class_uint. " alt="IIS.TestClassesForPostgres.Class_uint" shape="rect" coords="3477,1512,6944,1536"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__ulong.html" title="Class_ulong. " alt="IIS.TestClassesForPostgres.Class_ulong" shape="rect" coords="3477,1568,6944,1592"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class__ushort.html" title="Class_ushort. " alt="IIS.TestClassesForPostgres.Class_ushort" shape="rect" coords="3477,1624,6944,1648"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_class___web_file.html" title="Class_WebFile. " alt="IIS.TestClassesForPostgres.Class_WebFile" shape="rect" coords="3477,1680,6944,1704"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_detail_class.html" title="DetailClass. " alt="IIS.TestClassesForPostgres.DetailClass" shape="rect" coords="3477,1736,6944,1760"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_detail_class2.html" title="DetailClass2. " alt="IIS.TestClassesForPostgres.DetailClass2" shape="rect" coords="3477,1792,6944,1816"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_master_class.html" title="MasterClass. " alt="IIS.TestClassesForPostgres.MasterClass" shape="rect" coords="3477,1848,6944,1872"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_master_root.html" title="MasterRoot. " alt="IIS.TestClassesForPostgres.MasterRoot" shape="rect" coords="3477,1904,6944,1928"/>
+<area href="class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html" title="MyClass. " alt="IIS.TestClassesForPostgres.MyClass" shape="rect" coords="3477,1960,6944,1984"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_adress2.html" title="Adress2. " alt="NewPlatform.Flexberry.ORM.Tests.Adress2" shape="rect" coords="3477,2016,6944,2040"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test.html" title="AggregatorUpdateObjectTest. " alt="NewPlatform.Flexberry.ORM.Tests.AggregatorUpdateObjectTest" shape="rect" coords="3477,2072,6944,2096"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_apparatus2.html" title="Apparatus2. " alt="NewPlatform.Flexberry.ORM.Tests.Apparatus2" shape="rect" coords="3477,2128,6944,2152"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_agregator_object.html" title="AuditAgregatorObject. " alt="NewPlatform.Flexberry.ORM.Tests.AuditAgregatorObject" shape="rect" coords="3477,2184,6944,2208"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_disabled_audit.html" title="AuditClassWithDisabledAudit. " alt="NewPlatform.Flexberry.ORM.Tests.AuditClassWithDisabledAudit" shape="rect" coords="3477,2240,6944,2264"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_without_settings.html" title="AuditClassWithoutSettings. " alt="NewPlatform.Flexberry.ORM.Tests.AuditClassWithoutSettings" shape="rect" coords="3477,2296,6944,2320"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_settings.html" title="AuditClassWithSettings. " alt="NewPlatform.Flexberry.ORM.Tests.AuditClassWithSettings" shape="rect" coords="3477,2352,6944,2376"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_master_master_object.html" title="AuditMasterMasterObject. " alt="NewPlatform.Flexberry.ORM.Tests.AuditMasterMasterObject" shape="rect" coords="3477,2408,6944,2432"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_master_object.html" title="AuditMasterObject. " alt="NewPlatform.Flexberry.ORM.Tests.AuditMasterObject" shape="rect" coords="3477,2464,6944,2488"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage_part2.html" title="Cabbage part2. " alt="NewPlatform.Flexberry.ORM.Tests.CabbagePart2" shape="rect" coords="3477,2520,6944,2544"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage_salad.html" title="Cabbage salad. " alt="NewPlatform.Flexberry.ORM.Tests.CabbageSalad" shape="rect" coords="3477,2576,6944,2600"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1cla.html" title="cla. " alt="NewPlatform.Flexberry.ORM.Tests.cla" shape="rect" coords="3477,2632,6944,2656"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_class_with_captions.html" title="ClassWithCaptions. " alt="NewPlatform.Flexberry.ORM.Tests.ClassWithCaptions" shape="rect" coords="3477,2688,6944,2712"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1clb.html" title="clb. " alt="NewPlatform.Flexberry.ORM.Tests.clb" shape="rect" coords="3477,2744,6944,2768"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_for_test.html" title="DataObjectForTest. " alt="NewPlatform.Flexberry.ORM.Tests.DataObjectForTest" shape="rect" coords="3477,2800,6944,2824"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_with_key_guid.html" title="DataObjectWithKeyGuid. " alt="NewPlatform.Flexberry.ORM.Tests.DataObjectWithKeyGuid" shape="rect" coords="3477,2856,6944,2880"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_date_field.html" title="DateField. " alt="NewPlatform.Flexberry.ORM.Tests.DateField" shape="rect" coords="3477,2912,6944,2936"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_class.html" title="DetailClass. " alt="NewPlatform.Flexberry.ORM.Tests.DetailClass" shape="rect" coords="3477,2968,6944,2992"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_update_object_test.html" title="DetailUpdateObjectTest. " alt="NewPlatform.Flexberry.ORM.Tests.DetailUpdateObjectTest" shape="rect" coords="3477,3024,6944,3048"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_dish2.html" title="Dish2. " alt="NewPlatform.Flexberry.ORM.Tests.Dish2" shape="rect" coords="3477,3080,6944,3104"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_for_key_storage_test.html" title="ForKeyStorageTest. " alt="NewPlatform.Flexberry.ORM.Tests.ForKeyStorageTest" shape="rect" coords="3477,3136,6944,3160"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html" title="FullTypesDetail1. " alt="NewPlatform.Flexberry.ORM.Tests.FullTypesDetail1" shape="rect" coords="3477,3192,6944,3216"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail2.html" title="FullTypesDetail2. " alt="NewPlatform.Flexberry.ORM.Tests.FullTypesDetail2" shape="rect" coords="3477,3248,6944,3272"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator.html" title="FullTypesMainAgregator. " alt="NewPlatform.Flexberry.ORM.Tests.FullTypesMainAgregator" shape="rect" coords="3477,3304,6944,3328"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html" title="FullTypesMaster1. " alt="NewPlatform.Flexberry.ORM.Tests.FullTypesMaster1" shape="rect" coords="3477,3360,6944,3384"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_human2.html" title="Human2. " alt="NewPlatform.Flexberry.ORM.Tests.Human2" shape="rect" coords="3477,3416,6944,3440"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class.html" title="InformationTestClass. " alt="NewPlatform.Flexberry.ORM.Tests.InformationTestClass" shape="rect" coords="3477,3472,6944,3496"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class2.html" title="InformationTestClass2. " alt="NewPlatform.Flexberry.ORM.Tests.InformationTestClass2" shape="rect" coords="3477,3528,6944,3552"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class3.html" title="InformationTestClass3. " alt="NewPlatform.Flexberry.ORM.Tests.InformationTestClass3" shape="rect" coords="3477,3584,6944,3608"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class4.html" title="InformationTestClass4. " alt="NewPlatform.Flexberry.ORM.Tests.InformationTestClass4" shape="rect" coords="3477,3640,6944,3664"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class6.html" title="InformationTestClass6. " alt="NewPlatform.Flexberry.ORM.Tests.InformationTestClass6" shape="rect" coords="3477,3696,6944,3720"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class.html" title="MasterClass. " alt="NewPlatform.Flexberry.ORM.Tests.MasterClass" shape="rect" coords="3477,3752,6944,3776"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_update_object_test.html" title="MasterUpdateObjectTest. " alt="NewPlatform.Flexberry.ORM.Tests.MasterUpdateObjectTest" shape="rect" coords="3477,3808,6944,3832"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_not_stored_class.html" title="NotStoredClass. " alt="NewPlatform.Flexberry.ORM.Tests.NotStoredClass" shape="rect" coords="3477,3864,6944,3888"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_null_file_field.html" title="Нужен для тестирования сериализации объекта данных с полем типа File. " alt="NewPlatform.Flexberry.ORM.Tests.NullFileField" shape="rect" coords="3477,3920,6944,3944"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_place2.html" title="Place2. " alt="NewPlatform.Flexberry.ORM.Tests.Place2" shape="rect" coords="3477,3976,6944,4000"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_plant2.html" title="Plant2. " alt="NewPlatform.Flexberry.ORM.Tests.Plant2" shape="rect" coords="3477,4032,6944,4056"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_region.html" title="Region. " alt="NewPlatform.Flexberry.ORM.Tests.Region" shape="rect" coords="3477,4088,6944,4112"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_salad2.html" title="Salad2. " alt="NewPlatform.Flexberry.ORM.Tests.Salad2" shape="rect" coords="3477,4144,6944,4168"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_simple_data_object.html" title="SimpleDataObject. " alt="NewPlatform.Flexberry.ORM.Tests.SimpleDataObject" shape="rect" coords="3477,4200,6944,4224"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_some_detail_class.html" title="SomeDetailClass. " alt="NewPlatform.Flexberry.ORM.Tests.SomeDetailClass" shape="rect" coords="3477,4256,6944,4280"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_some_master_class.html" title="SomeMasterClass. " alt="NewPlatform.Flexberry.ORM.Tests.SomeMasterClass" shape="rect" coords="3477,4312,6944,4336"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_soup2.html" title="Soup2. " alt="NewPlatform.Flexberry.ORM.Tests.Soup2" shape="rect" coords="3477,4368,6944,4392"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_stored_class.html" title="StoredClass. " alt="NewPlatform.Flexberry.ORM.Tests.StoredClass" shape="rect" coords="3477,4424,6944,4448"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_territory2.html" title="Territory2. " alt="NewPlatform.Flexberry.ORM.Tests.Territory2" shape="rect" coords="3477,4480,6944,4504"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_class_a.html" title="TestClassA. " alt="NewPlatform.Flexberry.ORM.Tests.TestClassA" shape="rect" coords="3477,4536,6944,4560"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_type_name_usage_provider_test_class.html" title="TypeNameUsageProviderTestClass. " alt="NewPlatform.Flexberry.ORM.Tests.TypeNameUsageProviderTestClass" shape="rect" coords="3477,4592,6944,4616"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_type_usage_provider_test_class.html" title="TypeUsageProviderTestClass. " alt="NewPlatform.Flexberry.ORM.Tests.TypeUsageProviderTestClass" shape="rect" coords="3477,4648,6944,4672"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0.html" title="Берлога. " alt="NewPlatform.Flexberry.ORM.Tests.Берлога" shape="rect" coords="3477,4704,6944,4728"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xBB_xD0_xBE_xD1_x85_xD0_xB0.html" title="Блоха. " alt="NewPlatform.Flexberry.ORM.Tests.Блоха" shape="rect" coords="3477,4760,6944,4784"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x92_xD1_x8B_xD0_xBF_xD0_xBB_xD0_xB0_xD1_x82_xD1_x8B.html" title="Выплаты. " alt="NewPlatform.Flexberry.ORM.Tests.Выплаты" shape="rect" coords="3477,4816,6944,4840"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBC4ba940f0092d67d92f1fdfb282720410.html" title="ДокументацияККонкурсу. " alt="NewPlatform.Flexberry.ORM.Tests.ДокументацияККонкурсу" shape="rect" coords="3477,4872,6944,4896"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x97_xD0_xBD_xD0_xB0_xD1_x87_xD0_xB5e5ed94670adc5a725c69017de4f2c61f.html" title="ЗначениеКритерия. " alt="NewPlatform.Flexberry.ORM.Tests.ЗначениеКритерия" shape="rect" coords="3477,4928,6944,4952"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB701d4a0deaeb09eae12b6499107ae454e.html" title="ИФХозДоговора. " alt="NewPlatform.Flexberry.ORM.Tests.ИФХозДоговора" shape="rect" coords="3477,4984,6944,5008"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xB4_xD0_xB5_xD1_x8F.html" title="Идея. " alt="NewPlatform.Flexberry.ORM.Tests.Идея" shape="rect" coords="3477,5040,6944,5064"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xBD_xD1_x81_xD0_xBF_xD0_xB52e11078d8af8fe68350525bf2c89b0f6.html" title="ИнспекторПоКредиту. " alt="NewPlatform.Flexberry.ORM.Tests.ИнспекторПоКредиту" shape="rect" coords="3477,5096,6944,5120"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x82_xD0_xBE_xD1_x87b875cf1888b4cf7506194c7ca1bb9a6a.html" title="ИсточникФинансирования. " alt="NewPlatform.Flexberry.ORM.Tests.ИсточникФинансирования" shape="rect" coords="3477,5152,6944,5176"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBB_xD0_xB8_xD0_xB5_xD0_xBD_xD1_x82.html" title="Клиент. " alt="NewPlatform.Flexberry.ORM.Tests.Клиент" shape="rect" coords="3477,5208,6944,5232"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD0_xBD_xD0_xBA_xD1_x83_xD1_x80_xD1_x81.html" title="Конкурс. " alt="NewPlatform.Flexberry.ORM.Tests.Конкурс" shape="rect" coords="3477,5264,6944,5288"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x82_xD0_xB5_xD0_xBD_xD0_xBE_xD0_xBA.html" title="Котенок. " alt="NewPlatform.Flexberry.ORM.Tests.Котенок" shape="rect" coords="3477,5320,6944,5344"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0.html" title="Кошка. " alt="NewPlatform.Flexberry.ORM.Tests.Кошка" shape="rect" coords="3477,5376,6944,5400"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html" title="Кредит. " alt="NewPlatform.Flexberry.ORM.Tests.Кредит" shape="rect" coords="3477,5432,6944,5456"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB8_xD1_x82_xD0_xB5b7c6780f0b334cab71b8d1d519ed0243.html" title="КритерийОценки. " alt="NewPlatform.Flexberry.ORM.Tests.КритерийОценки" shape="rect" coords="3477,5488,6944,5512"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0.html" title="Лапа. " alt="NewPlatform.Flexberry.ORM.Tests.Лапа" shape="rect" coords="3477,5544,6944,5568"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB5_xD1_x81.html" title="Лес. " alt="NewPlatform.Flexberry.ORM.Tests.Лес" shape="rect" coords="3477,5600,6944,5624"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE_xD1_x81_xD1_x82_xD1_x8C.html" title="Личность. " alt="NewPlatform.Flexberry.ORM.Tests.Личность" shape="rect" coords="3477,5656,6944,5680"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB0_xD1_x81_xD1_x82_xD0_xB5_xD1_x80_xD0_x9C.html" title="МастерМ. " alt="NewPlatform.Flexberry.ORM.Tests.МастерМ" shape="rect" coords="3477,5712,6944,5736"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C.html" title="Медведь. " alt="NewPlatform.Flexberry.ORM.Tests.Медведь" shape="rect" coords="3477,5768,6944,5792"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28.html" title="ОценкаЭксперта. " alt="NewPlatform.Flexberry.ORM.Tests.ОценкаЭксперта" shape="rect" coords="3477,5824,6944,5848"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xB5_xD1_x80_xD0_xB5_xD0_xBB_xD0_xBE_xD0_xBC.html" title="Перелом. " alt="NewPlatform.Flexberry.ORM.Tests.Перелом" shape="rect" coords="3477,5880,6944,5904"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71d0af789d59c41c83a0f2abcde328817.html" title="Пользователь. " alt="NewPlatform.Flexberry.ORM.Tests.Пользователь" shape="rect" coords="3477,5936,6944,5960"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD1_x80_xD0_xBE_xD0_xB4_xD0_xB0.html" title="Порода. " alt="NewPlatform.Flexberry.ORM.Tests.Порода" shape="rect" coords="3477,5992,6944,6016"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0.html" title="Страна. " alt="NewPlatform.Flexberry.ORM.Tests.Страна" shape="rect" coords="3477,6048,6944,6072"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B.html" title="Тип лапы. " alt="NewPlatform.Flexberry.ORM.Tests.ТипЛапы" shape="rect" coords="3477,6104,6944,6128"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9F_xD0_xBE52acc196789394206c08a9c309f9f2a7.html" title="ТипПороды. " alt="NewPlatform.Flexberry.ORM.Tests.ТипПороды" shape="rect" coords="3477,6160,6944,6184"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA3_xD1_x87_xD0_xB0_xD1_x81_xD1_x82fd6931f5dc22569891d46cce015ed2c8.html" title="УчастникХозДоговора. " alt="NewPlatform.Flexberry.ORM.Tests.УчастникХозДоговора" shape="rect" coords="3477,6216,6944,6240"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA4_xD0_xB0_xD0_xB9_xD0_xBB_xD0_x98_xD0_xB4_xD0_xB5_xD0_xB8.html" title="ФайлИдеи. " alt="NewPlatform.Flexberry.ORM.Tests.ФайлИдеи" shape="rect" coords="3477,6272,6944,6296"/>
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA5_xD0_xBE_xD0_xB7_xD0_x94_xD0_xBE7d4746a8083a5c8dfe35210fae5473b2.html" title="ХозДоговор. " alt="NewPlatform.Flexberry.ORM.Tests.ХозДоговор" shape="rect" coords="3477,6328,6944,6352"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a6223839316c902d0714d1de77c934e46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a6223839316c902d0714d1de77c934e46">SetExistObjectPrimaryKey</a> (object primaryKey)</td></tr>
+<tr class="memdesc:a6223839316c902d0714d1de77c934e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установить первичный ключ в объект данных. Выполняется операция <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a91a26fe8c4a48da36b00a2e35e02d950" title="Очистка объекта данных. Остается означеным только первичный ключ и вычислимые свойства (если такая во...">Clear()</a> для объекта, присваивается первичный ключ, SetLoadingState(<a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa876c30988afeecc9d0ef6ca702c60e4b" title="Загружен частично, подробности выясняются методами DataObject.GetLoadedProperties и DataObject...">LoadingState.LightLoaded</a>); SetLoadedProperties("__PrimaryKey");  <a href="#a6223839316c902d0714d1de77c934e46">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6223839316c902d0714d1de77c934e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6452888299b6da72c2aad1f4f096401f"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a6452888299b6da72c2aad1f4f096401f">GetPresentationValue</a> ()</td></tr>
+<tr class="memdesc:a6452888299b6da72c2aad1f4f096401f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для получения презентационного значения для объекта. Используется, как минимум, в ярлыках на рабочем столе.  <a href="#a6452888299b6da72c2aad1f4f096401f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6452888299b6da72c2aad1f4f096401f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece8205506c87cf92d0dcdc7521b24fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#aece8205506c87cf92d0dcdc7521b24fb">LockObject</a> (object key)</td></tr>
+<tr class="memdesc:aece8205506c87cf92d0dcdc7521b24fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Заблокировать объект  <a href="#aece8205506c87cf92d0dcdc7521b24fb">Подробнее...</a><br /></td></tr>
+<tr class="separator:aece8205506c87cf92d0dcdc7521b24fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc85dca307caeac559db3538ad39cb0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#acc85dca307caeac559db3538ad39cb0b">UnLockObject</a> (object key)</td></tr>
+<tr class="memdesc:acc85dca307caeac559db3538ad39cb0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Разблокировать объект  <a href="#acc85dca307caeac559db3538ad39cb0b">Подробнее...</a><br /></td></tr>
+<tr class="separator:acc85dca307caeac559db3538ad39cb0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af363d772ca5d782f3c4d81b2b6e9822b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af363d772ca5d782f3c4d81b2b6e9822b"></a>
+<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_array.html">DetailArray</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetDetailArray</b> ()</td></tr>
+<tr class="separator:af363d772ca5d782f3c4d81b2b6e9822b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd6d25c8c3fd0da3687a8688aebc16ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#abd6d25c8c3fd0da3687a8688aebc16ec">DataObject</a> ()</td></tr>
+<tr class="memdesc:abd6d25c8c3fd0da3687a8688aebc16ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Базовый конструктор по-умолчанию  <a href="#abd6d25c8c3fd0da3687a8688aebc16ec">Подробнее...</a><br /></td></tr>
+<tr class="separator:abd6d25c8c3fd0da3687a8688aebc16ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff49e2883493376a6784034579020066"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#aff49e2883493376a6784034579020066">GetInitializedProperties</a> ()</td></tr>
+<tr class="memdesc:aff49e2883493376a6784034579020066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить проинициализированные свойства, собственные и мастеровые (загруженные+означенные)  <a href="#aff49e2883493376a6784034579020066">Подробнее...</a><br /></td></tr>
+<tr class="separator:aff49e2883493376a6784034579020066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97d24b9d38c32e1f8d653a965219f229"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a97d24b9d38c32e1f8d653a965219f229">GetInitializedProperties</a> (bool withMasters)</td></tr>
+<tr class="memdesc:a97d24b9d38c32e1f8d653a965219f229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить проинициализированные свойства (загруженные+означенные).  <a href="#a97d24b9d38c32e1f8d653a965219f229">Подробнее...</a><br /></td></tr>
+<tr class="separator:a97d24b9d38c32e1f8d653a965219f229"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56bdbcbd9367b117be44d21c271ef3c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ObjectStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a56bdbcbd9367b117be44d21c271ef3c5">GetStatus</a> ()</td></tr>
+<tr class="memdesc:a56bdbcbd9367b117be44d21c271ef3c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение статуса  <a href="#a56bdbcbd9367b117be44d21c271ef3c5">Подробнее...</a><br /></td></tr>
+<tr class="separator:a56bdbcbd9367b117be44d21c271ef3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9cb0c473d589f363c90b53d1ec4b13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ObjectStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0d9cb0c473d589f363c90b53d1ec4b13">GetStatus</a> (bool recountIfAutoaltered)</td></tr>
+<tr class="memdesc:a0d9cb0c473d589f363c90b53d1ec4b13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение статуса (можно отменить автоматическое вычисление статуса)  <a href="#a0d9cb0c473d589f363c90b53d1ec4b13">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0d9cb0c473d589f363c90b53d1ec4b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ac20541f8da2a450a18a0fe73a8ea8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16f">LoadingState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a2ac20541f8da2a450a18a0fe73a8ea8a">GetLoadingState</a> ()</td></tr>
+<tr class="memdesc:a2ac20541f8da2a450a18a0fe73a8ea8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение состояния загрузки  <a href="#a2ac20541f8da2a450a18a0fe73a8ea8a">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2ac20541f8da2a450a18a0fe73a8ea8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb9ce545ee28a615868acd0e0bc751c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a8eb9ce545ee28a615868acd0e0bc751c">SetStatus</a> (<a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ObjectStatus</a> newState)</td></tr>
+<tr class="memdesc:a8eb9ce545ee28a615868acd0e0bc751c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установка статуса  <a href="#a8eb9ce545ee28a615868acd0e0bc751c">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8eb9ce545ee28a615868acd0e0bc751c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae1c3f7d00a34821f206f93663c86cf9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#aae1c3f7d00a34821f206f93663c86cf9">SetLoadingState</a> (<a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16f">LoadingState</a> newState)</td></tr>
+<tr class="memdesc:aae1c3f7d00a34821f206f93663c86cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установка состояния загрузки.  <a href="#aae1c3f7d00a34821f206f93663c86cf9">Подробнее...</a><br /></td></tr>
+<tr class="separator:aae1c3f7d00a34821f206f93663c86cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea6c60945b8b839e066f36d4f4e590ac"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#aea6c60945b8b839e066f36d4f4e590ac">GetLoadedProperties</a> ()</td></tr>
+<tr class="memdesc:aea6c60945b8b839e066f36d4f4e590ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение списка свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded).  <a href="#aea6c60945b8b839e066f36d4f4e590ac">Подробнее...</a><br /></td></tr>
+<tr class="separator:aea6c60945b8b839e066f36d4f4e590ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6952a0d1a591d74e6bbd683171ef87c"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ab6952a0d1a591d74e6bbd683171ef87c">GetLoadedPropertiesList</a> ()</td></tr>
+<tr class="memdesc:ab6952a0d1a591d74e6bbd683171ef87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение списка свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded).  <a href="#ab6952a0d1a591d74e6bbd683171ef87c">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab6952a0d1a591d74e6bbd683171ef87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac14ff24049a6f6a743a8f823e34514bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ac14ff24049a6f6a743a8f823e34514bb">SetLoadedProperties</a> (params string[] loadedProperties)</td></tr>
+<tr class="memdesc:ac14ff24049a6f6a743a8f823e34514bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установить список свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded).  <a href="#ac14ff24049a6f6a743a8f823e34514bb">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac14ff24049a6f6a743a8f823e34514bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b7e9d02ca45de9dcf5f5b86b61b3a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ae0b7e9d02ca45de9dcf5f5b86b61b3a8">AddLoadedProperties</a> (params string[] addingLoadedProperties)</td></tr>
+<tr class="memdesc:ae0b7e9d02ca45de9dcf5f5b86b61b3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить список свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded).  <a href="#ae0b7e9d02ca45de9dcf5f5b86b61b3a8">Подробнее...</a><br /></td></tr>
+<tr class="separator:ae0b7e9d02ca45de9dcf5f5b86b61b3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ec9a47c6dace6a58d2a69f534d4eb5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a8ec9a47c6dace6a58d2a69f534d4eb5b">AddLoadedProperties</a> (List&lt; string &gt; propertyNamesList)</td></tr>
+<tr class="memdesc:a8ec9a47c6dace6a58d2a69f534d4eb5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить список свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded).  <a href="#a8ec9a47c6dace6a58d2a69f534d4eb5b">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8ec9a47c6dace6a58d2a69f534d4eb5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6432786c0b20f18834ba1697b4dfe8e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a6432786c0b20f18834ba1697b4dfe8e8">CheckLoadedProperty</a> (string propertyName)</td></tr>
+<tr class="memdesc:a6432786c0b20f18834ba1697b4dfe8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверить, установлено ли значение в указанное свойство (требуется в случае, когда состояние загрузки &ndash; LightLoaded).  <a href="#a6432786c0b20f18834ba1697b4dfe8e8">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6432786c0b20f18834ba1697b4dfe8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf23531866baf1aef515e1df4fd5111"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#abaf23531866baf1aef515e1df4fd5111">CopyToObjectWithoutCache</a> (ref <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a> toObject, bool createDataObjectsCopy, bool primaryKeyCopy)</td></tr>
+<tr class="separator:abaf23531866baf1aef515e1df4fd5111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada59fef3d4efffb7288bd708e9d4f0c6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ada59fef3d4efffb7288bd708e9d4f0c6">CopyTo</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a> toObject, bool CreateDataObjectsCopy, bool PrimaryKeyCopy, bool UseParentCaching)</td></tr>
+<tr class="memdesc:ada59fef3d4efffb7288bd708e9d4f0c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать копию этого объекта данных (не забудьте вызвать InitDataCopy или ClearDataCopy если планируете обновлять объект в БД)  <a href="#ada59fef3d4efffb7288bd708e9d4f0c6">Подробнее...</a><br /></td></tr>
+<tr class="separator:ada59fef3d4efffb7288bd708e9d4f0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c39d55167d265bf9182f0cfb74b57e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a13c39d55167d265bf9182f0cfb74b57e">CopyTo</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a> toObject, bool CreateDataObjectsCopy, bool PrimaryKeyCopy, bool UseParentCaching, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>)</td></tr>
+<tr class="memdesc:a13c39d55167d265bf9182f0cfb74b57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать копию этого объекта данных (не забудьте вызвать InitDataCopy или ClearDataCopy если планируете обновлять объект в БД)  <a href="#a13c39d55167d265bf9182f0cfb74b57e">Подробнее...</a><br /></td></tr>
+<tr class="separator:a13c39d55167d265bf9182f0cfb74b57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb27a27987cc02b24d3c840b8df46dcf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#adb27a27987cc02b24d3c840b8df46dcf">CopySysProps</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a> toObject)</td></tr>
+<tr class="memdesc:adb27a27987cc02b24d3c840b8df46dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Скопировать только системные свойства ("primaryKey", "prototypeKey", "readKey", "CheckDetail", "state", "DisabledInitDataCopy")  <a href="#adb27a27987cc02b24d3c840b8df46dcf">Подробнее...</a><br /></td></tr>
+<tr class="separator:adb27a27987cc02b24d3c840b8df46dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d2d394b4b784c32f6004003115f5abe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a7d2d394b4b784c32f6004003115f5abe">ClearPrototyping</a> ()</td></tr>
+<tr class="memdesc:a7d2d394b4b784c32f6004003115f5abe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сбросить прототипизацию объекта (очистить все что относится к прототипу)  <a href="#a7d2d394b4b784c32f6004003115f5abe">Подробнее...</a><br /></td></tr>
+<tr class="separator:a7d2d394b4b784c32f6004003115f5abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6afac752e7079987274426b809fbb259"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a6afac752e7079987274426b809fbb259">ClearPrototyping</a> (bool withDetails)</td></tr>
+<tr class="memdesc:a6afac752e7079987274426b809fbb259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сбросить прототипизацию объекта (очистить все что относится к прототипу)  <a href="#a6afac752e7079987274426b809fbb259">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6afac752e7079987274426b809fbb259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2983051911d4dafb2ba24d6a82bce903"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a2983051911d4dafb2ba24d6a82bce903">Prototyping</a> ()</td></tr>
+<tr class="memdesc:a2983051911d4dafb2ba24d6a82bce903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Прототипизировать  <a href="#a2983051911d4dafb2ba24d6a82bce903">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2983051911d4dafb2ba24d6a82bce903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a1a98c545bf5a0b69948735e1fa0d7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a51a1a98c545bf5a0b69948735e1fa0d7">Prototyping</a> (bool withDetails)</td></tr>
+<tr class="memdesc:a51a1a98c545bf5a0b69948735e1fa0d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Прототипизировать  <a href="#a51a1a98c545bf5a0b69948735e1fa0d7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a51a1a98c545bf5a0b69948735e1fa0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e5c0a6bc83ca12403de22017c695281"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a9e5c0a6bc83ca12403de22017c695281">DisableInitDataCopy</a> ()</td></tr>
+<tr class="memdesc:a9e5c0a6bc83ca12403de22017c695281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Не инициализировать копию данных объекта при зачитке. По-умолчанию инициализируется.  <a href="#a9e5c0a6bc83ca12403de22017c695281">Подробнее...</a><br /></td></tr>
+<tr class="separator:a9e5c0a6bc83ca12403de22017c695281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c13c3cb2bf3d9c17249267697a7335a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a3c13c3cb2bf3d9c17249267697a7335a">EnableInitDataCopy</a> ()</td></tr>
+<tr class="memdesc:a3c13c3cb2bf3d9c17249267697a7335a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Включить инициализацию копии данных объекта при зачитке. По-умолчанию инициализируется.  <a href="#a3c13c3cb2bf3d9c17249267697a7335a">Подробнее...</a><br /></td></tr>
+<tr class="separator:a3c13c3cb2bf3d9c17249267697a7335a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0522a50f805c194914c2faea5307ed72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0522a50f805c194914c2faea5307ed72">InitDataCopy</a> ()</td></tr>
+<tr class="memdesc:a0522a50f805c194914c2faea5307ed72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проинициализировать копию данных  <a href="#a0522a50f805c194914c2faea5307ed72">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0522a50f805c194914c2faea5307ed72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84cba47908a041d135be8950ca68478d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a84cba47908a041d135be8950ca68478d">InitDataCopy</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>)</td></tr>
+<tr class="memdesc:a84cba47908a041d135be8950ca68478d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проинициализировать копию данных  <a href="#a84cba47908a041d135be8950ca68478d">Подробнее...</a><br /></td></tr>
+<tr class="separator:a84cba47908a041d135be8950ca68478d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62442f03f11b3a0ec5f2518ccbeb0cf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a62442f03f11b3a0ec5f2518ccbeb0cf5">clearDataCopy</a> ()</td></tr>
+<tr class="memdesc:a62442f03f11b3a0ec5f2518ccbeb0cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистить внутреннюю копию данных  <a href="#a62442f03f11b3a0ec5f2518ccbeb0cf5">Подробнее...</a><br /></td></tr>
+<tr class="separator:a62442f03f11b3a0ec5f2518ccbeb0cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157f7a6d2f050cbf365552e98907d07b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a157f7a6d2f050cbf365552e98907d07b">FullClearDataCopy</a> ()</td></tr>
+<tr class="memdesc:a157f7a6d2f050cbf365552e98907d07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистка внутренней копии данных в собственном объекте, а также рекурсивно копии мастеровых и детейловых объектов  <a href="#a157f7a6d2f050cbf365552e98907d07b">Подробнее...</a><br /></td></tr>
+<tr class="separator:a157f7a6d2f050cbf365552e98907d07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dfdaeb593c890c0da07ddbe93cbf12f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0dfdaeb593c890c0da07ddbe93cbf12f">GetDataCopy</a> ()</td></tr>
+<tr class="memdesc:a0dfdaeb593c890c0da07ddbe93cbf12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить внутреннюю копию объекта данных  <a href="#a0dfdaeb593c890c0da07ddbe93cbf12f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0dfdaeb593c890c0da07ddbe93cbf12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad37a29aa11f50be604a729383f6f5fc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ad37a29aa11f50be604a729383f6f5fc3">SetDataCopy</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a> value)</td></tr>
+<tr class="memdesc:ad37a29aa11f50be604a729383f6f5fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установить внутреннюю копию объекта данных  <a href="#ad37a29aa11f50be604a729383f6f5fc3">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad37a29aa11f50be604a729383f6f5fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfab526a3c6375d7a5482ecdd839e4fc"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#adfab526a3c6375d7a5482ecdd839e4fc">GetAlteredPropertyNames</a> (bool Recount)</td></tr>
+<tr class="memdesc:adfab526a3c6375d7a5482ecdd839e4fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает список свойств (атрибутов, мастеров, детейлов), чьи значения изменились по сравнению с внутренней копией  <a href="#adfab526a3c6375d7a5482ecdd839e4fc">Подробнее...</a><br /></td></tr>
+<tr class="separator:adfab526a3c6375d7a5482ecdd839e4fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a35b7b41c92ec63f1458be05974880f"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a1a35b7b41c92ec63f1458be05974880f">GetAlteredPropertyNames</a> ()</td></tr>
+<tr class="memdesc:a1a35b7b41c92ec63f1458be05974880f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает список свойств (атрибутов, мастеров, детейлов), чьи значения изменились по сравнению с внутренней копией  <a href="#a1a35b7b41c92ec63f1458be05974880f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1a35b7b41c92ec63f1458be05974880f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6fbdd6817cc028924ffe9c93700fa2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6fbdd6817cc028924ffe9c93700fa2d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsAlteredProperty</b> (string propName)</td></tr>
+<tr class="separator:ad6fbdd6817cc028924ffe9c93700fa2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2907b2c11f0715297e906b1d23b4db1e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a2907b2c11f0715297e906b1d23b4db1e">ContainsAlteredProps</a> ()</td></tr>
+<tr class="memdesc:a2907b2c11f0715297e906b1d23b4db1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Было ли изменение значений свойств по сравнению с внутренней копией  <a href="#a2907b2c11f0715297e906b1d23b4db1e">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2907b2c11f0715297e906b1d23b4db1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91a26fe8c4a48da36b00a2e35e02d950"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a91a26fe8c4a48da36b00a2e35e02d950">Clear</a> ()</td></tr>
+<tr class="memdesc:a91a26fe8c4a48da36b00a2e35e02d950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистка объекта данных. Остается означеным только первичный ключ и вычислимые свойства (если такая возможность предусмотрена) Объект получает статусы <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632baf4182ded074fbd283d41e9491796ece9" title="Не изменён ">ObjectStatus.UnAltered</a>,<a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa5111e24c1ecc6266ce0de4b4dc42033b" title="Не загружен ">LoadingState.NotLoaded</a>  <a href="#a91a26fe8c4a48da36b00a2e35e02d950">Подробнее...</a><br /></td></tr>
+<tr class="separator:a91a26fe8c4a48da36b00a2e35e02d950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a928ce6130d80cebf2385b4291952c734"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a928ce6130d80cebf2385b4291952c734">ToString</a> ()</td></tr>
+<tr class="memdesc:a928ce6130d80cebf2385b4291952c734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Преобразуем объект данных в его строковое представление. При этом включаются все свойства объекта, в том числе динамические; нединамические свойства сортируются по алфавиту.  <a href="#a928ce6130d80cebf2385b4291952c734">Подробнее...</a><br /></td></tr>
+<tr class="separator:a928ce6130d80cebf2385b4291952c734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad899bd79ffec0876dd8bb98f2dc5f3dc"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ad899bd79ffec0876dd8bb98f2dc5f3dc">ToString</a> (string[] propNames)</td></tr>
+<tr class="memdesc:ad899bd79ffec0876dd8bb98f2dc5f3dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Преобразуем объект данных в его строковое представление. При этом не включаются динамические свойства, свойства сортируются по алфавиту.  <a href="#ad899bd79ffec0876dd8bb98f2dc5f3dc">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad899bd79ffec0876dd8bb98f2dc5f3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29b92a3df824f426fff90f5a014a4ff7"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a29b92a3df824f426fff90f5a014a4ff7">ToStringForAudit</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a> stringView)</td></tr>
+<tr class="memdesc:a29b92a3df824f426fff90f5a014a4ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Преобразование к строке только по видимым нединамическим свойствам (используется в аудите). При этом не включаются динамические свойства, свойства не сортируются по алфавиту (пишутся по представлению уже так, как пользователь задал).  <a href="#a29b92a3df824f426fff90f5a014a4ff7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a29b92a3df824f426fff90f5a014a4ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d69487af7c71aaadb1a7f814aaa77a"><td class="memItemLeft" align="right" valign="top">virtual string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#af1d69487af7c71aaadb1a7f814aaa77a">CheckNotNullProperties</a> (Dictionary&lt; Type, bool &gt; detailSkip)</td></tr>
+<tr class="memdesc:af1d69487af7c71aaadb1a7f814aaa77a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Найти незаполненные поля.  <a href="#af1d69487af7c71aaadb1a7f814aaa77a">Подробнее...</a><br /></td></tr>
+<tr class="separator:af1d69487af7c71aaadb1a7f814aaa77a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2fa46e3fb90d273048cb75260303f17"><td class="memItemLeft" align="right" valign="top">virtual string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ab2fa46e3fb90d273048cb75260303f17">CheckNotNullProperties</a> ()</td></tr>
+<tr class="memdesc:ab2fa46e3fb90d273048cb75260303f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поискать незаполенные поля.  <a href="#ab2fa46e3fb90d273048cb75260303f17">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab2fa46e3fb90d273048cb75260303f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f6b61cdace1d0a4e7c3fb2d31264797"><td class="memItemLeft" align="right" valign="top">virtual string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a1f6b61cdace1d0a4e7c3fb2d31264797">CheckNotNullProperties</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a> view, bool returnCaptions, Dictionary&lt; Type, bool &gt; detailSkip)</td></tr>
+<tr class="memdesc:a1f6b61cdace1d0a4e7c3fb2d31264797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Найти незаполненные поля и вернуть заголовки свойств по представлению.  <a href="#a1f6b61cdace1d0a4e7c3fb2d31264797">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1f6b61cdace1d0a4e7c3fb2d31264797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba09707931b8a25e07b399a176051f29"><td class="memItemLeft" align="right" valign="top">virtual string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#aba09707931b8a25e07b399a176051f29">CheckNotNullProperties</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a> view, bool returnCaptions)</td></tr>
+<tr class="memdesc:aba09707931b8a25e07b399a176051f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поискать незаполенные поля и возвращать заголовки свойств по представлению.  <a href="#aba09707931b8a25e07b399a176051f29">Подробнее...</a><br /></td></tr>
+<tr class="separator:aba09707931b8a25e07b399a176051f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:abbc05430915ab8038958d7389c5a6372"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#abbc05430915ab8038958d7389c5a6372">PrimaryKeyIsUnique</a></td></tr>
+<tr class="memdesc:abbc05430915ab8038958d7389c5a6372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Первичный ключ является уникальным  <a href="#abbc05430915ab8038958d7389c5a6372">Подробнее...</a><br /></td></tr>
+<tr class="separator:abbc05430915ab8038958d7389c5a6372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Статические открытые данные</h2></td></tr>
+<tr class="memitem:a99b9557cd8562840f008bcb1029758c4"><td class="memItemLeft" align="right" valign="top">static GetPresentationValueDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a99b9557cd8562840f008bcb1029758c4">GetPresentationValueDelegate</a></td></tr>
+<tr class="memdesc:a99b9557cd8562840f008bcb1029758c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Делегат для получения презентационного значения объекта. Если не прописан или возвращает null, то будет использована стандартная логика получения этого значения  <a href="#a99b9557cd8562840f008bcb1029758c4">Подробнее...</a><br /></td></tr>
+<tr class="separator:a99b9557cd8562840f008bcb1029758c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Защищенные члены</h2></td></tr>
+<tr class="memitem:a0c4eef986313d3bdb7834ac51b9cd829"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0c4eef986313d3bdb7834ac51b9cd829">GetDefaultPresentationValue</a> ()</td></tr>
+<tr class="memdesc:a0c4eef986313d3bdb7834ac51b9cd829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для получения презентационного значения для объекта по умолчанию. Презентационное значение используется в случаях, когда необходимо каким-либо образом с максимальной степенью адекватности отобразить объект, а средства настройки этого отображения недоступны.  <a href="#a0c4eef986313d3bdb7834ac51b9cd829">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0c4eef986313d3bdb7834ac51b9cd829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa97deebdaf6a6aa117e196eb4ce4b63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#afa97deebdaf6a6aa117e196eb4ce4b63">CheckReadOnly</a> ()</td></tr>
+<tr class="memdesc:afa97deebdaf6a6aa117e196eb4ce4b63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура проверки объекта на заблокированность  <a href="#afa97deebdaf6a6aa117e196eb4ce4b63">Подробнее...</a><br /></td></tr>
+<tr class="separator:afa97deebdaf6a6aa117e196eb4ce4b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Защищенные данные</h2></td></tr>
+<tr class="memitem:a6598b96584bf257b7cdaedb8bf809261"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a6598b96584bf257b7cdaedb8bf809261">IsDataCopy</a></td></tr>
+<tr class="memdesc:a6598b96584bf257b7cdaedb8bf809261"><td class="mdescLeft">&#160;</td><td class="mdescRight">является ли объект копией  <a href="#a6598b96584bf257b7cdaedb8bf809261">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6598b96584bf257b7cdaedb8bf809261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3a51f3cdc2593f2a9343ae622e85c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a4e3a51f3cdc2593f2a9343ae622e85c7">bInGetInitializedProperties</a> = false</td></tr>
+<tr class="memdesc:a4e3a51f3cdc2593f2a9343ae622e85c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется метод получения проинициализированных свойств public string[] <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a97d24b9d38c32e1f8d653a965219f229" title="Получить проинициализированные свойства (загруженные+означенные). ">GetInitializedProperties(bool WithMasters)</a>  <a href="#a4e3a51f3cdc2593f2a9343ae622e85c7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a4e3a51f3cdc2593f2a9343ae622e85c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Свойства</h2></td></tr>
+<tr class="memitem:a069d9d262bef2b45d90f4a7074e513d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a069d9d262bef2b45d90f4a7074e513d7">IsReadOnly</a><code> [get]</code></td></tr>
+<tr class="memdesc:a069d9d262bef2b45d90f4a7074e513d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка что объект залочен  <a href="#a069d9d262bef2b45d90f4a7074e513d7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a069d9d262bef2b45d90f4a7074e513d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5927ae28b321e16fc489f60e7d7b5659"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html">Collections.NameObjectCollection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a5927ae28b321e16fc489f60e7d7b5659">DynamicProperties</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a5927ae28b321e16fc489f60e7d7b5659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Динамические свойства объекта  <a href="#a5927ae28b321e16fc489f60e7d7b5659">Подробнее...</a><br /></td></tr>
+<tr class="separator:a5927ae28b321e16fc489f60e7d7b5659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9f89b5995eec1d502140f10b075ee2"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0e9f89b5995eec1d502140f10b075ee2">__PrototypeKey</a><code> [get]</code></td></tr>
+<tr class="memdesc:a0e9f89b5995eec1d502140f10b075ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ключ прототипа  <a href="#a0e9f89b5995eec1d502140f10b075ee2">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0e9f89b5995eec1d502140f10b075ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a54d25c84be8b4acd711cfe02c582f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a2a54d25c84be8b4acd711cfe02c582f3">Prototyped</a><code> [get]</code></td></tr>
+<tr class="memdesc:a2a54d25c84be8b4acd711cfe02c582f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Прототипизированный ли объект  <a href="#a2a54d25c84be8b4acd711cfe02c582f3">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2a54d25c84be8b4acd711cfe02c582f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aef4eb9e1dfc6488e26658e66d1690a"><td class="memItemLeft" align="right" valign="top">virtual object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0aef4eb9e1dfc6488e26658e66d1690a">__PrimaryKey</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a0aef4eb9e1dfc6488e26658e66d1690a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установка/получение первичного ключа  <a href="#a0aef4eb9e1dfc6488e26658e66d1690a">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0aef4eb9e1dfc6488e26658e66d1690a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Базовый абстрактный класс, от которого наследуются все объекты данных STORM.NET </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a class="anchor" id="abd6d25c8c3fd0da3687a8688aebc16ec"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICSSoft.STORMNET.DataObject.DataObject </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Базовый конструктор по-умолчанию </p>
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a class="anchor" id="ae0b7e9d02ca45de9dcf5f5b86b61b3a8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.AddLoadedProperties </td>
+          <td>(</td>
+          <td class="paramtype">params string[]&#160;</td>
+          <td class="paramname"><em>addingLoadedProperties</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавить список свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addingLoadedProperties</td><td>Массив добавляемых свойств.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8ec9a47c6dace6a58d2a69f534d4eb5b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.AddLoadedProperties </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>propertyNamesList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавить список свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">propertyNamesList</td><td>Массив добавляемых свойств.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6432786c0b20f18834ba1697b4dfe8e8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.CheckLoadedProperty </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>propertyName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверить, установлено ли значение в указанное свойство (требуется в случае, когда состояние загрузки &ndash; LightLoaded). </p>
+
+</div>
+</div>
+<a class="anchor" id="af1d69487af7c71aaadb1a7f814aaa77a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string [] ICSSoft.STORMNET.DataObject.CheckNotNullProperties </td>
+          <td>(</td>
+          <td class="paramtype">Dictionary&lt; Type, bool &gt;&#160;</td>
+          <td class="paramname"><em>detailSkip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Найти незаполненные поля. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">detailSkip</td><td>Не обращать внимания на удаленные детейлы. Если детейла нет в этом словаре или значение для него <code>false</code>, то пропущен не будет. Может быть <code>null</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Заголовки свойств незаполненных полей.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab2fa46e3fb90d273048cb75260303f17"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string [] ICSSoft.STORMNET.DataObject.CheckNotNullProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Поискать незаполенные поля. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Заголовки свойств незаполненных полей.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1f6b61cdace1d0a4e7c3fb2d31264797"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string [] ICSSoft.STORMNET.DataObject.CheckNotNullProperties </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a>&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>returnCaptions</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dictionary&lt; Type, bool &gt;&#160;</td>
+          <td class="paramname"><em>detailSkip</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Найти незаполненные поля и вернуть заголовки свойств по представлению. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view</td><td>Представление объекта.</td></tr>
+    <tr><td class="paramname">returnCaptions</td><td>Если <code>true</code>, то вернутся заголовки свойств, иначе имена.</td></tr>
+    <tr><td class="paramname">detailSkip</td><td>Не обращать внимания на удаленные детейлы. Если детейла нет в этом словаре или значение для него <code>false</code>, то пропущен не будет. Может быть <code>null</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Заголовки свойств незаполненных полей.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aba09707931b8a25e07b399a176051f29"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string [] ICSSoft.STORMNET.DataObject.CheckNotNullProperties </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a>&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>returnCaptions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Поискать незаполенные поля и возвращать заголовки свойств по представлению. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view</td><td>Представление объекта.</td></tr>
+    <tr><td class="paramname">returnCaptions</td><td>Возвращать имена свойств или заголовки.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Заголовки свойств незаполненных полей.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afa97deebdaf6a6aa117e196eb4ce4b63"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.CheckReadOnly </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Процедура проверки объекта на заблокированность </p>
+
+</div>
+</div>
+<a class="anchor" id="a91a26fe8c4a48da36b00a2e35e02d950"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.Clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Очистка объекта данных. Остается означеным только первичный ключ и вычислимые свойства (если такая возможность предусмотрена) Объект получает статусы <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632baf4182ded074fbd283d41e9491796ece9" title="Не изменён ">ObjectStatus.UnAltered</a>,<a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa5111e24c1ecc6266ce0de4b4dc42033b" title="Не загружен ">LoadingState.NotLoaded</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="a62442f03f11b3a0ec5f2518ccbeb0cf5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.clearDataCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Очистить внутреннюю копию данных </p>
+
+</div>
+</div>
+<a class="anchor" id="a7d2d394b4b784c32f6004003115f5abe"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.ClearPrototyping </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сбросить прототипизацию объекта (очистить все что относится к прототипу) </p>
+
+</div>
+</div>
+<a class="anchor" id="a6afac752e7079987274426b809fbb259"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.ClearPrototyping </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>withDetails</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сбросить прототипизацию объекта (очистить все что относится к прототипу) </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">withDetails</td><td>с детейлами или без</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a2907b2c11f0715297e906b1d23b4db1e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.ContainsAlteredProps </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Было ли изменение значений свойств по сравнению с внутренней копией </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adb27a27987cc02b24d3c840b8df46dcf"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.CopySysProps </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a>&#160;</td>
+          <td class="paramname"><em>toObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Скопировать только системные свойства ("primaryKey", "prototypeKey", "readKey", "CheckDetail", "state", "DisabledInitDataCopy") </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">toObject</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ada59fef3d4efffb7288bd708e9d4f0c6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.CopyTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a>&#160;</td>
+          <td class="paramname"><em>toObject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>CreateDataObjectsCopy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>PrimaryKeyCopy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>UseParentCaching</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создать копию этого объекта данных (не забудьте вызвать InitDataCopy или ClearDataCopy если планируете обновлять объект в БД) </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">toObject</td><td>куда копировать</td></tr>
+    <tr><td class="paramname">CreateDataObjectsCopy</td><td>создавать ли копии связанных объектов или ограничиться копированием ссылки</td></tr>
+    <tr><td class="paramname">PrimaryKeyCopy</td><td>Копировать ли первичные ключи</td></tr>
+    <tr><td class="paramname">UseParentCaching</td><td>Использовать ли вышеустановленное кеширование</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a13c39d55167d265bf9182f0cfb74b57e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.CopyTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a>&#160;</td>
+          <td class="paramname"><em>toObject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>CreateDataObjectsCopy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>PrimaryKeyCopy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>UseParentCaching</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>&#160;</td>
+          <td class="paramname"><em>DataObjectCache</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создать копию этого объекта данных (не забудьте вызвать InitDataCopy или ClearDataCopy если планируете обновлять объект в БД) </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">toObject</td><td>куда копировать</td></tr>
+    <tr><td class="paramname">CreateDataObjectsCopy</td><td>создавать ли копии связанных объектов или ограничиться копированием ссылки</td></tr>
+    <tr><td class="paramname">PrimaryKeyCopy</td><td>Копировать ли первичные ключи</td></tr>
+    <tr><td class="paramname">UseParentCaching</td><td>Использовать ли вышеустановленное кеширование</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abaf23531866baf1aef515e1df4fd5111"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.CopyToObjectWithoutCache </td>
+          <td>(</td>
+          <td class="paramtype">ref <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a>&#160;</td>
+          <td class="paramname"><em>toObject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>createDataObjectsCopy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>primaryKeyCopy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>summary&gt; Копирование объектов без применения кэширования /summary&gt; param name="toObject"&gt;Объект, в который копируем (если будет null, то создадим по типу исходного)</p>
+<p>param name="createDataObjectsCopy"&gt;Запускать ли механизм копирования для мастеров и детейлов или ограничиться только своими свойствами (публичными и приватными)</p>
+<p>param name="primaryKeyCopy"&gt;Копировать ли первичный ключ</p>
+<p>param name="usedDobjs"&gt;Список объектов, которые уже скопировали - борьба с зацикливанием</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e5c0a6bc83ca12403de22017c695281"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.DisableInitDataCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Не инициализировать копию данных объекта при зачитке. По-умолчанию инициализируется. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3c13c3cb2bf3d9c17249267697a7335a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.EnableInitDataCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Включить инициализацию копии данных объекта при зачитке. По-умолчанию инициализируется. </p>
+
+</div>
+</div>
+<a class="anchor" id="a157f7a6d2f050cbf365552e98907d07b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.FullClearDataCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Очистка внутренней копии данных в собственном объекте, а также рекурсивно копии мастеровых и детейловых объектов </p>
+
+</div>
+</div>
+<a class="anchor" id="adfab526a3c6375d7a5482ecdd839e4fc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string [] ICSSoft.STORMNET.DataObject.GetAlteredPropertyNames </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>Recount</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает список свойств (атрибутов, мастеров, детейлов), чьи значения изменились по сравнению с внутренней копией </p>
+
+</div>
+</div>
+<a class="anchor" id="a1a35b7b41c92ec63f1458be05974880f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string [] ICSSoft.STORMNET.DataObject.GetAlteredPropertyNames </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает список свойств (атрибутов, мастеров, детейлов), чьи значения изменились по сравнению с внутренней копией </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+<p>summary&gt; Проверить, есть ли это свойство в списке изменённых. Выполняется полная проверка каждый раз, поэтому метод не очень производительный. /summary&gt; param name="propName"&gt;</p>
+<p>Если этого свойства нет в объекте, то не упадёт, а просто скажет что оно не менялось, имейте в виду</p>
+<p>returns&gt;</p>
+
+</div>
+</div>
+<a class="anchor" id="a0dfdaeb593c890c0da07ddbe93cbf12f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a> ICSSoft.STORMNET.DataObject.GetDataCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получить внутреннюю копию объекта данных </p>
+
+</div>
+</div>
+<a class="anchor" id="a0c4eef986313d3bdb7834ac51b9cd829"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string ICSSoft.STORMNET.DataObject.GetDefaultPresentationValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для получения презентационного значения для объекта по умолчанию. Презентационное значение используется в случаях, когда необходимо каким-либо образом с максимальной степенью адекватности отобразить объект, а средства настройки этого отображения недоступны. </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aff49e2883493376a6784034579020066"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string [] ICSSoft.STORMNET.DataObject.GetInitializedProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получить проинициализированные свойства, собственные и мастеровые (загруженные+означенные) </p>
+<dl class="section return"><dt>Возвращает</dt><dd>строковый массив имён свойств</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a97d24b9d38c32e1f8d653a965219f229"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string [] ICSSoft.STORMNET.DataObject.GetInitializedProperties </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>withMasters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получить проинициализированные свойства (загруженные+означенные). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">withMasters</td><td>Если True, мастеровые учитываются.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Строковый массив имён свойств.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aea6c60945b8b839e066f36d4f4e590ac"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string [] ICSSoft.STORMNET.DataObject.GetLoadedProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получение списка свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded). </p>
+
+</div>
+</div>
+<a class="anchor" id="ab6952a0d1a591d74e6bbd683171ef87c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;string&gt; ICSSoft.STORMNET.DataObject.GetLoadedPropertiesList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получение списка свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded). </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2ac20541f8da2a450a18a0fe73a8ea8a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16f">LoadingState</a> ICSSoft.STORMNET.DataObject.GetLoadingState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получение состояния загрузки </p>
+
+</div>
+</div>
+<a class="anchor" id="a6452888299b6da72c2aad1f4f096401f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string ICSSoft.STORMNET.DataObject.GetPresentationValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для получения презентационного значения для объекта. Используется, как минимум, в ярлыках на рабочем столе. </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a56bdbcbd9367b117be44d21c271ef3c5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ObjectStatus</a> ICSSoft.STORMNET.DataObject.GetStatus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получение статуса </p>
+
+</div>
+</div>
+<a class="anchor" id="a0d9cb0c473d589f363c90b53d1ec4b13"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ObjectStatus</a> ICSSoft.STORMNET.DataObject.GetStatus </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>recountIfAutoaltered</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получение статуса (можно отменить автоматическое вычисление статуса) </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">recountIfAutoaltered</td><td>перевычислять если класс с автоматическим вычислением статуса </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0522a50f805c194914c2faea5307ed72"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.InitDataCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проинициализировать копию данных </p>
+
+</div>
+</div>
+<a class="anchor" id="a84cba47908a041d135be8950ca68478d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.InitDataCopy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>&#160;</td>
+          <td class="paramname"><em>DataObjectCache</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проинициализировать копию данных </p>
+
+</div>
+</div>
+<a class="anchor" id="aece8205506c87cf92d0dcdc7521b24fb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.LockObject </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Заблокировать объект </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>ключ блокировки объекта</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a2983051911d4dafb2ba24d6a82bce903"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.Prototyping </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Прототипизировать </p>
+
+</div>
+</div>
+<a class="anchor" id="a51a1a98c545bf5a0b69948735e1fa0d7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.Prototyping </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>withDetails</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Прототипизировать </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">withDetails</td><td>с детейлами или без</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad37a29aa11f50be604a729383f6f5fc3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.SetDataCopy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a>&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Установить внутреннюю копию объекта данных </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Устанавливаемый объект как копия существующего </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6223839316c902d0714d1de77c934e46"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.SetExistObjectPrimaryKey </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>primaryKey</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Установить первичный ключ в объект данных. Выполняется операция <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a91a26fe8c4a48da36b00a2e35e02d950" title="Очистка объекта данных. Остается означеным только первичный ключ и вычислимые свойства (если такая во...">Clear()</a> для объекта, присваивается первичный ключ, SetLoadingState(<a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa876c30988afeecc9d0ef6ca702c60e4b" title="Загружен частично, подробности выясняются методами DataObject.GetLoadedProperties и DataObject...">LoadingState.LightLoaded</a>); SetLoadedProperties("__PrimaryKey"); </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primaryKey</td><td>Первичный ключ</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac14ff24049a6f6a743a8f823e34514bb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.SetLoadedProperties </td>
+          <td>(</td>
+          <td class="paramtype">params string[]&#160;</td>
+          <td class="paramname"><em>loadedProperties</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Установить список свойств, значения в которые установлены (требуется в случае, когда состояние загрузки &ndash; LightLoaded). </p>
+
+</div>
+</div>
+<a class="anchor" id="aae1c3f7d00a34821f206f93663c86cf9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.SetLoadingState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16f">LoadingState</a>&#160;</td>
+          <td class="paramname"><em>newState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Установка состояния загрузки. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8eb9ce545ee28a615868acd0e0bc751c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.DataObject.SetStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ObjectStatus</a>&#160;</td>
+          <td class="paramname"><em>newState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Установка статуса </p>
+
+</div>
+</div>
+<a class="anchor" id="a928ce6130d80cebf2385b4291952c734"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string ICSSoft.STORMNET.DataObject.ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Преобразуем объект данных в его строковое представление. При этом включаются все свойства объекта, в том числе динамические; нединамические свойства сортируются по алфавиту. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Сформированное строковое представление объекта данных.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad899bd79ffec0876dd8bb98f2dc5f3dc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ICSSoft.STORMNET.DataObject.ToString </td>
+          <td>(</td>
+          <td class="paramtype">string[]&#160;</td>
+          <td class="paramname"><em>propNames</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Преобразуем объект данных в его строковое представление. При этом не включаются динамические свойства, свойства сортируются по алфавиту. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">propNames</td><td>Свойства, значения которых будут включены в строковое представление. Если будет передано <code>null</code>, то в результате не будет отображаться ни одно свойство. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Сформированное строковое представление объекта данных.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a29b92a3df824f426fff90f5a014a4ff7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ICSSoft.STORMNET.DataObject.ToStringForAudit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a>&#160;</td>
+          <td class="paramname"><em>stringView</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Преобразование к строке только по видимым нединамическим свойствам (используется в аудите). При этом не включаются динамические свойства, свойства не сортируются по алфавиту (пишутся по представлению уже так, как пользователь задал). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stringView</td><td>Представление, по которому нужно создавать строковое представление (берётся видимость полей и заголовки классов). Если передано <code>null</code>, то будут взяты все загруженные свойства и записаны в алфавитном порядке. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Представление объекта данных в виде строки. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acc85dca307caeac559db3538ad39cb0b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ICSSoft.STORMNET.DataObject.UnLockObject </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Разблокировать объект </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>ключ блокировки объекта</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a class="anchor" id="a4e3a51f3cdc2593f2a9343ae622e85c7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.bInGetInitializedProperties = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется метод получения проинициализированных свойств public string[] <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a97d24b9d38c32e1f8d653a965219f229" title="Получить проинициализированные свойства (загруженные+означенные). ">GetInitializedProperties(bool WithMasters)</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="a99b9557cd8562840f008bcb1029758c4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GetPresentationValueDelegate ICSSoft.STORMNET.DataObject.GetPresentationValueDelegate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Делегат для получения презентационного значения объекта. Если не прописан или возвращает null, то будет использована стандартная логика получения этого значения </p>
+
+</div>
+</div>
+<a class="anchor" id="a6598b96584bf257b7cdaedb8bf809261"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.IsDataCopy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>является ли объект копией </p>
+
+</div>
+</div>
+<a class="anchor" id="abbc05430915ab8038958d7389c5a6372"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.PrimaryKeyIsUnique</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Первичный ключ является уникальным </p>
+
+</div>
+</div>
+<h2 class="groupheader">Полный список свойств</h2>
+<a class="anchor" id="a0aef4eb9e1dfc6488e26658e66d1690a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual object ICSSoft.STORMNET.DataObject.__PrimaryKey</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Установка/получение первичного ключа </p>
+
+</div>
+</div>
+<a class="anchor" id="a0e9f89b5995eec1d502140f10b075ee2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">object ICSSoft.STORMNET.DataObject.__PrototypeKey</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ключ прототипа </p>
+
+</div>
+</div>
+<a class="anchor" id="a5927ae28b321e16fc489f60e7d7b5659"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html">Collections.NameObjectCollection</a> ICSSoft.STORMNET.DataObject.DynamicProperties</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Динамические свойства объекта </p>
+
+</div>
+</div>
+<a class="anchor" id="a069d9d262bef2b45d90f4a7074e513d7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.IsReadOnly</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверка что объект залочен </p>
+
+</div>
+</div>
+<a class="anchor" id="a2a54d25c84be8b4acd711cfe02c582f3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.DataObject.Prototyped</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Прототипизированный ли объект </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_i_c_s_soft.html">ICSSoft</a></li><li class="navelem"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html">STORMNET</a></li><li class="navelem"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">DataObject</a></li>
+    <li class="footer">Документация по Flexberry ORM 4.0.0. Последние изменения: Чт 13 Июл 2017 10:46:02. Создано системой
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
+</body>
+</html>

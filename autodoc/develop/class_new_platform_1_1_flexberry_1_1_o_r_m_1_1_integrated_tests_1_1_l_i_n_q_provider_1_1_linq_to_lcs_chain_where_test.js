@@ -1,0 +1,5 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_chain_where_test =
+[
+    [ "LinqToLcsChainWhereTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_chain_where_test.html#ad3dbd7ae30f52217db1b3373bbf99613", null ],
+    [ "TestСhainWhere", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_chain_where_test.html#a192dce1f7d5fa62a59c362f9318b6359", null ]
+];

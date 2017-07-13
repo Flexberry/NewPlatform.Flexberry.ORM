@@ -1,0 +1,25 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1 =
+[
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1_1_1_views.html", null ],
+    [ "FullTypesMainAgregator", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a8bb11580d24bbf83d47a8740d0a0bcaf", null ],
+    [ "PoleBool", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a53ffb1fa72d675ce65cfebe48909fc69", null ],
+    [ "PoleChar", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a8acaf30d1eb2c7a5db70f69352e98c44", null ],
+    [ "PoleDateTime", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a5a3ce037b21832a65ea4b8eb79efaee6", null ],
+    [ "PoleDecimal", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#af46342f48e636d74a2ac60b5fccaba48", null ],
+    [ "PoleDouble", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a234ec6ca55727bbbaab16141174f7dcf", null ],
+    [ "PoleEnum", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a277ce9400e5c62c2dc2911c938179f3e", null ],
+    [ "PoleFloat", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#adb6bf0f989744409d59fa4a8a6638c50", null ],
+    [ "PoleGuid", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#af1c7609201444173e32bad25454f52b9", null ],
+    [ "PoleInt", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a67dd91d3d0f76956950351b687b5e049", null ],
+    [ "PoleNullableDateTime", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#ae0e63446852a7a49db57399b44de8020", null ],
+    [ "PoleNullableDecimal", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#acecea11db05526b3b179673b0b645982", null ],
+    [ "PoleNullableInt", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a5ba04a30e92e25d29fabf2f2d8664603", null ],
+    [ "PoleNullChar", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a54c71f327394cf80a112497a30d2981e", null ],
+    [ "PoleNullDateTime", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#ad43c8e159e5d7c8d714bdce6967fb0e0", null ],
+    [ "PoleNullDecimal", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a3ce8b5feeb0704277a0a549856941a0b", null ],
+    [ "PoleNullDouble", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a18876e9b4e0a8449460ee049da61bdac", null ],
+    [ "PoleNullFloat", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a93a7b2d7555d3a15061bf36b0f800a20", null ],
+    [ "PoleNullGuid", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a0fad3dc9aecae6f9b468b8de59eb4e4a", null ],
+    [ "PoleNullInt", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a4b0285996c20a0df7dc5a4b4b5bf33ca", null ],
+    [ "PoleString", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a41c66c484e102cbf885870455d19aff5", null ]
+];

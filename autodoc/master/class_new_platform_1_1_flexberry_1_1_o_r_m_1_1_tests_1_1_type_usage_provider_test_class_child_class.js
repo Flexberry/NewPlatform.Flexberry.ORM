@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_type_usage_provider_test_class_child_class =
+[
+    [ "SomeNotStoredObjectProperty", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_type_usage_provider_test_class_child_class.html#a30b40aa2ecf3c5d41b527f6889c5ec4e", null ]
+];

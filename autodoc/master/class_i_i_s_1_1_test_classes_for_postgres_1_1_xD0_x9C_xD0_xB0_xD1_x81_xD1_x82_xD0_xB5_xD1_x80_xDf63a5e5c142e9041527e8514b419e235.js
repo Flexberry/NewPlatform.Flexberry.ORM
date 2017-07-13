@@ -1,0 +1,4 @@
+var class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x9C_xD0_xB0_xD1_x81_xD1_x82_xD0_xB5_xD1_x80_xDf63a5e5c142e9041527e8514b419e235 =
+[
+    [ "АтрибутМастерКласса03", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x9C_xD0_xB0_xD1_x81_xD1_x82_xD0_xB5_xD1_x80_xDf63a5e5c142e9041527e8514b419e235.html#a7d105ae678275a4434d27083fe8995e0", null ]
+];

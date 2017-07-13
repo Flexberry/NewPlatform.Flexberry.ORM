@@ -1,0 +1,897 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>Flexberry ORM 4.0.0: Класс NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Flexberry ORM 4.0.0
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Классы</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li><a href="classes.html"><span>Алфавитный&#160;указатель&#160;классов</span></a></li>
+      <li><a href="hierarchy.html"><span>Иерархия&#160;классов</span></a></li>
+      <li><a href="functions.html"><span>Члены&#160;классов</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pro-attribs">Защищенные данные</a> &#124;
+<a href="#properties">Свойства</a> &#124;
+<a href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Юнит-тесты для PostgresDataService.  
+ <a href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#details">Подробнее...</a></p>
+<div class="dynheader">
+Граф наследования:NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.png" usemap="#NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest_map" alt=""/>
+  <map id="NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest_map" name="NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest_map">
+<area href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html" alt="NewPlatform.Flexberry.ORM.IntegratedTests.BaseIntegratedTest" shape="rect" coords="0,56,463,80"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a630d3642af02064c9a4a7005b6f94ca6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a630d3642af02064c9a4a7005b6f94ca6">TestForwardSlash</a> ()</td></tr>
+<tr class="memdesc:a630d3642af02064c9a4a7005b6f94ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование сохранения и сравнения строки, если в ней присутствует символ '\'.  <a href="#a630d3642af02064c9a4a7005b6f94ca6">Подробнее...</a><br /></td></tr>
+<tr class="separator:a630d3642af02064c9a4a7005b6f94ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad31d3d3b69def8c216005fee55d90247"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#ad31d3d3b69def8c216005fee55d90247">TestString</a> ()</td></tr>
+<tr class="memdesc:ad31d3d3b69def8c216005fee55d90247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - string.  <a href="#ad31d3d3b69def8c216005fee55d90247">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad31d3d3b69def8c216005fee55d90247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac75a427e2109b2e44217602a9fbeb85f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#ac75a427e2109b2e44217602a9fbeb85f">TestChar</a> ()</td></tr>
+<tr class="memdesc:ac75a427e2109b2e44217602a9fbeb85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - char.  <a href="#ac75a427e2109b2e44217602a9fbeb85f">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac75a427e2109b2e44217602a9fbeb85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55d5b7131c940a6124bd57a21e1fab25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a55d5b7131c940a6124bd57a21e1fab25">TestDateTime</a> ()</td></tr>
+<tr class="memdesc:a55d5b7131c940a6124bd57a21e1fab25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - DateTime.  <a href="#a55d5b7131c940a6124bd57a21e1fab25">Подробнее...</a><br /></td></tr>
+<tr class="separator:a55d5b7131c940a6124bd57a21e1fab25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2542a30060de8fe138aedc125bc410f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a2542a30060de8fe138aedc125bc410f3">TestNullableDateTime</a> ()</td></tr>
+<tr class="memdesc:a2542a30060de8fe138aedc125bc410f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - NullableDateTime.  <a href="#a2542a30060de8fe138aedc125bc410f3">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2542a30060de8fe138aedc125bc410f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bba93c74bbafa5daaa3340ab7ebec43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a3bba93c74bbafa5daaa3340ab7ebec43">TestNullableDecimal</a> ()</td></tr>
+<tr class="memdesc:a3bba93c74bbafa5daaa3340ab7ebec43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - NullableDecimal.  <a href="#a3bba93c74bbafa5daaa3340ab7ebec43">Подробнее...</a><br /></td></tr>
+<tr class="separator:a3bba93c74bbafa5daaa3340ab7ebec43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a54761b954f44c0ae53dabd8e8dfbc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a7a54761b954f44c0ae53dabd8e8dfbc2">TestNullableInt</a> ()</td></tr>
+<tr class="memdesc:a7a54761b954f44c0ae53dabd8e8dfbc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - NullableInt.  <a href="#a7a54761b954f44c0ae53dabd8e8dfbc2">Подробнее...</a><br /></td></tr>
+<tr class="separator:a7a54761b954f44c0ae53dabd8e8dfbc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46ad2eb72fa17ec28b60475d2188fe12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a46ad2eb72fa17ec28b60475d2188fe12">TestWebFile</a> ()</td></tr>
+<tr class="memdesc:a46ad2eb72fa17ec28b60475d2188fe12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - WebFile.  <a href="#a46ad2eb72fa17ec28b60475d2188fe12">Подробнее...</a><br /></td></tr>
+<tr class="separator:a46ad2eb72fa17ec28b60475d2188fe12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa216dcbfbbe5f5d134afc5b785f802f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#aa216dcbfbbe5f5d134afc5b785f802f5">TestBool</a> ()</td></tr>
+<tr class="memdesc:aa216dcbfbbe5f5d134afc5b785f802f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - bool.  <a href="#aa216dcbfbbe5f5d134afc5b785f802f5">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa216dcbfbbe5f5d134afc5b785f802f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172817c34cfc01660c544b30ea41ce47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a172817c34cfc01660c544b30ea41ce47">TestByte</a> ()</td></tr>
+<tr class="memdesc:a172817c34cfc01660c544b30ea41ce47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - byte.  <a href="#a172817c34cfc01660c544b30ea41ce47">Подробнее...</a><br /></td></tr>
+<tr class="separator:a172817c34cfc01660c544b30ea41ce47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a834f7bdd2833ee9896ae30d079c1e14e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a834f7bdd2833ee9896ae30d079c1e14e">TestDecimal</a> ()</td></tr>
+<tr class="memdesc:a834f7bdd2833ee9896ae30d079c1e14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - decimal.  <a href="#a834f7bdd2833ee9896ae30d079c1e14e">Подробнее...</a><br /></td></tr>
+<tr class="separator:a834f7bdd2833ee9896ae30d079c1e14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54b091a1c4e71a58229153ebdfaed40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#ad54b091a1c4e71a58229153ebdfaed40">TestDouble</a> ()</td></tr>
+<tr class="memdesc:ad54b091a1c4e71a58229153ebdfaed40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - double.  <a href="#ad54b091a1c4e71a58229153ebdfaed40">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad54b091a1c4e71a58229153ebdfaed40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26a995698f7dd4d2043cc18983f7b283"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a26a995698f7dd4d2043cc18983f7b283">TestFloat</a> ()</td></tr>
+<tr class="memdesc:a26a995698f7dd4d2043cc18983f7b283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - float.  <a href="#a26a995698f7dd4d2043cc18983f7b283">Подробнее...</a><br /></td></tr>
+<tr class="separator:a26a995698f7dd4d2043cc18983f7b283"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7974db28c90005bb8d1bb97ebfd569c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#aa7974db28c90005bb8d1bb97ebfd569c">TestGuid</a> ()</td></tr>
+<tr class="memdesc:aa7974db28c90005bb8d1bb97ebfd569c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - guid.  <a href="#aa7974db28c90005bb8d1bb97ebfd569c">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa7974db28c90005bb8d1bb97ebfd569c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03a6d684f1098fb2466a44cf5b6d95b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a03a6d684f1098fb2466a44cf5b6d95b8">TestInt</a> ()</td></tr>
+<tr class="memdesc:a03a6d684f1098fb2466a44cf5b6d95b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - int.  <a href="#a03a6d684f1098fb2466a44cf5b6d95b8">Подробнее...</a><br /></td></tr>
+<tr class="separator:a03a6d684f1098fb2466a44cf5b6d95b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747886dd8736bd861d1f45429bd889cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a747886dd8736bd861d1f45429bd889cf">TestLong</a> ()</td></tr>
+<tr class="memdesc:a747886dd8736bd861d1f45429bd889cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - long.  <a href="#a747886dd8736bd861d1f45429bd889cf">Подробнее...</a><br /></td></tr>
+<tr class="separator:a747886dd8736bd861d1f45429bd889cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ffea5eb702adbfb8dcf838b25ae6274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a6ffea5eb702adbfb8dcf838b25ae6274">TestObject</a> ()</td></tr>
+<tr class="memdesc:a6ffea5eb702adbfb8dcf838b25ae6274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - object. Object должен быть представлен как массив байт (byte[]).  <a href="#a6ffea5eb702adbfb8dcf838b25ae6274">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6ffea5eb702adbfb8dcf838b25ae6274"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cded231932a900d027292d1cfa171bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a8cded231932a900d027292d1cfa171bb">TestSbyte</a> ()</td></tr>
+<tr class="memdesc:a8cded231932a900d027292d1cfa171bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - sbyte.  <a href="#a8cded231932a900d027292d1cfa171bb">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8cded231932a900d027292d1cfa171bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c16f7a6b6d6364a2400380749acc07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a99c16f7a6b6d6364a2400380749acc07">TestShort</a> ()</td></tr>
+<tr class="memdesc:a99c16f7a6b6d6364a2400380749acc07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - short.  <a href="#a99c16f7a6b6d6364a2400380749acc07">Подробнее...</a><br /></td></tr>
+<tr class="separator:a99c16f7a6b6d6364a2400380749acc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45f78ad36f4452b8abcdbb46a70e6fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a45f78ad36f4452b8abcdbb46a70e6fb1">TestUint</a> ()</td></tr>
+<tr class="memdesc:a45f78ad36f4452b8abcdbb46a70e6fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - uint.  <a href="#a45f78ad36f4452b8abcdbb46a70e6fb1">Подробнее...</a><br /></td></tr>
+<tr class="separator:a45f78ad36f4452b8abcdbb46a70e6fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaefc05b29e08a5ef9d090fae71577e42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#aaefc05b29e08a5ef9d090fae71577e42">TestUlong</a> ()</td></tr>
+<tr class="memdesc:aaefc05b29e08a5ef9d090fae71577e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - ulong.  <a href="#aaefc05b29e08a5ef9d090fae71577e42">Подробнее...</a><br /></td></tr>
+<tr class="separator:aaefc05b29e08a5ef9d090fae71577e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a292ea46b6fa3b813be5622c7e47e5e79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a292ea46b6fa3b813be5622c7e47e5e79">TestUshort</a> ()</td></tr>
+<tr class="memdesc:a292ea46b6fa3b813be5622c7e47e5e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - ushort.  <a href="#a292ea46b6fa3b813be5622c7e47e5e79">Подробнее...</a><br /></td></tr>
+<tr class="separator:a292ea46b6fa3b813be5622c7e47e5e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c98bcdd0e5e2e4f3c54ee0342b72f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a58c98bcdd0e5e2e4f3c54ee0342b72f2">LongNamesTest</a> ()</td></tr>
+<tr class="memdesc:a58c98bcdd0e5e2e4f3c54ee0342b72f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование длинных имён.  <a href="#a58c98bcdd0e5e2e4f3c54ee0342b72f2">Подробнее...</a><br /></td></tr>
+<tr class="separator:a58c98bcdd0e5e2e4f3c54ee0342b72f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69a91038cd8fe616ad8928ad457e2f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a69a91038cd8fe616ad8928ad457e2f52">InheritanceTest</a> ()</td></tr>
+<tr class="memdesc:a69a91038cd8fe616ad8928ad457e2f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется тестирование наследования, использования master-класса и detail-класса при сохранении в БД.  <a href="#a69a91038cd8fe616ad8928ad457e2f52">Подробнее...</a><br /></td></tr>
+<tr class="separator:a69a91038cd8fe616ad8928ad457e2f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html">NewPlatform.Flexberry.ORM.IntegratedTests.BaseIntegratedTest</a></td></tr>
+<tr class="memitem:a0a7488d425309e743556ab6cbb2bdad5 inherit pub_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#a0a7488d425309e743556ab6cbb2bdad5">Dispose</a> ()</td></tr>
+<tr class="memdesc:a0a7488d425309e743556ab6cbb2bdad5 inherit pub_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the temporary databases and perform other cleaning.  <a href="#a0a7488d425309e743556ab6cbb2bdad5">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0a7488d425309e743556ab6cbb2bdad5 inherit pub_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Защищенные данные</h2></td></tr>
+<tr class="memitem:a9e489a011ccc66f3273b540d6e7ac662"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html">PostgresDataService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a9e489a011ccc66f3273b540d6e7ac662">DataService</a></td></tr>
+<tr class="memdesc:a9e489a011ccc66f3273b540d6e7ac662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сервис данных <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres.html">Postgres</a>.  <a href="#a9e489a011ccc66f3273b540d6e7ac662">Подробнее...</a><br /></td></tr>
+<tr class="separator:a9e489a011ccc66f3273b540d6e7ac662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Свойства</h2></td></tr>
+<tr class="memitem:a0765af81fb846ee895708135e271a4f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0765af81fb846ee895708135e271a4f7"></a>
+override string&#160;</td><td class="memItemRight" valign="bottom"><b>MssqlScript</b><code> [get]</code></td></tr>
+<tr class="separator:a0765af81fb846ee895708135e271a4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf300039ac5a04865ee09548cc3c459e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf300039ac5a04865ee09548cc3c459e"></a>
+override string&#160;</td><td class="memItemRight" valign="bottom"><b>PostgresScript</b><code> [get]</code></td></tr>
+<tr class="separator:abf300039ac5a04865ee09548cc3c459e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af75d3af31d8e0bad440368bcbaab6b4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af75d3af31d8e0bad440368bcbaab6b4e"></a>
+override string&#160;</td><td class="memItemRight" valign="bottom"><b>OracleScript</b><code> [get]</code></td></tr>
+<tr class="separator:af75d3af31d8e0bad440368bcbaab6b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td colspan="2" onclick="javascript:toggleInherit('properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test')"><img src="closed.png" alt="-"/>&#160;Свойства унаследованные от <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html">NewPlatform.Flexberry.ORM.IntegratedTests.BaseIntegratedTest</a></td></tr>
+<tr class="memitem:a5d48703de6f604facb1f99f382587ec2 inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d48703de6f604facb1f99f382587ec2"></a>
+virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>MssqlScript</b><code> [get]</code></td></tr>
+<tr class="separator:a5d48703de6f604facb1f99f382587ec2 inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94c9af20600d3b35cd24c4c0d4b8767d inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94c9af20600d3b35cd24c4c0d4b8767d"></a>
+virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>PostgresScript</b><code> [get]</code></td></tr>
+<tr class="separator:a94c9af20600d3b35cd24c4c0d4b8767d inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca01c21362ffd1b7cd873908334f848 inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ca01c21362ffd1b7cd873908334f848"></a>
+virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>OracleScript</b><code> [get]</code></td></tr>
+<tr class="separator:a4ca01c21362ffd1b7cd873908334f848 inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad52f5ad3fb6f11550602e577d43bfacf inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_data_service.html">IDataService</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#ad52f5ad3fb6f11550602e577d43bfacf">DataServices</a><code> [get]</code></td></tr>
+<tr class="memdesc:ad52f5ad3fb6f11550602e577d43bfacf inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data services for temp databases.  <a href="#ad52f5ad3fb6f11550602e577d43bfacf">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad52f5ad3fb6f11550602e577d43bfacf inherit properties_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Дополнительные унаследованные члены</h2></td></tr>
+<tr class="inherit_header pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test')"><img src="closed.png" alt="-"/>&#160;Защищенные члены унаследованные от <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html">NewPlatform.Flexberry.ORM.IntegratedTests.BaseIntegratedTest</a></td></tr>
+<tr class="memitem:a74286c698c12d7dddb842ee8da734eea inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#a74286c698c12d7dddb842ee8da734eea">BaseIntegratedTest</a> (string tempDbNamePrefix)</td></tr>
+<tr class="memdesc:a74286c698c12d7dddb842ee8da734eea inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html">BaseIntegratedTest</a> class.  <a href="#a74286c698c12d7dddb842ee8da734eea">Подробнее...</a><br /></td></tr>
+<tr class="separator:a74286c698c12d7dddb842ee8da734eea inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77f2f7431c6095eb2e379f46da8a6b1a inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_m_s_s_q_l_data_service.html">MSSQLDataService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#a77f2f7431c6095eb2e379f46da8a6b1a">CreateMssqlDataService</a> (string connectionString)</td></tr>
+<tr class="memdesc:a77f2f7431c6095eb2e379f46da8a6b1a inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the MSSQLDataService instance for temp database.  <a href="#a77f2f7431c6095eb2e379f46da8a6b1a">Подробнее...</a><br /></td></tr>
+<tr class="separator:a77f2f7431c6095eb2e379f46da8a6b1a inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ee9d0ddd0d8e0a4ba814f7c8dce2d94 inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html">PostgresDataService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#a2ee9d0ddd0d8e0a4ba814f7c8dce2d94">CreatePostgresDataService</a> (string connectionString)</td></tr>
+<tr class="memdesc:a2ee9d0ddd0d8e0a4ba814f7c8dce2d94 inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the PostgresDataService instance for temp database.  <a href="#a2ee9d0ddd0d8e0a4ba814f7c8dce2d94">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2ee9d0ddd0d8e0a4ba814f7c8dce2d94 inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab92e7f68b628615bca789e38338c178d inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html">OracleDataService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#ab92e7f68b628615bca789e38338c178d">CreateOracleDataService</a> (string connectionString)</td></tr>
+<tr class="memdesc:ab92e7f68b628615bca789e38338c178d inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the OracleDataService instance for temp database.  <a href="#ab92e7f68b628615bca789e38338c178d">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab92e7f68b628615bca789e38338c178d inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2820c6a3ba52d4ba5d66fa7b2d85bf73 inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#a2820c6a3ba52d4ba5d66fa7b2d85bf73">Dispose</a> (bool disposing)</td></tr>
+<tr class="memdesc:a2820c6a3ba52d4ba5d66fa7b2d85bf73 inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the temporary databases and perform other cleaning.  <a href="#a2820c6a3ba52d4ba5d66fa7b2d85bf73">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2820c6a3ba52d4ba5d66fa7b2d85bf73 inherit pro_methods_class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Юнит-тесты для PostgresDataService. </p>
+</div><h2 class="groupheader">Методы</h2>
+<a class="anchor" id="a69a91038cd8fe616ad8928ad457e2f52"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.InheritanceTest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование наследования, использования master-класса и detail-класса при сохранении в БД. </p>
+
+</div>
+</div>
+<a class="anchor" id="a58c98bcdd0e5e2e4f3c54ee0342b72f2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.LongNamesTest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование длинных имён. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa216dcbfbbe5f5d134afc5b785f802f5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestBool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - bool. </p>
+
+</div>
+</div>
+<a class="anchor" id="a172817c34cfc01660c544b30ea41ce47"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestByte </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - byte. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac75a427e2109b2e44217602a9fbeb85f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestChar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - char. </p>
+
+</div>
+</div>
+<a class="anchor" id="a55d5b7131c940a6124bd57a21e1fab25"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestDateTime </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - DateTime. </p>
+
+</div>
+</div>
+<a class="anchor" id="a834f7bdd2833ee9896ae30d079c1e14e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestDecimal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - decimal. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad54b091a1c4e71a58229153ebdfaed40"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestDouble </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - double. </p>
+
+</div>
+</div>
+<a class="anchor" id="a26a995698f7dd4d2043cc18983f7b283"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestFloat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - float. </p>
+
+</div>
+</div>
+<a class="anchor" id="a630d3642af02064c9a4a7005b6f94ca6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestForwardSlash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование сохранения и сравнения строки, если в ней присутствует символ '\'. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa7974db28c90005bb8d1bb97ebfd569c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestGuid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - guid. </p>
+
+</div>
+</div>
+<a class="anchor" id="a03a6d684f1098fb2466a44cf5b6d95b8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestInt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - int. </p>
+
+</div>
+</div>
+<a class="anchor" id="a747886dd8736bd861d1f45429bd889cf"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestLong </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - long. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2542a30060de8fe138aedc125bc410f3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestNullableDateTime </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - NullableDateTime. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3bba93c74bbafa5daaa3340ab7ebec43"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestNullableDecimal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - NullableDecimal. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7a54761b954f44c0ae53dabd8e8dfbc2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestNullableInt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - NullableInt. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6ffea5eb702adbfb8dcf838b25ae6274"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestObject </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - object. Object должен быть представлен как массив байт (byte[]). </p>
+
+</div>
+</div>
+<a class="anchor" id="a8cded231932a900d027292d1cfa171bb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestSbyte </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - sbyte. </p>
+
+</div>
+</div>
+<a class="anchor" id="a99c16f7a6b6d6364a2400380749acc07"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestShort </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - short. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad31d3d3b69def8c216005fee55d90247"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - string. </p>
+
+</div>
+</div>
+<a class="anchor" id="a45f78ad36f4452b8abcdbb46a70e6fb1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestUint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - uint. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaefc05b29e08a5ef9d090fae71577e42"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestUlong </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - ulong. </p>
+
+</div>
+</div>
+<a class="anchor" id="a292ea46b6fa3b813be5622c7e47e5e79"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestUshort </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - ushort. </p>
+
+</div>
+</div>
+<a class="anchor" id="a46ad2eb72fa17ec28b60475d2188fe12"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.TestWebFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется тестирование операций с типом <a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a> - WebFile. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a class="anchor" id="a9e489a011ccc66f3273b540d6e7ac662"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html">PostgresDataService</a> NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest.DataService</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сервис данных <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres.html">Postgres</a>. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_new_platform.html">NewPlatform</a></li><li class="navelem"><a class="el" href="namespace_new_platform_1_1_flexberry.html">Flexberry</a></li><li class="navelem"><a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m.html">ORM</a></li><li class="navelem"><a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests.html">IntegratedTests</a></li><li class="navelem"><a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres.html">Postgres</a></li><li class="navelem"><a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html">PostgresDataServiceTest</a></li>
+    <li class="footer">Документация по Flexberry ORM 4.0.0. Последние изменения: Чт 13 Июл 2017 10:46:13. Создано системой
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
+</body>
+</html>

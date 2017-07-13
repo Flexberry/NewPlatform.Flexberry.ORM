@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE5c961e42dd9254db5600da0ddcd38cd9 =
+[
+    [ "OnUpdateБерлога", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE5c961e42dd9254db5600da0ddcd38cd9.html#a158f411e8d8608bc8d65169a8ee7b1d0", null ]
+];

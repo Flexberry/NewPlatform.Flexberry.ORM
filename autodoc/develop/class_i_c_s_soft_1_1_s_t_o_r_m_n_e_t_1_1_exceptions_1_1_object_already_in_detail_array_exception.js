@@ -1,0 +1,4 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_object_already_in_detail_array_exception =
+[
+    [ "ObjectAlreadyInDetailArrayException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_object_already_in_detail_array_exception.html#a45d2179ad1c78f8f09328a7595fc6421", null ]
+];

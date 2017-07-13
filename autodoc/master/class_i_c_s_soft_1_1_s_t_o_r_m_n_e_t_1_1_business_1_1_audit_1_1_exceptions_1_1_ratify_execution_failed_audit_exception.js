@@ -1,0 +1,5 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_exceptions_1_1_ratify_execution_failed_audit_exception =
+[
+    [ "RatifyExecutionFailedAuditException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_exceptions_1_1_ratify_execution_failed_audit_exception.html#a651b4c873cce7b1510d6e016fcd05f22", null ],
+    [ "FailedAuditIdList", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_exceptions_1_1_ratify_execution_failed_audit_exception.html#abdcc215e35fdd57625fa9a4838616bcf", null ]
+];

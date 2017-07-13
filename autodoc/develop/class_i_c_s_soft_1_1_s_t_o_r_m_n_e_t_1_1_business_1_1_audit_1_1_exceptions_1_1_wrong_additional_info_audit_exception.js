@@ -1,0 +1,4 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_exceptions_1_1_wrong_additional_info_audit_exception =
+[
+    [ "WrongAdditionalInfoAuditException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_exceptions_1_1_wrong_additional_info_audit_exception.html#adf150996279b6157bb3405bad928b27d", null ]
+];

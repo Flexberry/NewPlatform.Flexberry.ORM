@@ -1,0 +1,4 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g =
+[
+    [ "Compare", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g.html#a850026ca998e36d9992e3e337da0b96e", null ]
+];

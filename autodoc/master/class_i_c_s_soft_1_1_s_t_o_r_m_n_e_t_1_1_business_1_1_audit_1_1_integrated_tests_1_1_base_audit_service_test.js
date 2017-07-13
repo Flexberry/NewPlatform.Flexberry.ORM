@@ -1,0 +1,8 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test =
+[
+    [ "BaseAuditServiceTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#a83e10a6839b88909063ed392ea175091", null ],
+    [ "CreateMssqlDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#aa110fed764b8bf5977c91f93a50f138d", null ],
+    [ "CreateOracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#a2377fc233d628eb13ab4c4f65b365ee9", null ],
+    [ "CreatePostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#ac5d5bc52b70d9cea0c2640dc376d02d6", null ],
+    [ "GetAuditServiceForTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#ad245003cdfc26a272639d12cab277fbf", null ]
+];

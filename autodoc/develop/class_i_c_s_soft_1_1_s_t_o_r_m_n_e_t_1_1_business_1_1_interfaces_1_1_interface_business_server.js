@@ -1,0 +1,7 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server =
+[
+    [ "ReferencePropertyInfo", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info" ],
+    [ "GetReferencedDataObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server.html#a2ed10657483bffd670483069fe2b9884", null ],
+    [ "OnUpdateIReferencesCascadeDelete", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server.html#a98404ae7ec251f99feac21732db9a499", null ],
+    [ "OnUpdateIReferencesNullDelete", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server.html#a1c69c61fa0f6a940f28c1cecd6722255", null ]
+];

@@ -1,0 +1,4 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer =
+[
+    [ "DataServiceUsingTypeCustomizer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer.html#a17c0b3c95272071f5d1e260f50c2f098", null ]
+];

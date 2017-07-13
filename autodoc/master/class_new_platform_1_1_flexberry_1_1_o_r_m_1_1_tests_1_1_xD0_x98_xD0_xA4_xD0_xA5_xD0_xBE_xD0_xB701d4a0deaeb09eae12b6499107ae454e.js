@@ -1,0 +1,7 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB701d4a0deaeb09eae12b6499107ae454e =
+[
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB7b86d8b6bbf108146c154c9f9e3dd9bb8.html", null ],
+    [ "ИсточникФинансирования", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB701d4a0deaeb09eae12b6499107ae454e.html#a452d99f9a5358bfa5deb1c7e71ad62a8", null ],
+    [ "НомерИФХозДоговора", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB701d4a0deaeb09eae12b6499107ae454e.html#a492363fdc3381087279a9e59f06cccff", null ],
+    [ "ХозДоговор", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB701d4a0deaeb09eae12b6499107ae454e.html#a463003f4cfb66f94cb8f847c67a27208", null ]
+];

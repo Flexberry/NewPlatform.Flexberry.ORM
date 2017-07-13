@@ -1,0 +1,26 @@
+var class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class =
+[
+    [ "Attr1", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a995b3d10b34bfb2120caf52d48b7d5a0", null ],
+    [ "Attr10", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#ae321e2ecd1bc92f65f34c0c7701b2e1d", null ],
+    [ "Attr11", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a6e6f1581a6a4e56138110e9444c66faf", null ],
+    [ "Attr12", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a7f85954d2a3b5d0dd1a0c483eae794cd", null ],
+    [ "Attr13", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a1f438cdf5078ceebfa1c6fdd592e8107", null ],
+    [ "Attr14", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a3fd1dd7b18b7e8234972279085162008", null ],
+    [ "Attr15", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a90ab6eff4bdf1872b13261fa91845b25", null ],
+    [ "Attr16", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#aaa8be51b5abd4b487a12191a5ff87d22", null ],
+    [ "Attr17", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a5d4eefb47d20ae7cca202b747dd6a0fe", null ],
+    [ "Attr18", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a9280e6bd821e998e8afa7b1506e24db4", null ],
+    [ "Attr19", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#aaa02e584a3715825d4cc52c6304e8c8f", null ],
+    [ "Attr2", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a74ea7824bc66c867bd9373083c3d4a5c", null ],
+    [ "Attr20", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#adcfb62cd454eb83bf9960bea0165b695", null ],
+    [ "Attr21", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a9e3ea73a7f3fc0d81cdc21fc09b99ecc", null ],
+    [ "Attr4", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a7a71a17040e8775ecaf6f6016fdca2b0", null ],
+    [ "Attr5", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#aebf47614ca478371996f2b78d99bfd09", null ],
+    [ "Attr6", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a994c97837962bee2fe8af171b42efe5a", null ],
+    [ "Attr7", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#abf6220fd164ae88fa0be311c3afa78df", null ],
+    [ "Attr8", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a2a2d2c26345e36c71eae6d15af231523", null ],
+    [ "Attr9", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a1a0abbd16eb4c5d6adccf077b8ce2d08", null ],
+    [ "DetailClass", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a73f8de0b9c6137c159a6bc33ef5e41e2", null ],
+    [ "MasterClass", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a1768bdc8b4b1bd298a1dee088d659a0a", null ],
+    [ "Атрибут3", "class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html#a718cd35f677b0f4686834c3d1a4ad470", null ]
+];

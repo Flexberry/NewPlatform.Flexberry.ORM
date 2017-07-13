@@ -1,0 +1,4 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_not_sortable_order_columns_type =
+[
+    [ "NotSortableOrderColumnsType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_not_sortable_order_columns_type.html#a4ac7b08192814124df8b9110d19b7353", null ]
+];
