@@ -242,7 +242,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="NewPlatform.Flexberry.ORM.Test%28Objects%29.snk" />
-    <None Include="NuGetReferenceHintPathRewrite.targets" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
