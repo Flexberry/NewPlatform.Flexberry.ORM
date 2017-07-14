@@ -1,6 +1,6 @@
 # Flexberry ORM
 
-[![Build Status](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM.svg?branch=develop)](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM)
+[![Build Status](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM.svg?branch=master)](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM)
 
 В этом репозитории располагается исходный код Flexberry ORM - фреймворка для [объектно-реляционного отображения](https://ru.wikipedia.org/wiki/ORM) для Microsoft .NET Framework.
 
