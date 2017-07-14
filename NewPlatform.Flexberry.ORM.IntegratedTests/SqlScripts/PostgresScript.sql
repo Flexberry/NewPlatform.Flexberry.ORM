@@ -14,8 +14,6 @@ CREATE TABLE InformationTestClass (
 
  IntPropertyForInfTestClass INT NULL,
 
- ColorPropertyForInfTestClass VARCHAR(255) NULL,
-
  BoolPropertyForInfTestClass BOOLEAN NULL,
 
  PRIMARY KEY (primaryKey));

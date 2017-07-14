@@ -15,8 +15,6 @@ CREATE TABLE "InformationTestClass"
 
 	"IntPropertyForInfTestClass" NUMBER(10) NULL,
 
-	"ColorPropertyForInfTestClass" NVARCHAR2(255) NULL,
-
 	"BoolPropertyForInfTestClass" NUMBER(1) NULL,
 
 	 PRIMARY KEY ("primaryKey")
