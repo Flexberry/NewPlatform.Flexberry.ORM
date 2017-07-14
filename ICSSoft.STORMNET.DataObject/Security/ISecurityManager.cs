@@ -2,6 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Security;
+
+    using NewPlatform.Flexberry.Security;
 
     /// <summary>
     /// Интерфейс для менеджера полномочий. Является основным API для доступа к подсистеме полномочий со стороны программистов.
@@ -128,5 +131,113 @@
         /// <param name="deniedAccessValue">Значение, которое должен получить атрибут при отсутствии прав.</param>
         /// <returns>Если у текущего пользователя есть доступ, то <c>true</c>.</returns>
         bool CheckAccessToAttribute(string expression, out string deniedAccessValue);
+
+        /// <summary>
+        /// Создать операцию.
+        /// </summary>
+        /// <param name="name">Имя операции.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если операция с таким <paramref name="name"/> уже существует.</exception>
+        void CreateOperation(string name);
+
+        /// <summary>
+        /// Создать класс.
+        /// </summary>
+        /// <param name="name">Имя класса.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если класс с таким <paramref name="name"/> уже существует.</exception>
+        void CreateClass(string name);
+
+        /// <summary>
+        /// Создать класс.
+        /// </summary>
+        /// <param name="type">Тип класса.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если класс с таким <paramref name="type"/> уже существует.</exception>
+        void CreateClass(Type type);
+
+        /// <summary>
+        /// Удалить операцию.
+        /// </summary>
+        /// <param name="name">Имя операции.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найдена операци с таким <paramref name="name"/>, или их найдено больше одной.</exception>
+        void RemoveOperation(string name);
+
+        /// <summary>
+        /// Удалить класс.
+        /// </summary>
+        /// <param name="name">Имя класса.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найден класс с таким <paramref name="name"/>, или их найдено больше одного.</exception>
+        void RemoveClass(string name);
+
+        /// <summary>
+        /// Удалить класс.
+        /// </summary>
+        /// <param name="type">Тип класса.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найден класс с таким <paramref name="type"/>, или их найдено больше одного.</exception>
+        void RemoveClass(Type type);
+
+        /// <summary>
+        /// Добавить полномочия на операцию.
+        /// </summary>
+        /// <param name="operationName">Имя операции.</param>
+        /// <param name="typeAccess">Тип доступа.</param>
+        /// <param name="agent">Агент, если не указан, берется из CurrentUserService.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найдена операци с таким <paramref name="operationName"/>, или их найдено больше одной.</exception>
+        void AddPermissionToOperation(string operationName, tTypeAccess typeAccess, IAgent agent = null);
+
+        /// <summary>
+        /// Добавить полномочия на класс.
+        /// </summary>
+        /// <param name="calssName">Имя класса.</param>
+        /// <param name="typeAccess">Тип доступа.</param>
+        /// <param name="agent">Агент, если не указан, берется из CurrentUserService.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найден класс с таким <paramref name="calssName"/>, или их найдено больше одного.</exception>
+        void AddPermissionToClass(string calssName, tTypeAccess typeAccess, IAgent agent = null);
+
+        /// <summary>
+        /// Добавить полномочия на класс.
+        /// </summary>
+        /// <param name="calssType">Тип класса.</param>
+        /// <param name="typeAccess">Тип доступа.</param>
+        /// <param name="agent">Агент, если не указан, берется из CurrentUserService.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найден класс с таким <paramref name="calssType"/>, или их найдено больше одного.</exception>
+        void AddPermissionToClass(Type calssType, tTypeAccess typeAccess, IAgent agent = null);
+
+        /// <summary>
+        /// Удалить полномочия на операцию.
+        /// </summary>
+        /// <param name="operationName">Имя операции.</param>
+        /// <param name="typeAccess">Тип доступа.</param>
+        /// <param name="agent">Агент, если не указан, берется из CurrentUserService.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найдена операци с таким <paramref name="operationName"/>, или их найдено больше одной.</exception>
+        void RemovePermissionFromOperation(string operationName, tTypeAccess typeAccess, IAgent agent = null);
+
+        /// <summary>
+        /// Удалить полномочия на класс.
+        /// </summary>
+        /// <param name="calssName">Имя класса.</param>
+        /// <param name="typeAccess">Тип доступа.</param>
+        /// <param name="agent">Агент, если не указан, берется из CurrentUserService.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найден класс с таким <paramref name="calssName"/>, или их найдено больше одного.</exception>
+        void RemovePermissionFromClass(string calssName, tTypeAccess typeAccess, IAgent agent = null);
+
+        /// <summary>
+        /// Удалить полномочия на класс.
+        /// </summary>
+        /// <param name="calssType">Тип класса.</param>
+        /// <param name="typeAccess">Тип доступа.</param>
+        /// <param name="agent">Агент, если не указан, берется из CurrentUserService.</param>
+        /// <exception cref="SecurityException">Выбрасывается, если у текущего пользователя нет операции для управления полномочиями.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если не найден класс с таким <paramref name="calssType"/>, или их найдено больше одного.</exception>
+        void RemovePermissionFromClass(Type calssType, tTypeAccess typeAccess, IAgent agent = null);
     }
 }

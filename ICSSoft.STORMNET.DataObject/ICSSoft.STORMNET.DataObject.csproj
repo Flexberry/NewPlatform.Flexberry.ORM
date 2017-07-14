@@ -222,6 +222,7 @@
     </Compile>
     <Compile Include="Security\EmptySecurityManager.cs" />
     <Compile Include="Security\IAccessErrorNameConverter.cs" />
+    <Compile Include="Security\IAgent.cs" />
     <Compile Include="Security\ISecurityManager.cs" />
     <Compile Include="Security\ISecurityService.cs" />
     <Compile Include="Security\OperationResult.cs" />

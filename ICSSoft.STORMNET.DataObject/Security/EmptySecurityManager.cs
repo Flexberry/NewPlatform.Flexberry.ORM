@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using NewPlatform.Flexberry.Security;
+
     /// <summary>
     /// Менеджер полномочий без проверки полномочий.
     /// </summary>
@@ -144,6 +146,90 @@
         {
             deniedAccessValue = string.Empty;
             return true;
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void CreateOperation(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void CreateClass(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void CreateClass(Type type)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void RemoveOperation(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void RemoveClass(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void RemoveClass(Type type)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void AddPermissionToOperation(string operationName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void AddPermissionToClass(string calssName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void AddPermissionToClass(Type calssType, tTypeAccess typeAccess, IAgent agent = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void RemovePermissionFromOperation(string operationName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void RemovePermissionFromClass(string calssName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException"><see cref="EmptySecurityManager"/> не реализует этот метод.</exception>
+        public void RemovePermissionFromClass(Type calssType, tTypeAccess typeAccess, IAgent agent = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
