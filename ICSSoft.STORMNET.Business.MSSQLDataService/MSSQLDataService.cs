@@ -7,7 +7,9 @@
     using FunctionalLanguage.SQLWhere;
     using FunctionalLanguage;
     using Windows.Forms;
+#if DNX4
     using Services;
+#endif
     using System.Collections;
 
     /// <summary>
@@ -120,7 +122,10 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
+                return string.Format("'{0}'", Environment.UserName);
+#if DNX4
                 return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+#endif
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")

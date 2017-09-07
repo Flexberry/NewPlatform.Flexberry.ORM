@@ -1,6 +1,8 @@
 ﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
+#if DNX4
     using ICSSoft.Services;
+#endif
 
     /// <summary>
     /// Объектное представление сохраняемого в базе ограничения.
@@ -25,7 +27,10 @@
             set
             {
                 fPublished = value;
+                User = System.Environment.UserName;
+#if DNX4
                 User = value ? null : CurrentUserService.CurrentUser.FriendlyName;
+#endif
             }
         }
     }

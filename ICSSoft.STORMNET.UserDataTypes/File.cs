@@ -4,17 +4,18 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace ICSSoft.STORMNET.FileType
 {
     using System;
     using System.IO;
 
+#if DNX4
     using ICSharpCode.SharpZipLib.Core;
-
+    using ICSharpCode.SharpZipLib.Zip;
+#endif
     using ICSSoft.STORMNET.Windows.Forms.Binders;
-
+#if DNX4
     /// <summary>
     /// Тип данных File
     /// </summary>
@@ -23,6 +24,7 @@ namespace ICSSoft.STORMNET.FileType
     [Serializable]
     public class File : IConvertible, IFormattable, IComparableType
     {
+
         private string _zippedValue;
 
         private string _name;
@@ -294,7 +296,7 @@ namespace ICSSoft.STORMNET.FileType
             }
         }
         
-        #region IConvertible members
+    #region IConvertible members
         
         public TypeCode GetTypeCode()
         {
@@ -381,7 +383,7 @@ namespace ICSSoft.STORMNET.FileType
             return 0;
         }
         
-        #endregion
+    #endregion
 
         public override string ToString()
         {
@@ -407,5 +409,6 @@ namespace ICSSoft.STORMNET.FileType
 
             return -1;
         }
-    }
+#endif
+
 }

@@ -53,7 +53,9 @@
                     }
                     else
                     {
+#if DNX4                        
                         _serializedOperatedObject = Tools.ToolXML.DataObject2XMLDocument(ref value).InnerXml;
+#endif
                         _typeOfOperatedObject = value.GetType().FullName;
                         _assemblyOfOperatedObject = Path.GetFileName(value.GetType().Assembly.Location);
                     }
@@ -81,9 +83,9 @@
         [DataMember]
         private string _assemblyOfOperatedObject = string.Empty;
 
-        #endregion Работа с объектом, который может понадобиться отправить по wcf.
+#endregion Работа с объектом, который может понадобиться отправить по wcf.
 
-        #region Работа со старой версией объекта, которую может понадобиться отправить по wcf.
+#region Работа со старой версией объекта, которую может понадобиться отправить по wcf.
 
         /// <summary>
         /// Сериализованное представление старой версии объекта, над которым выполнили аудируемую операцию.
@@ -116,16 +118,18 @@
             {
                 if (NeedSerialization)
                 { // Подготовка к предстоящей сериализации (если взаимодействие не через wcf, то не нужно)
+#if DNX4
                     _serializedOldOperatedObject = value == null 
                         ? string.Empty 
                         : Tools.ToolXML.DataObject2XMLDocument(ref value).InnerXml;
+#endif
                 }
 
                 _oldVersionOperatedObject = value;
             }
         }
 
-        #endregion Работа со старой версией объекта, которую может понадобиться отправить по wcf.
+#endregion Работа со старой версией объекта, которую может понадобиться отправить по wcf.
 
         [DataMember]
         public string AuditView;

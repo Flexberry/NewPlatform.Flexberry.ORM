@@ -8,7 +8,9 @@
     using System.Text;
     using System.Text.RegularExpressions;
 
+#if DNX4
     using ICSSoft.Services;
+#endif
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
@@ -17,7 +19,9 @@
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.Security;
 
+#if DNX4
     using Microsoft.Practices.Unity;
+#endif
 
     using SpecColl = System.Collections.Specialized;
     using STORMDO = ICSSoft.STORMNET;
@@ -202,8 +206,12 @@
             {
                 if (_securityManager == null)
                 {
+                    _securityManager = new EmptySecurityManager();
+#if DNX4
                     IUnityContainer container = UnityFactory.CreateContainer();
                     _securityManager = container.Resolve<ISecurityManager>();
+#endif
+
                 }
 
                 return _securityManager;
@@ -1286,7 +1294,7 @@
                     resQuery += "TOP " + customizationStruct.ReturnTop.ToString() + " ";
                 string resStart = resQuery;
 
-                #region задаем порядок колонок в запросе - результат в props : StringCollection
+#region задаем порядок колонок в запросе - результат в props : StringCollection
 
                 System.Collections.Specialized.StringCollection props = new System.Collections.Specialized.StringCollection();
                 ICSSoft.STORMNET.Collections.NameObjectCollection advprops = new ICSSoft.STORMNET.Collections.NameObjectCollection();
@@ -1343,7 +1351,7 @@
                     }
                     props.Add(PutIdentifierIntoBrackets("STORMNETDATAOBJECTTYPE"));
                 }
-                #endregion
+#endregion
 
                 string colsPart = Query.Substring(Query.IndexOf(System.Text.RegularExpressions.Regex.Match(Query,
                     @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets("STORMMainObjectKey")).Value));

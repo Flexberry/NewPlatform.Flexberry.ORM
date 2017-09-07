@@ -7,11 +7,13 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+#if DNX4
     using ICSSoft.Services;
+    using Microsoft.Practices.Unity;
+#endif
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.Security;
-    using Microsoft.Practices.Unity;
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
     using FunctionalLanguage.SQLWhere;
     using FunctionalLanguage;
@@ -43,8 +45,11 @@
             {
                 if (_securityManager == null)
                 {
+                    _securityManager = new EmptySecurityManager();
+#if DNX4
                     IUnityContainer container = UnityFactory.CreateContainer();
                     _securityManager = container.Resolve<ISecurityManager>();
+#endif
                 }
 
                 return _securityManager;
@@ -166,7 +171,7 @@
             }
         }
 
-        #region IDataService Members
+#region IDataService Members
 
         /// <summary>
         /// Преобразовать значение в SQL строку
@@ -969,7 +974,7 @@
             }
         }
 
-        #endregion IDataService Members
+#endregion IDataService Members
 
         public void LoadDataSet()
         {

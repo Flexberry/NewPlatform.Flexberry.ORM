@@ -71,7 +71,9 @@
             Type objectType = asm.GetType(typeOfObject);
             var deserializedObject = (DataObject)Activator.CreateInstance(objectType);
             var xmlDocument = new XmlDocument { InnerXml = xmlValue };
+#if DNX4
             Tools.ToolXML.XMLDocument2DataObject(ref deserializedObject, xmlDocument);
+#endif
             return deserializedObject;
         }
     }

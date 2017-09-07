@@ -8,12 +8,10 @@
 
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Security;
-
+    using Windows.Forms;
     using Npgsql;
     using FunctionalLanguage;
     using FunctionalLanguage.SQLWhere;
-    using Windows.Forms;
-    using Services;
     using System.Collections;
     using static Windows.Forms.ExternalLangDef;
 
@@ -270,7 +268,7 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+                return string.Format("'{0}'", Environment.UserName);
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")

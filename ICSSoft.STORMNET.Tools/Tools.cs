@@ -8,8 +8,8 @@
     using System.Reflection;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using System.Runtime.Serialization.Formatters.Soap;
+    using System.Runtime.Serialization.Formatters.Binary;    
+    //using System.Runtime.Serialization.Formatters.Soap;
     using System.Text.RegularExpressions;
     using System.Xml;
 
@@ -26,7 +26,6 @@
         public ToolXML()
         {
         }
-
         /// <summary>
         /// Получение объекта данных из ранее полученного XML документа
         /// </summary>
@@ -298,7 +297,7 @@
                 }
             }
 
-            xmlEl.SetAttribute("DynamicProperties", dataObject.DynamicProperties.Count > 0 ? ObjectToString(dataObject.DynamicProperties) : string.Empty);
+            xmlEl.SetAttribute("DynamicProperties", dataObject.DynamicProperties.Count > 0 ? ToolBinarySerializer.ObjectToString(dataObject.DynamicProperties) : string.Empty);
 
             if (setObjectLoadingStateLoaded)
             {
@@ -311,6 +310,8 @@
             }
         }
 
+
+        /*
         ///<summary>
         /// Сериализация объекта при помощи SoapFormatter
         ///</summary>
@@ -346,6 +347,8 @@
             objectFromString = formatter.Deserialize(str);
             return objectFromString;
         }
+        */
+
 
         /// <summary>
         /// Извлечение объекта данных из строки
@@ -422,7 +425,7 @@
                     if (string.IsNullOrEmpty(dpstr))
                         dataObject.DynamicProperties = new NameObjectCollection();
                     else
-                        dataObject.DynamicProperties = (NameObjectCollection)ObjectFromString(dpstr);
+                        dataObject.DynamicProperties = (NameObjectCollection)ToolBinarySerializer.ObjectFromString(dpstr);
                 }
             }
 
@@ -560,7 +563,6 @@
             }
             return result;
         }
-
 
     }
 
@@ -891,6 +893,7 @@
 
     public class ToolZIP
     {
+#if DNX4
         // *** Start programmer edit section *** (Compressor CustomMembers)
         /// <summary>
         /// Сжатие
@@ -1018,5 +1021,6 @@
             return retStr;
         }
         // *** End programmer edit section *** (Compressor CustomMembers)
+#endif
     }
 }

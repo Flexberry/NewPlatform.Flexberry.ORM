@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using NewPlatform.Flexberry.Security;
+
     /// <summary>
     /// Менеджер полномочий без проверки полномочий.
     /// </summary>
@@ -14,6 +16,7 @@
         public bool Enabled
         {
             get { return false; }
+			set { }
         }
 
         /// <summary>
@@ -144,6 +147,66 @@
         {
             deniedAccessValue = string.Empty;
             return true;
+        }
+
+        /// <inheritdoc/>
+        public void CreateOperation(string name)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void CreateClass(string name)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void CreateClass(Type type)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void RemoveOperation(string name)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void RemoveClass(string name)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void RemoveClass(Type type)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void AddPermissionToOperation(string operationName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void AddPermissionToClass(string calssName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void AddPermissionToClass(Type calssType, tTypeAccess typeAccess, IAgent agent = null)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void RemovePermissionFromOperation(string operationName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void RemovePermissionFromClass(string calssName, tTypeAccess typeAccess, IAgent agent = null)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void RemovePermissionFromClass(Type calssType, tTypeAccess typeAccess, IAgent agent = null)
+        {
         }
     }
 }

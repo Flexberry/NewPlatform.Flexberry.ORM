@@ -15,13 +15,13 @@
     using ICSSoft.STORMNET.Windows.Forms;
 
     using Remotion.Linq.Clauses.Expressions;
-    using Remotion.Linq.Clauses.ExpressionTreeVisitors;
+    using Remotion.Linq.Clauses.ExpressionVisitors;
     using Remotion.Linq.Parsing;
 
     /// <summary>
     /// Visitor, который обходит распарсенноое дерево
     /// </summary>
-    public abstract class LcsGeneratorExpressionTreeVisitorBase : ThrowingExpressionTreeVisitor, IExpressionTreeVisitor
+    public abstract class LcsGeneratorExpressionTreeVisitorBase : ThrowingExpressionVisitor, IExpressionTreeVisitor
     {
         /// <summary>
         /// Описание языка для построения lcs.
@@ -110,14 +110,15 @@
         /// <returns>Экземпляр visitor'а для обработки запроса linq-выражения для <see cref="LcsQueryProvider{T,Q}"/>.</returns>
         public abstract IQueryModelVisitor GetQueryModelVisitor(bool viewIsDynamic, View view, IEnumerable<View> resolvingViews);
 
+        
         /// <summary>
         /// Обход унарной операции в дереве выражения.
         /// </summary>
         /// <param name="expression"> Элемент, соответствующий унарной операции. </param>
         /// <returns> Фактически возвращается то же выражение, но при этом в стеке появляются необходимые параметры. </returns>
-        protected override Expression VisitUnaryExpression(UnaryExpression expression)
+        protected override Expression VisitUnary(UnaryExpression expression)
         {
-            VisitExpression(expression.Operand);
+            Visit(expression.Operand);
 
             switch (expression.NodeType)
             {
@@ -151,7 +152,7 @@
         /// </summary>
         /// <param name="expression"> Выражение-подзапрос. </param>
         /// <returns> Данный метод реализован только у потомков. </returns>
-        protected override Expression VisitSubQueryExpression(SubQueryExpression expression)
+        protected override Expression VisitSubQuery(SubQueryExpression expression)
         {
             throw new NotImplementedException("Метод VisitSubQueryExpression доступен только в потомках.");
         }
@@ -231,7 +232,7 @@
         /// </summary>
         /// <param name="expression">Текущее рассматриваемое выражение.</param>
         /// <returns>Фактически возвращается то же выражение, но при этом в стеке появляются необходимые параметры.</returns>
-        protected override Expression VisitConditionalExpression(ConditionalExpression expression)
+        protected override Expression VisitConditional(ConditionalExpression expression)
         {
             Expression iftrue = expression.IfTrue;
             Expression iffalse = expression.IfFalse;
@@ -244,11 +245,11 @@
                  * Поэтому опознаём такую ситуацию и оставляем только часть "Convert(Поле.Contains(Значение))".
                  */
 
-                VisitExpression(iffalse);
+                Visit(iffalse);
                 return expression;
             }
 
-            return base.VisitConditionalExpression(expression);
+            return base.VisitConditional(expression);
         }
 
         /// <summary>
@@ -256,7 +257,7 @@
         /// </summary>
         /// <param name="expression"> Элемент, соответствующий бинарной операции. </param>
         /// <returns>Фактически возвращается то же выражение, но при этом в стеке появляются необходимые параметры.</returns>
-        protected override Expression VisitBinaryExpression(BinaryExpression expression)
+        protected override Expression VisitBinary(BinaryExpression expression)
         {
             Expression boolRightExpression;
             ConstantExpression boolRightConstantExpression;
@@ -277,7 +278,7 @@
                                 && ((bool?)boolRightConstantExpression.Value).Value)))))
             {
                 // Заменяем ситуацию вида: "o.BoolField == true" на простую проверку "o.BoolField".
-                VisitExpression(expression.Left);
+                Visit(expression.Left);
                 return expression;
             }
 
@@ -304,9 +305,9 @@
             Expression rightExpression = CheckOnFuncDayOfWeekZeroBased(expression.Left, expression.Right);
             Expression leftExpression = CheckOnFuncDayOfWeekZeroBased(expression.Right, expression.Left);
 
-            VisitExpression(leftExpression);
+            Visit(leftExpression);
             _dataobjectmember = false;
-            VisitExpression(rightExpression);
+            Visit(rightExpression);
             _dataobjectmember = false;
 
             // In production code, handle this via lookup tables.
@@ -368,7 +369,7 @@
             return expression;
         }
 
-        protected override Expression VisitQuerySourceReferenceExpression(QuerySourceReferenceExpression expression)
+        protected override Expression VisitQuerySourceReference(QuerySourceReferenceExpression expression)
         {
             return expression;
         }
@@ -378,7 +379,7 @@
         /// </summary>
         /// <param name="expression"> Выражение, соответствующему свойству элемента. </param>
         /// <returns> Реализовано только в потомках, будет проброшено исключение. </returns>
-        protected override Expression VisitMemberExpression(MemberExpression expression)
+        protected override Expression VisitMember(MemberExpression expression)
         {
             throw new NotImplementedException("Метод VisitMemberExpression доступен только в потомках.");
         }
@@ -532,7 +533,7 @@
         /// </summary>
         /// <param name="expression"> Элемент, соответствующий константе. </param>
         /// <returns> Фактически возвращается то же выражение, но при этом в стеке появляются необходимые параметры. </returns>
-        protected override Expression VisitConstantExpression(ConstantExpression expression)
+        protected override Expression VisitConstant(ConstantExpression expression)
         {
             if (true.Equals(expression.Value))
             {
@@ -562,7 +563,7 @@
         /// <param name="expression"> Элемент, соответствующий вызову метода. </param>
         /// <returns> Фактически возвращается то же выражение, но при этом в стеке появляются необходимые параметры. </returns>
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1123:DoNotPlaceRegionsWithinElements", Justification = "Reviewed. Suppression is OK here.")]
-        protected override Expression VisitMethodCallExpression(MethodCallExpression expression)
+        protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
             // ToDo: In production code, handle this via method lookup tables.
             string methodName = expression.Method.Name;
@@ -600,12 +601,12 @@
                         UtilsLcs.CheckMethodArguments(expression, new Type[] { });
                     }
 
-                    return VisitExpression(expression.Object);
+                    return Visit(expression.Object);
 
                 case "ToUpper":
                 case "ToLower":
                     UtilsLcs.CheckMethodArguments(expression, new Type[] { });
-                    VisitExpression(expression.Object);
+                    Visit(expression.Object);
                     _stacksHolder.PushFunction(_ldef.GetFunction(expression.Method.Name, _stacksHolder.PopParam()));
                     return expression;
 
@@ -626,8 +627,8 @@
                     if (expression.Arguments.Count != 1) throw new Exception("Функция CompareTo ожидает один параметр");
 
                     // Передача параметров в стек для дальнейшей обертки в стандартное сравнение lcs
-                    VisitExpression(expression.Object);
-                    VisitExpression(expression.Arguments[0]);
+                    Visit(expression.Object);
+                    Visit(expression.Arguments[0]);
                     return expression;
 
                 case "Compare":
@@ -639,8 +640,8 @@
 
                     // Передача параметров в стек для дальнейшей обертки в стандартное сравнение lcs.
                     // Если параметрова три и он типа StringComparison, то он игнорируется, потому что не даёт lcs никакой новой информации.
-                    VisitExpression(expression.Arguments[0]);
-                    VisitExpression(expression.Arguments[1]);
+                    Visit(expression.Arguments[0]);
+                    Visit(expression.Arguments[1]);
                     return expression;
 
                 case "Contains":
@@ -654,12 +655,12 @@
                     return PushFunctionlike(expression, UtilsLcs.GetLikePatternByFunctionName(methodName));
 
                 case "Substring":
-                    VisitExpression(expression.Object);
-                    VisitExpression(expression.Arguments[0]);
+                    Visit(expression.Object);
+                    Visit(expression.Arguments[0]);
                     var substringCount = -1;
                     if (expression.Arguments.Count > 1)
                     {
-                        VisitExpression(expression.Arguments[1]);
+                        Visit(expression.Arguments[1]);
                         substringCount = (int)_stacksHolder.PopParam();
                     }
 
@@ -670,8 +671,8 @@
                     return expression;
 
                 case "AddYears":
-                    VisitExpression(expression.Object);
-                    VisitExpression(expression.Arguments[0]);
+                    Visit(expression.Object);
+                    Visit(expression.Arguments[0]);
                     var yearArg = _stacksHolder.PopParam();
                     var yearParam = _stacksHolder.PopParam();
 
@@ -680,7 +681,7 @@
                     return expression;
 
                 case "Equals":
-                    VisitExpression(expression.Object);
+                    Visit(expression.Object);
                     foreach (Expression argument in expression.Arguments)
                     {
                         if (argument.Type == typeof(StringComparison))
@@ -689,7 +690,7 @@
                                 "StringComparison не поддерживается, используйте другой перегруженный метод string.Equals(string, string)");
                         }
 
-                        VisitExpression(argument);
+                        Visit(argument);
                     }
 
                     var param1 = _stacksHolder.PopParam();
@@ -732,7 +733,7 @@
                     break;
 
                 case "IsNullOrEmpty":
-                    VisitExpression(expression.Arguments[0]);
+                    Visit(expression.Arguments[0]);
                     _stacksHolder.PushFunction(UtilsLcs.GetCompareWithNullFunction(ExpressionType.Equal, _stacksHolder.PopParam()));
                     return expression;
             }
@@ -744,7 +745,7 @@
 
             #endregion Неподдерживаемые функции
 
-            return base.VisitMethodCallExpression(expression);
+            return base.VisitMethodCall(expression);
         }
 
         protected override Exception CreateUnhandledItemException<T>(T unhandledItem, string visitMethod)
@@ -789,8 +790,8 @@
             Expression arg1 = expression.Arguments[0];
             Expression arg2 = expression.Arguments[1];
 
-            VisitExpression(arg1);
-            VisitExpression(arg2);
+            Visit(arg1);
+            Visit(arg2);
 
             var param1 = _stacksHolder.PopParam();
             if (!hasParameter)
@@ -1064,8 +1065,8 @@
             Expression arg1 = expressionHasObject ? expression.Object : expression.Arguments[0];
             Expression arg2 = expressionHasObject ? expression.Arguments[0] : expression.Arguments[1];
 
-            VisitExpression(arg1);
-            VisitExpression(arg2);
+            Visit(arg1);
+            Visit(arg2);
 
             var param1 = (string)_stacksHolder.PopParam();
             var param2 = (VariableDef)_stacksHolder.PopParam();
@@ -1079,7 +1080,7 @@
         private string FormatUnhandledItem<T>(T unhandledItem)
         {
             var itemAsExpression = unhandledItem as Expression;
-            return itemAsExpression != null ? FormattingExpressionTreeVisitor.Format(itemAsExpression) : unhandledItem.ToString();
+            return itemAsExpression != null ? itemAsExpression.ToString() : unhandledItem.ToString();
         }
 
         /// <summary>

@@ -1,10 +1,12 @@
 ﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
     using System;
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.FunctionalLanguage;
 
+#if DNX4
     using Microsoft.Practices.Unity;
+    using ICSSoft.Services;
+#endif
 
     /// <summary>
     /// Определение переменной ограничения, предназначенное для описания детейлов.
@@ -39,6 +41,7 @@
         {
             View resultView = Information.GetView(viewName, dataObjectType);
 
+#if DNX4
             if (resultView == null)
             {
                 // Если не удалось получить представление для детейла стандартным методом, то пробуем сделать это другим способом.
@@ -59,7 +62,7 @@
                     resultView = resolvedType.GenerateView(viewName, dataObjectType);
                 }
             }
-
+#endif
             return resultView;
         }
 

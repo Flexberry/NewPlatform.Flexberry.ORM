@@ -4,8 +4,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
@@ -234,7 +232,7 @@
         /// </summary>
         public string funcToChar { get { return "ToChar"; } }
 
-        #region Расширение ограничения
+#region Расширение ограничения
 
         /// <summary>
         /// Метод для получения коллекции первичных ключей объектов в иерерхии, которые не были вычитаны вследствие наложения ограничения на родителей в иерархии.
@@ -373,7 +371,7 @@
             }
             return result;
         }
-        #endregion
+#endregion
 
         private object DataObjectToSimpleValue(object val)
         {
@@ -994,7 +992,7 @@
                     lcs.View.AddProperty(s);
                 }
 
-                #region Проставление ограничения
+#region Проставление ограничения
 
                 var boolVariable = value.Parameters[2] as VariableDef;
 
@@ -1010,7 +1008,7 @@
                         value.Parameters[2] as Function, dvd.StringedView, al);
                 }
 
-                #endregion
+#endregion
 
                 al.Add(dvd.ConnectMasterPorp);
                 retVars = (string[])al.ToArray(typeof(string));

@@ -5,9 +5,11 @@
     using System.Security.Cryptography;
     using System.Text;
     using System.Web;
+#if DNX4
     using System.Web.Configuration;
     using ICSSoft.Services;
     using Microsoft.Practices.Unity;
+#endif
 
     /// <summary>
     /// <see cref="IDataService"/> service locator.
@@ -58,6 +60,7 @@
         {
             get
             {
+#if DNX4
                 if (_alwaysNewDS || _dataService == null)
                 {
                     try
@@ -102,7 +105,7 @@
                         LogService.LogError("IDataService is not resolved.", exception);
                     }
                 }
-
+#endif
                 // Web applications served by ICSSoft.STORMNET.Web.Tools.BridgeToDS class for support some extended features like multidatabase, etc.
                 if (_alwaysNewDS && IsWebApp)
                 {
@@ -180,6 +183,7 @@
         /// </summary>
         private static bool? _isWebApp;
 
+
         /// <summary>
         /// Determinate is a web application. Will be check <see cref="HttpContext.Current"/> is not null for web applications.
         /// </summary>
@@ -187,12 +191,15 @@
         {
             get
             {
+                return false;
+#if DNX4
                 if (_isWebApp == null)
                 {
                     _isWebApp = HttpContext.Current != null;
                 }
 
                 return _isWebApp.Value;
+#endif
             }
         }
 

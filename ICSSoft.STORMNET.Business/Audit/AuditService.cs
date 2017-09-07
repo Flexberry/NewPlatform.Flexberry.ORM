@@ -7,7 +7,9 @@
     using System.Reflection;
     using System.Web;
 
+#if DNX4
     using ICSSoft.Services;
+#endif
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
@@ -21,7 +23,7 @@
     /// </summary>
     public class AuditService : IAuditService
     {
-        #region Статические элементы
+#region Статические элементы
 
         /// <summary>
         /// Текущий класс для работы с сервисом аудита.
@@ -42,13 +44,17 @@
         {
             Current.AppSetting = appSetting;
             Current.Audit = audit;
-            Current.ApplicationMode = HttpContext.Current != null ? AppMode.Web : AppMode.Win;
+            Current.ApplicationMode =
+#if DNX4 
+                HttpContext.Current != null ? AppMode.Web : 
+#endif
+                AppMode.Win;
             Current.ShowPrimaryKey = false;
         }
 
-        #endregion Статические элементы
+#endregion Статические элементы
 
-        #region Поля и свойства
+            #region Поля и свойства
 
         /// <summary>
         /// Current audit settings loader for types.
@@ -184,9 +190,9 @@
             }
         }
 
-        #endregion Поля и свойства
+            #endregion Поля и свойства
 
-        #region Доработки для записи аудита полей, которые получают своё значение только после сохранения объекта в БД.
+            #region Доработки для записи аудита полей, которые получают своё значение только после сохранения объекта в БД.
 
         /// <summary>
         /// Сообщаем о совершении потенциально аудируемого действа.
@@ -227,9 +233,9 @@
                 executionVariant, auditOperationInfoList, dataService.CustomizationString, dataService.GetType(), throwExceptions, true);
         }
 
-        #endregion Доработки для записи аудита полей, которые получают своё значение только после сохранения объекта в БД.
+            #endregion Доработки для записи аудита полей, которые получают своё значение только после сохранения объекта в БД.
 
-        #region Методы по обработке данных аудита
+            #region Методы по обработке данных аудита
 
         /// <summary>
         /// Получение представления, по которому вероятнее всего вёлся аудит объекта,
@@ -272,9 +278,9 @@
                 : null;
         }
 
-        #endregion Методы по обработке данных аудита
+            #endregion Методы по обработке данных аудита
 
-        #region Методы для записи данных аудита
+            #region Методы для записи данных аудита
 
         /// <summary>
         /// Сделать запись в аудит
@@ -631,9 +637,9 @@
             }
         }
 
-        #endregion Методы для записи данных аудита
+            #endregion Методы для записи данных аудита
 
-        #region Разрешение варианта отправки данных аудиту
+            #region Разрешение варианта отправки данных аудиту
 
         /// <summary>
         /// Проверка режима записи данных аудита и в зависимости от этого отправка нужным способом данных аудита.
@@ -666,7 +672,10 @@
 
             if (IsAuditRemote)
             {
+#if DNX4
+
                 auditOperationId = _remoteAuditController.WriteAuditOperation(commonAuditParameters, AppSetting.AuditWinServiceUrl);
+#endif
             }
             else
             {
@@ -716,7 +725,9 @@
 
             if (IsAuditRemote)
             {
+#if DNX4
                 auditOperationId = _remoteAuditController.WriteAuditOperation(checkedCustomAuditParameters, AppSetting.AuditWinServiceUrl);
+#endif
             }
             else
             {
@@ -755,7 +766,9 @@
 
             if (IsAuditRemote)
             {
+#if DNX4
                 _remoteAuditController.RatifyAuditOperation(ratificationAuditParameters, AppSetting.AuditWinServiceUrl);
+#endif
             }
             else
             {
@@ -880,9 +893,9 @@
             }
         }
 
-        #endregion Разрешение варианта отправки данных аудиту
+#endregion Разрешение варианта отправки данных аудиту
 
-        #region Вспомогательные методы
+#region Вспомогательные методы
 
         /// <summary>
         /// Генерация базовой части <see cref="CommonAuditParameters"/>
@@ -1017,7 +1030,7 @@
             }
         }
 
-        #region Копирование свойств из старого объекта в новый.
+#region Копирование свойств из старого объекта в новый.
 
         /// <summary>
         /// Скопировать недостающие свойства из старого объекта, которые не загружены в новом объекте.
@@ -1336,7 +1349,7 @@
             return oldObject;
         }
 
-        #endregion Копирование свойств из старого объекта в новый.
+#endregion Копирование свойств из старого объекта в новый.
 
         /// <summary>
         /// Скопировать объект, который ещё не был сохранён.
@@ -1407,15 +1420,18 @@
         private static string GetCurrentUserInfo(AppMode curMode, bool needNameNotLogin)
         {
             // Сначала пробуем определить имя пользователя через CurrentUserService.
+            return string.Join("\\", new[] { Environment.UserDomainName, Environment.UserName });
+#if DNX4
             try
             {
                 // Данный метод должен отработать как в win, так и в web.
-                var currentUser = CurrentUserService.CurrentUser;
+                var currentUser = null;
+                currentUser = CurrentUserService.CurrentUser;
                 if (currentUser != null)
                 {
                     if (needNameNotLogin)
                     {
-                        var friendlyName = currentUser.FriendlyName;
+                        string friendlyName = currentUser.FriendlyName;
                         if (CheckHelper.IsNullOrWhiteSpace(friendlyName))
                         {
                             return friendlyName;
@@ -1432,7 +1448,7 @@
                     }
 
                     // Дружественное имя не определено. Используется логин.
-                    var loginName = currentUser.Login;
+                    string loginName = currentUser.Login;
                     if (CheckHelper.IsNullOrWhiteSpace(loginName))
                     {
                         return loginName;
@@ -1443,7 +1459,6 @@
             {
                 LogService.LogError("AuditService, GetCurrentUserInfo: Произошла ошибка при работе с CurrentUserService", ex);
             }
-
             // Потом, если web, по старинке через HttpContext.Current.User.Identity.
             if (curMode == AppMode.Web
                     && HttpContext.Current != null
@@ -1453,7 +1468,7 @@
             {
                 return HttpContext.Current.User.Identity.Name;
             }
-
+#endif
             // TODO: подумать, что стоит делать.
             throw new DataNotFoundAuditException("не удалось определить текущего пользователя");
         }
@@ -1468,9 +1483,10 @@
         {
             switch (curMode)
             {
+#if DNX4
                 case AppMode.Web:
                     return $"IP: {HttpContext.Current.Request.UserHostAddress}; DNS: {HttpContext.Current.Request.UserHostName}";
-
+#endif
                 case AppMode.Win:
                     return $"Имя компьютера: {Environment.MachineName}; Домен: {Environment.UserDomainName}; Пользователь: {Environment.UserName}";
             }
@@ -1478,6 +1494,6 @@
             throw new NotImplementedException("работа аудита в неподдерживаемом режиме");
         }
 
-        #endregion Вспомогательные методы
+#endregion Вспомогательные методы
     }
 }

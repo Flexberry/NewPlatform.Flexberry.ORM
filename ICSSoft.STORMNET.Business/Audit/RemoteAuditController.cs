@@ -1,14 +1,16 @@
 ﻿namespace ICSSoft.STORMNET.Business.Audit
 {
     using System;
+#if DNX4
     using System.ServiceModel;
     using ICSSoft.STORMNET.Business.AuditWcfServiceLibrary;
-
+#endif
     /// <summary>
     /// Класс для организации доcтупа к сервису аудита через wcf
     /// </summary>
     public class RemoteAuditController
     { 
+#if DNX4
         /// <summary>
         /// Фабрика каналов для связи.
         /// </summary>
@@ -99,5 +101,6 @@
                 _service = _channelFactory.CreateChannel();
             }
         }
-    }
+#endif
+}
 }

@@ -5,7 +5,9 @@
     using System.Configuration;
     using System.Linq;
     using System.Reflection;
+#if DNX4
     using System.Web.Configuration;
+#endif
     using Security;
 
     /// <summary>
@@ -22,9 +24,12 @@
         public static string GetConnectionString(AppMode currentAppMode, string connStringName)
         {
             var settingCollection =
+#if DNX4
                 currentAppMode == AppMode.Web 
                 ? WebConfigurationManager.ConnectionStrings 
-                : ConfigurationManager.ConnectionStrings;
+                : 
+#endif
+                ConfigurationManager.ConnectionStrings;
             return (from ConnectionStringSettings mi in settingCollection
                     where mi.Name == connStringName
                     select mi.ConnectionString).FirstOrDefault();
@@ -39,9 +44,12 @@
         public static string GetAppSetting(AppMode currentAppMode, string appSettingName)
         {
             var settingCollection =
+#if DNX4
                 currentAppMode == AppMode.Web
                 ? WebConfigurationManager.AppSettings
-                : ConfigurationManager.AppSettings;
+                : 
+#endif
+                ConfigurationManager.AppSettings;
             return (from mi in settingCollection.AllKeys
                     where mi == appSettingName
                     select settingCollection[mi]).FirstOrDefault();

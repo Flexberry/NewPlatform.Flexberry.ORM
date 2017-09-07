@@ -6,14 +6,19 @@
     using System.Linq.Expressions;
     using System.Text;
 
-    using Remotion.Linq.Parsing.ExpressionTreeVisitors;
-    using Remotion.Linq.Parsing.ExpressionTreeVisitors.Transformation;
+    using Remotion.Linq.Parsing.ExpressionVisitors;
+    using Remotion.Linq.Parsing.ExpressionVisitors.Transformation;
+    using Remotion.Linq.Parsing.ExpressionVisitors.TreeEvaluation;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class DateTimeEarlyExpressionTransformer : IExpressionTransformer<Expression>
     {
+        private class EvaluatableExpressionFilter : EvaluatableExpressionFilterBase
+        {
+        }
+
         public Expression Transform(Expression expression)
         {
             if (expression is MemberExpression)
@@ -31,7 +36,7 @@
                         case "Date":
                             return expression;
                    }
-                    return PartialEvaluatingExpressionTreeVisitor.EvaluateIndependentSubtrees(expression);
+                    return PartialEvaluatingExpressionVisitor.EvaluateIndependentSubtrees(expression, new EvaluatableExpressionFilter()); // (Колчанов) второй параметр добавился в методе, не понимаю, что сюда писать, написал так
                 }
              
                 var member = UtilsLcs.GetObjectPropertyValue(expression, "Member");
@@ -55,7 +60,7 @@
             }
 
             // Может быть не к месту, но главное чтобы evaluate делался
-            return PartialEvaluatingExpressionTreeVisitor.EvaluateIndependentSubtrees(expression);
+            return PartialEvaluatingExpressionVisitor.EvaluateIndependentSubtrees(expression, new EvaluatableExpressionFilter()); // (Колчанов) второй параметр добавился в методе, не понимаю, что сюда писать, написал так
         }
 
         public ExpressionType[] SupportedExpressionTypes
