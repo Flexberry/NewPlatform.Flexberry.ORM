@@ -67,14 +67,74 @@ namespace ICSSoft.STORMNET
     /// коллекция с доступом по типу
     /// </summary>
     public class TypeAtrValueCollection
+    {
+        //private SortedList sl = new SortedList();
+        private Dictionary<int, object> sl = new Dictionary<int, object>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TypeAtrValueCollection()
+        {
+        }
+
+        /// <summary>
+        /// Количество элементов в коллекции
+        /// </summary>
+	    public int Count
+        {
+            get { return sl.Count; }
+        }
+
+        /// <summary>
+        /// свойство-доступ
+        /// </summary>
+        public object this[Type tp]
+        {
+            get
+            {
+                //string key = tp.AssemblyQualifiedName;
+                int key = tp.GetHashCode();
+                object retObj;
+                if (sl.TryGetValue(key, out retObj))
+                {
+                    return retObj;
+                }
+                return null;
+                /*
+				try
+				{
+					return sl[key];
+				}
+				catch
+				{
+					return null;
+				}
+                 * */
+            }
+            set
+            {
+                //string key = tp.AssemblyQualifiedName;
+                int key = tp.GetHashCode();
+
+                if (sl.ContainsKey(key)) sl.Remove(key);
+                sl.Add(key, value);
+            }
+        }
+    }
+
+    /// <summary>
+    /// коллекция с доступом по типу
+    /// </summary>
+    public class TypeInheritAtrValueCollection
 	{
 		//private SortedList sl = new SortedList();
-        private Dictionary<int, object> sl = new Dictionary<int, object>();
+        private Dictionary<(int, bool), object> sl = new Dictionary<(int, bool), object>();
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public TypeAtrValueCollection()
+		public TypeInheritAtrValueCollection()
 		{
 		}
 
@@ -89,14 +149,14 @@ namespace ICSSoft.STORMNET
 		/// <summary>
 		/// свойство-доступ
 		/// </summary>
-		public object this[Type tp]
+		public object this[Type tp, bool inherit]
 		{
 			get
 			{
 				//string key = tp.AssemblyQualifiedName;
 			    int key = tp.GetHashCode();
                 object retObj;
-                if (sl.TryGetValue(key, out retObj))
+                if (sl.TryGetValue((key, inherit), out retObj))
                 {
                     return retObj;
                 }
@@ -117,8 +177,8 @@ namespace ICSSoft.STORMNET
                 //string key = tp.AssemblyQualifiedName;
                 int key = tp.GetHashCode();
 
-				if (sl.ContainsKey(key)) sl.Remove(key);
-				sl.Add(key,value);
+				if (sl.ContainsKey((key, inherit))) sl.Remove((key, inherit));
+				sl.Add((key, inherit), value);
 			}
 		}
 	}

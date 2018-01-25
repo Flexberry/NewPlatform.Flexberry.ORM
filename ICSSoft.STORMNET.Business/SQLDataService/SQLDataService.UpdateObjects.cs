@@ -32,166 +32,132 @@
         /// <param name="AlwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
         public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache DataObjectCache, bool AlwaysThrowException)
         {
-            object id = BusinessTaskMonitor.BeginTask("Update objects");
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            DataObjectCache.StartCaching(false);
+            try
             {
-                var tps = new List<Type>();
-                foreach (DataObject d in objects)
+                foreach (DataObject dobj in objects)
+                    DataObjectCache.AddDataObject(dobj);
+
+                object id = BusinessTaskMonitor.BeginTask("Update objects");
+                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
                 {
-                    Type t = d.GetType();
-                    if (!tps.Contains(t))
+                    var tps = new List<Type>();
+                    foreach (DataObject d in objects)
                     {
-                        tps.Add(t);
-                    }
-                }
-
-                string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
-
-            // Перенесли этот метод повыше, потому что строка соединения может быть сменена в бизнес-сервере делегатом смены строки соединения (если что-нибудь почитают).
-            IDbConnection conection = GetConnection();
-
-            var DeleteQueries = new StringCollection();
-            var UpdateQueries = new StringCollection();
-            var InsertQueries = new StringCollection();
-
-            var DeleteTables = new StringCollection();
-            var UpdateTables = new StringCollection();
-            var InsertTables = new StringCollection();
-            var TableOperations = new SortedList();
-            var QueryOrder = new StringCollection();
-
-            var AllQueriedObjects = new ArrayList();
-
-            var auditOperationInfoList = new List<AuditAdditionalInfo>();
-            var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
-
-            GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
-
-            OnBeforeUpdateObjects(AllQueriedObjects);
-
-            Exception ex = null;
-
-            /*access checks*/
-
-            foreach (DataObject dtob in AllQueriedObjects)
-            {
-                Type dobjType = dtob.GetType();
-                if (!SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Full, false))
-                {
-                    switch (dtob.GetStatus(false))
-                    {
-                        case ObjectStatus.Created:
-                            SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Insert, true);
-                            break;
-                        case ObjectStatus.Altered:
-                            SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Update, true);
-                            break;
-                        case ObjectStatus.Deleted:
-                            SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Delete, true);
-                            break;
-                    }
-                }
-            }
-
-            /*access checks*/
-
-            if (DeleteQueries.Count > 0 || UpdateQueries.Count > 0 || InsertQueries.Count > 0)
-            { // Порядок выполнения запросов: delete,insert,update
-                if (AuditService.IsAuditEnabled)
-                {
-                    /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
-                     * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
-                     */
-                    AuditOperation(extraProcessingList, auditOperationInfoList); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
-                }
-
-                conection.Open();
-                IDbTransaction trans = null;
-
-                string query = string.Empty;
-                string prevQueries = string.Empty;
-                object subTask = null;
-                try
-                {
-                    trans = CreateTransaction(conection);
-                    IDbCommand command = conection.CreateCommand();
-                    command.Transaction = trans;
-
-                    #region прошли вглубь обрабатывая only Update||Insert
-                    bool go = true;
-                    do
-                    {
-                        string table = QueryOrder[0];
-                        if (!TableOperations.ContainsKey(table))
-                            TableOperations.Add(table, OperationType.None);
-                        var ops = (OperationType)TableOperations[table];
-
-                        if ((ops & OperationType.Delete) != OperationType.Delete)
+                        Type t = d.GetType();
+                        if (!tps.Contains(t))
                         {
-                            // Смотрим есть ли Инсерты
-                            if ((ops & OperationType.Insert) == OperationType.Insert)
-                            {
-                                if (
-                                    (ex =
-                                     RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
-                                    == null)
-                                {
-                                    ops = Minus(ops, OperationType.Insert);
-                                    TableOperations[table] = ops;
-                                }
-                                else
-                                {
-                                    go = false;
-                                }
-                            }
-
-                            // Смотрим есть ли Update
-                            if (go && ((ops & OperationType.Update) == OperationType.Update))
-                            {
-                                if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
-                                {
-                                    ops = Minus(ops, OperationType.Update);
-                                    TableOperations[table] = ops;
-                                }
-                                else
-                                {
-                                    go = false;
-                                }
-                            }
-
-                            if (go)
-                            {
-                                QueryOrder.RemoveAt(0);
-                                go = QueryOrder.Count > 0;
-                            }
+                            tps.Add(t);
                         }
-                        else
-                            go = false;
-
                     }
-                    while (go);
 
-                    #endregion
-                    if (QueryOrder.Count > 0)
+                    string cs = ChangeCustomizationString(tps.ToArray());
+                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                }
+
+                // Перенесли этот метод повыше, потому что строка соединения может быть сменена в бизнес-сервере делегатом смены строки соединения (если что-нибудь почитают).
+                IDbConnection conection = GetConnection();
+
+                var DeleteQueries = new StringCollection();
+                var UpdateQueries = new StringCollection();
+                var InsertQueries = new StringCollection();
+
+                var DeleteTables = new StringCollection();
+                var UpdateTables = new StringCollection();
+                var InsertTables = new StringCollection();
+                var TableOperations = new SortedList();
+                var QueryOrder = new StringCollection();
+
+                var AllQueriedObjects = new ArrayList();
+
+                var auditOperationInfoList = new List<AuditAdditionalInfo>();
+                var extraProcessingList = new List<DataObject>();
+                GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+
+                GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
+
+                Object BeforeEventTag = OnBeforeUpdateObjects(AllQueriedObjects);
+
+                Exception ex = null;
+
+                /*access checks*/
+
+                foreach (DataObject dtob in AllQueriedObjects)
+                {
+                    Type dobjType = dtob.GetType();
+                    if (!SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Full, false))
                     {
-                        #region сзади чистые Update
+                        switch (dtob.GetStatus(false))
+                        {
+                            case ObjectStatus.Created:
+                                SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Insert, true);
+                                break;
+                            case ObjectStatus.Altered:
+                                SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Update, true);
+                                break;
+                            case ObjectStatus.Deleted:
+                                SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Delete, true);
+                                break;
+                        }
+                    }
+                }
 
-                        go = true;
-                        int queryOrderIndex = QueryOrder.Count - 1;
+                /*access checks*/
+
+                if (DeleteQueries.Count > 0 || UpdateQueries.Count > 0 || InsertQueries.Count > 0)
+                { // Порядок выполнения запросов: delete,insert,update
+                    if (AuditService.IsAuditEnabled)
+                    {
+                        /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
+                         * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
+                         */
+                        AuditOperation(extraProcessingList, auditOperationInfoList); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
+                    }
+
+                    conection.Open();
+                    IDbTransaction trans = null;
+
+                    string query = string.Empty;
+                    string prevQueries = string.Empty;
+                    object subTask = null;
+                    try
+                    {
+                        trans = CreateTransaction(conection);
+                        IDbCommand command = conection.CreateCommand();
+                        command.Transaction = trans;
+
+                        #region прошли вглубь обрабатывая only Update||Insert
+                        bool go = true;
                         do
                         {
-                            string table = QueryOrder[queryOrderIndex];
-                            if (TableOperations.ContainsKey(table))
-                            {
-                                var ops = (OperationType)TableOperations[table];
+                            string table = QueryOrder[0];
+                            if (!TableOperations.ContainsKey(table))
+                                TableOperations.Add(table, OperationType.None);
+                            var ops = (OperationType)TableOperations[table];
 
-                                if (ops == OperationType.Update)
+                            if ((ops & OperationType.Delete) != OperationType.Delete)
+                            {
+                                // Смотрим есть ли Инсерты
+                                if ((ops & OperationType.Insert) == OperationType.Insert)
                                 {
                                     if (
-                                        (ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
+                                        (ex =
+                                         RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
+                                        == null)
+                                    {
+                                        ops = Minus(ops, OperationType.Insert);
+                                        TableOperations[table] = ops;
+                                    }
+                                    else
+                                    {
+                                        go = false;
+                                    }
+                                }
+
+                                // Смотрим есть ли Update
+                                if (go && ((ops & OperationType.Update) == OperationType.Update))
+                                {
+                                    if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
                                     {
                                         ops = Minus(ops, OperationType.Update);
                                         TableOperations[table] = ops;
@@ -200,95 +166,140 @@
                                     {
                                         go = false;
                                     }
-
-                                    if (go)
-                                    {
-                                        queryOrderIndex--;
-                                        go = queryOrderIndex >= 0;
-                                    }
                                 }
-                                else
-                                    go = false;
+
+                                if (go)
+                                {
+                                    QueryOrder.RemoveAt(0);
+                                    go = QueryOrder.Count > 0;
+                                }
                             }
                             else
-                                queryOrderIndex--;
+                                go = false;
+
                         }
                         while (go);
 
                         #endregion
-                    }
+                        if (QueryOrder.Count > 0)
+                        {
+                            #region сзади чистые Update
 
-                    // Удаляем в обратном порядке.
-                    for (int i = QueryOrder.Count - 1; i >= 0; i--)
+                            go = true;
+                            int queryOrderIndex = QueryOrder.Count - 1;
+                            do
+                            {
+                                string table = QueryOrder[queryOrderIndex];
+                                if (TableOperations.ContainsKey(table))
+                                {
+                                    var ops = (OperationType)TableOperations[table];
+
+                                    if (ops == OperationType.Update)
+                                    {
+                                        if (
+                                            (ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
+                                        {
+                                            ops = Minus(ops, OperationType.Update);
+                                            TableOperations[table] = ops;
+                                        }
+                                        else
+                                        {
+                                            go = false;
+                                        }
+
+                                        if (go)
+                                        {
+                                            queryOrderIndex--;
+                                            go = queryOrderIndex >= 0;
+                                        }
+                                    }
+                                    else
+                                        go = false;
+                                }
+                                else
+                                    queryOrderIndex--;
+                            }
+                            while (go);
+
+                            #endregion
+                        }
+
+                        // Удаляем в обратном порядке.
+                        for (int i = QueryOrder.Count - 1; i >= 0; i--)
+                        {
+                            string table = QueryOrder[i];
+                            if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
+                                throw ex;
+                        }
+
+                        // А теперь опять с начала
+                        foreach (string table in QueryOrder)
+                        {
+                            if ((ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException)) != null)
+                                throw ex;
+                            if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
+                                throw ex;
+                        }
+
+                        if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
+                        { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
+                            AuditService.RatifyAuditOperationWithAutoFields(
+                                tExecutionVariant.Executed,
+                                AuditAdditionalInfo.SetNewFieldValuesForList(trans, this, auditOperationInfoList),
+                                this,
+                                true);
+                        }
+
+                        if (trans != null)
+                            trans.Commit();
+                    }
+                    catch (Exception excpt)
                     {
-                        string table = QueryOrder[i];
-                        if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
-                            throw ex;
-                    }
+                        if (trans != null)
+                            trans.Rollback();
+                        if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
+                        { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
+                            AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
+                        }
 
-                    // А теперь опять с начала
-                    foreach (string table in QueryOrder)
-                    {
-                        if ((ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException)) != null)
-                            throw ex;
-                        if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
-                            throw ex;
-                    }
-
-                    if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
-                        AuditService.RatifyAuditOperationWithAutoFields(
-                            tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(trans, this, auditOperationInfoList),
-                            this,
-                            true);
-                    }
-
-                    if (trans != null)
-                        trans.Commit();
-                }
-                catch (Exception excpt)
-                {
-                    if (trans != null)
-                        trans.Rollback();
-                    if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
-                        AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
+                        conection.Close();
+                        BusinessTaskMonitor.EndSubTask(subTask);
+                        throw new ExecutingQueryException(query, prevQueries, excpt);
                     }
 
                     conection.Close();
-                    BusinessTaskMonitor.EndSubTask(subTask);
-                    throw new ExecutingQueryException(query, prevQueries, excpt);
-                }
 
-                conection.Close();
-
-                var res = new ArrayList();
-                foreach (DataObject changedObject in objects)
-                {
-                    changedObject.ClearPrototyping(true);
-
-                    if (changedObject.GetStatus(false) != STORMDO.ObjectStatus.Deleted)
+                    var res = new ArrayList();
+                    foreach (DataObject changedObject in objects)
                     {
-                        Utils.UpdateInternalDataInObjects(changedObject, true, DataObjectCache);
-                        res.Add(changedObject);
+                        changedObject.ClearPrototyping(true);
+
+                        if (changedObject.GetStatus(false) != STORMDO.ObjectStatus.Deleted)
+                        {
+                            Utils.UpdateInternalDataInObjects(changedObject, true, DataObjectCache);
+                            res.Add(changedObject);
+                        }
                     }
+
+                    foreach (DataObject dobj in AllQueriedObjects)
+                    {
+                        if (dobj.GetStatus(false) != STORMDO.ObjectStatus.Deleted
+                            && dobj.GetStatus(false) != STORMDO.ObjectStatus.UnAltered)
+                            Utils.UpdateInternalDataInObjects(dobj, true, DataObjectCache);
+                    }
+
+                    objects = new DataObject[res.Count];
+                    res.CopyTo(objects);
+                    BusinessTaskMonitor.EndTask(id);
                 }
 
-                foreach (DataObject dobj in AllQueriedObjects)
-                {
-                    if (dobj.GetStatus(false) != STORMDO.ObjectStatus.Deleted
-                        && dobj.GetStatus(false) != STORMDO.ObjectStatus.UnAltered)
-                        Utils.UpdateInternalDataInObjects(dobj, true, DataObjectCache);
-                }
-
-                objects = new DataObject[res.Count];
-                res.CopyTo(objects);
-                BusinessTaskMonitor.EndTask(id);
+                if (AfterUpdateObjects != null)
+                    AfterUpdateObjects(this, new DataObjectsEventArgs(objects, BeforeEventTag));
             }
-
-            if (AfterUpdateObjects != null)
-                AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
+            finally
+            {
+                DataObjectCache.StopCaching();
+            }
         }
 
         /// <summary>

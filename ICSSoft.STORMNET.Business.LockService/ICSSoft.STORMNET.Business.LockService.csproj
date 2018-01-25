@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\ICSSoft.STORMNET.Business.LockService.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.SQL\ICSSoft.STORMNET.Business.SQLDataService.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.dll&quot; &quot;..\..\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.pdb&quot; &quot;..\..\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;xcopy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.xml&quot; &quot;..\..\dependencies\FlexberryORM_CORE2\&quot; /c /y" />
+  </Target>
+
+</Project>

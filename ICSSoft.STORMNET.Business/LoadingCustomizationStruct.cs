@@ -5,6 +5,7 @@
     using System.Runtime.Serialization;
 
     using ICSSoft.STORMNET.FunctionalLanguage;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// настройка загрузки группы объектов
@@ -15,6 +16,8 @@
         private object creatorKey;
         private ColumnsSortDef[] fieldColumnsSort;
         private Function fieldLimitFunction;
+
+        [NonSerialized]
         private System.Type[] fieldLoadingTypes;
         private ICSSoft.STORMNET.View fieldView;
         private string[] fieldColumnsOrder;
@@ -111,112 +114,112 @@
         /// <param name="context"></param>
         public LoadingCustomizationStruct(SerializationInfo info, StreamingContext context)
         {
-            string s1 = info.GetString("ddd");
-            //return;
-            this.fieldColumnsSort = (ColumnsSortDef[])info.GetValue("fieldColumnsSort", typeof(ColumnsSortDef[]));
-            //this.fieldLimitFunction = ( STORMFunction )info.GetValue( "fieldLimitFunction", typeof( STORMFunction ) );
-            this.fieldLoadingTypes = (System.Type[])info.GetValue("fieldLoadingTypes", typeof(System.Type[]));
-            this.fieldView = (ICSSoft.STORMNET.View)info.GetValue("fieldView", typeof(ICSSoft.STORMNET.View));
-            this.fieldColumnsOrder = (string[])info.GetValue("fieldColumnsOrder", typeof(string[]));
-            this.fieldAdvansedColumns =
-                (AdvansedColumn[])info.GetValue("fieldAdvansedColumns", typeof(AdvansedColumn[]));
-            this.fieldInitDataCopy = info.GetBoolean("fieldInitDataCopy");
+            //string s1 = info.GetString("ddd");
+            ////return;
+            //this.fieldColumnsSort = (ColumnsSortDef[])info.GetValue("fieldColumnsSort", typeof(ColumnsSortDef[]));
+            ////this.fieldLimitFunction = ( STORMFunction )info.GetValue( "fieldLimitFunction", typeof( STORMFunction ) );
+            //this.fieldLoadingTypes = (System.Type[])info.GetValue("fieldLoadingTypes", typeof(System.Type[]));
+            //this.fieldView = (ICSSoft.STORMNET.View)info.GetValue("fieldView", typeof(ICSSoft.STORMNET.View));
+            //this.fieldColumnsOrder = (string[])info.GetValue("fieldColumnsOrder", typeof(string[]));
+            //this.fieldAdvansedColumns =
+            //    (AdvansedColumn[])info.GetValue("fieldAdvansedColumns", typeof(AdvansedColumn[]));
+            //this.fieldInitDataCopy = info.GetBoolean("fieldInitDataCopy");
 
 
-            // [2012-05-21 Истомин] далее идут куча try\catch, нужны были для того, чтобы старые ограничения не упали
-            try
-            {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
-                // Ловить будем только SerializationException
-                ReturnType = (LcsReturnType)info.GetValue("ReturnType", typeof(LcsReturnType));
-            }
-            catch (SerializationException)
-            {
-                ReturnType = LcsReturnType.Objects;
-            }
+            //// [2012-05-21 Истомин] далее идут куча try\catch, нужны были для того, чтобы старые ограничения не упали
+            //try
+            //{
+            //    // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+            //    // Ловить будем только SerializationException
+            //    ReturnType = (LcsReturnType)info.GetValue("ReturnType", typeof(LcsReturnType));
+            //}
+            //catch (SerializationException)
+            //{
+            //    ReturnType = LcsReturnType.Objects;
+            //}
 
-            try
-            {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
-                // Ловить будем только SerializationException
-                ReturnTop = info.GetInt32("ReturnTop");
-            }
-            catch (SerializationException)
-            {
-                ReturnTop = 0;
-            }
+            //try
+            //{
+            //    // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+            //    // Ловить будем только SerializationException
+            //    ReturnTop = info.GetInt32("ReturnTop");
+            //}
+            //catch (SerializationException)
+            //{
+            //    ReturnTop = 0;
+            //}
 
-            try
-            {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
-                // Ловить будем только SerializationException
-                LoadingBufferSize = info.GetInt32("LoadingBufferSize");
-            }
-            catch (SerializationException)
-            {
-                LoadingBufferSize = 0;
-            }
+            //try
+            //{
+            //    // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+            //    // Ловить будем только SerializationException
+            //    LoadingBufferSize = info.GetInt32("LoadingBufferSize");
+            //}
+            //catch (SerializationException)
+            //{
+            //    LoadingBufferSize = 0;
+            //}
 
-            try
-            {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
-                // Ловить будем только SerializationException
-                RowNumber = (RowNumberDef)info.GetValue("RowNumber", typeof(RowNumberDef));
-            }
-            catch (SerializationException)
-            {
-                RowNumber = null;
-            }
+            //try
+            //{
+            //    // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+            //    // Ловить будем только SerializationException
+            //    RowNumber = (RowNumberDef)info.GetValue("RowNumber", typeof(RowNumberDef));
+            //}
+            //catch (SerializationException)
+            //{
+            //    RowNumber = null;
+            //}
 
-            try
-            {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
-                // Ловить будем только SerializationException
-                Distinct = info.GetBoolean("Distinct");
-            }
-            catch (SerializationException)
-            {
-                Distinct = false;
-            }
+            //try
+            //{
+            //    // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+            //    // Ловить будем только SerializationException
+            //    Distinct = info.GetBoolean("Distinct");
+            //}
+            //catch (SerializationException)
+            //{
+            //    Distinct = false;
+            //}
 
-            bool bNull = info.GetBoolean("fieldLimitFunctionNull");
+            //bool bNull = info.GetBoolean("fieldLimitFunctionNull");
 
-            if (!bNull)
-            {
-                string sFunction = info.GetString("fieldLimitFunctionStr");
+            //if (!bNull)
+            //{
+            //    string sFunction = info.GetString("fieldLimitFunctionStr");
 
-                FunctionalLanguage.FunctionForControls fcc = FunctionalLanguage.FunctionForControls.Parse(
-                    sFunction, this.fieldView);
+            //    FunctionalLanguage.FunctionForControls fcc = FunctionalLanguage.FunctionForControls.Parse(
+            //        sFunction, this.fieldView);
 
-                this.fieldLimitFunction = fcc.Function;
-            }
-            else
-            {
-                this.fieldLimitFunction = null;
-            }
+            //    this.fieldLimitFunction = fcc.Function;
+            //}
+            //else
+            //{
+            //    this.fieldLimitFunction = null;
+            //}
 
-            bool keynull = info.GetBoolean("keynull");
+            //bool keynull = info.GetBoolean("keynull");
 
-            if (!keynull)
-            {
+            //if (!keynull)
+            //{
 
-                var tp = (Type)info.GetValue("keytype", typeof(Type));
+            //    var tp = (Type)info.GetValue("keytype", typeof(Type));
 
-                string s = info.GetString("keystr");
+            //    string s = info.GetString("keystr");
 
-                if (tp == typeof(int))
-                {
-                    creatorKey = int.Parse(s);
-                }
-                else
-                {
-                    MethodInfo mi = tp.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public);
+            //    if (tp == typeof(int))
+            //    {
+            //        creatorKey = int.Parse(s);
+            //    }
+            //    else
+            //    {
+            //        MethodInfo mi = tp.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public);
 
-                    creatorKey = mi != null
-                                     ? mi.Invoke(null, new object[] { s })
-                                     : Activator.CreateInstance(tp, new object[] { s });
-                }
-            }
+            //        creatorKey = mi != null
+            //                         ? mi.Invoke(null, new object[] { s })
+            //                         : Activator.CreateInstance(tp, new object[] { s });
+            //    }
+            //}
         }
 
         /// <summary>
@@ -226,36 +229,36 @@
         /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("ddd", "asdasd");
+            //info.AddValue("ddd", "asdasd");
 
-            info.AddValue("fieldColumnsSort", this.fieldColumnsSort);
-            //info.AddValue( "fieldLimitFunction", this.fieldLimitFunction );
-            info.AddValue("fieldLoadingTypes", this.fieldLoadingTypes);
-            info.AddValue("fieldView", this.fieldView);
-            info.AddValue("fieldColumnsOrder", this.fieldColumnsOrder);
-            info.AddValue("fieldAdvansedColumns", this.fieldAdvansedColumns);
-            info.AddValue("fieldInitDataCopy", this.fieldInitDataCopy);
+            //info.AddValue("fieldColumnsSort", this.fieldColumnsSort);
+            ////info.AddValue( "fieldLimitFunction", this.fieldLimitFunction );
+            //info.AddValue("fieldLoadingTypes", this.fieldLoadingTypes);
+            //info.AddValue("fieldView", this.fieldView);
+            //info.AddValue("fieldColumnsOrder", this.fieldColumnsOrder);
+            //info.AddValue("fieldAdvansedColumns", this.fieldAdvansedColumns);
+            //info.AddValue("fieldInitDataCopy", this.fieldInitDataCopy);
 
-            info.AddValue("ReturnType", ReturnType);
-            info.AddValue("ReturnTop", ReturnTop);
-            info.AddValue("LoadingBufferSize", LoadingBufferSize);
-            info.AddValue("RowNumber", RowNumber);
-            info.AddValue("Distinct", Distinct);
+            //info.AddValue("ReturnType", ReturnType);
+            //info.AddValue("ReturnTop", ReturnTop);
+            //info.AddValue("LoadingBufferSize", LoadingBufferSize);
+            //info.AddValue("RowNumber", RowNumber);
+            //info.AddValue("Distinct", Distinct);
 
-            info.AddValue("fieldLimitFunctionNull", this.fieldLimitFunction == null);
-            if (this.fieldLimitFunction != null)
-            {
-                var f = new FunctionForControls(fieldView, fieldLimitFunction);
+            //info.AddValue("fieldLimitFunctionNull", this.fieldLimitFunction == null);
+            //if (this.fieldLimitFunction != null)
+            //{
+            //    var f = new FunctionForControls(fieldView, fieldLimitFunction);
 
-                info.AddValue("fieldLimitFunctionStr", f.ToString());
-            }
+            //    info.AddValue("fieldLimitFunctionStr", f.ToString());
+            //}
 
-            info.AddValue("keynull", this.creatorKey == null);
-            if (this.creatorKey != null)
-            {
-                info.AddValue("keytype", this.creatorKey.GetType());
-                info.AddValue("keystr", this.creatorKey.ToString());
-            }
+            //info.AddValue("keynull", this.creatorKey == null);
+            //if (this.creatorKey != null)
+            //{
+            //    info.AddValue("keytype", this.creatorKey.GetType());
+            //    info.AddValue("keystr", this.creatorKey.ToString());
+            //}
         }
 
         /// <summary>
@@ -305,7 +308,44 @@
         /// <summary>
         /// вычитываем эти типы
         /// </summary>
+        [XmlIgnore]
         public System.Type[] LoadingTypes { get {return fieldLoadingTypes;} set {fieldLoadingTypes = value;}}
+
+        [XmlElement("LoadingTypes")]
+        public string[] AssemblyQualifiedTypeNames
+        {
+            get
+            {
+                if (LoadingTypes == null) return null;
+
+                string[] assemblyQualifiedTypeNames = new string[LoadingTypes.Length];
+                for (int i = 0; i < LoadingTypes.Length; i++)
+                {
+                    assemblyQualifiedTypeNames[i] = LoadingTypes[i].AssemblyQualifiedName;
+                }
+                return assemblyQualifiedTypeNames;
+            }
+            set
+            {
+                if (value == null) fieldLoadingTypes = null;
+                fieldLoadingTypes = new Type[value.Length];
+                for (int i = 0; i < value.Length; i++)
+                {
+                    try
+                    {
+                        fieldLoadingTypes[i] = Type.GetType(value[i], true);
+                    }
+                    catch (Exception ex)
+                    {
+                        string[] split = value[i].Split(',');
+                        if (split.Length >= 2)
+                            Assembly.LoadFrom(string.Format("{0}.dll", split[1].Trim()));
+
+                        fieldLoadingTypes[i] = Type.GetType(value[i], true);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// используемое представление
@@ -338,6 +378,9 @@
             fieldColumnsSort[newsize - 1] = csd;
         }
 
+
+        public LoadingCustomizationStruct():this(null) {}
+
         /// <summary>
         /// 
         /// </summary>
@@ -367,20 +410,7 @@
             return testType;
         }
 
-        /// <summary>
-        /// Получить часто используемую функцию по ограничению
-        /// </summary>
-        /// <param name="keys"></param>
-        /// <returns></returns>
-        public Function Keys2Function(object[] keys)
-        {
-            var lg = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-            var vd = new VariableDef(lg.GetObjectTypeForNetType(keys[0].GetType()), "STORMMainObjectKey");
-            var pars = new object[keys.Length + 1];
-            Array.Copy(keys, 0, pars, 1, keys.Length);
-            pars[0] = vd;
-            return lg.GetFunction(lg.funcIN, pars);
-        }
+        
 
 
         /// <summary>
@@ -479,6 +509,11 @@
             return lcs;
         }
 
+        static public LoadingCustomizationStruct GetSimpleStruct(View View)
+        {
+            return GetSimpleStruct(View.DefineClassType, View);
+        }
+
         static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType,View  View)
         {
             LoadingCustomizationStruct lcs = new LoadingCustomizationStruct(null);
@@ -487,18 +522,7 @@
         }
 
 
-        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View, string propertyName, object limitValue)
-        {
-            var lcs = new LoadingCustomizationStruct(null);
-            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef ldef =
-                FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-            Type proptype = Information.GetPropertyType(DataObjectType, propertyName);
-            var var = new VariableDef(ldef.GetObjectTypeForNetType(proptype), propertyName);
-            lcs.LoadingTypes = new[] { DataObjectType };
-            lcs.View = Information.GetView(View, DataObjectType);
-            lcs.LimitFunction = ldef.GetFunction(ldef.funcEQ, var, limitValue);
-            return lcs;
-        }
+        
 
         public override bool Equals(object obj)
         {
@@ -550,11 +574,11 @@
                 return true;
             }
 
-            return Equals(other.creatorKey, creatorKey) && Utils.ArraysEqual(other.fieldColumnsSort, fieldColumnsSort)
+            return Equals(other.creatorKey, creatorKey) && Utils.ArraysEqual(other.fieldColumnsSort, fieldColumnsSort, false)
                    && FunctionEquals(other.fieldLimitFunction, fieldLimitFunction)
-                   && Utils.ArraysEqual(other.fieldLoadingTypes, fieldLoadingTypes)
-                   && ViewsEquals(other.fieldView, fieldView) && Utils.ArraysEqual(other.fieldColumnsOrder, fieldColumnsOrder)
-                   && Utils.ArraysEqual(other.fieldAdvansedColumns, fieldAdvansedColumns)
+                   && Utils.ArraysEqual(other.fieldLoadingTypes, fieldLoadingTypes, false)
+                   && ViewsEquals(other.fieldView, fieldView) && Utils.ArraysEqual(other.fieldColumnsOrder, fieldColumnsOrder, false)
+                   && Utils.ArraysEqual(other.fieldAdvansedColumns, fieldAdvansedColumns, false)
                    && other.fieldInitDataCopy.Equals(fieldInitDataCopy) && other.fieldReturnTop == fieldReturnTop
                    && other.fieldLoadingBufferSize == fieldLoadingBufferSize
                    && Equals(other.fieldRowNumber, fieldRowNumber) && other.fieldDistinct.Equals(fieldDistinct)

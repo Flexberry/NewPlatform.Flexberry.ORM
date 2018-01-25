@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace ICSSoft.STORMNET.FunctionalLanguage
 {
@@ -55,6 +56,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             ldef.Variables.AddObject(this);
         }
 
+        [XmlIgnore]
+        [NonSerialized]
         private FunctionalLanguageDef fieldLanguage;
         ///<summary>
         /// Язык описания ограничений

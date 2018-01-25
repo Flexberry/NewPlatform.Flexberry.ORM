@@ -30,6 +30,11 @@
         }
 
         /// <summary>
+        /// Кэш, установливается при инициализации для использования сервиса
+        /// </summary>
+        public DataObjectCache DataObjectCache { get; set; }
+
+        /// <summary>
         /// Ссылка на обновляемые объекты (устанавливается сервисом данных).
         /// </summary>
         public System.Collections.ArrayList ObjectsToUpdate

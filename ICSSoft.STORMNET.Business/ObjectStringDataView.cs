@@ -40,8 +40,8 @@
         /// </summary>
         public MasterObjStruct[] Masters
         {
-            get { return masters; }
-            set { masters = (MasterObjStruct[])value.Clone(); }
+            get => masters;
+            set => masters = value?.Clone() as MasterObjStruct[];
         }
 
         /// <summary>
@@ -129,8 +129,8 @@
         /// </summary>
         public object[] ObjectedData
         {
-            get { return objectedData; }
-            set { objectedData = value; }
+            get => objectedData;
+            set => objectedData = value; //TODO: ivashkevich: почему тут просто присвоение, а для Masters через clone? Хотя в конструкторе оба через Clone
         }
 
         /// <summary>
@@ -146,8 +146,8 @@
             this.key = key;
             this.objectType = objectType;
             this.separator = separator;
-            this.masters = (MasterObjStruct[])masters.Clone();
-            this.objectedData = (object[])objectedData.Clone();
+            this.masters = masters?.Clone() as MasterObjStruct[];
+            this.objectedData = objectedData?.Clone() as object[];
         }
 
         /// <summary>
@@ -160,7 +160,7 @@
             this.objectType = (Type)info.GetValue("objectType", typeof(Type));
             this.objectedData = (object[])info.GetValue("data", typeof(object[]));
             this.separator = info.GetChar("separator");
-            this.masters = (MasterObjStruct[])info.GetValue("masters", typeof(MasterObjStruct[]));
+            this.masters = info.GetValue("masters", typeof(MasterObjStruct[])) as MasterObjStruct[];
 
             Type tp = (Type)info.GetValue("keytype", typeof(Type));
 
@@ -193,5 +193,7 @@
             info.AddValue("keytype", this.key.GetType());
             info.AddValue("keystr", this.key.ToString());
         }
+
+        //TODO: ivashkevich: переопределить Equals и GetHashCode
     }
 }

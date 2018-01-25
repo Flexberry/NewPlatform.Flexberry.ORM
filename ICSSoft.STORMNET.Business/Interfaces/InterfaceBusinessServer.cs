@@ -8,8 +8,7 @@
 
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-
+    
     /// <summary>
     /// Класс, содержащий бизнес-сервера для интерфейсов.
     /// </summary>

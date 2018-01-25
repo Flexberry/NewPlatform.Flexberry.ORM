@@ -9,7 +9,6 @@
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters;
     using System.Runtime.Serialization.Formatters.Binary;    
-    //using System.Runtime.Serialization.Formatters.Soap;
     using System.Text.RegularExpressions;
     using System.Xml;
 
@@ -26,51 +25,82 @@
         public ToolXML()
         {
         }
-        /// <summary>
-        /// Получение объекта данных из ранее полученного XML документа
-        /// </summary>
-        /// <param name="dataObject"> Объект данных, в который будем десериализовывать </param>
-        /// <param name="xmlDoc"> Сериализованный объект данных </param>
-        public static void XMLDocument2DataObject(ref ICSSoft.STORMNET.DataObject dataObject, XmlDocument xmlDoc)
-        {
-            if (dataObject == null)
-            {
-                throw new ArgumentNullException("dataObject");
-            }
 
+        public static ICSSoft.STORMNET.DataObject[] XMLDocument2DataObjectS(string[] xmlStrings)
+        {
+            ICSSoft.STORMNET.DataObject[] objs = null;
             var dataObjectCache = new DataObjectCache();
             dataObjectCache.StartCaching(false);
             try
             {
-                var xmlMainEl = (XmlElement)xmlDoc.FirstChild;
-
-                XmlNode xmlNode = xmlMainEl.SelectSingleNode("Assemblies");
-                if (xmlNode != null)
+                objs = new DataObject[xmlStrings.Length];
+                for (int i = 0; i < xmlStrings.Length; i++)
                 {
-                    XmlNodeList xmlAssemblies = xmlNode.ChildNodes;
-
-                    var assemblies = new SortedList();
-                    for (int i = 0; i < xmlAssemblies.Count; i++)
-                    {
-                        assemblies.Add(xmlAssemblies[i].Name, ((XmlElement)xmlAssemblies[i]).GetAttribute("Assembly"));
-                    }
-
-                    var xmlEl = (XmlElement)xmlMainEl.FirstChild;
-                    if (xmlEl.Name == "Assemblies")
-                    {
-                        xmlEl = (XmlElement)xmlMainEl.LastChild;
-                    }
-
-                    prv_XmlElement2DataObject(xmlEl, dataObject, assemblies, dataObjectCache, new Dictionary<string, DataObject>());
-                }
-                else
-                {
-                    throw new Exception("Не найдено описание подключаемых сборок в сериализованном объекте");
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.LoadXml(xmlStrings[i]);
+                    objs[i] = ICSSoft.STORMNET.Tools.ToolXML.XMLDocument2DataObject( xmlDoc, dataObjectCache);
                 }
             }
             finally
             {
                 dataObjectCache.StopCaching();
+            }
+            return objs;
+        }
+
+
+        public static ICSSoft.STORMNET.DataObject XMLDocument2DataObject(XmlDocument xmlDoc)
+        {
+            var dataObjectCache = new DataObjectCache();
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                return XMLDocument2DataObject( xmlDoc, dataObjectCache);
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
+        }
+
+        /// <summary>
+        /// Получение объекта данных из ранее полученного XML документа
+        /// </summary>
+        /// <param name="dataObject"> Объект данных, в который будем десериализовывать </param>
+        /// <param name="xmlDoc"> Сериализованный объект данных </param>
+        public static ICSSoft.STORMNET.DataObject XMLDocument2DataObject(XmlDocument xmlDoc, DataObjectCache dataObjectCache)
+        {
+            var xmlMainEl = (XmlElement)xmlDoc.FirstChild;
+
+            XmlNode xmlNode = xmlMainEl.SelectSingleNode("Assemblies");
+            if (xmlNode != null)
+            {
+                XmlNodeList xmlAssemblies = xmlNode.ChildNodes;
+
+                var assemblies = new SortedList();
+                for (int i = 0; i < xmlAssemblies.Count; i++)
+                {
+                    assemblies.Add(xmlAssemblies[i].Name, ((XmlElement)xmlAssemblies[i]).GetAttribute("Assembly"));
+                }
+
+                var xmlEl = (XmlElement)xmlMainEl.FirstChild;
+                if (xmlEl.Name == "Assemblies")
+                {
+                    xmlEl = (XmlElement)xmlMainEl.LastChild;
+                }
+
+                object key = xmlEl.GetAttributeNode("__PrimaryKey").Value;
+
+                Type objectType = GetTypeForDataObject(xmlEl, assemblies);
+                DataObject dataObject = dataObjectCache.CreateDataObject(objectType, key);
+
+                prv_XmlElement2DataObject(xmlEl, dataObject, assemblies, dataObjectCache);
+
+                return dataObject;
+            }
+            else
+            {
+                throw new Exception("Не найдено описание подключаемых сборок в сериализованном объекте");
             }
         }
 
@@ -113,7 +143,8 @@
                 serializeAggregators, 
                 setObjectLoadingStateLoaded, 
                 setObjectStatusCreated,
-                false);
+                false,
+                true);
         }
 
         /// <summary>
@@ -130,7 +161,8 @@
             bool serializeAggregators,
             bool setObjectLoadingStateLoaded, 
             bool setObjectStatusCreated, 
-            bool serializeMasters)
+            bool serializeMasters,
+            bool serializeDynamicProperties)
         {
             var xmlDoc = new XmlDocument();
             if (dataObject.GetStatus() != ObjectStatus.Deleted)
@@ -149,6 +181,7 @@
                     setObjectLoadingStateLoaded, 
                     setObjectStatusCreated,
                     serializeMasters,
+                    serializeDynamicProperties,
                     new List<string>());
 
                 var xmlAssemblies = (XmlElement)xmlDoc.CreateElement("Assemblies");
@@ -182,13 +215,14 @@
         /// <param name="usedPrimaryKeyList"> Вспомогательный список первичных ключей объектов, которые уже были сериализованы </param>
         /// <returns> Сериализованное представление объекта </returns>
         private static void prv_DataObject2XmlElement(
-            XmlElement xmlEl, 
-            ICSSoft.STORMNET.DataObject dataObject, 
-            SortedList assemblies, 
+            XmlElement xmlEl,
+            ICSSoft.STORMNET.DataObject dataObject,
+            SortedList assemblies,
             bool serializeAggregators,
-            bool setObjectLoadingStateLoaded, 
+            bool setObjectLoadingStateLoaded,
             bool setObjectStatusCreated,
             bool serializeMasters,
+            bool serializeDynamicProperties,
             ICollection<string> usedPrimaryKeyList)
         {
             if (serializeMasters && usedPrimaryKeyList.Contains(dataObject.__PrimaryKey.ToString()))
@@ -201,6 +235,12 @@
             if (serializeMasters)
             { // Надстройка для адекватной сериализации мастеров
                 usedPrimaryKeyList.Add(dataObject.__PrimaryKey.ToString());
+            }
+
+            string dataObjectTypeName = dataObject.GetType().ToString();
+            if (!assemblies.ContainsKey(dataObjectTypeName))
+            {
+                assemblies.Add (dataObjectTypeName , dataObject.GetType().Assembly.FullName);
             }
 
             string[] propNames = Information.GetStorablePropertyNames(dataObject.GetType());
@@ -235,7 +275,9 @@
                                         setObjectLoadingStateLoaded, 
                                         setObjectStatusCreated,
                                         serializeMasters,
-                                        usedPrimaryKeyList);
+                                        serializeDynamicProperties,
+                                        usedPrimaryKeyList
+                                        );
                                 }
                                 else
                                 { // Тогда нужно грохнуть из массива
@@ -284,7 +326,9 @@
                                         setObjectLoadingStateLoaded,
                                         setObjectStatusCreated,
                                         serializeMasters,
-                                        usedPrimaryKeyList);
+                                        serializeDynamicProperties,
+                                        usedPrimaryKeyList
+                                        );
                                 }
                             }
                         }
@@ -297,7 +341,7 @@
                 }
             }
 
-            xmlEl.SetAttribute("DynamicProperties", dataObject.DynamicProperties.Count > 0 ? ToolBinarySerializer.ObjectToString(dataObject.DynamicProperties) : string.Empty);
+            xmlEl.SetAttribute("DynamicProperties", serializeDynamicProperties && dataObject.DynamicProperties.Count > 0 ? ToolBinarySerializer.ObjectToString(dataObject.DynamicProperties) : string.Empty);
 
             if (setObjectLoadingStateLoaded)
             {
@@ -311,45 +355,15 @@
         }
 
 
-        /*
-        ///<summary>
-        /// Сериализация объекта при помощи SoapFormatter
-        ///</summary>
-        ///<param name="o">Объект для сериализации</param>
-        ///<returns>Сериализованный объект</returns>
-        public static string ObjectToString(object o)
+        private static Type GetTypeForDataObject(XmlElement xmlEl, SortedList assemblies)
         {
-            MemoryStream str = new MemoryStream();
-            SoapFormatter formatter = new SoapFormatter();
-            //formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
-            formatter.Serialize(str, o);
-            str.Flush();
-            str.Seek(0, SeekOrigin.Begin);
-            StreamReader strreader = new StreamReader(str);
-            return strreader.ReadToEnd();
+            string asmName = (string) assemblies[xmlEl.Name];
+
+            Assembly asm = AssemblyLoader.LoadAssembly(asmName);
+            return asm.GetType(xmlEl.Name);
         }
 
-        /// <summary>
-        /// Десериализация объекта при помощи SoapFormatter
-        /// </summary>
-        /// <param name="s">Сериализованный объект</param>
-        /// <returns>Востановленный объект</returns>
-        public static object ObjectFromString(string s)
-        {
-            MemoryStream str = new MemoryStream();
-            StreamWriter strwriter = new StreamWriter(str);
-            strwriter.WriteLine(s);
-            strwriter.Flush();
-            str.Seek(0, SeekOrigin.Begin);
-            SoapFormatter formatter = new SoapFormatter();
-            formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
-            object objectFromString = null;
-            objectFromString = formatter.Deserialize(str);
-            return objectFromString;
-        }
-        */
-
-
+     
         /// <summary>
         /// Извлечение объекта данных из строки
         /// </summary>
@@ -357,26 +371,20 @@
         /// <param name="dataObject"> Текущий объект данных </param>
         /// <param name="assemblies"> Необходимые сборки </param>
         /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_XmlElement2DataObject(
             XmlElement xmlEl, 
             ICSSoft.STORMNET.DataObject dataObject, 
             SortedList assemblies, 
-            DataObjectCache DataObjectCache,
-            Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
+            DataObjectCache DataObjectCache
+            )
         {
-            if (!deserializedObjectsList.ContainsKey(dataObject.__PrimaryKey.ToString()))
-            {
-                deserializedObjectsList.Add(dataObject.__PrimaryKey.ToString(), dataObject);
-            }
-
             var storableprops = new ArrayList(Information.GetStorablePropertyNames(dataObject.GetType()));
             var order = new StringCollection();
             order.AddRange(Information.GetLoadingOrder(dataObject.GetType()));
 
             foreach (string propname in order)
             { // Прочитка в соответствии с указанным порядком
-                prv_ReadProperty(xmlEl, dataObject, propname, assemblies, DataObjectCache, deserializedObjectsList);
+                prv_ReadProperty(xmlEl, dataObject, propname, assemblies, DataObjectCache);
             }
 
             XmlAttributeCollection xmlattributes = xmlEl.Attributes;
@@ -400,7 +408,7 @@
                     Type proptype = Information.GetPropertyType(dataObject.GetType(), xmlchild.Name);
                     if (proptype.IsSubclassOf(typeof(DataObject)))
                     { // Это мастер
-                        prv_ReadMaster(xmlchild, dataObject, assemblies, DataObjectCache, deserializedObjectsList);
+                        prv_ReadMaster(xmlchild, dataObject, assemblies, DataObjectCache);
                     }
                     else
                     { // Это детейл
@@ -410,7 +418,7 @@
                             XmlNodeList xmldetailobjects = xmlchild.ChildNodes;
                             if (xmldetailobjects != null)
                             {
-                                prv_ReadDetail(xmldetailobjects, detail, assemblies, DataObjectCache, deserializedObjectsList);
+                                prv_ReadDetail(xmldetailobjects, detail, assemblies, DataObjectCache);
                             }
                         }
                     }
@@ -442,20 +450,19 @@
         /// <param name="propname"> Читаемое свойство объекта </param>
         /// <param name="assemblies"> Необходимые сборки </param>
         /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_ReadProperty(
             XmlElement xmlEl, 
             ICSSoft.STORMNET.DataObject dataObject, 
             string propname, 
             SortedList assemblies, 
-            DataObjectCache DataObjectCache,
-            Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
+            DataObjectCache DataObjectCache
+            )
         {
             Type proptype = Information.GetPropertyType(dataObject.GetType(), propname);
             if (proptype.IsSubclassOf(typeof(DataObject)))
             { // Значит, мастер
                 XmlNode masternode = xmlEl.GetElementsByTagName(propname)[0];
-                prv_ReadMaster(masternode, dataObject, assemblies, DataObjectCache, deserializedObjectsList);
+                prv_ReadMaster(masternode, dataObject, assemblies, DataObjectCache);
             }
             else
             {
@@ -468,7 +475,7 @@
                         XmlNodeList xmldetailobjects = detailnode.ChildNodes;
                         if (xmldetailobjects != null)
                         {
-                            prv_ReadDetail(xmldetailobjects, detail, assemblies, DataObjectCache, deserializedObjectsList);
+                            prv_ReadDetail(xmldetailobjects, detail, assemblies, DataObjectCache);
                         }
                     }
                 }
@@ -490,34 +497,28 @@
         /// <param name="dataObject"> Текущий объект данных </param>
         /// <param name="assemblies"> Необходимые сборки </param>
         /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_ReadMaster(
             XmlNode masternode, 
             ICSSoft.STORMNET.DataObject dataObject,
             SortedList assemblies, 
-            DataObjectCache DataObjectCache,
-            Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
+            DataObjectCache DataObjectCache)
         {
             XmlNode specialTypeNode = masternode.Attributes.GetNamedItem("__Type");
             string skey = masternode.Attributes.GetNamedItem("__PrimaryKey").Value;
-            DataObject masterobject = null;
-            if (deserializedObjectsList.ContainsKey(skey))
-            {
-                masterobject = deserializedObjectsList[skey];
+
+            string stype = specialTypeNode != null ? specialTypeNode.Value : masternode.Attributes.GetNamedItem("Type").Value;
+            string asmName = (string)assemblies[stype];
+            Assembly asm = AssemblyLoader.LoadAssembly(asmName);
+            Type mastertype = asm.GetType(stype);
+
+
+            DataObject masterobject = DataObjectCache.CreateDataObject(mastertype, Information.TranslateValueToPrimaryKeyType(mastertype, skey));
+            if (specialTypeNode != null)
+            { // То есть это был особым образом сериализованный мастер
+                prv_XmlElement2DataObject(
+                    (XmlElement)masternode, masterobject, assemblies, DataObjectCache);
             }
-            else
-            {
-                string stype = specialTypeNode != null ? specialTypeNode.Value : masternode.Attributes.GetNamedItem("Type").Value;
-                string asmName = (string)assemblies[stype];
-                Assembly asm = AssemblyLoader.LoadAssembly(asmName);
-                Type mastertype = asm.GetType(stype);
-                masterobject = DataObjectCache.CreateDataObject(mastertype, Information.TranslateValueToPrimaryKeyType(mastertype, skey));
-                if (specialTypeNode != null)
-                { // То есть это был особым образом сериализованный мастер
-                    prv_XmlElement2DataObject(
-                        (XmlElement)masternode, masterobject, assemblies, DataObjectCache, deserializedObjectsList);
-                }
-            }
+
 
             Information.SetPropValueByName(dataObject, masternode.Name, masterobject);
         }
@@ -529,13 +530,11 @@
         /// <param name="detail"> Текущий список детейлов </param>
         /// <param name="assemblies"> Необходимые сборки </param>
         /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
-        private static void prv_ReadDetail(
+         private static void prv_ReadDetail(
             XmlNodeList xmldetailobjects, 
             DetailArray detail, 
             SortedList assemblies, 
-            DataObjectCache DataObjectCache,
-            Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
+            DataObjectCache DataObjectCache)
         {
             for (int j = 0; j < xmldetailobjects.Count; j++)
             {
@@ -543,7 +542,7 @@
                 Assembly asm = AssemblyLoader.LoadAssembly((string)assemblies[xmldetailobject.Name]);
                 System.Type dotype = asm.GetType(xmldetailobject.Name);
                 DataObject detailobject = DataObjectCache.CreateDataObject(dotype, Information.TranslateValueToPrimaryKeyType(dotype, ((XmlElement)xmldetailobject).GetAttribute("__PrimaryKey")));
-                prv_XmlElement2DataObject((XmlElement)xmldetailobject, detailobject, assemblies, DataObjectCache, deserializedObjectsList);
+                prv_XmlElement2DataObject((XmlElement)xmldetailobject, detailobject, assemblies, DataObjectCache );
                 detail.AddObject(detailobject);
             }
         }

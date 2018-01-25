@@ -138,6 +138,7 @@
 
             // 2.2 Записываем в объекты.
             System.Collections.SortedList curObjProperiesValues = new System.Collections.SortedList();
+            System.Collections.SortedList prevCurObjPropertiesValues = new System.Collections.SortedList();
             while (properiesValues.Count > 0)
             {
                 // a. Выбираем для текущего объекта все свойства.
@@ -147,6 +148,7 @@
                 curObjProperiesValues.Clear();
 
                 List<string> loadedPropsColl = curobj.GetLoadedPropertiesList();
+                
 
                 for (int i = properiesValues.Count - 1; i >= 0; i--)
                 {
@@ -154,11 +156,24 @@
                     if (tmp[2] == curobj)
                     {
                         object tmp0 = tmp[0];
-                        if (!curObjProperiesValues.ContainsKey(tmp0))
+                        object prevtmp1 = Information.GetPropValueByName(curobj, (string)tmp0);
+                        if (!loadedPropsColl.Contains((string)tmp0))
                         {
-                            curObjProperiesValues.Add(tmp0, tmp[1]);
-                            if (!loadedPropsColl.Contains((string)tmp0))
-                                loadedPropsColl.Add((string)tmp0);
+                            loadedPropsColl.Add((string)tmp0);
+                        }
+                       if (prevtmp1 != tmp[1])
+                        {
+                            if (!curObjProperiesValues.ContainsKey(tmp0))
+                            {
+                                curObjProperiesValues.Add(tmp0, tmp[1]);
+                               if (curobj.GetDataCopy() != null && curobj.IsAlteredProperty((string)tmp0) && 
+                                  (!prevCurObjPropertiesValues.ContainsKey(tmp0))
+                                  )
+                                {
+                                    prevCurObjPropertiesValues.Add(tmp0,prevtmp1);
+                                }
+
+                            }
                         }
 
                         properiesValues.RemoveAt(i);
@@ -189,8 +204,16 @@
                     curobj.SetLoadingState(LoadingState.LightLoaded);
                     curobj.AddLoadedProperties(loadedPropsColl);
                 }
+                if (customizationStruct.InitDataCopy)
+                {
+                    curobj.InitDataCopy();
+                    curobj.SetStatus(ObjectStatus.UnAltered);
+                }
+                //возвращаем старые
+                for (int i = 0; i < prevCurObjPropertiesValues.Count; i++)
+                    Information.SetPropValueByName(curobj, (string)prevCurObjPropertiesValues.GetKey(i), prevCurObjPropertiesValues.GetByIndex(i));
 
-                curobj.SetStatus(ObjectStatus.UnAltered);
+
             }
         }
     }

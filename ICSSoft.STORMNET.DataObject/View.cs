@@ -10,6 +10,7 @@
     using System.Text;
 
     using ICSSoft.STORMNET.Exceptions;
+    using System.Xml.Serialization;
 
     namespace Business
     {
@@ -486,15 +487,15 @@
         /// <summary>
         /// Имя детейлового свойства
         /// </summary>
-        public string Name { get { return detailName; } }
+        public string Name { get { return detailName; } set { detailName = value; } }
         /// <summary>
         /// Заголовок для детейла
         /// </summary>
-        public string Caption { get { return detailcaption; } }
+        public string Caption { get { return detailcaption; } set { detailcaption = value; } }
         /// <summary>
         /// Путь на форме
         /// </summary>
-        public string FormPath { get { return detailPath; } }
+        public string FormPath { get { return detailPath; } set { detailPath = value; } }
         /// <summary>
         /// загружать ли вместе с владельцем
         /// </summary>
@@ -502,7 +503,7 @@
         /// <summary>
         /// видимый-невидимый
         /// </summary>
-        public bool Visible { get { return detailvisible; } }
+        public bool Visible { get { return detailvisible; } set { detailvisible = value; } }
         /// <summary>
         /// используемые агрегиррующие функции
         /// </summary>
@@ -656,6 +657,7 @@
     [Serializable]
     public sealed class View : ISerializable
     {
+        [NonSerialized]
         private System.Type defineClass;
         private string viewName;
         private PropertyInView[] properties;
@@ -770,7 +772,7 @@
                 {
                     propType = Information.GetPropertyType(defineClass, prop);
                 }
-                catch (CantFindPropertyException ex)
+                catch (CantFindPropertyException)
                 {
 
                 }
@@ -988,7 +990,7 @@
         /// <returns>Метод возвращает true, если переданное в качестве параметра свойство присутствует в представлении, и false в противном случае.</returns>
         public bool CheckPropname(string propName, bool checkDetails)
         {
-            return Properties.Any(x => x.Name == propName) 
+            return Properties.Any(x => x.Name == propName)
                 || (checkDetails && Details.Any(x => x.Name == propName));
         }
 
@@ -1411,8 +1413,36 @@
         /// <summary>
         /// тип, для которого определено пердставление
         /// </summary>
+        [XmlIgnore]
         public System.Type DefineClassType { get { return defineClass; } set { defineClass = value; } }
-        
+
+        [XmlElement("DefineClassType")]
+        public string AssemblyQualifiedTypeName
+        {
+            get { return DefineClassType == null ? null : DefineClassType.AssemblyQualifiedName; }
+            set {
+
+                if (string.IsNullOrEmpty(value))
+                    defineClass = null;
+                else
+                {
+
+                    try
+                    {
+                        defineClass = Type.GetType(value, true);
+                    }
+                    catch (Exception)
+                    {
+                        string[] split = value.Split(',');
+                        if (split.Length >= 2)
+                            Assembly.LoadFrom( string.Format("{0}.dll", split[1].Trim()) );
+
+                        defineClass = Type.GetType(value, true);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Получить все детейлы.
         /// </summary>
@@ -1442,7 +1472,11 @@
         /// <returns></returns>
         public override string ToString()
         {
-            return viewName + "(" + defineClass.Name + ")";
+            string res = viewName + "(" + defineClass.Name + ") p {";
+            foreach (PropertyInView pi in properties)
+                res += pi.Name + ",";
+            res += "}";
+            return res;
         }
 
         /// <summary>
@@ -1516,8 +1550,32 @@
             if (firstView == null) return secondView;
             if (secondView == null) return firstView;
             View Result = getViewForViews(firstView, secondView);
-            Result.Name = firstView.ToString() + "|" + secondView.ToString();
+            Result.Name = firstView.Name + "|" + secondView.Name;
             System.Collections.SortedList temp = new SortedList();
+
+            System.Collections.Generic.List<PropertyInView> pivList = new System.Collections.Generic.List<PropertyInView>();
+            pivList.AddRange(firstView.Properties);
+
+            foreach (PropertyInView piv in secondView.Properties)
+            {
+
+                    int index = pivList.FindIndex(p => p.Name == piv.Name);
+                if (index>=0)
+                { 
+                    PropertyInView pivRes = pivList[index];
+                    pivRes.Visible = pivRes.Visible || piv.Visible;
+                    pivRes.Caption = pivRes.Caption + " / " + piv.Caption;
+
+                    pivList[index] = pivRes;
+                }
+                else
+                {
+                    pivList.Add(piv);
+                }
+            }
+            Result.Properties = pivList.ToArray();
+
+
 
             //properties
             for (int i = 0; i < secondView.properties.Length; i++)

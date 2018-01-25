@@ -11,6 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Audit\**" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="SQLDataService\**" />
+    <EmbeddedResource Remove="Audit\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="SQLDataService\**" />
+    <None Remove="Audit\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="SQLDataService\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
 
@@ -20,5 +32,9 @@
     <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.dll&quot; &quot;..\..\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.pdb&quot; &quot;..\..\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;xcopy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.xml&quot; &quot;..\..\dependencies\FlexberryORM_CORE2\&quot; /c /y" />
+  </Target>
 
 </Project>

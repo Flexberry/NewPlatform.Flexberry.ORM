@@ -3,10 +3,12 @@
 namespace ICSSoft.STORMNET.FunctionalLanguage
 {
 	using ICSSoft.STORMNET;
-	/// <summary>
-	/// Определение функции
-	/// </summary>
-	[NotStored]
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Определение функции
+    /// </summary>
+    [NotStored]
 	public class FunctionDef:TypedObject
 	{
 		private DetailArrayOfFunctionalParameterDef fieldParameters;
@@ -34,6 +36,11 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 			fieldUserViewFormat = userViewFormat;
 			this.ID = ID;
 		}
+
+
+        public FunctionDef()
+        {
+        }
         /// <summary>
         /// конструктор
         /// </summary>
@@ -44,7 +51,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objImagedView"></param>
         /// <param name="userViewFormat"></param>
         /// <param name="parameters"></param>
-		public FunctionDef(int  ID,ObjectType returnType,string objStringedView,string objCaption,string userViewFormat,
+        public FunctionDef(int  ID,ObjectType returnType,string objStringedView,string objCaption,string userViewFormat,
 			params FunctionParameterDef[] parameters)
 			:base(returnType,objStringedView,objCaption)
 		{
@@ -94,14 +101,33 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// </summary>
 		public string UserViewFormat {get {return fieldUserViewFormat;}}
 
-		private FunctionalLanguageDef fieldLanguage;
+        [NonSerialized]
+        private FunctionalLanguageDef fieldLanguage;
 		/// <summary>
 		/// Язык ограничений, в рамках которого существует данное определение функции (язык включает все определения как детейлы)
 		/// </summary>
         [ICSSoft.STORMNET.Agregator]
+        [XmlIgnore]
 		public FunctionalLanguageDef Language {get{return fieldLanguage;}set {fieldLanguage=value;} }
 
-	}
+
+        [XmlElement("Language")]
+        public string AssemblyQualifiedTypeNameLanguage
+        {
+            get { return fieldLanguage == null ? null : fieldLanguage.GetType().AssemblyQualifiedName; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    fieldLanguage = null;
+                else
+                {
+                    Type t = System.Type.GetType(value, true);
+                    fieldLanguage = (FunctionalLanguageDef) Activator.CreateInstance(t);
+                }
+            }
+        }
+
+    }
     /// <summary>
     /// массив параметров
     /// </summary>

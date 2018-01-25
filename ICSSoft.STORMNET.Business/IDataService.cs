@@ -1,12 +1,13 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections.Generic;
 
-    using ICSSoft.STORMNET.Business.Audit;
+   // using ICSSoft.STORMNET.Business.Audit;
 
     using Security;
     using FunctionalLanguage;
-    using FunctionalLanguage.SQLWhere;
+    //using FunctionalLanguage.SQLWhere;
 
     /// <summary>
     /// Интерфейс сервисов данных.
@@ -35,23 +36,7 @@
         /// </summary>
         ISecurityManager SecurityManager { get; }
 
-        /// <summary>
-        /// Текущий сервис аудита.
-        /// </summary>
-        IAuditService AuditService { get; }
-
-        /// <summary>
-        /// Преобразовать значение в SQL строку
-        /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
-        /// <returns></returns>
-        string FunctionToSql(
-            SQLWhereLanguageDef sqlLangDef,
-            Function function,
-            delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier);
+       
 
         /// <summary>
         /// Загрузка одного объекта данных.
@@ -101,7 +86,6 @@
         /// <param name="dobject">объект данных, который требуется загрузить</param>
         /// <param name="ClearDataObject">очищать ли объект</param>
         /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        /// <param name="ChфтпуeckExistingObject">проверять ли существование объекта в хранилище</param>
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);

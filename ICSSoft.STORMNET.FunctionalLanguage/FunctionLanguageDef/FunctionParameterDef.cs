@@ -1,4 +1,7 @@
-﻿namespace ICSSoft.STORMNET.FunctionalLanguage
+﻿using System;
+using System.Xml.Serialization;
+
+namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     /// <summary>
     /// Унаследованный от TypedObject класс для определения параметров функции
@@ -6,14 +9,16 @@
 	[NotStored]
 	public class FunctionParameterDef:TypedObject
 	{
-
 		private  bool fieldMultiValueSupport;
-		private  FunctionDef fieldFunctionDef;
+
+        [NonSerialized]
+        private  FunctionDef fieldFunctionDef;
 
         /// <summary>
         /// Определение функции (агрегатор)
         /// </summary>
 		[Agregator]
+        [XmlIgnore]
 		public FunctionDef FunctionDef {get {return fieldFunctionDef;}set{fieldFunctionDef=value;}}
         /// <summary>
         /// конструктор
@@ -26,6 +31,9 @@
 		{
 			fieldMultiValueSupport = false;
 		}
+
+        public FunctionParameterDef() { }
+
         /// <summary>
         /// конструктор
         /// </summary>

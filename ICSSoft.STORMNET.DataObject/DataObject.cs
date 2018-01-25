@@ -153,6 +153,7 @@
             __PrimaryKey = primaryKey;
             SetLoadingState(LoadingState.LightLoaded);
             SetLoadedProperties("__PrimaryKey");
+            InitDataCopy();
         }
 
         /// <summary>
@@ -2434,7 +2435,8 @@
         /// </summary>
         public void AddObject(DataObject dataobject)
         {
-            //Information.CheckUsingType(dataobject);
+            if (dataobject == null) throw new ArgumentNullException(nameof(dataobject));
+            
             if (dataobject.__PrimaryKey == null)
             {
                 KeyGenerator.Generate(dataobject, null);
@@ -2442,6 +2444,12 @@
             if (keys.ContainsKey(dataobject.__PrimaryKey))
                 throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
             SetByKey(dataobject.__PrimaryKey, dataobject);
+        }
+
+        //чтобы работала XML сериализация
+        public void Add(Object dataobject)
+        {
+            AddObject((DataObject)dataobject);
         }
 
         /// <summary>

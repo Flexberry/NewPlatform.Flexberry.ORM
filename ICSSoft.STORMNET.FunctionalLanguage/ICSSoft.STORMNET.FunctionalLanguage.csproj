@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FunctionForControls.cs" />
+    <Compile Remove="FunctionForControlsConverter.cs" />
+    <Compile Remove="SQLWhereLanguageDef.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
   </ItemGroup>
 
@@ -19,5 +25,9 @@
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.dll&quot; &quot;..\..\\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.pdb&quot; &quot;..\..\\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;xcopy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.xml&quot; &quot;..\..\\dependencies\FlexberryORM_CORE2\&quot; /c  /y" />
+  </Target>
 
 </Project>

@@ -4,11 +4,13 @@
     using System.Linq;
     using System.Collections;
     using System.Text;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Определение языка ограничений для конструирования ограничивающих функций
     /// </summary> 
     [NotStored]
+    [Serializable]
     public abstract class FunctionalLanguageDef : DataObject
     {
         private DetailArrayOfObjectType _fieldTypes;
@@ -307,7 +309,42 @@
         /// <summary>
         /// Список функций с ключом в виде строкового определения
         /// </summary>
+        [XmlIgnore]
+        [NonSerialized]
         public SortedList FunctionsByStringedViewList = new SortedList();
+
+
+        [XmlArray("FunctionsByStringedViewList")]
+        //[XmlIgnore]
+        public FunctionDef[] _S_FunctionsByStringedViewList
+        {
+            get
+            {
+                //подсмотрено тут https://social.msdn.microsoft.com/Forums/en-US/f5a79f67-28d4-4dd6-9deb-5356ab43060f/problem-with-serialisation-of-sortedlist-?forum=csharpgeneral
+                ArrayList[] funcs = new ArrayList[FunctionsByStringedViewList.Count];
+
+
+                ArrayList result = new ArrayList();
+                foreach (ArrayList arr in FunctionsByStringedViewList.Values)
+                {
+                    foreach (FunctionDef f in arr)
+                        result.Add(f);
+                }
+                return (FunctionDef[]) result.ToArray();
+            }
+            set
+            {
+                FunctionsByStringedViewList.Clear();
+                for (int i = 0; i < value.Length; i++)
+                {
+                    FunctionDef f = (FunctionDef)value[i];
+                    if (!FunctionsByStringedViewList.ContainsKey(f.StringedView))
+                        FunctionsByStringedViewList.Add(f.StringedView, new ArrayList());
+                    ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
+                }
+            }
+        }
+
 
         private static string m_objNull = "CONST";
 
@@ -501,6 +538,12 @@
         public ObjectType this[int index]
         {
             get { return (ObjectType)ItemByIndex(index); }
+        }
+
+        //чтобы работала XML сериализация
+        public void Add(Object dataobject) 
+        {
+            base.Add(dataobject);
         }
     }
 

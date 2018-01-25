@@ -111,7 +111,7 @@
             SQLWhereLanguageDef sqlLangDef,
             Function function,
             delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, ref List<string> OTBSubquery)
         {
             throw new NotImplementedException();
         }
@@ -390,14 +390,19 @@
                 innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " ) as \"RowNumber\"" + nl);
             }
 
+            List<string> OTBSubqueries = new List<string>();
+            string wherePart = LimitFunction2SQLWhere(limitFunction, ref OTBSubqueries);
+            string withPart = (OTBSubqueries == null || OTBSubqueries.Count == 0) ? "" : "with " + nl + string.Join("," + nl, OTBSubqueries.ToArray())+nl;
+
             string query = string.Format(
-                "SELECT{3} \"RowNumber\", {5} FROM {1}({0}) QueryForGettingIndex {1} WHERE ({2}) {4}",
+                "{6} SELECT{3} \"RowNumber\", {5} FROM {1}({0}) QueryForGettingIndex {1} WHERE ({2}) {4}",
                 innerQuery,
                 nl,
-                LimitFunction2SQLWhere(limitFunction),
+                wherePart,
                 maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
                 orderByExpr,
-                PutIdentifierIntoBrackets("STORMMainObjectKey"));
+                PutIdentifierIntoBrackets("STORMMainObjectKey"),
+                withPart);
 
             object state = null;
             object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
@@ -1215,7 +1220,7 @@
                 {
                     for (int i = 0; i < dataObjectView.Properties.Length; i++)
                     {
-                        if (!Information.IsStoredProperty(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name))
+                        if (!Information.IsStoredProperty(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name,dataObjectView))
                         {
                             string[] arr1 = Information.AllViews(dataObjectView.DefineClassType);
                             for (int ii = 0; ii < arr1.Length; ii++)
@@ -1455,7 +1460,15 @@
                 //добавим Where-часть
                 if (LimitFunction != null)
                 {
-                    string sw = LimitFunction2SQLWhere(LimitFunction, StorageStruct, asnameprop, mustNewgenerate);
+                    List<string> OTBSubquery = new List<string>();
+
+                    string sw = LimitFunction2SQLWhere(LimitFunction, StorageStruct, asnameprop, mustNewgenerate, ref OTBSubquery);
+                    if (OTBSubquery!=null && OTBSubquery.Count>0)
+                    {
+                        string withPart = $"with {nl} {string.Join("," + nl, OTBSubquery.ToArray())} {nl}";
+                        resQuery = withPart + resQuery;
+                    }
+
                     resQuery += nl + "WHERE " + sw;
                     if (mustNewgenerate)
                     {
@@ -3009,12 +3022,12 @@
         /// <param name="LimitFunction"></param>
         /// <returns></returns>
         public virtual string LimitFunction2SQLWhere(STORMFunction LimitFunction,
-            STORMDO.Business.StorageStructForView[] StorageStruct, string[] asnameprop, bool MustNewGenerate)
+            STORMDO.Business.StorageStructForView[] StorageStruct, string[] asnameprop, bool MustNewGenerate, ref List<string> OTBSubqueries)
         {
             string sw =
                 ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(LimitFunction,
                 new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString(ConvertValueToQueryValueString),
-                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets));
+                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets), ref OTBSubqueries);
             if (MustNewGenerate)
             {
                 sw = ReplaceAliases(StorageStruct, asnameprop, sw);
@@ -3063,12 +3076,12 @@
         /// </summary>
         /// <param name="LimitFunction"></param>
         /// <returns></returns>
-        public virtual string LimitFunction2SQLWhere(STORMFunction LimitFunction)
+        public virtual string LimitFunction2SQLWhere(STORMFunction LimitFunction, ref List<string> OTBSubqueries)
         {
             return
                 ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(LimitFunction,
                 new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString(ConvertValueToQueryValueString),
-                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets));
+                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets), ref OTBSubqueries);
         }
 
 
@@ -3546,6 +3559,63 @@
             }
 
             propsWithValues = tmpPropsWithValues;
+
+            detailObjects = (DataObject[])details.ToArray(typeof(DataObject));
+            masterObjects = (DataObject[])masters.ToArray(typeof(DataObject));
+        }
+
+
+        protected virtual void GetAlteredObjects(
+            ICSSoft.STORMNET.DataObject dobject, bool CheckLoadedProps,
+            out ICSSoft.STORMNET.DataObject[] detailObjects,
+            out ICSSoft.STORMNET.DataObject[] masterObjects)
+        {
+            System.Collections.ArrayList details = new System.Collections.ArrayList();
+            System.Collections.ArrayList masters = new System.Collections.ArrayList();
+            System.Type type = dobject.GetType();
+
+            string[] props = (dobject.GetStatus(false) == ObjectStatus.Created) ? Information.GetPropertyNamesForInsert(type)
+                : (Information.AutoAlteredClass(type) ? dobject.GetAlteredPropertyNames(false) : dobject.GetAlteredPropertyNames());
+
+            props = Information.SortByLoadingOrder(type, props);
+            if (CheckLoadedProps && dobject.GetLoadingState() != ICSSoft.STORMNET.LoadingState.Loaded)
+            {
+                SpecColl.StringCollection alteredprops = new System.Collections.Specialized.StringCollection();
+                alteredprops.AddRange(props);
+                string[] loadedprops = dobject.GetLoadedProperties();
+                foreach (string lp in loadedprops)
+                {
+                    int index = alteredprops.IndexOf(lp);
+                    if (index >= 0)
+                        alteredprops.Remove(lp);
+                }
+
+                if (alteredprops.Count > 0)
+                    throw new CantUpdateNotLoadedPropertiesException(dobject, alteredprops);
+            }
+
+            foreach (string prop in props)
+            {
+                object propval = STORMDO.Information.GetPropValueByName(dobject, prop);
+                System.Type propType = STORMDO.Information.GetPropertyType(type, prop);
+                if (propType.IsSubclassOf(typeof(DataObject)))
+                {
+                    if (propval != null &&  ((DataObject) propval).GetStatus()!=STORMDO.ObjectStatus.UnAltered)
+                    // Это мастеровой объект
+                        masters.Add(propval);
+                }
+                else if (propType.IsSubclassOf(typeof(STORMDO.DetailArray)))
+                { // Детейловые объекты
+                    if (propval != null)
+                    {
+                        foreach (DataObject dob in (STORMDO.DetailArray)propval)
+                        {
+                            if (dob.GetStatus() != STORMDO.ObjectStatus.UnAltered)
+                                details.Add(dob);
+                        }
+                    }
+                }
+            }
 
             detailObjects = (DataObject[])details.ToArray(typeof(DataObject));
             masterObjects = (DataObject[])masters.ToArray(typeof(DataObject));
@@ -4323,15 +4393,46 @@
             {
                 var processingObject = (DataObject)processingObjects[i];
 
-                // Включем текущий объект в граф зависимостей.
-                GetDependencies(processingObject, processingObject.GetType(), dependencies);
-
                 UpdaterObject updaterobject = null;
                 if (typeof(UpdaterObject).IsInstanceOfType(processingObject))
                 {
                     updaterobject = (UpdaterObject)processingObject;
                     processingObject = updaterobject.TemplateObject;
                 }
+
+                ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues;
+                DataObject[] detailsObjects;
+                DataObject[] mastersObjects;
+                GetAlteredObjects(
+                    processingObject,
+                    false,
+                    out detailsObjects,
+                    out mastersObjects);
+                foreach (STORMDO.DataObject subobject in detailsObjects)
+                {
+                    subobject.GetStatus(true);
+                    if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
+                    {
+                        if (subobject.GetStatus(false) == ObjectStatus.Created)
+                            KeyGen.KeyGenerator.GenerateUnique(subobject, this);
+                        processingObjects.Add(subobject);
+                        dataObjectCache.AddDataObject(subobject);
+                        AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
+                    }
+                }
+                foreach (STORMDO.DataObject subobject in mastersObjects)
+                {
+                    subobject.GetStatus(true);
+                    if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
+                    {
+                        if (subobject.GetStatus(false) == ObjectStatus.Created)
+                            KeyGen.KeyGenerator.GenerateUnique(subobject, this);
+                        processingObjects.Add(subobject);
+                        dataObjectCache.AddDataObject(subobject);
+                        AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
+                    }
+                }
+
 
                 STORMDO.ObjectStatus curObjectStatus = (i < dobjects.Length) ? processingObject.GetStatus() : processingObject.GetStatus(false);
                 Type typeOfProcessingObject = processingObject.GetType();
@@ -4341,6 +4442,7 @@
                     foreach (BusinessServer bs in bss)
                     {
                         bs.ObjectsToUpdate = processingObjects;
+                        bs.DataObjectCache = dataObjectCache;
                         object prevPrimaryKey = processingObject.__PrimaryKey;
                         STORMDO.DataObject[] subobjects = bs.OnUpdateDataobject(processingObject);
                         curObjectStatus = processingObject.GetStatus(true);
@@ -4361,13 +4463,32 @@
                                 if (subobject.GetStatus(false) == ObjectStatus.Created)
                                     KeyGen.KeyGenerator.GenerateUnique(subobject, this);
                                 processingObjects.Add(subobject);
+                                dataObjectCache.AddDataObject(subobject);
                                 AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
                             }
                         }
                     }
                 }
+                /****** от сюда*****/
+            }
+            for (int i=0;i<processingObjects.Count;i++)
+            { 
+                var processingObject = (DataObject)processingObjects[i];
+                UpdaterObject updaterobject = null;
+                if (typeof(UpdaterObject).IsInstanceOfType(processingObject))
+                {
+                    updaterobject = (UpdaterObject)processingObject;
+                    processingObject = updaterobject.TemplateObject;
+                }
 
-                switch (curObjectStatus)
+
+                // Включем текущий объект в граф зависимостей.
+                GetDependencies(processingObject, processingObject.GetType(), dependencies);
+
+            STORMDO.ObjectStatus curObjectStatus = (i < dobjects.Length) ? processingObject.GetStatus() : processingObject.GetStatus(false);
+            Type typeOfProcessingObject = processingObject.GetType();
+            /**** до сюда ***/
+            switch (curObjectStatus)
                 {
                     case STORMDO.ObjectStatus.UnAltered:
                         break;
@@ -4620,6 +4741,8 @@
                                         propsInTable.Add(col);
                                     }
 
+                                    List<string> tmp = new List<string>();
+
                                     for (int k = 0; k < valuesByTables.Count; k++)
                                     {
                                         Type t = valuesByTables.Key(k);
@@ -4636,7 +4759,8 @@
                                             lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(t).KeyType), Information.GetPrimaryKeyStorageName(t));
                                         FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                                         if (updaterobject != null) func = updaterobject.Function;
-                                        query += LimitFunction2SQLWhere(func);
+                                        
+                                        query += LimitFunction2SQLWhere(func, ref tmp);
                                         AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
                                         if (!updateQueries.Contains(query))
                                         {
@@ -4671,6 +4795,7 @@
                                     }
                                 }
 
+                                List<string> tmp = new List<string>();
                                 if (propsWithValues.Count > 0)
                                 {
                                     string query = "UPDATE " + PutIdentifierIntoBrackets(mainTableName) + " SET " + nl;
@@ -4684,7 +4809,7 @@
                                         lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(processingObject.GetType()).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
                                     FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                                     if (updaterobject != null) func = updaterobject.Function;
-                                    query += LimitFunction2SQLWhere(func);
+                                    query += LimitFunction2SQLWhere(func, ref tmp);
                                     AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
                                     if (!updateQueries.Contains(query))
                                         updateQueries.Add(query);
@@ -4724,9 +4849,10 @@
                     {
                         if (deleteList.ContainsKey(queryOrder[j]))
                         {
+                            List<string> tmp = new List<string>();
                             FunctionalLanguage.Function func = (STORMFunction)deleteList[queryOrder[j]];
                             string Query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " +
-                                           LimitFunction2SQLWhere(func);
+                                           LimitFunction2SQLWhere(func, ref tmp);
                             if (!deleteQueries.Contains(Query))
                             {
                                 deleteTables.Add(queryOrder[j]);
@@ -4933,7 +5059,7 @@
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
 
-            OnBeforeUpdateObjects(allQueriedObjects);
+            object TagFromBeforeUpdate = OnBeforeUpdateObjects(allQueriedObjects);
 
             Exception ex = null;
 
@@ -5152,13 +5278,13 @@
             }
 
             if (AfterUpdateObjects != null)
-                AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
+                AfterUpdateObjects(this, new DataObjectsEventArgs(objects, TagFromBeforeUpdate));
         }
 
-        private void OnBeforeUpdateObjects(ArrayList allQueriedObjects)
+        private object OnBeforeUpdateObjects(ArrayList allQueriedObjects)
         {
             if (BeforeUpdateObjects == null)
-                return;
+                return null;
 
             var changedObjects = new List<DataObject>(allQueriedObjects.Count);
 
@@ -5166,8 +5292,9 @@
             {
                 changedObjects.Add(obj as DataObject);
             }
-
-            BeforeUpdateObjects(this, new DataObjectsEventArgs(changedObjects.ToArray()));
+            DataObjectsEventArgs dataObjectsEventArgs = new DataObjectsEventArgs(changedObjects.ToArray());
+            BeforeUpdateObjects(this, dataObjectsEventArgs);
+            return dataObjectsEventArgs.Tag;
         }
 
 

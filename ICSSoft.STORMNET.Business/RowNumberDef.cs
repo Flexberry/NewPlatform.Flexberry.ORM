@@ -39,7 +39,14 @@
         }
 
         #endregion
-        		
+
+        /// <summary>
+        /// Конструктор по-умолчанию
+        /// </summary>
+        public RowNumberDef()
+        {
+        }
+
         /// <summary>
         /// Конструктор
         /// </summary>

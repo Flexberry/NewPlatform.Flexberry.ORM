@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NewPlatform.Flexberry.LogService.CORE\LogService\LogService.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\NewPlatform.Flexberry.LogService.CORE\LogService\LogService.csproj" />
   </ItemGroup>
 
 </Project>

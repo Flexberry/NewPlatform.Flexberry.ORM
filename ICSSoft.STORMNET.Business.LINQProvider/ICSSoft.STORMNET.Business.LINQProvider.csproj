@@ -11,17 +11,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Remotion.Linq" Version="2.1.2" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0-alpha-004" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NewPlatform.Flexberry.LogService.CORE\LogService\LogService.csproj" />
     <ProjectReference Include="..\ExternalLangDef\ExternalLangDef.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
+    <ProjectReference Include="..\NewPlatform.Flexberry.LogService.CORE\LogService\LogService.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.dll&quot; &quot;..\..\\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;copy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.pdb&quot; &quot;..\..\\dependencies\FlexberryORM_CORE2\&quot;&#xD;&#xA;xcopy &quot;bin\$(ConfigurationName)\netcoreapp2.0\*.xml&quot; &quot;..\..\\dependencies\FlexberryORM_CORE2\&quot; /c /y" />
+  </Target>
 
 </Project>

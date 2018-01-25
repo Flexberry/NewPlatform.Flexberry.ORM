@@ -7,7 +7,7 @@
     using System.Runtime.Serialization;
     using System.Text;
 
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    //using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 
     /// <summary>
     /// Ограничивающая функция. Применяется для задания ограничений.
@@ -50,48 +50,49 @@
         public Function(SerializationInfo info, StreamingContext text)
             : this()
         {
-            // первый вариант десериализации, без учета функций, входящих в ExternalLangDef
-            //var f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
-            //    Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
+            //// первый вариант десериализации, без учета функций, входящих в ExternalLangDef
+            ////var f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
+            ////    Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
 
-            Function f;
+            //Function f;
 
-            // Попытка использовать ExternalLangDef, так как там
-            // содержится больше функций, чем в SQLWhereLangDef
-            var externalLangDef = Type.GetType(
-                "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ExternalLangDef, Version=1.0.0.0, " +
-                "Culture=neutral, PublicKeyToken=50dc27591ed591e6", 
-                false);
-            if(externalLangDef == null)
-            {
-                externalLangDef = Type.GetType(
-                    "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ICSSoft.STORMNET.UI, Version=1.0.0.1, " +
-                    "Culture=neutral, PublicKeyToken=21ce651d390c1fa0",
-                    false);
-            }
+            //// Попытка использовать ExternalLangDef, так как там
+            //// содержится больше функций, чем в SQLWhereLangDef
+            //var externalLangDef = Type.GetType(
+            //    "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ExternalLangDef, Version=1.0.0.0, " +
+            //    "Culture=neutral, PublicKeyToken=50dc27591ed591e6", 
+            //    false);
+            //if(externalLangDef == null)
+            //{
+            //    externalLangDef = Type.GetType(
+            //        "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ICSSoft.STORMNET.UI, Version=1.0.0.1, " +
+            //        "Culture=neutral, PublicKeyToken=21ce651d390c1fa0",
+            //        false);
+            //}
 
-            if(externalLangDef != null)
-            {
-                MethodInfo functionFromSimpleStruct = externalLangDef.GetMethod("FunctionFromSimpleStruct");
-                PropertyInfo languageDef = externalLangDef.GetProperty("LanguageDef");
-                f = (Function)
-                    functionFromSimpleStruct.Invoke(languageDef.GetValue(null, null),
-                                                    new object[]
-                                                        {
-                                                            Tools.ToolBinarySerializer.ObjectFromString(
-                                                                info.GetString(FuncName))
-                                                        });
-            }
-            else
-            {
-                // Если загрузка ExternalLangDef не удалась
-                f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
-                        Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
-            }
+            //if(externalLangDef != null)
+            //{
+            //    MethodInfo functionFromSimpleStruct = externalLangDef.GetMethod("FunctionFromSimpleStruct");
+            //    PropertyInfo languageDef = externalLangDef.GetProperty("LanguageDef");
+            //    f = (Function)
+            //        functionFromSimpleStruct.Invoke(languageDef.GetValue(null, null),
+            //                                        new object[]
+            //                                            {
+            //                                                Tools.ToolBinarySerializer.ObjectFromString(
+            //                                                    info.GetString(FuncName))
+            //                                            });
+            //}
+            //else
+            //{
+
+            //    //// Если загрузка ExternalLangDef не удалась
+            //    //f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
+            //    //        Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
+            //}
             
 
-            fieldParameters = f.fieldParameters;
-            _fieldFunctionDef = f._fieldFunctionDef;
+            //fieldParameters = f.fieldParameters;
+            //_fieldFunctionDef = f._fieldFunctionDef;
         }
 
         /// <summary>
@@ -101,9 +102,9 @@
         /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            string val =
-                Tools.ToolBinarySerializer.ObjectToString(SQLWhereLanguageDef.LanguageDef.FunctionToSimpleStruct(this));
-            info.AddValue(FuncName, val);
+            //string val =
+            //    Tools.ToolBinarySerializer.ObjectToString(SQLWhereLanguageDef.LanguageDef.FunctionToSimpleStruct(this));
+            //info.AddValue(FuncName, val);
         }
 
         /// <summary>
@@ -260,7 +261,7 @@
                     parameters[i] = par;
             }
 
-            if (FunctionDef.StringedView == SQLWhereLanguageDef.LanguageDef.funcEQ
+            if (FunctionDef.StringedView == "="
                 && parameters.Length == 1)
                 return string.Format("{0}", parameters);
 

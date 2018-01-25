@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace ICSSoft.STORMNET.FunctionalLanguage
 {
@@ -28,6 +30,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             :
             base(objStringedView, objCaption) { fieldNetCompatibilityType = netCompatibilityType; }
 
+        public ObjectType() { }
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -43,16 +47,27 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// .NET тип для этого типа
         /// </summary>
         public virtual System.Type NetCompatibilityType { get { return fieldNetCompatibilityType; } }
+
+
+        [XmlElement("NetCompatibilityType")]
+        public string AssemblyQualifiedTypeName
+        {
+            get { return NetCompatibilityType == null ? null : NetCompatibilityType.AssemblyQualifiedName; }
+            set { fieldNetCompatibilityType = string.IsNullOrEmpty(value) ? null : Type.GetType(value); }
+        }
+
         /// <summary>
         /// Можно ли его поредактировать в текстбоксе
         /// </summary>
         public bool EditableInTextBox { get { return fieldEditableInTextBox; } }
 
+        [NonSerialized]
         private FunctionalLanguageDef fieldLanguage;
         /// <summary>
         /// Язык, в рамках которого определён этот тип
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
+        [XmlIgnore]
         public virtual FunctionalLanguageDef Language { get { return fieldLanguage; } set { fieldLanguage = value; } }
         /// <summary>
         /// Совместим с...
@@ -92,10 +107,12 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <summary>
         /// упрощение значения
         /// </summary>
+        [XmlIgnoreAttribute]
         public SimplificationDelegate SimplificationValue;
         /// <summary>
         /// разупрощение значения
         /// </summary>
+        [XmlIgnoreAttribute]
         public SimplificationDelegate UnSimplificationValue;
 
         /// <summary>
@@ -139,5 +156,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     /// <param name="value"></param>
     /// <returns></returns>
     public delegate object SimplificationDelegate(object value);
+
+    
 
 }

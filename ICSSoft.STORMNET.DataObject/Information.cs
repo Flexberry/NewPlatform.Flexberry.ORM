@@ -621,23 +621,24 @@
         #endregion
 
         #region "string[] AllViews(System.Type type)"
-        static private TypeAtrValueCollection cacheAllViews = new TypeAtrValueCollection();
+        static private TypeInheritAtrValueCollection cacheAllViews = new TypeInheritAtrValueCollection();
 
         /// <summary>
         /// Получить список имён представлений для указанного класса объекта данных
         /// </summary>
-       /// <param name="type">Тип представления</param>
-       /// <returns>Массив строк, содержащих имена представлений для указанного типа</returns>
-        static public string[] AllViews(System.Type type)
+        /// <param name="type">Тип представления</param>
+        /// <param name="inherit">Должны ли попадать представления от предков, по-умолчанию true.</param>
+        /// <returns>Массив строк, содержащих имена представлений для указанного типа</returns>
+        static public string[] AllViews(System.Type type, bool inherit = true)
         {
             lock (cacheAllViews)
             {
-                string[] res = (string[])cacheAllViews[type];
+                string[] res = (string[])cacheAllViews[type, inherit];
                 if (res != null)
                     return CopyStringArray(res);
                 else
                 {
-                    Object[] classAttributes = type.GetCustomAttributes(typeof(ViewAttribute), true);
+                    Object[] classAttributes = type.GetCustomAttributes(typeof(ViewAttribute), inherit);
                     ArrayList arl = new ArrayList(classAttributes.Length);
                     for (int i = 0; i < classAttributes.Length; i++)
                     {
@@ -648,7 +649,7 @@
                     arl.CopyTo(retval);
                     arl.Clear();
                     arl = null;
-                    cacheAllViews[type] = retval;
+                    cacheAllViews[type, inherit] = retval;
                     return retval;
                 }
             }
@@ -2644,15 +2645,19 @@
 
         static private Dictionary<string, bool> cacheIsStoredProp = new Dictionary<string, bool>();
 
+
+      
+
         /// <summary>
         /// Хранимое ли свойство
         /// </summary>
         /// <param name="type">тип объекта данных</param>
         /// <param name="propName">свойство</param>
+        /// <param name="inViewCheck">для проверки в случае наследования</param>
         /// <returns></returns>
-        static public bool IsStoredProperty(Type type, string propName)
+        static public bool IsStoredProperty(Type type, string propName, View inViewCheck = null)
         {
-            string key = type.FullName + "." + propName;
+            string key = $"{type.FullName}.{propName}({inViewCheck})";
 
             if (cacheIsStoredProp.ContainsKey(key))
             {
@@ -2673,7 +2678,8 @@
                 {
                     string masterName = propName.Substring(0, pointIndex);
                     string masterPropName = propName.Substring(pointIndex + 1);
-                    bres = IsStoredProperty(GetPropertyType(type, masterName), masterPropName);
+                    Type masterType = (inViewCheck!=null && inViewCheck.MasterTypeFilters == null && inViewCheck.MasterTypeFilters.Count > 0)? (Type)inViewCheck.MasterTypeFilters[masterName] : GetPropertyType(type, masterName);
+                    bres = IsStoredProperty(masterType, masterPropName);
                 }
                 else
                 {

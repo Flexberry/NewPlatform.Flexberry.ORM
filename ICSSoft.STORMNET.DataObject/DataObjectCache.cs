@@ -89,6 +89,20 @@
         }
 
         /// <summary>
+        /// Возвращает список объектов данных из текущего кэша
+        /// </summary>
+        /// <returns></returns>
+        public List<DataObject> GetAllLivingDataObjects()
+        {
+            List<DataObject> list = new List<DataObject>();
+            Dictionary<TypeKeyPair, WeakReference> cacheList = (Dictionary<TypeKeyPair, WeakReference>)_objectCaches[_lastCacheIndex];
+            foreach (KeyValuePair<TypeKeyPair,WeakReference> kvp in cacheList)
+                if (kvp.Value.IsAlive)
+                    list.Add((DataObject)kvp.Value.Target);
+            return list;
+        }
+
+        /// <summary>
         /// Закончить кеширование.
         /// </summary>
         public void StopCaching()

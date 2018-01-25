@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.FunctionalLanguage.SQLWhere
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// делегат для конвертации значений на FunctionalLanguage в значения на SQL
@@ -257,14 +258,15 @@
         /// <param name="convertIdentifier"></param>
         /// <returns></returns>
         public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, ref List<string> OTBSubqueries)
         {
             if (value is Function)
             {
-                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction((value as Function), convertValue, convertIdentifier);
+                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction((value as Function), convertValue, convertIdentifier,ref OTBSubqueries);
             }
             if (value is VariableDef)
             {
+                
                 if ((value as VariableDef).Language != null)
                 {
                     //					if ((value as VariableDef).Type==SQLWhereLanguageDef.LanguageDef.BoolType)
@@ -299,15 +301,19 @@
         /// <param name="value">функция</param>
         /// <param name="convertValue">конвертилка выражений</param>
         /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
+        /// <param name="OTBSubqueries"> подзапросы для выполнения функции </param>
         /// <returns></returns>
-        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
+        protected virtual string SQLTranslFunction(Function value,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            ref List<string> OTBSubqueries )
         {
             if (value.Parameters.Count == 2)
             {
                 if (value.FunctionDef.StringedView == "=" &&
                     ((value.Parameters[1] == null) || (value.Parameters[1].GetType() == typeof(string) && ((string)value.Parameters[1]) == string.Empty)))
                 {
-                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " IS NULL )";
+                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries) + " IS NULL )";
                 }
             }
 
@@ -320,7 +326,7 @@
                 case "SQL":
                     return value.Parameters[0].ToString();
                 case "ISNULL":
-                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " IS NULL )";
+                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier,ref OTBSubqueries) + " IS NULL )";
                 case "NOT":
                     string result = string.Empty;
                     if (value.Parameters[0] is VariableDef)
@@ -343,14 +349,14 @@
 
                     if (result == string.Empty)
                     {
-                        result = "( NOT " + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " )";
+                        result = "( NOT " + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries) + " )";
                     }
                     return result;
                 case "LIKE":
                     string par1 = string.Empty, par2 = string.Empty;
 
-                    par1 = AddUpper(value.Parameters[0], convertValue, convertIdentifier);
-                    par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier);
+                    par1 = AddUpper(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries);
+                    par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubqueries);
 
                     if (value.Parameters[1] != null && value.Parameters[1].GetType() == typeof(string))
                         par2 = par2.Replace(UserLikeAnyStringSymbol, QueryLikeAnyStringSymbol).Replace(UserLikeAnyCharacterSymbol, QueryLikeAnyCharacterSymbol);
@@ -405,7 +411,7 @@
                             pars[i] = string.Format("(({0}={1}))", convertValue(value.Parameters[i]), convertValue(true));
 
                         if (pars[i] == string.Empty) 
-                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, ref OTBSubqueries);
 
                         #region Обработка ситуации, когда операндом у функции "=" или "<>" идут функции.
 
@@ -450,23 +456,23 @@
                         pars = new string[value.Parameters.Count];
                         for (int i = 0; i < pars.Length; i++)
                         {
-                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, ref OTBSubqueries);
                         }
                         return "( " + string.Join(" " + "=" + " ", pars) + ")";
                     }
                     else if (value.Parameters.Count == 1)
                     {
-                        return SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " is null";
+                        return SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries) + " is null";
                     }
                     pars = new string[value.Parameters.Count - 1];
                     for (int i = 1; i < value.Parameters.Count; i++)
                     {
-                        pars[i - 1] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                        pars[i - 1] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, ref OTBSubqueries);
                     }
-                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier) + " in (" + string.Join(",", pars) + "))";
+                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries) + " in (" + string.Join(",", pars) + "))";
 
                 case "BETWEEN":
-                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier) + " between " + AddUpper(value.Parameters[1], convertValue, convertIdentifier) + " and " + AddUpper(value.Parameters[2], convertValue, convertIdentifier) + ")";
+                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries) + " between " + AddUpper(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubqueries) + " and " + AddUpper(value.Parameters[2], convertValue, convertIdentifier, ref OTBSubqueries) + ")";
                 default:
                     throw new Exception("Not found function :" + value.FunctionDef.StringedView);
             }
@@ -503,20 +509,20 @@
         /// <param name="convertIdentifier"></param>
         /// <returns></returns>
         protected string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, ref List<string> OTBSubqueries)
         {
             string retStr;
             if (CaseInsensitive && (value is VariableDef && ((VariableDef)value).Type.StringedView == "String"))
             {
-                retStr = "UPPER( " + SQLTranslSwitch(value, convertValue, convertIdentifier) + " )";
+                retStr = "UPPER( " + SQLTranslSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries) + " )";
                 return retStr;
             }
             if (CaseInsensitive && value is String)
             {
-                retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier);
+                retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier, ref OTBSubqueries);
                 return retStr;
             }
-            retStr = SQLTranslSwitch(value, convertValue, convertIdentifier);
+            retStr = SQLTranslSwitch(value, convertValue, convertIdentifier,ref OTBSubqueries);
             return retStr;
         }
 
@@ -529,9 +535,10 @@
         /// <returns></returns>
         public static string ToSQLString(Function function,
             delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier,
+            ref List<string> OTBSubqueries)
         {
-            return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier);
+            return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier,ref OTBSubqueries);
         }
 
         /// <summary>
@@ -557,6 +564,8 @@
 
 
         private static string _objNull = "CONST";
+
+       
 
         /// <summary>
         /// Инициализация определений функций языка (для определения связки количества и типов параметров)
