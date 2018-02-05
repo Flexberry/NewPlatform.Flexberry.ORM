@@ -134,11 +134,53 @@
 
 
         private string customizationString;
+        private string _customizationStringName;
 
         /// <summary>
         /// Настроичная строка (строка соединения)
         /// </summary>
         public string CustomizationString { get { return customizationString; } set { customizationString = value; } }
+
+        /// <summary>
+        /// Имплементация интерфейса <see cref="IPasswordHasher"/> для хеширования пароля.
+        /// </summary>
+        private IConfigResolver _configResolver;
+
+        /// <summary>
+        /// Получение инстации класса для разрешения свойств классов на основе данных из файла конфигурации приложения.
+        /// </summary>
+        private IConfigResolver ConfigResolver
+        {
+            get
+            {
+                if (_configResolver != null)
+                {
+                    return _configResolver;
+                }
+
+                IUnityContainer container = UnityFactory.GetContainer();
+                _configResolver = container.Resolve<IConfigResolver>();
+
+                return _configResolver;
+            }
+        }
+
+        /// <summary>
+        /// Свойство для установки строки соединения по имени
+        /// </summary>
+        public string CustomizationStringName
+        {
+            get
+            {
+                return _customizationStringName;
+            }
+
+            set
+            {
+                _customizationStringName = value;
+                CustomizationString = ConfigResolver.ResolveConnectionString(_customizationStringName);
+            }
+        }
 
         /// <summary>
         /// Делегат для смены строки соединения
@@ -202,7 +244,7 @@
             {
                 if (_securityManager == null)
                 {
-                    IUnityContainer container = UnityFactory.CreateContainer();
+                    IUnityContainer container = UnityFactory.GetContainer();
                     _securityManager = container.Resolve<ISecurityManager>();
                 }
 
@@ -1527,27 +1569,7 @@
                         }
                     }
 
-                    //поддержка Row_number() Братчиков 07.03.2009
-                    //if (resQuery.ToLower().IndexOf("$row_number$") > -1)
-                    if (customizationStruct.RowNumber != null)
-                    {
-                        int fromInd = resQuery.IndexOf("FROM (");
-                        string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
-
-                        if (!string.IsNullOrEmpty(orderByExpr))
-                        {
-                            resQuery = resQuery.Replace(orderByExpr, string.Empty);
-                            resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
-                        }
-                        else
-                        {
-                            resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
-                        }
-
-                        resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow.ToString() + " and " + customizationStruct.RowNumber.EndRow.ToString() + nl +
-                            orderByExpr;
-                    }
-                    //поддержка Row_number() Братчиков 07.03.2009
+                    GenerateSQLRowNumber(customizationStruct, ref resQuery, orderByExpr);
                 }
 
                 if (mustNewgenerate)
@@ -1578,6 +1600,31 @@
             }
         }
 
+        public virtual void GenerateSQLRowNumber(LoadingCustomizationStruct customizationStruct, ref string resQuery, string orderByExpr)
+        {
+            string nl = Environment.NewLine;
+            //поддержка Row_number() Братчиков 07.03.2009
+            //if (resQuery.ToLower().IndexOf("$row_number$") > -1)
+            if (customizationStruct.RowNumber != null)
+            {
+                int fromInd = resQuery.IndexOf("FROM (");
+                string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
+
+                if (!string.IsNullOrEmpty(orderByExpr))
+                {
+                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
+                }
+                else
+                {
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
+                }
+
+                resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow.ToString() + " and " + customizationStruct.RowNumber.EndRow.ToString() + nl +
+                    orderByExpr;
+            }
+            //поддержка Row_number() Братчиков 07.03.2009
+        }
 
         /// <summary>
         /// получить запрос на вычитку данных
@@ -3801,6 +3848,7 @@
         /// <param name="deleteQueries"> Запросы для удаление </param>
         /// <param name="deleteTables"> The Delete Tables. </param>
         /// <param name="updateQueries"> Запросы для изменения </param>
+        /// <param name="updateFirstQueries"> Запросы для изменения, выполняемые до остальных запросов </param>
         /// <param name="updateTables"> The Update Tables. </param>
         /// <param name="insertQueries"> Запросы для добавления </param>
         /// <param name="insertTables"> The Insert Tables. </param>
@@ -3814,6 +3862,7 @@
             StringCollection deleteQueries,
             StringCollection deleteTables,
             StringCollection updateQueries,
+            StringCollection updateFirstQueries,
             StringCollection updateTables,
             StringCollection insertQueries,
             StringCollection insertTables,
@@ -3828,6 +3877,7 @@
                 deleteQueries,
                 deleteTables,
                 updateQueries,
+                updateFirstQueries,
                 updateTables,
                 insertQueries,
                 insertTables,
@@ -4137,46 +4187,61 @@
         /// <param name="currentObject">Текущий обрабатываемый объект данных.</param>
         /// <param name="currentType">Текущий обрабатываемый тип.</param>
         /// <param name="dependencies">Дополняемые зависимости.</param>
-        private void GetDependencies(DataObject currentObject, Type currentType, Dictionary<Type, List<Type>> dependencies)
+        /// <param name="extraUpdateList">Дополнительные объекты на обновление.</param>
+        private void GetDependencies(DataObject currentObject, Type currentType, Dictionary<Type, List<Type>> dependencies, List<DataObject> extraUpdateList)
         {
             string[] props = Information.GetAllPropertyNames(currentType);
 
             // Смотрим мастера и детейлы для выявления зависимостей.
-            foreach (string s in props)
+            foreach (string prop in props)
             {
-                Type propType = Information.GetPropertyType(currentType, s);
+                Type propType = Information.GetPropertyType(currentType, prop);
                 if (propType.IsSubclassOf(typeof(DetailArray)))
                 {
                     // Обрабатываем детейлы.
-                    Type[] types = Information.GetCompatibleTypesForDetailProperty(currentType, s);
-                    foreach (Type t in types)
+                    Type[] types = Information.GetCompatibleTypesForDetailProperty(currentType, prop);
+                    foreach (Type type in types)
                     {
                         // Если этот детейл еще не обходили.
-                        if (!dependencies.ContainsKey(t))
+                        if (!dependencies.ContainsKey(type))
                         {
-                            AddDependencies(t, currentType, dependencies);
+                            AddDependencies(type, currentType, dependencies);
 
                             // Для детейлов доформируем зависимости.
-                            GetDependencies(null, t, dependencies);
+                            GetDependencies(null, type, dependencies, extraUpdateList);
+                        }
+                    }
+
+                    if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted)
+                    {
+                        foreach (DataObject detail in ((DetailArray)Information.GetPropValueByName(currentObject, prop)))
+                        {
+                            if (detail.ContainsAlteredProps())
+                            {
+                                extraUpdateList.Add(detail);
+                            }
                         }
                     }
                 }
                 else if (propType.IsSubclassOf(typeof(DataObject)))
                 {
                     // Проверяем, есть ли детейловое свойство с таким-же типом.
-                    var detailProp = Information.GetDetailArrayPropertyName(currentType, propType);
-                    if (detailProp == null ||
-                        (currentObject != null && Information.GetPropValueByName(currentObject, s) != null))
+                    string detailProp = Information.GetDetailArrayPropertyName(currentType, propType);
+                    if (detailProp == null || (currentObject != null && Information.GetPropValueByName(currentObject, prop) != null))
                     {
                         // Обрабатываем мастера.
                         AddDependencies(currentType, propType, dependencies);
 
                         // Обрабатываем наследников мастера.
-                        Type[] propertyTypes = TypeUsageProvider.TypeUsage.GetUsageTypes(currentType, s);
+                        Type[] propertyTypes = TypeUsageProvider.TypeUsage.GetUsageTypes(currentType, prop);
                         foreach (Type type in propertyTypes)
                         {
                             AddDependencies(currentType, type, dependencies);
                         }
+                    }
+                    else if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
+                    {
+                        extraUpdateList.Add(currentObject);
                     }
                 }
             }
@@ -4262,6 +4327,7 @@
         /// <param name="deleteQueries">Запросы для удаление (выходной параметр).</param>
         /// <param name="deleteTables">Таблицы, из которых будет проведено удаление данных (выходной параметр).</param>
         /// <param name="updateQueries">Сгенерированные запросы для изменения (выходной параметр).</param>
+        /// <param name="updateFirstQueries"> Сгенерированные запросы для изменения (выходной параметр), выполняемые до остальных запросов </param>
         /// <param name="updateTables">Таблицы, в которых будет проведено изменение данных (выходной параметр).</param>
         /// <param name="insertQueries">Сгенерированные запросы для добавления (выходной параметр).</param>
         /// <param name="insertTables">Таблицы, в которые будет проведена вставка данных (выходной параметр).</param>
@@ -4278,6 +4344,7 @@
             StringCollection deleteQueries,
             StringCollection deleteTables,
             StringCollection updateQueries,
+            StringCollection updateFirstQueries,
             StringCollection updateTables,
             StringCollection insertQueries,
             StringCollection insertTables,
@@ -4294,6 +4361,7 @@
             var deleteList = new System.Collections.SortedList();
             var deleteDictionary = new ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary();
             var extraProcessingList = new List<DataObject>();
+            List<DataObject> extraUpdateList = new List<DataObject>();
             Dictionary<Type, List<Type>> dependencies = new Dictionary<Type, List<Type>>();
 
             var processingObjectsKeys = new Dictionary<TypeKeyPair, bool>(new TypeKeyPairEqualityComparer());
@@ -4314,9 +4382,6 @@
             for (int i = 0; i < processingObjects.Count; i++)
             {
                 var processingObject = (DataObject)processingObjects[i];
-
-                // Включем текущий объект в граф зависимостей.
-                GetDependencies(processingObject, processingObject.GetType(), dependencies);
 
                 UpdaterObject updaterobject = null;
                 if (typeof(UpdaterObject).IsInstanceOfType(processingObject))
@@ -4688,6 +4753,118 @@
                 }
             }
 
+            foreach (DataObject processingObject in processingObjects)
+            {
+                // Включем текущий объект в граф зависимостей.
+                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
+            }
+
+            for (int i = 0; i < extraUpdateList.Count; i++)
+            {
+                DataObject processingObject = extraUpdateList[i];
+                ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues;
+                Type typeOfProcessingObject = processingObject.GetType();
+                DataObject[] detailsObjects;
+                DataObject[] mastersObjects;
+
+                UpdaterObject updaterobject = null;
+                if (typeof(UpdaterObject).IsInstanceOfType(processingObject))
+                {
+                    updaterobject = (UpdaterObject)processingObject;
+                    processingObject = updaterobject.TemplateObject;
+                }
+
+                if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                {
+                    GetAlteredPropsWithValues(processingObject, false, out propsWithValues, out detailsObjects, out mastersObjects, false);
+
+                    if (propsWithValues.Count > 0)
+                    {
+                        string[] cols = propsWithValues.GetAllKeys();
+                        var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                        foreach (string col in cols)
+                        {
+                            Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
+                            StringCollection propsInTable = null;
+                            if (valuesByTables.Contains(defType))
+                                propsInTable = (StringCollection)valuesByTables[defType];
+                            else
+                            {
+                                propsInTable = new StringCollection();
+                                valuesByTables.Add(defType, propsInTable);
+                            }
+
+                            propsInTable.Add(col);
+                        }
+
+                        for (int k = 0; k < valuesByTables.Count; k++)
+                        {
+                            Type t = valuesByTables.Key(k);
+                            var propsInTable = (StringCollection)valuesByTables[t];
+                            string tableName = Information.GetClassStorageName(t);
+                            string query = "UPDATE " + PutIdentifierIntoBrackets(tableName) + " SET " + nl;
+
+                            string values = propsInTable[0] + " = " + propsWithValues[propsInTable[0]];
+                            for (int j = 1; j < propsInTable.Count; j++)
+                            {
+                                values += nlk + PutIdentifierIntoBrackets(propsInTable[j]) + " = " + propsWithValues[propsInTable[j]];
+                            }
+
+                            query += values + nl + " WHERE ";
+                            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+                            var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
+                                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(t).KeyType), Information.GetPrimaryKeyStorageName(t));
+                            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
+                            if (updaterobject != null)
+                            {
+                                func = updaterobject.Function;
+                            }
+
+                            query += LimitFunction2SQLWhere(func);
+                            AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
+                            if (!updateQueries.Contains(query))
+                            {
+                                updateFirstQueries.Add(query);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    GetAlteredPropsWithValues(processingObject, checkLoadedProps, out propsWithValues, out detailsObjects, out mastersObjects, true);
+
+                    string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
+
+                    if (propsWithValues.Count > 0)
+                    {
+                        string query = "UPDATE " + PutIdentifierIntoBrackets(mainTableName) + " SET " + nl;
+                        string[] cols = propsWithValues.GetAllKeys();
+                        string values = cols[0] + " = " + propsWithValues[cols[0]];
+                        for (int j = 1; j < propsWithValues.Count; j++)
+                        {
+                            values += nlk + cols[j] + " = " + propsWithValues[cols[j]];
+                        }
+
+                        query += values + nl + " WHERE ";
+                        FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+                        var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
+                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(processingObject.GetType()).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
+                        FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
+                        if (updaterobject != null)
+                        {
+                            func = updaterobject.Function;
+                        }
+
+                        query += LimitFunction2SQLWhere(func);
+                        AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
+                        if (!updateQueries.Contains(query))
+                        {
+                            updateFirstQueries.Add(query);
+                        }
+                    }
+                }
+            }
+
             List<Type> depList = GetOrderFromDependencies(dependencies);
             foreach (DataObject processingObject in processingObjects)
             {
@@ -4909,6 +5086,7 @@
             object id = BusinessTaskMonitor.BeginTask("Update objects");
             var deleteQueries = new StringCollection();
             var updateQueries = new StringCollection();
+            var updateFirstQueries = new StringCollection();
             var insertQueries = new StringCollection();
 
             var deleteTables = new StringCollection();
@@ -4921,7 +5099,7 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
 
@@ -5072,6 +5250,14 @@
                         } while (go);
                     }
 
+                    foreach (string table in queryOrder)
+                    {
+                        if ((ex = RunCommands(updateFirstQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
+                    }
+
                     for (int i = deleteQueries.Count - 1; i >= 0; i--)
                     {
                         query = deleteQueries[i];
@@ -5087,13 +5273,12 @@
                     for (int i = 0; i < queryOrder.Count; i++)
                     {
                         string table = queryOrder[i];
-                        if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException))
-                            != null)
+                        if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
-                        if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                            != null)
+
+                        if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }

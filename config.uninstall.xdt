@@ -6,6 +6,10 @@
   <register xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]/*[local-name()=&quot;container&quot;]
                                /*[local-name()=&quot;register&quot; and contains(@mapTo,&quot;ICSSoft.STORMNET.Security.EmptySecurityManager&quot;)])" xdt:Transform="RemoveAll" />
 
+  <!--Удаляем маппинг по умолчанию на ConfigResolver.-->
+  <register xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]/*[local-name()=&quot;container&quot;]
+                               /*[local-name()=&quot;register&quot; and contains(@mapTo,&quot;ICSSoft.STORMNET.Business.ConfigResolver&quot;)])" xdt:Transform="RemoveAll" />
+
   <!--Удаляем контейнер, если в нем больше нет маппингов.-->
   <container xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]/*[local-name()=&quot;container&quot; and not(*)])" xdt:Transform="RemoveAll" />
 

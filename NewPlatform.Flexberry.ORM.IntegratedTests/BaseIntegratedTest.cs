@@ -1,4 +1,5 @@
-﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests
+﻿[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
     using ICSSoft.STORMNET.Business;
     using Npgsql;
@@ -53,7 +54,8 @@
         {
             get
             {
-                return Resources.OracleScript;
+                // Включить обратно проверку на Oracle после починки Oracle на сервере.
+                return null; //Resources.OracleScript;
             }
         }
 

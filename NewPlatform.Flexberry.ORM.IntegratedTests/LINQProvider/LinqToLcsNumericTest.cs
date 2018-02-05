@@ -235,6 +235,27 @@
         }
 
         /// <summary>
+        /// Проверка на работу с полем типа uint.
+        /// </summary>
+        [Fact]
+        public void GetLcsTestUInt()
+        {
+            var testProvider = new TestLcsQueryProvider<FullTypesMainAgregator>();
+            new Query<FullTypesMainAgregator>(testProvider).Where(x => x.FullTypesMaster1.PoleUInt == 10).ToList();
+
+            var expected = new LoadingCustomizationStruct(null)
+            {
+                LimitFunction = ldef.GetFunction(
+                    ldef.funcEQ,
+                    new VariableDef(ldef.NumericType, Information.ExtractPropertyPath<FullTypesMainAgregator>(a => a.FullTypesMaster1.PoleUInt)),
+                    10),
+            };
+
+            LoadingCustomizationStruct actual = LinqToLcs.GetLcs(testProvider.InnerExpression, FullTypesMainAgregator.Views.FullView);
+            Assert.True(Equals(expected, actual));
+        }
+
+        /// <summary>
         /// Тип int? должен уметь сравниваться с null.
         /// </summary>
         [Fact]

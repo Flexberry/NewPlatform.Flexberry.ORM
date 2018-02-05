@@ -2,8 +2,6 @@
 
 
 
-
-
 CREATE TABLE [InformationTestClass] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -43,6 +41,15 @@ CREATE TABLE [Идея] (
 	 [Конкурс_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 [Автор_m0] UNIQUEIDENTIFIER  NOT NULL,
+
+	 PRIMARY KEY ([primaryKey]))
+
+
+CREATE TABLE [DateField] (
+
+	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
+
+	 [Date] DATETIME  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -418,6 +425,10 @@ CREATE TABLE [MasterUpdateObjectTest] (
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
 	 [MasterName] VARCHAR(255)  NULL,
+
+	 [Detail] UNIQUEIDENTIFIER  NULL,
+
+	 [AggregatorUpdateObjectTest] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -891,6 +902,8 @@ CREATE TABLE [FullTypesMaster1] (
 
 	 [PoleInt] INT  NULL,
 
+	 [PoleUInt] INT  NULL,
+
 	 [PoleDateTime] DATETIME  NULL,
 
 	 [PoleString] VARCHAR(255)  NULL,
@@ -978,8 +991,6 @@ CREATE TABLE [InformationTestClassChild] (
 	 [StringPropertyForInfTestClass] VARCHAR(255)  NULL,
 
 	 [IntPropertyForInfTestClass] INT  NULL,
-
-	 [ColorPropertyForInfTestClass] VARCHAR(255)  NULL,
 
 	 [BoolPropertyForInfTestClass] BIT  NULL,
 
@@ -1608,6 +1619,12 @@ CREATE INDEX Кредит_IКлиент on [Кредит] ([Клиент])
  ALTER TABLE [Кредит] ADD CONSTRAINT [Кредит_FИнспПоКредиту_0] FOREIGN KEY ([ИнспекторПоКред]) REFERENCES [ИнспПоКредиту]
 CREATE INDEX Кредит_IИнспекторПоКред on [Кредит] ([ИнспекторПоКред])
 
+ ALTER TABLE [MasterUpdateObjectTest] ADD CONSTRAINT [MasterUpdateObjectTest_FDetailUpdateObjectTest_0] FOREIGN KEY ([Detail]) REFERENCES [DetailUpdateObjectTest]
+CREATE INDEX MasterUpdateObjectTest_IDetail on [MasterUpdateObjectTest] ([Detail])
+
+ ALTER TABLE [MasterUpdateObjectTest] ADD CONSTRAINT [MasterUpdateObjectTest_FAggregatorUpdateObjectTest_0] FOREIGN KEY ([AggregatorUpdateObjectTest]) REFERENCES [AggregatorUpdateObjectTest]
+CREATE INDEX MasterUpdateObjectTest_IAggregatorUpdateObjectTest on [MasterUpdateObjectTest] ([AggregatorUpdateObjectTest])
+
  ALTER TABLE [FullTypesMainAgregator] ADD CONSTRAINT [FullTypesMainAgregator_FFullTypesMaster1_0] FOREIGN KEY ([FullTypesMaster1_m0]) REFERENCES [FullTypesMaster1]
 CREATE INDEX FullTypesMainAgregator_IFullTypesMaster1_m0 on [FullTypesMainAgregator] ([FullTypesMaster1_m0])
 
@@ -1787,3 +1804,4 @@ CREATE INDEX MasterClass_IInformationTestClass_m1 on [MasterClass] ([Information
  ALTER TABLE [STORMAuField] ADD CONSTRAINT [STORMAuField_FSTORMAuField_0] FOREIGN KEY ([MainChange_m0]) REFERENCES [STORMAuField]
 
  ALTER TABLE [STORMAuField] ADD CONSTRAINT [STORMAuField_FSTORMAuEntity_0] FOREIGN KEY ([AuditEntity_m0]) REFERENCES [STORMAuEntity]
+

@@ -5,14 +5,19 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.ComponentModel.DataAnnotations;
-    using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
-
     using ICSSoft.STORMNET.Exceptions;
+    using ICSSoft.STORMNET.Security;
+    using Microsoft.Practices.Unity;
+    using Services;
+#if NETFX_45
+    using Microsoft.Spatial;
+    using System.IO;
+#endif
 
     #region class Information
     /// <summary>
@@ -297,6 +302,15 @@
                                             setHandler(obj, dtVal1);
                                             return;
                                         }
+#if NETFX_45
+                                        if (propType == typeof(Geography))
+                                        {
+                                            WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
+                                            var geo = wktFormatter.Read<Geography>(new StringReader(propValString));
+                                            setHandler(obj, geo);
+                                            return;
+                                        }
+#endif
 
                                         if (propType.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[] { typeof(string), typeof(System.IFormatProvider) }, null) != null)
                                         {
@@ -544,22 +558,38 @@
         private static Dictionary<long, View> cacheGetView = new Dictionary<long, View>();
 
         /// <summary>
+        /// Делегат для настройки статических представлений.
+        /// </summary>
+        public static TuneStaticViewDelegate TuneStaticViewDelegate = null;
+
+        /// <summary>
         /// Получить представление по его имени и классу объекта данных.
         /// </summary>
-        static public View GetView(string ViewName, System.Type type)
+        /// <returns>Запрашиваемое представление, возможно из кеша.</returns>
+        public static View GetView(string viewName, Type type)
         {
-            if (string.IsNullOrEmpty(ViewName))
+            if (string.IsNullOrEmpty(viewName))
+            {
                 throw new ArgumentNullException("ViewName", "Не указано имя представления. Обратитесь к разработчику.");
+            }
+
             if (type == null)
+            {
                 throw new ArgumentNullException("type", "Не указан тип объекта. Обратитесь к разработчику.");
+            }
 
-            long key = (((long)type.GetHashCode()) << 32) + ViewName.GetHashCode();
-
+            long key = (((long)type.GetHashCode()) << 32) + viewName.GetHashCode();
             {
                 View view;
                 if (cacheGetView.TryGetValue(key, out view))
                 {
-                    return view.Clone();
+                    View retView = view.Clone();
+                    if (TuneStaticViewDelegate != null)
+                    {
+                        retView = TuneStaticViewDelegate(viewName, type, retView);
+                    }
+
+                    return retView;
                 }
             }
 
@@ -567,7 +597,7 @@
             for (int i = 0; i < classAttributes.Length; i++)
             {
                 string sViewName = ((ViewAttribute)classAttributes[i]).Name;
-                if (sViewName == ViewName)
+                if (sViewName == viewName)
                 {
                     var view = new View((ViewAttribute)classAttributes[i], type);
                     lock (cacheGetView)
@@ -578,13 +608,19 @@
                         }
                     }
 
-                    return view.Clone();
+                    View retView = view.Clone();
+                    if (TuneStaticViewDelegate != null)
+                    {
+                        retView = TuneStaticViewDelegate(viewName, type, retView);
+                    }
+
+                    return retView;
                 }
             }
 
             return type.BaseType == null
                        ? null
-                       : GetView(ViewName, type.BaseType);
+                       : GetView(viewName, type.BaseType);
         }
 
         /// <summary>
@@ -2164,6 +2200,12 @@
                                     }
                                 }
                             }
+#if NETFX_45
+                            else if (val1 is Geography && val2 is Geography)
+                            {
+                                UnAltered = ((Geography)val1).Equals((Geography)val2);
+                            }
+#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2249,6 +2291,12 @@
                         }
                     }
                 }
+#if NETFX_45
+                else if (val1 is Geography && val2 is Geography)
+                {
+                    UnAltered = ((Geography)val1).Equals((Geography)val2);
+                }
+#endif
                 else if (val1 is IComparableType)
                 {
                     UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2350,6 +2398,12 @@
                                     }
                                 }
                             }
+#if NETFX_45
+                            else if (val1 is Geography && val2 is Geography)
+                            {
+                                UnAltered = ((Geography)val1).Equals((Geography)val2);
+                            }
+#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -3943,17 +3997,15 @@
         }
 
         /// <summary>
-        /// Проверка прав на атрибуты объекта. Метод является оберткой для метода CheckAccessToAttribute класса <see cref="ICSSoft.STORMNET.RightManager"/> и используется для проверки прав в Get'ерах вычислимых свойств DataObject.
-        /// Обработка мастеров не проиводится.
+        /// Проверка прав на атрибуты объекта. Метод является оберткой для метода CheckAccessToAttribute интерфейса <see cref="ISecurityManager"/> и используется для проверки прав в Get'ерах вычислимых свойств DataObject.
+        /// Обработка мастеров не производится.
         /// </summary>
         /// <param name="type">Тип объекта данных.</param>
         /// <param name="propertyName">Имя свойства объекта данных, на которое проверяются права.</param>
         /// <param name="deniedAccessValue">Значение атрибута при отсутствии прав.</param>
-        /// <returns></returns>
+        /// <returns>Если у текущего пользователя есть права на доступ к указанному свойству, то <c>true</c>, иначе - <c>false</c>.</returns>
         public static bool CheckAccessToAttribute(Type type, string propertyName, out object deniedAccessValue)
         {
-            // В методе используется Reflection для разрыва циклической ссылки c ICSSoft.STORMNET.RightManager.
-
            deniedAccessValue = null;
 
            // Регулярное выражение для удаления кавычек и других символов из sql-константы значения по умолчанию.
@@ -3967,54 +4019,34 @@
             // в большинстве случаев DataServiceExpression будет один.
             // В случае нескольких DataServiceExpression, права все равно должны совпадать.
             if (GetExpressionForProperty(type, propertyName).Count > 0)
+            {
                 expression = (string)expressions[0];
+            }
             else
+            {
                 return true;
-
-            Assembly rightManagerAssembly = null;
-            try
-            {
-                rightManagerAssembly = Assembly.Load("ICSSoft.STORMNET.RightManager");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Не удалось загрузить сборку ‘ICSSoft.STORMNET.RightManager’ при проверке прав на атрибуты.", ex);
             }
 
-            Type rightManagerType = rightManagerAssembly.GetType("ICSSoft.STORMNET.RightManager");
+            string deniedAccessValueInString = null;
 
-            if (rightManagerType == null)
-                throw new TypeLoadException("Не удалось загрузить тип ‘ICSSoft.STORMNET.RightManager’");
+            // Получаем текущую неименованную реализацию ISecurityManager из Unity.
+            IUnityContainer container = UnityFactory.GetContainer();
+            var securityManager = container.Resolve<ISecurityManager>();
+            var result = securityManager.CheckAccessToAttribute(expression, out deniedAccessValueInString);
 
-            // Вызов через рефлексию метода проверки прав на атрибуты с передачей параметра по ссылке (MakeByRefType()).
-            MethodInfo checkAccessToAttributeInfo = rightManagerType.GetMethod("CheckAccessToAttribute",
-                new [] {typeof(string), typeof(string).MakeByRefType() });
-            
-            if (checkAccessToAttributeInfo != null)
+            if (!result && !string.IsNullOrEmpty(deniedAccessValueInString))
             {
-                string deniedAccessValueInString = null;
-
-                object[] arguments = {expression, deniedAccessValueInString};
-
-                var result = (bool)checkAccessToAttributeInfo.Invoke(null, arguments);
-
-                if (arguments[1] != null) 
-                    deniedAccessValueInString = (string)arguments[1];
-
-                if (!result && !string.IsNullOrEmpty(deniedAccessValueInString))
+                var match = Regex.Match(deniedAccessValueInString, sqlValuePattern);
+                if (match.Success)
                 {
-                    Match match = Regex.Match(deniedAccessValueInString, sqlValuePattern);
-                    if (match.Success) deniedAccessValueInString = match.Value;
+                    deniedAccessValueInString = match.Value;
                 }
-                
-                deniedAccessValue = ParsePropertyValue(type, propertyName, deniedAccessValueInString);
-
-                return result;
             }
 
-            return true;
-        }
+            deniedAccessValue = ParsePropertyValue(type, propertyName, deniedAccessValueInString);
 
+            return result;
+        }
 
         /// <summary>
         /// Получение свойств, входящих в состав выражения DataServiceExpression(считается, что свойство заключено в @).
@@ -4058,7 +4090,6 @@
             //return "("+result+")";
             return (string[])sc.ToArray(typeof(string));
         }
-
     }
     #endregion
 }

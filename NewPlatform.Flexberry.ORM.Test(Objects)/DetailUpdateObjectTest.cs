@@ -12,6 +12,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Xml;
+    using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET;
     
     
@@ -26,14 +27,20 @@ namespace NewPlatform.Flexberry.ORM.Tests
     // *** Start programmer edit section *** (DetailUpdateObjectTest CustomAttributes)
 
     // *** End programmer edit section *** (DetailUpdateObjectTest CustomAttributes)
+    [BusinessServer("NewPlatform.Flexberry.ORM.Tests.UpdateObjectTestBS, Flexberry.ORM.Tests.BusinessS" +
+        "ervers", ICSSoft.STORMNET.Business.DataServiceObjectEvents.OnAllEvents)]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("DetailUpdateObjectTestE", new string[] {
             "DetailName",
             "AggregatorUpdateObjectTest",
-            "Master"}, Hidden=new string[] {
+            "Master",
+            "Master.MasterName",
+            "Master.Detail"}, Hidden=new string[] {
             "AggregatorUpdateObjectTest",
-            "Master"})]
+            "Master",
+            "Master.MasterName",
+            "Master.Detail"})]
     public class DetailUpdateObjectTest : ICSSoft.STORMNET.DataObject
     {
         

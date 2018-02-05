@@ -63,7 +63,7 @@
                     try
                     {
                         // Может IDataService определено через Unity.
-                        IUnityContainer container = UnityFactory.CreateContainer();
+                        IUnityContainer container = UnityFactory.GetContainer();
                         if (container.IsRegistered<IDataService>())
                         {
                             // Получаем тип сервиса данных.
@@ -94,6 +94,7 @@
                             }
 
                             dataService.CustomizationString = connectionString;
+                            _dataService = dataService;
                             return dataService;
                         }
                     }

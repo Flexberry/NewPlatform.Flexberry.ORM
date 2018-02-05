@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Flexberry ORM UnityFactory package.</description>
     <releaseNotes>Separate method for using single container.</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2017</copyright>
+    <copyright>Copyright New Platform Ltd 2015</copyright>
     <tags>Flexberry ORM Unity</tags>
     <dependencies>
       <group targetFramework=".NETFramework3.5">

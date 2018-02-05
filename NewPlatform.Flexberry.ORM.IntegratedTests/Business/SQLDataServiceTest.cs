@@ -513,50 +513,9 @@
                 aggregatorForUpdateExpect.Details.Add(detailForUpdate);
                 aggregatorForUpdateExpect.Detail = detailForUpdate;
                 ds.UpdateObject(aggregatorForUpdateExpect);
-
-                var aggregatorForUpdateActual =
-                    ds.Query<AggregatorUpdateObjectTest>("AggregatorUpdateObjectTestE")
-                        .First(x => x.__PrimaryKey == aggregatorForUpdateExpect.__PrimaryKey);
-
-                Assert.NotNull(aggregatorForUpdateActual);
-                Assert.Equal(aggregatorForUpdateExpect.__PrimaryKey, aggregatorForUpdateActual.__PrimaryKey);
-                Assert.Equal(aggregatorForUpdateExpect.AggregatorName, aggregatorForUpdateActual.AggregatorName);
-                Assert.Equal(aggregatorForUpdateExpect.Details.Count, aggregatorForUpdateActual.Details.Count);
-
-                aggregatorForUpdateActual.Detail = null;
-                ds.UpdateObject(aggregatorForUpdateActual);
-                aggregatorForUpdateActual.SetStatus(ObjectStatus.Deleted);
-                ds.UpdateObject(aggregatorForUpdateActual);
-
-                var aggregatorForUpdateDeleted =
-                    ds.Query<AggregatorUpdateObjectTest>("AggregatorUpdateObjectTestE")
-                        .FirstOrDefault(x => x.__PrimaryKey == aggregatorForUpdateExpect.__PrimaryKey);
-                var detailDeleted =
-                    ds.Query<DetailUpdateObjectTest>("DetailUpdateObjectTestE")
-                        .FirstOrDefault(x => x.__PrimaryKey == detailForUpdate.__PrimaryKey);
-
-                Assert.Null(aggregatorForUpdateDeleted);
-                Assert.Null(detailDeleted);
-            }
-        }
-
-        /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
-        /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
-        /// </summary>
-        [Fact]
-        public void AggregatorWithLinkToDetailWithMasterTest()
-        {
-            foreach (IDataService dataService in DataServices)
-            {
-                // Arrange.
-                SQLDataService ds = dataService as SQLDataService;
-                var masterOfDetail = new MasterUpdateObjectTest { MasterName = "masterName" };
-                var aggregatorForUpdateExpect = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
-                var detailForUpdate = new DetailUpdateObjectTest { DetailName = "detailName", Master = masterOfDetail };
-
-                // Act & Assert.
-                aggregatorForUpdateExpect.Details.Add(detailForUpdate);
+                var masterOfDetail = new MasterUpdateObjectTest { MasterName = "masterName", Detail = detailForUpdate };
+                aggregatorForUpdateExpect.Masters.Add(masterOfDetail);
+                detailForUpdate.Master = masterOfDetail;
                 ds.UpdateObject(aggregatorForUpdateExpect);
 
                 var aggregatorForUpdateActual =
@@ -577,13 +536,9 @@
                 var detailDeleted =
                     ds.Query<DetailUpdateObjectTest>("DetailUpdateObjectTestE")
                         .FirstOrDefault(x => x.__PrimaryKey == detailForUpdate.__PrimaryKey);
-                var masterForUpdateDeleted =
-                    ds.Query<MasterUpdateObjectTest>("MasterUpdateObjectTestE")
-                        .FirstOrDefault(x => x.__PrimaryKey == masterOfDetail.__PrimaryKey);
 
                 Assert.Null(aggregatorForUpdateDeleted);
                 Assert.Null(detailDeleted);
-                Assert.NotNull(masterForUpdateDeleted);
             }
         }
 

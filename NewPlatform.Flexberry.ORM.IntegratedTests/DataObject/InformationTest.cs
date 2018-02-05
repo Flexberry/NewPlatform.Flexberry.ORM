@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
@@ -18,7 +19,7 @@
     /// <summary>
     /// Юнит-тесты для класса Informations.
     /// </summary>
-
+    
     public class InformationTest
     {
         /// <summary>

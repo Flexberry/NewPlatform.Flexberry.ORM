@@ -17,6 +17,9 @@
     using Remotion.Linq.Clauses.Expressions;
     using Remotion.Linq.Clauses.ExpressionTreeVisitors;
     using Remotion.Linq.Parsing;
+#if NETFX_45
+    using Microsoft.Spatial;
+#endif
 
     /// <summary>
     /// Visitor, который обходит распарсенноое дерево
@@ -426,8 +429,14 @@
             {
                 VisitKeyGuidProperty(expression.Member.Name, master, varname);
             }
-            else if (memberType == typeof(int) || memberType == typeof(double) || memberType == typeof(decimal) || memberType == typeof(float) || memberType == typeof(long)
-                     || memberType == typeof(NullableInt) || memberType == typeof(NullableDecimal))
+            else if (memberType == typeof(short) || memberType == typeof(ushort)
+                || memberType == typeof(int) || memberType == typeof(uint)
+                || memberType == typeof(long) || memberType == typeof(ulong)
+                || memberType == typeof(float)
+                || memberType == typeof(double)
+                || memberType == typeof(decimal)
+                || memberType == typeof(NullableInt)
+                || memberType == typeof(NullableDecimal))
             {
                 string memberName = expression.Member.Name;
                 if (!string.IsNullOrEmpty(UtilsLcs.GetFunctionByName(memberName)))
@@ -518,6 +527,13 @@
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
                 _stacksHolder.PushParam(new VariableDef(_ldef.StringType, varname));
             }
+#if NETFX_45
+            else if (memberType == typeof(Geography))
+            {
+                UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
+                _stacksHolder.PushParam(new VariableDef(_ldef.GeographyType, varname));
+            }
+#endif
             else
             {
                 throw new UnknownTypeException("Неизвестный тип операнда " + memberType.Name);
@@ -568,6 +584,21 @@
             string methodName = expression.Method.Name;
             switch (methodName)
             {
+#if NETFX_45
+                case "GeoIntersects":
+                case "Intersects":
+                    UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geography), typeof(Geography) });
+
+                    VisitExpression(expression.Arguments[0]);
+                    VisitExpression(expression.Arguments[1]);
+                    var arg2 = _stacksHolder.PopParam();
+                    var arg1 = _stacksHolder.PopParam();
+
+                    _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeoIntersects, arg1, arg2));
+
+                    return expression;
+#endif
+
                 case "Get":
                     // Обработка параметров
                     if (expression.Object.Type == typeof(ParamSet))
@@ -1037,8 +1068,16 @@
             string memberName = expression.Member.Name;
             object param = new VariableDef(_ldef.DateTimeType, memberName);
 
+            MemberExpression value = null;
+            if (expression.Expression is MemberExpression)
+            {
+                value = expression.Expression as MemberExpression;
+            }
+
             // Если родитель этого Member предыдущий Member
-            if (ReferenceEquals(_previosVisitedMemberExpression, expression.Expression))
+            if (ReferenceEquals(_previosVisitedMemberExpression, expression.Expression) ||
+                value != null && value.Type == typeof(DateTime) && value.Member.Name == "Value" && // Добавлена поддержка для Nullable<DateTime> и NullableDateTime
+                ReferenceEquals(_previosVisitedMemberExpression, value.Expression))                // при обработке свойств DateTime (Day, Month, Year и т.д.).
             {
                 param = _stacksHolder.PopParam();
 

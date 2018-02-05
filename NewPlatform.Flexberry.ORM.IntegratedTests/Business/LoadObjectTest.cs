@@ -17,7 +17,7 @@
     /// <summary>
     /// Проверка логики по зачитке объектов.
     /// </summary>
-    
+
     public class LoadObjectTest : BaseIntegratedTest
     {
         /// <summary>
