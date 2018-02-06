@@ -24,11 +24,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug-Net35\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ICSSoft.Services.UnityFactory.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug-Net35\ICSSoft.Services.UnityFactory.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net35|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
