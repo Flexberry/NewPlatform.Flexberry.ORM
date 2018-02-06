@@ -42,7 +42,7 @@
             if (resultView == null)
             {
                 // Если не удалось получить представление для детейла стандартным методом, то пробуем сделать это другим способом.
-                IUnityContainer container = UnityFactory.CreateContainer();
+                IUnityContainer container = UnityFactory.GetContainer();
                 IViewGenerator resolvedType;
 
                 try

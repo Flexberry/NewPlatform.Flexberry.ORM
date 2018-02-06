@@ -54,6 +54,7 @@
 
             var DeleteQueries = new StringCollection();
             var UpdateQueries = new StringCollection();
+            var UpdateFirstQueries = new StringCollection();
             var InsertQueries = new StringCollection();
 
             var DeleteTables = new StringCollection();
@@ -66,7 +67,7 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
 
             GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
 
@@ -218,21 +219,36 @@
                         #endregion
                     }
 
+                    foreach (string table in QueryOrder)
+                    {
+                        if ((ex = RunCommands(UpdateFirstQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
+                    }
+
                     // Удаляем в обратном порядке.
                     for (int i = QueryOrder.Count - 1; i >= 0; i--)
                     {
                         string table = QueryOrder[i];
                         if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
+                        {
                             throw ex;
+                        }
                     }
 
                     // А теперь опять с начала
                     foreach (string table in QueryOrder)
                     {
                         if ((ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException)) != null)
+                        {
                             throw ex;
+                        }
+
                         if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
+                        {
                             throw ex;
+                        }
                     }
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)

@@ -207,7 +207,93 @@
             Assert.True(Equals(expected, actual2));
         }
 
+        /// <summary>
+        /// Проверка преобразования сортировки с привидением типов.
+        /// </summary>
+        [Fact]
+        public void GetLcsTestSortWithConvertExpression()
+        {
+            IQueryable<Медведь> queryList = new List<Медведь>().AsQueryable();
+            IQueryable<Медведь> query = queryList.OrderBy(x => (int?)x.Мама.Мама.Вес);
 
+            var expected = new LoadingCustomizationStruct(null)
+            {
+                ColumnsSort = new[]
+                {
+                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.Мама.Мама.Вес), SortOrder.Asc)
+                },
+            };
+
+            LoadingCustomizationStruct actual = LinqToLcs.GetLcs(query.Expression, Медведь.Views.МедведьE);
+            Assert.True(Equals(expected, actual));
+        }
+
+        /// <summary>
+        /// Проверка поддержки для Nullable<DateTime> и NullableDateTime при обработке свойств DateTime (Day, Month, Year и т.д.).
+        /// </summary>
+        [Fact]
+        public void GetLcsTestFilterNullableTypes()
+        {
+            IQueryable<FullTypesMainAgregator> queryList = new List<FullTypesMainAgregator>().AsQueryable();
+
+            IQueryable<FullTypesMainAgregator> query1 = queryList.Where(x => x.PoleNullableDateTime.Value.Day == DateTime.Now.Day);
+
+            var expected1 = new LoadingCustomizationStruct(null)
+            {
+                LimitFunction =
+                    ldef.GetFunction(
+                        ldef.funcEQ,
+                        ldef.GetFunction(ldef.funcDayPart, new VariableDef(ldef.DateTimeType, "PoleNullableDateTime")),
+                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY)))
+            };
+
+            LoadingCustomizationStruct actual1 = LinqToLcs.GetLcs(query1.Expression, FullTypesMainAgregator.Views.FullView);
+            Assert.True(Equals(expected1, actual1));
+
+            IQueryable<FullTypesMainAgregator> query2 = queryList.Where(x => x.PoleNullDateTime.Value.Day == DateTime.Now.Day);
+
+            var expected2 = new LoadingCustomizationStruct(null)
+            {
+                LimitFunction =
+                    ldef.GetFunction(
+                        ldef.funcEQ,
+                        ldef.GetFunction(ldef.funcDayPart, new VariableDef(ldef.DateTimeType, "PoleNullDateTime")),
+                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY)))
+            };
+
+            LoadingCustomizationStruct actual2 = LinqToLcs.GetLcs(query2.Expression, FullTypesMainAgregator.Views.FullView);
+            Assert.True(Equals(expected2, actual2));
+        }
+
+        /// <summary>
+        /// Проверка преобразования сортировки по пользовательским обнуляемым типам.
+        /// </summary>
+        [Fact]
+        public void GetLcsTestSortByUserNullableTypes()
+        {
+            IQueryable<FullTypesMainAgregator> queryList = new List<FullTypesMainAgregator>().AsQueryable();
+            IQueryable<FullTypesMainAgregator> query = queryList
+                .OrderByDescending(x => x.PoleNullableDateTime == null ? null : (UserDataTypes.NullableDateTime)x.PoleNullableDateTime.Value)
+                .OrderBy(x => x.PoleNullableInt == null ? null : (UserDataTypes.NullableInt)x.PoleNullableInt.Value)
+                .OrderBy(x => x.PoleNullableDecimal == null ? null : (UserDataTypes.NullableDecimal)x.PoleNullableDecimal.Value)
+                .OrderBy(x => (x.FullTypesMaster1 == null ? null : x.FullTypesMaster1.PoleNullableDateTime) == null ? null : (UserDataTypes.NullableDateTime)x.FullTypesMaster1.PoleNullableDateTime.Value)
+                .OrderBy(x => x.FullTypesMaster1 == null ? null : x.FullTypesMaster1.PoleNullableInt == null ? null : (UserDataTypes.NullableInt)x.FullTypesMaster1.PoleNullableInt.Value);
+
+            var expected = new LoadingCustomizationStruct(null)
+            {
+                ColumnsSort = new[]
+                {
+                    new ColumnsSortDef(Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleNullableDateTime), SortOrder.Desc),
+                    new ColumnsSortDef(Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleNullableInt), SortOrder.Asc),
+                    new ColumnsSortDef(Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleNullableDecimal), SortOrder.Asc),
+                    new ColumnsSortDef(Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.FullTypesMaster1.PoleNullableDateTime), SortOrder.Asc),
+                    new ColumnsSortDef(Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.FullTypesMaster1.PoleNullableInt), SortOrder.Asc),
+                },
+            };
+
+            LoadingCustomizationStruct actual = LinqToLcs.GetLcs(query.Expression, FullTypesMainAgregator.Views.FullView);
+            Assert.True(Equals(expected, actual));
+        }
 
         [Fact]
         public void GetLcsTestAny()

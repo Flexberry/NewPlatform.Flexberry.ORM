@@ -2,8 +2,6 @@
 
 
 
-
-
 CREATE TABLE "InformationTestClass"
 (
 
@@ -48,6 +46,17 @@ CREATE TABLE "Идея"
 	"Конкурс_m0" RAW(16) NOT NULL,
 
 	"Автор_m0" RAW(16) NOT NULL,
+
+	 PRIMARY KEY ("primaryKey")
+) ;
+
+
+CREATE TABLE "DateField"
+(
+
+	"primaryKey" RAW(16) NOT NULL,
+
+	"Date" DATE NULL,
 
 	 PRIMARY KEY ("primaryKey")
 ) ;
@@ -473,6 +482,10 @@ CREATE TABLE "MasterUpdateObjectTest"
 	"primaryKey" RAW(16) NOT NULL,
 
 	"MasterName" NVARCHAR2(255) NULL,
+
+	"Detail" RAW(16) NULL,
+
+	"AggregatorUpdateObjectTest" RAW(16) NOT NULL,
 
 	 PRIMARY KEY ("primaryKey")
 ) ;
@@ -1006,6 +1019,8 @@ CREATE TABLE "FullTypesMaster1"
 
 	"PoleInt" NUMBER(10) NULL,
 
+	"PoleUInt" NUMBER(10) NULL,
+
 	"PoleDateTime" DATE NULL,
 
 	"PoleString" NVARCHAR2(255) NULL,
@@ -1101,8 +1116,6 @@ CREATE TABLE "InformationTestClassChild"
 	"StringPropertyForInfTestClass" NVARCHAR2(255) NULL,
 
 	"IntPropertyForInfTestClass" NUMBER(10) NULL,
-
-	"ColorPropertyForInfTestClass" NVARCHAR2(255) NULL,
 
 	"BoolPropertyForInfTestClass" NUMBER(1) NULL,
 
@@ -1859,6 +1872,16 @@ ALTER TABLE "Кредит"
 
 CREATE INDEX "Кредит_IИнспе_9849" on "Кредит" ("ИнспекторПоКред");
 
+ALTER TABLE "MasterUpdateObjectTest"
+	ADD CONSTRAINT "MasterUpdateObjectTest_FD_2387" FOREIGN KEY ("Detail") REFERENCES "DetailUpdateObjectTest" ("primaryKey");
+
+CREATE INDEX "MasterUpdateObjectTest_IDetail" on "MasterUpdateObjectTest" ("Detail");
+
+ALTER TABLE "MasterUpdateObjectTest"
+	ADD CONSTRAINT "MasterUpdateObjectTest_FA_3311" FOREIGN KEY ("AggregatorUpdateObjectTest") REFERENCES "AggregatorUpdateObjectTest" ("primaryKey");
+
+CREATE INDEX "MasterUpdateObjectTest_IA_8230" on "MasterUpdateObjectTest" ("AggregatorUpdateObjectTest");
+
 ALTER TABLE "FullTypesMainAgregator"
 	ADD CONSTRAINT "FullTypesMainAgregator_FF_4629" FOREIGN KEY ("FullTypesMaster1_m0") REFERENCES "FullTypesMaster1" ("primaryKey");
 
@@ -2155,4 +2178,5 @@ ALTER TABLE "STORMAuField"
 
 ALTER TABLE "STORMAuField"
 	ADD CONSTRAINT "STORMAuField_FSTORMAuEntity_0" FOREIGN KEY ("AuditEntity_m0") REFERENCES "STORMAuEntity" ("primaryKey");
+
 

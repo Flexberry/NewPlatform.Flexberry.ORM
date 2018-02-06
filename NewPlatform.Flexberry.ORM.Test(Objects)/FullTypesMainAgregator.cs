@@ -49,6 +49,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
             "PoleEnum",
             "FullTypesMaster1",
             "FullTypesMaster1.PoleInt",
+            "FullTypesMaster1.PoleUInt",
             "FullTypesMaster1.PoleDateTime",
             "FullTypesMaster1.PoleString",
             "FullTypesMaster1.PoleFloat",
@@ -860,7 +861,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
             set
             {
                 // *** Start programmer edit section *** (FullTypesMainAgregator.FullTypesDetail2 Set start)
-        
+
                 // *** End programmer edit section *** (FullTypesMainAgregator.FullTypesDetail2 Set start)
                 this.fFullTypesDetail2 = value;
                 // *** Start programmer edit section *** (FullTypesMainAgregator.FullTypesDetail2 Set end)

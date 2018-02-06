@@ -324,6 +324,11 @@
                     return "'" + dateTime.ToString("yyyyMMdd HH:mm:ss.fff") + "'";
                 }
 
+                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                {
+                    return $"'{value.ToString()}'";
+                }
+
                 if (valueType == typeof(string))
                 {
                     if ((string)value == string.Empty)

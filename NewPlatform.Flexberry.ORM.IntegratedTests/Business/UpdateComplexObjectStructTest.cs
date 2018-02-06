@@ -56,5 +56,53 @@
                 Assert.Equal(1, потапыч.Берлога.Count);
             }
         }
+
+        /// <summary>
+        /// Тест обновления свойства мастера, которое не было вычитано.
+        /// </summary>
+        [Fact]
+        public void UpdateMasterPropertyTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                string названиеЛеса = "Шишкин лес";
+                string новоеНазваниеЛеса = "Лисицын лес";
+                var лес = new Лес {Название = названиеЛеса};
+                var потапыч = new Медведь {ПорядковыйНомер = 5, ЛесОбитания = лес};
+                dataService.UpdateObject(потапыч);
+
+                View view = new View
+                {
+                    DefineClassType = typeof(Медведь),
+                    Properties = new[]
+                    {
+                        new PropertyInView(nameof(Медведь.ЛесОбитания), string.Empty, true, string.Empty)
+                    }
+                };
+
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
+                var dataObjects = dataService.LoadObjects(lcs);
+
+                Assert.Equal(1, dataObjects.Length);
+
+                Медведь медведь = (Медведь)dataObjects[0];
+
+                // Assert.AreEqual(названиеЛеса, медведь.ЛесОбитания.Название);
+
+                // Act.
+                медведь.ЛесОбитания.Название = новоеНазваниеЛеса;
+                dataService.UpdateObject(медведь.ЛесОбитания);
+
+                // Assert.
+                view.AddProperty(Information.ExtractPropertyPath<Медведь>(м => м.ЛесОбитания.Название));
+                dataObjects = dataService.LoadObjects(lcs);
+
+                Assert.Equal(1, dataObjects.Length);
+
+                медведь = (Медведь)dataObjects[0];
+                Assert.Equal(названиеЛеса, медведь.ЛесОбитания.Название);
+            }
+        }
     }
 }

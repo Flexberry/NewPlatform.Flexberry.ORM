@@ -16,6 +16,7 @@
     using Services;
     using System.Collections;
     using static Windows.Forms.ExternalLangDef;
+    using System.Linq;
 
     /// <summary>
     /// DataService for PostgreSQL.
@@ -30,9 +31,29 @@
         public const int MaxNameLength = 64 - 1;
 
         /// <summary>
+        /// Псевдонимы типов в Postgres. Первый элемент в каждом массиве - это тип, остальные псевдонимы.
+        /// </summary>
+        static private string[][] typesAliases =
+            new[]{
+                new[] { "bigint", "int8" },
+                new[] { "bigserial", "serial8" },
+                new[] { "bit varying", "varbit" },
+                new[] { "boolean", "bool" },
+                new[] { "character", "char" },
+                new[] { "character varying", "varchar" },
+                new[] { "double precision", "float8" },
+                new[] { "integer", "int", "int4" },
+                new[] { "numeric", "decimal" },
+                new[] { "real", "float4" },
+                new[] { "smallint", "int2" },
+                new[] { "smallserial", "serial2" },
+                new[] { "serial", "serial4" },
+                 };
+
+        /// <summary>
         /// The postgres reserved words.
         /// </summary>
-        private static readonly List<string> PostgresReservedWords = new List<string> 
+        private static readonly List<string> PostgresReservedWords = new List<string>
             {
                "WINDOW",
                "ALL",
@@ -130,7 +151,7 @@
                "VERBOSE",
                "WHEN",
                "WHERE",
-               "WITH" 
+               "WITH"
             };
 
         /// <summary>
@@ -148,7 +169,7 @@
         /// </summary>
         private bool isGenerateSqlSelect;
 
-        private int countGenerateSqlSelect=0;
+        private int countGenerateSqlSelect = 0;
 
         /// <summary>
         /// Initializes static members of the <see cref="PostgresDataService"/> class.
@@ -182,6 +203,76 @@
         public PostgresDataService(ISecurityManager securityManager, IAuditService auditService)
             : base(securityManager, auditService)
         {
+        }
+
+        /// <summary>
+        /// Сравнивает имена типов.
+        /// </summary>
+        /// <param name="type1">Имя типа 1.</param>
+        /// <param name="type2">Имя типа 2.</param>
+        /// <returns>Если имена эквивалентны, то возвращает true.</returns>
+        static public bool IsTypesEquals(string type1, string type2)
+        {
+            var types = new string[] { type1, type2 };
+            for (int i = 0; i < types.Length; i++)
+            {
+                string type = Regex.Replace(types[i], @"\s+", " ").ToLower();
+                if (type.Contains("without time zone"))
+                {
+                    type = type.Replace("without time zone", "");
+                }
+
+                if (type.Contains("with time zone"))
+                {
+                    type = type.Replace("with time zone", "");
+                    if (type.Contains("timestamp"))
+                    {
+                        if (!type.Contains("timestamptz"))
+                        {
+                            type = type.Replace("timestamp", "timestamptz"); 
+                        }
+
+                    }
+                    else
+                    {
+                        if (!type.Contains("timetz"))
+                        {
+                            type = type.Replace("time", "timetz");
+                        }
+                    }
+                }
+
+                string[] tokens = type.Split(new[] { '(', ')' }, StringSplitOptions.None);
+                if (tokens.Length != 1 && tokens.Length != 3)
+                {
+                    return false;
+                }
+
+                for (int j = 0; j < tokens.Length; j++)
+                {
+                    tokens[j] = tokens[j].Trim();
+                }
+
+                string tail = string.Empty;
+                if (tokens.Length == 3)
+                {
+                    tail = $"({tokens[1].Replace(" ", "")}){tokens[2]}";
+                }
+
+                types[i] = tokens[0];
+                foreach (var t in typesAliases)
+                {
+                    if (t.Contains(tokens[0]))
+                    {
+                        types[i] = t[0];
+                        break;
+                    }
+                }
+
+                types[i] = types[i] + tail;
+            }
+
+            return types[0] == types[1];
         }
 
         /// <summary>
@@ -488,6 +579,11 @@
                 return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
             }
 
+            if (value.GetType().FullName== "Microsoft.OData.Edm.Library.Date")
+            {
+                return $"date '{value.ToString()}'";
+            }
+
             if (value is string)
             {
                 var res = base.ConvertSimpleValueToQueryValueString(value);
@@ -521,15 +617,16 @@
             if (query.IndexOf("TOP ", StringComparison.InvariantCultureIgnoreCase) > -1)
             {
                 Regex regex = new Regex(@"TOP (?<topcnt>[0-9]+)");
-                Match match = regex.Match(query);
-                if (match.Success)
+                Match matchTop = regex.Match(query);
+                Match matchLimit = new Regex(@"LIMIT (?<topcnt>[0-9]+)").Match(query);
+                if (matchTop.Success)
                 {
-                    string topcnt = match.Groups["topcnt"].ToString();
-                    query = string.Format(
-                        "{0}{1}LIMIT {2}",
-                        query.Replace("TOP " + topcnt, string.Empty),
-                        Environment.NewLine,
-                        topcnt);
+                    string topcnt = matchTop.Groups["topcnt"].ToString();
+                    query = query.Replace("TOP " + topcnt, string.Empty);
+                    if (!matchLimit.Success)
+                    {
+                        query = $"{query}{Environment.NewLine}LIMIT {topcnt}";
+                    }
                 }
             }
 
@@ -563,7 +660,7 @@
 
             string sql = base.GenerateSQLSelect(customizationStruct, optimized);
 
-            if (top > 0) sql += " LIMIT " + top;
+            if (top > 0 && customizationStruct.RowNumber == null) sql += " LIMIT " + top;
 
             return sql;
         }
@@ -650,7 +747,7 @@
 
             return base.GenerateSQLSelectByStorageStruct(storageStruct, addNotMainKeys, addMasterFieldsCustomizer, AddingAdvansedField, AddingKeysCount, SelectTypesIds);
         }
-        
+
         /// <summary>
         /// Этот метод переопределён, чтобы обозначить начало создания словаря соответствия длинных и коротких имён для псевдонимов.
         /// </summary>
@@ -713,6 +810,40 @@
             }
         }
 
+        /// <inheritdoc cref="SQLDataService"/>
+        public override void GenerateSQLRowNumber(LoadingCustomizationStruct customizationStruct, ref string resQuery,
+            string orderByExpr)
+        {
+            string nl = Environment.NewLine;
+            if (customizationStruct.RowNumber != null)
+            {
+                int fromInd = resQuery.IndexOf("FROM (");
+                string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
+
+                if (!string.IsNullOrEmpty(orderByExpr))
+                {
+                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
+                }
+                else
+                {
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
+                }
+                long offset = long.MaxValue;
+                long limit = 0;
+                if (customizationStruct.RowNumber.StartRow == 0)
+                    customizationStruct.RowNumber.StartRow = 1;
+                if (customizationStruct.RowNumber.StartRow > 0)
+                {
+                    offset = customizationStruct.RowNumber.StartRow - 1;
+                    if (customizationStruct.RowNumber.EndRow >= customizationStruct.RowNumber.StartRow)
+                        limit = customizationStruct.RowNumber.EndRow - customizationStruct.RowNumber.StartRow + 1;
+                }
+                resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExpr + nl +
+                    "OFFSET " + offset.ToString() + " LIMIT " + limit.ToString();
+            }
+        }
+
         /// <summary>
         /// Возвращает индексы и ключи объектов, встретившихся в массиве,
         /// при загрузке по указанному lcs. Объекты задаются через lf.
@@ -741,9 +872,99 @@
                 indexesShortNames.Clear();
             }
             countGenerateSqlSelect++;
-            IDictionary< int, string> ret= base.GetObjectIndexesWithPks(lcs, limitFunction, maxResults);
+            IDictionary<int, string> ret = GetObjectIndexesWithPksImplementation(lcs, limitFunction, maxResults);
             countGenerateSqlSelect--;
             if (countGenerateSqlSelect == 0) isGenerateSqlSelect = false;
+            return ret;
+        }
+
+        private IDictionary<int, string> GetObjectIndexesWithPksImplementation(
+            LoadingCustomizationStruct lcs,
+            FunctionalLanguage.Function limitFunction,
+            int? maxResults = null)
+        {
+            string nl = Environment.NewLine;
+            var ret = new Dictionary<int, string>();
+            if (lcs == null || limitFunction == null)
+                return ret;
+
+            if (maxResults.HasValue && maxResults < 0)
+                throw new ArgumentOutOfRangeException("maxResults", "Максимальное число возвращаемых результатов не может быть отрицательным.");
+
+            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            {
+                string cs = ChangeCustomizationString(lcs.LoadingTypes);
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
+            }
+
+            bool usedSorting = false;
+            if (lcs.ColumnsSort == null || lcs.ColumnsSort.Length == 0)
+            {
+                lcs.ColumnsSort = new[] { new ColumnsSortDef("__PrimaryKey", SortOrder.Asc) };
+            }
+            else
+            {
+                usedSorting = true;
+            }
+
+            string innerQuery = GenerateSQLSelect(lcs, false);
+            string offset = null;
+            if (lcs.RowNumber != null)
+            {
+                int posOffset = innerQuery.LastIndexOf("OFFSET ");
+                offset = innerQuery.Substring(posOffset);
+                innerQuery = innerQuery.Substring(0, posOffset);
+                //+ nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
+            }
+            // надо добавить RowNumber
+            // top int.MaxValue
+            int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
+            string orderByExpr = string.Empty;//, nl = Environment.NewLine;
+            if (orderByIndex > -1)
+                orderByExpr = innerQuery.Substring(orderByIndex);
+            int fromInd = innerQuery.ToLower().IndexOf("from");
+
+            if (!string.IsNullOrEmpty(orderByExpr))
+            {
+                innerQuery = innerQuery.Substring(0, innerQuery.Length - orderByExpr.Length);
+                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
+            }
+            else
+            {
+                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " ) as \"RowNumber\"" + nl);
+            }
+
+            if (lcs.RowNumber != null)
+            {
+                innerQuery+= nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
+            }
+
+            string query = string.Format(
+            "SELECT{3} \"RowNumber\", {5} FROM {1}({0}) QueryForGettingIndex {1} WHERE ({2}) {4}",
+            innerQuery,
+            nl,
+            LimitFunction2SQLWhere(limitFunction),
+            maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
+            orderByExpr,
+            PutIdentifierIntoBrackets("STORMMainObjectKey"));
+            //if (offset != null)
+            //    query += nl + offset;
+            object state = null;
+            object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
+            if (res != null)
+            {
+                for (int i = 0; i < res.Length; i++)
+                {
+                    object pk = res[i][1];
+
+                    pk = Information.TranslateValueToPrimaryKeyType(lcs.LoadingTypes[0], pk);
+
+                    ret[(int)Convert.ChangeType(res[i][0], typeof(int))] = pk.ToString();
+                }
+
+                return ret;
+            }
+
             return ret;
         }
 
@@ -840,7 +1061,7 @@
 
             return postgresIdentifier;
         }*/
-        
+
         /// <summary>
         /// Алгоритм генерации коротких имён. Не возникает коллизий с именами таблиц и столбцов, т.к. в коротких именах используется GUID.
         /// </summary>
@@ -876,7 +1097,7 @@
                         {
                             break;
                         }
-                        
+
                         byteCount -= Encoding.UTF8.GetByteCount(postgresIdentifier[len - 1].ToString(CultureInfo.InvariantCulture));
                     }
 

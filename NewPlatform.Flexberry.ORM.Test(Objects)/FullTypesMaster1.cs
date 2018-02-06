@@ -30,6 +30,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("FullMasterView", new string[] {
             "PoleInt",
+            "PoleUInt",
             "PoleDateTime",
             "PoleString",
             "PoleFloat",
@@ -53,6 +54,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     {
         
         private int fPoleInt;
+        
+        private uint fPoleUInt;
         
         private System.DateTime fPoleDateTime = System.DateTime.Now;
         
@@ -125,6 +128,37 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (FullTypesMaster1.PoleInt Set end)
 
                 // *** End programmer edit section *** (FullTypesMaster1.PoleInt Set end)
+            }
+        }
+        
+        /// <summary>
+        /// PoleUInt.
+        /// </summary>
+        // *** Start programmer edit section *** (FullTypesMaster1.PoleUInt CustomAttributes)
+
+        // *** End programmer edit section *** (FullTypesMaster1.PoleUInt CustomAttributes)
+        public virtual uint PoleUInt
+        {
+            get
+            {
+                // *** Start programmer edit section *** (FullTypesMaster1.PoleUInt Get start)
+
+                // *** End programmer edit section *** (FullTypesMaster1.PoleUInt Get start)
+                uint result = this.fPoleUInt;
+                // *** Start programmer edit section *** (FullTypesMaster1.PoleUInt Get end)
+
+                // *** End programmer edit section *** (FullTypesMaster1.PoleUInt Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (FullTypesMaster1.PoleUInt Set start)
+
+                // *** End programmer edit section *** (FullTypesMaster1.PoleUInt Set start)
+                this.fPoleUInt = value;
+                // *** Start programmer edit section *** (FullTypesMaster1.PoleUInt Set end)
+
+                // *** End programmer edit section *** (FullTypesMaster1.PoleUInt Set end)
             }
         }
         

@@ -68,9 +68,9 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// ForKeyStorageTest.
     /// </summary>
-    // *** Start programmer edit section *** (КлассСоСтроковымКлючом CustomAttributes)
+    // *** Start programmer edit section *** (ForKeyStorageTest CustomAttributes)
     [KeyGenerator(typeof(GUIDToStringGenerator))]
-    // *** End programmer edit section *** (КлассСоСтроковымКлючом CustomAttributes)
+    // *** End programmer edit section *** (ForKeyStorageTest CustomAttributes)
     [PrimaryKeyStorage("StorageForKey")]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]

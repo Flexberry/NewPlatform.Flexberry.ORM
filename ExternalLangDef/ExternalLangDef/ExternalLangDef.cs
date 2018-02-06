@@ -9,7 +9,9 @@
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-
+#if NETFX_45
+    using Microsoft.Spatial;
+#endif
     public partial class ExternalLangDef : SQLWhereLanguageDef
     {
         /// <summary>
@@ -81,6 +83,13 @@
         public string paramWeekDIFF { get { return "WeekDIFF"; } }
         public string paramQuarterDIFF { get { return "quarterDIFF"; } }
         public string paramDayDIFF { get { return "DayDIFF"; } }
+
+#if NETFX_45
+        ///<summary>
+        /// Функция, возвращает истину, если гео-данные пересекаются.
+        ///</summary>
+        public string funcGeoIntersects { get { return "GeoIntersects"; } }
+#endif
 
         ///<summary>
         /// Функция, возвращающая год от DateTime
@@ -425,6 +434,11 @@
 
             return dobj;
         }
+
+#if NETFX_45
+        private ObjectType fieldGeography = new ObjectType("Geography", "Гео-данные", typeof(Geography));
+        public ObjectType GeographyType { get { return fieldGeography; } }
+#endif
 
         private ObjectType fieldDetails = new ObjectType("Details", "Зависимые объекты", typeof(DetailArray));
         public ObjectType DetailsType { get { return fieldDetails; } }
@@ -778,7 +792,7 @@
                     "Привести {0} к строке длиной {1}",
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(NumericType)),
-                    new FunctionDef(
+                new FunctionDef(
                     MaxFuncID + 50,
                     StringType,
                     funcToChar,
@@ -786,7 +800,12 @@
                     "Привести дату {0} к строке длиной {1} в формате {2}",
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(NumericType),
-                    new FunctionParameterDef(NumericType)));
+                    new FunctionParameterDef(NumericType))
+#if NETFX_45
+                    , new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
+                    new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType))
+#endif
+                );
 
             base.InitializeDefs();
         }
@@ -1165,6 +1184,13 @@
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
+
+#if NETFX_45
+            if (value.FunctionDef.StringedView == funcGeoIntersects)
+            {
+                return DataServiceSwitch(value, convertValue, convertIdentifier);
+            }
+#endif
 
             return base.SQLTranslFunction(value, convertValue, convertIdentifier);
         }

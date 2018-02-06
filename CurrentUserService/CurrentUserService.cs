@@ -58,7 +58,18 @@
         /// <returns>Данные о зарегистрированном пользователе, либо <c>null</c>, если его не удалось разрешить.</returns>
         private static IUser GetRegisteredUser()
         {
-            return _container.IsRegistered<IUser>() ? _container.Resolve<IUser>() : null;
+            // IsRegistered довольно долго выполняется к тому же он практически всегда возвращает true,
+            // а резолв тут может упасть либо из-за корявого конфига юнити - тогда вообще ничего работать не будет
+            // либо из-за того что IUser не прописан - то же что делает и IsRegistered.
+            // return _container.IsRegistered<IUser>() ? _container.Resolve<IUser>() : null;
+            try
+            {
+                return _container.Resolve<IUser>();
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

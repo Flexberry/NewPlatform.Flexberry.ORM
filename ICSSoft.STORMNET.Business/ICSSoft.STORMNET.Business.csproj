@@ -215,6 +215,8 @@
     <Compile Include="CompositionRoot\IExportService\HeaderCaption.cs" />
     <Compile Include="CompositionRoot\IExportService\IExportParams.cs" />
     <Compile Include="CompositionRoot\IExportService\IHeaderCaption.cs" />
+    <Compile Include="ConfigResolver.cs" />
+    <Compile Include="IConfigResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
