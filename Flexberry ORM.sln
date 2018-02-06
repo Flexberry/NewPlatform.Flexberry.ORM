@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{70245187-E302-4FA1-9725-0553C3B68BE5}"
 EndProject
@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source", "{B05C8E70-96B4-4227-A1D2-3A4565913340}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
 		CHANGELOG.md = CHANGELOG.md
 		LICENSE.md = LICENSE.md
 		README.md = README.md
@@ -420,74 +422,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 22
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = 
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ICSSoft.STORMNET.Business\\ICSSoft.STORMNET.Business.csproj
-		SccProjectName1 = ICSSoft.STORMNET.Business
-		SccLocalPath1 = ICSSoft.STORMNET.Business
-		SccProjectUniqueName2 = ICSSoft.STORMNET.Business.MSSQLDataService\\ICSSoft.STORMNET.Business.MSSQLDataService.csproj
-		SccProjectName2 = ICSSoft.STORMNET.Business.MSSQLDataService
-		SccLocalPath2 = ICSSoft.STORMNET.Business.MSSQLDataService
-		SccProjectUniqueName3 = ICSSoft.STORMNET.Collections\\ICSSoft.STORMNET.Collections.csproj
-		SccProjectName3 = ICSSoft.STORMNET.Collections
-		SccLocalPath3 = ICSSoft.STORMNET.Collections
-		SccProjectUniqueName4 = ICSSoft.STORMNET.DataObject\\ICSSoft.STORMNET.DataObject.csproj
-		SccProjectName4 = ICSSoft.STORMNET.DataObject
-		SccLocalPath4 = ICSSoft.STORMNET.DataObject
-		SccProjectUniqueName5 = ICSSoft.STORMNET.FunctionalLanguage\\ICSSoft.STORMNET.FunctionalLanguage.csproj
-		SccProjectName5 = ICSSoft.STORMNET.FunctionalLanguage
-		SccLocalPath5 = ICSSoft.STORMNET.FunctionalLanguage
-		SccProjectUniqueName6 = ICSSoft.STORMNET.Tools\\ICSSoft.STORMNET.Tools.csproj
-		SccProjectName6 = ICSSoft.STORMNET.Tools
-		SccLocalPath6 = ICSSoft.STORMNET.Tools
-		SccProjectUniqueName7 = ICSSoft.STORMNET.UserDataTypes\\ICSSoft.STORMNET.UserDataTypes.csproj
-		SccProjectName7 = ICSSoft.STORMNET.UserDataTypes
-		SccLocalPath7 = ICSSoft.STORMNET.UserDataTypes
-		SccProjectUniqueName8 = ExternalLangDef\\ExternalLangDef.csproj
-		SccProjectName8 = ExternalLangDef
-		SccLocalPath8 = ExternalLangDef
-		SccProjectUniqueName9 = ICSSoft.STORMNET.Business.DRDataService\\ICSSoft.STORMNET.Business.DRDataService.csproj
-		SccProjectName9 = ICSSoft.STORMNET.Business.DRDataService
-		SccLocalPath9 = ICSSoft.STORMNET.Business.DRDataService
-		SccProjectUniqueName10 = ICSSoft.STORMNET.Business.LINQProvider\\ICSSoft.STORMNET.Business.LINQProvider.csproj
-		SccProjectName10 = ICSSoft.STORMNET.Business.LINQProvider
-		SccLocalPath10 = ICSSoft.STORMNET.Business.LINQProvider
-		SccProjectUniqueName11 = ICSSoft.STORMNET.Business.LockService\\ICSSoft.STORMNET.Business.LockService.csproj
-		SccProjectName11 = ICSSoft.STORMNET.Business.LockService
-		SccLocalPath11 = ICSSoft.STORMNET.Business.LockService
-		SccProjectUniqueName12 = ICSSoft.STORMNET.Business.ODBCDataService\\ICSSoft.STORMNET.Business.ODBCDataService.csproj
-		SccProjectName12 = ICSSoft.STORMNET.Business.ODBCDataService
-		SccLocalPath12 = ICSSoft.STORMNET.Business.ODBCDataService
-		SccProjectUniqueName13 = ICSSoft.STORMNET.Business.OracleDataService\\ICSSoft.STORMNET.Business.OracleDataService.csproj
-		SccProjectName13 = ICSSoft.STORMNET.Business.OracleDataService
-		SccLocalPath13 = ICSSoft.STORMNET.Business.OracleDataService
-		SccProjectUniqueName14 = ICSSoft.STORMNET.Business.PostgresDataService\\ICSSoft.STORMNET.Business.PostgresDataService.csproj
-		SccProjectName14 = ICSSoft.STORMNET.Business.PostgresDataService
-		SccLocalPath14 = ICSSoft.STORMNET.Business.PostgresDataService
-		SccProjectUniqueName15 = ChangesToSqlBTMonitor\\ChangesToSqlBTMonitor.csproj
-		SccProjectName15 = ChangesToSqlBTMonitor
-		SccLocalPath15 = ChangesToSqlBTMonitor
-		SccProjectUniqueName16 = CurrentUserService\\CurrentUserService.csproj
-		SccProjectName16 = CurrentUserService
-		SccLocalPath16 = CurrentUserService
-		SccProjectUniqueName17 = UnityFactory\\UnityFactory.csproj
-		SccProjectName17 = UnityFactory
-		SccLocalPath17 = UnityFactory
-		SccProjectUniqueName18 = NewPlatform.Flexberry.ORM.Tests(BusinessServers)\\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj
-		SccProjectName18 = NewPlatform.Flexberry.ORM.Tests(BusinessServers)
-		SccLocalPath18 = NewPlatform.Flexberry.ORM.Tests(BusinessServers)
-		SccProjectUniqueName19 = NewPlatform.Flexberry.ORM.Test(Objects)\\NewPlatform.Flexberry.ORM.Tests.Objects.csproj
-		SccProjectName19 = NewPlatform.Flexberry.ORM.Test(Objects)
-		SccLocalPath19 = NewPlatform.Flexberry.ORM.Test(Objects)
-		SccProjectUniqueName20 = NewPlatform.Flexberry.ORM.Tests\\NewPlatform.Flexberry.ORM.Tests.csproj
-		SccProjectName20 = NewPlatform.Flexberry.ORM.Tests
-		SccLocalPath20 = NewPlatform.Flexberry.ORM.Tests
-		SccProjectUniqueName21 = NewPlatform.Flexberry.ORM.IntegratedTests\\NewPlatform.Flexberry.ORM.IntegratedTests.csproj
-		SccProjectName21 = NewPlatform.Flexberry.ORM.IntegratedTests
-		SccLocalPath21 = NewPlatform.Flexberry.ORM.IntegratedTests
+		SolutionGuid = {D06807EB-731A-4C38-A042-6E30BE6F1BBF}
 	EndGlobalSection
 EndGlobal
