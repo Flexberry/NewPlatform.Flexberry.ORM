@@ -4,7 +4,7 @@ export thisURL=`~kaf/docker/getThisURL.sh`
 unset image tags
 . ./conf.sh
 
-noCache=--no-cache
+#noCache=--no-cache
 
 docker build  $noCache\
   --build-arg http_proxy=$http_proxy \

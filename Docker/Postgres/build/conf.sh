@@ -1,3 +1,4 @@
-image=dh.ics.perm.ru/kaf/alt.p8-postgresql9.6-ru
+image=flexberry/alt.p8-postgresql:9.6-01
 tags="
-kafnevod/altlinux.p8-postgresql9.6-ru"
+flexberry/alt.p8-postgresql:latest
+"
