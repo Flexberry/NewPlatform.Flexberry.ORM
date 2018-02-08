@@ -69,7 +69,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -183,7 +183,7 @@
       <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
       <Name>ICSSoft.STORMNET.UserDataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test%28Objects%29\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
       <Project>{3839079f-72ff-4038-82eb-bd49712418f4}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.Objects</Name>
     </ProjectReference>

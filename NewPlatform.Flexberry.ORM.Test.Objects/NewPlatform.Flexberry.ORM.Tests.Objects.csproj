@@ -38,7 +38,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test%28Objects%29.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test.Objects.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Net40|AnyCPU'">
     <OutputPath>bin\Debug-Net40\</OutputPath>
@@ -91,9 +91,7 @@
       <HintPath>System.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.XML">
-      <HintPath>System.XML.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adress2.cs" />
@@ -239,8 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="NewPlatform.Flexberry.ORM.Test%28Objects%29.snk" />
-    <None Include="NuGetReferenceHintPathRewrite.targets" />
+    <None Include="NewPlatform.Flexberry.ORM.Test.Objects.snk" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -286,5 +283,4 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="NuGetReferenceHintPathRewrite.targets" />
 </Project>

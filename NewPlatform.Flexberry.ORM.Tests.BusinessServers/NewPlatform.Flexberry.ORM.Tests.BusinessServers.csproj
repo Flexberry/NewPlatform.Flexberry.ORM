@@ -83,7 +83,7 @@
       <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
       <Name>ICSSoft.STORMNET.UserDataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test%28Objects%29\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
       <Project>{3839079f-72ff-4038-82eb-bd49712418f4}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.Objects</Name>
     </ProjectReference>
