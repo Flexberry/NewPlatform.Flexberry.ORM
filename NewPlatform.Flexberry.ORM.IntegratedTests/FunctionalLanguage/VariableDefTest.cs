@@ -1,19 +1,18 @@
-﻿using NewPlatform.Flexberry.ORM.Tests;
-
-namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
+﻿namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
 {
     using System;
-    using System.Drawing;
     using System.Linq;
     using ICSSoft.STORMNET.FunctionalLanguage;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;  
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+
+    using NewPlatform.Flexberry.ORM.Tests;
 
     using Xunit;
 
     /// <summary>
     /// Проверка класса VariableDef.
     /// </summary>
-    
+
     public class VariableDefTest
     {
         /// <summary>
