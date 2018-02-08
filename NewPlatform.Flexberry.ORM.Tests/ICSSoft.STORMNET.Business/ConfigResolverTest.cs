@@ -2,8 +2,11 @@
 {
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
     using Microsoft.Practices.Unity;
+    using System;
     using System.Configuration;
+    using System.Web;
     using Xunit;
 
     /// <summary>
@@ -42,7 +45,9 @@
 
 
             // Act.
-            string actualResult = configResolver.ResolveConnectionString(connectionStringName);
+            string actualResult = ""; // configResolver.ResolveConnectionString(connectionStringName);
+            var appMode = HttpRuntime.AppDomainAppId != null ? AppMode.Web : AppMode.Win;
+            Console.WriteLine($"App mode is {appMode}");
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);
