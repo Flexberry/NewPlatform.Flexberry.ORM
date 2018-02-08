@@ -162,11 +162,9 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml">
-      <Name>System.XML</Name>
-    </Reference>
+    <Reference Include="System.Xml" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
       <Project>{70245187-E302-4FA1-9725-0553C3B68BE5}</Project>
       <Name>ICSSoft.STORMNET.Business</Name>

@@ -105,10 +105,6 @@
       <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NuGet.Core, Version=2.8.60318.667, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\NuGet.Core.2.8.5\lib\net40-Client\NuGet.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.022\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
@@ -117,9 +113,9 @@
       <HintPath>..\packages\Remotion.Linq.1.13.183.0\lib\net35\Remotion.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -337,11 +333,11 @@
       <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
       <Name>ICSSoft.STORMNET.UserDataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test%28Objects%29\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
       <Project>{3839079f-72ff-4038-82eb-bd49712418f4}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.Objects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Tests%28BusinessServers%29\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj">
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj">
       <Project>{70d27598-b67e-41e6-8a1a-06dad5336c05}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.BusinessServers</Name>
     </ProjectReference>

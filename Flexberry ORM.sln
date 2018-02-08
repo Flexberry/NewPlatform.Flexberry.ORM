@@ -47,9 +47,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangesToSqlBTMonitor", "ChangesToSqlBTMonitor\ChangesToSqlBTMonitor.csproj", "{20AB00BA-286C-44D3-B7D9-EBA2246CF615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test(Objects)\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.BusinessServers", "NewPlatform.Flexberry.ORM.Tests(BusinessServers)\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj", "{70D27598-B67E-41E6-8A1A-06DAD5336C05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.BusinessServers", "NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj", "{70D27598-B67E-41E6-8A1A-06DAD5336C05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrentUserService", "CurrentUserService\CurrentUserService.csproj", "{DBFB4362-4180-4687-B092-A43D269FDD93}"
 EndProject
