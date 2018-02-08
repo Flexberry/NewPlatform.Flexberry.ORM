@@ -1,14 +1,13 @@
-﻿namespace NewPlatform.Flexberry.ORM.Tests.ICSSoft.STORMNET.DataObject
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using Xunit;
-    using global::ICSSoft.STORMNET;
+    using ICSSoft.STORMNET;
     using System.Linq;
     using System;
 
     /// <summary>
-    /// Тесты для класса <see cref="ICSSoft.STORMNET.View"/>.
+    /// Тесты для класса <see cref="View"/>.
     /// </summary>
-
     public class ViewTest
     {
         /// <summary>

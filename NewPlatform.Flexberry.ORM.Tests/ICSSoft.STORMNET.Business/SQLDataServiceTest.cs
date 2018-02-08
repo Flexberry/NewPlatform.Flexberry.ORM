@@ -7,7 +7,6 @@
     /// <summary>
     /// Тестовый класс для <see cref="SQLDataService"/>.
     /// </summary>
-    
     public class SQLDataServiceTest
     {
         /// <summary>
