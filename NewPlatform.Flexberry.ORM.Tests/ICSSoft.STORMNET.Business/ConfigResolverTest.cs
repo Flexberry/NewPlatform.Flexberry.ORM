@@ -43,13 +43,10 @@
             IConfigResolver configResolver = container.Resolve<IConfigResolver>();
             Assert.NotNull(configResolver);
             string connectionStringName = "TestConnStr";
-            ConfigurationManager.RefreshSection("connectionStrings");
-            var conn = ConfigurationManager.ConnectionStrings[connectionStringName];
-            Assert.NotNull(conn);
-            string expectedResult = conn.ConnectionString;
-            ConfigurationManager.RefreshSection("connectionStrings");
+            string expectedResult = @"SERVER=.\SQLEXPRESS;Trusted_connection=yes;DATABASE=Test;";
 
             // Act.
+            ConfigurationManager.RefreshSection("connectionStrings");
             string actualResult = configResolver.ResolveConnectionString(connectionStringName);
             ConfigurationManager.RefreshSection("connectionStrings");
 
