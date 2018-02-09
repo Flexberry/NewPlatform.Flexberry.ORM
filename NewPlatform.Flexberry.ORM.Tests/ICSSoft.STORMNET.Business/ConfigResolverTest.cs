@@ -46,8 +46,8 @@
 
             // Act.
             string actualResult = ""; // configResolver.ResolveConnectionString(connectionStringName);
-            var appMode = HttpRuntime.AppDomainAppId != null ? AppMode.Web : AppMode.Win;
-            Console.WriteLine($"App mode is {appMode}");
+            //var appMode = HttpRuntime.AppDomainAppId != null ? AppMode.Web : AppMode.Win;
+            //Console.WriteLine($"App mode is {appMode}");
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);
