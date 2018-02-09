@@ -51,6 +51,7 @@
 
             // Act.
             string actualResult = configResolver.ResolveConnectionString(connectionStringName);
+            ConfigurationManager.RefreshSection("connectionStrings");
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);

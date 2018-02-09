@@ -60,7 +60,9 @@
             SQLDataService ds = new MSSQLDataService();
             string connectionStringName = "TestConnStr";
             ConfigurationManager.RefreshSection("connectionStrings");
+            Console.WriteLine($"CustomizationStringNameTest before IsLocked: {ConfigurationManager.ConnectionStrings[connectionStringName].ElementInformation.IsLocked}");
             string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+            Console.WriteLine($"CustomizationStringNameTest after IsLocked: {ConfigurationManager.ConnectionStrings[connectionStringName].ElementInformation.IsLocked}");
             ConfigurationManager.RefreshSection("connectionStrings");
 
             // Act.
