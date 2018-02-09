@@ -1,5 +1,4 @@
-FROM dh.ics.perm.ru/kaf/alt.p8
-
+FROM flexberry/alt.p8
 ENV LANG ru_RU.UTF-8
 
 MAINTAINER kaf@nevod.ru
