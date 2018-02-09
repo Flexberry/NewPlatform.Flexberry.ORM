@@ -43,13 +43,14 @@
             IConfigResolver configResolver = container.Resolve<IConfigResolver>();
             Assert.NotNull(configResolver);
             string connectionStringName = "TestConnStr";
+            ConfigurationManager.RefreshSection("connectionStrings");
             var conn = ConfigurationManager.ConnectionStrings[connectionStringName];
             Assert.NotNull(conn);
             string expectedResult = conn.ConnectionString;
+            ConfigurationManager.RefreshSection("connectionStrings");
 
             // Act.
             string actualResult = configResolver.ResolveConnectionString(connectionStringName);
-            actualResult = ConfigHelper.GetConnectionString(AppMode.Win, connectionStringName);
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);
