@@ -5,4 +5,4 @@ install:
   - nuget install xunit.runner.console -Version 2.3.1 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Debug-Net45 "Flexberry ORM.sln"
-  - mono ./testrunner/xunit.runner.console.2.3.1/tools/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug-Net45/NewPlatform.Flexberry.ORM.Tests.dll
+  - mono ./testrunner/xunit.runner.console.2.3.1/tools/net452/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug-Net45/NewPlatform.Flexberry.ORM.Tests.dll
