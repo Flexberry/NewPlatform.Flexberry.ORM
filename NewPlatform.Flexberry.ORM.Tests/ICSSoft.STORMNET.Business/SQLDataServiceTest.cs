@@ -53,7 +53,7 @@
         /// <summary>
         /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "TODO: Enable this test after fix issue with second access to ConfigurationManager.ConnectionStrings[connectionStringName] in same test session over mono runtime.")]
         public void CustomizationStringNameTest()
         {
             // Arrange.
