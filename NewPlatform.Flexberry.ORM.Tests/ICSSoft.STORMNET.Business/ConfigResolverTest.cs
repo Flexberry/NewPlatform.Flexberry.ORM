@@ -41,7 +41,7 @@
             IUnityContainer container = UnityFactory.GetContainer();
             IConfigResolver configResolver = container.Resolve<IConfigResolver>();
             string connectionStringName = "TestConnStr";
-            string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
+            string expectedResult = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 
 
             // Act.

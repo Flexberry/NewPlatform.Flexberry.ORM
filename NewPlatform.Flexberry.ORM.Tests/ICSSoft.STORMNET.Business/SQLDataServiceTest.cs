@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.Tests
 {
-    using global::ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business;
+    using System;
     using System.Configuration;
     using Xunit;
 
@@ -58,7 +59,11 @@
             // Arrange.
             SQLDataService ds = new MSSQLDataService();
             string connectionStringName = "TestConnStr";
-            string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
+            string expectedResult = "ConfigurationManager.ConnectionStrings[connectionStringName].ToString()";
+            foreach(ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings)
+            {
+                Console.WriteLine($"Name: {connectionString.Name} connection string: {connectionString.ConnectionString} ");
+            }
 
             // Act.
             ds.CustomizationStringName = connectionStringName;
