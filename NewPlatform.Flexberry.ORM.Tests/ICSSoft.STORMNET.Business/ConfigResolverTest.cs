@@ -3,6 +3,7 @@
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using Microsoft.Practices.Unity;
     using System;
     using System.Configuration;
@@ -40,14 +41,15 @@
             // Arrange.
             IUnityContainer container = UnityFactory.GetContainer();
             IConfigResolver configResolver = container.Resolve<IConfigResolver>();
+            Assert.NotNull(configResolver);
             string connectionStringName = "TestConnStr";
-            string expectedResult = ConfigurationManager.ConnectionStrings[0].ConnectionString;
-
+            var conn = ConfigurationManager.ConnectionStrings[connectionStringName];
+            Assert.NotNull(conn);
+            string expectedResult = conn.ConnectionString;
 
             // Act.
             string actualResult = configResolver.ResolveConnectionString(connectionStringName);
-            var appMode = HttpRuntime.AppDomainAppId != null ? AppMode.Web : AppMode.Win;
-            Console.WriteLine($"App mode is {appMode}");
+            actualResult = ConfigHelper.GetConnectionString(AppMode.Win, connectionStringName);
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);
