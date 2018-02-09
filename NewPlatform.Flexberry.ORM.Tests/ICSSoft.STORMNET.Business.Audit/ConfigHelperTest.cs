@@ -18,16 +18,7 @@
         {
             // Arrange.
             string connectionStringName = "TestConnStr";
-            ConfigurationManager.RefreshSection("connectionStrings");
-            var conn = ConfigurationManager.ConnectionStrings[connectionStringName];
-            Assert.NotNull(conn);
-
-            ConfigurationManager.RefreshSection("connectionStrings");
-            var conn2 = ConfigurationManager.ConnectionStrings[connectionStringName];
-            Assert.NotNull(conn2);
-
-            string expectedResult = conn.ConnectionString;
-            ConfigurationManager.RefreshSection("connectionStrings");
+            string expectedResult = @"SERVER=.\SQLEXPRESS;Trusted_connection=yes;DATABASE=Test;";
 
             // Act.
             string actualResult = ConfigHelper.GetConnectionString(AppMode.Win, connectionStringName);

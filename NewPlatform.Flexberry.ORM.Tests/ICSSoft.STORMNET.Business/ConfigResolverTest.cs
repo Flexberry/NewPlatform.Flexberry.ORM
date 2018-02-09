@@ -46,9 +46,7 @@
             string expectedResult = @"SERVER=.\SQLEXPRESS;Trusted_connection=yes;DATABASE=Test;";
 
             // Act.
-            ConfigurationManager.RefreshSection("connectionStrings");
             string actualResult = configResolver.ResolveConnectionString(connectionStringName);
-            ConfigurationManager.RefreshSection("connectionStrings");
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);

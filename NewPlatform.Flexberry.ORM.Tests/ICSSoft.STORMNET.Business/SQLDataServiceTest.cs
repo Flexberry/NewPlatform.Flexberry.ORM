@@ -59,8 +59,7 @@
             // Arrange.
             SQLDataService ds = new MSSQLDataService();
             string connectionStringName = "TestConnStr";
-            ConfigurationManager.RefreshSection("connectionStrings");
-            string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+            string expectedResult = @"SERVER=.\SQLEXPRESS;Trusted_connection=yes;DATABASE=Test;";
             ConfigurationManager.RefreshSection("connectionStrings");
 
             // Act.
