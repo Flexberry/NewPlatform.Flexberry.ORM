@@ -64,6 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source"
 		.gitignore = .gitignore
 		.travis.yml = .travis.yml
 		CHANGELOG.md = CHANGELOG.md
+		ConfigTuner.ps1 = ConfigTuner.ps1
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
@@ -421,7 +422,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 		SolutionGuid = {D06807EB-731A-4C38-A042-6E30BE6F1BBF}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
