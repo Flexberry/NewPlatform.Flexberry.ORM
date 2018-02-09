@@ -16,18 +16,16 @@
         /// <summary>
         /// Получение строки соединения из конфига.
         /// </summary>
-        /// <param name="currentAppMode"> Текущий режим работы приложения (win или web). </param>
-        /// <param name="connStringName"> Имя строки соединения. </param>
-        /// <returns> Строка соединения. </returns>
+        /// <param name="currentAppMode">Текущий режим работы приложения (win или web).</param>
+        /// <param name="connStringName">Имя строки соединения.</param>
+        /// <returns>Строка соединения.</returns>
         public static string GetConnectionString(AppMode currentAppMode, string connStringName)
         {
             var settingCollection =
-                currentAppMode == AppMode.Web 
-                ? WebConfigurationManager.ConnectionStrings 
+                currentAppMode == AppMode.Web
+                ? WebConfigurationManager.ConnectionStrings
                 : ConfigurationManager.ConnectionStrings;
-            return (from ConnectionStringSettings mi in settingCollection
-                    where mi.Name == connStringName
-                    select mi.ConnectionString).FirstOrDefault();
+            return settingCollection[connStringName]?.ConnectionString;
         }
 
         /// <summary>

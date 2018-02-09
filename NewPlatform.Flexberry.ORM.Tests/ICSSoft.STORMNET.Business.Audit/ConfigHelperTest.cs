@@ -20,6 +20,10 @@
             string connectionStringName = "TestConnStr";
             var conn = ConfigurationManager.ConnectionStrings[connectionStringName];
             Assert.NotNull(conn);
+
+            var conn2 = ConfigurationManager.ConnectionStrings[connectionStringName];
+            Assert.NotNull(conn2);
+
             string expectedResult = conn.ConnectionString;
 
             // Act.

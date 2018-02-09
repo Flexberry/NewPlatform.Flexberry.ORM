@@ -59,11 +59,7 @@
             // Arrange.
             SQLDataService ds = new MSSQLDataService();
             string connectionStringName = "TestConnStr";
-            string expectedResult = "ConfigurationManager.ConnectionStrings[connectionStringName].ToString()";
-            foreach(ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings)
-            {
-                Console.WriteLine($"Name: {connectionString.Name} connection string: {connectionString.ConnectionString} ");
-            }
+            string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
 
             // Act.
             ds.CustomizationStringName = connectionStringName;
