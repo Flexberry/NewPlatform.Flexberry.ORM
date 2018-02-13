@@ -1,6 +1,6 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
-    using global::ICSSoft.STORMNET.KeyGen;
+    using ICSSoft.STORMNET.KeyGen;
     using Xunit;
 
     /// <summary>

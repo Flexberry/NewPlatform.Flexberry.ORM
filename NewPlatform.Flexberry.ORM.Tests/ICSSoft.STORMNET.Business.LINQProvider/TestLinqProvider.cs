@@ -1,14 +1,14 @@
-﻿namespace NewPlatform.Flexberry.ORM.Tests.ICSSoft.STORMNET.Business.LINQProvider
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-    using global::ICSSoft.STORMNET.Business;
-    using global::ICSSoft.STORMNET.Business.LINQProvider;
-    using global::ICSSoft.STORMNET.FunctionalLanguage;
-    using global::ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.LINQProvider;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using Xunit;
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
-    using global::ICSSoft.STORMNET;
+    using ICSSoft.STORMNET;
     using Xunit;
 
     /// <summary>
