@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  postgres:
+    image: flexberry/alt.p8-postgresql
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/pgsql/data/
+      - /etc/localtime:/etc/localtime 
+    environment:
+      - POSTGRES_shared_buffers=${DB_POSTGRES_shared_buffers}
+
+volumes:
+  db:
+

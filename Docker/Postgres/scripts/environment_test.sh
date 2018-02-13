@@ -1,0 +1,2 @@
+
+DB_POSTGRES_shared_buffers=500MB
