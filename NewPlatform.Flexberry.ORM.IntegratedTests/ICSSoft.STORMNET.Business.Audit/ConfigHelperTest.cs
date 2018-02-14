@@ -2,7 +2,6 @@
 {
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
-    using System.Configuration;
     using Xunit;
 
     /// <summary>
