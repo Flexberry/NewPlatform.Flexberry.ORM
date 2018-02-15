@@ -8,11 +8,8 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
-    using System.Diagnostics.Contracts;
     using System.Linq;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
 
     public abstract class BaseIntegratedTest : IDisposable
     {
@@ -54,8 +51,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         {
             get
             {
-                // Включить обратно проверку на Oracle после починки Oracle на сервере.
-                return null; //Resources.OracleScript;
+                return Resources.OracleScript;
             }
         }
 

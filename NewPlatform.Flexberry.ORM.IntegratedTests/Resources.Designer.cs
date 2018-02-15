@@ -19,7 +19,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -65,8 +65,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         ///
         ///
         ///
-        ///
-        ///
         ///CREATE TABLE [InformationTestClass] (
         ///
         ///	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -76,8 +74,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         ///	 [StringPropertyForInfTestClass] VARCHAR(255)  NULL,
         ///
         ///	 [IntPropertyForInfTestClass] INT  NULL,
-        ///
-        ///	 [ColorPropertyForInfTestClass] VARCHAR(255)  NULL,
         ///
         ///	 [BoolPropertyForInfTestClass] BIT  NULL,
         ///
@@ -90,7 +86,12 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         ///
         ///	 [Название] VARCHAR(255)  NULL,
         ///
-        ///	 [Актуально] BI [rest of string was truncated]&quot;;.
+        ///	 [Актуально] BIT  NULL,
+        ///
+        ///	 PRIMARY KEY ([primaryKey]))
+        ///
+        ///
+        ///CREATE TABLE  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MssqlScript {
             get {
@@ -100,8 +101,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///
-        ///
         ///
         ///
         ///
@@ -116,8 +115,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         ///
         ///	&quot;IntPropertyForInfTestClass&quot; NUMBER(10) NULL,
         ///
-        ///	&quot;ColorPropertyForInfTestClass&quot; NVARCHAR2(255) NULL,
-        ///
         ///	&quot;BoolPropertyForInfTestClass&quot; NUMBER(1) NULL,
         ///
         ///	 PRIMARY KEY (&quot;primaryKey&quot;)
@@ -131,7 +128,13 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         ///
         ///	&quot;Название&quot; NVARCHAR2(255) NULL,
         ///
-        ///	&quot;Актуально&quot; NUMBER(1)  [rest of string was truncated]&quot;;.
+        ///	&quot;Актуально&quot; NUMBER(1) NULL,
+        ///
+        ///	 PRIMARY KEY (&quot;primaryKey&quot;)
+        ///) ;
+        ///
+        ///
+        ///CREATE TABLE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string OracleScript {
             get {
@@ -189,8 +192,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         ///
         ///
         ///
-        ///
-        ///
         ///CREATE TABLE InformationTestClass (
         ///
         /// primaryKey UUID NOT NULL,
@@ -200,8 +201,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         /// StringPropertyForInfTestClass VARCHAR(255) NULL,
         ///
         /// IntPropertyForInfTestClass INT NULL,
-        ///
-        /// ColorPropertyForInfTestClass VARCHAR(255) NULL,
         ///
         /// BoolPropertyForInfTestClass BOOLEAN NULL,
         ///
@@ -219,7 +218,11 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests {
         /// PRIMARY KEY (primaryKey));
         ///
         ///
-        ///CREATE TABLE  [rest of string was truncated]&quot;;.
+        ///CREATE TABLE Идея (
+        ///
+        /// primaryKey UUID NOT NULL,
+        ///
+        /// Заголовок VARCH [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PostgresScript {
             get {

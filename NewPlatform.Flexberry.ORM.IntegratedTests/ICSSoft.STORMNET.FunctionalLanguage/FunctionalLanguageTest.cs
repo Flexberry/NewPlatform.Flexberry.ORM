@@ -1,6 +1,4 @@
-﻿using NewPlatform.Flexberry.ORM.Tests;
-
-namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
+﻿namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +7,8 @@ namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
     using ICSSoft.STORMNET.Windows.Forms;
     using Xunit;
 
-    
+    using NewPlatform.Flexberry.ORM.Tests;
+
     public class FunctionalLanguageTest
     {
         [Fact]

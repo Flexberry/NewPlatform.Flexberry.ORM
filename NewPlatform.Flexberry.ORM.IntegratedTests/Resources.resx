@@ -125,7 +125,7 @@
     <value>SqlScripts\OracleScript.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="PostgresDataServiceTestScript" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Postgres\PostgresDataServiceTestScript.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>ICSSoft.STORMNET.Business.PostgresDataService\PostgresDataServiceTestScript.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="PostgresScript" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SqlScripts\PostgresScript.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

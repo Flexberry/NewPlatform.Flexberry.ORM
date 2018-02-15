@@ -2,10 +2,10 @@
 {
     using System;
     using System.Linq;
-    using global::ICSSoft.STORMNET;
-    using global::ICSSoft.STORMNET.FunctionalLanguage;
-    using global::ICSSoft.STORMNET.KeyGen;
-    using global::ICSSoft.STORMNET.Windows.Forms;
+    using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.KeyGen;
+    using ICSSoft.STORMNET.Windows.Forms;
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
     using NewPlatform.Flexberry.ORM.Validation.Exceptions;

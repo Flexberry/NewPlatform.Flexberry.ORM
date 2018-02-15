@@ -3,9 +3,9 @@
     using System;
     using System.Data;
     using System.Globalization;
-    using global::ICSSoft.STORMNET.Business;
-    using global::ICSSoft.STORMNET.Security;
-    using global::ICSSoft.STORMNET.UserDataTypes;
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.UserDataTypes;
     using Xunit;
 
     /// <summary>
