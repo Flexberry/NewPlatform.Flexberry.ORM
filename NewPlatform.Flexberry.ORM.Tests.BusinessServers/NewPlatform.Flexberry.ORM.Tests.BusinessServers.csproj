@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70D27598-B67E-41E6-8A1A-06DAD5336C05}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NewPlatform.Flexberry.ORM.Tests</RootNamespace>
+    <AssemblyName>Flexberry.ORM.Tests.BusinessServers</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateObjectTestBS.cs" />
+    <Compile Include="БерлогаБС.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">
+      <Project>{64e6f763-3ed4-479d-a767-ad9f475aa8e1}</Project>
+      <Name>ICSSoft.STORMNET.Business.MSSQLDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj">
+      <Project>{5e29de24-8237-428e-bf7c-b5cfed45860a}</Project>
+      <Name>ICSSoft.STORMNET.Business.OracleDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj">
+      <Project>{e9f19c18-6a48-4354-a4fb-1b610243592f}</Project>
+      <Name>ICSSoft.STORMNET.Business.PostgresDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
+      <Project>{70245187-e302-4fa1-9725-0553c3b68be5}</Project>
+      <Name>ICSSoft.STORMNET.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
+      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
+      <Name>ICSSoft.STORMNET.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
+      <Project>{3d5d3908-bcb7-4f22-a5b0-bd626d67d1ae}</Project>
+      <Name>ICSSoft.STORMNET.DataObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
+      <Project>{d58c2e43-59ef-4d6f-b006-1a7bb6508689}</Project>
+      <Name>ICSSoft.STORMNET.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
+      <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
+      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
+      <Project>{3839079f-72ff-4038-82eb-bd49712418f4}</Project>
+      <Name>NewPlatform.Flexberry.ORM.Tests.Objects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

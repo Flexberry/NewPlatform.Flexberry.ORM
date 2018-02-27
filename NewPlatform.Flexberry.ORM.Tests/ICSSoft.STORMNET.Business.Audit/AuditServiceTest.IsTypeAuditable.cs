@@ -1,7 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.Audit.Tests
 {
-    using global::ICSSoft.STORMNET.Business.Audit;
-    using global::ICSSoft.STORMNET.Business.Audit.Objects;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Audit.Objects;
 
     using Xunit;
 

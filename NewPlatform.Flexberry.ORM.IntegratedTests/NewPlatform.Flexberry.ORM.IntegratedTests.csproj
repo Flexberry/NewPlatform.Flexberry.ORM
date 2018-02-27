@@ -83,14 +83,13 @@
       <HintPath>..\packages\NewPlatform.Flexberry.LogService.1.1.0\lib\net45\LogService.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -105,10 +104,6 @@
       <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NuGet.Core, Version=2.8.60318.667, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\NuGet.Core.2.8.5\lib\net40-Client\NuGet.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.022\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
@@ -117,9 +112,9 @@
       <HintPath>..\packages\Remotion.Linq.1.13.183.0\lib\net35\Remotion.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -147,123 +142,125 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseIntegratedTest.cs" />
-    <Compile Include="Business\DetailsLoadTest.cs" />
-    <Compile Include="Business\LoadObjectTest.cs" />
-    <Compile Include="Business\SecondLoadObjectTest.cs" />
-    <Compile Include="Business\SQLDataServiceTest.cs" />
-    <Compile Include="Business\DataServiceSpeedTest.cs" />
-    <Compile Include="Business\PrimaryKeyStorageTest.cs" />
-    <Compile Include="Business\UpdateComplexObjectStructTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.Audit\ConfigHelperTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\ConfigResolverTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\DetailsLoadTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\LoadObjectTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\SecondLoadObjectTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\SQLDataServiceTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\DataServiceSpeedTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\PrimaryKeyStorageTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\UpdateComplexObjectStructTest.cs" />
     <Compile Include="Common\CommonTest.cs" />
     <Compile Include="Common\ForeachWithMethodTest.cs" />
     <Compile Include="Common\TypeFullNameTest.cs" />
-    <Compile Include="DataObject\DataObjectTest.cs" />
-    <Compile Include="DataObject\DetailArray.cs" />
-    <Compile Include="DataObject\EquivalenceMethods.cs" />
-    <Compile Include="DataObject\InformationTest.cs" />
-    <Compile Include="DataObject\KeyGenTest.cs" />
-    <Compile Include="DataObject\KeyGuidTest.cs" />
-    <Compile Include="DataObject\ObjectCreatorTest.cs" />
-    <Compile Include="DataObject\OrderPropertyTest.cs" />
-    <Compile Include="DataObject\TypeUsageProviderTest.cs" />
-    <Compile Include="DataObject\DataObjectCacheTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DetailArray.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\EquivalenceMethods.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\InformationTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\KeyGenTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\KeyGuidTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\ObjectCreatorTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\OrderPropertyTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\TypeUsageProviderTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectCacheTest.cs" />
     <Compile Include="ExternalLDef\ExternalLangDefTest.cs" />
     <Compile Include="ExternalLDef\RestrictionsOnTheDateAndDetailleTests.cs" />
-    <Compile Include="FunctionalLanguage\CompatibilityTypeTestTest.cs" />
-    <Compile Include="FunctionalLanguage\Function.cs" />
-    <Compile Include="FunctionalLanguage\FunctionalLanguageDefTest.cs" />
-    <Compile Include="FunctionalLanguage\FunctionalLanguageTest.cs" />
-    <Compile Include="FunctionalLanguage\FunctionSerializeTest.cs" />
-    <Compile Include="FunctionalLanguage\LoadingCustomizationStructTest.cs" />
-    <Compile Include="FunctionalLanguage\LoadingData\DataServiceLoader.cs" />
-    <Compile Include="FunctionalLanguage\LoadingData\ExistAllExactTest.cs" />
-    <Compile Include="FunctionalLanguage\LoadingData\ExistAllTest.cs" />
-    <Compile Include="FunctionalLanguage\LoadingData\ExistDetailsTest.cs" />
-    <Compile Include="FunctionalLanguage\LoadingData\ExistExactTest.cs" />
-    <Compile Include="FunctionalLanguage\LoadingData\ExistTest.cs" />
-    <Compile Include="FunctionalLanguage\ObjectTypeTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\CompatibilityTypeTestTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Function.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\FunctionalLanguageDefTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\FunctionalLanguageTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\FunctionSerializeTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingCustomizationStructTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingData\DataServiceLoader.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingData\ExistAllExactTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingData\ExistAllTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingData\ExistDetailsTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingData\ExistExactTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\LoadingData\ExistTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\ObjectTypeTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceWithDisabledAuditTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceWithEnabledAuditTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\BaseAuditServiceTest.cs" />
-    <Compile Include="LINQProvider\LinqODataServiceTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsTypeTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsIntOrStringTest.cs" />
-    <Compile Include="LINQProvider\LoadCharTest.cs" />
-    <Compile Include="FunctionalLanguage\VariableDefTest.cs" />
-    <Compile Include="LINQProvider\LINQProviderTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsBooleanTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsComplexTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsDateTimeTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsDetailsTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsDynamicViewTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsGuidTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsMasterTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsNumericTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsParametersTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsStringTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsWithPseudoDetailsTest.cs" />
-    <Compile Include="LINQProvider\TestDynamicView.cs" />
-    <Compile Include="LINQProvider\TestLcsQueryProvider.cs" />
-    <Compile Include="LINQProvider\TestRegexToSql.cs" />
-    <Compile Include="LINQProvider\LinqToLcsChainWhereTest.cs" />
-    <Compile Include="LINQProvider\LinqToLcsEnumTest.cs" />
-    <Compile Include="LINQProvider\TestLinqProviderLogicForOData.cs" />
-    <Compile Include="LINQProvider\Utils.cs" />
-    <Compile Include="Postgres\Objects\Class_bool.cs" />
-    <Compile Include="Postgres\Objects\Class_byte.cs" />
-    <Compile Include="Postgres\Objects\Class_char.cs" />
-    <Compile Include="Postgres\Objects\Class_DateTime.cs" />
-    <Compile Include="Postgres\Objects\Class_decimal.cs" />
-    <Compile Include="Postgres\Objects\Class_double.cs" />
-    <Compile Include="Postgres\Objects\Class_float.cs" />
-    <Compile Include="Postgres\Objects\Class_guid.cs" />
-    <Compile Include="Postgres\Objects\Class_int.cs" />
-    <Compile Include="Postgres\Objects\Class_long.cs" />
-    <Compile Include="Postgres\Objects\Class_NullableDateTime.cs" />
-    <Compile Include="Postgres\Objects\Class_NullableDecimal.cs" />
-    <Compile Include="Postgres\Objects\Class_NullableInt.cs" />
-    <Compile Include="Postgres\Objects\Class_object.cs" />
-    <Compile Include="Postgres\Objects\Class_sbyte.cs" />
-    <Compile Include="Postgres\Objects\Class_short.cs" />
-    <Compile Include="Postgres\Objects\Class_string.cs" />
-    <Compile Include="Postgres\Objects\Class_uint.cs" />
-    <Compile Include="Postgres\Objects\Class_ulong.cs" />
-    <Compile Include="Postgres\Objects\Class_ushort.cs" />
-    <Compile Include="Postgres\Objects\Class_WebFile.cs" />
-    <Compile Include="Postgres\Objects\DetailClass.cs" />
-    <Compile Include="Postgres\Objects\DetailClass2.cs" />
-    <Compile Include="Postgres\Objects\MasterClass.cs" />
-    <Compile Include="Postgres\Objects\MasterRoot.cs" />
-    <Compile Include="Postgres\Objects\MyClass.cs" />
-    <Compile Include="Postgres\Objects\ДетейлКлассДлинноеИмя.cs" />
-    <Compile Include="Postgres\Objects\ДетейлКлассДлинноеИмя2.cs" />
-    <Compile Include="Postgres\Objects\ДочернийКлассДлинноеИмя.cs" />
-    <Compile Include="Postgres\Objects\ДочернийКлассДлинноеИмя2.cs" />
-    <Compile Include="Postgres\Objects\Класс.cs" />
-    <Compile Include="Postgres\Objects\МастерКлассДлинноеИмя.cs" />
-    <Compile Include="Postgres\Objects\МастерКлассДлинноеИмя2.cs" />
-    <Compile Include="Postgres\Objects\РодительскийКлассДлинноеИмя.cs" />
-    <Compile Include="Postgres\PostgresDataServiceTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqODataServiceTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsTypeTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsIntOrStringTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LoadCharTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\VariableDefTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LINQProviderTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsBooleanTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsComplexTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsDateTimeTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsDetailsTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsDynamicViewTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsGuidTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsMasterTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsNumericTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsParametersTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsStringTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsWithPseudoDetailsTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestDynamicView.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLcsQueryProvider.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestRegexToSql.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsChainWhereTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsEnumTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqProviderLogicForOData.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\Utils.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_bool.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_byte.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_char.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_DateTime.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_decimal.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_double.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_float.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_guid.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_int.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_long.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_NullableDateTime.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_NullableDecimal.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_NullableInt.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_object.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_sbyte.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_short.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_string.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_uint.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_ulong.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_ushort.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Class_WebFile.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\DetailClass.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\DetailClass2.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\MasterClass.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\MasterRoot.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\MyClass.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\ДетейлКлассДлинноеИмя.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\ДетейлКлассДлинноеИмя2.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\ДочернийКлассДлинноеИмя.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\ДочернийКлассДлинноеИмя2.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\Класс.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\МастерКлассДлинноеИмя.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\МастерКлассДлинноеИмя2.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\РодительскийКлассДлинноеИмя.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\PostgresDataServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Tools\CaptionToolTests.cs" />
-    <Compile Include="Tools\ToolXMLTest.cs" />
-    <Compile Include="Tools\TransliterationTest.cs" />
-    <Compile Include="Tools\UtilsTest.cs" />
-    <Compile Include="UserDataTypes\ContactTest.cs" />
-    <Compile Include="UserDataTypes\EventTest.cs" />
-    <Compile Include="UserDataTypes\GeoDataTest.cs" />
-    <Compile Include="UserDataTypes\ImageTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Tools\CaptionToolTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.Tools\ToolXMLTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Tools\TransliterationTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Tools\UtilsTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.UserDataTypes\ContactTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.UserDataTypes\EventTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.UserDataTypes\GeoDataTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.UserDataTypes\ImageTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataObject\Bitmap1.bmp" />
+    <Content Include="ICSSoft.STORMNET.DataObject\Bitmap1.bmp" />
     <Content Include="SqlScripts\MssqlScript.sql" />
     <Content Include="SqlScripts\OracleScript.sql" />
-    <Content Include="Postgres\PostgresDataServiceTestScript.sql" />
+    <Content Include="ICSSoft.STORMNET.Business.PostgresDataService\PostgresDataServiceTestScript.sql" />
     <Content Include="SqlScripts\PostgresScript.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -274,8 +271,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Postgres\PostgresDataServiceTestScript.crp" />
-    <None Include="SqlScripts\NewPlatform.Flexberry.ORM.Tests.crp" />
+    <None Include="ICSSoft.STORMNET.Business.PostgresDataService\PostgresDataServiceTestScript.crp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CurrentUserService\CurrentUserService.csproj">
@@ -338,11 +334,11 @@
       <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
       <Name>ICSSoft.STORMNET.UserDataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test%28Objects%29\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
       <Project>{3839079f-72ff-4038-82eb-bd49712418f4}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.Objects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Tests%28BusinessServers%29\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj">
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj">
       <Project>{70d27598-b67e-41e6-8a1a-06dad5336c05}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.BusinessServers</Name>
     </ProjectReference>
@@ -355,6 +351,7 @@
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

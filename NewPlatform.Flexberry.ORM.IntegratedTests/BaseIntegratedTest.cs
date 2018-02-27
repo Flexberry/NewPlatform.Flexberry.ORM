@@ -1,4 +1,5 @@
-﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests
+﻿[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
     using ICSSoft.STORMNET.Business;
     using Npgsql;
@@ -7,11 +8,8 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
-    using System.Diagnostics.Contracts;
     using System.Linq;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
 
     public abstract class BaseIntegratedTest : IDisposable
     {

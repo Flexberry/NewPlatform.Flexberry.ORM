@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.0.0</version>
+    <version>4.1.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,14 +12,27 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-1) Move ICSSoft.STORMNET.Drawing project to Winforms.
-2) Remove System.Drawing dependency.
-3) Remove *DataService dependency from ExternalLangDef.
-4) Remove inheritance from MarshalByRefObject.
-5) Migrate tests to xUnit.net.
-6) Remove ICSSoft.STORMNET.BF project.
+Added
+1. Add support Microsoft.Spatial.Geography for Net Framework 4.5.
+2. Add support string conversion to Microsoft.Spatial.Geography in Information.
+3. Add PostgresDataService method for comparing types.
+4. Add support Nullable&lt;DateTime&gt; and NullableDateTime for DateTime properties (Day, Month, Year, etc.).
+5. Add property for set connection string by name in DataService. **Need confugure IConfigResolver in Unity config section**
+6. Add ICSSoft.STORMNET.TuneStaticViewDelegate for tune static Views.
+
+Fixed
+1. Fix LINQ to LCS when sorting with types convert.
+2. Fix error when use unsigned types in LINQ expression.
+3. Fix using UnityFactory.CreateContainer method instead of UnityFactory.GetContainer. It should increase performance.
+4. Fix update error Geography type.
+5. Fix converting LINQ expressions with sorting to custom nullable types.
+6. Fix sql query sequence for delete hasMany data objects with cyclic associations.
+
+Changed
+1. Remove implicit dependency from ICSSoft.STORMNET.RightManager. Now implementation of ISecurityManager specified via Unity is used instead.
+2. Optimized requests to Postgres if LCS has a populated RowNumber property.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2017</copyright>
+    <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework3.5">
@@ -44,114 +57,115 @@
         <dependency id="SharpZipLib" version="0.86.0" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
         <dependency id="Unity" version="[2.1.505.2]" />
+        <dependency id="Microsoft.Spatial" version="6.15.0" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="Debug-Net35\ICSSoft.Services.UnityFactory.dll" target="lib\net35\ICSSoft.Services.UnityFactory.dll" />
-    <file src="Debug-Net35\ICSSoft.Services.UnityFactory.xml" target="lib\net35\ICSSoft.Services.UnityFactory.xml" />
-    <file src="Debug-Net40\ICSSoft.Services.UnityFactory.dll" target="lib\net40\ICSSoft.Services.UnityFactory.dll" />
-    <file src="Debug-Net40\ICSSoft.Services.UnityFactory.xml" target="lib\net40\ICSSoft.Services.UnityFactory.xml" />
-    <file src="Debug-Net45\ICSSoft.Services.UnityFactory.dll" target="lib\net45\ICSSoft.Services.UnityFactory.dll" />
-    <file src="Debug-Net45\ICSSoft.Services.UnityFactory.xml" target="lib\net45\ICSSoft.Services.UnityFactory.xml" />
-    <file src="Debug-Net35\ICSSoft.Services.CurrentUserService.dll" target="lib\net35\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="Debug-Net35\ICSSoft.Services.CurrentUserService.xml" target="lib\net35\ICSSoft.Services.CurrentUserService.xml" />
-    <file src="Debug-Net40\ICSSoft.Services.CurrentUserService.dll" target="lib\net40\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="Debug-Net40\ICSSoft.Services.CurrentUserService.xml" target="lib\net40\ICSSoft.Services.CurrentUserService.xml" />
-    <file src="Debug-Net45\ICSSoft.Services.CurrentUserService.dll" target="lib\net45\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="Debug-Net45\ICSSoft.Services.CurrentUserService.xml" target="lib\net45\ICSSoft.Services.CurrentUserService.xml" />
-    <file src="Debug-Net35\ExternalLangDef.dll" target="lib\net35\ExternalLangDef.dll" />
-    <file src="Debug-Net35\ExternalLangDef.XML" target="lib\net35\ExternalLangDef.XML" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.dll" target="lib\net35\ICSSoft.STORMNET.Business.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.DRDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.DRDataService.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.DRDataService.XML" target="lib\net35\ICSSoft.STORMNET.Business.DRDataService.XML" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net35\ICSSoft.STORMNET.Business.LINQProvider.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net35\ICSSoft.STORMNET.Business.LINQProvider.XML" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net35\ICSSoft.STORMNET.Business.LockService.dll" />
-    <file src="Debug-Net35\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net35\ICSSOft.STORMNET.Business.LockService.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net35\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.ODBCDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.ODBCDataService.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.ODBCDataService.xml" target="lib\net35\ICSSoft.STORMNET.Business.ODBCDataService.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.OracleDataService.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net35\ICSSoft.STORMNET.Business.OracleDataService.XML" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net35\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Business.xml" target="lib\net35\ICSSoft.STORMNET.Business.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Collections.dll" target="lib\net35\ICSSoft.STORMNET.Collections.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Collections.xml" target="lib\net35\ICSSoft.STORMNET.Collections.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.DataObject.dll" target="lib\net35\ICSSoft.STORMNET.DataObject.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.DataObject.xml" target="lib\net35\ICSSoft.STORMNET.DataObject.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net35\ICSSoft.STORMNET.FunctionalLanguage.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net35\ICSSoft.STORMNET.FunctionalLanguage.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Tools.dll" target="lib\net35\ICSSoft.STORMNET.Tools.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.Tools.xml" target="lib\net35\ICSSoft.STORMNET.Tools.xml" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net35\ICSSoft.STORMNET.UserDataTypes.dll" />
-    <file src="Debug-Net35\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net35\ICSSoft.STORMNET.UserDataTypes.XML" />
-    <file src="Debug-Net35\ChangesToSqlBTMonitor.dll" target="lib\net35\ChangesToSqlBTMonitor.dll" />
-    <file src="Debug-Net35\ChangesToSqlBTMonitor.XML" target="lib\net35\ChangesToSqlBTMonitor.XML" />
+    <file src="ChangesToSqlBTMonitor\bin\Release-Net35\ChangesToSqlBTMonitor.dll" target="lib\net35\ChangesToSqlBTMonitor.dll" />
+    <file src="ChangesToSqlBTMonitor\bin\Release-Net35\ChangesToSqlBTMonitor.XML" target="lib\net35\ChangesToSqlBTMonitor.XML" />
+    <file src="CurrentUserService\bin\Release-Net35\ICSSoft.Services.CurrentUserService.dll" target="lib\net35\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Release-Net35\ICSSoft.Services.CurrentUserService.xml" target="lib\net35\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="ExternalLangDef\bin\Release-Net35\ExternalLangDef.dll" target="lib\net35\ExternalLangDef.dll" />
+    <file src="ExternalLangDef\bin\Release-Net35\ExternalLangDef.XML" target="lib\net35\ExternalLangDef.XML" />
+    <file src="ICSSoft.STORMNET.Business\bin\Release-Net35\ICSSoft.STORMNET.Business.dll" target="lib\net35\ICSSoft.STORMNET.Business.dll" />
+    <file src="ICSSoft.STORMNET.Business\bin\Release-Net35\ICSSoft.STORMNET.Business.xml" target="lib\net35\ICSSoft.STORMNET.Business.xml" />
+    <file src="ICSSoft.STORMNET.Business.DRDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.DRDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.DRDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.DRDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.DRDataService.XML" target="lib\net35\ICSSoft.STORMNET.Business.DRDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\Release-Net35\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net35\ICSSoft.STORMNET.Business.LINQProvider.dll" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\Release-Net35\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net35\ICSSoft.STORMNET.Business.LINQProvider.XML" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\Release-Net35\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net35\ICSSoft.STORMNET.Business.LockService.dll" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\Release-Net35\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net35\ICSSOft.STORMNET.Business.LockService.xml" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net35\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+    <file src="ICSSoft.STORMNET.Business.ODBCDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.ODBCDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.ODBCDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.ODBCDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.ODBCDataService.xml" target="lib\net35\ICSSoft.STORMNET.Business.ODBCDataService.xml" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net35\ICSSoft.STORMNET.Business.OracleDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net35\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\Release-Net35\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net35\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+    <file src="ICSSoft.STORMNET.Collections\bin\Release-Net35\ICSSoft.STORMNET.Collections.dll" target="lib\net35\ICSSoft.STORMNET.Collections.dll" />
+    <file src="ICSSoft.STORMNET.Collections\bin\Release-Net35\ICSSoft.STORMNET.Collections.xml" target="lib\net35\ICSSoft.STORMNET.Collections.xml" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\Release-Net35\ICSSoft.STORMNET.DataObject.dll" target="lib\net35\ICSSoft.STORMNET.DataObject.dll" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\Release-Net35\ICSSoft.STORMNET.DataObject.xml" target="lib\net35\ICSSoft.STORMNET.DataObject.xml" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\Release-Net35\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net35\ICSSoft.STORMNET.FunctionalLanguage.dll" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\Release-Net35\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net35\ICSSoft.STORMNET.FunctionalLanguage.xml" />
+    <file src="ICSSoft.STORMNET.Tools\bin\Release-Net35\ICSSoft.STORMNET.Tools.dll" target="lib\net35\ICSSoft.STORMNET.Tools.dll" />
+    <file src="ICSSoft.STORMNET.Tools\bin\Release-Net35\ICSSoft.STORMNET.Tools.xml" target="lib\net35\ICSSoft.STORMNET.Tools.xml" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\Release-Net35\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net35\ICSSoft.STORMNET.UserDataTypes.dll" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\Release-Net35\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net35\ICSSoft.STORMNET.UserDataTypes.XML" />
+    <file src="UnityFactory\bin\Release-Net35\ICSSoft.Services.UnityFactory.dll" target="lib\net35\ICSSoft.Services.UnityFactory.dll" />
+    <file src="UnityFactory\bin\Release-Net35\ICSSoft.Services.UnityFactory.xml" target="lib\net35\ICSSoft.Services.UnityFactory.xml" />
 
-    <file src="Debug-Net40\ExternalLangDef.dll" target="lib\net40\ExternalLangDef.dll" />
-    <file src="Debug-Net40\ExternalLangDef.XML" target="lib\net40\ExternalLangDef.XML" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.dll" target="lib\net40\ICSSoft.STORMNET.Business.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.DRDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.DRDataService.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.DRDataService.XML" target="lib\net40\ICSSoft.STORMNET.Business.DRDataService.XML" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net40\ICSSoft.STORMNET.Business.LINQProvider.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net40\ICSSoft.STORMNET.Business.LINQProvider.XML" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net40\ICSSoft.STORMNET.Business.LockService.dll" />
-    <file src="Debug-Net40\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net40\ICSSOft.STORMNET.Business.LockService.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net40\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.ODBCDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.ODBCDataService.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.ODBCDataService.xml" target="lib\net40\ICSSoft.STORMNET.Business.ODBCDataService.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.OracleDataService.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net40\ICSSoft.STORMNET.Business.OracleDataService.XML" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net40\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Business.xml" target="lib\net40\ICSSoft.STORMNET.Business.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Collections.dll" target="lib\net40\ICSSoft.STORMNET.Collections.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Collections.xml" target="lib\net40\ICSSoft.STORMNET.Collections.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.DataObject.dll" target="lib\net40\ICSSoft.STORMNET.DataObject.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.DataObject.xml" target="lib\net40\ICSSoft.STORMNET.DataObject.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net40\ICSSoft.STORMNET.FunctionalLanguage.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net40\ICSSoft.STORMNET.FunctionalLanguage.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Tools.dll" target="lib\net40\ICSSoft.STORMNET.Tools.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.Tools.xml" target="lib\net40\ICSSoft.STORMNET.Tools.xml" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net40\ICSSoft.STORMNET.UserDataTypes.dll" />
-    <file src="Debug-Net40\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net40\ICSSoft.STORMNET.UserDataTypes.XML" />
-    <file src="Debug-Net40\ChangesToSqlBTMonitor.dll" target="lib\net40\ChangesToSqlBTMonitor.dll" />
-    <file src="Debug-Net40\ChangesToSqlBTMonitor.XML" target="lib\net40\ChangesToSqlBTMonitor.XML" />
+    <file src="ChangesToSqlBTMonitor\bin\Release-Net40\ChangesToSqlBTMonitor.dll" target="lib\net40\ChangesToSqlBTMonitor.dll" />
+    <file src="ChangesToSqlBTMonitor\bin\Release-Net40\ChangesToSqlBTMonitor.XML" target="lib\net40\ChangesToSqlBTMonitor.XML" />
+    <file src="CurrentUserService\bin\Release-Net40\ICSSoft.Services.CurrentUserService.dll" target="lib\net40\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Release-Net40\ICSSoft.Services.CurrentUserService.xml" target="lib\net40\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="ExternalLangDef\bin\Release-Net40\ExternalLangDef.dll" target="lib\net40\ExternalLangDef.dll" />
+    <file src="ExternalLangDef\bin\Release-Net40\ExternalLangDef.XML" target="lib\net40\ExternalLangDef.XML" />
+    <file src="ICSSoft.STORMNET.Business\bin\Release-Net40\ICSSoft.STORMNET.Business.dll" target="lib\net40\ICSSoft.STORMNET.Business.dll" />
+    <file src="ICSSoft.STORMNET.Business\bin\Release-Net40\ICSSoft.STORMNET.Business.xml" target="lib\net40\ICSSoft.STORMNET.Business.xml" />
+    <file src="ICSSoft.STORMNET.Business.DRDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.DRDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.DRDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.DRDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.DRDataService.XML" target="lib\net40\ICSSoft.STORMNET.Business.DRDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\Release-Net40\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net40\ICSSoft.STORMNET.Business.LINQProvider.dll" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\Release-Net40\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net40\ICSSoft.STORMNET.Business.LINQProvider.XML" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\Release-Net40\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net40\ICSSoft.STORMNET.Business.LockService.dll" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\Release-Net40\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net40\ICSSOft.STORMNET.Business.LockService.xml" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net40\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+    <file src="ICSSoft.STORMNET.Business.ODBCDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.ODBCDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.ODBCDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.ODBCDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.ODBCDataService.xml" target="lib\net40\ICSSoft.STORMNET.Business.ODBCDataService.xml" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net40\ICSSoft.STORMNET.Business.OracleDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net40\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\Release-Net40\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net40\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+    <file src="ICSSoft.STORMNET.Collections\bin\Release-Net40\ICSSoft.STORMNET.Collections.dll" target="lib\net40\ICSSoft.STORMNET.Collections.dll" />
+    <file src="ICSSoft.STORMNET.Collections\bin\Release-Net40\ICSSoft.STORMNET.Collections.xml" target="lib\net40\ICSSoft.STORMNET.Collections.xml" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\Release-Net40\ICSSoft.STORMNET.DataObject.dll" target="lib\net40\ICSSoft.STORMNET.DataObject.dll" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\Release-Net40\ICSSoft.STORMNET.DataObject.xml" target="lib\net40\ICSSoft.STORMNET.DataObject.xml" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\Release-Net40\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net40\ICSSoft.STORMNET.FunctionalLanguage.dll" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\Release-Net40\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net40\ICSSoft.STORMNET.FunctionalLanguage.xml" />
+    <file src="ICSSoft.STORMNET.Tools\bin\Release-Net40\ICSSoft.STORMNET.Tools.dll" target="lib\net40\ICSSoft.STORMNET.Tools.dll" />
+    <file src="ICSSoft.STORMNET.Tools\bin\Release-Net40\ICSSoft.STORMNET.Tools.xml" target="lib\net40\ICSSoft.STORMNET.Tools.xml" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\Release-Net40\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net40\ICSSoft.STORMNET.UserDataTypes.dll" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\Release-Net40\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net40\ICSSoft.STORMNET.UserDataTypes.XML" />
+    <file src="UnityFactory\bin\Release-Net40\ICSSoft.Services.UnityFactory.dll" target="lib\net40\ICSSoft.Services.UnityFactory.dll" />
+    <file src="UnityFactory\bin\Release-Net40\ICSSoft.Services.UnityFactory.xml" target="lib\net40\ICSSoft.Services.UnityFactory.xml" />
 
-    <file src="Debug-Net45\ExternalLangDef.dll" target="lib\net45\ExternalLangDef.dll" />
-    <file src="Debug-Net45\ExternalLangDef.XML" target="lib\net45\ExternalLangDef.XML" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.dll" target="lib\net45\ICSSoft.STORMNET.Business.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.DRDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.DRDataService.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.DRDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.DRDataService.XML" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net45\ICSSoft.STORMNET.Business.LINQProvider.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net45\ICSSoft.STORMNET.Business.LINQProvider.XML" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net45\ICSSoft.STORMNET.Business.LockService.dll" />
-    <file src="Debug-Net45\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net45\ICSSOft.STORMNET.Business.LockService.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.ODBCDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.ODBCDataService.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.ODBCDataService.xml" target="lib\net45\ICSSoft.STORMNET.Business.ODBCDataService.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.OracleDataService.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.OracleDataService.XML" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Business.xml" target="lib\net45\ICSSoft.STORMNET.Business.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Collections.dll" target="lib\net45\ICSSoft.STORMNET.Collections.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Collections.xml" target="lib\net45\ICSSoft.STORMNET.Collections.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.DataObject.dll" target="lib\net45\ICSSoft.STORMNET.DataObject.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.DataObject.xml" target="lib\net45\ICSSoft.STORMNET.DataObject.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net45\ICSSoft.STORMNET.FunctionalLanguage.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net45\ICSSoft.STORMNET.FunctionalLanguage.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Tools.dll" target="lib\net45\ICSSoft.STORMNET.Tools.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.Tools.xml" target="lib\net45\ICSSoft.STORMNET.Tools.xml" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net45\ICSSoft.STORMNET.UserDataTypes.dll" />
-    <file src="Debug-Net45\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net45\ICSSoft.STORMNET.UserDataTypes.XML" />
-    <file src="Debug-Net45\ChangesToSqlBTMonitor.dll" target="lib\net45\ChangesToSqlBTMonitor.dll" />
-    <file src="Debug-Net45\ChangesToSqlBTMonitor.XML" target="lib\net45\ChangesToSqlBTMonitor.XML" />    
+    <file src="ChangesToSqlBTMonitor\bin\Release-Net45\ChangesToSqlBTMonitor.dll" target="lib\net45\ChangesToSqlBTMonitor.dll" />
+    <file src="ChangesToSqlBTMonitor\bin\Release-Net45\ChangesToSqlBTMonitor.XML" target="lib\net45\ChangesToSqlBTMonitor.XML" />
+    <file src="CurrentUserService\bin\Release-Net45\ICSSoft.Services.CurrentUserService.dll" target="lib\net45\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Release-Net45\ICSSoft.Services.CurrentUserService.xml" target="lib\net45\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="ExternalLangDef\bin\Release-Net45\ExternalLangDef.dll" target="lib\net45\ExternalLangDef.dll" />
+    <file src="ExternalLangDef\bin\Release-Net45\ExternalLangDef.XML" target="lib\net45\ExternalLangDef.XML" />
+    <file src="ICSSoft.STORMNET.Business\bin\Release-Net45\ICSSoft.STORMNET.Business.dll" target="lib\net45\ICSSoft.STORMNET.Business.dll" />
+    <file src="ICSSoft.STORMNET.Business\bin\Release-Net45\ICSSoft.STORMNET.Business.xml" target="lib\net45\ICSSoft.STORMNET.Business.xml" />
+    <file src="ICSSoft.STORMNET.Business.DRDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.DRDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.DRDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.DRDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.DRDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.DRDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\Release-Net45\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net45\ICSSoft.STORMNET.Business.LINQProvider.dll" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\Release-Net45\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net45\ICSSoft.STORMNET.Business.LINQProvider.XML" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\Release-Net45\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net45\ICSSoft.STORMNET.Business.LockService.dll" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\Release-Net45\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net45\ICSSOft.STORMNET.Business.LockService.xml" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+    <file src="ICSSoft.STORMNET.Business.ODBCDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.ODBCDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.ODBCDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.ODBCDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.ODBCDataService.xml" target="lib\net45\ICSSoft.STORMNET.Business.ODBCDataService.xml" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.OracleDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\Release-Net45\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+    <file src="ICSSoft.STORMNET.Collections\bin\Release-Net45\ICSSoft.STORMNET.Collections.dll" target="lib\net45\ICSSoft.STORMNET.Collections.dll" />
+    <file src="ICSSoft.STORMNET.Collections\bin\Release-Net45\ICSSoft.STORMNET.Collections.xml" target="lib\net45\ICSSoft.STORMNET.Collections.xml" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\Release-Net45\ICSSoft.STORMNET.DataObject.dll" target="lib\net45\ICSSoft.STORMNET.DataObject.dll" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\Release-Net45\ICSSoft.STORMNET.DataObject.xml" target="lib\net45\ICSSoft.STORMNET.DataObject.xml" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\Release-Net45\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net45\ICSSoft.STORMNET.FunctionalLanguage.dll" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\Release-Net45\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net45\ICSSoft.STORMNET.FunctionalLanguage.xml" />
+    <file src="ICSSoft.STORMNET.Tools\bin\Release-Net45\ICSSoft.STORMNET.Tools.dll" target="lib\net45\ICSSoft.STORMNET.Tools.dll" />
+    <file src="ICSSoft.STORMNET.Tools\bin\Release-Net45\ICSSoft.STORMNET.Tools.xml" target="lib\net45\ICSSoft.STORMNET.Tools.xml" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\Release-Net45\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net45\ICSSoft.STORMNET.UserDataTypes.dll" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\Release-Net45\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net45\ICSSoft.STORMNET.UserDataTypes.XML" />
+    <file src="UnityFactory\bin\Release-Net45\ICSSoft.Services.UnityFactory.dll" target="lib\net45\ICSSoft.Services.UnityFactory.dll" />
+    <file src="UnityFactory\bin\Release-Net45\ICSSoft.Services.UnityFactory.xml" target="lib\net45\ICSSoft.Services.UnityFactory.xml" />
 
     <file src="config.install.xdt" target="content\app.config.install.xdt" />
     <file src="config.install.xdt" target="content\web.config.install.xdt" />

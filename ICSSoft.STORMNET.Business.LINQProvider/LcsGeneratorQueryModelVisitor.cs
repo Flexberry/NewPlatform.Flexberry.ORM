@@ -212,38 +212,40 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         {
             foreach (Ordering ordering in orderByClause.Orderings)
             {
-                StringBuilder path=new StringBuilder();
                 MemberInfo member;
-                MemberExpression expr = ordering.Expression as MemberExpression;
-                if (expr == null)
+                Expression expression = null;
+                StringBuilder path = new StringBuilder();
+                if (ordering.Expression is MemberExpression)
+                    expression = ordering.Expression as MemberExpression;
+                else if (ordering.Expression is UnaryExpression)
+                    expression = ordering.Expression as UnaryExpression;
+                else if (ordering.Expression is ConditionalExpression)
                 {
-                    ConditionalExpression conditionalExpr = ordering.Expression as ConditionalExpression;
-                    if (conditionalExpr == null)
-                        continue;
-                    UnaryExpression unaryExpr = conditionalExpr.IfFalse as UnaryExpression;
-                    if (unaryExpr != null)
-                    {
-                        if(unaryExpr.NodeType == ExpressionType.Convert)
-                            expr = unaryExpr.Operand as MemberExpression;
-                    }
-                    else
-                    {
-                        expr = conditionalExpr.IfFalse as MemberExpression;
-                    }
+                    expression = (ordering.Expression as ConditionalExpression).IfFalse;
+                    while (expression is ConditionalExpression)
+                        expression = (expression as ConditionalExpression).IfFalse;
                 }
-                if (expr == null)
-                    continue;
-                do
+
+                while (expression != null && expression.NodeType == ExpressionType.Convert)
+                    expression = (expression as UnaryExpression).Operand;
+
+                MemberExpression memberExpression = expression as MemberExpression;
+                while (memberExpression != null)
                 {
-                    member = UtilsLcs.GetObjectPropertyValue(expr, "Member");
+                    member = UtilsLcs.GetObjectPropertyValue(memberExpression, "Member");
+                    memberExpression = memberExpression.Expression as MemberExpression;
                     if (member == null)
                         break;
+                    else if (member.Name == "Value")
+                        continue;
+
                     if (path.Length > 0)
                         path.Insert(0, ".");
+
                     path.Insert(0, member.Name);
-                    expr = expr.Expression as MemberExpression;
-                } while (expr != null);
-                if (member != null && path.Length > 0)
+                }
+
+                if (path.Length > 0)
                     AddColumnSort(path.ToString(), GetOrder(ordering.OrderingDirection));
             }
 

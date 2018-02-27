@@ -43,7 +43,7 @@
             {
                 if (_securityManager == null)
                 {
-                    IUnityContainer container = UnityFactory.CreateContainer();
+                    IUnityContainer container = UnityFactory.GetContainer();
                     _securityManager = container.Resolve<ISecurityManager>();
                 }
 

@@ -1,13 +1,14 @@
-﻿namespace NewPlatform.Flexberry.ORM.Tests.ICSSoft.STORMNET.DataObject
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using Xunit;
-    using global::ICSSoft.STORMNET;
+    using ICSSoft.STORMNET;
     using System.Linq;
+    using System;
 
     /// <summary>
     /// Тесты для класса <see cref="ICSSoft.STORMNET.View"/>.
     /// </summary>
-    
+
     public class ViewTest
     {
         /// <summary>
@@ -137,5 +138,32 @@
             Assert.Equal(subsView.Properties.Length, 1);
             Assert.True(subsView.CheckPropname(Information.ExtractPropertyName<MasterClass>(a => a.IntMasterProperty)));
         }
-    }
+
+        /// <summary>
+        /// Проверяется работа делегата настройки представления.
+        /// </summary>
+        [Fact]
+        public void TestTuneStaticView()
+        {
+            // Arrange.
+            View view = InformationTestClass.Views.InformationTestClassE;
+            Assert.True(view.CheckPropname(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty)));
+
+            Information.TuneStaticViewDelegate = tuneStaticView;
+
+            // Act.
+            view = InformationTestClass.Views.InformationTestClassE;
+
+            // Assert.
+            Assert.False(view.CheckPropname(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty)));
+
+            Information.TuneStaticViewDelegate = null;
+        }
+
+        private View tuneStaticView(string viewName, Type type, View view)
+        {
+            view.RemoveProperty(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty));
+            return view;
+        }
+}
 }

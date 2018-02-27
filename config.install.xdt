@@ -42,7 +42,7 @@
     <container xmlns="http://schemas.microsoft.com/practices/2010/unity" xdt:Transform="Insert" />
   </unity>
 
-  <!--Вставляем в container нужный нам register. Комментарий вставляется для того, чтобы сообщить зависимым пакетам, что это настройка по умолчанию и можно ее изменить.-->
+  <!--Вставляем в container нужные нам register. Комментарий вставляется для того, чтобы сообщить зависимым пакетам, что это настройка по умолчанию и можно ее изменить.-->
   <container
     xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]
                        /*[local-name()=&quot;container&quot; and not(*[local-name()=&quot;register&quot; and @type=&quot;ICSSoft.STORMNET.Security.ISecurityManager, ICSSoft.STORMNET.DataObject&quot;])])">
@@ -50,6 +50,17 @@
               type="ICSSoft.STORMNET.Security.ISecurityManager, ICSSoft.STORMNET.DataObject"
               mapTo="ICSSoft.STORMNET.Security.EmptySecurityManager, ICSSoft.STORMNET.DataObject"
               xdt:Transform="Insert"><!--Flexberry security setting. Used by Flexberry ORM.--></register>
+  </container>
+
+  <container
+  xdt:Locator="XPath(/configuration/*[local-name()=&quot;unity&quot;]
+                       /*[local-name()=&quot;container&quot; and not(*[local-name()=&quot;register&quot; and @type=&quot;ICSSoft.STORMNET.Business.IConfigResolver, ICSSoft.STORMNET.Business&quot;])])">
+    <register xmlns="http://schemas.microsoft.com/practices/2010/unity"
+              type="ICSSoft.STORMNET.Business.IConfigResolver, ICSSoft.STORMNET.Business" mapTo="ICSSoft.STORMNET.Business.ConfigResolver, ICSSoft.STORMNET.Business"
+              xdt:Transform="Insert">
+      <lifetime type="singleton" />
+      <constructor/>
+    </register>
   </container>
 
   <!--Удаление лишней секции unity, если их больше одной. Функция position() здесь не подойдет, так как она применится к селектору "/configuration/*" и не даст нужного результата.

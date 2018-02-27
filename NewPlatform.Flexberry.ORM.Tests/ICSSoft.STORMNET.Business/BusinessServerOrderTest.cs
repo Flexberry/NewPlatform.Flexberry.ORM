@@ -1,4 +1,4 @@
-﻿namespace ICSSoft.STORMNET.Business.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections;

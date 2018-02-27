@@ -2,9 +2,9 @@
 {
     using System;
 
-    using global::ICSSoft.STORMNET.Business.Audit;
-    using global::ICSSoft.STORMNET.Business.Audit.Exceptions;
-    using global::ICSSoft.STORMNET.Business.Audit.Objects;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Audit.Exceptions;
+    using ICSSoft.STORMNET.Business.Audit.Objects;
 
     using Xunit;
 
