@@ -1,6 +1,6 @@
-﻿namespace ICSSoft.STORMNET.Business.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
-    using global::ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business;
     using System.Configuration;
     using Xunit;
 
@@ -48,25 +48,6 @@
 
             // Assert.
             Assert.Equal(string.Format("({0})", expectedResult), result);
-        }
-
-        /// <summary>
-        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
-        /// </summary>
-        [Fact(Skip = "TODO: Enable this test after fix issue with second access to ConfigurationManager.ConnectionStrings[connectionStringName] in same test session over mono runtime.")]
-        public void CustomizationStringNameTest()
-        {
-            // Arrange.
-            SQLDataService ds = new MSSQLDataService();
-            string connectionStringName = "TestConnStr";
-            string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
-
-            // Act.
-            ds.CustomizationStringName = connectionStringName;
-            string actualResult = ds.CustomizationString;
-
-            // Assert.
-            Assert.Equal(expectedResult, actualResult);
         }
     }
 }

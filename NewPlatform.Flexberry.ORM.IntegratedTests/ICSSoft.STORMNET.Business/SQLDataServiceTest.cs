@@ -12,14 +12,13 @@
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
     using Xunit;
-    using NewPlatform.Flexberry.ORM.Test;
     using NewPlatform.Flexberry.ORM.Tests;
     using ICSSoft.STORMNET.Exceptions;
 
     /// <summary>
     /// Тестовый класс для <see cref="SQLDataService"/>.
     /// </summary>
-    
+
     public class SQLDataServiceTest : BaseIntegratedTest
     {
         /// <summary>
@@ -935,6 +934,32 @@
                 Assert.Equal(0, countDetail1After);
                 Assert.Equal(0, countDetail2After);
                 Assert.Equal(0, countDetail3After);
+            }
+        }
+
+        /// <summary>
+        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
+        /// </summary>
+        [Fact]
+        public void CustomizationStringNameTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                string connectionStringName = "TestConnStr";
+                string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
+                SQLDataService ds = dataService as SQLDataService;
+                if (ds == null)
+                {
+                    continue;
+                }
+
+                // Act.
+                ds.CustomizationStringName = connectionStringName;
+                string actualResult = dataService.CustomizationString;
+
+                // Assert.
+                Assert.Equal(expectedResult, actualResult);
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace ICSSoft.STORMNET.Business.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,11 +9,12 @@
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
+    using ICSSoft.STORMNET;
 
     /// <summary>
     /// Класс для тестирования функциональности класса <see cref="InterfaceBusinessServer" />.
     /// </summary>
-    
+
     public class InterfaceTests
     {
         /// <summary>

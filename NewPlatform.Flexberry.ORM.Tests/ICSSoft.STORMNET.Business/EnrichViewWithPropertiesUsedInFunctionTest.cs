@@ -1,4 +1,4 @@
-﻿namespace ICSSoft.STORMNET.Business.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -12,14 +12,13 @@
     using ICSSoft.STORMNET.Windows.Forms;
 
     using Xunit;
-
-    using NewPlatform.Flexberry.ORM.Tests;
+    using ICSSoft.STORMNET;
 
     /// <summary>
     /// Тесты, которые проверяют расширение представления по функции.
     /// Используемые в функции свойства должны попасть в представление.
     /// </summary>
-    
+
     public class EnrichViewWithPropertiesUsedInFunctionTest
     {
         /// <summary>
