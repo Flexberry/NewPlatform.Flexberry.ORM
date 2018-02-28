@@ -11,7 +11,7 @@
     <iconUrl>http://flexberry.net/portals/_default/skins/flexerry/images/logo_last.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM CurrentUserService package.</description>
-    <releaseNotes>1) Update package dependency.</releaseNotes>
+    <releaseNotes></releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
@@ -19,11 +19,11 @@
    </dependencies>
   </metadata>
   <files>
-    <file src="CurrentUserService\bin\Release-Net35\ICSSoft.Services.CurrentUserService.dll" target="lib\net35\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="CurrentUserService\bin\Release-Net35\ICSSoft.Services.CurrentUserService.xml" target="lib\net35\ICSSoft.Services.CurrentUserService.xml" />
-    <file src="CurrentUserService\bin\Release-Net40\ICSSoft.Services.CurrentUserService.dll" target="lib\net40\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="CurrentUserService\bin\Release-Net40\ICSSoft.Services.CurrentUserService.xml" target="lib\net40\ICSSoft.Services.CurrentUserService.xml" />
-    <file src="CurrentUserService\bin\Release-Net45\ICSSoft.Services.CurrentUserService.dll" target="lib\net45\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="CurrentUserService\bin\Release-Net45\ICSSoft.Services.CurrentUserService.xml" target="lib\net45\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="CurrentUserService\bin\Debug-Net35\ICSSoft.Services.CurrentUserService.dll" target="lib\net35\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Debug-Net35\ICSSoft.Services.CurrentUserService.xml" target="lib\net35\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="CurrentUserService\bin\Debug-Net40\ICSSoft.Services.CurrentUserService.dll" target="lib\net40\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Debug-Net40\ICSSoft.Services.CurrentUserService.xml" target="lib\net40\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="CurrentUserService\bin\Debug-Net45\ICSSoft.Services.CurrentUserService.dll" target="lib\net45\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Debug-Net45\ICSSoft.Services.CurrentUserService.xml" target="lib\net45\ICSSoft.Services.CurrentUserService.xml" />
   </files>
 </package>
