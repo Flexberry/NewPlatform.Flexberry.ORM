@@ -38,8 +38,10 @@
         /// </summary>
         /// <param name="appSetting">Настройки аудита приложения.</param>
         /// <param name="audit">Элемент, реализующий логику аудита.</param>
-        public static void InitAuditService(AuditAppSetting appSetting, IAudit audit)
+        /// <param name="service">Сервис аудита, который будет установлен как текущий</param>
+        public static void InitAuditService(AuditAppSetting appSetting, IAudit audit, IAuditService service)
         {
+            _currentAuditService = service;
             Current.AppSetting = appSetting;
             Current.Audit = audit;
             Current.ApplicationMode = HttpContext.Current != null ? AppMode.Web : AppMode.Win;
@@ -201,7 +203,7 @@
         /// По умолчанию - <c>null</c>.
         ///</param>
         /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
-        public AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
+        public virtual AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
             DataObject operationedObject,
             IDataService dataService,
             bool throwExceptions = true,
