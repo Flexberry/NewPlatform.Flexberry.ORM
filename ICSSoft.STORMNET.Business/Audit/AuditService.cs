@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="appSetting">Настройки аудита приложения.</param>
         /// <param name="audit">Элемент, реализующий логику аудита.</param>
-        /// <param name="service">Сервис аудита, который будет установлен как текущий</param>
+        /// <param name="service">Сервис аудита, который будет установлен как текущий.</param>
         public static void InitAuditService(AuditAppSetting appSetting, IAudit audit, IAuditService service)
         {
             _currentAuditService = service;
