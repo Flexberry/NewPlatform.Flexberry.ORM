@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.CurrentUserService</id>
-    <version>1.1.2-alpha01</version>
+    <version>4.1.0</version>
     <title>Flexberry CurrentUserService</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -11,11 +11,11 @@
     <iconUrl>http://flexberry.net/portals/_default/skins/flexerry/images/logo_last.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM CurrentUserService package.</description>
-    <releaseNotes>1) Update package dependency.</releaseNotes>
+    <releaseNotes></releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.UnityFactory" version="1.2.1" />
+      <dependency id="NewPlatform.Flexberry.UnityFactory" version="4.1.0" />
    </dependencies>
   </metadata>
   <files>
