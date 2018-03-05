@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.1.0-beta15</version>
+    <version>4.1.1-alpha01</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,16 +12,8 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-      1. Remove implicit dependency from ICSSoft.STORMNET.RightManager. Now implementation of ISecurityManager specified via Unity is used instead.
-      2. Add support Microsoft.Spatial.Geography for Net Framework 4.5.
-      3. Add support string conversion to Microsoft.Spatial.Geography in Information.
-      4. Optimized requests to Postgres if LCS has a populated RowNumber property.
-      5. Add PostgresDataService method for comparing types.
-      6. Fix LINQ to LCS when sorting with types convert.
-      7. Fix error when use unsigned types in LINQ expression.
-      8. Fix using UnityFactory.CreateContainer method instead of UnityFactory.GetContainer. It should increase performance.
-      7. Fix update error Geography type.
-      8. Fix converting LINQ expressions with sorting to custom nullable types.
+      1. Fix for Init Custom AuditService.
+      2. Add simply(Update/Insert style) order for write audit operation.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2017</copyright>
     <tags>Flexberry ORM</tags>

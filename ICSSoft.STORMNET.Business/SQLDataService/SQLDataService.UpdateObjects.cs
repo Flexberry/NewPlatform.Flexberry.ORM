@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
 
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
@@ -20,17 +19,6 @@
     /// </summary>
     public abstract partial class SQLDataService : System.ComponentModel.Component, IDataService
     {
-        /// <summary>
-        /// Сортировка списка в порядке заданным StringCollection.
-        /// </summary>
-        /// <param name="orderTypeCollection">Строковая коллекция задает порядок сортировки.</param>
-        /// <param name="objList">Список объектов которые нужно отсортировать.</param>
-        private void SortObjListToCollection(StringCollection orderTypeCollection, ref List<DataObject> objList)
-        {
-            var orderList = orderTypeCollection.Cast<string>().ToList();
-            objList = objList.OrderBy(x => orderList.FindIndex(y => y == Information.GetClassStorageName(x.GetType()))).ToList();
-        }
-
         /// <summary>
         /// Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку
         /// и откатывать транзакцию при неудачном запросе в базу данных). Если
@@ -86,8 +74,12 @@
             OnBeforeUpdateObjects(AllQueriedObjects);
 
             // Сортируем объекты в порядке заданным графом связности.
-            // TODO это вариант простой сортировки в порядке Update\Insert. Необходимы доработки для учета порядка удаления.
-            SortObjListToCollection(QueryOrder, ref extraProcessingList);
+            extraProcessingList.Sort((x,y)=>
+            {
+                var indexX = QueryOrder.IndexOf(Information.GetClassStorageName(x.GetType()));
+                var indexY = QueryOrder.IndexOf(Information.GetClassStorageName(y.GetType()));
+                return indexX.CompareTo(indexY);
+            });
 
             Exception ex = null;
 

@@ -16,3 +16,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * <LICENSE.md>
 * Publish source code to GitHub public repository.
 
+## [4.1.1-alpha01] - 2018-03-05
+### Added
+Add simply(Update/Insert style) order for write audit operation.
+
+### Fixed
+Fix for Init Custom AuditService.
+
