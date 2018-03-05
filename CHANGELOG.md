@@ -29,3 +29,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 1. Remove implicit dependency from `ICSSoft.STORMNET.RightManager`. Now implementation of `ISecurityManager` specified via Unity is used instead.
 2. Optimized requests to Postgres if LCS has a populated `RowNumber` property.
+
+## [4.1.1-alpha01] - 2018-03-05
+### Added
+Add simply(Update/Insert style) order for write audit operation.
+
+### Fixed
+Fix for Init Custom AuditService.

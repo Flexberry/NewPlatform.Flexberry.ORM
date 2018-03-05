@@ -73,6 +73,14 @@
 
             OnBeforeUpdateObjects(AllQueriedObjects);
 
+            // Сортируем объекты в порядке заданным графом связности.
+            extraProcessingList.Sort((x,y) =>
+            {
+                int indexX = QueryOrder.IndexOf(Information.GetClassStorageName(x.GetType()));
+                int indexY = QueryOrder.IndexOf(Information.GetClassStorageName(y.GetType()));
+                return indexX.CompareTo(indexY);
+            });
+
             Exception ex = null;
 
             /*access checks*/
