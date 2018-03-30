@@ -10,18 +10,18 @@
     using System.Collections.Specialized;
 
     /// <summary>
-    /// Сервис экспорта данных из ODataService.
+    /// Data export service from ODataService.
     /// </summary>
     public interface IODataExportService
     {
         /// <summary>
-        /// Создаёт файл экспорта  данных из ODataService.
+        /// Creates a file for exporting data from ODataService.
         /// </summary>
-        /// <param name="dataService">Сервис данных ORM.</param>
-        /// <param name="parameters">Параметры экпорта.</param>
-        /// <param name="objs">Объекты для экспорта.</param>
-        /// <param name="queryParams">Параметры в строке запроса к ODataService.</param>
-        /// <returns>Возвращает файл экспорта в виде MemoryStream.</returns>
+        /// <param name="dataService">ORM data service.</param>
+        /// <param name="parameters">Export options.</param>
+        /// <param name="objs">Objects for export.</param>
+        /// <param name="queryParams">Parameters in the query string to ODataService.</param>
+        /// <returns>Returns the export file as MemoryStream.</returns>
         MemoryStream CreateExportStream(IDataService dataService, IExportParams parameters, DataObject[] objs, NameValueCollection queryParams);
     }
 }
