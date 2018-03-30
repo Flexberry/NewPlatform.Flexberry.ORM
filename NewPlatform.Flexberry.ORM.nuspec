@@ -14,6 +14,7 @@
     <releaseNotes>
       1. Fix for Init Custom AuditService.
       2. Add simply(Update/Insert style) order for write audit operation.
+      3. Add interface IODataExportService.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
