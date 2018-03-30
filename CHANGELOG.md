@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+1. Add simply(Update/Insert style) order for write audit operation.
+2. Add interface IODataExportService.
 
 ### Fixed
 
