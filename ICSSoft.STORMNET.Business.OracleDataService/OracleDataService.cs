@@ -358,14 +358,7 @@
 
 		public override System.Data.IDbConnection GetConnection()
 		{
-            #if NETFX_35
-                return new System.Data.OracleClient.OracleConnection(this.CustomizationString);
-            #else
-                // Не будем использовать ссылку, т.е. return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
-                return (System.Data.IDbConnection)Activator.CreateInstance(
-                    Type.GetType("Oracle.ManagedDataAccess.Client.OracleConnection, Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342"),
-                    new object[] { this.CustomizationString });
-            #endif
+            return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
         }
 
         /// <summary>
