@@ -16,7 +16,8 @@
       2. Add simply(Update/Insert style) order for write audit operation.
       3. Add interface IODataExportService.
       4. Upgrade Npgsql to 3.x version.
-      5. [BREAKINGCHANGE] Minimal NetFX version moved upto 4.5.
+      5. Upgrade Unity to 5.x version.
+      6. [BREAKINGCHANGE] Minimal NetFX version moved upto 4.5.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
@@ -27,7 +28,7 @@
         <dependency id="Remotion.Linq" version="1.13.183.0" />
         <dependency id="SharpZipLib" version="0.86.0" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
-        <dependency id="Unity" version="[2.1.505.2]" />
+        <dependency id="Unity" version="5.0.2" />
         <dependency id="Microsoft.Spatial" version="6.15.0" />
       </group>
     </dependencies>

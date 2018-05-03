@@ -7,7 +7,8 @@
     using System.Web;
     using System.Web.Configuration;
     using ICSSoft.Services;
-    using Microsoft.Practices.Unity;
+
+    using Unity;
 
     /// <summary>
     /// <see cref="IDataService"/> service locator.

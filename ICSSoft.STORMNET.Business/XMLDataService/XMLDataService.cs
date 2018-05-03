@@ -11,10 +11,12 @@
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.Security;
-    using Microsoft.Practices.Unity;
+
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
     using FunctionalLanguage.SQLWhere;
     using FunctionalLanguage;
+
+    using Unity;
 
     /// <summary>
     /// Сервис данных для XML.

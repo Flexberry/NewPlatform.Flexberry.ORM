@@ -1,9 +1,10 @@
 ﻿namespace ICSSoft.Services
 {
     using System.Configuration;
-
-    using Microsoft.Practices.Unity;
+    
     using Microsoft.Practices.Unity.Configuration;
+
+    using Unity;
 
     /// <summary>
     /// Helper class for creating and using Unity containers.

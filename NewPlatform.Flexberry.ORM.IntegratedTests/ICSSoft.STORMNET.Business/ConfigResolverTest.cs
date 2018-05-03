@@ -2,7 +2,7 @@
 {
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business;
-    using Microsoft.Practices.Unity;
+    using Unity;
     using Xunit;
 
     /// <summary>
