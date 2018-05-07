@@ -12,8 +12,8 @@
     using System.Text.RegularExpressions;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.Security;
-    using Microsoft.Practices.Unity;
-    using Services;
+    using ICSSoft.Services;
+    using Unity;
 #if NETFX_45
     using Microsoft.Spatial;
     using System.IO;

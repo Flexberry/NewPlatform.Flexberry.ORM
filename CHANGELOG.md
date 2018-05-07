@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Changed
+Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
 
 ## [4.1.0] - 2018-02-27
 ### Added
@@ -38,3 +39,7 @@ Add simply(Update/Insert style) order for write audit operation.
 
 ### Fixed
 Fix for Init Custom AuditService.
+
+## [4.2.0-alpha01] - 2018-05-03
+### Changed
+Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.

@@ -25,7 +25,7 @@
   <!--Вставка информации о секции конфигурации.-->
   <configSections xdt:Locator="Condition(not(section[@name=&quot;unity&quot;]))">
     <section name="unity"
-             type="Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration"
+             type="Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Unity.Configuration"
              xdt:Transform="Insert" />
   </configSections>
 
