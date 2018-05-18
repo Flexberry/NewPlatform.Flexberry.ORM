@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.2.0-alpha01</version>
+    <version>4.2.0-alpha02</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -28,7 +28,9 @@
         <dependency id="Remotion.Linq" version="1.13.183.0" />
         <dependency id="SharpZipLib" version="0.86.0" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
-        <dependency id="Unity" version="5.0.2" />
+        <dependency id="Unity.Abstractions" version="3.3.0" />
+        <dependency id="Unity.Configuration" version="5.2.2" />
+        <dependency id="Unity.Container" version="5.8.6" />
         <dependency id="Microsoft.Spatial" version="6.15.0" />
       </group>
     </dependencies>

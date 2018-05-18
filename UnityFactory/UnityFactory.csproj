@@ -49,27 +49,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="Unity.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\Unity.Abstractions.dll</HintPath>
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.3.3.0\lib\net45\Unity.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\Unity.Configuration.dll</HintPath>
+    <Reference Include="Unity.Configuration, Version=5.2.2.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Configuration.5.2.2\lib\net45\Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Container, Version=5.0.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\Unity.Container.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Interception, Version=5.0.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Interception.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\Unity.Interception.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ServiceLocation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.0.2\lib\net45\Unity.ServiceLocation.dll</HintPath>
+    <Reference Include="Unity.Container, Version=5.8.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.8.6\lib\net45\Unity.Container.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
