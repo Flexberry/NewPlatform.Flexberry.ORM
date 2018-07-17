@@ -70,31 +70,35 @@
                             // Получаем тип сервиса данных.
                             IDataService dataService = container.Resolve<IDataService>();
 
-                            // Пробуем получить строку соединения в web-стиле.
-                            string connectionStringName =
-                                WebConfigurationManager.AppSettings["DefaultConnectionStringName"];
-                            string connectionString = null;
-                            if (!string.IsNullOrEmpty(connectionStringName))
+                            if (dataService.CustomizationString == null)
                             {
-                                ConnectionStringSettings connString =
-                                    WebConfigurationManager.ConnectionStrings[connectionStringName];
-                                if (connString != null)
+                                // Пробуем получить строку соединения в web-стиле.
+                                string connectionStringName =
+                                    WebConfigurationManager.AppSettings["DefaultConnectionStringName"];
+                                string connectionString = null;
+                                if (!string.IsNullOrEmpty(connectionStringName))
                                 {
-                                    connectionString = connString.ConnectionString;
+                                    ConnectionStringSettings connString =
+                                        WebConfigurationManager.ConnectionStrings[connectionStringName];
+                                    if (connString != null)
+                                    {
+                                        connectionString = connString.ConnectionString;
+                                    }
+                                    else
+                                    {
+                                        LogService.LogError(string.Format("Connection string '{0}' not found at configuration file.", connectionStringName));
+                                    }
                                 }
-                                else
+
+                                // Получаем строку соединения в win-стиле.
+                                if (string.IsNullOrEmpty(connectionString))
                                 {
-                                    LogService.LogError(string.Format("Connection string '{0}' not found at configuration file.", connectionStringName));
+                                    connectionString = GetConnectionString();
                                 }
+
+                                dataService.CustomizationString = connectionString;
                             }
 
-                            // Получаем строку соединения в win-стиле.
-                            if (string.IsNullOrEmpty(connectionString))
-                            {
-                                connectionString = GetConnectionString();
-                            }
-
-                            dataService.CustomizationString = connectionString;
                             _dataService = dataService;
                             return dataService;
                         }

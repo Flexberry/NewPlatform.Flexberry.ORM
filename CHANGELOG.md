@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 2. Add interface IODataExportService.
 
 ### Fixed
-
+1. Fix DataService init.
 ### Changed
 Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
 
