@@ -515,15 +515,15 @@
                         case ObjectStatus.Created:
                             if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, tTypeOfAuditOperation.INSERT))
                             {
-                                var createdObject = CopyNotSavedDataObject(operationedObject);
+                                //var createdObject = CopyNotSavedDataObject(operationedObject);
                                 var viewName = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, tTypeOfAuditOperation.INSERT);
 
                                 commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
-                                commonAuditParameters.OperatedObject = createdObject;
+                                commonAuditParameters.OperatedObject = operationedObject;
                                 commonAuditParameters.AuditView = viewName;
 
                                 auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                                auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(auditOperationId, createdObject, ObjectStatus.Created, viewName);
+                                auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(auditOperationId, operationedObject, ObjectStatus.Created, viewName);
                             }
 
                             break;
