@@ -538,10 +538,12 @@
             }
             else
             {
-                if (dictionaryShortNames[postgresIdentifier] != null)
+                if (dictionaryShortNames[postgresIdentifier] == null)
                 {
-                    postgresIdentifier = dictionaryShortNames[postgresIdentifier];
+                    dictionaryShortNames[postgresIdentifier] = GenerateShortName(postgresIdentifier);
                 }
+
+                postgresIdentifier = dictionaryShortNames[postgresIdentifier];
             }
 
             return postgresIdentifier;
