@@ -12,13 +12,9 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-Added
-
-Fixed
-
 Changed
-
-    </releaseNotes>
+1. PostgresDataService generates SQL table aliases less than 63 bytes.
+</releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
