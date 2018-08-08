@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.1.0</version>
+    <version>4.1.1-beta01</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,24 +13,11 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
 Added
-1. Add support Microsoft.Spatial.Geography for Net Framework 4.5.
-2. Add support string conversion to Microsoft.Spatial.Geography in Information.
-3. Add PostgresDataService method for comparing types.
-4. Add support Nullable&lt;DateTime&gt; and NullableDateTime for DateTime properties (Day, Month, Year, etc.).
-5. Add property for set connection string by name in DataService. **Need confugure IConfigResolver in Unity config section**
-6. Add ICSSoft.STORMNET.TuneStaticViewDelegate for tune static Views.
 
 Fixed
-1. Fix LINQ to LCS when sorting with types convert.
-2. Fix error when use unsigned types in LINQ expression.
-3. Fix using UnityFactory.CreateContainer method instead of UnityFactory.GetContainer. It should increase performance.
-4. Fix update error Geography type.
-5. Fix converting LINQ expressions with sorting to custom nullable types.
-6. Fix sql query sequence for delete hasMany data objects with cyclic associations.
 
 Changed
-1. Remove implicit dependency from ICSSoft.STORMNET.RightManager. Now implementation of ISecurityManager specified via Unity is used instead.
-2. Optimized requests to Postgres if LCS has a populated RowNumber property.
+
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
