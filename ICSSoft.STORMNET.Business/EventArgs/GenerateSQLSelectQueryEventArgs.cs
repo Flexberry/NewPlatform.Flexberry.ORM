@@ -25,7 +25,7 @@ namespace ICSSoft.STORMNET.Business
         /// Структура загрузки <see cref="ICSSoft.STORMNET.Business.StorageStructForView"/>
         /// </summary>
         public StorageStructForView[] StorageStruct = null;
-        
+
         /// <summary>
         /// Запрос
         /// </summary>

@@ -41,7 +41,7 @@
         /// <param name="typeAccess">Запрашиваемый тип доступа.</param>
         /// <returns>Наличие данных полномочий.</returns>
         OperationResult CheckAccessClass(Guid userKey, string subjectName, string typeAccess);
-        
+
         /// <summary>
         /// Проверить операцию.
         /// </summary>

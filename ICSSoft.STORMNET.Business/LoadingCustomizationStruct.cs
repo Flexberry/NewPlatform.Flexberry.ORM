@@ -9,7 +9,7 @@
     /// <summary>
     /// настройка загрузки группы объектов
     /// </summary>
-    [ Serializable ]
+    [Serializable]
     public class LoadingCustomizationStruct : ISerializable
     {
         private object creatorKey;
@@ -19,8 +19,8 @@
         private ICSSoft.STORMNET.View fieldView;
         private string[] fieldColumnsOrder;
         private AdvansedColumn[] fieldAdvansedColumns;
-        private bool fieldInitDataCopy  = true;
-		
+        private bool fieldInitDataCopy = true;
+
         private int fieldReturnTop = 0;
         private int fieldLoadingBufferSize = 0;
 
@@ -40,7 +40,8 @@
         }
 
         private bool fieldDistinct = false;
-        public bool Distinct {get {return fieldDistinct;}set {fieldDistinct = value;}}
+
+        public bool Distinct { get { return fieldDistinct; } set { fieldDistinct = value; } }
 
         public int ReturnTop
         {
@@ -57,38 +58,42 @@
 
         public LcsReturnType ReturnType { get; set; }
 
-        public int LoadingBufferSize {get {return fieldLoadingBufferSize;}set {fieldLoadingBufferSize = value;}}
+        public int LoadingBufferSize { get { return fieldLoadingBufferSize; } set { fieldLoadingBufferSize = value; } }
 
-
-        public bool InitDataCopy 
+        public bool InitDataCopy
         {
-            get {return fieldInitDataCopy;}
-            set {fieldInitDataCopy = value;}
+            get { return fieldInitDataCopy; }
+            set { fieldInitDataCopy = value; }
         }
-		
+
         public ColumnsSortDef[] GetOwnerOnlySortDef()
         {
-            if (ColumnsSort==null || ColumnsSort.Length==0)
+            if (ColumnsSort == null || ColumnsSort.Length == 0)
+            {
                 return null;
+            }
             else
             {
                 System.Collections.ArrayList al = new System.Collections.ArrayList();
                 foreach (ColumnsSortDef csd in ColumnsSort)
                 {
-                    if (View.CheckPropname(csd.Name) || csd.Name.IndexOf(".")==-1)
+                    if (View.CheckPropname(csd.Name) || csd.Name.IndexOf(".") == -1)
                         al.Add(csd);
                 }
+
                 return (ColumnsSortDef[])al.ToArray(typeof(ColumnsSortDef));
             }
         }
 
         public ColumnsSortDef[] GetColumnsSortDef(string ReferenceName)
         {
-            if (ColumnsSort==null || ColumnsSort.Length==0)
+            if (ColumnsSort == null || ColumnsSort.Length == 0)
+            {
                 return null;
+            }
             else
             {
-                ReferenceName= ReferenceName+".";
+                ReferenceName = ReferenceName + ".";
                 System.Collections.ArrayList al = new System.Collections.ArrayList();
                 foreach (ColumnsSortDef csd in ColumnsSort)
                 {
@@ -99,10 +104,10 @@
                         al.Add(cs);
                     }
                 }
+
                 return (ColumnsSortDef[])al.ToArray(typeof(ColumnsSortDef));
             }
         }
-
 
         /// <summary>
         /// Десереализация
@@ -112,8 +117,10 @@
         public LoadingCustomizationStruct(SerializationInfo info, StreamingContext context)
         {
             string s1 = info.GetString("ddd");
+
             //return;
             this.fieldColumnsSort = (ColumnsSortDef[])info.GetValue("fieldColumnsSort", typeof(ColumnsSortDef[]));
+
             //this.fieldLimitFunction = ( STORMFunction )info.GetValue( "fieldLimitFunction", typeof( STORMFunction ) );
             this.fieldLoadingTypes = (System.Type[])info.GetValue("fieldLoadingTypes", typeof(System.Type[]));
             this.fieldView = (ICSSoft.STORMNET.View)info.GetValue("fieldView", typeof(ICSSoft.STORMNET.View));
@@ -122,11 +129,10 @@
                 (AdvansedColumn[])info.GetValue("fieldAdvansedColumns", typeof(AdvansedColumn[]));
             this.fieldInitDataCopy = info.GetBoolean("fieldInitDataCopy");
 
-
             // [2012-05-21 Истомин] далее идут куча try\catch, нужны были для того, чтобы старые ограничения не упали
             try
             {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException
                 // Ловить будем только SerializationException
                 ReturnType = (LcsReturnType)info.GetValue("ReturnType", typeof(LcsReturnType));
             }
@@ -137,7 +143,7 @@
 
             try
             {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException
                 // Ловить будем только SerializationException
                 ReturnTop = info.GetInt32("ReturnTop");
             }
@@ -148,7 +154,7 @@
 
             try
             {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException
                 // Ловить будем только SerializationException
                 LoadingBufferSize = info.GetInt32("LoadingBufferSize");
             }
@@ -159,7 +165,7 @@
 
             try
             {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException
                 // Ловить будем только SerializationException
                 RowNumber = (RowNumberDef)info.GetValue("RowNumber", typeof(RowNumberDef));
             }
@@ -170,7 +176,7 @@
 
             try
             {
-                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException 
+                // Может сгенерироваться 3 вида исключений: ArgumentNullException, InvalidCastException, SerializationException
                 // Ловить будем только SerializationException
                 Distinct = info.GetBoolean("Distinct");
             }
@@ -199,7 +205,6 @@
 
             if (!keynull)
             {
-
                 var tp = (Type)info.GetValue("keytype", typeof(Type));
 
                 string s = info.GetString("keystr");
@@ -229,6 +234,7 @@
             info.AddValue("ddd", "asdasd");
 
             info.AddValue("fieldColumnsSort", this.fieldColumnsSort);
+
             //info.AddValue( "fieldLimitFunction", this.fieldLimitFunction );
             info.AddValue("fieldLoadingTypes", this.fieldLoadingTypes);
             info.AddValue("fieldView", this.fieldView);
@@ -285,32 +291,30 @@
             }
         }
 
-
         /// <summary>
         /// порядок колонок в выборке
         /// </summary>
-        public string[] ColumnsOrder{get {return fieldColumnsOrder;}set{fieldColumnsOrder = value;}}
-
+        public string[] ColumnsOrder { get { return fieldColumnsOrder; } set { fieldColumnsOrder = value; } }
 
         /// <summary>
         /// сортировка колонок
         /// </summary>
-        public ColumnsSortDef[] ColumnsSort {get {return fieldColumnsSort;} set {fieldColumnsSort = value;}}
+        public ColumnsSortDef[] ColumnsSort { get { return fieldColumnsSort; } set { fieldColumnsSort = value; } }
 
         /// <summary>
         /// ограничение на объекты
         /// </summary>
-        public Function LimitFunction { get {return fieldLimitFunction;} set { fieldLimitFunction = value;}}
+        public Function LimitFunction { get { return fieldLimitFunction; } set { fieldLimitFunction = value; } }
 
         /// <summary>
         /// вычитываем эти типы
         /// </summary>
-        public System.Type[] LoadingTypes { get {return fieldLoadingTypes;} set {fieldLoadingTypes = value;}}
+        public System.Type[] LoadingTypes { get { return fieldLoadingTypes; } set { fieldLoadingTypes = value; } }
 
         /// <summary>
         /// используемое представление
         /// </summary>
-        public View View {get {return fieldView;} set {fieldView=value;}}
+        public View View { get { return fieldView; } set { fieldView = value; } }
 
         private View getDefView(Type dataObjectType)
         {
@@ -339,31 +343,31 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="creatorKey">ключ для идентификации вызова</param>
-        public LoadingCustomizationStruct(object creatorKey){this.creatorKey = creatorKey;}
+        public LoadingCustomizationStruct(object creatorKey) { this.creatorKey = creatorKey; }
 
-
-		
         private System.Type GetBaseType(System.Type[] types)
         {
             System.Type testType = types[0];
             bool testTypeIsAllParent = false;
             while (!testTypeIsAllParent)
             {
-                testTypeIsAllParent=true;
-                for (int i=1;i<types.Length;i++)
+                testTypeIsAllParent = true;
+                for (int i = 1; i < types.Length; i++)
                 {
-                    if (types[i]!=testType && !types[i].IsSubclassOf(testType))
+                    if (types[i] != testType && !types[i].IsSubclassOf(testType))
                     {
                         testTypeIsAllParent = false;
                         break;
                     }
                 }
+
                 if (!testTypeIsAllParent)
                     testType = testType.BaseType;
             }
+
             return testType;
         }
 
@@ -382,9 +386,8 @@
             return lg.GetFunction(lg.funcIN, pars);
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="ldColumnsSort">сортировка</param>
         /// <param name="ldLimitFunction">ограничение</param>
@@ -399,11 +402,11 @@
             string[] ldColumnsOrder
             )
         {
-            Init(ldColumnsSort,ldLimitFunction,ldLoadingTypes,ldView,null,ldColumnsOrder);
+            Init(ldColumnsSort, ldLimitFunction, ldLoadingTypes, ldView, null, ldColumnsOrder);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="ldColumnsSort">сортировка</param>
         /// <param name="ldLimitFunction">ограничение</param>
@@ -423,69 +426,70 @@
             //ldLimitFunction.Cop
 
             //Перед инициализацией LCS скопируем настройки колонок и ограничения, чтобы внутрь lcs
-            if (ldColumnsSort!=null)
+            if (ldColumnsSort != null)
             {
                 fieldColumnsSort = new ColumnsSortDef[ldColumnsSort.Length];
-                ldColumnsSort.CopyTo(fieldColumnsSort,0);
+                ldColumnsSort.CopyTo(fieldColumnsSort, 0);
             }
-
 
             //fieldColumnsSort = ldColumnsSort;
 
             //ldLimitFunction.FunctionDef.CopyTo()
-            //ldLimitFunction.Parameters.CopyTo 
+            //ldLimitFunction.Parameters.CopyTo
 
-            if (ldLimitFunction!=null)
+            if (ldLimitFunction != null)
             {
                 fieldLimitFunction = ldLimitFunction.Clone();
             }
-			
 
-            if (ldLoadingTypes!=null)
+            if (ldLoadingTypes != null)
             {
                 fieldLoadingTypes = new Type[ldLoadingTypes.Length];
-                ldLoadingTypes.CopyTo(fieldLoadingTypes,0);
+                ldLoadingTypes.CopyTo(fieldLoadingTypes, 0);
             }
+
             //fieldLoadingTypes = ldLoadingTypes;
-            if (ldView!=null)
+            if (ldView != null)
             {
                 fieldView = ldView.Clone();
             }
+
             //fieldView = ldView;
-			
-            if (ldColumnsOrder!=null)
+
+            if (ldColumnsOrder != null)
             {
                 fieldColumnsOrder = new string[ldColumnsOrder.Length];
-                ldColumnsOrder.CopyTo(fieldColumnsOrder,0);
+                ldColumnsOrder.CopyTo(fieldColumnsOrder, 0);
             }
+
             //fieldColumnsOrder = ldColumnsOrder;
-            if (ldAdvansedColumns!=null)
+            if (ldAdvansedColumns != null)
             {
                 fieldAdvansedColumns = new AdvansedColumn[ldAdvansedColumns.Length];
-                ldAdvansedColumns.CopyTo(fieldAdvansedColumns,0);
+                ldAdvansedColumns.CopyTo(fieldAdvansedColumns, 0);
             }
+
             //fieldAdvansedColumns = ldAdvansedColumns;
         }
 
-
-        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType,string View)
+        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View)
         {
             if (Information.GetView(View, DataObjectType) == null)
             {
                 throw new Exception("Обратитесь к разработчику: в методе GetSimpleStruct указано неверное представление \"" + View + "\" для типа \"" + DataObjectType.AssemblyQualifiedName + "\"");
             }
+
             LoadingCustomizationStruct lcs = new LoadingCustomizationStruct(null);
-            lcs.Init(null,null,new Type[]{DataObjectType},Information.GetView(View,DataObjectType),null);
+            lcs.Init(null, null, new Type[] { DataObjectType }, Information.GetView(View, DataObjectType), null);
             return lcs;
         }
 
-        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType,View  View)
+        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, View View)
         {
             LoadingCustomizationStruct lcs = new LoadingCustomizationStruct(null);
-            lcs.Init(null,null,new Type[]{DataObjectType},View,null);
+            lcs.Init(null, null, new Type[] { DataObjectType }, View, null);
             return lcs;
         }
-
 
         static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View, string propertyName, object limitValue)
         {

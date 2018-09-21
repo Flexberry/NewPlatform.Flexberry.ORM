@@ -8,7 +8,6 @@
     [EventArgCatcherType("ICSSoft.STORMNET.UI.DataObjectEventArgsCatcher, ICSSoft.STORMNET.UI, Version=1.0.0.1, Culture=neutral, PublicKeyToken=21ce651d390c1fa0")]
     public class DataObjectEventArgs : ICSSoft.STORMNET.UI.ContActionEventArgs
     {
-
         private DataObject fdataobject;
 
         /// <summary>
@@ -44,6 +43,7 @@
                 DataObject result = this.fdataobject;
                 return result;
             }
+
             set
             {
                 this.fdataobject = value;

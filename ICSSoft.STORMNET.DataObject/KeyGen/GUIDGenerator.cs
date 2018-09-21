@@ -39,7 +39,6 @@
             return Generate(dataObjectType, sds);
         }
 
-
         /// <summary>
         /// Вернуть тип ключа
         /// </summary>

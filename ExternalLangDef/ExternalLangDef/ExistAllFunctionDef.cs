@@ -6,7 +6,7 @@ using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 namespace ICSSoft.STORMNET.Windows.Forms
 {
     public partial class ExternalLangDef
-	{
+    {
         private string GetConditionForExistAll(Function func,
                                                delegateConvertValueToQueryValueString convertValue,
                                                delegatePutIdentifierToBrackets convertIdentifier)
@@ -22,7 +22,9 @@ namespace ICSSoft.STORMNET.Windows.Forms
             if (func.Parameters.Count > 2)
             {
                 if (func.Parameters.Count == 3)
+                {
                     funcAdv = (Function) func.Parameters[2];
+                }
                 else
                 {
                     var advParams = new ArrayList();
@@ -62,5 +64,5 @@ namespace ICSSoft.STORMNET.Windows.Forms
             Function function = GetFunction(funcAND, newpars);
             return base.SQLTranslFunction(function, convertValue, convertIdentifier);
         }
-	}
+    }
 }

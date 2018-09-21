@@ -59,7 +59,7 @@
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 throw new ArgumentException("Путь до файла должен быть не пустым. Файл должен быть доступен в файловой системе.", "filePath");
-            
+
             // Читаем Xml-файл с указанной кодировкой.
             var streamRead = new StreamReader(File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read), encoding);
             var xmldoc = new XmlDocument();

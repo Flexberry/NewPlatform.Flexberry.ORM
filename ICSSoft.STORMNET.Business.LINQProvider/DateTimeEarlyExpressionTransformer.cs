@@ -31,9 +31,10 @@
                         case "Date":
                             return expression;
                    }
+
                     return PartialEvaluatingExpressionTreeVisitor.EvaluateIndependentSubtrees(expression);
                 }
-             
+
                 var member = UtilsLcs.GetObjectPropertyValue(expression, "Member");
                 if (member.DeclaringType == typeof(DateTime))
                 {

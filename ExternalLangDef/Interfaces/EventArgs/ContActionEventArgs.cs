@@ -42,6 +42,7 @@
                 string result = this.fcontpath;
                 return result;
             }
+
             set
             {
                 this.fcontpath = value;

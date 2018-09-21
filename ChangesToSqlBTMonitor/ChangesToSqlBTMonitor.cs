@@ -28,6 +28,7 @@
                         recorder.AppendLine(kvp.Value.Query);
                     }
                 }
+
                 return recorder.ToString();
             }
         }
@@ -68,6 +69,7 @@
                             {
                                 continue;
                             }
+
                             if (!_filters.Contains(trimmedStr))
                             {
                                 _filters.Add(trimmedStr);
@@ -75,6 +77,7 @@
                         }
                     }
                 }
+
                 return _filters;
             }
         }
@@ -100,7 +103,6 @@
                 _queries.Add(id, new QueryWithApprovement(input, false));
             }
         }
-
 
         #region IBusinessTaskMonitor Members
 
@@ -128,6 +130,7 @@
             {
                 return;
             }
+
             //Подтвердим выполнение запроса
             if (_queries.ContainsKey(subTaskID))
             {
@@ -137,6 +140,7 @@
                         _queries[subTaskID].Approvement = true;
                 }
             }
+
             //это мы не записываем
         }
 
@@ -154,6 +158,7 @@
         {
             public string Query = string.Empty;
             public bool Approvement = false;
+
             public QueryWithApprovement(string query, bool approvement)
             {
                 Query = query;

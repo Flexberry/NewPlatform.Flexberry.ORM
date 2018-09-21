@@ -242,8 +242,8 @@
             if (iftrue.NodeType == ExpressionType.Constant
                 && ((ConstantExpression)iftrue).Value == null)
             {
-                /* 
-                 * Из OData выражения Contains(Поле, Значение) приходят как "IIF(Поле == null || Значение == null, null, Convert(Поле.Contains(Значение))) == true". 
+                /*
+                 * Из OData выражения Contains(Поле, Значение) приходят как "IIF(Поле == null || Значение == null, null, Convert(Поле.Contains(Значение))) == true".
                  * Поэтому опознаём такую ситуацию и оставляем только часть "Convert(Поле.Contains(Значение))".
                  */
 
@@ -265,9 +265,9 @@
             ConstantExpression boolRightConstantExpression;
             Expression convertOperand;
             if (expression.NodeType == ExpressionType.Equal
-                && ((expression.Right.NodeType == ExpressionType.Constant 
+                && ((expression.Right.NodeType == ExpressionType.Constant
                         && expression.Right.Type == typeof(bool)
-                        && (bool)((ConstantExpression)expression.Right).Value) 
+                        && (bool)((ConstantExpression)expression.Right).Value)
                      ||((boolRightExpression = expression.Right).Type == typeof(bool?)
                         && ((boolRightExpression.NodeType == ExpressionType.Convert
                                 && (convertOperand = ((UnaryExpression)boolRightExpression).Operand) != null
@@ -363,6 +363,7 @@
                     {
                         _stacksHolder.PushFunction(UtilsLcs.GetParamBinaryFunc(expression.NodeType, p2, p1));
                     }
+
                     break;
                 default:
                     throw new Exception("Неизвестный тип Expression");
@@ -414,8 +415,8 @@
                     && expression.Member.ReflectedType != null
                     && ((expression.Member.ReflectedType.IsGenericType
                     && expression.Member.ReflectedType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    || expression.Member.DeclaringType == typeof(NullableDateTime) 
-                    || expression.Member.DeclaringType == typeof(NullableInt) 
+                    || expression.Member.DeclaringType == typeof(NullableDateTime)
+                    || expression.Member.DeclaringType == typeof(NullableInt)
                     || expression.Member.DeclaringType == typeof(NullableDecimal))
                     )
             { // Value от Nullable-типа при переводе в lcs нам ничего не даст, поэтому просто опускаем его.
@@ -446,7 +447,10 @@
                         var param = _stacksHolder.PopParam();
                         _stacksHolder.PushParam(_ldef.GetFunction(UtilsLcs.GetFunctionByName(varname), param));
                     }
-                    else PushFunctionOfParent(expression, UtilsLcs.GetFunctionByName(varname));
+                    else
+                    {
+                        PushFunctionOfParent(expression, UtilsLcs.GetFunctionByName(varname));
+                    }
                 }
                 else
                 {
@@ -1045,7 +1049,9 @@
             string varName;
             master = null;
             if (!_dataobjectmember)
+            {
                 varName = expression.Member.Name;
+            }
             else
             {
                 var par = (VariableDef)_stacksHolder.PopParam();

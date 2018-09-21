@@ -77,12 +77,12 @@
             {
                 return _fieldLoadingBufferSize;
             }
+
             set
             {
                 _fieldLoadingBufferSize = value < 0 ? 0 : value;
             }
         }
-
 
         /// <summary>
         /// Режимы работы XMLFileDataService.
@@ -127,12 +127,14 @@
 
                 return _schemaStream;
             }
+
             set
             {
                 if (_schemaWorkMode == WorkMode.FileSystem)
                 {
                     throw new Exception("XMLFileDataService функционирует в режиме работы с файловой системой. Нельзя подменять поток схемы вручную.");
                 }
+
                 ClearDataSet();
                 _schemaStream = value;
                 if (_dataStream != null || _dataWorkMode == WorkMode.FileSystem)
@@ -156,12 +158,14 @@
                     _dataStream.Seek(0, SeekOrigin.Begin);
                 return _dataStream;
             }
+
             set
             {
                 if (_dataWorkMode == WorkMode.FileSystem)
                 {
                     throw new Exception("XMLFileDataService функционирует в режиме работы с файловой системой. Нельзя подменять поток данных вручную.");
                 }
+
                 ClearDataSet();
                 _dataStream = value;
                 LoadDataSet();
@@ -186,11 +190,13 @@
             throw new NotImplementedException();
         }
 
-
-
         public string CustomizationString
         {
-            get { return _customizationString; }
+            get
+            {
+                return _customizationString;
+            }
+
             set
             {
                 if (_customizationString != value)
@@ -207,7 +213,7 @@
                     string filePath = parts.FirstOrDefault(x => !x.Contains("="));
 
                     if (!string.IsNullOrEmpty(filePath))
-                    {                        
+                    {
                         int lastSlash = filePath.LastIndexOf(@"\");
                         if (lastSlash >= 0)
                         {
@@ -215,6 +221,7 @@
                             DataBaseName = filePath.Substring(lastSlash + 1);
                         }
                     }
+
                     LoadDataSet();
                 }
             }
@@ -226,6 +233,7 @@
             {
                 return _ldTypeUsage ?? (_ldTypeUsage = TypeUsageProvider.TypeUsage);
             }
+
             set
             {
                 _ldTypeUsage = value;
@@ -308,8 +316,9 @@
                     lc = cst;
                 }
 
-                //строим запрос 
+                //строим запрос
                 StorageStructForView[] storageStruct;
+
                 //получаем данные
                 object[][] resValue = ReadData(lc, out storageStruct);
 
@@ -403,6 +412,7 @@
         {
             LoadObject(dataObjectViewName, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -458,7 +468,9 @@
                     bool addobj = false;
 
                     if (aLtypes.Contains(dotype))
+                    {
                         addobj = true;
+                    }
                     else
                     {
                         if (dotype == dataObjectView.DefineClassType || dotype.IsSubclassOf(dataObjectView.DefineClassType))
@@ -507,7 +519,9 @@
                             dataObjectCache.AddDataObject(loadobjects[i]);
                         }
                         else
+                        {
                             loadobjects[i] = null;
+                        }
                     }
 
                     Utils.ProcessingRowsetDataRef(resValue, types, storageStruct, customizationStruct, loadobjects,
@@ -583,12 +597,14 @@
             {
                 dataObjectCache.StopCaching();
             }
+
             return res;
         }
 
         public DataObject[] LoadObjects(ref object state, DataObjectCache dataObjectCache)
         {
             return null;
+
             //все никакого иного кода быть не может
         }
 
@@ -711,6 +727,7 @@
         public ObjectStringDataView[] LoadStringedObjectView(ref object state)
         {
             return null;
+
             //все никакого иного кода быть не может
         }
 
@@ -805,12 +822,12 @@
             UpdateObjects(ref objects, dataObjectCache);
         }
 
-        ///<summary>
+        /// <summary>
         /// Корректное преобразование строкового значения к указанному типу
-        ///</summary>
-        ///<param name="sValue">Строковое значение для приведения</param>
-        ///<param name="castType">Тип к которому преобразуем</param>
-        ///<returns>Преобразованное значение</returns>
+        /// </summary>
+        /// <param name="sValue">Строковое значение для приведения</param>
+        /// <param name="castType">Тип к которому преобразуем</param>
+        /// <returns>Преобразованное значение</returns>
         public static object ChangeType(string sValue, Type castType)
         {
             MethodInfo methodInfo = castType.GetMethod("Parse", new[] { typeof(string) });
@@ -895,6 +912,7 @@
                         dr = dt.NewRow();
                         bnewr = true;
                     }
+
                     for (int j = 0; j < uos.Values.Count; j++)
                     {
                         var colName = (string)uos.Values.GetKey(j);
@@ -946,6 +964,7 @@
                             res.Add(dataObject);
                         }
                     }
+
                     objects = new DataObject[res.Count];
                     res.CopyTo(objects);
                 }
@@ -954,7 +973,9 @@
                     Exception exception;
 
                     if (enforceConstraintsError != null)
+                    {
                         exception = enforceConstraintsError;
+                    }
                     else
                     {
                         string err = "";
@@ -1032,6 +1053,7 @@
                 string[] storprops = Information.GetStorablePropertyNames(dataobjectType);
                 Type dotype = typeof(DataObject);
                 Type datype = typeof(DetailArray);
+
                 //вначале PrimaryKey;
                 Type primkeyType = Information.GetStorageTypeForType(Information.GetPropertyType(dataobjectType, "__PrimaryKey"),
                                                                      typeof(XMLFileDataService));
@@ -1080,6 +1102,7 @@
                             new System.Data.DataColumn(propstor, storType, "", System.Data.MappingType.Attribute));
                 }
             }
+
             return ds.Tables[tableName];
         }
 
@@ -1087,6 +1110,7 @@
         {
             string tableName = Information.GetClassStorageName(view.DefineClassType);
             string prkeyStorName = view.Properties[1].Name;
+
             //string prevDicValue = "";
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
             var var = new FunctionalLanguage.VariableDef(
@@ -1226,6 +1250,7 @@
 
                             break;
                         }
+
                     case ObjectStatus.Created:
                         {
                             SortedList propsWithValues;
@@ -1244,6 +1269,7 @@
                             insertedObjects.Add(ios);
                             break;
                         }
+
                     case ObjectStatus.Altered:
                         {
                             SortedList propsWithValues;
@@ -1339,6 +1365,7 @@
             public string Table;
             public object Key;
             public string PrimaryKeyName;
+
             public DeleteObjectStruct(string table, object key, string primaryKey)
             {
                 Table = table;

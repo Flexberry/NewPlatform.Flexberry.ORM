@@ -41,8 +41,8 @@
                         res += 1 + CountJoins(subSource, j);
                 }
             }
-            return res;
 
+            return res;
         }
 
         /// <summary>
@@ -72,9 +72,13 @@
                 return ((decimal)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo);
             }
             else if (valType == typeof(Guid))
+            {
                 return ((Guid)value).ToString("B");
+            }
             else
+            {
                 return value.ToString();
+            }
         }
 
         public static ObjectStringDataView[] ProcessingRowSet2StringedView(
@@ -120,11 +124,10 @@
             StorageStructForView[] storageStruct,
             IDataService dataService,
             SortedList typesByKeys,
-            ref object[] prevState, 
+            ref object[] prevState,
             DataObjectCache dataObjectCache,
             ISecurityManager securityManager)
         {
-
             /*access changes*/
             foreach (Type tp in dataObjectType)
             {
@@ -133,6 +136,7 @@
                     securityManager.AccessObjectCheck(tp, tTypeAccess.Read, true);
                 }
             }
+
             /*access changes*/
 
             int resValueLength = resValue.Length;
@@ -142,10 +146,10 @@
             ObjectStringDataView[] res = new ObjectStringDataView[resValueLength];
             object[] pars = new object[1];
 
-
             System.Reflection.MethodInfo[] valueObjects;
             DataObject[] testDos = null;
             bool[] valueObjectInited;
+
             // Нехранимые свойства.
             SortedList[] notstoredprops = null;
             int[] indexes;
@@ -177,7 +181,10 @@
                     indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder, (string[])al.ToArray(typeof(string)));
                 }
                 else
+                {
                     indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder);
+                }
+
                 //System.Collections.ArrayList NotInitiedMethodsIndex = new System.Collections.ArrayList();
                 for (int i = 0; i < valueObjectInited.Length; i++)
                 {
@@ -191,17 +198,19 @@
                     if (propType.IsSubclassOf(typeof(DataObject)))
                         propType = KeyGen.KeyGenerator.KeyType(propType);
                     if (propType.Assembly == sysAsm)
+                    {
                         valueObjectInited[i] = true;
+                    }
                     else if (resValue[0][i] != null && resValue[0][i] != DBNull.Value)
                     {
                         valueObjects[i] = propType.GetMethod("op_Implicit", new[] { resValue[0][i].GetType() });
                         valueObjectInited[i] = true;
                     }
                     else
+                    {
                         valueObjectInited[i] = false;
-
+                    }
                 }
-
 
                 int storageStructLength = storageStruct.Length;
                 for (int j = 0; j < storageStructLength; j++)
@@ -224,6 +233,7 @@
                             }
                         }
                     }
+
                     for (int i = 0; i < advansedColumnsLength; i++)
                     {
                         string expression = advansedColumns[i].Expression;
@@ -242,6 +252,7 @@
                 {
                     testDos = new DataObject[dataObjectType.Length];
                     emptyObjcts = new Object[0];
+
                     //произведем упорядоченность
                     StringCollection props = new StringCollection();
                     for (int i = 0; i < advansedColumnsLength; i++)
@@ -267,10 +278,13 @@
                                     props.Insert(k++, prop);
                                 }
                                 else
+                                {
                                     k++;
+                                }
                             }
                         }
                     }
+
                     int notstoredpropsLength = notstoredprops.Length;
                     for (int j = 0; j < notstoredpropsLength; j++)
                     {
@@ -286,14 +300,13 @@
                 }
 
                 prevState = new object[] { valueObjects, valueObjectInited, testDos, notstoredprops, indexes, emptyObjcts };
-                
             }
 
             int objectTypeIndexPOs = resValue[0].Length - 1;
 
+ //       #if NETFX_35
+            for (int i = 0; i < resValueLength; i++)
 
- //       #if NETFX_35 
-            for (int i = 0; i < resValueLength; i++) 
  //       #else
  //           System.Threading.Tasks.Parallel.For(0, resValueLength, i =>
  //       #endif
@@ -303,7 +316,6 @@
                 object[] keysarr = resValue[i];
                 if (!forReadValues)
                 {
-
                     try
                     {
                         index = Convert.ToInt64(keysarr[objectTypeIndexPOs].ToString());
@@ -314,9 +326,10 @@
                         index = Convert.ToInt64(keysarr[objectTypeIndexPOs].ToString());
                     }
                 }
+
                 //System.Int64 index = 0;
-                //if (objectIndex.GetType()==typeof(System.Int32))			
-                //	index = Convert.ToInt64((System.Int32)objectIndex);
+                //if (objectIndex.GetType()==typeof(System.Int32))
+                //  index = Convert.ToInt64((System.Int32)objectIndex);
                 //else
                 //   index= (System.Int64) objectIndex;
 
@@ -347,7 +360,6 @@
                     }
                 }
 
-
                 if (!forReadValues)
                 {
                     StorageStructForView.PropStorage[] props = storageStructForView.props;
@@ -367,6 +379,7 @@
                         {
                             Type mt = null;
                             object mv = null;
+
                             //changed by fat
                             //Братчиков 2010-10-29 (может встретиться несколько иерархий на пути, надо их тоже правильно обработать)
                             int колвоМастеровВСередине = ps.MastersTypes.Length; //предполагается, что тут будет число мастеров, получаемое при последовательных пристыковываниях нескольких иерархий наследования
@@ -382,9 +395,11 @@
                                         mt = ps.MastersTypes[j][mc];
                                         mv = keysarr[keyindex];
                                     }
+
                                     keyindex++;
                                 }
                             }
+
                             if (mv != null)
                             {
                                 MasterObjStruct mos = new MasterObjStruct(Information.TranslateValueToPrimaryKeyType(mt, mv), mt, ps.Name);
@@ -393,15 +408,18 @@
                                 {
                                     if (mos1.PropertyName == ps.Name) { found = true; break; }
                                 }
+
                                 if (!found)
                                     al.Add(mos);
                             }
                         }
                     }
+
                     res[i].Masters = (MasterObjStruct[])al.ToArray(typeof(MasterObjStruct));
 
                     res[i].Key = Information.TranslateValueToPrimaryKeyType(dataobjecttype, keysarr[propCount]);
                 }
+
                 //string resd = "";
                 object[] resobjects = new object[propCount];
                 for (int j = 0; j < propCount; j++)
@@ -419,6 +437,7 @@
                                 valueObjects[j] = propType.GetMethod("op_Implicit", new[] { keysarr[j].GetType() });
                             valueObjectInited[j] = true;
                         }
+
                         if (valueObjects[j] != null)
                         {
                             pars[0] = keysarr[j];
@@ -430,21 +449,26 @@
                             {
                                 if (LogService.Log.IsWarnEnabled)
                                     LogService.Log.Warn("STORMNET ProcessingRowset2StringedView " + keysarr[j], ex);
+
                                 //System.Diagnostics.EventLog.WriteEntry("STORMNET", keysarrAtJ.ToString(), System.Diagnostics.EventLogEntryType.Error);
                                 throw ex;
                             }
-
                         }
                     }
                     else
+                    {
                         keysarr[j] = null;
+                    }
+
                     if (keysarr[j] is string)
                         keysarr[j] = ((string)keysarr[j]).TrimEnd();
                     resobjects[j] = keysarr[j];//valstring;
                 }
+
                 res[i].ObjectedData = resobjects;
                 res[i].Separator = separator;
             }
+
             //#if (NETFX_35)
             //#else
             //    );
@@ -464,7 +488,6 @@
         public static void GetMasterObjectStructs(object[] keysarr, ref int keyindex, int index,
             StorageStructForView.PropSource source, ArrayList res, string nameSpace)
         {
-
             foreach (StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
                 string masterName = (nameSpace == string.Empty) ? subSource.ObjectLink : nameSpace + "." + subSource.ObjectLink;
@@ -493,7 +516,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="keysarr"></param>
@@ -510,7 +533,6 @@
             System.Collections.SortedList TypesByKeys
             , DataObjectCache DataObjectCache)
         {
-
             foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
                 for (int j = 0; j < subSource.storage.Length; j++)
@@ -566,6 +588,7 @@
                                         masterobj.DynamicProperties.Add("MasterInitDataCopy", true);
                                     }
                                 }
+
                                 if (masterobj.GetStatus(false) == ObjectStatus.Created)
                                 {
                                     masterobj.SetLoadingState(LoadingState.LightLoaded);
@@ -584,6 +607,7 @@
                                 masterobj = dataObject;
                                 sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
                             }
+
                             CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
                         }
                         else
@@ -625,7 +649,7 @@
             IDbConnection connection = null,
             IDbTransaction transaction = null)
         {
-            if (value.Length == 0) 
+            if (value.Length == 0)
                 return;
 
             int ObjectTypeIndexPOs = value[0].Length - 1;
@@ -634,9 +658,9 @@
             bool[] readedTypes = new bool[dataObjectType.Length];
             Array.Clear(readedTypes, 0, readedTypes.Length);
 
-
             //#if NETFX_35
                 for (int i = 0; i < value.Length; i++)
+
             //#else
             //    System.Threading.Tasks.Parallel.For(0, value.Length, i =>
             //#endif
@@ -648,6 +672,7 @@
                 FillRowSetToDataObject(res[i], value[i], storageStruct[index], customizationStruct, typesByKeys, customizationStruct.AdvansedColumns, dataObjectCache, securityManager);
                 keys[i] = res[i].__PrimaryKey;
             }
+
             //#if NETFX_35
             //#else
             //    );
@@ -769,7 +794,7 @@
                                 dcs.Init(sorts, func, new Type[] { typeKey }, typeView, null);
                                 dcs.InitDataCopy = false;
                                 DataObject[] detailObjects = LoadObjects(dcs, dataObjectCache, dataService, connection, transaction);
-                                
+
                                 object curKey = null;
                                 detArr = null;
 
@@ -788,6 +813,7 @@
                                                 break;
                                             }
                                         }
+
                                         if (detArr != null)
                                         {
                                             DataObject dobj = detArr.AgregatorObject;
@@ -795,6 +821,7 @@
                                             if (customizationStruct.InitDataCopy)
                                                 dobj.InitDataCopy(dataObjectCache);
                                         }
+
                                         detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], div.Name);
                                         if (detArr == null)
                                         {
@@ -817,10 +844,13 @@
                                                         break;
                                                     }
                                                 }
+
                                                 if (!founded)
                                                     al.Add(do1);
                                             }
+
                                             DataObject[] detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
+
                                             //Братчиков 2009-07-08 - Баг при зачитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
                                             {
                                                 View view4Load = dcs.View;
@@ -832,6 +862,7 @@
                                                 // TODO: разобраться, может ли это приводить к проблемам, если будет выполняться вне транзакции.
                                                 dataService.LoadObjects(detailObjects1, view4Load, сlearDataObjects, dataObjectCache);
                                             }
+
                                             //Братчиков 2009-07-08
                                         }
                                         else
@@ -843,6 +874,7 @@
                                             }
                                         }
                                     }
+
                                     if (!сlearDataObjects)
                                     {
                                         DataObject[] detailObjects1 = detArr.GetAllObjects();
@@ -853,10 +885,10 @@
                                             {
                                                 p = d;
                                             }
+
                                         if (p != null)
                                             detailObjects[j] = p;
                                     }
-
 
                                     if (detArr.GetByKey(detailObjects[j].__PrimaryKey) != null) detArr.RemoveByKey(detailObjects[j].__PrimaryKey);
                                     detArr.AddObject(detailObjects[j]);
@@ -929,6 +961,7 @@
                                             p = d;
                                             break;
                                         }
+
                                     if (p != null)
                                         detailObjects[j] = p;
                                 }
@@ -941,7 +974,6 @@
 
                             index++;
                         }
-
 
                         for (index = 0; index < alagrObjects.Count; index++)
                         {
@@ -964,8 +996,9 @@
 
             if (customizationStruct.InitDataCopy)
             {
-            //#if NETFX_35 
+            //#if NETFX_35
                 foreach (DataObject dobj in res)
+
             //#else
             //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
             //#endif
@@ -973,11 +1006,11 @@
                     dobj.SetStatus(ObjectStatus.UnAltered);
                     dobj.InitDataCopy(dataObjectCache);
                 }
-            //#if NETFX_35 
+
+            //#if NETFX_35
             //#else
             //    );
             //#endif
-
             }
         }
 
@@ -993,8 +1026,8 @@
         /// <param name="transaction">Транзакция, в рамках которой нужно выполнять загрузку данных.</param>
         /// <returns>Загруженные объекты.</returns>
         private static DataObject[] LoadObjects(
-            LoadingCustomizationStruct dcs, 
-            DataObjectCache dataObjectCache, 
+            LoadingCustomizationStruct dcs,
+            DataObjectCache dataObjectCache,
             IDataService dataService,
             IDbConnection connection,
             IDbTransaction transaction)
@@ -1002,7 +1035,7 @@
             DataObject[] detailObjects;
 
             if (transaction == null || connection == null || !(dataService is SQLDataService))
-            { 
+            {
                 detailObjects = dataService.LoadObjects(dcs, dataObjectCache);
             }
             else
@@ -1036,7 +1069,7 @@
             STORMDO.Business.StorageStructForView[] StorageStruct,
             LoadingCustomizationStruct customizationStruct,
             IDataService dataService,
-            System.Collections.SortedList TypesByKeys, 
+            System.Collections.SortedList TypesByKeys,
             DataObjectCache DataObjectCache,
             ISecurityManager securityManager,
             IDbConnection connection = null,
@@ -1077,13 +1110,13 @@
                     if (val != null && val.GetStatus(false) == ObjectStatus.Deleted)
                         resmasters.Add(val);
                 }
+
                 if (prtype.IsSubclassOf(darrtype))
                 {
                     if (loadedprops.Contains(prop))
                     {
                         foreach (STORMDO.DataObject arrobj in (STORMDO.DetailArray)STORMDO.Information.GetPropValueByName(dobject, prop))
                         {
-
                             resarr.Add(arrobj);
                             STORMDO.DataObject[] subreadedDetailObjects;
                             STORMDO.DataObject[] smastersObjs;
@@ -1103,8 +1136,10 @@
 
                             STORMDO.View curDetView = new ICSSoft.STORMNET.View();
                             curDetView.DefineClassType = curdettype;
+
                             //добавляем первичный ключ
                             curDetView.AddProperty("__PrimaryKey", string.Empty, false, string.Empty);
+
                             //добавляем ссылку на мастера
                             curDetView.AddProperty(agrname, string.Empty, false, string.Empty);
 
@@ -1124,7 +1159,9 @@
             }
 
             if (resarr.Count == 0)
+            {
                 readedDetailObjects = new STORMDO.DataObject[0];
+            }
             else
             {
                 readedDetailObjects = new ICSSoft.STORMNET.DataObject[resarr.Count];
@@ -1133,7 +1170,9 @@
 
             mastersObjects = (ICSSoft.STORMNET.DataObject[])resmasters.ToArray(typeof(STORMDO.DataObject));
             if (resview.Count == 0)
+            {
                 unreadedDetailsViewsForDetailPath = new STORMDO.View[0];
+            }
             else
             {
                 unreadedDetailsViewsForDetailPath = new STORMDO.View[resview.Count];
@@ -1181,6 +1220,7 @@
                                 }
                             }
                         }
+
                         dobj.AddLoadedProperties(alteredProperties);
                         if (dobj.GetLoadedProperties().Length == dobj.GetAlteredPropertyNames(false).Length)
                             dobj.SetLoadingState(STORMDO.LoadingState.Loaded);
@@ -1192,15 +1232,17 @@
                             dobj.InitDataCopy(DataObjectCache);
                         }
                         else
+                        {
                             dobj.clearDataCopy();
+                        }
+
                         break;
                     }
             }
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="dataService"></param>
         /// <param name="dotype"></param>
@@ -1221,12 +1263,13 @@
                     System.Type[] detPartType = dataService.TypeUsage.GetUsageTypes(dotype, prop);
                     foreach (System.Type curdettype in detPartType)
                     {
-
                         string agrname = Information.GetAgregatePropertyName(curdettype);
                         STORMDO.View curDetView = new ICSSoft.STORMNET.View();
                         curDetView.DefineClassType = curdettype;
+
                         //добавляем первичный ключ
                         curDetView.AddProperty("__PrimaryKey", string.Empty, false, string.Empty);
+
                         //добавляем ссылку на мастера
                         curDetView.AddProperty(agrname + Upmaster, string.Empty, false, string.Empty);
 
@@ -1247,6 +1290,7 @@
                     }
                 }
             }
+
             STORMDO.View[] unreadedDetailsViewsForDetailPath = new STORMDO.View[res.Count];
             res.CopyTo(unreadedDetailsViewsForDetailPath);
             return unreadedDetailsViewsForDetailPath;

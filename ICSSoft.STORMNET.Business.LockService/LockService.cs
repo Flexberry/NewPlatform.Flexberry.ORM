@@ -487,7 +487,7 @@
         /// Сервис данных
         /// </param>
         /// <returns>
-        /// Имя пользователя, под которым блокировка находится, 
+        /// Имя пользователя, под которым блокировка находится,
         /// string.Empty - если блокировки не было и мы её только поставили
         /// </returns>
         public string SetWebLock(DataObject dobj, IDataService ds)
@@ -508,7 +508,7 @@
         /// Сервис данных
         /// </param>
         /// <returns>
-        /// Имя пользователя, под которым блокировка находится, 
+        /// Имя пользователя, под которым блокировка находится,
         /// string.Empty - если блокировки не было и мы её только поставили
         /// </returns>
         public string SetWebLock(DataObject dobj, string userName, IDataService ds)
@@ -529,7 +529,7 @@
         /// Сервис данных
         /// </param>
         /// <returns>
-        /// Имя пользователя, под которым блокировка находится, 
+        /// Имя пользователя, под которым блокировка находится,
         /// string.Empty - если блокировки не было и мы её только поставили
         /// </returns>
         public string SetWebLock(string LockKey, string userName, IDataService ds)
@@ -607,7 +607,7 @@
                     var ds = new DirectorySearcher(
                         "(&(objectClass=user)(sAMAccountName= " + Environment.UserName + "))", new[] { "cn" })
                         {
-                           CacheResults = true 
+                           CacheResults = true
                         };
                     SearchResult sr = ds.FindOne();
                     username = sr.Properties["cn"][0].ToString();

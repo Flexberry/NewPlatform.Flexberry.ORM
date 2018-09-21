@@ -201,7 +201,7 @@
         /// (при работе <see cref="AuditService"/> иногда необходимо дочитать объект или получить сохранённую копию,
         /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
         /// По умолчанию - <c>null</c>.
-        ///</param>
+        /// </param>
         /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
         public virtual AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
             DataObject operationedObject,

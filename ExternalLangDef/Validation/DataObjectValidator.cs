@@ -16,7 +16,7 @@
         /// Язык задания ограничений.
         /// </summary>
         private static readonly ExternalLangDef _languageDef = ExternalLangDef.LanguageDef;
-        
+
         /// <summary>
         /// Проверка, удовлетворяет ли объект данных заданному ограничению.
         /// </summary>
@@ -51,7 +51,7 @@
                 bool processedResult = ProcessFunction((Function)value, target, involved);
                 return processedResult;
             }
-            
+
             if (value is VariableDef)
             {
                 object ret = ProcessVariableDef((VariableDef)value, target, ref involved);
@@ -112,7 +112,7 @@
                 throw new NotSupportedException();
 
             string propertyPath = variableDef.StringedView;
-            
+
             if (involved.ContainsKey(propertyPath))
             {
                 return involved[propertyPath];
@@ -423,7 +423,6 @@
         {
             return Decimal.Parse(o.ToString());
         }
-
 
         /// <summary>
         /// Преобразует строковое представление объекта в <see cref="DateTime"/>.

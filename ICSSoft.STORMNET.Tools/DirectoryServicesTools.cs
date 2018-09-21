@@ -52,11 +52,12 @@ namespace ICSSoft.STORMNET.Tools
                 {
                     return resultCollection[0].Properties["Name"][0].ToString();
                 }
+
                 return string.Empty;
             }
             catch (ActiveDirectoryObjectNotFoundException)
             {
-                // Если не нашли такую ActiveDirectory, 
+                // Если не нашли такую ActiveDirectory,
                 // то возможно мы в другой сети или она не верно задана.
                 return string.Empty;
             }

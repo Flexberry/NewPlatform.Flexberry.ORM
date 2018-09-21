@@ -14,14 +14,12 @@
     using Security;
     using Audit;
 
-
     /// <summary>
     /// Сервис данных для доступа к данным Oracle
     /// </summary>
     public class OracleDataService : ICSSoft.STORMNET.Business.SQLDataService
     {
         public const int MaxBytes = 30;
-
 
         /// <summary>
         /// Создание сервиса данных для Oracle без параметров.
@@ -48,7 +46,6 @@
             : base(securityManager, auditService)
         {
         }
-
 
         /// <summary>
         /// Преобразовать значение в SQL строку
@@ -115,15 +112,14 @@
             {
                 return string.Format("TRUNC({0})",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
                 return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+
                 //у нее нет параметров
                 //langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
@@ -191,7 +187,6 @@
 
                 //FunctionalLanguage.Function numFunc = (value.Parameters[1] as FunctionalLanguage.Function);
 
-
                 string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier);
 
                 string res = string.Empty;
@@ -203,8 +198,10 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
+
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
+
                     //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "NVL(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
@@ -213,7 +210,6 @@
 
                 langDef.retVars = prevRetVars;
                 return res;
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcCountWithLimit || value.FunctionDef.StringedView == "Count")
@@ -272,10 +268,8 @@
                     "Функция {0} не реализована для Oracle", value.FunctionDef.StringedView));
             }
 
-
             return string.Empty;
         }
-
 
         /// <summary>
         /// Создание копии экземпляра сервиса данных.
@@ -289,7 +283,7 @@
         }
 
         /// <summary>
-        /// Получить хэш-код идентификатора. 
+        /// Получить хэш-код идентификатора.
         /// </summary>
         /// <param name="identifier">идентификатор</param>
         public static int GetIdentifierHashCode(string identifier)
@@ -305,6 +299,7 @@
             {
                 hashcode = ((shift * hashcode) % MOD + identifier[i]) % MOD;
             }
+
             return hashcode;
         }
 
@@ -314,7 +309,7 @@
         /// <param name="identifier">идентификатор</param>
         public static string GenerateShortName(string identifier)
         {
-            var encoding = Encoding.UTF8;                        
+            var encoding = Encoding.UTF8;
 
             byte[] identifierBytes = encoding.GetBytes(identifier);
 
@@ -337,27 +332,27 @@
         }
 
         /// <summary>
-		/// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
-		/// </summary>
-		/// <param name="identifier">идентификатор</param>
+        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
+        /// </summary>
+        /// <param name="identifier">идентификатор</param>
         public static string PrepareIdentifier(string identifier)
-        {            
+        {
             identifier = GenerateShortName(identifier);
             return '"' + identifier + '"';
         }
 
         /// <summary>
-		/// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
-		/// </summary>
-		/// <param name="identifier">идентификатор</param>
-		/// <returns></returns>
+        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
+        /// </summary>
+        /// <param name="identifier">идентификатор</param>
+        /// <returns></returns>
         public override string PutIdentifierIntoBrackets(string identifier)
-		{
+        {
             return PrepareIdentifier(identifier);
         }
 
-		public override System.Data.IDbConnection GetConnection()
-		{
+        public override System.Data.IDbConnection GetConnection()
+        {
             return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
         }
 
@@ -367,12 +362,12 @@
         /// <param name="identifiers">идентификаторы</param>
         /// <returns></returns>
         public override string GetIfNullExpression(params string[] identifiers)
-		{
-			string result = identifiers[identifiers.Length-1];
-			for (int i= identifiers.Length-2;i>=0;i--)
-				result = string.Concat("NVL(",identifiers[i],", ",result,")");
-			return result;
-		}
+        {
+            string result = identifiers[identifiers.Length-1];
+            for (int i= identifiers.Length-2;i>=0;i--)
+                result = string.Concat("NVL(",identifiers[i],", ",result,")");
+            return result;
+        }
 
         /// <summary>
         /// Reading data from database: read first part.
@@ -385,7 +380,7 @@
         {
             // Вообще, TOP заменяется в методе GenerateSQLSelect. Однако, базовый SQLDataService
             // может втсавлять TOP где угодно. Например, делает это в методе GetObjectIndexesWithPks.
-            // Поскольку вместо TOP в оракле надо добавить ограничение в WHERE сделаем замену пока только в случае, когда TOP 
+            // Поскольку вместо TOP в оракле надо добавить ограничение в WHERE сделаем замену пока только в случае, когда TOP
             // в начале, т.е. ориентируясь только на конкретный код GetObjectIndexesWithPks.
 
             if (query.StartsWith("SELECT TOP "))
@@ -395,7 +390,7 @@
                 if (match.Success)
                 {
                     string topcnt = match.Groups["topcnt"].ToString();
-                    query = String.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", query.Replace("TOP " + topcnt, string.Empty), topcnt);                    
+                    query = String.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", query.Replace("TOP " + topcnt, string.Empty), topcnt);
                 }
             }
 
@@ -403,93 +398,99 @@
         }
 
         /// <summary>
-		/// Перегрузка GenerateSQLSelect, связанная с необходимостью в ORACLE заменить TOP на ограничение rownum.
-		/// </summary>
-		/// <returns>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE</returns>
+        /// Перегрузка GenerateSQLSelect, связанная с необходимостью в ORACLE заменить TOP на ограничение rownum.
+        /// </summary>
+        /// <returns>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE</returns>
         public override string GenerateSQLSelect(LoadingCustomizationStruct customizationStruct, bool ForReadValues, out StorageStructForView[] StorageStruct, bool Optimized)
-		{
+        {
             // В предыдущей реализации вызывалась генерация с TOP, после чего данная подстрока вырезалась.
             // Сейчас TOP оказывается не только в основном запросе, но и в подзапросах, в связи с чем
             // генерируем отключив настройку в customizationStruct (подобно Postgre), делая одну обёртку с rownum.
             int top = customizationStruct.ReturnTop;
 
-            if (top > 0) customizationStruct.ReturnTop = 0;            
+            if (top > 0) customizationStruct.ReturnTop = 0;
 
-            string res=base.GenerateSQLSelect (customizationStruct, ForReadValues, out StorageStruct, Optimized);                        
-            
+            string res=base.GenerateSQLSelect (customizationStruct, ForReadValues, out StorageStruct, Optimized);
+
             if (top>0)
-			{				
-				res=String.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", res, top);
+            {
+                res=String.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", res, top);
                 customizationStruct.ReturnTop = top;
             }
-			return res;
-		}        
 
+            return res;
+        }
 
         public override string GetConvertToTypeExpression(Type valType,string value)
-		{
-			if (valType==typeof(Decimal))
-				return value;
-			else if (valType==typeof(Guid))
-			{
-				//382c74c3-721d-4f34-80e5-57657b6cbc27
-//				string res=value.ToString();
-//				res=res.Remove(23,1);
-//				res=res.Remove(18,1);
-//				res=res.Remove(13,1);
-//				res=res.Remove(8,1);
-//				return String.Format("HEXTORAW('{0}')",res);
-				byte[] byteArrGuid = (new Guid(value)).ToByteArray();
-				string hexGuidString = "";
-				foreach (byte b in byteArrGuid) hexGuidString += b.ToString("x2");//Получаем строку байтов.
-				return String.Format("HEXTORAW('{0}')",hexGuidString);
-			}
-			else return "";
-		}
+        {
+            if (valType==typeof(Decimal))
+            {
+                return value;
+            }
+            else if (valType==typeof(Guid))
+            {
+                //382c74c3-721d-4f34-80e5-57657b6cbc27
+//              string res=value.ToString();
+//              res=res.Remove(23,1);
+//              res=res.Remove(18,1);
+//              res=res.Remove(13,1);
+//              res=res.Remove(8,1);
+//              return String.Format("HEXTORAW('{0}')",res);
+                byte[] byteArrGuid = (new Guid(value)).ToByteArray();
+                string hexGuidString = "";
+                foreach (byte b in byteArrGuid) hexGuidString += b.ToString("x2");//Получаем строку байтов.
+                return String.Format("HEXTORAW('{0}')",hexGuidString);
+            }
+            else
+            {
+                return "";
+            }
+        }
 
-		private System.Collections.ArrayList arParams=new System.Collections.ArrayList();
+        private System.Collections.ArrayList arParams=new System.Collections.ArrayList();
 
-		public override string ConvertSimpleValueToQueryValueString(object value)
-		{
-			if (value is DateTime)
-			{
-				return String.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
-			}
-			else if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
-			{
-				//382c74c3-721d-4f34-80e5-57657b6cbc27
-//				string res=value.ToString();
-//				res=res.Remove(23,1);
-//				res=res.Remove(18,1);
-//				res=res.Remove(13,1);
-//				res=res.Remove(8,1);
+        public override string ConvertSimpleValueToQueryValueString(object value)
+        {
+            if (value is DateTime)
+            {
+                return String.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+            else if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
+            {
+                //382c74c3-721d-4f34-80e5-57657b6cbc27
+//              string res=value.ToString();
+//              res=res.Remove(23,1);
+//              res=res.Remove(18,1);
+//              res=res.Remove(13,1);
+//              res=res.Remove(8,1);
                 byte[] byteArrGuid = (new Guid(value.ToString())).ToByteArray();
                 string hexGuidString = "";
-				foreach (byte b in byteArrGuid) hexGuidString += b.ToString("x2");//Получаем строку байтов.
-				return String.Format("HEXTORAW('{0}')",hexGuidString);
-			}
-			// Исключаем Error: ORA-01704: string literal too long
-			else if (value is System.String && value.ToString().Length>4000)
-			{
-				string paramName="param_"+arParams.Count;
-				OracleParameter param =	new OracleParameter(paramName,OracleType.Clob);
-				param.Value=value;
-				arParams.Add(param);
-				return ':'+paramName;
-			}
-			else
-				return base.ConvertSimpleValueToQueryValueString (value);
-		}
+                foreach (byte b in byteArrGuid) hexGuidString += b.ToString("x2");//Получаем строку байтов.
+                return String.Format("HEXTORAW('{0}')",hexGuidString);
+            }
 
-		protected override void CustomizeCommand(System.Data.IDbCommand cmd)
-		{
-			foreach(OracleParameter param in arParams)
-				(cmd as OracleCommand).Parameters.Add(param);
-			arParams.Clear();
-			base.CustomizeCommand (cmd);
-		}
+            // Исключаем Error: ORA-01704: string literal too long
+            else if (value is System.String && value.ToString().Length>4000)
+            {
+                string paramName="param_"+arParams.Count;
+                OracleParameter param = new OracleParameter(paramName,OracleType.Clob);
+                param.Value=value;
+                arParams.Add(param);
+                return ':'+paramName;
+            }
+            else
+            {
+                return base.ConvertSimpleValueToQueryValueString (value);
+            }
+        }
 
-
+        protected override void CustomizeCommand(System.Data.IDbCommand cmd)
+        {
+            foreach(OracleParameter param in arParams)
+                (cmd as OracleCommand).Parameters.Add(param);
+            arParams.Clear();
+            base.CustomizeCommand (cmd);
+        }
 
 ////		/// <summary>
 ////		/// создать join соединения
@@ -502,7 +503,7 @@
 ////		/// <param name="joinscount">количество соединений</param>
 ////		/// <returns></returns>
 ////		public override void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
-////			string parentAlias,int index, 
+////			string parentAlias,int index,
 ////			System.Collections.ArrayList  keysandtypes,
 ////			string baseOutline,out int joinscount,
 ////			out string FromPart, out string WherePart)
@@ -545,7 +546,7 @@
 ////
 ////		public override void GetLeftJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
 ////		{
-////			
+////
 ////			/*
 ////			string nl = Environment.NewLine+baseOutline;
 ////			FromPart = string.Concat(nl ," LEFT JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
@@ -565,12 +566,10 @@
 ////				subJoins,
 ////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
 ////			WherePart = "";*/
-////			
+////
 ////			FromPart = "";
 ////			WherePart = "";
 ////
 ////		}
-
-
-	}
+    }
 }

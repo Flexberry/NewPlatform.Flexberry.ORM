@@ -13,7 +13,6 @@
 
     namespace Business
     {
-
         /// <summary>
         /// Тип структуры хранения
         /// </summary>
@@ -23,17 +22,18 @@
             /// Простое хранение (каждый класс в своем хранилище)
             /// </summary>
             SimpleStorage,
+
             /// <summary>
-            /// Иерархическое хранение (Хранятся только свои атрибуты, 
+            /// Иерархическое хранение (Хранятся только свои атрибуты,
             /// а атрибуты предка хранятся в его хранилище)
             /// </summary>
             HierarchicalStorage
         }
 
-
         #region Структура хранения
+
         /// <summary>
-        ///структура для отображения представления в данные
+        /// структура для отображения представления в данные
         /// </summary>
         [Serializable]
         public class StorageStructForView : ISerializable
@@ -48,18 +48,22 @@
                 /// название хранилища (ClassStorageName у класса)
                 /// </summary>
                 public string Storage;
+
                 /// <summary>
                 /// название хранилища для первичного ключа
                 /// </summary>
                 public string PrimaryKeyStorageName;
+
                 /// <summary>
                 /// название хранилища для свойства в классе,ссылающемся на данный
                 /// </summary>
                 public string objectLinkStorageName;
+
                 /// <summary>
                 /// индекс хранилища для класса ссылающегося на данный в объемлющем PropSource
                 /// </summary>
                 public int parentStorageindex;
+
                 /// <summary>
                 /// тип класса с которым ассоциированно данное хранилище
                 /// </summary>
@@ -112,7 +116,7 @@
             public class PropStorage : ISerializable
             {
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 public PropStorage() { }
 
@@ -120,22 +124,27 @@
                 /// имя свойства в представлении
                 /// </summary>
                 public string Name;
+
                 /// <summary>
                 /// в каком хранилище оно лежит
                 /// </summary>
                 public PropSource source;
+
                 /// <summary>
                 /// для совойств DataObject-ного типа список типов мастеров для каждой  ветви выборки
                 /// </summary>
                 public System.Type[][] MastersTypes = null;
+
                 /// <summary>
                 /// для совойств DataObject-ного,количество объектов в <see cref="PropStorage.MastersTypes"/>
                 /// </summary>
                 public int MastersTypesCount = 0;
+
                 /// <summary>
                 /// имя хранилища свойства, для каждой  ветви выборки
                 /// </summary>
                 public string[][] storage = new string[1][];
+
                 /// <summary>
                 /// имя свойств в объекте (без префикса доступа к объекту)
                 /// </summary>
@@ -145,6 +154,7 @@
                 /// хранимый ли атрибут
                 /// </summary>
                 public bool Stored = true;
+
                 /// <summary>
                 /// формула для хранения вычислимых атрибутов
                 /// </summary>
@@ -166,7 +176,7 @@
                 public bool AdditionalProp = false;
 
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 /// <returns></returns>
                 public override string ToString()
@@ -175,7 +185,7 @@
                 }
 
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 /// <param name="info"></param>
                 /// <param name="context"></param>
@@ -194,7 +204,7 @@
                 }
 
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 /// <param name="info"></param>
                 /// <param name="context"></param>
@@ -211,7 +221,6 @@
                     info.AddValue("propertyType", this.propertyType);
                     info.AddValue("MultipleProp", this.MultipleProp);
                 }
-
             }
 
             /// <summary>
@@ -220,7 +229,6 @@
             [Serializable]
             public class PropSource : ISerializable, IComparable
             {
-
                 /// <summary>
                 /// Связь по иерархии
                 /// </summary>
@@ -230,28 +238,31 @@
                 /// имя источника данных с учетом влложенности
                 /// </summary>
                 public string Name;
+
                 /// <summary>
                 /// имя мастера в объемдющем классе
                 /// </summary>
                 public string ObjectLink;
+
                 /// <summary>
                 /// ветви наследования
                 /// </summary>
                 public ClassStorageDef[] storage = new ClassStorageDef[1];
+
                 /// <summary>
                 /// ветви мастеров
                 /// </summary>
                 public PropSource[] LinckedStorages = new PropSource[0];
 
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 public PropSource()
                 {
                 }
 
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 /// <param name="info"></param>
                 /// <param name="context"></param>
@@ -265,7 +276,7 @@
                 }
 
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 /// <param name="info"></param>
                 /// <param name="context"></param>
@@ -286,10 +297,13 @@
                         return String.Compare(Name, o.Name);
                     }
                     else
+                    {
                         return -1;
+                    }
                 }
+
                 /// <summary>
-                /// 
+                ///
                 /// </summary>
                 /// <returns></returns>
                 public override string ToString()
@@ -301,19 +315,20 @@
                         subs[i] = "\t" + string.Join(sss, LinckedStorages[i].ToString().Split(Environment.NewLine[1]));
                     return (subs.Length > 0) ? res + Environment.NewLine + string.Join(Environment.NewLine, subs) : res;
                 }
-
             }
 
             /// <summary>
             /// свойства
             /// </summary>
             public PropStorage[] props;
+
             /// <summary>
             /// источники данных
             /// </summary>
             public PropSource sources = new PropSource();
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public StorageStructForView()
             {
@@ -366,8 +381,6 @@
                 return "Properties:" + Environment.NewLine + string.Join(Environment.NewLine, prs) +
                     Environment.NewLine + "Sources:" + Environment.NewLine + sources.ToString();
             }
-
-
         }
         #endregion
     }
@@ -383,10 +396,12 @@
         /// представление детейла
         /// </summary>
         private View detailView;
+
         /// <summary>
         /// имя детейла
         /// </summary>
         private string detailName;
+
         /// <summary>
         /// загружать ли детейл при загрузке шапки
         /// </summary>
@@ -403,6 +418,7 @@
         /// использовать ли адаптивную настройку представлений при загрузке данных
         /// </summary>
         public bool UseAdaptiveTypeLoading { get { return detailUseAdaptiveTypeLoading; } set { detailUseAdaptiveTypeLoading = value; } }
+
         /// <summary>
         /// настройка адаптации
         /// </summary>
@@ -413,15 +429,15 @@
                 if (detailAdaptiveTypeViews == null) detailAdaptiveTypeViews = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
                 return detailAdaptiveTypeViews;
             }
-            set { detailAdaptiveTypeViews = value; }
+
+            set
+            {
+                detailAdaptiveTypeViews = value;
+            }
         }
 
-
-
-
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="detailname">имя детейла</param>
         /// <param name="detailview">представление детейла</param>
@@ -444,7 +460,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -462,7 +478,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -483,26 +499,32 @@
         /// представление
         /// </summary>
         public View View { get { return detailView; } set { detailView = value; } }
+
         /// <summary>
         /// Имя детейлового свойства
         /// </summary>
         public string Name { get { return detailName; } }
+
         /// <summary>
         /// Заголовок для детейла
         /// </summary>
         public string Caption { get { return detailcaption; } }
+
         /// <summary>
         /// Путь на форме
         /// </summary>
         public string FormPath { get { return detailPath; } }
+
         /// <summary>
         /// загружать ли вместе с владельцем
         /// </summary>
         public bool LoadOnLoadAgregator { get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; } }
+
         /// <summary>
         /// видимый-невидимый
         /// </summary>
         public bool Visible { get { return detailvisible; } }
+
         /// <summary>
         /// используемые агрегиррующие функции
         /// </summary>
@@ -519,8 +541,9 @@
         private string masterName;
         private string lookupProperty;
         private string customizationString;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="mastername">имя мастера</param>
         /// <param name="lookuptype">настройка лукапа</param>
@@ -535,7 +558,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -548,7 +571,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -560,19 +583,21 @@
             info.AddValue("customizationString", this.customizationString);
         }
 
-
         /// <summary>
         /// имя мастера
         /// </summary>
         public string MasterName { get { return masterName; } }
+
         /// <summary>
         /// настройка лукапа
         /// </summary>
         public string CustomizationString { get { return customizationString; } }
+
         /// <summary>
         /// тип лукапа
         /// </summary>
         public LookupTypeEnum LookupType { get { return lookupType; } }
+
         /// <summary>
         /// свойство отображаемое при lookupe
         /// </summary>
@@ -586,7 +611,7 @@
     public struct PropertyInView : ISerializable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name">имя свойства</param>
         /// <param name="caption">заголовок</param>
@@ -601,7 +626,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -614,7 +639,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -635,10 +660,12 @@
         /// Имя аттрибута
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Заголовок для данного атрибута в данном представлении
         /// </summary>
         public string Caption;
+
         /// <summary>
         /// видимость атрибута
         /// </summary>
@@ -682,7 +709,6 @@
             return res;
         }
 
-
         /// <summary>
         /// ограничения по типам для вычитывания данных
         /// </summary>
@@ -694,14 +720,13 @@
             }
         }
 
-
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool GeneratedByType { get { return generatedByType; } }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public View.ReadType CreationReadType { get { return readType; } }
 
@@ -717,7 +742,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -734,7 +759,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -772,11 +797,12 @@
                 }
                 catch (CantFindPropertyException ex)
                 {
-
                 }
+
                 if (propType != null && !propType.IsSubclassOf(DetArrType))
                     AddProperty(prop, prop, false, string.Empty);
             }
+
             details = new DetailInView[0];
         }
 
@@ -785,17 +811,16 @@
         /// </summary>
         public enum ReadType
         {
-
             /// <summary>
             /// только для заданного класса
             /// </summary>
             OnlyThatObject,
+
             /// <summary>
             /// для класса со всеми детейлами
             /// </summary>
             WithRelated
         }
-
 
         /// <summary>
         /// создать представление по типу и критерию построения
@@ -820,13 +845,14 @@
             for (int i = 0; i < allstorProps.Length; i++)
             {
                 if (Information.GetPropertyType(DataObjectType, allstorProps[i]).IsSubclassOf(typeof(DetailArray)))
+                {
                     detailprops.Add(allstorProps[i]);
+                }
                 else
                 {
                     if (!Information.GetPropertyDisableAutoViewing(DataObjectType, allstorProps[i]))
                         simpleprops.Add(allstorProps[i]);
                 }
-
             }
 
             properties = new PropertyInView[simpleprops.Count];
@@ -845,7 +871,6 @@
                     details[i] = new DetailInView(detailprops[i], new View(Information.GetItemType(defineClass, detailprops[i]), ReadType.WithRelated), true, string.Empty, string.Empty, true, null);
                 }
             }
-
         }
 
         /// <summary>
@@ -862,6 +887,7 @@
                 if (p.Name.StartsWith(master + "."))
                     res.AddProperty(p.Name.Substring(master.Length + 1), p.Caption, p.Visible, p.FormPath);
             }
+
             return res;
         }
 
@@ -908,6 +934,7 @@
                         newMasters[i] = masters[i];
                     }
                 }
+
                 masters = newMasters;
             }
         }
@@ -988,7 +1015,7 @@
         /// <returns>Метод возвращает true, если переданное в качестве параметра свойство присутствует в представлении, и false в противном случае.</returns>
         public bool CheckPropname(string propName, bool checkDetails)
         {
-            return Properties.Any(x => x.Name == propName) 
+            return Properties.Any(x => x.Name == propName)
                 || (checkDetails && Details.Any(x => x.Name == propName));
         }
 
@@ -1014,7 +1041,6 @@
                     newprops[i] = properties[i];
                 properties = newprops;
             }
-
         }
 
         /// <summary>
@@ -1049,7 +1075,6 @@
             details = new DetailInView[divs.Length + 1];
             divs.CopyTo(details, 0);
             details[divs.Length] = new DetailInView(detailname, detailview, loadOnLoadAgregator, path, caption, visible, aggregateFunctions);
-
         }
 
         /// <summary>
@@ -1076,7 +1101,6 @@
                 if (!CheckPropname(masterName + "." + lookupProperty))
                     AddProperty(masterName + "." + lookupProperty);
             }
-
         }
 
         /// <summary>
@@ -1124,6 +1148,7 @@
             for (int i = 0; i < properties.Length; i++)
                 if (properties[i].Name == propName)
                     return;
+
             //увеличим количество свойств
             ArrayList propss = new ArrayList();
             PropertyInView[] piv = properties;
@@ -1136,10 +1161,12 @@
                 if (!propName.EndsWith("*"))
                     propCaption = propName;  //'Information.GetPropertyCaption(DefineClassType,propName);
             }
+
             if (propName.EndsWith("*"))
             {
                 if (propCaption.EndsWith("*"))
                     propCaption = propCaption.Substring(0, propCaption.Length - 1);
+
                 //смотрим ктоже ето
                 string pref = string.Empty;
                 if (propName.LastIndexOf(".") >= 0)
@@ -1151,8 +1178,10 @@
                     for (int pathind = 0; pathind < path.Length; pathind++)
                         cType = Information.GetPropertyType(cType, path[pathind]);
                     pref = pref + ".";
-                    //					if (propCaption=="") propCaption = pref;
+
+                    //                  if (propCaption=="") propCaption = pref;
                 }
+
                 string[] allprops = Information.GetAllPropertyNames(cType);
                 for (int propsind = 0; propsind < allprops.Length; propsind++)
                 {
@@ -1166,9 +1195,11 @@
                             properties = new PropertyInView[piv.Length + 1];
                             piv.CopyTo(properties, 0);
                         }
+
                         if (propCaption == string.Empty && pref == string.Empty)
-                            //							properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
-                            //						else
+
+                            //                          properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
+                            //                      else
                             properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
                     }
                 }
@@ -1177,7 +1208,6 @@
             {
                 properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath);
             }
-
         }
 
         private string lightTrim(string s)
@@ -1228,6 +1258,7 @@
                 {
                     if (propCaption.EndsWith("*"))
                         propCaption = propCaption.Substring(0, propCaption.Length - 1);
+
                     // Cмотрим, кто же это.
                     string pref = string.Empty;
                     if (propname.LastIndexOf(".") >= 0)
@@ -1241,6 +1272,7 @@
                         pref = pref + ".";
                         if (propCaption == string.Empty) propCaption = pref;
                     }
+
                     string[] allprops = Information.GetAllPropertyNames(cType);
                     for (int propsind = 0; propsind < allprops.Length; propsind++)
                     {
@@ -1260,6 +1292,7 @@
                     propsAL.Add(new PropertyInView(propname, propCaption, visible, propPath));
                 }
             }
+
             properties = (PropertyInView[])propsAL.ToArray(typeof(PropertyInView));
 
             defineClass = ViewDefClass;
@@ -1267,7 +1300,6 @@
             object[] atrs = defineClass.GetCustomAttributes(typeof(AssociatedDetailViewAttribute), false);
             if (atrs != null)
             {
-
                 int DetCount = 0;
                 for (int i = 0; i < atrs.Length; i++)
                     if (((AssociatedDetailViewAttribute)atrs[i]).ViewName == viewName) DetCount++;
@@ -1288,6 +1320,7 @@
                                 comv = new View();
                                 comv.DefineClassType = detType;
                             }
+
                             details[DetCount] = new DetailInView(atr.DetailName,
                                     comv,
                                     atr.LoadOnLoadAgregator, atr.FormPath, atr.Caption, atr.Visible, atr.AggregateOperations);
@@ -1303,8 +1336,11 @@
                                 details[DetCount].UseAdaptiveTypeLoading = false;
                             }
                             else
+                            {
                                 throw new UncompatibleViewForClassException(atr.DetailViewName, detType);
+                            }
                         }
+
                         DetCount++;
                     }
                 }
@@ -1329,7 +1365,6 @@
                             if (!CheckPropname(atr.MasterName + "." + atr.LookupProperty))
                                 AddProperty(atr.MasterName + "." + atr.LookupProperty);
                         }
-
                     }
                 }
             }
@@ -1341,7 +1376,6 @@
                     AddMasterInView(piv.Name);
             }
         }
-
 
         /// <summary>
         /// Адаптировать представления для детейлов (в зависимости от типа)
@@ -1402,26 +1436,25 @@
             }
         }
 
-
         /// <summary>
         /// Наименование представления.
         /// </summary>
         public string Name { get { return viewName; } set { viewName = value; } }
-        
+
         /// <summary>
         /// тип, для которого определено пердставление
         /// </summary>
         public System.Type DefineClassType { get { return defineClass; } set { defineClass = value; } }
-        
+
         /// <summary>
         /// Получить все детейлы.
         /// </summary>
         public DetailInView[] Details
         {
-            get { return details ?? (details = new DetailInView[0]); } 
+            get { return details ?? (details = new DetailInView[0]); }
             set { details = value; }
         }
-        
+
         /// <summary>
         /// Получить все мастера.
         /// </summary>
@@ -1432,10 +1465,10 @@
         /// </summary>
         public PropertyInView[] Properties
         {
-            get { return properties ?? (properties = new PropertyInView[0]); } 
+            get { return properties ?? (properties = new PropertyInView[0]); }
             set { properties = value; }
         }
-        
+
         /// <summary>
         /// Строковое представление представления.
         /// </summary>
@@ -1524,7 +1557,9 @@
                 temp.Add(secondView.properties[i].Name, secondView.properties[i]);
             for (int i = 0; i < firstView.properties.Length; i++)
                 if (!temp.ContainsKey(firstView.properties[i].Name))
+                {
                     temp.Add(firstView.properties[i].Name, firstView.properties[i]);
+                }
                 else
                 {
                     PropertyInView p = (PropertyInView)temp[firstView.properties[i].Name];
@@ -1532,10 +1567,10 @@
                     p.Caption = p.Caption + " / " + firstView.properties[i].Caption;
                     temp[firstView.properties[i].Name] = p;
                 }
+
             PropertyInView[] props = new PropertyInView[temp.Count];
             temp.Values.CopyTo(props, 0);
             Result.properties = props;
-
 
             //detail-properties
             temp.Clear();
@@ -1543,7 +1578,9 @@
                 temp.Add(secondView.details[i].Name, secondView.details[i]);
             for (int i = 0; i < firstView.details.Length; i++)
                 if (!temp.ContainsKey(firstView.details[i].Name))
+                {
                     temp.Add(firstView.details[i].Name, firstView.details[i]);
+                }
                 else
                 {
                     DetailInView v = (DetailInView)temp[firstView.details[i].Name];
@@ -1551,11 +1588,11 @@
                     v.View = v.View | firstView.details[i].View;
                     temp[firstView.details[i].Name] = v;
                 }
+
             DetailInView[] dets = new DetailInView[temp.Count];
             temp.Values.CopyTo(dets, 0);
             Result.details = dets;
             return Result;
-
         }
 
         /// <summary>
@@ -1582,7 +1619,6 @@
             temp1.Values.CopyTo(props, 0);
             Result.properties = props;
 
-
             //detail-properties
             temp.Clear();
             temp1.Clear();
@@ -1598,6 +1634,7 @@
                         div1.Caption + " & " + div2.Caption, div1.Visible && div2.Visible, div2.AggregationFunctions);
                     temp1.Add(firstView.details[i].Name, resdiv);
                 }
+
             DetailInView[] dets = new DetailInView[temp1.Count];
             temp1.Values.CopyTo(dets, 0);
             Result.details = dets;
@@ -1612,7 +1649,6 @@
         /// <returns></returns>
         public static View operator -(View firstView, View secondView)
         {
-
             View Result = getViewForViews(firstView, secondView);
             Result.Name = firstView.ToString() + "-" + secondView.ToString();
             System.Collections.SortedList temp = new SortedList();
@@ -1627,7 +1663,6 @@
             PropertyInView[] props = new PropertyInView[temp.Count];
             temp.Values.CopyTo(props, 0);
             Result.properties = props;
-
 
             //detail-properties
             temp.Clear();
@@ -1657,7 +1692,6 @@
             return res;
         }
 
-
         public int[] GetOrderedIndexes(string[] orderCols, string[] advCols)
         {
             if (orderCols == null || orderCols.Length == 0)
@@ -1680,11 +1714,13 @@
                     {
                         allProps[i] = properties[i].Name;
                     }
+
                     int k = properties.Length;
                     for (int i = 0; i < advCols.Length; i++)
                     {
                         allProps[k++] = advCols[i];
                     }
+
                     int[] res = new int[allProps.Length];
                     int resindex = 0;
                     for (int i = 0; i < orderCols.Length; i++)
@@ -1699,12 +1735,12 @@
                             }
                         }
                     }
+
                     for (int i = 0; i < allProps.Length; i++)
                         if (allProps[i] != null)
                             res[resindex++] = i;
 
                     return res;
-
                 }
             }
         }
@@ -1722,7 +1758,7 @@
         /// <summary>
         /// Получить индекс свойства в представлении.
         /// Метод был добавлен для удобства работы с LoadStringedVeiw,
-        /// но убедитесь, что это именно то представление, которое 
+        /// но убедитесь, что это именно то представление, которое
         /// использовалось при загрузке и его никто не изменял
         /// </summary>
         /// <param name="PropertyName">Имя свойства</param>
@@ -1738,8 +1774,10 @@
                     retInd = i;
                     break;
                 }
+
                 i++;
             }
+
             return retInd;
         }
 
@@ -1771,7 +1809,9 @@
                         }
                     }
                     else if (Array.BinarySearch(propnames, piv.Name) < 0)
+                    {
                         return false;
+                    }
                 }
             }
 
@@ -1801,7 +1841,9 @@
         static Type GetCommonTypeForViews(params View[] views)
         {
             if (views.Length == 0)
+            {
                 return null;
+            }
             else
             {
                 System.Type tstType = views[0].defineClass;
@@ -1811,13 +1853,16 @@
                     if (ctype != tstType)
                     {
                         if (ctype.IsSubclassOf(tstType))
+                        {
                             tstType = ctype;
+                        }
                         else if (!tstType.IsSubclassOf(ctype))
                         {
                             return null;
                         }
                     }
                 }
+
                 return tstType;
             }
         }

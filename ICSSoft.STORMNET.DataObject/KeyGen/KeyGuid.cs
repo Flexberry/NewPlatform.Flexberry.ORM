@@ -37,7 +37,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="guid"></param>
         public KeyGuid(string guid)
@@ -46,7 +46,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="guid"></param>
         public KeyGuid(byte[] guid)
@@ -138,7 +138,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [DataMember]
         public Guid Guid { get { return guid; } set { guid = value; } }
@@ -162,7 +162,7 @@
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -272,6 +272,7 @@
         }
 
         #region operators == и !=
+
         /// <summary>
         /// ==
         /// </summary>
@@ -284,10 +285,12 @@
             {
                 return true;
             }
+
             if (((object)x != null && (object)y != null))
             {
                 return x.Equals(y);
             }
+
             return false;
         }
 
@@ -301,7 +304,7 @@
         {
             return !(x == y);
         }
-        
+
         #endregion
     }
 }

@@ -38,7 +38,6 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             }
             catch (Exception e)
             {
-                
                 throw new Exception("Стек параметров неожиданно оказался пуст при обходе выражения");
             }
 
@@ -47,6 +46,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             {
                 throw new Exception("В этом месте ожидается параметр типа Function");
             }
+
             return f;
         }
 

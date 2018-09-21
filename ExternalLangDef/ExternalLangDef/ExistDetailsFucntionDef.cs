@@ -9,7 +9,7 @@ using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 namespace ICSSoft.STORMNET.Windows.Forms
 {
     public partial class ExternalLangDef
-	{
+    {
         private string GetConditionForExistDetails(Function func, delegateConvertValueToQueryValueString convertValue,
                                                    delegatePutIdentifierToBrackets convertIdentifier)
         {
@@ -47,7 +47,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
             selectForDetail1 = selectForDetail1.Replace("STORMMainObjectKey", "STORMMainObjectKey1");
             string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null);
             selectForDetail2 = selectForDetail2.Replace("STORMMainObjectKey", "STORMMainObjectKey2");
-           
+
             // формируем условие для функции
             string propName1 = ((VariableDef)conditionParameters[0]).StringedView;
 
@@ -55,7 +55,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
                 propName1 = propName1.Remove(0, detail1.StringedView.Length + 1);
 
             string propName2 = ((VariableDef)conditionParameters[1]).StringedView;
-            
+
             if(propName2.StartsWith(detail2.StringedView + "."))
                 propName2 = propName2.Remove(0, detail2.StringedView.Length + 1);
 
@@ -64,7 +64,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
             string condition = string.Format("({0} {1} {2})", string.Format("{0}.{1}", detailAlias1, propIdetifier1),
                                              conditionFunc.FunctionDef.StringedView,
                                              string.Format("{0}.{1}", detailAlias2, propIdetifier2));
-            
+
             var joinCondition = new StringBuilder();
 
             foreach (var keyName in agregatorKeys1)
@@ -85,11 +85,11 @@ namespace ICSSoft.STORMNET.Windows.Forms
             return result;
         }
 
-        ///<summary>
+        /// <summary>
         /// Проверка доступных операций сравнения для двух детейловых свойств.
-        ///</summary>
-        ///<param name="func">Функция сравнения, для проверки.</param>
-        ///<returns>Результат проверки.</returns>
+        /// </summary>
+        /// <param name="func">Функция сравнения, для проверки.</param>
+        /// <returns>Результат проверки.</returns>
         public bool CheckConditionFunctionForExistDetails(FunctionDef func)
         {
             string operation = func.StringedView;
@@ -110,5 +110,5 @@ namespace ICSSoft.STORMNET.Windows.Forms
             bool result = detail1.StringedView != detail2.StringedView;
             return result;
         }
-	}
+    }
 }

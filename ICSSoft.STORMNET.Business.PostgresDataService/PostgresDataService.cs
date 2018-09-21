@@ -229,9 +229,8 @@
                     {
                         if (!type.Contains("timestamptz"))
                         {
-                            type = type.Replace("timestamp", "timestamptz"); 
+                            type = type.Replace("timestamp", "timestamptz");
                         }
-
                     }
                     else
                     {
@@ -356,7 +355,6 @@
             {
                 return string.Format("date_trunc('day',{0})",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
@@ -438,8 +436,10 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
+
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
+
                     //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "COALESCE(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
@@ -504,7 +504,6 @@
             throw new NotImplementedException(string.Format(
                     "Функция {0} не реализована для Postgres", value.FunctionDef.StringedView));
         }
-
 
         /// <summary>
         /// Get connection by Npgsql.
@@ -636,7 +635,7 @@
         }
 
         /// <summary>
-        /// Метод переопределён, чтобы заменить длиные псевдонимы на короткие. 
+        /// Метод переопределён, чтобы заменить длиные псевдонимы на короткие.
         /// </summary>
         /// <param name="identifiers">The identifiers.</param>
         /// <returns>If null expression.</returns>
@@ -695,10 +694,13 @@
             StorageStructForView storageStruct,
             bool addNotMainKeys,
             bool addMasterFieldsCustomizer,
+
             // ReSharper disable once InconsistentNaming
             string AddingAdvansedField,
+
             // ReSharper disable once InconsistentNaming
             int AddingKeysCount,
+
             // ReSharper disable once InconsistentNaming
             bool SelectTypesIds)
         {
@@ -770,10 +772,13 @@
         /// </returns>
         public override string GenerateSQLSelect(
             LoadingCustomizationStruct customizationStruct,
+
             // ReSharper disable once InconsistentNaming
             bool ForReadValues,
+
             // ReSharper disable once InconsistentNaming
             out StorageStructForView[] StorageStruct,
+
             // ReSharper disable once InconsistentNaming
             bool Optimized)
         {
@@ -786,6 +791,7 @@
                     dictionaryShortNames.Clear();
                     indexesShortNames.Clear();
                 }
+
                 countGenerateSqlSelect++;
                 //// Закомментировать следующую строку, если будет возникать NeedRestartGenerateSqlSelectExcepton и выяснить почему это происходит. По идее никогда не должен происходить.
                 res = base.GenerateSQLSelect(customizationStruct, ForReadValues, out StorageStruct, Optimized);
@@ -831,6 +837,7 @@
                 {
                     resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
                 }
+
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)
@@ -841,6 +848,7 @@
                     if (customizationStruct.RowNumber.EndRow >= customizationStruct.RowNumber.StartRow)
                         limit = customizationStruct.RowNumber.EndRow - customizationStruct.RowNumber.StartRow + 1;
                 }
+
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExpr + nl +
                     "OFFSET " + offset.ToString() + " LIMIT " + limit.ToString();
             }
@@ -873,6 +881,7 @@
                 dictionaryShortNames.Clear();
                 indexesShortNames.Clear();
             }
+
             countGenerateSqlSelect++;
             IDictionary<int, string> ret = GetObjectIndexesWithPksImplementation(lcs, limitFunction, maxResults);
             countGenerateSqlSelect--;
@@ -916,8 +925,10 @@
                 int posOffset = innerQuery.LastIndexOf("OFFSET ");
                 offset = innerQuery.Substring(posOffset);
                 innerQuery = innerQuery.Substring(0, posOffset);
+
                 //+ nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
             }
+
             // надо добавить RowNumber
             // top int.MaxValue
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
@@ -949,6 +960,7 @@
             maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
             orderByExpr,
             PutIdentifierIntoBrackets("STORMMainObjectKey"));
+
             //if (offset != null)
             //    query += nl + offset;
             object state = null;
@@ -1117,10 +1129,10 @@
         }
 
         /// <summary>
-        /// Этот Exception необходим для прерывания обработки в методе GenerateSQLSelect в случае, 
-        /// если в процессе выполнения метода GetIfNullExpression было обнаружено, 
+        /// Этот Exception необходим для прерывания обработки в методе GenerateSQLSelect в случае,
+        /// если в процессе выполнения метода GetIfNullExpression было обнаружено,
         /// что обрабатываемые там идентификаторы превышают допустимую длину и не имеют короткого имени.
-        /// Для исправления этой ситуации необходимо заново запустить обработку GenerateSQLSelect с 
+        /// Для исправления этой ситуации необходимо заново запустить обработку GenerateSQLSelect с
         /// сохранением коротких имён, созданных в предыдущей итерации GenerateSQLSelect.
         /// По идее никогда не должен происходить.
         /// </summary>

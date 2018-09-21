@@ -10,15 +10,14 @@ using ICSSoft.Services;
 
 namespace ICSSoft.STORMNET.Business
 {
-	/// <summary>
-	/// Summary description for ODBCDataService.
-	/// </summary>
-	public class ODBCDataService:ICSSoft.STORMNET.Business.SQLDataService
-	{
-
+    /// <summary>
+    /// Summary description for ODBCDataService.
+    /// </summary>
+    public class ODBCDataService:ICSSoft.STORMNET.Business.SQLDataService
+    {
         public override System.Data.IDbConnection GetConnection()
         {
-		        return new MSODBC.OdbcConnection(CustomizationString);
+                return new MSODBC.OdbcConnection(CustomizationString);
         }
 
         /// <summary>
@@ -62,7 +61,6 @@ namespace ICSSoft.STORMNET.Business
                 //здесь требуется преобразование из DATASERVICE
                 return string.Format("(datepart({0}, {1})+@@DATEFIRST-2)%7 + 1", "DW",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
@@ -139,8 +137,10 @@ namespace ICSSoft.STORMNET.Business
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
+
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
+
                     //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "isnull(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
@@ -149,7 +149,6 @@ namespace ICSSoft.STORMNET.Business
 
                 langDef.retVars = prevRetVars;
                 return res;
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcCountWithLimit || value.FunctionDef.StringedView == "Count")
@@ -174,6 +173,7 @@ namespace ICSSoft.STORMNET.Business
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
+
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct);
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
@@ -216,7 +216,7 @@ namespace ICSSoft.STORMNET.Business
                         langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
                         value.Parameters[1]);
 
-                // Преобразование даты и времени в строку; кроме значения, числом задается стиль 
+                // Преобразование даты и времени в строку; кроме значения, числом задается стиль
                 // даты-времени, например, 104 (dd.mm.yyyy).
                 // Стили перечислены здесь: http://msdn.microsoft.com/ru-ru/library/ms187928.aspx
                 if (value.Parameters.Count == 3)
@@ -228,21 +228,20 @@ namespace ICSSoft.STORMNET.Business
                         value.Parameters[2]);
                 }
             }
+
             return string.Empty;
         }
 
-
         public override string GetIfNullExpression(params string[] identifiers)
-		    {
-			    string result = identifiers[identifiers.Length-1];
-			    for (int i= identifiers.Length-2;i>=0;i--)
-				    result = string.Concat("{fn IFNULL(",identifiers[i],", ",result,")}");
-			    return result;
-		    }
+            {
+                string result = identifiers[identifiers.Length-1];
+                for (int i= identifiers.Length-2;i>=0;i--)
+                    result = string.Concat("{fn IFNULL(",identifiers[i],", ",result,")}");
+                return result;
+            }
 
-		    public ODBCDataService()
-		    {
-		    }
-
-	}
+            public ODBCDataService()
+            {
+            }
+    }
 }

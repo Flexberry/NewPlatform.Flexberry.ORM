@@ -99,6 +99,7 @@
                 Parameters[i] = new ParameterDef();
                 Parameters[i].FromSimpleValue(Pars[i], fld);
             }
+
             Function = fld.FunctionFromSimpleStruct(obj[2]);
             FormCustomizeString = (string)obj[3];
             paramValues = (SortedList)obj[4];
@@ -115,7 +116,9 @@
             {
                 object o = func.Parameters[i];
                 if (o is FunctionalLanguage.Function)
+                {
                     SyncParams(o as FunctionalLanguage.Function);
+                }
                 else if (o is ParameterDef)
                 {
                     ParameterDef op = o as ParameterDef;
@@ -172,7 +175,9 @@
                         foreach (DataObject obj in objs)
                         {
                             if (obj.GetStatus(false) == ObjectStatus.Deleted)
+                            {
                                 dar.Remove(obj);
+                            }
                             else
                             {
                                 object ops = ICSSoft.STORMNET.Information.GetPropValueByName(obj, (pars[i] as ParameterDef).ParamName);
@@ -191,13 +196,20 @@
                         }
                         else
                             if (pp.Length > 0)
-                                pars[i] = pp[0];
-                            else
-                                pars[i] = null;
+                        {
+                            pars[i] = pp[0];
+                        }
+                        else
+                        {
+                            pars[i] = null;
+                        }
+
                         i--;
                     }
                     else
+                    {
                         pars[i] = ICSSoft.STORMNET.Information.GetPropValueByName(edobj, (pars[i] as ParameterDef).ParamName);
+                    }
                 }
                 else if (func.FunctionDef.StringedView == "SQL" && ICSSoft.STORMNET.Business.DataServiceProvider.DataService is ICSSoft.STORMNET.Business.SQLDataService)
                 {
@@ -214,6 +226,7 @@
                         {
                             k++;
                         }
+
                         string sParamName = sSQl.Substring(j, k - j);
                         sSQl = sSQl.Remove(j, k - j);
 
@@ -227,12 +240,14 @@
                                 break;
                             }
                         }
+
                         sSQl = sSQl.Insert(j, sParamValue);
                     }
 
                     pars[i] = sSQl;
                 }
             }
+
             res.Parameters.AddRange(pars);
             return res;
         }
@@ -249,10 +264,9 @@
             return this.Function;
         }
 
-
         /// <summary>
         /// !!! Сделано public для обратной совместимости, не трогать.
-        /// Глобальная переменная, через которую передаются значения параметров, указанные пользователем в ограничивающую функцию. 
+        /// Глобальная переменная, через которую передаются значения параметров, указанные пользователем в ограничивающую функцию.
         /// </summary>
         public DataObject edobj;
 

@@ -88,7 +88,7 @@
         /// <returns>Преобразованные в строку данные.</returns>
         public static string ConvertSimpleValueString(object value)
         {
-            if (value == null) 
+            if (value == null)
                 return null;
 
             Type valType = value.GetType();
@@ -112,7 +112,7 @@
             {
                 if (objectedData == null || objectedData.Length == 0)
                     return null;
-                
+
                 System.Text.StringBuilder sb = new System.Text.StringBuilder(ConvertSimpleValueString(objectedData[0]));
                 for (int i = 1; i < objectedData.Length; i++)
                 {

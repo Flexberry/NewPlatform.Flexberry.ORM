@@ -23,7 +23,9 @@
             for (var i = arr.Length - 1; i >= 0 && (!hideMasters || i == arr.Length - 1); i--)
             {
                 if (!splitWords)
+                {
                     captionText += arr[i];
+                }
                 else
                 {
                     var wordTitle = string.Empty;
@@ -102,7 +104,7 @@
 
         /// <summary>
         /// Класс для получения Caption'a поля по его имени
-        /// (если представление null или поле с таким именем не найдено, то отобразится просто 
+        /// (если представление null или поле с таким именем не найдено, то отобразится просто
         /// имя поля, разделённое из camel-нотации)
         /// </summary>
         /// <param name="currentView">
@@ -121,7 +123,7 @@
             {
                 resultCaption = currentView.GetProperty(fieldName).Caption;
             }
-            
+
             return (resultCaption != null) && (resultCaption.Trim() != string.Empty)
                        ? resultCaption
                        : TransformTitle(fieldName, true, false);

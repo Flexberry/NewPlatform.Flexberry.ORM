@@ -30,7 +30,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <summary>
         /// Высота изображения
         /// </summary>
-        public int Height { get; set; } 
+        public int Height { get; set; }
 
         /// <summary>
         /// Изображение (в байтах).
@@ -60,22 +60,22 @@ namespace ICSSoft.STORMNET.UserDataTypes
                        ? 0
                        : 1;
         }
-        
+
         public static explicit operator string(Image value)
         {
             // Лучше будет использовать Json, но нет возможности
             var xml = new XElement("image");
 
-            if (value.Name != null) 
+            if (value.Name != null)
                 xml.Add(new XAttribute("name", value.Name));
 
-            if (value.Format != null) 
+            if (value.Format != null)
                 xml.Add(new XAttribute("format", value.Format));
 
             xml.Add(new XAttribute("Width", value.Width));
             xml.Add(new XAttribute("Height", value.Height));
 
-            if (!string.IsNullOrEmpty(value.Data)) 
+            if (!string.IsNullOrEmpty(value.Data))
                 xml.Add(new XAttribute("rawData", value.Data));
 
             if (!string.IsNullOrEmpty(value.URL))
@@ -100,7 +100,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
             attr = xml.Attribute("format");
             image.Format = attr != null ? attr.Value : null;
-            
+
             attr = xml.Attribute("rawData");
             image.Data = attr != null ? attr.Value : null;
 

@@ -12,11 +12,11 @@
                                 "HotKeyData"})]
     public partial class STORMAdvLimit : DataObject
     {
-
         private string fName;
         private string fUser;
         private string fModule;
         private string fValue;
+
         /// <summary>
         /// десериализованное AdvansedLimit
         /// </summary>
@@ -32,6 +32,7 @@
             get { return fAdvLimit; }
             set { fAdvLimit = value; }
         }
+
         /// <summary>
         /// горячая клавиша
         /// </summary>
@@ -41,11 +42,13 @@
             {
                 return fHotKeyData;
             }
+
             set
             {
                 fHotKeyData = value;
             }
         }
+
         /// <summary>
         /// имя
         /// </summary>
@@ -56,11 +59,13 @@
                 string result = this.fName;
                 return result;
             }
+
             set
             {
                 this.fName = value;
             }
         }
+
         /// <summary>
         /// пользователь, чьё это ограничение
         /// </summary>
@@ -71,11 +76,13 @@
                 string result = this.fUser;
                 return result;
             }
+
             set
             {
                 this.fUser = value;
             }
         }
+
         /// <summary>
         /// модуль (генерируется AdvLimitComponent-ом, содержит информацию о форме и о списковом контроле)
         /// </summary>
@@ -86,6 +93,7 @@
                 string result = this.fModule;
                 return result;
             }
+
             set
             {
                 this.fModule = value;
@@ -102,6 +110,7 @@
                 string result = this.fValue;
                 return result;
             }
+
             set
             {
                 this.fValue = value;

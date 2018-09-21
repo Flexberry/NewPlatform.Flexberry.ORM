@@ -21,7 +21,7 @@
     public class ToolXML
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolXML()
         {
@@ -75,8 +75,6 @@
             }
         }
 
-
-
         /// <summary>
         /// Получение XML документа из объекта данных
         /// </summary>
@@ -110,9 +108,9 @@
             bool setObjectLoadingStateLoaded, bool setObjectStatusCreated)
         {
             return DataObject2XMLDocument(
-                ref dataObject, 
-                serializeAggregators, 
-                setObjectLoadingStateLoaded, 
+                ref dataObject,
+                serializeAggregators,
+                setObjectLoadingStateLoaded,
                 setObjectStatusCreated,
                 false);
         }
@@ -127,10 +125,10 @@
         /// <param name="serializeMasters"> Проводить полную сериализацию мастеров объектов </param>
         /// <returns> Сериализованное представление объекта </returns>
         public static XmlDocument DataObject2XMLDocument(
-            ref ICSSoft.STORMNET.DataObject dataObject, 
+            ref ICSSoft.STORMNET.DataObject dataObject,
             bool serializeAggregators,
-            bool setObjectLoadingStateLoaded, 
-            bool setObjectStatusCreated, 
+            bool setObjectLoadingStateLoaded,
+            bool setObjectStatusCreated,
             bool serializeMasters)
         {
             var xmlDoc = new XmlDocument();
@@ -143,11 +141,11 @@
                 var assemblies = new SortedList();
 
                 prv_DataObject2XmlElement(
-                    xmlEl, 
-                    dataObject, 
-                    assemblies, 
-                    serializeAggregators, 
-                    setObjectLoadingStateLoaded, 
+                    xmlEl,
+                    dataObject,
+                    assemblies,
+                    serializeAggregators,
+                    setObjectLoadingStateLoaded,
                     setObjectStatusCreated,
                     serializeMasters,
                     new List<string>());
@@ -183,11 +181,11 @@
         /// <param name="usedPrimaryKeyList"> Вспомогательный список первичных ключей объектов, которые уже были сериализованы </param>
         /// <returns> Сериализованное представление объекта </returns>
         private static void prv_DataObject2XmlElement(
-            XmlElement xmlEl, 
-            ICSSoft.STORMNET.DataObject dataObject, 
-            SortedList assemblies, 
+            XmlElement xmlEl,
+            ICSSoft.STORMNET.DataObject dataObject,
+            SortedList assemblies,
             bool serializeAggregators,
-            bool setObjectLoadingStateLoaded, 
+            bool setObjectLoadingStateLoaded,
             bool setObjectStatusCreated,
             bool serializeMasters,
             ICollection<string> usedPrimaryKeyList)
@@ -229,11 +227,11 @@
                                     }
 
                                     prv_DataObject2XmlElement(
-                                        xmlElDetailObject, 
-                                        detailarray.ItemByIndex(j), 
-                                        assemblies, 
-                                        serializeAggregators, 
-                                        setObjectLoadingStateLoaded, 
+                                        xmlElDetailObject,
+                                        detailarray.ItemByIndex(j),
+                                        assemblies,
+                                        serializeAggregators,
+                                        setObjectLoadingStateLoaded,
                                         setObjectStatusCreated,
                                         serializeMasters,
                                         usedPrimaryKeyList);
@@ -311,15 +309,16 @@
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Сериализация объекта при помощи SoapFormatter
-        ///</summary>
-        ///<param name="o">Объект для сериализации</param>
-        ///<returns>Сериализованный объект</returns>
+        /// </summary>
+        /// <param name="o">Объект для сериализации</param>
+        /// <returns>Сериализованный объект</returns>
         public static string ObjectToString(object o)
         {
             MemoryStream str = new MemoryStream();
             SoapFormatter formatter = new SoapFormatter();
+
             //formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
             formatter.Serialize(str, o);
             str.Flush();
@@ -356,9 +355,9 @@
         /// <param name="DataObjectCache"> DataObjectCache </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_XmlElement2DataObject(
-            XmlElement xmlEl, 
-            ICSSoft.STORMNET.DataObject dataObject, 
-            SortedList assemblies, 
+            XmlElement xmlEl,
+            ICSSoft.STORMNET.DataObject dataObject,
+            SortedList assemblies,
             DataObjectCache DataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
@@ -441,10 +440,10 @@
         /// <param name="DataObjectCache"> DataObjectCache </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_ReadProperty(
-            XmlElement xmlEl, 
-            ICSSoft.STORMNET.DataObject dataObject, 
-            string propname, 
-            SortedList assemblies, 
+            XmlElement xmlEl,
+            ICSSoft.STORMNET.DataObject dataObject,
+            string propname,
+            SortedList assemblies,
             DataObjectCache DataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
@@ -489,9 +488,9 @@
         /// <param name="DataObjectCache"> DataObjectCache </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_ReadMaster(
-            XmlNode masternode, 
+            XmlNode masternode,
             ICSSoft.STORMNET.DataObject dataObject,
-            SortedList assemblies, 
+            SortedList assemblies,
             DataObjectCache DataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
@@ -528,9 +527,9 @@
         /// <param name="DataObjectCache"> DataObjectCache </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
         private static void prv_ReadDetail(
-            XmlNodeList xmldetailobjects, 
-            DetailArray detail, 
-            SortedList assemblies, 
+            XmlNodeList xmldetailobjects,
+            DetailArray detail,
+            SortedList assemblies,
             DataObjectCache DataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
@@ -558,28 +557,28 @@
             {
                 result = true;
             }
+
             return result;
         }
-
-
     }
 
-    ///<summary>
+    /// <summary>
     /// Инструмент для бинарной сериализации-десериализации
     /// Используется для Function
     /// Сериализованные байты конвертируются в ToBase64String
-    ///</summary>
+    /// </summary>
     public class ToolBinarySerializer
     {
-        ///<summary>
+        /// <summary>
         /// Сериализация объекта при помощи BinaryFormatter
-        ///</summary>
-        ///<param name="o">Объект</param>
-        ///<returns>Строка</returns>
+        /// </summary>
+        /// <param name="o">Объект</param>
+        /// <returns>Строка</returns>
         public static string ObjectToString(object o)
         {
             MemoryStream strm = new MemoryStream();
             BinaryFormatter formatter = new BinaryFormatter();
+
             //formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
             formatter.Serialize(strm, o);
             strm.Position = 0;
@@ -587,7 +586,6 @@
             strm.Read(binData, 0, (int)strm.Length);
 
             return Convert.ToBase64String(binData);
-
         }
 
          /// <summary>
@@ -624,6 +622,7 @@
             return formatter.Deserialize(strm);
         }
     }
+
     /// <summary>
     /// Помощь при загрузке сборок, которые были подписаны
     /// </summary>
@@ -640,6 +639,7 @@
             {
                 throw new ArgumentNullException("asmName");
             }
+
             Assembly asm = null;
             AssemblyName asmN = new AssemblyName(asmName);
             try
@@ -679,6 +679,7 @@
             {
                 throw new Exception("Не могу найти сборку: [" + asmName + "] или [" + shortAsmName + "] с ошибкой: " + exStr);
             }
+
             return asm;
         }
 
@@ -704,6 +705,7 @@
             {
                 return retType;
             }
+
             string shortName = "", exStr = "";
             if ((assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1))
             {
@@ -736,6 +738,7 @@
             {
                 throw new Exception("Не могу найти тип: [" + assemblyQualifiedName + "] или [" + shortName + "] с ошибкой: " + exStr);
             }
+
             return retType;
         }
 
@@ -748,6 +751,7 @@
         public static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
             string asmName = args.Name;
+
             //MessageBox.Show("Разрешаю сборку: " + asmName);
             Assembly asm = null;
             if (asmName.IndexOf("Culture=") > -1 || asmName.IndexOf("PublicKeyToken=") > -1)
@@ -765,19 +769,21 @@
                 {
                 }
             }
+
             return asm;
         }
 
-        ///<summary>
+        /// <summary>
         /// Разрешить тип
-        ///</summary>
-        ///<param name="sender"></param>
-        ///<param name="args"></param>
-        ///<returns></returns>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static Assembly CurrentDomainTypeResolve(object sender, ResolveEventArgs args)
         {
             string assemblyQualifiedName = args.Name;
             string shortName = assemblyQualifiedName;
+
             //TODO: comment this
             //MessageBox.Show("Resolve " + assemblyQualifiedName);
             if ((assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1))
@@ -789,19 +795,20 @@
 
                 shortName = assemblyQualifiedName.Substring(0, ind);
             }
+
             Type type = Type.GetType(shortName, false);
             if (type != null)
             {
                 return type.Assembly;
             }
+
             return null;
         }
-
     }
-    
-    ///<summary>
-    /// 
-    ///</summary>
+
+    /// <summary>
+    ///
+    /// </summary>
     public sealed class AllowAllAssemblyVersionsDeserializationBinder : System.Runtime.Serialization.SerializationBinder
     {
         public override Type BindToType(string asmName, string typeName)
@@ -821,11 +828,11 @@
                 typeToDeserialize = Type.GetType(String.Format("{0}, {1}",
                                                                typeName, shortAsmName));
             }
+
             return typeToDeserialize;
         }
-
-        
     }
+
     public class ExternalModule
     {
         private ExternalModule() { }
@@ -834,7 +841,6 @@
 
         static public Type[] GetTypes(string filename, Type filter)
         {
-
             ArrayList arl = new ArrayList();
             if (System.IO.Path.GetDirectoryName(filename) == "")
                 filename = System.IO.Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + @"\" + filename;
@@ -842,15 +848,20 @@
             foreach (Type t in asm.GetTypes())
             {
                 if (t == filter)
+                {
                     arl.Add(t);
+                }
                 else if (t.IsSubclassOf(filter))
+                {
                     arl.Add(t);
+                }
                 else
                 {
                     Type tt = t.GetInterface(filter.Name);
                     if (tt != null) arl.Add(t);
                 }
             }
+
             return (Type[])arl.ToArray(typeof(Type));
         }
 
@@ -876,7 +887,9 @@
         static public object[] GetInstances(string filename, Type filter, GetParametersForContructorDelegate parametersDelegate)
         {
             if (parametersDelegate == null)
+            {
                 return GetInstances(filename, filter, new object[0]);
+            }
             else
             {
                 Type[] alltypes = GetTypes(filename, filter);
@@ -886,12 +899,12 @@
                 return res;
             }
         }
-
     }
 
     public class ToolZIP
     {
         // *** Start programmer edit section *** (Compressor CustomMembers)
+
         /// <summary>
         /// Сжатие
         /// </summary>
@@ -946,9 +959,7 @@
                 return ms;
             }
 
-
             MemoryStream resstream = new MemoryStream();
-
 
             //****
             byte[] data = new byte[4096];
@@ -981,10 +992,12 @@
         public static string Compress(string несжатаяСтрока)
         {
             MemoryStream ms = new MemoryStream();
+
             //StreamWriter strw = new StreamWriter(ms);
             //strw.Write(несжатаяСтрока);
             BinaryWriter binw = new BinaryWriter(ms);
             binw.Write(несжатаяСтрока);
+
             //binw.Close();
 
             MemoryStream retMS = Compress(ms);
@@ -1003,6 +1016,7 @@
         public static string Decompress(string сжатаяСтрока)
         {
             MemoryStream ms = new MemoryStream();
+
             //StreamWriter strw = new StreamWriter(ms);
             //strw.Write(несжатаяСтрока);
             BinaryWriter binw = new BinaryWriter(ms);
@@ -1017,6 +1031,7 @@
             retMS.Close();
             return retStr;
         }
+
         // *** End programmer edit section *** (Compressor CustomMembers)
     }
 }

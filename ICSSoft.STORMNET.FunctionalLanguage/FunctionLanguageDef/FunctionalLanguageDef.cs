@@ -7,7 +7,7 @@
 
     /// <summary>
     /// Определение языка ограничений для конструирования ограничивающих функций
-    /// </summary> 
+    /// </summary>
     [NotStored]
     public abstract class FunctionalLanguageDef : DataObject
     {
@@ -112,11 +112,12 @@
                     pars.Add(fpd.Type.ValueToSimpleValue(par));
                 }
             }
+
             return new object[] { f.FunctionDef.ID, pars, types };
         }
 
         /// <summary>
-        /// Восстановление функции из простой структуры 
+        /// Восстановление функции из простой структуры
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -146,6 +147,7 @@
                 else
                 {
                     string stype = (string)type;
+
                     // by fat
                     // это из за того, что раньше адв лимит лежал отдельно, а сейчас в уи
                     // для поддержки ранее созданных фильтров. Криво конечно, но что поделаешь...
@@ -155,7 +157,7 @@
                     try
                     {
                         tp = Tools.AssemblyLoader.GetTypeWithAssemblyName(stype);
-                        
+
                         // Обеспечение обратной совместимости: в старых версиях в первую очередь сборку необходимо искать в другом месте.
                         Type oldType = TryGetOldType(stype, false);
                         if (oldType != null)
@@ -192,6 +194,7 @@
                     f.Parameters.Add(vd);
                 }
             }
+
             return f;
         }
 
@@ -224,7 +227,7 @@
 
             return null;
         }
-        
+
         /// <summary>
         /// Тип функции для возврата значения
         /// </summary>
@@ -239,12 +242,12 @@
         /// Переменные (Детейл)
         /// </summary>
         public DetailArrayOfVariableDef Variables { get { return _fieldVariables; } set { _fieldVariables = value; } }
-        
+
         /// <summary>
         /// Функции (Детейл)
         /// </summary>
         public DetailArrayOfFunctionDef Functions { get { return _fieldFunctions; } set { _fieldFunctions = value; } }
-        
+
         /// <summary>
         /// Тип функции для возврата значения
         /// </summary>
@@ -288,7 +291,7 @@
         public class NotFoundFunctionBySignatureException : Exception
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public NotFoundFunctionBySignatureException() { }
         }
@@ -299,7 +302,7 @@
         public class NotFoundFunctionParametersException : Exception
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public NotFoundFunctionParametersException() { }
         }
@@ -399,6 +402,7 @@
                 keySB.Append(partype.ToString());
                 keySB.Append(";");
             }
+
             string key = keySB.ToString();
             if (FunctionsByParametersTypes.ContainsKey(key))
             {
@@ -493,6 +497,7 @@
         public DetailArrayOfObjectType(FunctionalLanguageDef masterObj)
             : base(typeof(ObjectType), masterObj)
         { }
+
         /// <summary>
         ///  return (ObjectType)ItemByIndex(index);
         /// </summary>
@@ -503,6 +508,4 @@
             get { return (ObjectType)ItemByIndex(index); }
         }
     }
-
-
 }

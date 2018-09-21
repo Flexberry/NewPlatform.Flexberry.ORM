@@ -27,7 +27,6 @@
         /// </summary>
         private static readonly Dictionary<TypeTypePair, MethodInfo> TypeToTypeMethods = new Dictionary<TypeTypePair, MethodInfo>(new TypeTypePairEqualityComparer());
 
-
         /// <summary>
         /// Можно ли преобразовать один тип к другому.
         /// </summary>
@@ -52,10 +51,10 @@
                 if (TypeToTypeMethods.ContainsKey(key))
                     return true;
 
-                if (!ParsedTypes.Contains(fromType)) 
+                if (!ParsedTypes.Contains(fromType))
                     AddTypeOperator(fromType);
 
-                if (!ParsedTypes.Contains(toType)) 
+                if (!ParsedTypes.Contains(toType))
                     AddTypeOperator(toType);
 
                 return TypeToTypeMethods.ContainsKey(key);
@@ -74,7 +73,7 @@
             {
                 Type fromType = value.GetType();
 
-                if (fromType == toType) 
+                if (fromType == toType)
                     return value;
 
                 if (fromType == typeof(string) && toType.IsEnum)
@@ -90,10 +89,10 @@
                     return (int)value;
 
                 TypeTypePair key = new TypeTypePair(fromType, toType);
-                if (!ParsedTypes.Contains(fromType)) 
+                if (!ParsedTypes.Contains(fromType))
                     AddTypeOperator(fromType);
 
-                if (!ParsedTypes.Contains(toType)) 
+                if (!ParsedTypes.Contains(toType))
                     AddTypeOperator(toType);
 
                 if (TypeToTypeMethods.ContainsKey(key))
@@ -153,7 +152,7 @@
             }
 
             /// <summary>
-            /// Serves as a hash function for a type. 
+            /// Serves as a hash function for a type.
             /// </summary>
             /// <returns>
             /// A hash code for the current object.

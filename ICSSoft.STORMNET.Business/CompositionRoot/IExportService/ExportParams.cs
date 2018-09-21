@@ -76,6 +76,5 @@
         /// </summary>
         /// <remarks>Отрицательные значения и 0 отключают ограничение.</remarks>
         public int MaxObjectsCount { get; set; }
-
     }
 }

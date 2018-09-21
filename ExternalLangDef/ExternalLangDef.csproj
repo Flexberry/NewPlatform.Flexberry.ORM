@@ -60,7 +60,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Spatial, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -76,6 +76,11 @@
     <Compile Include="AdvLimit\AdvansedLimit.cs" />
     <Compile Include="AdvLimit\ParameterDef.cs" />
     <Compile Include="AdvLimit\STORMAdvLimit.cs" />
+    <Compile Include="AdvLimit\STORMAdvLimitSettings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>STORMAdvLimitSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExternalLangDef\DateFormats.cs" />
     <Compile Include="ExternalLangDef\DatePart.cs" />
     <Compile Include="ExternalLangDef\DetailVariableDef.cs" />

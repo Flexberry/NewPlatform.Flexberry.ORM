@@ -45,16 +45,19 @@
             {
                 throw new ArgumentNullException("provider");
             }
+
             if (expression == null)
             {
                 throw new ArgumentNullException("expression");
             }
+
             if (
                 !(typeof(IQueryable<T>).IsAssignableFrom(expression.Type)
                   || typeof(IEnumerable<T>).IsAssignableFrom(expression.Type)))
             {
                 throw new ArgumentOutOfRangeException("expression");
             }
+
             this.provider = provider;
             this.expression = expression;
         }
@@ -97,6 +100,5 @@
         {
             return ((System.Collections.IEnumerable)this.provider.Execute(this.expression)).GetEnumerator();
         }
-
     }
 }

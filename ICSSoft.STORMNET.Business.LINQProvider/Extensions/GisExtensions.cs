@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+
     /// <summary>
     /// Методы расширения Gis для LINQProvider.
     /// </summary>
@@ -67,7 +68,6 @@
         {
             return geo.CoordinateSystem.Id;
         }
-
     }
 #endif
 }

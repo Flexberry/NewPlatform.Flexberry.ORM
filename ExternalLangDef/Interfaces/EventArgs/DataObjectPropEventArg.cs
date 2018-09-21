@@ -45,6 +45,7 @@
                 string result = this.fpropertyname;
                 return result;
             }
+
             set
             {
                 this.fpropertyname = value;

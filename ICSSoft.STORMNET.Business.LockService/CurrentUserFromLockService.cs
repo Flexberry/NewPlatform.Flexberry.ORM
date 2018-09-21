@@ -14,9 +14,11 @@ namespace ICSSoft.Services
             {
                 return LockService.GetUserName();
             }
+
             set
             {
                 throw new NotSupportedException();
+
                 //LockService.SetUserName(value);
             }
         }
@@ -27,6 +29,7 @@ namespace ICSSoft.Services
             {
                 throw new NotSupportedException();
             }
+
             set
             {
                 throw new NotSupportedException();
@@ -39,6 +42,7 @@ namespace ICSSoft.Services
             {
                 throw new NotSupportedException();
             }
+
             set
             {
                 throw new NotSupportedException();

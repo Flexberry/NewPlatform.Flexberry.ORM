@@ -75,7 +75,7 @@
         /// Комментарий к соответствующему полю.
         /// </summary>
         public const string SelectAuditViewNameFieldSummary = "Имя представления для аудирования операции чтения";
-        
+
         /// <summary>
         /// Имя соответствующего поля.
         /// </summary>
@@ -155,7 +155,7 @@
         /// Комментарий к соответствующему полю.
         /// </summary>
         public const string WriteModeFieldSummary = "Режим записи данных аудита (синхронный или асинхронный)";
-        
+
         /// <summary>
         /// Имя соответствующего поля.
         /// </summary>

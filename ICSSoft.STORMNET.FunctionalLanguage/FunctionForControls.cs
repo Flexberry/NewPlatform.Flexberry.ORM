@@ -11,11 +11,11 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     [Serializable]
     public class FunctionForControls
     {
-
         /// <summary>
         /// Имя
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Функция
         /// </summary>
@@ -23,11 +23,14 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         {
             get { return function; }
         }
+
         private ICSSoft.STORMNET.FunctionalLanguage.Function function;
+
         /// <summary>
         /// Представление
         /// </summary>
         public View View = null;
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -38,6 +41,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             this.View = view;
             this.function = func;
         }
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -49,6 +53,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             this.View = Information.GetView(View, type);
             function = func;
         }
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -61,6 +66,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             this.View = Information.GetView(View, type);
             function = new ICSSoft.STORMNET.FunctionalLanguage.Function(def, parameters);
         }
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -82,7 +88,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 for (int i = 0; i < funct.Parameters.Count; i++)
                 {
                     if (funct.Parameters[i] is ICSSoft.STORMNET.FunctionalLanguage.Function)
+                    {
                         el.AppendChild(ToXMLElement(doc, funct.Parameters[i] as ICSSoft.STORMNET.FunctionalLanguage.Function));
+                    }
                     else if (funct.Parameters[i] is ICSSoft.STORMNET.FunctionalLanguage.VariableDef)
                     {
                         System.Xml.XmlElement varel = doc.CreateElement("Variable");
@@ -99,6 +107,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     }
                 }
             }
+
             return el;
         }
 
@@ -135,6 +144,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                                 parameters[i] = vd;
                                 break;
                             }
+
                         break;
                     case "Value":
                     {
@@ -152,18 +162,21 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                                 catch { }
                             }
                         }
+
                         if (parameters[i] == null)
                             parameters[i] = subel.GetAttribute("Value");
                         break;
                     }
-                };
+                }
+;
             }
+
             if (funcname == null || funcname == "")
                 return null;
             else
                 return lang.GetFunction(funcname, parameters);
-
         }
+
         /// <summary>
         /// Разбор
         /// </summary>
@@ -176,6 +189,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             ICSSoft.STORMNET.View v = ICSSoft.STORMNET.Information.GetView(viewname, type);
             return Parse(value, v);
         }
+
         /// <summary>
         /// Разбор
         /// </summary>
@@ -201,6 +215,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 catch
                 { }
             }
+
             vars = (ICSSoft.STORMNET.FunctionalLanguage.VariableDef[])arvars.ToArray(typeof(ICSSoft.STORMNET.FunctionalLanguage.VariableDef));
             ICSSoft.STORMNET.FunctionalLanguage.Function fnc = FromXMLElements((System.Xml.XmlElement)doc.FirstChild, lang, vars);
             FunctionForControls res = null;

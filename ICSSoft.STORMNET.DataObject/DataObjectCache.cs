@@ -84,7 +84,9 @@
                     _lastCacheIndex++;
                 }
                 else
+                {
                     _objectCachesUseCounter[_lastCacheIndex] = ((int)_objectCachesUseCounter[_lastCacheIndex]) + 1;
+                }
             }
         }
 
@@ -172,7 +174,6 @@
 
             return dobj;
         }
-
 
         /// <summary>
         /// Добавить объект в кеш.

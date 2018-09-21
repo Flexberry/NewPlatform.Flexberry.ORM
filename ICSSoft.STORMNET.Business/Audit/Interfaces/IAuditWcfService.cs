@@ -11,6 +11,6 @@
     /// </summary>
     [ServiceContract]
     public interface IAuditWcfService : IAudit
-    { 
+    {
     }
 }

@@ -16,7 +16,7 @@
         /// Константа для STORMMainObjectKey
         /// </summary>
         private const string StormMainObjectKey = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.StormMainObjectKey;
-        
+
         private const string StormDataObjectType = "STORMNETDATAOBJECTTYPE";
 
         /// <summary>
@@ -26,7 +26,7 @@
         /// <param name="storageStructs">Структуры хранения, которые будут получены из lcs.</param>
         /// <param name="maxCountKeys">Максимальное колличество ключей для структур хранения.</param>
         /// <returns></returns>
-        private DataTable GetDataSet(LoadingCustomizationStruct customizationStruct, out StorageStructForView[] storageStructs, 
+        private DataTable GetDataSet(LoadingCustomizationStruct customizationStruct, out StorageStructForView[] storageStructs,
                                      out int maxCountKeys)
         {
             var resData = new DataTable("ResultTable");
@@ -35,15 +35,15 @@
 
             if(customizationStruct.LoadingTypes.Length  == 0)
                 return resData;
-            
-            var countKeys = new int[customizationStruct.LoadingTypes.Length];            
+
+            var countKeys = new int[customizationStruct.LoadingTypes.Length];
 
             for (int i = 0; i < customizationStruct.LoadingTypes.Length; i++)
             {
                 storageStructs[i] = Information.GetStorageStructForView(customizationStruct.View, customizationStruct.LoadingTypes[i],
                                                                         StorageTypeEnum.SimpleStorage, null, GetType());
                 countKeys[i] = Utils.CountMasterKeysInSelect(storageStructs[i]);
-                
+
                 if (countKeys[i] > maxCountKeys)
                     maxCountKeys = countKeys[i];
             }
@@ -53,10 +53,9 @@
 
             for (int i = 0; i < storageStructs.Length; i++)
                 FillDataTable(resData, storageStructs[i], columnsInfo, i);
-           
+
             //TODO разобраться с for (int j = 0; j < addingKeysCount;  j++) AddColumn(STORMJoinedMasterKey)
-            
-            
+
             return resData;
         }
 
@@ -67,11 +66,11 @@
         /// <param name="storageStruct">Структура хранения на основе которой будут добавлять строки.</param>
         /// <param name="columnsInfo">Информация о колонках для определения, что и в какие колонки записывать.</param>
         /// <param name="structIndex">
-        /// Номер структуры. 
+        /// Номер структуры.
         /// Необходим для того, чтобы достать настройки из информации о колонках.
         /// Если необходимо заполнить таблицу одним массивом данных и структура была одна, то необходимо передать 0.
         /// </param>
-        private void FillDataTable(DataTable dt, StorageStructForView storageStruct, List<ColumnInfo> columnsInfo, 
+        private void FillDataTable(DataTable dt, StorageStructForView storageStruct, List<ColumnInfo> columnsInfo,
                                    int structIndex)
         {
             DataTable mainDataTable = _dataSet.Tables[storageStruct.sources.storage[0].Storage];
@@ -85,7 +84,7 @@
             var masterTables = new Dictionary<StorageStructForView.PropSource, DataTable>();
             SetAllMasterTables(storageStruct.sources, mainDataTable, masterTables);
 
-            // Далее заполняем таблицу по ячейкам. 
+            // Далее заполняем таблицу по ячейкам.
             foreach (var columnInfo in columnsInfo)
             {
                 StorageStructForView.PropStorage propStorage = columnInfo.PropStorages == null
@@ -103,7 +102,7 @@
                     if (propSource == storageStruct.sources)
                     {
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
-                            dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][propStorage.Name];                        
+                            dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][propStorage.Name];
                     }
                     else if(masterTables.ContainsKey(propSource))
                     {
@@ -138,11 +137,13 @@
 
                         // в эти колонки записываются первичные ключи мастеров
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
+
                             // Ключ мастера храниться в таблице мастера
                             if (masterTables.ContainsKey(propSource))
                                 dt.Rows[i + startRowsIndex][columnInfo.ColumnName] =
                                     masterTables[propSource].Rows[i][simpleName];
                             else
+
                                 // или его можно взять сразу из таблицы основного объекта данных
                                 dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][simpleName];
                     }
@@ -157,7 +158,7 @@
         /// <param name="mainTable">Таблица основного объекта данных.</param>
         /// <param name="result">Результат выполнения метода. Необходим для выполнения рекурсии.</param>
         /// <returns>Таблицы мастеров после соединения</returns>
-        private void SetAllMasterTables(StorageStructForView.PropSource propSource, DataTable mainTable,  
+        private void SetAllMasterTables(StorageStructForView.PropSource propSource, DataTable mainTable,
                                         Dictionary<StorageStructForView.PropSource, DataTable> result)
         {
             if (propSource.LinckedStorages == null || propSource.LinckedStorages.Length == 0)
@@ -166,9 +167,10 @@
             foreach (var source in propSource.LinckedStorages)
             {
                 string currentTableName = source.storage[0].Storage;
-                
+
                 DataTable dt1 = mainTable ?? result[propSource];
                 DataTable dt2 = _dataSet.Tables[currentTableName];
+
                 // соединяем переданный источник с текущим
                 DataTable resultTable = GetResultJoinTables(dt1, dt2, source.ObjectLink,
                                                             source.storage[0].PrimaryKeyStorageName);
@@ -194,7 +196,7 @@
         /// Имя поля по которому соединяют со стороны первой таблицы.
         /// </param>
         /// <param name="pkMasterName">
-        /// Имя свойства мастера в котором храниться первичный ключ. 
+        /// Имя свойства мастера в котором храниться первичный ключ.
         /// Имя поля по которому соединяют со стороны второй таблицы.
         /// </param>
         /// <returns>
@@ -226,7 +228,7 @@
         /// Имя поля по которому соединяют со стороны первой таблицы.
         /// </param>
         /// <param name="pkMasterName">
-        /// Имя свойства мастера в котором храниться первичный ключ. 
+        /// Имя свойства мастера в котором храниться первичный ключ.
         /// Имя поля по которому соединяют со стороны второй таблицы.
         /// </param>
         /// <param name="propMasterNames">
@@ -238,17 +240,17 @@
         /// Если ссылка на мастера была пустой или мастер не был найден, то весь массив будет заполнен null'ми.
         /// Возвращает null в случае, если не найдена таблицы или свойство мастера из первой таблицы.
         /// </returns>
-        private DataTable GetResultJoinTablesByPropNames(DataTable dt1, DataTable dt2, string propMasterKey, 
+        private DataTable GetResultJoinTablesByPropNames(DataTable dt1, DataTable dt2, string propMasterKey,
                                                         string pkMasterName, List<string> propMasterNames)
         {
             var result = new DataTable(dt2.TableName);
 
             foreach (var propMasterName in propMasterNames)
                 result.Columns.Add(new DataColumn(propMasterName, dt2.Columns[propMasterName].DataType));
-            
+
             propMasterNames.ToDictionary(propMasterName => propMasterName,
                                                       propMasterName => new object[dt1.Rows.Count]);
-            
+
             for (int i = 0; i < dt1.Rows.Count; i++)
             {
                 result.Rows.Add(result.NewRow());
@@ -285,7 +287,7 @@
         /// <summary>
         /// Возвращает все источники мастеров по иерархии для указанного источника данных
         /// </summary>
-        /// <param name="propSource">Источник данных от которого начнется проход по иерархии мастеров</param>        
+        /// <param name="propSource">Источник данных от которого начнется проход по иерархии мастеров</param>
         /// <returns>Список всех источников мастеров, полученных по иерархии</returns>
         private List<StorageStructForView.PropSource> GetAllLinkedStoragesFroPropSource(StorageStructForView.PropSource propSource)
         {
@@ -317,14 +319,14 @@
         {
             DataTable mainStructureTable = _altdataSet.Tables[storageStructs[0].sources.storage[0].Storage];
             DataTable mainDataTable = _dataSet.Tables[storageStructs[0].sources.storage[0].Storage];
-            
+
             if (mainStructureTable == null || mainDataTable == null)
                 return new List<ColumnInfo>();
 
             var columnsInfo = new List<ColumnInfo>();
             var listMasters = new List<List<StorageStructForView.PropStorage>>();
 
-            // Сначало добавим колонки из представления для первой структуры, 
+            // Сначало добавим колонки из представления для первой структуры,
             // так как для всех последующих их набор не изменится
             foreach (var prop in storageStructs[0].props)
             {
@@ -381,7 +383,7 @@
             var linkedMasters = GetAllLinkedStoragesFroPropSource(storageStructs[0].sources);
             int startIndexJoinedMasterKeys = columnsInfo.Count;
 
-            // добавим дополнительные колонки для всех мастеров, 
+            // добавим дополнительные колонки для всех мастеров,
             // которые необходимы для зачитки всех свойств представления
             for (int j = 0; j < linkedMasters.Count; j++)
             {
@@ -396,10 +398,10 @@
                 var linkedMasters2 = GetAllLinkedStoragesFroPropSource(storageStructs[i].sources);
 
                 for (int j = startIndexJoinedMasterKeys; j < linkedMasters2.Count + startIndexJoinedMasterKeys; j++)
-                    columnsInfo[j].PropSources.Add(linkedMasters2[j - startIndexJoinedMasterKeys]);                    
+                    columnsInfo[j].PropSources.Add(linkedMasters2[j - startIndexJoinedMasterKeys]);
             }
 
-            // затем добавим дополнительные колонки для всех мастеров из представления. 
+            // затем добавим дополнительные колонки для всех мастеров из представления.
             // Отчасти они продублируют первый набор ключей, но ничего не поделать,
             // ICSSoft.STORMNET.Businessю.Utils работает именно с таким набором колонок.
             for (int j = 0; j < listMasters.Count; j++)
@@ -409,13 +411,13 @@
                 dt.Columns.Add(colName);
                 columnsInfo.Add(new ColumnInfo(colName, listMasters[j]));
             }
-            
+
             return columnsInfo;
         }
 
         private object[][] ReadData(LoadingCustomizationStruct customizationStruct, out StorageStructForView[] storageStruct)
         {
-            //строим запрос 
+            //строим запрос
             View dataObjectView = customizationStruct.View;
             Function limitFunction = customizationStruct.LimitFunction;
             int maxCountKeys;
@@ -447,7 +449,9 @@
                             props.Insert(k++, prop);
                         }
                         else
+                        {
                             k++;
+                        }
                     }
                 }
             }
@@ -522,7 +526,7 @@
             {
                 get
                 {
-                    return PropStorages == null || PropStorages.Count == 0 
+                    return PropStorages == null || PropStorages.Count == 0
                         ? _propSources
                         : (from item in PropStorages select item.source).ToList();
                 }
@@ -552,7 +556,7 @@
             /// </summary>
             public ColumnInfo(string columnName)
             {
-                ColumnName = columnName;                
+                ColumnName = columnName;
             }
 
             public ColumnInfo(string columnName, StorageStructForView.PropStorage propStorage)
@@ -568,8 +572,8 @@
             }
 
             /// <summary>
-            /// Конструктор для вспомогательной колонки StormJoinedMasterKey, 
-            /// котороя необходима для проставления ссылок на мастера 
+            /// Конструктор для вспомогательной колонки StormJoinedMasterKey,
+            /// котороя необходима для проставления ссылок на мастера
             /// (не только те мастера, которые указаны в представлении)
             /// </summary>
             public ColumnInfo(string columnName, StorageStructForView.PropSource propSource)

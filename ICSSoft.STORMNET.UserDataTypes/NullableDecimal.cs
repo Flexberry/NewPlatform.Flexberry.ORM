@@ -13,7 +13,6 @@ namespace ICSSoft.STORMNET.UserDataTypes
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.SQLDataService), typeof(int))]
     public class NullableInt : IComparable, IConvertible, System.Xml.Serialization.IXmlSerializable
     {
-
         private int fValue;
 
         /// <summary>
@@ -68,6 +67,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return null;
             }
+
             return value.Value;
         }
 
@@ -82,6 +82,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return null;
             }
+
             return new NullableInt(value.Value);
         }
 
@@ -94,6 +95,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return null;
         }
+
         /// <summary>
         /// Decimal в NullableInt
         /// </summary>
@@ -103,6 +105,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return new NullableInt((int)value);
         }
+
         /// <summary>
         /// в строку
         /// </summary>
@@ -122,11 +125,13 @@ namespace ICSSoft.STORMNET.UserDataTypes
                 int result = this.fValue;
                 return result;
             }
+
             set
             {
                 this.fValue = value;
             }
         }
+
         /// <summary>
         /// Разбор строки и создание NullableInt
         /// </summary>
@@ -161,8 +166,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return this.Value.Equals(((NullableInt)obj).Value);
             }
+
             return false;
         }
+
         /// <summary>
         /// ==
         /// </summary>
@@ -173,6 +180,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((new NullableInt(0)).Compare(x, y) == 0);
         }
+
         /// <summary>
         /// !=
         /// </summary>
@@ -183,6 +191,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((new NullableInt(0)).Compare(x, y) != 0);
         }
+
         /// <summary>
         /// >
         /// </summary>
@@ -193,6 +202,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((new NullableInt(0)).Compare(x, y) > 0);
         }
+
         /// <summary>
         /// >=
         /// </summary>
@@ -239,6 +249,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             if ((x != null) && (y == null)) return 1;
             return Decimal.Compare(((NullableInt)x).fValue, ((NullableInt)y).fValue);
         }
+
         /// <summary>
         /// сравнение
         /// </summary>
@@ -248,6 +259,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return Compare(this, obj);
         }
+
         /// <summary>
         /// -
         /// </summary>
@@ -258,8 +270,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) - ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
-        /// - 
+        /// -
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -268,6 +281,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return x - ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
         /// -
         /// </summary>
@@ -278,6 +292,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) - y;
         }
+
         /// <summary>
         /// +
         /// </summary>
@@ -288,6 +303,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) + ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
         /// +
         /// </summary>
@@ -298,6 +314,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return x + ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
         /// +
         /// </summary>
@@ -395,7 +412,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
         /// <summary>
         /// Не реализовано
-        /// </summary>        
+        /// </summary>
         public TypeCode GetTypeCode()
         {
             return new TypeCode();
@@ -447,7 +464,6 @@ namespace ICSSoft.STORMNET.UserDataTypes
         #endregion
     }
 
-
     /// <summary>
     /// Decimal с поддержкой null (в ту эпоху, когда ещё не было Decimal? у нас уже был этот класс - так и повелось).
     /// </summary>
@@ -456,7 +472,6 @@ namespace ICSSoft.STORMNET.UserDataTypes
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.SQLDataService), typeof(Decimal))]
     public class NullableDecimal : IComparable, IComparableType, IConvertible, System.Xml.Serialization.IXmlSerializable
     {
-
         private System.Decimal fValue;
 
         /// <summary>
@@ -499,6 +514,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return null;
             }
+
             return value.Value;
         }
 
@@ -513,6 +529,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return null;
             }
+
             return new NullableDecimal(value.Value);
         }
 
@@ -536,6 +553,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((new NullableDecimal(0)).Compare(x, y) == 0);
         }
+
         /// <summary>
         /// !=
         /// </summary>
@@ -546,6 +564,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((new NullableDecimal(0)).Compare(x, y) != 0);
         }
+
         /// <summary>
         /// >
         /// </summary>
@@ -556,6 +575,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((new NullableDecimal(0)).Compare(x, y) > 0);
         }
+
         /// <summary>
         /// >=
         /// </summary>
@@ -608,6 +628,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
                 System.Decimal result = this.fValue;
                 return result;
             }
+
             set
             {
                 this.fValue = value;
@@ -679,7 +700,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
                 return this.Value.Equals(((NullableDecimal)obj).Value);
             }
             else
+            {
                 return false;
+            }
         }
 
         public int Compare(object x)
@@ -725,8 +748,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) - ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
-        /// - 
+        /// -
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -735,6 +759,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return x - ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
         /// -
         /// </summary>
@@ -745,6 +770,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) - y;
         }
+
         /// <summary>
         /// +
         /// </summary>
@@ -755,6 +781,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) + ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
         /// +
         /// </summary>
@@ -765,6 +792,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return x + ((y != null) ? y.Value : 0);
         }
+
         /// <summary>
         /// +
         /// </summary>
@@ -775,7 +803,6 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             return ((x != null) ? x.Value : 0) + y;
         }
-
 
         #region IConvertible Members
 
@@ -863,7 +890,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
         /// <summary>
         /// Не реализовано
-        /// </summary>        
+        /// </summary>
         public TypeCode GetTypeCode()
         {
             return new TypeCode();

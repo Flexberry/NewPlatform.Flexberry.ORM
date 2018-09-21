@@ -25,8 +25,8 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <summary>
         /// Имя контакта (например, телефон)
         /// </summary>
-        public string ContactType { get; set; }    
-        
+        public string ContactType { get; set; }
+
         /// <summary>
         /// Сравнение объектов по содержанию, а не по ссылке
         /// </summary>

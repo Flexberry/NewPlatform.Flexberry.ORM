@@ -26,7 +26,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// Полигоны в формате WKT (см. http://en.wikipedia.org/wiki/Well-known_text)
         /// </summary>
         public string Poligons { get; set; }
-        
+
         public static explicit operator string(GeoData value)
         {
             // Лучше будет использовать Json, но нет возможности

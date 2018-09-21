@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
     using System.Xml;
-    
+
     /// <summary>
     /// Manager для работы с xml. Упрощает создание новых вершин, запись и чтение атрибутов различных типов.
     /// </summary>
@@ -498,7 +498,7 @@
             // Не важно с какой культурой запишем значение в xml, при чтении будем автоматически её подбирать.
             WriteValue(node, name, value.ToString(CultureInfo.CurrentCulture));
         }
-        
+
         /// <summary>
         /// Записать значение атрибута для вершины.
         /// </summary>

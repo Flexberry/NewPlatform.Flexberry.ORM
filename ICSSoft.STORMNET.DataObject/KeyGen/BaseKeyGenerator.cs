@@ -36,7 +36,5 @@
         /// Уникален ли первичный ключ
         /// </summary>
         public abstract bool Unique { get; }
-
-
     }
 }

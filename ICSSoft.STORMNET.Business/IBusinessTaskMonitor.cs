@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="TaskName">Имя задачи.</param>
         /// <param name="ID">Некоторый идентификатор задачи в конкретном мониторе.</param>
-        /// 
+        ///
         void BeginTask(string TaskName, object ID);
 
         /// <summary>

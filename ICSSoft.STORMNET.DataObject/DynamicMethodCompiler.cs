@@ -10,12 +10,14 @@ namespace ICSSoft.STORMNET
     /// <param name="source"></param>
     /// <returns></returns>
     public delegate object GetHandler(object source);
+
     /// <summary>
     /// делегат для SetProperty
     /// </summary>
     /// <param name="source"></param>
     /// <param name="value"></param>
     public delegate void SetHandler(object source, object value);
+
     /// <summary>
     /// Делегат для создания
     /// </summary>
@@ -45,7 +47,7 @@ namespace ICSSoft.STORMNET
             generator.Emit(OpCodes.Ret);
             return (InstantiateObjectHandler)dynamicMethod.CreateDelegate(typeof(InstantiateObjectHandler));
         }
-        
+
         // CreateGetDelegate
         internal static GetHandler CreateGetHandler(Type type, PropertyInfo propertyInfo)
         {

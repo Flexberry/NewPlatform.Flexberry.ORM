@@ -1,7 +1,7 @@
 ﻿namespace ICSSoft.Services
 {
     using System.Configuration;
-    
+
     using Microsoft.Practices.Unity.Configuration;
 
     using Unity;

@@ -26,7 +26,7 @@
         private EnumCaption()
         {
         }
-        
+
         /// <summary>
         /// Получить заголовок по значению перечислимого типа из CaptionAttribute.
         /// </summary>

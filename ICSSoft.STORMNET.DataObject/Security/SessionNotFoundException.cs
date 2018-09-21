@@ -8,13 +8,13 @@
     public class SessionNotFoundException : Exception
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SessionNotFoundException()
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="message"></param>
         public SessionNotFoundException(string message) : base(message) { }

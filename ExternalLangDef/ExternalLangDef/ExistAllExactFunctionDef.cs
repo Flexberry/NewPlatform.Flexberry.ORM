@@ -5,8 +5,8 @@ using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 
 namespace ICSSoft.STORMNET.Windows.Forms
 {
-	public partial class ExternalLangDef
-	{
+    public partial class ExternalLangDef
+    {
         private string GetConditionForExistAllExact(Function func, delegateConvertValueToQueryValueString convertValue,
                                                    delegatePutIdentifierToBrackets convertIdentifier)
         {
@@ -39,5 +39,5 @@ namespace ICSSoft.STORMNET.Windows.Forms
 
             return base.SQLTranslFunction(function, convertValue, convertIdentifier);
         }
-	}
+    }
 }

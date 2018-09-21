@@ -67,6 +67,7 @@
         void LoadObject(
             string dataObjectViewName,
             ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -75,6 +76,7 @@
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -83,6 +85,7 @@
         /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
         void LoadObject(
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -105,6 +108,7 @@
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);
+
         //-----------------------------------------------------
 
         /// <summary>
@@ -155,9 +159,11 @@
         /// <param name="State">Состояние вычитки( для последующей дочитки)</param>
         /// <returns></returns>
         ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache DataObjectCache);
+
         //-------LOAD separated string Objetcs ------------------------------------
+
         /// <summary>
-        ///Загрузка без создания объектов
+        /// Загрузка без создания объектов
         /// </summary>
         /// <param name="separator">разделитель в строках</param>
         /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/></param>
@@ -165,6 +171,7 @@
         ObjectStringDataView[] LoadStringedObjectView(
             char separator,
             LoadingCustomizationStruct customizationStruct);
+
         /// <summary>
         /// Загрузка без создания объектов
         /// </summary>
@@ -176,8 +183,9 @@
             char separator,
             LoadingCustomizationStruct customizationStruct,
             ref object State);
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ObjectStringDataView[] LoadStringedObjectView(ref object state);
 
@@ -262,6 +270,7 @@
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject);
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -270,6 +279,7 @@
         /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
         void LoadObject(
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject);
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -280,6 +290,7 @@
         void LoadObject(
             string dataObjectViewName,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject);
+
         /// <summary>
         /// Загрузка одного объекта данных
         /// </summary>
@@ -290,6 +301,7 @@
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject);
+
         //-----------------------------------------------------
 
         /// <summary>
@@ -322,6 +334,7 @@
         ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct[] customizationStructs);
 
+        /// <summary>
         /// Загрузка объектов данных по представлению
         /// </summary>
         /// <param name="dataObjectView">представление</param>
@@ -369,6 +382,7 @@
         /// <param name="State">Состояние вычитки( для последующей дочитки)</param>
         /// <returns></returns>
         ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State);
+
         //-------LOAD separated string Objetcs ------------------------------------
 
         /// <summary>
@@ -382,7 +396,5 @@
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить</param>
         void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException);
-
-
     }
 }

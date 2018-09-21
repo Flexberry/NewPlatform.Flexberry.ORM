@@ -31,6 +31,7 @@
             {
                 return taskMonitor;
             }
+
             set
             {
                 taskMonitor = value;
@@ -88,7 +89,9 @@
                 return taskMonitor.BeginSubTask(SubTask, TaskID);
             }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>

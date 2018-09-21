@@ -11,6 +11,7 @@
     using ICSSoft.STORMNET.KeyGen;
 
     #region class DataObject
+
     /// <summary>
     /// Статус объекта данных
     /// </summary>
@@ -48,8 +49,8 @@
         NotLoaded,
 
         /// <summary>
-        /// Загружен частично, 
-        /// подробности выясняются методами <see cref="DataObject.GetLoadedProperties"/> 
+        /// Загружен частично,
+        /// подробности выясняются методами <see cref="DataObject.GetLoadedProperties"/>
         /// и <see cref="DataObject.CheckLoadedProperty"/>
         /// </summary>
         LightLoaded,
@@ -62,7 +63,7 @@
 
     /// <summary>
     /// Базовый абстрактный класс, от которого наследуются все объекты данных STORM.NET
-    /// </summary>	
+    /// </summary>
     [Serializable]
     [PrimaryKeyStorage("primaryKey")]
     [TypeStorage("typeId")]
@@ -79,7 +80,7 @@
         /// Состояние объекта (иногда лучше перевычислить, а не брать это значение)
         /// </summary>
         private ObjectStatus state = ObjectStatus.UnAltered;
-        
+
         /// <summary>
         /// Состояние загруженности объекта. По-умолчанию LoadingState.NotLoaded
         /// </summary>
@@ -167,7 +168,6 @@
         [DisableAutoViewed]
         public bool IsReadOnly { get { return readKey != null; } }
 
-
         /// <summary>
         /// Динамические свойства объекта
         /// </summary>
@@ -186,8 +186,6 @@
                 fieldDynamicProperties = value;
             }
         }
-
-
 
         /// <summary>
         /// Ключ прототипа
@@ -221,8 +219,8 @@
         public static GetPresentationValueDelegate GetPresentationValueDelegate;
 
         /// <summary>
-        /// Функция для получения презентационного значения для объекта по умолчанию. 
-        /// Презентационное значение используется в случаях, когда необходимо каким-либо образом 
+        /// Функция для получения презентационного значения для объекта по умолчанию.
+        /// Презентационное значение используется в случаях, когда необходимо каким-либо образом
         /// с максимальной степенью адекватности отобразить объект, а средства настройки этого отображения недоступны.
         /// </summary>
         /// <returns></returns>
@@ -241,7 +239,7 @@
                 {
                     if (Information.CheckPropertyExist(GetType(), attribute)
                         && Information.GetPropertyType(GetType(), attribute) == typeof(string))
-                        return  Information.GetPropValueByName(this, attribute) as string;
+                        return Information.GetPropValueByName(this, attribute) as string;
                 }
             }
             catch (Exception ex)
@@ -253,7 +251,6 @@
 
             return ToString();
         }
-
 
         /// <summary>
         /// Функция для получения презентационного значения для объекта. Используется, как минимум, в ярлыках на рабочем столе.
@@ -314,7 +311,11 @@
         [DisableAutoViewed]
         internal DetailArray DetailArray
         {
-            get { return array; }
+            get
+            {
+                return array;
+            }
+
             set
             {
                 if (CheckDetail && (array != null) && (value != null) && (value != array))
@@ -409,7 +410,7 @@
                         }
                     }
 
-                    string[] propnames = new string[sc.Count]; 
+                    string[] propnames = new string[sc.Count];
                     sc.CopyTo(propnames, 0);
                     return propnames;
                 }
@@ -434,7 +435,9 @@
                 if (array != null)
                 {
                     if (array.keys.ContainsKey(value))
+                    {
                         throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
+                    }
                     else
                     {
                         object val = array.keys[oldkey];
@@ -442,6 +445,7 @@
                         array.keys.Add(value, val);
                     }
                 }
+
                 primaryKey = value;
                 if (oldkey != null)
                     DataObjectCache.ChangeKeyForLivingDataObject(this, oldkey);
@@ -480,6 +484,7 @@
             {
                 return primaryKey;
             }
+
             set
             {
                 Type keyType = KeyGenerator.KeyType(this);
@@ -488,7 +493,9 @@
                     Type valueType = value.GetType();
 
                     if (valueType == keyType)
+                    {
                         SetKey(value);
+                    }
                     else
                     {
                         if (Convertors.InOperatorsConverter.CanConvert(valueType, keyType))
@@ -516,6 +523,7 @@
             {
                 return state;
             }
+
             if (Information.AutoAlteredClass(GetType()))
             {
                 if ((state == ObjectStatus.Altered || state == ObjectStatus.UnAltered))
@@ -524,8 +532,11 @@
                     state = ContainsAlteredProps() ? ObjectStatus.Altered : ObjectStatus.UnAltered;
                 }
                 else
+                {
                     GetAlteredPropertyNames();
+                }
             }
+
             return state;
         }
 
@@ -569,8 +580,10 @@
                                 state = ObjectStatus.Altered;
                                 break;
                         }
+
                         break;
                     }
+
                 case ObjectStatus.Created:
                     state = ObjectStatus.Created;
                     loading = LoadingState.NotLoaded;
@@ -592,6 +605,7 @@
                                     state = ObjectStatus.UnAltered;
                                 break;
                         }
+
                         break;
                     }
             }
@@ -619,18 +633,18 @@
         }
 
         /// <summary>
-        /// Получение списка свойств, значения в которые установлены 
+        /// Получение списка свойств, значения в которые установлены
         /// (требуется в случае, когда состояние загрузки -- LightLoaded).
         /// </summary>
         public string[] GetLoadedProperties()
         {
-            if (LoadedProperties == null) 
+            if (LoadedProperties == null)
                 LoadedProperties = new string[0];
             return (string[])LoadedProperties.Clone();
         }
 
         /// <summary>
-        /// Получение списка свойств, значения в которые установлены 
+        /// Получение списка свойств, значения в которые установлены
         /// (требуется в случае, когда состояние загрузки -- LightLoaded).
         /// </summary>
         /// <returns></returns>
@@ -641,9 +655,8 @@
             return new List<string>(LoadedProperties);
         }
 
-
         /// <summary>
-        /// Установить список свойств, значения в которые установлены 
+        /// Установить список свойств, значения в которые установлены
         /// (требуется в случае, когда состояние загрузки -- LightLoaded).
         /// </summary>
         public void SetLoadedProperties(params string[] loadedProperties)
@@ -652,7 +665,7 @@
         }
 
         /// <summary>
-        /// Добавить список свойств, значения в которые установлены 
+        /// Добавить список свойств, значения в которые установлены
         /// (требуется в случае, когда состояние загрузки -- LightLoaded).
         /// </summary>
         /// <param name="addingLoadedProperties">Массив добавляемых свойств.</param>
@@ -670,7 +683,7 @@
         }
 
         /// <summary>
-        /// Добавить список свойств, значения в которые установлены 
+        /// Добавить список свойств, значения в которые установлены
         /// (требуется в случае, когда состояние загрузки -- LightLoaded).
         /// </summary>
         /// <param name="propertyNamesList">Массив добавляемых свойств.</param>
@@ -704,7 +717,6 @@
             List<string> lp = GetLoadedPropertiesList();
             return lp.Contains(propertyName);
         }
-
 
         private void prvCopyTo_initDataCopy(DataObject toObject, DataObjectCache DataObjectCache)
         {
@@ -782,7 +794,9 @@
                                 newobj = DataObjectCache.CreateDataObject(motype, primKey);
                                 ((DataObject)fieldval).prvCopyTo_initDataCopy(newobj, DataObjectCache);
                             }
+
                             newobj.IsDataCopy = true;
+
                             //fi.SetValue(toObject, newobj);
                             try
                             {
@@ -847,7 +861,9 @@
                                 }
                             }
                             else
+                            {
                                 arobject.InitDataCopy(DataObjectCache);
+                            }
 
                             arobject.ClippingCacheOnCopy = prevClipping;
                             DataObject newobj = arobject.dataCopy;
@@ -858,6 +874,7 @@
                                 newobj.CheckDetail = true;
                             }
                         }
+
                         //fi.SetValue(toObject, newarr);
                         try
                         {
@@ -867,7 +884,6 @@
                         {
                             fi.SetValue(toObject, newarr);
                         }
-
                     }
                     else
                     {
@@ -880,6 +896,7 @@
                         {
                             fi.SetValue(toObject, fieldval);
                         }
+
                         //bool b = false;
                         //if (b)
                         //{
@@ -891,7 +908,6 @@
             }
         }
 
-
         private void PrvCopyToCopyObject(DataObject toObject, bool createDataObjectsCopy, bool primaryKeyCopy, DataObjectCache dataObjectCache)
         {
             Type thisType = this.GetType();
@@ -899,8 +915,6 @@
             FieldInfo[] fis = GetPrivateFields();
             Type dotype = typeof(DataObject);
             Type datype = typeof(DetailArray);
-
-
 
             foreach (FieldInfo fi in fis)
             {
@@ -969,6 +983,7 @@
                                 ((DataObject)fieldval).PrvCopyToCopyObject(newobj, true, primaryKeyCopy,
                                                                             dataObjectCache);
                             }
+
                             //fi.SetValue(toObject, newobj);
                             try
                             {
@@ -1010,10 +1025,12 @@
                                         newobj.clearDataCopy();
                                     }
                                 }
+
                                 newobj.CheckDetail = false;
                                 newarr.AddObject(newobj);
                                 newobj.CheckDetail = true;
                             }
+
                             //fi.SetValue(toObject, newarr);
                             try
                             {
@@ -1053,31 +1070,31 @@
             }
         }
 
-
-        ///<summary>
+        /// <summary>
         /// Копирование объектов без применения кэширования
-        ///</summary>
-        ///<param name="toObject">Объект, в который копируем (если будет null, то создадим по типу исходного)</param>
-        ///<param name="createDataObjectsCopy">Запускать ли механизм копирования для мастеров и детейлов или ограничиться только своими свойствами (публичными и приватными)</param>
-        ///<param name="primaryKeyCopy">Копировать ли первичный ключ</param>
+        /// </summary>
+        /// <param name="toObject">Объект, в который копируем (если будет null, то создадим по типу исходного)</param>
+        /// <param name="createDataObjectsCopy">Запускать ли механизм копирования для мастеров и детейлов или ограничиться только своими свойствами (публичными и приватными)</param>
+        /// <param name="primaryKeyCopy">Копировать ли первичный ключ</param>
         public void CopyToObjectWithoutCache(ref DataObject toObject, bool createDataObjectsCopy, bool primaryKeyCopy)
         {
             PrvCopyToObjectWithoutCache(ref toObject, createDataObjectsCopy, primaryKeyCopy, null);
         }
 
-        ///<summary>
+        /// <summary>
         /// Копирование объектов без применения кэширования
-        ///</summary>
-        ///<param name="toObject">Объект, в который копируем (если будет null, то создадим по типу исходного)</param>
-        ///<param name="createDataObjectsCopy">Запускать ли механизм копирования для мастеров и детейлов или ограничиться только своими свойствами (публичными и приватными)</param>
-        ///<param name="primaryKeyCopy">Копировать ли первичный ключ</param>
-        ///<param name="usedDobjs">Список объектов, которые уже скопировали - борьба с зацикливанием</param>
+        /// </summary>
+        /// <param name="toObject">Объект, в который копируем (если будет null, то создадим по типу исходного)</param>
+        /// <param name="createDataObjectsCopy">Запускать ли механизм копирования для мастеров и детейлов или ограничиться только своими свойствами (публичными и приватными)</param>
+        /// <param name="primaryKeyCopy">Копировать ли первичный ключ</param>
+        /// <param name="usedDobjs">Список объектов, которые уже скопировали - борьба с зацикливанием</param>
         private void PrvCopyToObjectWithoutCache(ref DataObject toObject, bool createDataObjectsCopy, bool primaryKeyCopy, Hashtable usedDobjs)
         {
             if (usedDobjs == null)
             {
                 usedDobjs = new Hashtable();
             }
+
             //проверим, не было ли этого объекта уже
             Type thisObjType = GetType();
             if (usedDobjs.ContainsKey(this))
@@ -1096,6 +1113,7 @@
             {
                 toObject.Clear();
             }
+
             usedDobjs.Add(this, toObject);
 
             FieldInfo[] fis = GetPrivateFields();
@@ -1169,14 +1187,15 @@
                                 //этот бред взят из DataObjectCache.CreateDataObject потому что есть подозрение на логику в ToString()
                                 temp = "oiphohoih";
                             }
+
                             DataObject newobj = (DataObject)DataObjectCache.Creator.CreateObject(motype);
                             newobj.__PrimaryKey = primKey;
-
 
                             //newobj  = dataObjectCache.CreateDataObject(motype, primKey);
 
                             ((DataObject)fieldval).PrvCopyToObjectWithoutCache(ref newobj, true, primaryKeyCopy,
                                                                                 usedDobjs);
+
                             //fi.SetValue(toObject, newobj);
                             try
                             {
@@ -1206,9 +1225,9 @@
                                 {
                                     temp = "oiphohoih";
                                 }
+
                                 DataObject newobj = (DataObject)DataObjectCache.Creator.CreateObject(detotype);
                                 newobj.__PrimaryKey = primKey;
-
 
                                 //DataObject newobj = dataObjectCache.CreateDataObject(detotype, primKey);
                                 arobject.PrvCopyToObjectWithoutCache(ref newobj, true, primaryKeyCopy, usedDobjs);
@@ -1217,10 +1236,12 @@
                                     newobj.SetStatus(ObjectStatus.Created);
                                     newobj.clearDataCopy();
                                 }
+
                                 newobj.CheckDetail = false;
                                 newarr.AddObject(newobj);
                                 newobj.CheckDetail = true;
                             }
+
                             //fi.SetValue(toObject, newarr);
                             try
                             {
@@ -1264,7 +1285,7 @@
         /// Создать копию этого объекта данных (не забудьте вызвать InitDataCopy или ClearDataCopy если планируете обновлять объект в БД)
         /// </summary>
         /// <param name="toObject">куда копировать</param>
-        /// <param name="CreateDataObjectsCopy">создавать ли копии связанных объектов 
+        /// <param name="CreateDataObjectsCopy">создавать ли копии связанных объектов
         /// или ограничиться копированием ссылки</param>
         /// <param name="PrimaryKeyCopy">Копировать ли первичные ключи</param>
         /// <param name="UseParentCaching">Использовать ли вышеустановленное кеширование</param>
@@ -1272,11 +1293,12 @@
         {
             CopyTo(toObject, CreateDataObjectsCopy, PrimaryKeyCopy, UseParentCaching, new DataObjectCache());
         }
+
         /// <summary>
         /// Создать копию этого объекта данных (не забудьте вызвать InitDataCopy или ClearDataCopy если планируете обновлять объект в БД)
         /// </summary>
         /// <param name="toObject">куда копировать</param>
-        /// <param name="CreateDataObjectsCopy">создавать ли копии связанных объектов 
+        /// <param name="CreateDataObjectsCopy">создавать ли копии связанных объектов
         /// или ограничиться копированием ссылки</param>
         /// <param name="PrimaryKeyCopy">Копировать ли первичные ключи</param>
         /// <param name="UseParentCaching">Использовать ли вышеустановленное кеширование</param>
@@ -1304,6 +1326,7 @@
             {
                 throw new ArgumentException("Не указан объект данных для копирования, обратитесь к разработчику", "toObject");
             }
+
             Type thisType = GetType();
             FieldInfo[] fis = GetPrivateFields();
 
@@ -1366,8 +1389,6 @@
             }
         }
 
-
-
         /// <summary>
         /// Сбросить прототипизацию объекта (очистить все что относится к прототипу)
         /// </summary>
@@ -1375,6 +1396,7 @@
         {
             ClearPrototyping(true);
         }
+
         /// <summary>
         /// Сбросить прототипизацию объекта (очистить все что относится к прототипу)
         /// </summary>
@@ -1433,7 +1455,6 @@
             }
         }
 
-
         /// <summary>
         /// обрезать кэш при копировании
         /// </summary>
@@ -1459,7 +1480,6 @@
         {
             DisabledInitDataCopy = false;
         }
-
 
         /// <summary>
         /// Инициализация внутренней копии данных объекта данных
@@ -1492,13 +1512,13 @@
                 {
                     dataCopy = DataObjectCache.CreateDataObject(this.GetType(), __PrimaryKey);
 
-
                     prvCopyTo_initDataCopy(dataCopy, DataObjectCache);
                 }
                 finally
                 {
                     DataObjectCache.StopCaching();
                 }
+
                 if (dataCopy != null)
                 {
                     dataCopy.IsDataCopy = true;
@@ -1521,8 +1541,10 @@
                         }
                     }
                 }
+
                 dataCopy = null;
             }
+
             inInitDataCopy = false;
         }
 
@@ -1545,7 +1567,6 @@
 
             try
             {
-
                 FieldInfo[] fis = GetPrivateFields();
                 System.Type dotype = typeof(DataObject);
                 System.Type datype = typeof(DetailArray);
@@ -1562,6 +1583,7 @@
                             {
                                 ((DataObject)fieldval).FullClearDataCopy();
                             }
+
                             if (tp.IsSubclassOf(datype))
                             {
                                 DetailArray da = ((DetailArray)fieldval);
@@ -1603,6 +1625,7 @@
             else
                 return (fieldAlteredpropertyNames == null) ? null : (string[])fieldAlteredpropertyNames.Clone();
         }
+
         /// <summary>
         /// Возвращает список свойств (атрибутов, мастеров, детейлов),
         /// чьи значения изменились по сравнению с внутренней копией
@@ -1614,18 +1637,19 @@
             return (fieldAlteredpropertyNames == null) ? null : (string[])fieldAlteredpropertyNames.Clone();
         }
 
-        ///<summary>
-        /// Проверить, есть ли это свойство в списке изменённых. Выполняется полная проверка каждый раз, поэтому метод не очень производительный. 
-        ///</summary>
-        ///<param name="propName"></param>
+        /// <summary>
+        /// Проверить, есть ли это свойство в списке изменённых. Выполняется полная проверка каждый раз, поэтому метод не очень производительный.
+        /// </summary>
+        /// <param name="propName"></param>
         /// <remarks>Если этого свойства нет в объекте, то не упадёт, а просто скажет что оно не менялось, имейте в виду</remarks>
-        ///<returns></returns>
+        /// <returns></returns>
         public bool IsAlteredProperty(string propName)
         {
             var lst = new List<string>();
             lst.AddRange(GetAlteredPropertyNames());
             return lst.Contains(propName);
         }
+
         /// <summary>
         /// Было ли изменение значений свойств по сравнению с внутренней копией
         /// </summary>
@@ -1636,6 +1660,7 @@
         }
 
         //private static Collections.TypeBaseCollection fieldsCollection = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+
         /// <summary>
         /// Кэш массивов приватных полей
         /// </summary>
@@ -1669,15 +1694,16 @@
                                 break;
                             ct = ct.BaseType;
                         }
+
                         FieldInfo[] res = new FieldInfo[resarr.Count];
                         resarr.CopyTo(res);
                         fieldsCollection.Add(thisType, res);
                     }
                 }
             }
+
             return (FieldInfo[])fieldsCollection[thisType].Clone();
         }
-
 
         /// <summary>
         /// Очистка объекта данных.
@@ -1699,6 +1725,7 @@
                     name == "state" ||
                     name == "loading")
                     continue;
+
                 //fi.SetValue(this, null);
                 if (fi.FieldType.IsValueType)
                 {
@@ -1720,6 +1747,7 @@
                                 }
                             }
                         }
+
                         fiSetValue(this, null);
                     }
                     catch
@@ -1728,6 +1756,7 @@
                     }
                 }
             }
+
             ClippingCacheOnCopy = true;
             SetStatus(ObjectStatus.Created);
             SetLoadingState(LoadingState.NotLoaded);
@@ -1804,7 +1833,7 @@
                 string.IsNullOrEmpty(propertyCaption) ? propertyName : propertyCaption,
                 val is DataObject ? ((DataObject)val).__PrimaryKey.ToString() : val.ToString());
         }
-        
+
         /// <summary>
         /// Преобразование в строковое представление собственных, нединамических свойств объекта.
         /// </summary>
@@ -1829,7 +1858,7 @@
         }
 
         /// <summary>
-        /// Формируем из строки, сгенерированной для строкового представления значений свойств объекта, итоговое строковое представление объекта. 
+        /// Формируем из строки, сгенерированной для строкового представления значений свойств объекта, итоговое строковое представление объекта.
         /// </summary>
         /// <param name="propertiesString">Строка, сгенерированная для строкового представления значений свойств объекта.</param>
         /// <returns>Строковое представление объекта данных.</returns>
@@ -1928,6 +1957,7 @@
                     }
                 }
             }
+
             return (string[])sc.ToArray(typeof(string));
         }
 
@@ -2065,7 +2095,7 @@
     #endregion
 
     #region class DetailArray
-    
+
     /// <summary>
     /// Контейнер (массив) детейловых объектов
     /// </summary>
@@ -2079,13 +2109,16 @@
         {
             private DetailArray arr;
             private int curIndex;
+
             public DetailEnumumerator(DetailArray array)
             {
                 arr = array;
                 curIndex = -1;
             }
+
             void IEnumerator.Reset()
             { curIndex = -1; }
+
             bool IEnumerator.MoveNext()
             {
                 if (curIndex++ >= arr.Count - 1)
@@ -2093,6 +2126,7 @@
                 else
                     return true;
             }
+
             object IEnumerator.Current { get { return arr.ItemByIndex(curIndex); } }
         }
 
@@ -2144,7 +2178,9 @@
                 obj.DetailArray = this;
             }
             else
+            {
                 throw new ArgumentOutOfRangeException("Index");
+            }
         }
 
         /// <summary>
@@ -2164,6 +2200,7 @@
 
         private bool orderedObjects = false;
         private bool countOrdered = false;
+
         private bool OrderedObjects()
         {
             if (countOrdered)
@@ -2180,7 +2217,9 @@
         {
             string orderProp = Information.GetOrderPropertyName(objectType);
             if (orderProp == string.Empty)
+            {
                 throw new NotSortableDetailArrayException();
+            }
             else
             {
                 try
@@ -2197,6 +2236,7 @@
                                 if (item.GetStatus() == ObjectStatus.UnAltered)
                                     item.SetStatus(ObjectStatus.Altered);
                             }
+
                             index++;
                         }
                     }
@@ -2208,7 +2248,6 @@
             }
         }
 
-
         /// <summary>
         /// Переупорядочить объекты данных в соответствии с автонумерацией
         /// </summary>
@@ -2216,7 +2255,9 @@
         {
             string orderProp = Information.GetOrderPropertyName(objectType);
             if (orderProp == string.Empty)
+            {
                 throw new NotSortableDetailArrayException();
+            }
             else
             {
                 try
@@ -2228,7 +2269,7 @@
                         DataObject item = ItemByIndex(i);
                         if (item.GetStatus(false) != ObjectStatus.Deleted)
                         {
-                            //Братчиков 15.04.2008 Исправление бага: 
+                            //Братчиков 15.04.2008 Исправление бага:
                             //пользователи сами лезут к orderProp и из-за этого ключи могут повториться
                             object key = Information.GetPropValueByName(item, orderProp);
                             if (key is int)
@@ -2238,12 +2279,15 @@
                                     key = (int)key + 1;
                                 }
                             }
+
                             sl.Add(key, item);
                         }
                         else
+                        {
                             deleted.Add(item);
-
+                        }
                     }
+
                     Clear();
                     for (int i = 0; i < sl.Count; i++)
                         AddObject((DataObject)sl.GetByIndex(i));
@@ -2257,7 +2301,6 @@
             }
         }
 
-
         /// <summary>
         /// Ссылка на шапку (задается при создании массива)
         /// </summary>
@@ -2267,6 +2310,7 @@
         /// Возвращает тип элементов DetailArray
         /// </summary>
         public System.Type ItemType { get { return objectType; } }
+
         /// <summary>
         /// Размер зафиксированный для данного массива объектов
         /// </summary>
@@ -2279,6 +2323,7 @@
         {
             Init(objecttype, objecttype.GetProperty("__PrimaryKey"), masterObj, -1);
         }
+
         /// <summary>
         /// Создать по типу хранимых объектов, мастеровому объекту данных, фиксированного размера
         /// </summary>
@@ -2286,6 +2331,7 @@
         {
             Init(objecttype, objecttype.GetProperty("__PrimaryKey"), masterObj, size);
         }
+
         /// <summary>
         /// Создать по типу хранимых объектов, информации о свойстве первичного ключа мастера и объекте данных мастера
         /// </summary>
@@ -2293,6 +2339,7 @@
         {
             Init(objecttype, key, masterObj, -1);
         }
+
         /// <summary>
         /// Создать по типу хранимых объектов, информации о свойстве первичного ключа мастера и объекте данных мастера, фиксированного размера
         /// </summary>
@@ -2319,7 +2366,9 @@
             else
             {
                 if (!masterProp.PropertyType.IsSubclassOf(DataObjectType) && masterProp.PropertyType != DataObjectType)
+                {
                     throw new AgregatorPropertyMustBeDataObjectTypeException(objectType);
+                }
                 else
                 {
                     objectType = objecttype;
@@ -2327,7 +2376,6 @@
                     keyProp = key;
                 }
             }
-
         }
 
         /// <summary>
@@ -2348,8 +2396,8 @@
         /*
         public DataObject this[object key]
         {
-            get 
-            {return (DataObject)objects[(int)keys[key]];} 
+            get
+            {return (DataObject)objects[(int)keys[key]];}
             set
             {
                 if (keys.ContainsKey(key))
@@ -2384,16 +2432,18 @@
         {
             value.DetailArray = this;
             if (keys.ContainsKey(key))
+            {
                 objects[(int)keys[key]] = value;
+            }
             else
             {
                 objects.Add(value);
                 keys.Add(key, objects.Count - 1);
             }
+
             prv_SetAggregator(value);
             if (OrderedObjects()) Renumerate();
         }
-
 
         /// <summary>
         /// Добавить объекты данных
@@ -2414,6 +2464,7 @@
                 {
                     KeyGenerator.Generate(dataobject, null);
                 }
+
                 if (keys.ContainsKey(dataobject.__PrimaryKey))
                     throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
                 dataobject.DetailArray = this;
@@ -2425,8 +2476,7 @@
             if (dataobjects.Length > 0 && OrderedObjects())
                 Renumerate();
 
-            OnItemsAdded(new ItemsAddedEventArgs{DataObjects = dataobjects});
-
+            OnItemsAdded(new ItemsAddedEventArgs { DataObjects = dataobjects });
         }
 
         /// <summary>
@@ -2439,6 +2489,7 @@
             {
                 KeyGenerator.Generate(dataobject, null);
             }
+
             if (keys.ContainsKey(dataobject.__PrimaryKey))
                 throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
             SetByKey(dataobject.__PrimaryKey, dataobject);
@@ -2446,10 +2497,9 @@
 
         /// <summary>
         /// Удалить объект данных
-        /// </summary>		
+        /// </summary>
         public void Remove(DataObject dataobject)
         {
-
             if (dataobject.GetDetailArray() == this)
             {
                 if (this.IndexOf(dataobject) < 0)
@@ -2472,9 +2522,9 @@
                     keys.SetByIndex(i, val);
                 }
             }
+
             if (OrderedObjects()) Renumerate();
         }
-
 
         /// <summary>
         /// Удалить объект данных по индексу
@@ -2504,6 +2554,7 @@
                     keys.SetByIndex(i, val);
                 }
             }
+
             if (OrderedObjects()) Renumerate();
         }
 
@@ -2521,14 +2572,13 @@
             Information.SetPropValueByName(dataobject, Information.GetAgregatePropertyName(dataobject.GetType()), this.masterObject);
         }
 
-
         public int IndexOf(DataObject dobj)
         {
             return objects.IndexOf(dobj);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e"></param>
         public void OnItemsAdded(ItemsAddedEventArgs e)
@@ -2536,23 +2586,18 @@
             EventHandler<ItemsAddedEventArgs> handler = ItemsAdded;
             if (handler != null) handler(this, e);
         }
-
-
-
     }
 
     #endregion
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class ItemsAddedEventArgs : EventArgs
     {
         /// <summary>
         /// Добавленные в массив объекты данных
         /// </summary>
-        public DataObject[] DataObjects { get; set;}
-
+        public DataObject[] DataObjects { get; set; }
     }
-
 }

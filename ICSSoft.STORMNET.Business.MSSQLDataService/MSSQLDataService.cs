@@ -91,7 +91,6 @@
                 //здесь требуется преобразование из DATASERVICE
                 return string.Format("(datepart({0}, {1})+@@DATEFIRST-2)%7 + 1", "DW",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
@@ -168,8 +167,10 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
+
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
+
                     //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "isnull(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
@@ -178,7 +179,6 @@
 
                 langDef.retVars = prevRetVars;
                 return res;
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcCountWithLimit || value.FunctionDef.StringedView == "Count")
@@ -203,6 +203,7 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
+
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct);
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
@@ -245,7 +246,7 @@
                         langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
                         value.Parameters[1]);
 
-                // Преобразование даты и времени в строку; кроме значения, числом задается стиль 
+                // Преобразование даты и времени в строку; кроме значения, числом задается стиль
                 // даты-времени, например, 104 (dd.mm.yyyy).
                 // Стили перечислены здесь: http://msdn.microsoft.com/ru-ru/library/ms187928.aspx
                 if (value.Parameters.Count == 3)
@@ -257,6 +258,7 @@
                         value.Parameters[2]);
                 }
             }
+
             return string.Empty;
         }
 
@@ -278,9 +280,9 @@
                 throw new ArgumentException("Identifiers array is empty.", "identifiers");
             }
 
-            /* 
+            /*
              * Создаём строку вида:
-             * 
+             *
              * ds.GetIfNullExpression("identifier1");
              * //"identifier1"
              *

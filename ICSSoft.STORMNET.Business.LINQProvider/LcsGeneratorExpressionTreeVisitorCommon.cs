@@ -50,7 +50,6 @@
             return new LcsGeneratorQueryModelVisitor(viewIsDynamic, view, resolvingViews);
         }
 
-
         /// <summary>
         /// Получить функцию ограничения для <see cref="LoadingCustomizationStruct"/>.
         /// </summary>

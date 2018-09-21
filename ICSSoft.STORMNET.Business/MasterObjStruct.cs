@@ -15,7 +15,7 @@
         private string propertyName;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="key">ключ мастера</param>
         /// <param name="objectType">тип мастера</param>
@@ -28,7 +28,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -51,11 +51,10 @@
             {
                 this.key = Activator.CreateInstance(tp, new object[] { s });
             }
-
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -72,10 +71,12 @@
         /// Ключ мастера
         /// </summary>
         public object Key { get { return key; } set { key = value; } }
+
         /// <summary>
         /// Тип мастера
         /// </summary>
         public Type ObjectType { get { return objectType; } set { objectType = value; } }
+
         /// <summary>
         /// Имя роли мастера(наименование свойства)
         /// </summary>

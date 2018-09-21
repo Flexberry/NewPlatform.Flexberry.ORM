@@ -29,6 +29,7 @@
                 arrays[i].CopyTo(res, Length);
                 Length += arrays[i].Length;
             }
+
             return res;
         }
     }

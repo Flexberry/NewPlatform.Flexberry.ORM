@@ -128,7 +128,9 @@
                                 }
                             }
                             else
+                            {
                                 properiesValues.Add(new[] { prop.simpleName, null, tmp0 });
+                            }
                         }
 
                         masterPosition += prop.MastersTypesCount;
@@ -183,7 +185,9 @@
                     Information.SetPropValueByName(curobj, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
 
                 if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
+                {
                     curobj.SetLoadingState(LoadingState.Loaded);
+                }
                 else
                 {
                     curobj.SetLoadingState(LoadingState.LightLoaded);

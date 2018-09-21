@@ -46,7 +46,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// Категория события (info / warning / error / проч)
         /// </summary>
         public string Category { get; set; }
-        
+
         public static explicit operator string(Event value)
         {
             // Лучше будет использовать Json, но нет возможности

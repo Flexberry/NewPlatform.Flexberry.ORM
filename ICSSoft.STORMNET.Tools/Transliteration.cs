@@ -208,7 +208,7 @@
             gost.Add("т", "t");
             gost.Add("у", "u");
             gost.Add("ф", "f");
-            gost.Add("ц", "c");           
+            gost.Add("ц", "c");
             gost.Add("ы", "y");
             gost.Add("э", "eh");
             gost.Add("ю", "yu");
@@ -217,6 +217,7 @@
             gost.Add("ъ", "'");
             gost.Add("ь", "");
             gost.Add("Ь", "");
+
             //gost.Add("╚", "");
             //gost.Add("╩", "");
             //gost.Add("≈", "-");
@@ -288,12 +289,13 @@
             iso.Add("ф", "f");
             iso.Add("х", "x");
             iso.Add("ц", "c");
-            iso.Add("ы", "y");          
+            iso.Add("ы", "y");
             iso.Add("э", "e");
             iso.Add("ъ", "'");
             iso.Add("Ъ", "'");
             iso.Add("Ь", "");
             iso.Add("ь", "");
+
             //iso.Add("╚", "");
             //iso.Add("╩", "");
             //iso.Add("≈", "-");

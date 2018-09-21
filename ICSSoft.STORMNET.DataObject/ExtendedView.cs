@@ -61,7 +61,7 @@
             ViewName = view.Name;
             DefineClassType = view.DefineClassType;
 
-            if (view.Name == null 
+            if (view.Name == null
                 || string.IsNullOrEmpty(view.Name.Trim())
                 || !Information.CheckViewForClasses(view.Name, new Type[] {DefineClassType}))
             {

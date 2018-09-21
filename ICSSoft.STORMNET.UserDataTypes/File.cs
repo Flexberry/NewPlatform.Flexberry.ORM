@@ -38,7 +38,6 @@ namespace ICSSoft.STORMNET.FileType
         /// </summary>
         public File()
         {
-
         }
 
         /// <summary>
@@ -149,7 +148,6 @@ namespace ICSSoft.STORMNET.FileType
             }
         }
 
-
         /// <summary>
         /// Перевод с файла на диске во внутреннее представление в виде zip-архива
         /// </summary>
@@ -173,10 +171,8 @@ namespace ICSSoft.STORMNET.FileType
             fileStream.Close();
         }
 
-
         public void FromNormalToZip_BasePart(Stream fileStream, string fileName)
         {
-
             MemoryStream outputMemStream = new MemoryStream();
             ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
             zipStream.SetLevel(this.CompressionLevel);
@@ -223,6 +219,7 @@ namespace ICSSoft.STORMNET.FileType
             {
                 System.IO.File.Delete(saveFilePath);
             }
+
             return result;
         }
 
@@ -259,6 +256,7 @@ namespace ICSSoft.STORMNET.FileType
             {
                 isZip = false;
             }
+
             if (isZip)
             {
                 StreamUtils.Copy(zipStream, outputStream, new byte[4096]);
@@ -267,6 +265,7 @@ namespace ICSSoft.STORMNET.FileType
             {
                 throw new Exception ("Ошибка работы с файлом.");
             }
+
             zipStream.Close();
             memoryStream.Close();
             return isZip;
@@ -293,9 +292,9 @@ namespace ICSSoft.STORMNET.FileType
                 _zippedValue=Convert.ToBase64String(readed);
             }
         }
-        
+
         #region IConvertible members
-        
+
         public TypeCode GetTypeCode()
         {
             return 0;
@@ -380,7 +379,7 @@ namespace ICSSoft.STORMNET.FileType
         {
             return 0;
         }
-        
+
         #endregion
 
         public override string ToString()

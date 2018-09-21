@@ -22,8 +22,8 @@
         public static string GetConnectionString(AppMode currentAppMode, string connStringName)
         {
             var settingCollection =
-                currentAppMode == AppMode.Web 
-                ? WebConfigurationManager.ConnectionStrings 
+                currentAppMode == AppMode.Web
+                ? WebConfigurationManager.ConnectionStrings
                 : ConfigurationManager.ConnectionStrings;
             return (from ConnectionStringSettings mi in settingCollection
                     where mi.Name == connStringName
@@ -60,7 +60,7 @@
             string dataServiceType =
                 GetAppSetting(currentAppMode, connStringName + "_DSType");
             if (string.IsNullOrEmpty(dataServiceType))
-            { 
+            {
                 // Потом пытаемся вычитать тип сервиса данных для аудита по умолчанию (DefaultDsType).
                 dataServiceType = GetAppSetting(currentAppMode, AuditConstants.DefaultDsTypeConfigName);
             }
@@ -69,7 +69,7 @@
             var dataServiceCustomizationString = GetConnectionString(currentAppMode, connStringName);
 
             Type dataServiceRealType =
-                string.IsNullOrEmpty(dataServiceType) 
+                string.IsNullOrEmpty(dataServiceType)
                     ? DataServiceProvider.DataService.GetType()
                     : Type.GetType(dataServiceType);
 
@@ -87,7 +87,7 @@
                 : (IDataService)Activator.CreateInstance(dataServiceRealType);
 
             dataService.CustomizationString =
-                string.IsNullOrEmpty(dataServiceCustomizationString) 
+                string.IsNullOrEmpty(dataServiceCustomizationString)
                     ? DataServiceProvider.DataService.CustomizationString
                     : dataServiceCustomizationString;
             return dataService;

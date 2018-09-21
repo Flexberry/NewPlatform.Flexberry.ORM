@@ -191,10 +191,10 @@
             }
 
             // Рассмотрим только собственные свойства, поскольку остальные нас не касаются в аудите.
-            foreach (var currentProperty in 
+            foreach (var currentProperty in
                 from currentProperty in view.Properties.Where(x => !x.Name.Contains(".") && x.Visible) // Нас интересуют только видимые поля в представлении.
-                where HasPropertyDisableInsertPropertyAttribute(currentProperty.Name, operatedObjectType) // Есть ли у свойства атрибут DisableInsertPropertyAttribute. 
-                let property = operatedObjectType.GetProperty(currentProperty.Name) 
+                where HasPropertyDisableInsertPropertyAttribute(currentProperty.Name, operatedObjectType) // Есть ли у свойства атрибут DisableInsertPropertyAttribute.
+                let property = operatedObjectType.GetProperty(currentProperty.Name)
                 where !property.PropertyType.IsSubclassOf(typeof(DataObject)) // Это не мастеровое свойство.
                 select currentProperty)
             {
@@ -289,7 +289,7 @@
             foreach (var keptFieldsValue in _keptFieldsValues)
             {
                 var propertyValue = objectType.GetProperty(keptFieldsValue.Key).GetValue(objectInstanse, null);
-                _keptFieldsValues[keptFieldsValue.Key].NewValue = 
+                _keptFieldsValues[keptFieldsValue.Key].NewValue =
                     propertyValue == null
                     ? null
                     : propertyValue.ToString();

@@ -8,16 +8,16 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
     /// <summary>
     /// DateTime с поддержкой null (в ту эпоху, когда ещё не было DateTime? у нас уже был этот класс - так и повелось).
-	/// </summary>
+    /// </summary>
     [ControlProvider("ICSSoft.STORMNET.UserDataTypes.NullableDateTimeControlProvider, ICSSoft.STORMNET.Windows.Forms")]
-	[StoreInstancesInType(typeof(Business.SQLDataService),typeof(DateTime))]
-	[Serializable]
+    [StoreInstancesInType(typeof(Business.SQLDataService),typeof(DateTime))]
+    [Serializable]
     public class NullableDateTime : IFormattable, IComparable, IConvertible, IComparableType, System.Xml.Serialization.IXmlSerializable
-	{        
-		private DateTime fValue;
+    {
+        private DateTime fValue;
         private const string DateTimeFormatForXmlSerializable = "dd.MM.yyyy HH:mm:ss";
-        
-		private NullableDateTime(DateTime val){Value = val;}
+
+        private NullableDateTime(DateTime val){Value = val;}
 
         /// <summary>
         /// Конструктор без параметров, нужен для Activator.CreateInstance
@@ -38,6 +38,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return (object)y != null;
             }
+
             return x.CompareTo(y) < 0;
         }
 
@@ -53,6 +54,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return true;
             }
+
             return x.CompareTo(y) <= 0;
         }
 
@@ -68,6 +70,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return false;
             }
+
             return x.CompareTo(y) > 0;
         }
 
@@ -83,6 +86,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return (object)y == null;
             }
+
             return x.CompareTo(y) >= 0;
         }
 
@@ -98,6 +102,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return (object)y == null;
             }
+
             return x.CompareTo(y) == 0;
         }
 
@@ -113,18 +118,19 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return (object)y != null;
             }
+
             return x.CompareTo(y) != 0;
         }
 
-	    /// <summary>
+        /// <summary>
         /// Преобразование NullableDateTime в DateTime
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-		static public explicit operator DateTime(NullableDateTime value)
-		{
-			return value.Value;
-		}
+        static public explicit operator DateTime(NullableDateTime value)
+        {
+            return value.Value;
+        }
 
         /// <summary>
         /// Преобразование NullableDateTime в DateTime?
@@ -137,6 +143,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return null;
             }
+
             return value.Value;
         }
 
@@ -151,47 +158,51 @@ namespace ICSSoft.STORMNET.UserDataTypes
             {
                 return null;
             }
+
             return new NullableDateTime(value.Value);
         }
-        
+
         /// <summary>
         /// Преобразование DateTime в NullableDateTime
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         static public explicit operator NullableDateTime(DateTime value)
-		{
-			return new NullableDateTime(value);
-		}
+        {
+            return new NullableDateTime(value);
+        }
 
         /// <summary>
         /// Преобразование DBNull в NullableDateTime
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-		static public explicit operator NullableDateTime(DBNull value)
-		{
-			return null;
-		}
+        static public explicit operator NullableDateTime(DBNull value)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Разбор строки и создание NullableDateTime
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-		static public NullableDateTime Parse(string value)
-		{
-			if (value == null || value == "")
-			{
-				return null;
-			}
+        static public NullableDateTime Parse(string value)
+        {
+            if (value == null || value == "")
+            {
+                return null;
+            }
+
             DateTime dt;
             if (DateTime.TryParse(value, out dt))
             {
                 return new NullableDateTime(dt);
             }
-		    return null;
-		    //try 
+
+            return null;
+
+            //try
             //{
             //    DateTime dt = DateTime.Parse(value);
             //    return new NullableDateTime(dt);
@@ -200,273 +211,276 @@ namespace ICSSoft.STORMNET.UserDataTypes
             //{
             //    return null;
             //}
-
-		}
+        }
 
         /// <summary>
         /// В строку
         /// </summary>
         /// <returns></returns>
-		public override string ToString()
-		{
-			//if (format==null)
+        public override string ToString()
+        {
+            //if (format==null)
             string format = System.Configuration.ConfigurationManager.AppSettings["NullableDateTimeDefaultFormat"];
-			if( format != null )
-			{
-				return Value.ToString(format);
-			}
-		    return Value.ToString();
-		}
-        
+            if( format != null )
+            {
+                return Value.ToString(format);
+            }
+
+            return Value.ToString();
+        }
+
         /// <summary>
         /// Значение
         /// </summary>
-		public virtual DateTime Value
-		{
-			get
-			{
-				DateTime result = fValue;
-				return result;
-			}
-			set
-			{
-				fValue = value;
-			}
-		}
+        public virtual DateTime Value
+        {
+            get
+            {
+                DateTime result = fValue;
+                return result;
+            }
+
+            set
+            {
+                fValue = value;
+            }
+        }
 
         /// <summary>
         /// Сегодня (DateTime.Today)
         /// </summary>
-		public static NullableDateTime Today
-		{
-			get
-			{
-				return (NullableDateTime)DateTime.Today;
-			}
-		}
+        public static NullableDateTime Today
+        {
+            get
+            {
+                return (NullableDateTime)DateTime.Today;
+            }
+        }
 
         /// <summary>
         /// DateTime.Now
         /// </summary>
-		public static NullableDateTime Now
-		{
-			get
-			{
-				return (NullableDateTime)DateTime.Now;
-			}
-		}
+        public static NullableDateTime Now
+        {
+            get
+            {
+                return (NullableDateTime)DateTime.Now;
+            }
+        }
 
         /// <summary>
         /// DateTime.UtcNow
         /// </summary>
-		public static NullableDateTime UtcNow
-		{
-			get
-			{
-				return (NullableDateTime)DateTime.UtcNow;
-			}
-		}
+        public static NullableDateTime UtcNow
+        {
+            get
+            {
+                return (NullableDateTime)DateTime.UtcNow;
+            }
+        }
 
         /// <summary>
         /// сравнение
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-		public override bool Equals(object obj)
-		{
-		    if (obj is NullableDateTime)
-			{
-				return Value.Equals(((NullableDateTime)obj).Value);
-			}
-		    return false;
-		}
+        public override bool Equals(object obj)
+        {
+            if (obj is NullableDateTime)
+            {
+                return Value.Equals(((NullableDateTime)obj).Value);
+            }
 
-	    public int Compare(object x)
-	    {
+            return false;
+        }
+
+        public int Compare(object x)
+        {
             return CompareTo(x);
-	    }
+        }
 
-	    #region IFormattable Members
+        #region IFormattable Members
 
-		string IFormattable.ToString(string format, IFormatProvider formatProvider)
-		{
-			if (format==null)
-				format = System.Configuration.ConfigurationSettings.AppSettings["NullableDateTimeDefaultFormat"];
-			return Value.ToString(format,formatProvider);
-		}
+        string IFormattable.ToString(string format, IFormatProvider formatProvider)
+        {
+            if (format==null)
+                format = System.Configuration.ConfigurationSettings.AppSettings["NullableDateTimeDefaultFormat"];
+            return Value.ToString(format,formatProvider);
+        }
 
-		#endregion
+        #endregion
 
-		#region IComparable Members
+        #region IComparable Members
 
         /// <summary>
         /// сравнение
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-		public int CompareTo(object obj)
-		{
-			NullableDateTime ndt = ( NullableDateTime )obj;
+        public int CompareTo(object obj)
+        {
+            NullableDateTime ndt = ( NullableDateTime )obj;
 
-			if( ndt == null )
-			{
-				return 1;
-			}
-			return fValue.CompareTo( ndt.Value );
-		}
+            if( ndt == null )
+            {
+                return 1;
+            }
 
-		#endregion
+            return fValue.CompareTo( ndt.Value );
+        }
 
-		#region IConvertible Members
+        #endregion
 
-        /// <summary>
-        /// Не реализовано
-        /// </summary>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-		public ulong ToUInt64(IFormatProvider provider)
-		{
-			return 0;
-		}
+        #region IConvertible Members
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public sbyte ToSByte(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public ulong ToUInt64(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public double ToDouble(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public sbyte ToSByte(IFormatProvider provider)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Не реализовано
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public double ToDouble(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// преобразование в DateTime
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public DateTime ToDateTime(IFormatProvider provider)
-		{
-			return Value;
-		}
+        public DateTime ToDateTime(IFormatProvider provider)
+        {
+            return Value;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public float ToSingle(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public float ToSingle(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public bool ToBoolean(IFormatProvider provider)
-		{
-			return false;
-		}
+        public bool ToBoolean(IFormatProvider provider)
+        {
+            return false;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public int ToInt32(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public int ToInt32(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public ushort ToUInt16(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public ushort ToUInt16(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public short ToInt16(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public short ToInt16(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		string IConvertible.ToString(IFormatProvider provider)
-		{
-			return null;
-		}
+        string IConvertible.ToString(IFormatProvider provider)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public byte ToByte(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public byte ToByte(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public char ToChar(IFormatProvider provider)
-		{
-			return '\0';
-		}
+        public char ToChar(IFormatProvider provider)
+        {
+            return '\0';
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public long ToInt64(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public long ToInt64(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <returns></returns>
-		public TypeCode GetTypeCode()
-		{
-			return new TypeCode ();
-		}
+        public TypeCode GetTypeCode()
+        {
+            return new TypeCode ();
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public decimal ToDecimal(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public decimal ToDecimal(IFormatProvider provider)
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Не реализовано
@@ -474,22 +488,22 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="conversionType"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public object ToType(Type conversionType, IFormatProvider provider)
-		{
-			return null;
-		}
+        public object ToType(Type conversionType, IFormatProvider provider)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Не реализовано
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-		public uint ToUInt32(IFormatProvider provider)
-		{
-			return 0;
-		}
+        public uint ToUInt32(IFormatProvider provider)
+        {
+            return 0;
+        }
 
-		#endregion
+        #endregion
 
         #region IXmlSerializable Members
 
@@ -520,5 +534,5 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         #endregion
-	}
+    }
 }

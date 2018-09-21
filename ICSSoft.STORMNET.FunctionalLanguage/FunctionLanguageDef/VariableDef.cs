@@ -8,47 +8,49 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     [NotStored]
     public class VariableDef : TypedObject
     {
-        ///<summary>
+        /// <summary>
         /// пустой конструктор
-        ///</summary>
+        /// </summary>
         public VariableDef() { }
 
-        ///<summary>
+        /// <summary>
         /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
-        ///</summary>
-        ///<param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType)</param>
-        ///<param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
-        ///<param name="objCaption"></param>
+        /// </summary>
+        /// <param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType)</param>
+        /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
+        /// <param name="objCaption"></param>
         public VariableDef(ObjectType objType, string objStringedView, string objCaption)
             : base(objType, objStringedView, objCaption)
         { }
-        ///<summary>
+
+        /// <summary>
         /// Самый распространённый конструктор, который используется при построении ограничений
-        ///</summary>
-        ///<param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType)</param>
-        ///<param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
+        /// </summary>
+        /// <param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType)</param>
+        /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
         public VariableDef(ObjectType objType, string objStringedView)
             : base(objType, objStringedView, objStringedView)
         { }
 
-        ///<summary>
+        /// <summary>
         /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
-        ///</summary>
-        ///<param name="baseType"></param>
-        ///<param name="property"></param>
-        ///<param name="objCaption"></param>
-        ///<param name="ldef"></param>
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="property"></param>
+        /// <param name="objCaption"></param>
+        /// <param name="ldef"></param>
         public VariableDef(Type baseType, string property, string objCaption, FunctionalLanguageDef ldef) :
             base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, objCaption)
         {
             ldef.Variables.AddObject(this);
         }
-        ///<summary>
+
+        /// <summary>
         /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
-        ///</summary>
-        ///<param name="baseType"></param>
-        ///<param name="property"></param>
-        ///<param name="ldef"></param>
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="property"></param>
+        /// <param name="ldef"></param>
         public VariableDef(Type baseType, string property, FunctionalLanguageDef ldef) :
             base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, property)
         {
@@ -56,22 +58,24 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         private FunctionalLanguageDef fieldLanguage;
-        ///<summary>
+
+        /// <summary>
         /// Язык описания ограничений
-        ///</summary>
+        /// </summary>
         [ICSSoft.STORMNET.Agregator]
         public FunctionalLanguageDef Language { get { return fieldLanguage; } set { fieldLanguage = value; } }
 
-        ///<summary>
+        /// <summary>
         /// вместо сериализации
-        ///</summary>
-        ///<returns></returns>
+        /// </summary>
+        /// <returns></returns>
         public virtual object ToSimpleValue()
         {
             if (Type != null)
             {
                 return new[] { Type.StringedView, StringedView, Caption };
             }
+
             return new[] { "", StringedView, Caption };
         }
 
@@ -96,6 +100,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             }
 
             Type = ldef.GetObjectType(vals[0]);
+
             //Шлыков
             if (Type == null)
             {
@@ -139,6 +144,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                         default: throw new Exception(string.Format("Невозможно найти тип: {0}", vals[0]));
                     }
                 }
+
                 //Братчиков 09.12.2008 Баг при десереализации
                 Type = new ObjectType(tp.AssemblyQualifiedName, tp.Name, tp);
                 ldef.Types.AddObject(Type);
@@ -148,7 +154,6 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             if (vals.Length > 2) Caption = vals[2];
             if (Caption == null) Caption = StringedView;
         }
-
     }
 
     /// <summary>

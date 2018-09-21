@@ -39,21 +39,25 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         public ObjectType(string objStringedView, string objCaption, Type netCompatibilityType, bool EditableInTextBox)
             :
             base(objStringedView, objCaption) { fieldNetCompatibilityType = netCompatibilityType; fieldEditableInTextBox = EditableInTextBox; }
+
         /// <summary>
         /// .NET тип для этого типа
         /// </summary>
         public virtual System.Type NetCompatibilityType { get { return fieldNetCompatibilityType; } }
+
         /// <summary>
         /// Можно ли его поредактировать в текстбоксе
         /// </summary>
         public bool EditableInTextBox { get { return fieldEditableInTextBox; } }
 
         private FunctionalLanguageDef fieldLanguage;
+
         /// <summary>
         /// Язык, в рамках которого определён этот тип
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
         public virtual FunctionalLanguageDef Language { get { return fieldLanguage; } set { fieldLanguage = value; } }
+
         /// <summary>
         /// Совместим с...
         /// </summary>
@@ -63,11 +67,13 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         {
             if (this == type)
                 return true;
+
             //CompatibilityTypeTest tst = new CompatibilityTypeTest();
 
             bool retBool = CompatibilityTypeTest.Check(NetCompatibilityType, type.NetCompatibilityType) != TypesCompatibilities.No;
             return retBool;
         }
+
         /// <summary>
         /// Получить только совпадающие типы
         /// </summary>
@@ -77,6 +83,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         {
             if (this == type)
                 return true;
+
             //CompatibilityTypeTest tst = new CompatibilityTypeTest();
 
             //bool retBool = CompatibilityTypeTest.Check(NetCompatibilityType, type.NetCompatibilityType) == TypesCompatibilities.Equal;
@@ -89,10 +96,12 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 
             return retBool;
         }
+
         /// <summary>
         /// упрощение значения
         /// </summary>
         public SimplificationDelegate SimplificationValue;
+
         /// <summary>
         /// разупрощение значения
         /// </summary>
@@ -116,6 +125,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     return value;
                 }
             }
+
             return value;
         }
 
@@ -130,14 +140,15 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             {
                 return UnSimplificationValue(value);
             }
+
             return value;
         }
     }
+
     /// <summary>
     /// упрощение
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     public delegate object SimplificationDelegate(object value);
-
 }

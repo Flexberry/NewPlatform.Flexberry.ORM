@@ -60,7 +60,7 @@
             // содержится больше функций, чем в SQLWhereLangDef
             var externalLangDef = Type.GetType(
                 "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ExternalLangDef, Version=1.0.0.0, " +
-                "Culture=neutral, PublicKeyToken=50dc27591ed591e6", 
+                "Culture=neutral, PublicKeyToken=50dc27591ed591e6",
                 false);
             if(externalLangDef == null)
             {
@@ -88,7 +88,6 @@
                 f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
                         Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
             }
-            
 
             fieldParameters = f.fieldParameters;
             _fieldFunctionDef = f._fieldFunctionDef;
@@ -134,7 +133,6 @@
                 }
             }
         }
-
 
         /// <summary>
         /// Определение функции
@@ -238,6 +236,7 @@
                 {
                     stringBuilder.Append(" NULL ");
                 }
+
             stringBuilder.Append(")");
             return stringBuilder.ToString();
         }
@@ -275,6 +274,7 @@
         {
             Check(true);
         }
+
         /// <summary>
         /// Проверка без вложений
         /// </summary>
@@ -308,7 +308,6 @@
                     newpars[i] = Parameters[i];
 
             return new Function(FunctionDef, newpars);
-
         }
 
         /// <summary>
@@ -321,15 +320,19 @@
             if (_fieldFunctionDef == null)
             {
                 return false;
+
                 //throw new NullFunctionDefException();
             }
+
             if ((fieldParameters.Count != _fieldFunctionDef.Parameters.Count)
                 && (fieldParameters.Count > _fieldFunctionDef.Parameters.Count)
                 && (!_fieldFunctionDef.Parameters[_fieldFunctionDef.Parameters.Count - 1].MultiValueSupport))
             {
                 return false;
+
                 //throw new ParameterCountException();
             }
+
             for (int i = 0; i < fieldParameters.Count; i++)
             {
                 ObjectType parameterDefType = (i >= _fieldFunctionDef.Parameters.Count) ? _fieldFunctionDef.Parameters[_fieldFunctionDef.Parameters.Count - 1].Type : _fieldFunctionDef.Parameters[i].Type;
@@ -342,6 +345,7 @@
                         {
                             return false;
                         }
+
                         if (checkSubFunctions)
                             (fieldParameters[i] as Function).Check(true);
                     }
@@ -361,19 +365,19 @@
                     }
                 }
             }
+
             return true;
         }
 
-        ///<summary>
+        /// <summary>
         /// Проверка функции с выбросом эксепшенов
-        ///</summary>
-        ///<param name="checkSubFunctions"></param>
-        ///<exception cref="NullFunctionDefException"></exception>
-        ///<exception cref="ParameterCountException"></exception>
-        ///<exception cref="UncompatibleParameterTypeException"></exception>
+        /// </summary>
+        /// <param name="checkSubFunctions"></param>
+        /// <exception cref="NullFunctionDefException"></exception>
+        /// <exception cref="ParameterCountException"></exception>
+        /// <exception cref="UncompatibleParameterTypeException"></exception>
         public void Check(bool checkSubFunctions)
         {
-
             if (_fieldFunctionDef == null) throw new NullFunctionDefException();
             if ((fieldParameters.Count != _fieldFunctionDef.Parameters.Count)
                 && (fieldParameters.Count > _fieldFunctionDef.Parameters.Count)
@@ -397,6 +401,7 @@
                         {
                             throw new UncompatibleParameterTypeException(i);
                         }
+
                         if (checkSubFunctions)
                             (fieldParameters[i] as Function).Check(true);
                     }
