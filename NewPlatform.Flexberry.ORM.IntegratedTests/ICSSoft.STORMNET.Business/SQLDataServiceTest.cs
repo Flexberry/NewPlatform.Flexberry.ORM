@@ -489,54 +489,146 @@
             }
         }
 
+        /// <summary>
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
+        /// </summary>
+        [Fact(Skip = "141391")]
+        public void AggregatorWithLinkToDetailTest0()
+        {
+            foreach (IDataService ds in DataServices)
+            {
+                var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
+                var detail = new DetailUpdateObjectTest { DetailName = "detailName" };
+                var master = new MasterUpdateObjectTest { MasterName = "masterName", Detail = detail };
+                aggregator.Details.Add(detail);
+                aggregator.Masters.Add(master);
+                ds.UpdateObject(aggregator);
+
+                aggregator.Detail = detail;
+                detail.Master = master;
+                ds.UpdateObject(aggregator);
+
+                var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
+
+                Assert.NotNull(aggregatorActual);
+                Assert.Equal(aggregator.__PrimaryKey, aggregatorActual.__PrimaryKey);
+                Assert.Equal(aggregator.AggregatorName, aggregatorActual.AggregatorName);
+                Assert.Equal(aggregator.Details.Count, aggregatorActual.Details.Count);
+                Assert.Equal(aggregator.Masters.Count, aggregatorActual.Masters.Count);
+
+                aggregatorActual.SetStatus(ObjectStatus.Deleted);
+                ds.UpdateObject(aggregatorActual);
+
+                var aggregatorDeleted = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == aggregator.__PrimaryKey);
+                var detailDeleted = ds.Query<DetailUpdateObjectTest>(DetailUpdateObjectTest.Views.DetailUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == detail.__PrimaryKey);
+                var masterDeleted = ds.Query<MasterUpdateObjectTest>(MasterUpdateObjectTest.Views.MasterUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == detail.__PrimaryKey);
+
+                Assert.Null(aggregatorDeleted);
+                Assert.Null(detailDeleted);
+                Assert.Null(masterDeleted);
+            }
+        }
 
         /// <summary>
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
-        public void AggregatorWithLinkToDetailTest()
+        public void AggregatorWithLinkToDetailTest1()
         {
-            foreach (IDataService dataService in DataServices)
+            foreach (IDataService ds in DataServices)
             {
-                // Arrange.
-                SQLDataService ds = dataService as SQLDataService;
-                var aggregatorForUpdateExpect = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
-                var detailForUpdate = new DetailUpdateObjectTest { DetailName = "detailName" };
+                var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
+                var detail = new DetailUpdateObjectTest { DetailName = "detailName" };
 
                 // Act & Assert.
-                ds.UpdateObject(aggregatorForUpdateExpect);
-                aggregatorForUpdateExpect =
-                    ds.Query<AggregatorUpdateObjectTest>("AggregatorUpdateObjectTestE")
-                        .First(x => x.__PrimaryKey == aggregatorForUpdateExpect.__PrimaryKey);
-                aggregatorForUpdateExpect.Details.Add(detailForUpdate);
-                aggregatorForUpdateExpect.Detail = detailForUpdate;
-                ds.UpdateObject(aggregatorForUpdateExpect);
-                var masterOfDetail = new MasterUpdateObjectTest { MasterName = "masterName", Detail = detailForUpdate };
-                aggregatorForUpdateExpect.Masters.Add(masterOfDetail);
-                detailForUpdate.Master = masterOfDetail;
-                ds.UpdateObject(aggregatorForUpdateExpect);
+                ds.UpdateObject(aggregator);
+                aggregator = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
-                var aggregatorForUpdateActual =
-                    ds.Query<AggregatorUpdateObjectTest>("AggregatorUpdateObjectTestE")
-                        .First(x => x.__PrimaryKey == aggregatorForUpdateExpect.__PrimaryKey);
+                aggregator.Details.Add(detail);
+                aggregator.Detail = detail;
+                ds.UpdateObject(aggregator);
 
-                Assert.NotNull(aggregatorForUpdateActual);
-                Assert.Equal(aggregatorForUpdateExpect.__PrimaryKey, aggregatorForUpdateActual.__PrimaryKey);
-                Assert.Equal(aggregatorForUpdateExpect.AggregatorName, aggregatorForUpdateActual.AggregatorName);
-                Assert.Equal(aggregatorForUpdateExpect.Details.Count, aggregatorForUpdateActual.Details.Count);
+                var master = new MasterUpdateObjectTest { MasterName = "masterName", Detail = detail };
+                aggregator.Masters.Add(master);
+                detail.Master = master;
+                ds.UpdateObject(aggregator);
 
-                aggregatorForUpdateActual.SetStatus(ObjectStatus.Deleted);
-                ds.UpdateObject(aggregatorForUpdateActual);
+                var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
-                var aggregatorForUpdateDeleted =
-                    ds.Query<AggregatorUpdateObjectTest>("AggregatorUpdateObjectTestE")
-                        .FirstOrDefault(x => x.__PrimaryKey == aggregatorForUpdateExpect.__PrimaryKey);
-                var detailDeleted =
-                    ds.Query<DetailUpdateObjectTest>("DetailUpdateObjectTestE")
-                        .FirstOrDefault(x => x.__PrimaryKey == detailForUpdate.__PrimaryKey);
+                Assert.NotNull(aggregatorActual);
+                Assert.Equal(aggregator.__PrimaryKey, aggregatorActual.__PrimaryKey);
+                Assert.Equal(aggregator.AggregatorName, aggregatorActual.AggregatorName);
+                Assert.Equal(aggregator.Details.Count, aggregatorActual.Details.Count);
+                Assert.Equal(aggregator.Masters.Count, aggregatorActual.Masters.Count);
 
-                Assert.Null(aggregatorForUpdateDeleted);
+                aggregatorActual.SetStatus(ObjectStatus.Deleted);
+                ds.UpdateObject(aggregatorActual);
+
+                var aggregatorDeleted = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == aggregator.__PrimaryKey);
+                var detailDeleted = ds.Query<DetailUpdateObjectTest>(DetailUpdateObjectTest.Views.DetailUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == detail.__PrimaryKey);
+                var masterDeleted = ds.Query<MasterUpdateObjectTest>(MasterUpdateObjectTest.Views.MasterUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == detail.__PrimaryKey);
+
+                Assert.Null(aggregatorDeleted);
+                Assert.Null(detailDeleted);
+                Assert.Null(masterDeleted);
+            }
+        }
+
+        /// <summary>
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
+        /// </summary>
+        [Fact(Skip = "141391")]
+        public void AggregatorWithLinkToDetailTest2()
+        {
+            foreach (IDataService ds in DataServices)
+            {
+                var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
+
+                // Act & Assert.
+                ds.UpdateObject(aggregator);
+                aggregator = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
+
+                var detail0 = new DetailUpdateObjectTest { DetailName = "detailName0" };
+                aggregator.Details.Add(detail0);
+                aggregator.Detail = detail0;
+                ds.UpdateObject(aggregator);
+
+                var detail1 = new DetailUpdateObjectTest { DetailName = "detailName1" };
+                aggregator.Details.Add(detail1);
+                aggregator.Detail = detail1;
+                var dojbs = new DataObject[] { detail1, detail0, aggregator };
+                ds.UpdateObjects(ref dojbs);
+
+                var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
+
+                Assert.NotNull(aggregatorActual);
+                Assert.Equal(aggregator.__PrimaryKey, aggregatorActual.__PrimaryKey);
+                Assert.Equal(aggregator.AggregatorName, aggregatorActual.AggregatorName);
+                Assert.Equal(aggregator.Details.Count, aggregatorActual.Details.Count);
+
+                aggregatorActual.SetStatus(ObjectStatus.Deleted);
+                ds.UpdateObject(aggregatorActual);
+
+                var aggregatorDeleted = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == aggregator.__PrimaryKey);
+                var detailDeleted = ds.Query<DetailUpdateObjectTest>(DetailUpdateObjectTest.Views.DetailUpdateObjectTestE)
+                    .FirstOrDefault(x => x.__PrimaryKey == detail0.__PrimaryKey);
+
+                Assert.Null(aggregatorDeleted);
                 Assert.Null(detailDeleted);
             }
         }
