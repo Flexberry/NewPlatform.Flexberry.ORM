@@ -41,7 +41,10 @@
 
         private bool fieldDistinct = false;
 
-        public bool Distinct { get { return fieldDistinct; } set { fieldDistinct = value; } }
+        public bool Distinct
+        {
+            get { return fieldDistinct; } set { fieldDistinct = value; }
+        }
 
         public int ReturnTop
         {
@@ -58,7 +61,10 @@
 
         public LcsReturnType ReturnType { get; set; }
 
-        public int LoadingBufferSize { get { return fieldLoadingBufferSize; } set { fieldLoadingBufferSize = value; } }
+        public int LoadingBufferSize
+        {
+            get { return fieldLoadingBufferSize; } set { fieldLoadingBufferSize = value; }
+        }
 
         public bool InitDataCopy
         {
@@ -296,27 +302,42 @@
         /// <summary>
         /// порядок колонок в выборке
         /// </summary>
-        public string[] ColumnsOrder { get { return fieldColumnsOrder; } set { fieldColumnsOrder = value; } }
+        public string[] ColumnsOrder
+        {
+            get { return fieldColumnsOrder; } set { fieldColumnsOrder = value; }
+        }
 
         /// <summary>
         /// сортировка колонок
         /// </summary>
-        public ColumnsSortDef[] ColumnsSort { get { return fieldColumnsSort; } set { fieldColumnsSort = value; } }
+        public ColumnsSortDef[] ColumnsSort
+        {
+            get { return fieldColumnsSort; } set { fieldColumnsSort = value; }
+        }
 
         /// <summary>
         /// ограничение на объекты
         /// </summary>
-        public Function LimitFunction { get { return fieldLimitFunction; } set { fieldLimitFunction = value; } }
+        public Function LimitFunction
+        {
+            get { return fieldLimitFunction; } set { fieldLimitFunction = value; }
+        }
 
         /// <summary>
         /// вычитываем эти типы
         /// </summary>
-        public System.Type[] LoadingTypes { get { return fieldLoadingTypes; } set { fieldLoadingTypes = value; } }
+        public System.Type[] LoadingTypes
+        {
+            get { return fieldLoadingTypes; } set { fieldLoadingTypes = value; }
+        }
 
         /// <summary>
         /// используемое представление
         /// </summary>
-        public View View { get { return fieldView; } set { fieldView = value; } }
+        public View View
+        {
+            get { return fieldView; } set { fieldView = value; }
+        }
 
         private View getDefView(Type dataObjectType)
         {
@@ -348,7 +369,10 @@
         ///
         /// </summary>
         /// <param name="creatorKey">ключ для идентификации вызова</param>
-        public LoadingCustomizationStruct(object creatorKey) { this.creatorKey = creatorKey; }
+        public LoadingCustomizationStruct(object creatorKey)
+        {
+            this.creatorKey = creatorKey;
+        }
 
         private System.Type GetBaseType(System.Type[] types)
         {

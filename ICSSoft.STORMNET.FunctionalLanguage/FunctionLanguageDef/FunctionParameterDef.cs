@@ -13,7 +13,10 @@
         /// Определение функции (агрегатор)
         /// </summary>
         [Agregator]
-        public FunctionDef FunctionDef {get {return fieldFunctionDef;} set{fieldFunctionDef = value;} }
+        public FunctionDef FunctionDef
+        {
+            get { return fieldFunctionDef; } set { fieldFunctionDef = value; }
+        }
 
         /// <summary>
         /// конструктор
@@ -64,6 +67,9 @@
         /// <summary>
         /// Поддерживается ли много значений одного параметра
         /// </summary>
-        public bool MultiValueSupport { get {return fieldMultiValueSupport;} set{fieldMultiValueSupport = value;} }
+        public bool MultiValueSupport
+        {
+            get { return fieldMultiValueSupport; } set { fieldMultiValueSupport = value; }
+        }
     }
 }

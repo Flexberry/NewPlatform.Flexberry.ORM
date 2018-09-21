@@ -13,11 +13,29 @@ namespace ICSSoft.STORMNET.Windows.Forms
         private string fAdv;
         private bool fMultiply;
 
-        public string ParamName { get { return fParamName; } set { fParamName = value; StringedView = "@" + value; } }
+        public string ParamName
+        {
+            get
+            {
+                return fParamName;
+            }
 
-        public string Adv { get { return fAdv; } set { fAdv = value; } }
+            set
+            {
+                fParamName = value;
+                StringedView = "@" + value;
+            }
+        }
 
-        public bool Multiply { get { return fMultiply; } set { fMultiply = value; } }
+        public string Adv
+        {
+            get { return fAdv; } set { fAdv = value; }
+        }
+
+        public bool Multiply
+        {
+            get { return fMultiply; } set { fMultiply = value; }
+        }
 
         public ParameterDef(string ParamName, ICSSoft.STORMNET.FunctionalLanguage.ObjectType type, bool Multiply, string Advansed)
             : base(type, "@" + ParamName, "@" + ParamName)
@@ -27,7 +45,9 @@ namespace ICSSoft.STORMNET.Windows.Forms
             fMultiply = Multiply;
         }
 
-        public ParameterDef() { }
+        public ParameterDef()
+        {
+        }
 
         public override object ToSimpleValue()
         {

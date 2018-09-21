@@ -74,12 +74,18 @@
         /// <summary>
         /// емкость
         /// </summary>
-        public virtual int Capacity { get { return dataArray.Capacity; } set { dataArray.Capacity = value; } }
+        public virtual int Capacity
+        {
+            get { return dataArray.Capacity; } set { dataArray.Capacity = value; }
+        }
 
         /// <summary>
         /// количество элементов
         /// </summary>
-        public virtual int Count { get { return dataArray.Count; } }
+        public virtual int Count
+        {
+            get { return dataArray.Count; }
+        }
 
         /// <summary>
         /// вернуть по индексу
@@ -93,21 +99,30 @@
         /// <summary>
         /// объект для синхронизации доступа к массиву
         /// </summary>
-        public virtual object SyncRoot { get { return dataArray.SyncRoot; } }
+        public virtual object SyncRoot
+        {
+            get { return dataArray.SyncRoot; }
+        }
 
         /// <summary>
         /// Array wrapper
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static ArrayList Adapter(IList list) { return ArrayList.Adapter(list); }
+        public static ArrayList Adapter(IList list)
+        {
+            return ArrayList.Adapter(list);
+        }
 
         /// <summary>
         /// добавить
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public virtual int Add(Type value) { return dataArray.Add(value); }
+        public virtual int Add(Type value)
+        {
+            return dataArray.Add(value);
+        }
 
         /// <summary>
         /// поиск
@@ -137,7 +152,10 @@
         /// <summary>
         /// очистить
         /// </summary>
-        public virtual void Clear() { dataArray.Clear(); }
+        public virtual void Clear()
+        {
+            dataArray.Clear();
+        }
 
         /// <summary>
         /// проверка на вхождение

@@ -219,8 +219,8 @@
             gost.Add("я", "ya");
             gost.Add("Ъ", "'");
             gost.Add("ъ", "'");
-            gost.Add("ь", "");
-            gost.Add("Ь", "");
+            gost.Add("ь", string.Empty);
+            gost.Add("Ь", string.Empty);
 
             // gost.Add("╚", "");
             // gost.Add("╩", "");
@@ -297,8 +297,8 @@
             iso.Add("э", "e");
             iso.Add("ъ", "'");
             iso.Add("Ъ", "'");
-            iso.Add("Ь", "");
-            iso.Add("ь", "");
+            iso.Add("Ь", string.Empty);
+            iso.Add("ь", string.Empty);
 
             // iso.Add("╚", "");
             // iso.Add("╩", "");

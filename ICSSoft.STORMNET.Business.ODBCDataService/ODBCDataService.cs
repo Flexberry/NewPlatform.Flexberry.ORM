@@ -246,7 +246,7 @@ namespace ICSSoft.STORMNET.Business
         public override string GetIfNullExpression(params string[] identifiers)
             {
                 string result = identifiers[identifiers.Length - 1];
-                for (int i = identifiers.Length - 2;i >= 0;i--)
+                for (int i = identifiers.Length - 2; i >= 0; i--)
             {
                 result = string.Concat("{fn IFNULL(", identifiers[i], ", ", result, ")}");
             }

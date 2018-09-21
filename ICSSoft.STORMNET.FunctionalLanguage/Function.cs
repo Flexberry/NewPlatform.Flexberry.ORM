@@ -136,12 +136,18 @@
         /// <summary>
         /// Определение функции
         /// </summary>
-        public FunctionDef FunctionDef { get { return _fieldFunctionDef; } set { _fieldFunctionDef = value; } }
+        public FunctionDef FunctionDef
+        {
+            get { return _fieldFunctionDef; } set { _fieldFunctionDef = value; }
+        }
 
         /// <summary>
         /// Массив параметров
         /// </summary>
-        public ArrayList Parameters { get { return fieldParameters; } }
+        public ArrayList Parameters
+        {
+            get { return fieldParameters; }
+        }
 
         /// <summary>
         /// Переопределяем сравнение функций (сравнение идёт по функциям, получаемым методом ToString).

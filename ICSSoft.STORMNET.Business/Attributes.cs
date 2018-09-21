@@ -118,15 +118,18 @@ namespace ICSSoft.STORMNET.Business
         /// Бизнессервер
         /// </summary>
         /// <param name="businessServerType">Тип бизнессервера</param>
-        public BusinessServerAttribute(string businessServerType) : this(Type.GetType(businessServerType, true, true))
-        { }
+        public BusinessServerAttribute(string businessServerType)
+            : this(Type.GetType(businessServerType, true, true))
+        {
+        }
 
         /// <summary>
         /// Бизнессервер
         /// </summary>
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
-        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents) : this(businessServerType)
+        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents)
+            : this(businessServerType)
         {
             ServerEvents = serverEvents;
         }
@@ -137,7 +140,8 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
         /// <param name="order">Упорядочение бизнес-серверов. 0 - выполнится раньше остальных, int.MaxValue - выполнится последним</param>
-        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents, int order) : this(businessServerType)
+        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents, int order)
+            : this(businessServerType)
         {
             ServerEvents = serverEvents;
             Order = order;
@@ -148,8 +152,10 @@ namespace ICSSoft.STORMNET.Business
         /// </summary>
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
-        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents) : this (Type.GetType(businessServerType, true, true), serverEvents)
-        { }
+        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents)
+            : this(Type.GetType(businessServerType, true, true), serverEvents)
+        {
+        }
 
         /// <summary>
         /// Бизнессервер
@@ -157,8 +163,10 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
         /// <param name="order">Упорядочение бизнес-серверов. 0 - выполнится раньше остальных, int.MaxValue - выполнится последним</param>
-        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents, int order) : this(Type.GetType(businessServerType, true, true), serverEvents, order)
-        { }
+        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents, int order)
+            : this(Type.GetType(businessServerType, true, true), serverEvents, order)
+        {
+        }
     }
 
     /// <summary>
@@ -166,7 +174,9 @@ namespace ICSSoft.STORMNET.Business
     /// </summary>
     public class BusinessServerProvider
     {
-        private BusinessServerProvider() { }
+        private BusinessServerProvider()
+        {
+        }
 
         /// <summary>
         /// Кеш бизнессерверов
@@ -210,7 +220,7 @@ namespace ICSSoft.STORMNET.Business
                 {
                     BusinessServer[] ret_bs = (BusinessServer[])cache[key];
 
-                    foreach( BusinessServer bsi in ret_bs)
+                    foreach(BusinessServer bsi in ret_bs)
                     {
                         bsi.DataService = ds;
                     }

@@ -30,7 +30,9 @@ namespace ICSSoft.STORMNET
     public sealed class DynamicMethodCompiler
     {
         // DynamicMethodCompiler
-        private DynamicMethodCompiler() { }
+        private DynamicMethodCompiler()
+        {
+        }
 
         // CreateInstantiateObjectDelegate
         internal static InstantiateObjectHandler CreateInstantiateObjectHandler(Type type)

@@ -209,7 +209,11 @@ namespace ICSSoft.STORMNET.Tools
         const int MAPI_DIALOG = 0x00000008;
         const int maxAttachments = 20;
 
-        enum HowTo { MAPI_ORIG = 0, MAPI_TO, MAPI_CC, MAPI_BCC };
+        enum HowTo
+        {
+            MAPI_ORIG = 0, MAPI_TO, MAPI_CC, MAPI_BCC
+        }
+;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]

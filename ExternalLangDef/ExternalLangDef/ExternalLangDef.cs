@@ -75,81 +75,138 @@
             }
         }
 
-        public string paramTrue { get { return "True"; } }
+        public string paramTrue
+        {
+            get { return "True"; }
+        }
 
-        public string paramTODAY { get { return "TODAY"; } }
+        public string paramTODAY
+        {
+            get { return "TODAY"; }
+        }
 
-        public string paramYearDIFF { get { return "YearDIFF"; } }
+        public string paramYearDIFF
+        {
+            get { return "YearDIFF"; }
+        }
 
-        public string paramMonthDIFF { get { return "MonthDIFF"; } }
+        public string paramMonthDIFF
+        {
+            get { return "MonthDIFF"; }
+        }
 
-        public string paramWeekDIFF { get { return "WeekDIFF"; } }
+        public string paramWeekDIFF
+        {
+            get { return "WeekDIFF"; }
+        }
 
-        public string paramQuarterDIFF { get { return "quarterDIFF"; } }
+        public string paramQuarterDIFF
+        {
+            get { return "quarterDIFF"; }
+        }
 
-        public string paramDayDIFF { get { return "DayDIFF"; } }
+        public string paramDayDIFF
+        {
+            get { return "DayDIFF"; }
+        }
 
 #if NETFX_45
         /// <summary>
         /// Функция, возвращает истину, если гео-данные пересекаются.
         /// </summary>
-        public string funcGeoIntersects { get { return "GeoIntersects"; } }
+        public string funcGeoIntersects
+        {
+            get { return "GeoIntersects"; }
+        }
 #endif
 
         /// <summary>
         /// Функция, возвращающая год от DateTime
         /// </summary>
-        public string funcYearPart { get { return "YearPart"; } }
+        public string funcYearPart
+        {
+            get { return "YearPart"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая месяц(число) от DateTime
         /// </summary>
-        public string funcMonthPart { get { return "MonthPart"; } }
+        public string funcMonthPart
+        {
+            get { return "MonthPart"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая день от DateTime
         /// </summary>
-        public string funcDayPart { get { return "DayPart"; } }
+        public string funcDayPart
+        {
+            get { return "DayPart"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая часы от DateTime
         /// </summary>
-        public string funcHHPart { get { return "hhPart"; } }
+        public string funcHHPart
+        {
+            get { return "hhPart"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая минуты от DateTime
         /// </summary>
-        public string funcMIPart { get { return "miPart"; } }
+        public string funcMIPart
+        {
+            get { return "miPart"; }
+        }
 
         /// <summary>
         /// Функция, вычисляющая разность дат. Возвращает число, которое зависит от единицы измерения разности.
         /// </summary>
-        public string funcDATEDIFF { get { return "DATEDIFF"; } }
+        public string funcDATEDIFF
+        {
+            get { return "DATEDIFF"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая только дату от DateTime
         /// </summary>
-        public string funcOnlyDate { get { return "OnlyDate"; } }
+        public string funcOnlyDate
+        {
+            get { return "OnlyDate"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая день недели числом (1 = Понедельник, ..., 7 = Воскресенье)
         /// </summary>
-        public string funcDayOfWeek { get { return "DayOfWeek"; } }
+        public string funcDayOfWeek
+        {
+            get { return "DayOfWeek"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая день недели числом (0 = Воскресенье, 1 = Понедельник, ...)
         /// </summary>
-        public string funcDayOfWeekZeroBased { get { return "DayOfWeekZeroBased"; } }
+        public string funcDayOfWeekZeroBased
+        {
+            get { return "DayOfWeekZeroBased"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая имя текущего пользователя (FriendlyName)
         /// </summary>
-        public string funcCurrentUser { get { return "CurrentUser"; } }
+        public string funcCurrentUser
+        {
+            get { return "CurrentUser"; }
+        }
 
         /// <summary>
         /// Функция, возвращающая только время в формате чч:мм:сс от DateTime
         /// </summary>
-        public string funcOnlyTime { get { return "OnlyTime"; } }
+        public string funcOnlyTime
+        {
+            get { return "OnlyTime"; }
+        }
 
         /// <summary>
         /// Полный аналог SQL функции dateadd
@@ -165,88 +222,139 @@
         /// <summary>
         /// Импликация (Если-то)
         /// </summary>
-        public string funcImplication { get { return "Implication"; } }
+        public string funcImplication
+        {
+            get { return "Implication"; }
+        }
 
         /// <summary>
         /// Существуют только такие {}, что {}. Вернет True, если все объекты удовлетворяют условию, в противном случае - False. Условие - только одна функция.
         /// </summary>
-        public string funcExistExact { get { return "ExistExact"; } }
+        public string funcExistExact
+        {
+            get { return "ExistExact"; }
+        }
 
         /// <summary>
         /// Существуют все только такие {}, что {} И {} И {} ...    Вернет True, если все объекты удовлетворяют условию, в противном случае - False. В качестве условия могут выступать множество функций, которые автоматически соединятся конъюнкцией. Внимание! Допустимых видов функций только две: "=" (funcEQ) и "СРЕДИ ЗНАЧЕНИЙ()" (FuncIN).
         /// </summary>
-        public string funcExistAllExact { get { return "ExistAllExact"; } }
+        public string funcExistAllExact
+        {
+            get { return "ExistAllExact"; }
+        }
 
         /// <summary>
         /// Существуют такие {}, что {} Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. Условие - только одна функция.
         /// </summary>
-        public string funcExist { get { return "Exist"; } }
+        public string funcExist
+        {
+            get { return "Exist"; }
+        }
 
         /// <summary>
         /// Существуют такие {} и такие {}, что {}  Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. Условие - только одна функция.
         /// Необходимо для сравнения свойств двух детейлов разных композиционных связей.
         /// </summary>
-        public string funcExistDetails { get { return "ExistDetails"; } }
+        public string funcExistDetails
+        {
+            get { return "ExistDetails"; }
+        }
 
         /// <summary>
         /// Существуют все такие {}, что {} И {} И {} ...   Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. В качестве условия могут выступать множество функций, которые автоматически соединятся конъюнкцией. Внимание! Допустимых видов функций только две: "=" (funcEQ) и "СРЕДИ ЗНАЧЕНИЙ()" (FuncIN).
         /// </summary>
-        public string funcExistAll { get { return "ExistAll"; } }
+        public string funcExistAll
+        {
+            get { return "ExistAll"; }
+        }
 
         /// <summary>
         /// Максимальное значение в детейле с ограничением
         /// </summary>
-        public string funcMaxWithLimit { get { return "MAXWithLimit"; } }
+        public string funcMaxWithLimit
+        {
+            get { return "MAXWithLimit"; }
+        }
 
         /// <summary>
         /// Минимальное значение в детейле с ограничением
         /// </summary>
-        public string funcMinWithLimit { get { return "MINWithLimit"; } }
+        public string funcMinWithLimit
+        {
+            get { return "MINWithLimit"; }
+        }
 
         /// <summary>
         /// Среднее значение в детейле с ограничением
         /// </summary>
-        public string funcAvgWithLimit { get { return "AVGWithLimit"; } }
+        public string funcAvgWithLimit
+        {
+            get { return "AVGWithLimit"; }
+        }
 
         /// <summary>
         /// Сумма значений в детейле с ограничением
         /// </summary>
-        public string funcSumWithLimit { get { return "SUMWithLimit"; } }
+        public string funcSumWithLimit
+        {
+            get { return "SUMWithLimit"; }
+        }
 
         /// <summary>
         /// Количество значений в детейле с ограничением
         /// </summary>
-        public string funcCountWithLimit { get { return "CountWithLimit"; } }
+        public string funcCountWithLimit
+        {
+            get { return "CountWithLimit"; }
+        }
 
         /// <summary>
         /// Количество
         /// </summary>
-        public string funcCount { get { return "Count"; } }
+        public string funcCount
+        {
+            get { return "Count"; }
+        }
 
         /// <summary>
         /// Не пусто
         /// </summary>
-        public string funcNotIsNull { get { return "NOTISNULL"; } }
+        public string funcNotIsNull
+        {
+            get { return "NOTISNULL"; }
+        }
 
         /// <summary>
         /// Количество дней в месяце
         /// </summary>
-        public string funcDaysInMonth { get { return "DaysInMonth"; } }
+        public string funcDaysInMonth
+        {
+            get { return "DaysInMonth"; }
+        }
 
         /// <summary>
         /// Привести строку к верхнему регистру
         /// </summary>
-        public string funcToUpper { get { return "ToUpper"; } }
+        public string funcToUpper
+        {
+            get { return "ToUpper"; }
+        }
 
         /// <summary>
         /// Привести строку к нижнему регистру
         /// </summary>
-        public string funcToLower { get { return "ToLower"; } }
+        public string funcToLower
+        {
+            get { return "ToLower"; }
+        }
 
         /// <summary>
         /// Привести значение к строке
         /// </summary>
-        public string funcToChar { get { return "ToChar"; } }
+        public string funcToChar
+        {
+            get { return "ToChar"; }
+        }
 
         #region Расширение ограничения
 
@@ -446,20 +554,32 @@
 #if NETFX_45
         private ObjectType fieldGeography = new ObjectType("Geography", "Гео-данные", typeof(Geography));
 
-        public ObjectType GeographyType { get { return fieldGeography; } }
+        public ObjectType GeographyType
+        {
+            get { return fieldGeography; }
+        }
 #endif
 
         private ObjectType fieldDetails = new ObjectType("Details", "Зависимые объекты", typeof(DetailArray));
 
-        public ObjectType DetailsType { get { return fieldDetails; } }
+        public ObjectType DetailsType
+        {
+            get { return fieldDetails; }
+        }
 
         private ObjectType fieldDataObjectType = new ObjectType("DataObject", "Сущность", typeof(DataObject), false);
 
-        public ObjectType DataObjectType { get { return fieldDataObjectType; } }
+        public ObjectType DataObjectType
+        {
+            get { return fieldDataObjectType; }
+        }
 
         private ObjectType fieldDatePartType = new ObjectType("datepart", "Часть даты", typeof(DatePart), false);
 
-        public ObjectType DatePartType { get { return fieldDatePartType; } }
+        public ObjectType DatePartType
+        {
+            get { return fieldDatePartType; }
+        }
 
         public override ObjectType GetObjectTypeForNetType(Type type)
         {
@@ -822,7 +942,10 @@
             base.InitializeDefs();
         }
 
-        public override int MaxFuncID { get { return base.MaxFuncID + 35; } }
+        public override int MaxFuncID
+        {
+            get { return base.MaxFuncID + 35; }
+        }
 
         private System.Collections.Specialized.StringCollection ChFuncNames = null;
 
@@ -1124,10 +1247,10 @@
                     if (obj is FunctionalLanguage.Function)
                     {
                         FunctionalLanguage.Function fnc = obj as FunctionalLanguage.Function;
-                        DetFuncs = (fnc.FunctionDef.StringedView == "Exist"
+                        DetFuncs = fnc.FunctionDef.StringedView == "Exist"
                                     || fnc.FunctionDef.StringedView == "ExistExact"
                                     || fnc.FunctionDef.StringedView == "ExistAll"
-                                    || fnc.FunctionDef.StringedView == "ExistAllExact");
+                                    || fnc.FunctionDef.StringedView == "ExistAllExact";
                         if (!DetFuncs)
                         {
                             break;

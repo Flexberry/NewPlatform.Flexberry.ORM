@@ -145,122 +145,194 @@
         /// <summary>
         /// "Boolean","Логический"
         /// </summary>
-        public ObjectType BoolType { get { return fieldBoolType; } }
+        public ObjectType BoolType
+        {
+            get { return fieldBoolType; }
+        }
 
         /// <summary>
         /// "Numeric","Число"
         /// </summary>
-        public ObjectType NumericType { get { return fieldNumericType; } }
+        public ObjectType NumericType
+        {
+            get { return fieldNumericType; }
+        }
 
         /// <summary>
         /// "String","Текст"
         /// </summary>
-        public ObjectType StringType { get { return fieldStringType; } }
+        public ObjectType StringType
+        {
+            get { return fieldStringType; }
+        }
 
         /// <summary>
         /// "DateTime","Дата/Время"
         /// </summary>
-        public ObjectType DateTimeType { get { return fieldDateTimeType; } }
+        public ObjectType DateTimeType
+        {
+            get { return fieldDateTimeType; }
+        }
 
         /// <summary>
         /// "Guid","Идентификатор"
         /// </summary>
-        public ObjectType GuidType { get { return fieldGuidType; } }
+        public ObjectType GuidType
+        {
+            get { return fieldGuidType; }
+        }
 
         /// <summary>
         /// "Query","SQL выражение"
         /// </summary>
-        public ObjectType QueryType { get { return fieldQueryType; } }
+        public ObjectType QueryType
+        {
+            get { return fieldQueryType; }
+        }
 
         /// <summary>
         /// ISNULL
         /// </summary>
-        public string funcIsNull { get { return "ISNULL"; } }
+        public string funcIsNull
+        {
+            get { return "ISNULL"; }
+        }
 
         /// <summary>
         /// NOT
         /// </summary>
-        public string funcNOT { get { return "NOT"; } }
+        public string funcNOT
+        {
+            get { return "NOT"; }
+        }
 
         /// <summary>
         /// OR
         /// </summary>
-        public string funcOR { get { return "OR"; } }
+        public string funcOR
+        {
+            get { return "OR"; }
+        }
 
         /// <summary>
         /// AND
         /// </summary>
-        public string funcAND { get { return "AND"; } }
+        public string funcAND
+        {
+            get { return "AND"; }
+        }
 
         /// <summary>
         /// +
         /// </summary>
-        public string funcPlus { get { return "+"; } }
+        public string funcPlus
+        {
+            get { return "+"; }
+        }
 
         /// <summary>
         /// *
         /// </summary>
-        public string funcSub { get { return "*"; } }
+        public string funcSub
+        {
+            get { return "*"; }
+        }
 
         /// <summary>
         /// -
         /// </summary>
-        public string funcMinus { get { return "-"; } }
+        public string funcMinus
+        {
+            get { return "-"; }
+        }
 
         /// <summary>
         /// /
         /// </summary>
-        public string funcDiv { get { return "/"; } }
+        public string funcDiv
+        {
+            get { return "/"; }
+        }
 
         /// <summary>
         /// LIKE
         /// </summary>
-        public string funcLike { get { return "LIKE"; } }
+        public string funcLike
+        {
+            get { return "LIKE"; }
+        }
 
         /// <summary>
         /// &lt;
         /// </summary>
-        public string funcL { get { return "<"; } }
+        public string funcL
+        {
+            get { return "<"; }
+        }
 
         /// <summary>
         /// &lt;=
         /// </summary>
-        public string funcLEQ { get { return "<="; } }
+        public string funcLEQ
+        {
+            get { return "<="; }
+        }
 
         /// <summary>
         /// =
         /// </summary>
-        public string funcEQ { get { return "="; } }
+        public string funcEQ
+        {
+            get { return "="; }
+        }
 
         /// <summary>
         /// &gt;=
         /// </summary>
-        public string funcGEQ { get { return ">="; } }
+        public string funcGEQ
+        {
+            get { return ">="; }
+        }
 
         /// <summary>
         /// &gt;
         /// </summary>
-        public string funcG { get { return ">"; } }
+        public string funcG
+        {
+            get { return ">"; }
+        }
 
         /// <summary>
         /// &lt;&gt;
         /// </summary>
-        public string funcNEQ { get { return "<>"; } }
+        public string funcNEQ
+        {
+            get { return "<>"; }
+        }
 
         /// <summary>
         /// IN
         /// </summary>
-        public string funcIN { get { return "IN"; } }
+        public string funcIN
+        {
+            get { return "IN"; }
+        }
 
         /// <summary>
         /// BETWEEN
         /// </summary>
-        public string funcBETWEEN { get { return "BETWEEN"; } }
+        public string funcBETWEEN
+        {
+            get { return "BETWEEN"; }
+        }
 
         /// <summary>
         /// SQL
         /// </summary>
-        public string funcSQL { get { return "SQL"; } }
+        public string funcSQL
+        {
+            get { return "SQL"; }
+        }
 
         /// <summary>
         /// Если в IN будет участвовать один объект, то IN заменится на =
@@ -273,12 +345,18 @@
         /// <summary>
         /// Получить символ, отвечающий за любую строку (по-умолчанию это "%")
         /// </summary>
-        public virtual string QueryLikeAnyStringSymbol { get { return fQueryLikeAnyStringSymbol; } set { fQueryLikeAnyStringSymbol = value; } }
+        public virtual string QueryLikeAnyStringSymbol
+        {
+            get { return fQueryLikeAnyStringSymbol; } set { fQueryLikeAnyStringSymbol = value; }
+        }
 
         /// <summary>
         /// Получить символ, отвечающий за любой символ в строке (по-умолчанию это "_")
         /// </summary>
-        public virtual string QueryLikeAnyCharacterSymbol { get { return fQueryLikeAnyCharacterSymbol; } set { fQueryLikeAnyCharacterSymbol = value; } }
+        public virtual string QueryLikeAnyCharacterSymbol
+        {
+            get { return fQueryLikeAnyCharacterSymbol; } set { fQueryLikeAnyCharacterSymbol = value; }
+        }
 
         private string fUserLikeAnyStringSymbol = "*";
         private string fUserLikeAnyCharacterSymbol = "_";
@@ -286,12 +364,18 @@
         /// <summary>
         /// Символ, который вводит пользователь, чтобы обозначить любую строку (по-умолчанию это "*")
         /// </summary>
-        public virtual string UserLikeAnyStringSymbol { get { return fUserLikeAnyStringSymbol; } set { fUserLikeAnyStringSymbol = value; } }
+        public virtual string UserLikeAnyStringSymbol
+        {
+            get { return fUserLikeAnyStringSymbol; } set { fUserLikeAnyStringSymbol = value; }
+        }
 
         /// <summary>
         /// Символ, который вводит пользователь, чтобы обозначить любой символ (по-умолчанию это "_")
         /// </summary>
-        public virtual string UserLikeAnyCharacterSymbol { get { return fUserLikeAnyCharacterSymbol; } set { fUserLikeAnyCharacterSymbol = value; } }
+        public virtual string UserLikeAnyCharacterSymbol
+        {
+            get { return fUserLikeAnyCharacterSymbol; } set { fUserLikeAnyCharacterSymbol = value; }
+        }
 
         /// <summary>
         /// Перенаправитель для обработки параметров: value is Function или value is VariableDef или это просто значение
@@ -305,7 +389,7 @@
         {
             if (value is Function)
             {
-                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction((value as Function), convertValue, convertIdentifier);
+                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier);
             }
 
             if (value is VariableDef)
@@ -318,12 +402,12 @@
                     //                  }
                     //                  else
                     //                  {
-                    return ((value as VariableDef).Language as SQLWhereLanguageDef).SQLTranslVariable((value as VariableDef), convertValue, convertIdentifier);
+                    return ((value as VariableDef).Language as SQLWhereLanguageDef).SQLTranslVariable(value as VariableDef, convertValue, convertIdentifier);
 
                     // }
                 }
 
-                return SQLTranslVariable((value as VariableDef), convertValue, convertIdentifier);
+                return SQLTranslVariable(value as VariableDef, convertValue, convertIdentifier);
             }
 
             return convertValue(value);

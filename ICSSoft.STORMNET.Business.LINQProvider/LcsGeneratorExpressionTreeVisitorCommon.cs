@@ -20,7 +20,8 @@
         /// Конструктор класса <see cref="LcsGeneratorExpressionTreeVisitorCommon"/>.
         /// </summary>
         /// <param name="stacksHolder"> Элемент, организующий стек. </param>
-        public LcsGeneratorExpressionTreeVisitorCommon(TreeVisitorStacksHolder stacksHolder) : base(stacksHolder)
+        public LcsGeneratorExpressionTreeVisitorCommon(TreeVisitorStacksHolder stacksHolder)
+            : base(stacksHolder)
         {
         }
 

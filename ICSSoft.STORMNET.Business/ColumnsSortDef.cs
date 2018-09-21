@@ -15,12 +15,18 @@
         /// <summary>
         /// Имя колонки в представлении.
         /// </summary>
-        public string Name { get { return colName; } set { colName = value; } }
+        public string Name
+        {
+            get { return colName; } set { colName = value; }
+        }
 
         /// <summary>
         /// как сортировать.
         /// </summary>
-        public SortOrder Sort { get { return colSort; } set { colSort = value; } }
+        public SortOrder Sort
+        {
+            get { return colSort; } set { colSort = value; }
+        }
 
         /// <summary>
         ///

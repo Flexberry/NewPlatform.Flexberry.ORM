@@ -22,7 +22,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
         }
 
-        private NullableInt(int val) { Value = val; }
+        private NullableInt(int val)
+        {
+            Value = val;
+        }
 
         /// <summary>
         /// Преобразование возможно только явное, поскольку программист должен отдавать себе отчёт в том, что NullableInt может быть null, поэтому не забывайте проверять перед таким преобразованием
@@ -186,7 +189,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator ==(NullableInt x, NullableInt y)
         {
-            return ((new NullableInt(0)).Compare(x, y) == 0);
+            return new NullableInt(0).Compare(x, y) == 0;
         }
 
         /// <summary>
@@ -197,7 +200,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator !=(NullableInt x, NullableInt y)
         {
-            return ((new NullableInt(0)).Compare(x, y) != 0);
+            return new NullableInt(0).Compare(x, y) != 0;
         }
 
         /// <summary>
@@ -208,7 +211,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator >(NullableInt x, NullableInt y)
         {
-            return ((new NullableInt(0)).Compare(x, y) > 0);
+            return new NullableInt(0).Compare(x, y) > 0;
         }
 
         /// <summary>
@@ -219,7 +222,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator >=(NullableInt x, NullableInt y)
         {
-            return ((new NullableInt(0)).Compare(x, y) >= 0);
+            return new NullableInt(0).Compare(x, y) >= 0;
         }
 
         /// <summary>
@@ -230,7 +233,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator <(NullableInt x, NullableInt y)
         {
-            return ((new NullableInt(0)).Compare(x, y) < 0);
+            return new NullableInt(0).Compare(x, y) < 0;
         }
 
         /// <summary>
@@ -241,7 +244,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator <=(NullableInt x, NullableInt y)
         {
-            return ((new NullableInt(0)).Compare(x, y) <= 0);
+            return new NullableInt(0).Compare(x, y) <= 0;
         }
 
         /// <summary>
@@ -503,7 +506,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
         }
 
-        private NullableDecimal(decimal val) { Value = val; }
+        private NullableDecimal(decimal val)
+        {
+            Value = val;
+        }
 
         /// <summary>
         /// Явное преобразование к Decimal
@@ -573,7 +579,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator ==(NullableDecimal x, NullableDecimal y)
         {
-            return ((new NullableDecimal(0)).Compare(x, y) == 0);
+            return new NullableDecimal(0).Compare(x, y) == 0;
         }
 
         /// <summary>
@@ -584,7 +590,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator !=(NullableDecimal x, NullableDecimal y)
         {
-            return ((new NullableDecimal(0)).Compare(x, y) != 0);
+            return new NullableDecimal(0).Compare(x, y) != 0;
         }
 
         /// <summary>
@@ -595,7 +601,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator >(NullableDecimal x, NullableDecimal y)
         {
-            return ((new NullableDecimal(0)).Compare(x, y) > 0);
+            return new NullableDecimal(0).Compare(x, y) > 0;
         }
 
         /// <summary>
@@ -606,7 +612,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator >=(NullableDecimal x, NullableDecimal y)
         {
-            return ((new NullableDecimal(0)).Compare(x, y) >= 0);
+            return new NullableDecimal(0).Compare(x, y) >= 0;
         }
 
         /// <summary>
@@ -617,7 +623,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator <(NullableDecimal x, NullableDecimal y)
         {
-            return ((new NullableDecimal(0)).Compare(x, y) < 0);
+            return new NullableDecimal(0).Compare(x, y) < 0;
         }
 
         /// <summary>
@@ -628,7 +634,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static bool operator <=(NullableDecimal x, NullableDecimal y)
         {
-            return ((new NullableDecimal(0)).Compare(x, y) <= 0);
+            return new NullableDecimal(0).Compare(x, y) <= 0;
         }
 
         /// <summary>

@@ -116,7 +116,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             eventValue.StartTime = attr != null ? DateTime.Parse(attr.Value) : DateTime.MinValue;
 
             attr = xml.Attribute("finish");
-            eventValue.FinishTime = attr != null ? new NullableDateTime {Value = DateTime.Parse(attr.Value) } : null;
+            eventValue.FinishTime = attr != null ? new NullableDateTime { Value = DateTime.Parse(attr.Value) } : null;
 
             attr = xml.Attribute("author");
             eventValue.Author = attr != null ? attr.Value : null;

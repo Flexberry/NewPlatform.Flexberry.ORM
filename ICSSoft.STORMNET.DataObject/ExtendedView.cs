@@ -63,7 +63,7 @@
 
             if (view.Name == null
                 || string.IsNullOrEmpty(view.Name.Trim())
-                || !Information.CheckViewForClasses(view.Name, new Type[] {DefineClassType }))
+                || !Information.CheckViewForClasses(view.Name, new Type[] { DefineClassType }))
             {
                 throw new ArgumentException("Передаваемое представление должно быть сохранено в классе.");
             }

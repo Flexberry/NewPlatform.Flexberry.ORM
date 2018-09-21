@@ -141,7 +141,10 @@
         ///
         /// </summary>
         [DataMember]
-        public Guid Guid { get { return guid; } set { guid = value; } }
+        public Guid Guid
+        {
+            get { return guid; } set { guid = value; }
+        }
 
         #region IComparable
 
@@ -289,7 +292,7 @@
                 return true;
             }
 
-            if (((object)x != null && (object)y != null))
+            if ((object)x != null && (object)y != null)
             {
                 return x.Equals(y);
             }

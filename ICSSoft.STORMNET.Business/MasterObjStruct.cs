@@ -70,16 +70,25 @@
         /// <summary>
         /// Ключ мастера
         /// </summary>
-        public object Key { get { return key; } set { key = value; } }
+        public object Key
+        {
+            get { return key; } set { key = value; }
+        }
 
         /// <summary>
         /// Тип мастера
         /// </summary>
-        public Type ObjectType { get { return objectType; } set { objectType = value; } }
+        public Type ObjectType
+        {
+            get { return objectType; } set { objectType = value; }
+        }
 
         /// <summary>
         /// Имя роли мастера(наименование свойства)
         /// </summary>
-        public string PropertyName { get { return propertyName; } set { propertyName = value; } }
+        public string PropertyName
+        {
+            get { return propertyName; } set { propertyName = value; }
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
 
         IQueryable IQueryProvider.CreateQuery(Expression expression)
         {
-            Type elementType = expression.Type;// TypeResolver.GetElementType(expression.Type);
+            Type elementType = expression.Type; // TypeResolver.GetElementType(expression.Type);
             try
             {
                 return

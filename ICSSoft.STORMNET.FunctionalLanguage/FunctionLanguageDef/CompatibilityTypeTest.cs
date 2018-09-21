@@ -30,7 +30,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     public class CompatibilityTypeTest
     {
         private CompatibilityTypeTest()
-        { }
+        {
+        }
 
         static private System.Collections.Specialized.StringCollection _checkedTypes;
         static private System.Collections.SortedList _canConvertTo;
@@ -332,7 +333,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                         AddPredifinedConvertion(
                             typeof (bool),
                             new Type[] { },
-                            new[] {typeof (int) });
+                            new[] { typeof (int) });
 
                         // typeof(byte)
                         AddPredifinedConvertion(
@@ -369,14 +370,14 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                         // typeof(int)
                         AddPredifinedConvertion(
                             typeof (int),
-                            new[] {typeof (sbyte), typeof (byte), typeof (short), typeof (ushort), typeof (char) },
-                            new[] {typeof (long), typeof (float), typeof (double), typeof (decimal) });
+                            new[] { typeof (sbyte), typeof (byte), typeof (short), typeof (ushort), typeof (char) },
+                            new[] { typeof (long), typeof (float), typeof (double), typeof (decimal) });
 
                         // typeof(uint)
                         AddPredifinedConvertion(
                             typeof (uint),
-                            new[] {typeof (byte), typeof (ushort), typeof (char) },
-                            new[] {typeof (long), typeof (ulong), typeof (float), typeof (double), typeof (decimal) });
+                            new[] { typeof (byte), typeof (ushort), typeof (char) },
+                            new[] { typeof (long), typeof (ulong), typeof (float), typeof (double), typeof (decimal) });
 
                         // typeof(long)
                         AddPredifinedConvertion(
@@ -387,24 +388,24 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                                     typeof (uint),
                                     typeof (char)
                                 },
-                            new[] {typeof (float), typeof (double), typeof (decimal) });
+                            new[] { typeof (float), typeof (double), typeof (decimal) });
 
                         // typeof(ulong)
                         AddPredifinedConvertion(
                             typeof (ulong),
-                            new[] {typeof (byte), typeof (ushort), typeof (uint), typeof (char) },
-                            new[] {typeof (float), typeof (double), typeof (decimal) });
+                            new[] { typeof (byte), typeof (ushort), typeof (uint), typeof (char) },
+                            new[] { typeof (float), typeof (double), typeof (decimal) });
 
                         // typeof(short)
                         AddPredifinedConvertion(
                             typeof (short),
                             new Type[] { },
-                            new[] {typeof (int), typeof (long), typeof (float), typeof (double), typeof (decimal) });
+                            new[] { typeof (int), typeof (long), typeof (float), typeof (double), typeof (decimal) });
 
                         // typeof(ushort)
                         AddPredifinedConvertion(
                             typeof (ushort),
-                            new[] {typeof (byte), typeof (char) },
+                            new[] { typeof (byte), typeof (char) },
                             new[]
                                 {
                                     typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (float),
@@ -426,7 +427,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                         AddPredifinedConvertion(
                             typeof (Guid),
                             new Type[] { },
-                            new[] {typeof (string) });
+                            new[] { typeof (string) });
                     }
                 }
             }

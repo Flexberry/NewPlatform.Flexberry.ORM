@@ -137,7 +137,10 @@
         /// <summary>
         /// Настроичная строка (строка соединения)
         /// </summary>
-        public string CustomizationString { get { return customizationString; } set { customizationString = value; } }
+        public string CustomizationString
+        {
+            get { return customizationString; } set { customizationString = value; }
+        }
 
         /// <summary>
         /// Имплементация интерфейса <see cref="IPasswordHasher"/> для хеширования пароля.
@@ -800,7 +803,7 @@
                 // Применим полномочия на строки: КОНЕЦ.
 
                 // строим запрос
-                STORMDO.Business.StorageStructForView[] StorageStruct;// = STORMDO.Information.GetStorageStructForView(dataObjectView,doType);
+                STORMDO.Business.StorageStructForView[] StorageStruct; // = STORMDO.Information.GetStorageStructForView(dataObjectView,doType);
                 string Query = GenerateSQLSelect(lc, false, out StorageStruct, false);
 
                 // получаем данные
@@ -1231,7 +1234,7 @@
                 }
                 else if (par is FunctionalLanguage.Function)
                 {
-                    FunctionalLanguage.Function fnc = (par as FunctionalLanguage.Function);
+                    FunctionalLanguage.Function fnc = par as FunctionalLanguage.Function;
                     AddPropsByLimits(curView, OldView, fnc);
                 }
             }
@@ -1347,7 +1350,7 @@
                 bool notemptyQuery = false;
                 string nl = Environment.NewLine;
                 string UA = nl + " UNION ALL" + nl;
-                bool MustDopSelect = (dataObjectType.Length > 1);
+                bool MustDopSelect = dataObjectType.Length > 1;
                 for (int i = 0; i < dataObjectType.Length; i++)
                 {
                     if (StorageStruct[i] != null)
@@ -1371,7 +1374,7 @@
                     }
                 }
 
-                string Query = QueryBilder.ToString();// string.Join(Environment.NewLine+" UNION ALL"+Environment.NewLine,Queries);
+                string Query = QueryBilder.ToString(); // string.Join(Environment.NewLine+" UNION ALL"+Environment.NewLine,Queries);
 
                 if (Query == string.Empty)
                 {
@@ -1807,7 +1810,7 @@
 
                     if (addobj)
                     {
-                        object readingKey = (dobject.Prototyped) ? dobject.__PrototypeKey : dobject.__PrimaryKey;
+                        object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
                         ALKeys.Add(readingKey);
                         ALobjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
                         readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
@@ -1819,10 +1822,12 @@
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
                     lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectView.DefineClassType).KeyType), "STORMMainObjectKey");
-                object[] keys = new object[ALKeys.Count + 1]; ALKeys.CopyTo(keys, 1);
+                object[] keys = new object[ALKeys.Count + 1];
+                ALKeys.CopyTo(keys, 1);
                 keys[0] = var;
                 FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys);
-                Type[] types = new Type[ALtypes.Count]; ALtypes.CopyTo(types);
+                Type[] types = new Type[ALtypes.Count];
+                ALtypes.CopyTo(types);
 
                 customizationStruct.Init(null, func, types, dataObjectView, null);
 
@@ -2396,9 +2401,9 @@
         {
             string nl = Environment.NewLine + baseOutline;
             string subTableKeyField = PutIdentifierIntoBrackets(subTableAlias) + "." + PutIdentifierIntoBrackets(subTableKey);
-            string joinCondition = (!string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".") ?
+            string joinCondition = !string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".") ?
                 string.Concat(parentAliasWithKey, " = ", subTableKeyField)
-                : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey));
+                : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey);
 
             FromPart = string.Concat(nl, " LEFT JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
                 GetJoinTableModifierExpression(),
@@ -2423,9 +2428,9 @@
         {
             string nl = Environment.NewLine + baseOutline;
             string subTableKeyField = PutIdentifierIntoBrackets(subTableAlias) + "." + PutIdentifierIntoBrackets(subTableKey);
-            string joinCondition = (!string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".") ?
+            string joinCondition = !string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".") ?
                 string.Concat(parentAliasWithKey, " = ", subTableKeyField)
-                : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey));
+                : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey);
 
             FromPart = string.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
                 GetJoinTableModifierExpression(),
@@ -2524,9 +2529,10 @@
                                         PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
                                             subSource.Name
                                     });
-                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);// +"_M"+(locindex++).ToString());
+                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName); // +"_M"+(locindex++).ToString());
                         int subjoinscount;
-                        string subjoin = string.Empty; string temp;
+                        string subjoin = string.Empty;
+                        string temp;
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp);
                         string FromStr, WhereStr;
 
@@ -2604,8 +2610,9 @@
                                             PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
                                             subSource.Name
                                         });
-                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);// +"_M"+(locindex++).ToString());
-                        string subjoin = string.Empty; string temp;
+                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName); // +"_M"+(locindex++).ToString());
+                        string subjoin = string.Empty;
+                        string temp;
                         int subjoinscount = 0;
                         string FromStr, WhereStr;
 
@@ -3304,7 +3311,7 @@
 
             if (LimitFunction.Parameters[0] is string)
             {
-                return (((string)LimitFunction.Parameters[0]).ToUpper().IndexOf("SELECT") != -1);
+                return ((string)LimitFunction.Parameters[0]).ToUpper().IndexOf("SELECT") != -1;
             }
 
             return bexists;
@@ -3327,7 +3334,8 @@
                 sw = ReplaceAliases(StorageStruct, asnameprop, sw);
 
                 // не применять для существуют такие и им подобных..
-                bool bExistsFounded = CheckExists(LimitFunction); ;
+                bool bExistsFounded = CheckExists(LimitFunction);
+                ;
                 if (!bExistsFounded)
                 {
                     sw = System.Text.RegularExpressions.Regex.Replace(sw,
@@ -3479,7 +3487,8 @@
                 }
 
                 int PropCount = customizationStruct.View.Properties.Length + ((customizationStruct.AdvansedColumns != null) ? customizationStruct.AdvansedColumns.Length : 0);
-                object[] procRead = null; ;
+                object[] procRead = null;
+                ;
                 ObjectStringDataView[] result = null;
                 if (resValue == null)
                 {
@@ -3637,7 +3646,8 @@
                     SelectString,
                     ref State, customizationStruct.LoadingBufferSize);
                 int PropCount = customizationStruct.View.Properties.Length + ((customizationStruct.AdvansedColumns != null) ? customizationStruct.AdvansedColumns.Length : 0);
-                object[] procRead = null; ;
+                object[] procRead = null;
+                ;
                 ObjectStringDataView[] result = null;
                 if (resValue == null)
                 {
@@ -3822,7 +3832,7 @@
             {
                 object propval = STORMDO.Information.GetPropValueByName(dobject, prop);
                 System.Type propType = STORMDO.Information.GetPropertyType(type, prop);
-                string propstor = (ReturnPropStorageNames)
+                string propstor = ReturnPropStorageNames
                     ? STORMDO.Information.GetPropertyStorageName(type, prop)
                     : prop;
                 if (propType.IsSubclassOf(typeof(DataObject)))
@@ -3867,7 +3877,7 @@
                                 {
                                     if (Array.IndexOf(Information.GetAutoStoreMastersDisabled(type), prop) == -1)
                                     {
-                                        masters.Add(dobjval);// Автосоздание мастеров только, если не отключено
+                                        masters.Add(dobjval); // Автосоздание мастеров только, если не отключено
                                     }
                                 }
 
@@ -3904,7 +3914,7 @@
                 else
                 { // Обычное свойство
                     propsWithValues.Add(
-                        (ReturnPropStorageNames) ? PutIdentifierIntoBrackets(propstor)
+                        ReturnPropStorageNames ? PutIdentifierIntoBrackets(propstor)
                         : propstor,
                         ConvertValueToQueryValueString(propval));
                 }
@@ -4571,7 +4581,7 @@
 
                     if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted)
                     {
-                        foreach (DataObject detail in ((DetailArray)Information.GetPropValueByName(currentObject, prop)))
+                        foreach (DataObject detail in (DetailArray)Information.GetPropValueByName(currentObject, prop))
                         {
                             if (detail.ContainsAlteredProps())
                             {

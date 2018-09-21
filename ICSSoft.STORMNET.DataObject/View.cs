@@ -118,7 +118,9 @@
                 /// <summary>
                 ///
                 /// </summary>
-                public PropStorage() { }
+                public PropStorage()
+                {
+                }
 
                 /// <summary>
                 /// имя свойства в представлении
@@ -423,7 +425,10 @@
         /// <summary>
         /// использовать ли адаптивную настройку представлений при загрузке данных
         /// </summary>
-        public bool UseAdaptiveTypeLoading { get { return detailUseAdaptiveTypeLoading; } set { detailUseAdaptiveTypeLoading = value; } }
+        public bool UseAdaptiveTypeLoading
+        {
+            get { return detailUseAdaptiveTypeLoading; } set { detailUseAdaptiveTypeLoading = value; }
+        }
 
         /// <summary>
         /// настройка адаптации
@@ -508,37 +513,58 @@
         /// <summary>
         /// представление
         /// </summary>
-        public View View { get { return detailView; } set { detailView = value; } }
+        public View View
+        {
+            get { return detailView; } set { detailView = value; }
+        }
 
         /// <summary>
         /// Имя детейлового свойства
         /// </summary>
-        public string Name { get { return detailName; } }
+        public string Name
+        {
+            get { return detailName; }
+        }
 
         /// <summary>
         /// Заголовок для детейла
         /// </summary>
-        public string Caption { get { return detailcaption; } }
+        public string Caption
+        {
+            get { return detailcaption; }
+        }
 
         /// <summary>
         /// Путь на форме
         /// </summary>
-        public string FormPath { get { return detailPath; } }
+        public string FormPath
+        {
+            get { return detailPath; }
+        }
 
         /// <summary>
         /// загружать ли вместе с владельцем
         /// </summary>
-        public bool LoadOnLoadAgregator { get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; } }
+        public bool LoadOnLoadAgregator
+        {
+            get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; }
+        }
 
         /// <summary>
         /// видимый-невидимый
         /// </summary>
-        public bool Visible { get { return detailvisible; } }
+        public bool Visible
+        {
+            get { return detailvisible; }
+        }
 
         /// <summary>
         /// используемые агрегиррующие функции
         /// </summary>
-        public string[] AggregationFunctions { get { return (aggregationFunctions == null) ? null : (string[])aggregationFunctions.Clone(); } }
+        public string[] AggregationFunctions
+        {
+            get { return (aggregationFunctions == null) ? null : (string[])aggregationFunctions.Clone(); }
+        }
     }
 
     /// <summary>
@@ -596,22 +622,34 @@
         /// <summary>
         /// имя мастера
         /// </summary>
-        public string MasterName { get { return masterName; } }
+        public string MasterName
+        {
+            get { return masterName; }
+        }
 
         /// <summary>
         /// настройка лукапа
         /// </summary>
-        public string CustomizationString { get { return customizationString; } }
+        public string CustomizationString
+        {
+            get { return customizationString; }
+        }
 
         /// <summary>
         /// тип лукапа
         /// </summary>
-        public LookupTypeEnum LookupType { get { return lookupType; } }
+        public LookupTypeEnum LookupType
+        {
+            get { return lookupType; }
+        }
 
         /// <summary>
         /// свойство отображаемое при lookupe
         /// </summary>
-        public string LookupProperty { get { return lookupProperty; } }
+        public string LookupProperty
+        {
+            get { return lookupProperty; }
+        }
     }
 
     /// <summary>
@@ -738,12 +776,18 @@
         /// <summary>
         ///
         /// </summary>
-        public bool GeneratedByType { get { return generatedByType; } }
+        public bool GeneratedByType
+        {
+            get { return generatedByType; }
+        }
 
         /// <summary>
         ///
         /// </summary>
-        public View.ReadType CreationReadType { get { return readType; } }
+        public View.ReadType CreationReadType
+        {
+            get { return readType; }
+        }
 
         /// <summary>
         /// создать "заготовку" для представления
@@ -1371,9 +1415,9 @@
             System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(
                 "(" + propnamereg + captionreg + placementreg + ")|(" + propnamereg + placementreg + captionreg + ")");
             System.Text.RegularExpressions.Match m = r.Match(propDef);
-            propName = (m.Groups["propName"].Success) ? m.Groups["propName"].Value : null;
-            propCaption = (m.Groups["caption"].Success) ? lightTrim(m.Groups["caption"].Value) : null;
-            FormPath = (m.Groups["placement"].Success) ? lightTrim(m.Groups["placement"].Value) : null;
+            propName = m.Groups["propName"].Success ? m.Groups["propName"].Value : null;
+            propCaption = m.Groups["caption"].Success ? lightTrim(m.Groups["caption"].Value) : null;
+            FormPath = m.Groups["placement"].Success ? lightTrim(m.Groups["placement"].Value) : null;
         }
 
         /// <summary>
@@ -1630,12 +1674,18 @@
         /// <summary>
         /// Наименование представления.
         /// </summary>
-        public string Name { get { return viewName; } set { viewName = value; } }
+        public string Name
+        {
+            get { return viewName; } set { viewName = value; }
+        }
 
         /// <summary>
         /// тип, для которого определено пердставление
         /// </summary>
-        public System.Type DefineClassType { get { return defineClass; } set { defineClass = value; } }
+        public System.Type DefineClassType
+        {
+            get { return defineClass; } set { defineClass = value; }
+        }
 
         /// <summary>
         /// Получить все детейлы.
@@ -1649,7 +1699,10 @@
         /// <summary>
         /// Получить все мастера.
         /// </summary>
-        public MasterInView[] Masters { get { return masters; } set { masters = value; } }
+        public MasterInView[] Masters
+        {
+            get { return masters; } set { masters = value; }
+        }
 
         /// <summary>
         /// Список свойств входящих в представление.

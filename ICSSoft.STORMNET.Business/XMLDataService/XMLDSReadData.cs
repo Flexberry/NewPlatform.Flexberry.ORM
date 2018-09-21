@@ -518,15 +518,15 @@
             props.Add(StormDataObjectType);
             #endregion
 
-            string expression = "";
-            string sort = "";
+            string expression = string.Empty;
+            string sort = string.Empty;
 
             if (limitFunction != null)
             {
                 expression = LimitFunction2FilterExpression(limitFunction);
             }
 
-            string[] ascDesc = { "", " ASC", " DESC" };
+            string[] ascDesc = { string.Empty, " ASC", " DESC" };
 
             if (sorts != null && sorts.Length > 0)
             {

@@ -220,12 +220,12 @@
                 string type = Regex.Replace(types[i], @"\s+", " ").ToLower();
                 if (type.Contains("without time zone"))
                 {
-                    type = type.Replace("without time zone", "");
+                    type = type.Replace("without time zone", string.Empty);
                 }
 
                 if (type.Contains("with time zone"))
                 {
-                    type = type.Replace("with time zone", "");
+                    type = type.Replace("with time zone", string.Empty);
                     if (type.Contains("timestamp"))
                     {
                         if (!type.Contains("timestamptz"))
@@ -256,7 +256,7 @@
                 string tail = string.Empty;
                 if (tokens.Length == 3)
                 {
-                    tail = $"({tokens[1].Replace(" ", "")}){tokens[2]}";
+                    tail = $"({tokens[1].Replace(" ", string.Empty)}){tokens[2]}";
                 }
 
                 types[i] = tokens[0];
@@ -985,7 +985,7 @@
             // надо добавить RowNumber
             // top int.MaxValue
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
-            string orderByExpr = string.Empty;// , nl = Environment.NewLine;
+            string orderByExpr = string.Empty; // , nl = Environment.NewLine;
             if (orderByIndex > -1)
             {
                 orderByExpr = innerQuery.Substring(orderByIndex);

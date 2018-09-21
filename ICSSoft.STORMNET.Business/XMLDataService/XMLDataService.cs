@@ -515,10 +515,12 @@
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 var var = new FunctionalLanguage.VariableDef(lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectView.DefineClassType).KeyType),
                                                              "STORMMainObjectKey");
-                var keys = new object[alKeys.Count + 1]; alKeys.CopyTo(keys, 1);
+                var keys = new object[alKeys.Count + 1];
+                alKeys.CopyTo(keys, 1);
                 keys[0] = var;
                 FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys);
-                var types = new Type[aLtypes.Count]; aLtypes.CopyTo(types);
+                var types = new Type[aLtypes.Count];
+                aLtypes.CopyTo(types);
                 customizationStruct.Init(null, func, types, dataObjectView, null);
                 StorageStructForView[] storageStruct;
                 object[][] resValue = ReadData(customizationStruct, out storageStruct);
@@ -1040,7 +1042,7 @@
                     }
                     else
                     {
-                        string err = "";
+                        string err = string.Empty;
 
                         foreach (DataTable dt in _dataSet.Tables)
                         {
@@ -1141,7 +1143,7 @@
                 Type primkeyType = Information.GetStorageTypeForType(Information.GetPropertyType(dataobjectType, "__PrimaryKey"),
                                                                      typeof(XMLFileDataService));
                 dt.Columns.Add(new System.Data.DataColumn(Information.GetPrimaryKeyStorageName(dataobjectType),
-                                                          primkeyType, "", System.Data.MappingType.Attribute));
+                                                          primkeyType, string.Empty, System.Data.MappingType.Attribute));
                 dt.PrimaryKey = new[] { dt.Columns[0] };
 
                 foreach (string prop in storprops)
@@ -1158,7 +1160,7 @@
                             System.Data.DataTable masterTable = CreateTableForClass(mastertypes[mi], ds);
                             string propstorname;
 
-                            if (propstor == "")
+                            if (propstor == string.Empty)
                             {
                                 propstorname = Information.GetPropertyStorageName(dataobjectType, prop, mi);
                             }
@@ -1170,7 +1172,7 @@
                             Type masterkeyType =
                                 Information.GetStorageTypeForType(Information.GetPropertyType(mastertypes[mi], "__PrimaryKey"),
                                                                   typeof(XMLFileDataService));
-                            var dc = new System.Data.DataColumn(propstorname, masterkeyType, "",
+                            var dc = new System.Data.DataColumn(propstorname, masterkeyType, string.Empty,
                                                                 System.Data.MappingType.Attribute);
                             dt.Columns.Add(dc);
                             string masterprimkeyname = Information.GetPrimaryKeyStorageName(mastertypes[mi]);
@@ -1189,7 +1191,7 @@
                     else if (prop != "__PrimaryKey")
                     {
                         dt.Columns.Add(
-                            new System.Data.DataColumn(propstor, storType, "", System.Data.MappingType.Attribute));
+                            new System.Data.DataColumn(propstor, storType, string.Empty, System.Data.MappingType.Attribute));
                     }
                 }
             }
@@ -1220,7 +1222,7 @@
             Type type = dobject.GetType();
             string[] props = (dobject.GetStatus(false) == ObjectStatus.Created)
                                  ? Information.GetPropertyNamesForInsert(type)
-                                 : ((Information.AutoAlteredClass(type))
+                                 : (Information.AutoAlteredClass(type)
                                         ? dobject.GetAlteredPropertyNames(false)
                                         : dobject.GetAlteredPropertyNames());
             props = Information.SortByLoadingOrder(type, props);
@@ -1260,7 +1262,7 @@
                     {
                         string realpropname;
 
-                        if (propstor == "")
+                        if (propstor == string.Empty)
                         {
                             realpropname = Information.GetPropertyStorageName(type, prop, i);
                         }

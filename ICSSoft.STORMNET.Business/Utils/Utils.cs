@@ -204,7 +204,7 @@
 
                 for (int i = 0; i < propCount; i++)
                 {
-                    Type propType = (indexes[i] >= storageStruct[0].props.Length) ? typeof(object) : storageStruct[0].props[indexes[i]].propertyType;// STORMDO.Information.GetPropertyType(customizationStruct.View.DefineClassType,StorageStruct[0].props[indexes[i]].Name);
+                    Type propType = (indexes[i] >= storageStruct[0].props.Length) ? typeof(object) : storageStruct[0].props[indexes[i]].propertyType; // STORMDO.Information.GetPropertyType(customizationStruct.View.DefineClassType,StorageStruct[0].props[indexes[i]].Name);
                     if (propType.IsSubclassOf(typeof(DataObject)))
                     {
                         propType = KeyGen.KeyGenerator.KeyType(propType);
@@ -428,7 +428,7 @@
                             // changed by fat
                             // Братчиков 2010-10-29 (может встретиться несколько иерархий на пути, надо их тоже правильно обработать)
                             int колвоМастеровВСередине = ps.MastersTypes.Length; // предполагается, что тут будет число мастеров, получаемое при последовательных пристыковываниях нескольких иерархий наследования
-                            int колвоМастеровВКонцеИерархии = ps.MastersTypes[0].Length;// это число типов мастеров с которым мы непосредственно сейчас работаем
+                            int колвоМастеровВКонцеИерархии = ps.MastersTypes[0].Length; // это число типов мастеров с которым мы непосредственно сейчас работаем
                             // int masterTypesLength = колвоМастеровВСередине * колвоМастеровВКонцеИерархии;
                             for (int j = 0; j < колвоМастеровВСередине; j++)
                             {
@@ -451,7 +451,8 @@
                                 bool found = false;
                                 foreach (MasterObjStruct mos1 in al)
                                 {
-                                    if (mos1.PropertyName == ps.Name) { found = true; break; }
+                                    if (mos1.PropertyName == ps.Name) { found = true;
+                                        break; }
                                 }
 
                                 if (!found)
@@ -520,7 +521,7 @@
                         keysarr[j] = ((string)keysarr[j]).TrimEnd();
                     }
 
-                    resobjects[j] = keysarr[j];// valstring;
+                    resobjects[j] = keysarr[j]; // valstring;
                 }
 
                 res[i].ObjectedData = resobjects;
@@ -867,7 +868,7 @@
                             for (int AdaptIndex = 0; AdaptIndex < detailTypes.Length; AdaptIndex++)
                             {
                                 Type typeKey = detailTypes[AdaptIndex];
-                                View typeView = (div.AdaptiveTypeViews.Contains(typeKey)) ? (ICSSoft.STORMNET.View)div.AdaptiveTypeViews[typeKey] : Information.GetView(div.View.Name, typeKey);
+                                View typeView = div.AdaptiveTypeViews.Contains(typeKey) ? (ICSSoft.STORMNET.View)div.AdaptiveTypeViews[typeKey] : Information.GetView(div.View.Name, typeKey);
                                 typeView = typeView == null ? div.View : div.View | typeView;
 
                                 dcs.Init(sorts, func, new Type[] { typeKey }, typeView, null);
@@ -1017,12 +1018,12 @@
                                         dobj.AddLoadedProperties(divname);
                                     }
 
-                                    detArr = (DetailArray)Information.GetPropValueByName(((DataObject)alagrObjects[index]), divname);
+                                    detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], divname);
                                     if (detArr == null)
                                     {
                                         Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
                                         detArr = (DetailArray)detArrType.GetConstructor(new Type[] { alagrObjects[index].GetType() }).Invoke(new object[] { ((DataObject)alagrObjects[index]) });
-                                        Information.SetPropValueByName(((DataObject)alagrObjects[index]), divname, detArr);
+                                        Information.SetPropValueByName((DataObject)alagrObjects[index], divname, detArr);
                                     }
 
                                     if (!сlearDataObjects)

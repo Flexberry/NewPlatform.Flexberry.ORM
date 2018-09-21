@@ -7,6 +7,9 @@
     /// </summary>
     public class MethodSignatureException : Exception
     {
-        public MethodSignatureException(string message) : base(message) { }
+        public MethodSignatureException(string message)
+            : base(message)
+        {
+        }
     }
 }

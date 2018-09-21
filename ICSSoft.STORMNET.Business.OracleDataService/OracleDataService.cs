@@ -376,7 +376,7 @@
         public override string GetIfNullExpression(params string[] identifiers)
         {
             string result = identifiers[identifiers.Length - 1];
-            for (int i = identifiers.Length - 2;i >= 0;i--)
+            for (int i = identifiers.Length - 2; i >= 0; i--)
             {
                 result = string.Concat("NVL(", identifiers[i], ", ", result, ")");
             }
@@ -428,7 +428,7 @@
                 customizationStruct.ReturnTop = 0;
             }
 
-            string res = base.GenerateSQLSelect (customizationStruct, ForReadValues, out StorageStruct, Optimized);
+            string res = base.GenerateSQLSelect(customizationStruct, ForReadValues, out StorageStruct, Optimized);
 
             if (top > 0)
             {
@@ -454,18 +454,18 @@
 //              res=res.Remove(13,1);
 //              res=res.Remove(8,1);
 //              return String.Format("HEXTORAW('{0}')",res);
-                byte[] byteArrGuid = (new Guid(value)).ToByteArray();
-                string hexGuidString = "";
+                byte[] byteArrGuid = new Guid(value).ToByteArray();
+                string hexGuidString = string.Empty;
                 foreach (byte b in byteArrGuid)
                 {
-                    hexGuidString += b.ToString("x2");// Получаем строку байтов.
+                    hexGuidString += b.ToString("x2"); // Получаем строку байтов.
                 }
 
                 return string.Format("HEXTORAW('{0}')", hexGuidString);
             }
             else
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -485,11 +485,11 @@
 //              res=res.Remove(18,1);
 //              res=res.Remove(13,1);
 //              res=res.Remove(8,1);
-                byte[] byteArrGuid = (new Guid(value.ToString())).ToByteArray();
-                string hexGuidString = "";
+                byte[] byteArrGuid = new Guid(value.ToString()).ToByteArray();
+                string hexGuidString = string.Empty;
                 foreach (byte b in byteArrGuid)
                 {
-                    hexGuidString += b.ToString("x2");// Получаем строку байтов.
+                    hexGuidString += b.ToString("x2"); // Получаем строку байтов.
                 }
 
                 return string.Format("HEXTORAW('{0}')", hexGuidString);
@@ -506,7 +506,7 @@
             }
             else
             {
-                return base.ConvertSimpleValueToQueryValueString (value);
+                return base.ConvertSimpleValueToQueryValueString(value);
             }
         }
 
@@ -518,7 +518,7 @@
             }
 
             arParams.Clear();
-            base.CustomizeCommand (cmd);
+            base.CustomizeCommand(cmd);
         }
 
 ////		/// <summary>

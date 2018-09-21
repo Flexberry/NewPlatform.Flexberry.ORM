@@ -25,7 +25,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objImagedView"></param>
         /// <param name="netCompatibilityType"></param>
         public ObjectType(string objStringedView, string objCaption, Type netCompatibilityType)
-            : base(objStringedView, objCaption) { fieldNetCompatibilityType = netCompatibilityType; }
+            : base(objStringedView, objCaption)
+        {
+            fieldNetCompatibilityType = netCompatibilityType;
+        }
 
         /// <summary>
         /// конструктор
@@ -36,17 +39,27 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="netCompatibilityType"></param>
         /// <param name="EditableInTextBox"></param>
         public ObjectType(string objStringedView, string objCaption, Type netCompatibilityType, bool EditableInTextBox)
-            : base(objStringedView, objCaption) { fieldNetCompatibilityType = netCompatibilityType; fieldEditableInTextBox = EditableInTextBox; }
+            : base(objStringedView, objCaption)
+        {
+            fieldNetCompatibilityType = netCompatibilityType;
+            fieldEditableInTextBox = EditableInTextBox;
+        }
 
         /// <summary>
         /// .NET тип для этого типа
         /// </summary>
-        public virtual System.Type NetCompatibilityType { get { return fieldNetCompatibilityType; } }
+        public virtual System.Type NetCompatibilityType
+        {
+            get { return fieldNetCompatibilityType; }
+        }
 
         /// <summary>
         /// Можно ли его поредактировать в текстбоксе
         /// </summary>
-        public bool EditableInTextBox { get { return fieldEditableInTextBox; } }
+        public bool EditableInTextBox
+        {
+            get { return fieldEditableInTextBox; }
+        }
 
         private FunctionalLanguageDef fieldLanguage;
 
@@ -54,7 +67,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// Язык, в рамках которого определён этот тип
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
-        public virtual FunctionalLanguageDef Language { get { return fieldLanguage; } set { fieldLanguage = value; } }
+        public virtual FunctionalLanguageDef Language
+        {
+            get { return fieldLanguage; } set { fieldLanguage = value; }
+        }
 
         /// <summary>
         /// Совместим с...

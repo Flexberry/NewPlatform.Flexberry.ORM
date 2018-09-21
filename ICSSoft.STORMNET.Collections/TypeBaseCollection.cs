@@ -16,7 +16,9 @@
         /// <summary>
         ///
         /// </summary>
-        public TypeBaseCollection() { }
+        public TypeBaseCollection()
+        {
+        }
 
         /// <summary>
         ///
@@ -89,7 +91,10 @@
         /// <summary>
         /// количество
         /// </summary>
-        public int Count { get { return types.Count; } }
+        public int Count
+        {
+            get { return types.Count; }
+        }
 
         /// <summary>
         /// добавить элемент
@@ -133,7 +138,7 @@
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("key", "");
+                    throw new ArgumentOutOfRangeException("key", string.Empty);
                 }
             }
 
@@ -176,7 +181,7 @@
                         }
                         else
                         {
-                            throw new ArgumentOutOfRangeException("index", "");
+                            throw new ArgumentOutOfRangeException("index", string.Empty);
                         }
                     }
                 }
@@ -194,7 +199,7 @@
                         }
                         else
                         {
-                            throw new ArgumentOutOfRangeException("index", "");
+                            throw new ArgumentOutOfRangeException("index", string.Empty);
                         }
                     }
                 }
@@ -228,7 +233,7 @@
                         }
                         else
                         {
-                            throw new ArgumentOutOfRangeException("index", "");
+                            throw new ArgumentOutOfRangeException("index", string.Empty);
                         }
                     }
                 }
@@ -256,7 +261,7 @@
                     }
                     else
                     {
-                        throw new ArgumentOutOfRangeException("index", "");
+                        throw new ArgumentOutOfRangeException("index", string.Empty);
                     }
                 }
             }
@@ -291,7 +296,7 @@
                     }
                     else
                     {
-                        throw new ArgumentOutOfRangeException("index", "");
+                        throw new ArgumentOutOfRangeException("index", string.Empty);
                     }
                 }
             }

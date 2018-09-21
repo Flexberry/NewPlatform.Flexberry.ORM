@@ -263,7 +263,7 @@ namespace ICSSoft.STORMNET.FileType
             }
             else
             {
-                throw new Exception ("Ошибка работы с файлом.");
+                throw new Exception("Ошибка работы с файлом.");
             }
 
             zipStream.Close();

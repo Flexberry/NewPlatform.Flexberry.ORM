@@ -28,7 +28,10 @@
         /// <summary>
         /// Индекс последней функции в списке
         /// </summary>
-        public virtual int MaxFuncID { get { return 0; } }
+        public virtual int MaxFuncID
+        {
+            get { return 0; }
+        }
 
         /// <summary>
         /// Получить определение функции
@@ -242,22 +245,34 @@
         /// <summary>
         /// Типы (Детейл)
         /// </summary>
-        public DetailArrayOfObjectType Types { get { return _fieldTypes; } set { _fieldTypes = value; } }
+        public DetailArrayOfObjectType Types
+        {
+            get { return _fieldTypes; } set { _fieldTypes = value; }
+        }
 
         /// <summary>
         /// Переменные (Детейл)
         /// </summary>
-        public DetailArrayOfVariableDef Variables { get { return _fieldVariables; } set { _fieldVariables = value; } }
+        public DetailArrayOfVariableDef Variables
+        {
+            get { return _fieldVariables; } set { _fieldVariables = value; }
+        }
 
         /// <summary>
         /// Функции (Детейл)
         /// </summary>
-        public DetailArrayOfFunctionDef Functions { get { return _fieldFunctions; } set { _fieldFunctions = value; } }
+        public DetailArrayOfFunctionDef Functions
+        {
+            get { return _fieldFunctions; } set { _fieldFunctions = value; }
+        }
 
         /// <summary>
         /// Тип функции для возврата значения
         /// </summary>
-        public ObjectType UpFunctionType { get { return fieldUpFunctionType; } }
+        public ObjectType UpFunctionType
+        {
+            get { return fieldUpFunctionType; }
+        }
 
         /// <summary>
         /// Получатель ObjectType по .NET-типу (для DataObject возвращается тип первичного ключа)
@@ -309,7 +324,9 @@
             /// <summary>
             ///
             /// </summary>
-            public NotFoundFunctionBySignatureException() { }
+            public NotFoundFunctionBySignatureException()
+            {
+            }
         }
 
         /// <summary>
@@ -320,7 +337,9 @@
             /// <summary>
             ///
             /// </summary>
-            public NotFoundFunctionParametersException() { }
+            public NotFoundFunctionParametersException()
+            {
+            }
         }
 
         /// <summary>
@@ -467,7 +486,8 @@
         /// <param name="masterObj"></param>
         public DetailArrayOfVariableDef(FunctionalLanguageDef masterObj)
             : base(typeof(VariableDef), masterObj)
-        { }
+        {
+        }
 
         /// <summary>
         /// return (VariableDef)ItemByIndex(index);
@@ -491,7 +511,8 @@
         /// <param name="masterObj"></param>
         public DetailArrayOfFunctionDef(FunctionalLanguageDef masterObj)
             : base(typeof(FunctionDef), masterObj)
-        { }
+        {
+        }
 
         /// <summary>
         /// return (FunctionDef)ItemByIndex(index);
@@ -515,7 +536,8 @@
         /// <param name="masterObj"></param>
         public DetailArrayOfObjectType(FunctionalLanguageDef masterObj)
             : base(typeof(ObjectType), masterObj)
-        { }
+        {
+        }
 
         /// <summary>
         ///  return (ObjectType)ItemByIndex(index);

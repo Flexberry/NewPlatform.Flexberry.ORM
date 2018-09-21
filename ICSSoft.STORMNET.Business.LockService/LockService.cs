@@ -24,7 +24,8 @@
         /// <summary>
         /// Конструктор без параметров. В качестве сервиса данных по умолчанию будет использоваться DataServiceProvider.DataService.
         /// </summary>
-        public LockService() : this(null)
+        public LockService()
+            : this(null)
         {
         }
 

@@ -7,14 +7,16 @@
     /// </summary>
     public class BusinessTaskMonitor
     {
-        private BusinessTaskMonitor() { }
+        private BusinessTaskMonitor()
+        {
+        }
 
         static BusinessTaskMonitor()
         {
             try
             {
                 string taskCompName = System.Configuration.ConfigurationSettings.AppSettings["BusinessTaskMonitorType"];
-                if (taskCompName != null && taskCompName != "")
+                if (taskCompName != null && taskCompName != string.Empty)
                 {
                     taskMonitor = (IBusinessTaskMonitor)Activator.CreateInstance(Type.GetType(taskCompName));
                 }

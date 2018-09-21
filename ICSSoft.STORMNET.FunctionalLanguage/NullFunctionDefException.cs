@@ -8,6 +8,8 @@
     [Serializable]
     public class NullFunctionDefException : Exception
     {
-        internal NullFunctionDefException() { }
+        internal NullFunctionDefException()
+        {
+        }
     }
 }

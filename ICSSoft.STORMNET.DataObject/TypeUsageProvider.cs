@@ -16,7 +16,8 @@
         ///
         /// </summary>
         public TypeUsage()
-        { }
+        {
+        }
 
         private System.Collections.SortedList typeusagecollection = new System.Collections.SortedList();
         private ICSSoft.STORMNET.Collections.TypeBaseCollection usetypeascollection = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
@@ -208,7 +209,7 @@
                 string newPropName = propertyName.Substring(PointIndex + 1);
                 Type[] types = GetUsageTypes(DataObjectType, ownProp);
                 Array[] arrays = new Array[types.Length];
-                for (int i = 0;i < types.Length;i++)
+                for (int i = 0; i < types.Length; i++)
                 {
                     arrays[i] = GetCombinedTypeUsage(types[i], newPropName);
                 }
@@ -231,7 +232,8 @@
     public class TypeUsageProvider
     {
         private TypeUsageProvider()
-        { }
+        {
+        }
 
         private static TypeUsage fieldTypeUsages;
 

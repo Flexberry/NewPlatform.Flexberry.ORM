@@ -176,7 +176,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 ;
             }
 
-            if (funcname == null || funcname == "")
+            if (funcname == null || funcname == string.Empty)
             {
                 return null;
             }
@@ -210,7 +210,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.LoadXml(value);
             ICSSoft.STORMNET.FunctionalLanguage.FunctionalLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-            ICSSoft.STORMNET.FunctionalLanguage.VariableDef[] vars; ArrayList arvars = new ArrayList();
+            ICSSoft.STORMNET.FunctionalLanguage.VariableDef[] vars;
+            ArrayList arvars = new ArrayList();
             arvars.Add(new ICSSoft.STORMNET.FunctionalLanguage.VariableDef((lang as ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef).GuidType, "STORMMainObjectKey"));
             foreach (ICSSoft.STORMNET.PropertyInView piv in v.Properties)
             {

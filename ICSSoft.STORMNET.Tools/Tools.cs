@@ -653,12 +653,12 @@
                 asm = Assembly.Load(asmN);
             }
             catch { }
-            string shortAsmName = "";
-            string exStr = "";
+            string shortAsmName = string.Empty;
+            string exStr = string.Empty;
             if (asm == null && (asmName.IndexOf("Culture=") > -1 || asmName.IndexOf("PublicKeyToken=") > -1))
             {
-                int indCult = (asmName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2);
-                int indPKT = (asmName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2);
+                int indCult = asmName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2;
+                int indPKT = asmName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2;
                 int ind = indCult > indPKT ? indPKT : indCult;
                 shortAsmName = asmName.Substring(0, ind);
                 try
@@ -672,7 +672,7 @@
 
                     try
                     {
-                        asm = Assembly.Load(regex.Replace(shortAsmName, ""));
+                        asm = Assembly.Load(regex.Replace(shortAsmName, string.Empty));
                     }
                     catch (Exception ex)
                     {
@@ -712,11 +712,11 @@
                 return retType;
             }
 
-            string shortName = "", exStr = "";
-            if ((assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1))
+            string shortName = string.Empty, exStr = string.Empty;
+            if (assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1)
             {
-                int indCult = (assemblyQualifiedName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2);
-                int indPKT = (assemblyQualifiedName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2);
+                int indCult = assemblyQualifiedName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2;
+                int indPKT = assemblyQualifiedName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2;
                 int ind = indCult > indPKT ? indPKT : indCult;
 
                 shortName = assemblyQualifiedName.Substring(0, ind);
@@ -730,7 +730,7 @@
 
                     try
                     {
-                        retType = Type.GetType(regex.Replace(shortName, ""));
+                        retType = Type.GetType(regex.Replace(shortName, string.Empty));
                     }
 
                     catch (Exception ex)
@@ -762,8 +762,8 @@
             Assembly asm = null;
             if (asmName.IndexOf("Culture=") > -1 || asmName.IndexOf("PublicKeyToken=") > -1)
             {
-                int indCult = (asmName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2);
-                int indPKT = (asmName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2);
+                int indCult = asmName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2;
+                int indPKT = asmName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2;
                 int ind = indCult > indPKT ? indPKT : indCult;
                 string shortAsmName = asmName.Substring(0, ind);
                 try
@@ -792,11 +792,11 @@
 
             // TODO: comment this
             // MessageBox.Show("Resolve " + assemblyQualifiedName);
-            if ((assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1))
+            if (assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1)
             {
                 int indCult =
-                    (assemblyQualifiedName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2);
-                int indPKT = (assemblyQualifiedName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2);
+                    assemblyQualifiedName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2;
+                int indPKT = assemblyQualifiedName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2;
                 int ind = indCult > indPKT ? indPKT : indCult;
 
                 shortName = assemblyQualifiedName.Substring(0, ind);
@@ -829,8 +829,8 @@
 
             if (asmName.IndexOf("Culture=") > -1 || asmName.IndexOf("PublicKeyToken=") > -1)
             {
-                int indCult = (asmName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2);
-                int indPKT = (asmName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2);
+                int indCult = asmName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2;
+                int indPKT = asmName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2;
                 int ind = indCult > indPKT ? indPKT : indCult;
                 string shortAsmName = asmName.Substring(0, ind);
 
@@ -845,14 +845,16 @@
 
     public class ExternalModule
     {
-        private ExternalModule() { }
+        private ExternalModule()
+        {
+        }
 
         public delegate object[] GetParametersForContructorDelegate(Type moduleType);
 
         static public Type[] GetTypes(string filename, Type filter)
         {
             ArrayList arl = new ArrayList();
-            if (System.IO.Path.GetDirectoryName(filename) == "")
+            if (System.IO.Path.GetDirectoryName(filename) == string.Empty)
             {
                 filename = System.IO.Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + @"\" + filename;
             }

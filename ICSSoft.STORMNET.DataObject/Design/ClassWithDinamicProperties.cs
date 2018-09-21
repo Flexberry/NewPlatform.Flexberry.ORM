@@ -15,7 +15,8 @@
         ///
         /// </summary>
         public ClassWithDinamicProperties()
-        { }
+        {
+        }
         #region ICustomTypeDescriptor Members
 
         TypeConverter ICustomTypeDescriptor.GetConverter()

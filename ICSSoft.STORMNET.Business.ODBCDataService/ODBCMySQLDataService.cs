@@ -31,7 +31,7 @@ namespace ICSSoft.STORMNET.Business
                 }
                 else
                 {
-                    string ni = "gi" + Guid.NewGuid().ToString("N").Substring(4) + "";
+                    string ni = "gi" + Guid.NewGuid().ToString("N").Substring(4) + string.Empty;
                     identDict.Add(identifier, ni);
                     return ni;
                 }
@@ -84,11 +84,11 @@ namespace ICSSoft.STORMNET.Business
             sd.Add("Ю", "YU");
             sd.Add("Я", "YA");
 
-            string result = "";
+            string result = string.Empty;
             for (int i = 0; i < stringRu.Length; i++)
             {
                 string ruSimbol = stringRu[i].ToString();
-                string tlSimbol = "";
+                string tlSimbol = string.Empty;
                 if (sd.ContainsKey(ruSimbol))
                 {
                     tlSimbol = sd[ruSimbol];
@@ -112,12 +112,12 @@ namespace ICSSoft.STORMNET.Business
             }
             else if (value is string)
             {
-                string res = base.ConvertSimpleValueToQueryValueString (value);
+                string res = base.ConvertSimpleValueToQueryValueString(value);
                 return res.Replace(@"\", @"\\");
             }
             else
             {
-                return base.ConvertSimpleValueToQueryValueString (value);
+                return base.ConvertSimpleValueToQueryValueString(value);
             }
         }
     }

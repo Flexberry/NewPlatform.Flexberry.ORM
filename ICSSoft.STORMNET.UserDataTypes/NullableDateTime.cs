@@ -17,7 +17,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
         private DateTime fValue;
         private const string DateTimeFormatForXmlSerializable = "dd.MM.yyyy HH:mm:ss";
 
-        private NullableDateTime(DateTime val) {Value = val; }
+        private NullableDateTime(DateTime val)
+        {
+            Value = val;
+        }
 
         /// <summary>
         /// Конструктор без параметров, нужен для Activator.CreateInstance
@@ -189,7 +192,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         static public NullableDateTime Parse(string value)
         {
-            if (value == null || value == "")
+            if (value == null || value == string.Empty)
             {
                 return null;
             }
@@ -221,7 +224,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             // if (format==null)
             string format = System.Configuration.ConfigurationManager.AppSettings["NullableDateTimeDefaultFormat"];
-            if( format != null)
+            if(format != null)
             {
                 return Value.ToString(format);
             }
@@ -324,12 +327,12 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             NullableDateTime ndt = (NullableDateTime)obj;
 
-            if( ndt == null)
+            if(ndt == null)
             {
                 return 1;
             }
 
-            return fValue.CompareTo( ndt.Value);
+            return fValue.CompareTo(ndt.Value);
         }
 
         #endregion
@@ -472,7 +475,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public TypeCode GetTypeCode()
         {
-            return new TypeCode ();
+            return new TypeCode();
         }
 
         /// <summary>

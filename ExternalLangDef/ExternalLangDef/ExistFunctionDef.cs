@@ -25,7 +25,7 @@
 
             var dvd = (DetailVariableDef)func.Parameters[0];
             string[] agregatorKeys = dvd.OwnerConnectProp.Length == 0
-                                          ? new[] {"STORMMainObjectKey" }
+                                          ? new[] { "STORMMainObjectKey" }
                                           : dvd.OwnerConnectProp;
             string detailAlias = "STORMGENERATEDQUERY_S";
             string agregatorAlias = "STORMGENERATEDQUERY";

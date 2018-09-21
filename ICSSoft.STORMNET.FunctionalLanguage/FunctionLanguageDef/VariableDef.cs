@@ -11,7 +11,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <summary>
         /// пустой конструктор
         /// </summary>
-        public VariableDef() { }
+        public VariableDef()
+        {
+        }
 
         /// <summary>
         /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
@@ -21,7 +23,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objCaption"></param>
         public VariableDef(ObjectType objType, string objStringedView, string objCaption)
             : base(objType, objStringedView, objCaption)
-        { }
+        {
+        }
 
         /// <summary>
         /// Самый распространённый конструктор, который используется при построении ограничений
@@ -30,7 +33,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
         public VariableDef(ObjectType objType, string objStringedView)
             : base(objType, objStringedView, objStringedView)
-        { }
+        {
+        }
 
         /// <summary>
         /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
@@ -39,7 +43,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="property"></param>
         /// <param name="objCaption"></param>
         /// <param name="ldef"></param>
-        public VariableDef(Type baseType, string property, string objCaption, FunctionalLanguageDef ldef) : base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, objCaption)
+        public VariableDef(Type baseType, string property, string objCaption, FunctionalLanguageDef ldef)
+            : base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, objCaption)
         {
             ldef.Variables.AddObject(this);
         }
@@ -50,7 +55,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="baseType"></param>
         /// <param name="property"></param>
         /// <param name="ldef"></param>
-        public VariableDef(Type baseType, string property, FunctionalLanguageDef ldef) : base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, property)
+        public VariableDef(Type baseType, string property, FunctionalLanguageDef ldef)
+            : base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, property)
         {
             ldef.Variables.AddObject(this);
         }
@@ -61,7 +67,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// Язык описания ограничений
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
-        public FunctionalLanguageDef Language { get { return fieldLanguage; } set { fieldLanguage = value; } }
+        public FunctionalLanguageDef Language
+        {
+            get { return fieldLanguage; } set { fieldLanguage = value; }
+        }
 
         /// <summary>
         /// вместо сериализации
@@ -74,7 +83,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 return new[] { Type.StringedView, StringedView, Caption };
             }
 
-            return new[] { "", StringedView, Caption };
+            return new[] { string.Empty, StringedView, Caption };
         }
 
         /// <summary>

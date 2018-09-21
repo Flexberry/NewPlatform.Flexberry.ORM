@@ -18,7 +18,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <summary>
         /// Целочисленный ключ определения функции
         /// </summary>
-        public int ID {get {return fID;} set{fID = value;} }
+        public int ID
+        {
+            get { return fID; } set { fID = value; }
+        }
 
         /// <summary>
         /// конструктор
@@ -52,7 +55,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             : base(returnType, objStringedView, objCaption)
         {
             fieldParameters = new DetailArrayOfFunctionalParameterDef(this);
-            for (int i = 0;i < parameters.Length;i++)
+            for (int i = 0; i < parameters.Length; i++)
             {
                 fieldParameters.Add(parameters[i]);
             }
@@ -77,7 +80,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             : base(returnType, objStringedView, objCaption)
         {
             fieldParameters = new DetailArrayOfFunctionalParameterDef(this);
-            for (int i = 0;i < parameters.Length;i++)
+            for (int i = 0; i < parameters.Length; i++)
             {
                 fieldParameters.Add(parameters[i]);
             }
@@ -90,22 +93,34 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <summary>
         /// Влияет на генерацию SQL-запроса. Если true, то добавляются все поля
         /// </summary>
-        public bool FreeQuery {get{return fieldFreeQuery;} }
+        public bool FreeQuery
+        {
+            get { return fieldFreeQuery; }
+        }
 
         /// <summary>
         /// Тип возвращаемого значения
         /// </summary>
-        public ObjectType ReturnType {get{return Type;} }
+        public ObjectType ReturnType
+        {
+            get { return Type; }
+        }
 
         /// <summary>
         /// Параметры функции
         /// </summary>
-        public DetailArrayOfFunctionalParameterDef Parameters {get {return fieldParameters;} }
+        public DetailArrayOfFunctionalParameterDef Parameters
+        {
+            get { return fieldParameters; }
+        }
 
         /// <summary>
         /// формат отображения пользователю (используется на форме задания ограничений)
         /// </summary>
-        public string UserViewFormat {get {return fieldUserViewFormat;} }
+        public string UserViewFormat
+        {
+            get { return fieldUserViewFormat; }
+        }
 
         private FunctionalLanguageDef fieldLanguage;
 
@@ -113,7 +128,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// Язык ограничений, в рамках которого существует данное определение функции (язык включает все определения как детейлы)
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
-        public FunctionalLanguageDef Language {get{return fieldLanguage;} set {fieldLanguage = value; } }
+        public FunctionalLanguageDef Language
+        {
+            get { return fieldLanguage; } set { fieldLanguage = value; }
+        }
     }
 
     /// <summary>
@@ -125,8 +143,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// конструктор
         /// </summary>
         /// <param name="masterObj"></param>
-        public DetailArrayOfFunctionalParameterDef(FunctionDef masterObj) : base(typeof(FunctionParameterDef), masterObj)
-        { }
+        public DetailArrayOfFunctionalParameterDef(FunctionDef masterObj)
+            : base(typeof(FunctionParameterDef), masterObj)
+        {
+        }
 
         /// <summary>
         /// получить функцию по индексу
@@ -135,7 +155,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <returns></returns>
         public FunctionParameterDef this[int index]
         {
-            get {return (FunctionParameterDef)ItemByIndex(index); }
+            get { return (FunctionParameterDef)ItemByIndex(index); }
         }
 
         /// <summary>

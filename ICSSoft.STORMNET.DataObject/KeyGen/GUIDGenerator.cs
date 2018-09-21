@@ -42,11 +42,17 @@
         /// <summary>
         /// Вернуть тип ключа
         /// </summary>
-        public override Type KeyType { get { return typeof(KeyGuid); } }
+        public override Type KeyType
+        {
+            get { return typeof(KeyGuid); }
+        }
 
         /// <summary>
         /// Уникален ли первичный ключ
         /// </summary>
-        public override bool Unique { get { return true; } }
+        public override bool Unique
+        {
+            get { return true; }
+        }
     }
 }

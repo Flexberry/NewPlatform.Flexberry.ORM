@@ -59,7 +59,9 @@
 
         #endregion
         #region Конструкторы классов
-        private Information() { }
+        private Information()
+        {
+        }
         #endregion
         #region Доступ к свойствам класса
 
@@ -923,7 +925,7 @@
 
                     if (typeAttributes.Length == 0)
                     {
-                        res = type.Name;// "typeId"
+                        res = type.Name; // "typeId"
                     }
                     else
                     {
@@ -1088,7 +1090,7 @@
                                             (pars[0].ParameterType == AgregatorType).ToString() +
 
                                             ";";
-                                        if ((pars[0].ParameterType == AgregatorType) || (AgregatorType.IsSubclassOf(pars[0].ParameterType)))
+                                        if ((pars[0].ParameterType == AgregatorType) || AgregatorType.IsSubclassOf(pars[0].ParameterType))
                                         {
                                             ci = cci;
                                             break;
@@ -2023,7 +2025,7 @@
                 {
                     System.Type ownerType = curSource.storage[k].ownerType;
                     bool propsotred = IsStoredProperty(ownerType, pname);
-                    string storname = (propsotred) ? GetPropertyStorageName(ownerType, pname) : null;
+                    string storname = propsotred ? GetPropertyStorageName(ownerType, pname) : null;
                     prop.storage[k] = new string[] { storname };
                     if (propertyIsMaster)
                     {
@@ -2424,7 +2426,7 @@
         {
             if (obj1 == null && obj2 == null)
             {
-                return (new string[0]);
+                return new string[0];
             }
             else
             {
@@ -2473,8 +2475,8 @@
                             }
                             else if (propType.IsSubclassOf(dobjectType))
                             {
-                                UnAltered = (val1.GetType() == val2.GetType() &&
-                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey));
+                                UnAltered = val1.GetType() == val2.GetType() &&
+                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey);
                             }
                             else if (propType.IsSubclassOf(darrayType))
                             {
@@ -2533,7 +2535,8 @@
                         }
 
                         string[] retval = new string[Arr.Count];
-                        Arr.CopyTo(retval); Arr.Clear();
+                        Arr.CopyTo(retval);
+                        Arr.Clear();
                         return retval;
                     }
                 }
@@ -2551,7 +2554,7 @@
         {
             if (obj1 == null && obj2 == null)
             {
-                return (new string[0]);
+                return new string[0];
             }
 
             if (obj1 == null || obj2 == null)
@@ -2595,8 +2598,8 @@
                 }
                 else if (propType.IsSubclassOf(dobjectType))
                 {
-                    UnAltered = (val1.GetType() == val2.GetType() &&
-                                 ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey));
+                    UnAltered = val1.GetType() == val2.GetType() &&
+                                 ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey);
                 }
                 else if (propType.IsSubclassOf(darrayType))
                 {
@@ -2655,7 +2658,8 @@
             }
 
             string[] retval = new string[Arr.Count];
-            Arr.CopyTo(retval); Arr.Clear();
+            Arr.CopyTo(retval);
+            Arr.Clear();
             return retval;
         }
 
@@ -2719,8 +2723,8 @@
                             }
                             else if (propType.IsSubclassOf(dobjectType))
                             {
-                                UnAltered = (val1.GetType() == val2.GetType() &&
-                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey));
+                                UnAltered = val1.GetType() == val2.GetType() &&
+                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey);
                                 if (!UnAltered)
                                 {
                                     return true;
@@ -3091,7 +3095,8 @@
 
                     string[] returnValue = new string[RetArray.Count];
                     RetArray.CopyTo(returnValue);
-                    RetArray.Clear(); RetArray = null;
+                    RetArray.Clear();
+                    RetArray = null;
                     cacheGetNotStorablePropertyNames[type] = returnValue;
                     return returnValue;
                 }
@@ -3302,7 +3307,8 @@
 
                     string[] returnValue = new string[RetArray.Count];
                     RetArray.CopyTo(returnValue);
-                    RetArray.Clear(); RetArray = null;
+                    RetArray.Clear();
+                    RetArray = null;
 
                     // Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
                     if (typeofDataObject.Assembly.FullName != "TempAssembly, Version=0.0.0.0")
@@ -3533,8 +3539,8 @@
             Type[] CheckTypes = null;
             string propName = string.Empty;
             if (CallMethodIsSpecialName
-                && (Name.StartsWith("set_"))
-                && (DeclMethodType.IsSubclassOf(typeof(DataObject))))
+                && Name.StartsWith("set_")
+                && DeclMethodType.IsSubclassOf(typeof(DataObject)))
             {
                 // проверка из свойства объекта данных
                 // атрибут должен прописываться у свойства
@@ -3562,7 +3568,7 @@
             }
             else if
                 (!CallMethodIsSpecialName &&
-                (DeclMethodType.IsSubclassOf(typeof(DetailArray))))
+                DeclMethodType.IsSubclassOf(typeof(DetailArray)))
             {
                 // проверка из операции ДетэйлАррея
                 // атрибут должен прописываться у класса
@@ -3575,7 +3581,8 @@
 
             if (CheckTypes != null)
             {
-                string allTypes = string.Empty; ;
+                string allTypes = string.Empty;
+                ;
                 foreach (Type testType in CheckTypes)
                 {
                     if (testObj.GetType() == testType)
@@ -3841,7 +3848,7 @@
                 return value;
             }
 
-            if ((value is Guid) && (keyType.Equals(typeof(KeyGen.KeyGuid))))
+            if ((value is Guid) && keyType.Equals(typeof(KeyGen.KeyGuid)))
             {
                 return new KeyGen.KeyGuid((Guid)value);
             }

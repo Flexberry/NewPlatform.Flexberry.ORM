@@ -14,7 +14,8 @@
         /// </summary>
         /// <param name="functionName">Имя функции, где присутствует параметр некорректного типа.</param>
         /// <param name="expectedTypes">Тип, который должен был быть у параметра.</param>
-        public InvalidParameterTypeValidationException(string functionName, string expectedTypes) : base(string.Format(ResourceData.InvalidParameterTypeValidationExceptionMessage, functionName, expectedTypes))
+        public InvalidParameterTypeValidationException(string functionName, string expectedTypes)
+            : base(string.Format(ResourceData.InvalidParameterTypeValidationExceptionMessage, functionName, expectedTypes))
         {
         }
     }

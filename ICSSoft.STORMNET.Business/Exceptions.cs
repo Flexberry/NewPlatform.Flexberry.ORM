@@ -12,7 +12,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <summary>
         /// Имя свойства
         /// </summary>
-        public string propName = "";
+        public string propName = string.Empty;
 
         /// <summary>
         /// объект
@@ -35,9 +35,9 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public PropertyCouldnotBeNullException( SerializationInfo info, StreamingContext context)
+        public PropertyCouldnotBeNullException(SerializationInfo info, StreamingContext context)
         {
-            propName = (string)info.GetValue( "propName", typeof( string));
+            propName = (string)info.GetValue("propName", typeof(string));
 
             dataobject = null;
         }
@@ -49,7 +49,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue( "propName", this.propName);
+            info.AddValue("propName", this.propName);
         }
 
         public override string Message
@@ -70,14 +70,16 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <summary>
         ///
         /// </summary>
-        public DataServiceNotFoundException() { }
+        public DataServiceNotFoundException()
+        {
+        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public DataServiceNotFoundException( SerializationInfo info, StreamingContext context)
+        public DataServiceNotFoundException(SerializationInfo info, StreamingContext context)
         {
         }
 
@@ -100,14 +102,16 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <summary>
         ///
         /// </summary>
-        public ObjectNotAlteredException() { }
+        public ObjectNotAlteredException()
+        {
+        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public ObjectNotAlteredException( SerializationInfo info, StreamingContext context)
+        public ObjectNotAlteredException(SerializationInfo info, StreamingContext context)
         {
         }
 
@@ -165,10 +169,10 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public CantUpdateNotLoadedPropertiesException( SerializationInfo info, StreamingContext context)
+        public CantUpdateNotLoadedPropertiesException(SerializationInfo info, StreamingContext context)
         {
             dobject = null;
-            props = (string[])info.GetValue( "props", typeof( string[]));
+            props = (string[])info.GetValue("props", typeof(string[]));
         }
 
         /// <summary>
@@ -178,14 +182,14 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue( "props", props);
+            info.AddValue("props", props);
         }
 
         public override string Message
         {
             get
             {
-                return string.Format( "Can't update object {0}. There are not loaded properties :{1} ",
+                return string.Format("Can't update object {0}. There are not loaded properties :{1} ",
                     dobject.GetType().Name, string.Join(",", props));
             }
         }
@@ -205,26 +209,36 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="doType">тип объекта</param>
         /// <param name="doKey">ключ объекта</param>
-        public CantFindDataObjectException(System.Type doType, object doKey) {type = doType;key = doKey; }
+        public CantFindDataObjectException(System.Type doType, object doKey)
+        {
+            type = doType;
+            key = doKey;
+        }
 
         /// <summary>
         /// тип объекта
         /// </summary>
-        public System.Type DataObjectType {get {return type;} }
+        public System.Type DataObjectType
+        {
+            get { return type; }
+        }
 
         /// <summary>
         /// ключ объекта
         /// </summary>
-        public object DataObjectKey {get {return key;} }
+        public object DataObjectKey
+        {
+            get { return key; }
+        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public CantFindDataObjectException( SerializationInfo info, StreamingContext context)
+        public CantFindDataObjectException(SerializationInfo info, StreamingContext context)
         {
-            type = (Type)info.GetValue( "type", typeof( Type));
+            type = (Type)info.GetValue("type", typeof(Type));
         }
 
         public override string Message
@@ -242,7 +256,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue( "type", type);
+            info.AddValue("type", type);
         }
     }
 }

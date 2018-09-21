@@ -166,7 +166,10 @@
         /// </summary>
         [NotStored]
         [DisableAutoViewed]
-        public bool IsReadOnly { get { return readKey != null; } }
+        public bool IsReadOnly
+        {
+            get { return readKey != null; }
+        }
 
         /// <summary>
         /// Динамические свойства объекта
@@ -350,7 +353,7 @@
             KeyGenerator.Generate(this, null);
             this.SetStatus(ObjectStatus.Created);
             this.SetLoadingState(LoadingState.NotLoaded);
-            LoadedProperties = new string[0];// Information.GetStorablePropertyNames(this.GetType());
+            LoadedProperties = new string[0]; // Information.GetStorablePropertyNames(this.GetType());
             // Array.Sort(LoadedProperties);
         }
 
@@ -554,9 +557,9 @@
 
             if (Information.AutoAlteredClass(GetType()))
             {
-                if ((state == ObjectStatus.Altered || state == ObjectStatus.UnAltered))
+                if (state == ObjectStatus.Altered || state == ObjectStatus.UnAltered)
                 {
-                    fieldAlteredpropertyNames = null;// потому как эта штука всё помнит, а нам сейчас это не нужно, мы бегали не по всем свойствам
+                    fieldAlteredpropertyNames = null; // потому как эта штука всё помнит, а нам сейчас это не нужно, мы бегали не по всем свойствам
                     state = ContainsAlteredProps() ? ObjectStatus.Altered : ObjectStatus.UnAltered;
                 }
                 else
@@ -591,7 +594,10 @@
         /// <summary>
         /// Получение состояния загрузки
         /// </summary>
-        public LoadingState GetLoadingState() { return loading; }
+        public LoadingState GetLoadingState()
+        {
+            return loading;
+        }
 
         /// <summary>
         /// Установка статуса
@@ -1529,7 +1535,7 @@
                     {
                         foreach (DataObject detobj in (DetailArray)Information.GetPropValueByName(this, property))
                         {
-                            detobj.Prototyping(true);// потому что if (withDetails)
+                            detobj.Prototyping(true); // потому что if (withDetails)
                         }
                     }
                 }
@@ -1682,7 +1688,7 @@
 
                             if (tp.IsSubclassOf(datype))
                             {
-                                DetailArray da = ((DetailArray)fieldval);
+                                DetailArray da = (DetailArray)fieldval;
                                 for (int i = 0; i < da.Count; i++)
                                 {
                                     da.ItemByIndex(i).FullClearDataCopy();
@@ -1701,13 +1707,19 @@
         /// <summary>
         /// Получить внутреннюю копию объекта данных
         /// </summary>
-        public DataObject GetDataCopy() { return dataCopy; }
+        public DataObject GetDataCopy()
+        {
+            return dataCopy;
+        }
 
         /// <summary>
         /// Установить внутреннюю копию объекта данных
         /// </summary>
         /// <param name="value">Устанавливаемый объект как копия существующего </param>
-        public void SetDataCopy(DataObject value) { dataCopy = value; }
+        public void SetDataCopy(DataObject value)
+        {
+            dataCopy = value;
+        }
 
         /// <summary>
         /// Возвращает список свойств (атрибутов, мастеров, детейлов),
@@ -2261,7 +2273,9 @@
             }
 
             void IEnumerator.Reset()
-            { curIndex = -1; }
+            {
+                curIndex = -1;
+            }
 
             bool IEnumerator.MoveNext()
             {
@@ -2275,7 +2289,10 @@
                 }
             }
 
-            object IEnumerator.Current { get { return arr.ItemByIndex(curIndex); } }
+            object IEnumerator.Current
+            {
+                get { return arr.ItemByIndex(curIndex); }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -2367,7 +2384,7 @@
             }
 
             countOrdered = true;
-            orderedObjects = (Information.GetOrderPropertyName(objectType) != string.Empty);
+            orderedObjects = Information.GetOrderPropertyName(objectType) != string.Empty;
             return orderedObjects;
         }
 
@@ -2472,17 +2489,26 @@
         /// <summary>
         /// Ссылка на шапку (задается при создании массива)
         /// </summary>
-        public DataObject AgregatorObject { get { return masterObject; } }
+        public DataObject AgregatorObject
+        {
+            get { return masterObject; }
+        }
 
         /// <summary>
         /// Возвращает тип элементов DetailArray
         /// </summary>
-        public System.Type ItemType { get { return objectType; } }
+        public System.Type ItemType
+        {
+            get { return objectType; }
+        }
 
         /// <summary>
         /// Размер зафиксированный для данного массива объектов
         /// </summary>
-        public long FixedSize { get { return fixedSize; } set { fixedSize = value; } }
+        public long FixedSize
+        {
+            get { return fixedSize; } set { fixedSize = value; }
+        }
 
         /// <summary>
         /// Создать по типу хранимых объектов и мастеровому объекту данных
@@ -2563,7 +2589,10 @@
         /// <summary>
         /// Получить объект данных по индексу
         /// </summary>
-        public DataObject ItemByIndex(int index) { return (DataObject)objects[index]; }
+        public DataObject ItemByIndex(int index)
+        {
+            return (DataObject)objects[index];
+        }
         /*
         public DataObject this[object key]
         {
@@ -2753,7 +2782,10 @@
         /// <summary>
         /// Количество объектов
         /// </summary>
-        public int Count { get { return objects.Count; } }
+        public int Count
+        {
+            get { return objects.Count; }
+        }
 
         /// <summary>
         /// Установить объект агрегатор

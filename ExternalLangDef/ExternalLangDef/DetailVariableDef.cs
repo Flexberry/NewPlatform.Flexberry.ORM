@@ -16,13 +16,24 @@
         private string fConnectMasterPorp;
         private string[] fownerConnectProp;
 
-        public DetailVariableDef() { }
+        public DetailVariableDef()
+        {
+        }
 
-        public View View { get { return fView; } set { fView = value; } }
+        public View View
+        {
+            get { return fView; } set { fView = value; }
+        }
 
-        public string ConnectMasterPorp { get { return fConnectMasterPorp; } set { fConnectMasterPorp = value; } }
+        public string ConnectMasterPorp
+        {
+            get { return fConnectMasterPorp; } set { fConnectMasterPorp = value; }
+        }
 
-        public string[] OwnerConnectProp { get { return fownerConnectProp; } set { fownerConnectProp = value; } }
+        public string[] OwnerConnectProp
+        {
+            get { return fownerConnectProp; } set { fownerConnectProp = value; }
+        }
 
         public DetailVariableDef(ICSSoft.STORMNET.FunctionalLanguage.ObjectType type, string name, View v, string cmp, params string[] ocp)
             : base(type, name, name)

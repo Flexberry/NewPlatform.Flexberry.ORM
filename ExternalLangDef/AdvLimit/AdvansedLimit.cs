@@ -67,7 +67,9 @@
         /// <summary>
         /// конструктор
         /// </summary>
-        public AdvansedLimit() { }
+        public AdvansedLimit()
+        {
+        }
 
         /// <summary>
         /// псевдосериализация FunctionalLanguageDef в object[]
@@ -163,7 +165,8 @@
             }
 
             FunctionalLanguage.Function res = new ICSSoft.STORMNET.FunctionalLanguage.Function(func.FunctionDef);
-            ArrayList pars = new ArrayList(); pars.AddRange(func.Parameters);
+            ArrayList pars = new ArrayList();
+            pars.AddRange(func.Parameters);
             for (int i = 0; i < pars.Count; i++)
             {
                 if (pars[i] is FunctionalLanguage.Function)
@@ -241,7 +244,7 @@
                         string sParamName = sSQl.Substring(j, k - j);
                         sSQl = sSQl.Remove(j, k - j);
 
-                        string sParamValue = "";
+                        string sParamValue = string.Empty;
 
                         foreach (ParameterDef p in Parameters)
                         {

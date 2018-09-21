@@ -91,7 +91,9 @@
         /// <summary>
         ///
         /// </summary>
-        public UnlockObjectDifferentKeyException() { }
+        public UnlockObjectDifferentKeyException()
+        {
+        }
     }
 
     /// <summary>
@@ -102,7 +104,9 @@
         /// <summary>
         ///
         /// </summary>
-        public DataObjectIsReadOnlyException() { }
+        public DataObjectIsReadOnlyException()
+        {
+        }
     }
 
     /// <summary>
@@ -113,7 +117,9 @@
         /// <summary>
         ///
         /// </summary>
-        public NotSortableOrderColumnsType() { }
+        public NotSortableOrderColumnsType()
+        {
+        }
     }
 
     /// <summary>
@@ -124,7 +130,9 @@
         /// <summary>
         ///
         /// </summary>
-        public NotSortableDetailArrayException() { }
+        public NotSortableDetailArrayException()
+        {
+        }
     }
 
     /// <summary>
@@ -135,7 +143,9 @@
         /// <summary>
         ///
         /// </summary>
-        public ObjectAlreadyInDetailArrayException() { }
+        public ObjectAlreadyInDetailArrayException()
+        {
+        }
     }
 
     /// <summary>
@@ -146,7 +156,9 @@
         /// <summary>
         ///
         /// </summary>
-        public DetailArrayAlreadyContainsObjectWithThatKeyException() { }
+        public DetailArrayAlreadyContainsObjectWithThatKeyException()
+        {
+        }
     }
 
     /// <summary>
@@ -196,7 +208,8 @@
         /// </summary>
         /// <param name="checkedT"></param>
         /// <param name="baseT"></param>
-        public ClassIsNotSubclassOfOtherException(Type checkedT, Type baseT) : base(string.Format("Class <{0}> isn't subclass of <{1}>", checkedT, baseT))
+        public ClassIsNotSubclassOfOtherException(Type checkedT, Type baseT)
+            : base(string.Format("Class <{0}> isn't subclass of <{1}>", checkedT, baseT))
         {
             checkedType = checkedT;
             baseType = baseT;
@@ -223,7 +236,8 @@
         /// </summary>
         /// <param name="prop">имя свойства</param>
         /// <param name="type">в каком типе</param>
-        public CantFindPropertyException(string prop, Type type) : base("Cant find property <" + prop + "> in class " + type.FullName)
+        public CantFindPropertyException(string prop, Type type)
+            : base("Cant find property <" + prop + "> in class " + type.FullName)
         {
             propertyName = prop;
             classType = type;
@@ -258,7 +272,9 @@
         /// <summary>
         ///
         /// </summary>
-        public OnCreationDetailArrayAgregatorObjectCantBeNullException() { }
+        public OnCreationDetailArrayAgregatorObjectCantBeNullException()
+        {
+        }
     }
 
     /// <summary>
@@ -269,7 +285,9 @@
         /// <summary>
         ///
         /// </summary>
-        public CantProcessingNonDataobjectTypeException() { }
+        public CantProcessingNonDataobjectTypeException()
+        {
+        }
     }
 
     /// <summary>
@@ -280,7 +298,9 @@
         /// <summary>
         ///
         /// </summary>
-        public DifferentDataObjectTypesException() { }
+        public DifferentDataObjectTypesException()
+        {
+        }
     }
 
     /// <summary>
@@ -351,22 +371,34 @@
         /// <summary>
         /// тип объекта в котором возникло исключение
         /// </summary>
-        public string TypeName { get { return sTypeName; } }
+        public string TypeName
+        {
+            get { return sTypeName; }
+        }
 
         /// <summary>
         /// олжны бать следующие типы
         /// </summary>
-        public string MustBeTypes { get { return sMustBeTypes; } }
+        public string MustBeTypes
+        {
+            get { return sMustBeTypes; }
+        }
 
         /// <summary>
         /// имя типа на котором возникло исключение
         /// </summary>
-        public string ObjectType { get { return sObjectType; } }
+        public string ObjectType
+        {
+            get { return sObjectType; }
+        }
 
         /// <summary>
         /// свойство в котором возникло исключение
         /// </summary>
-        public string PropName { get { return sPropName; } }
+        public string PropName
+        {
+            get { return sPropName; }
+        }
     }
 
     /// <summary>
@@ -377,7 +409,10 @@
         /// <summary>
         ///
         /// </summary>
-        public IncomatibleCheckingTypeException(string sObjectType, string sPropName, string sTypeName, string sMustBeTypes) : base(sObjectType, sPropName, sTypeName, sMustBeTypes) { }
+        public IncomatibleCheckingTypeException(string sObjectType, string sPropName, string sTypeName, string sMustBeTypes)
+            : base(sObjectType, sPropName, sTypeName, sMustBeTypes)
+        {
+        }
     }
 
     /// <summary>
@@ -389,7 +424,10 @@
         ///
         /// </summary>
         /// <param name="TypeName"></param>
-        public NotEnumTypeException(string TypeName) : base(TypeName) { }
+        public NotEnumTypeException(string TypeName)
+            : base(TypeName)
+        {
+        }
     }
 
     /// <summary>
@@ -400,7 +438,10 @@
         /// <summary>
         ///
         /// </summary>
-        public NotFoundAggregatorProperty() : base() { }
+        public NotFoundAggregatorProperty()
+            : base()
+        {
+        }
     }
 
     /// <summary>

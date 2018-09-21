@@ -56,7 +56,7 @@
         /// <returns>Cтрока в формате WKT.</returns>
         public static string GetWKT(this Geography geo)
         {
-            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", "");
+            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", string.Empty);
         }
 
         /// <summary>

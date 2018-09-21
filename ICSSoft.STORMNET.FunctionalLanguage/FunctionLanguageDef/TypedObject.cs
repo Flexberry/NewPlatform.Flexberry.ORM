@@ -14,7 +14,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <summary>
         /// ObjectType-тип
         /// </summary>
-        public virtual ObjectType Type {get{return fieldType;} set{fieldType = value;} }
+        public virtual ObjectType Type
+        {
+            get { return fieldType; } set { fieldType = value; }
+        }
 
         /// <summary>
         /// конструктор
@@ -30,7 +33,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objStringedView"></param>
         /// <param name="objCaption"></param>
         /// <param name="objImagedView"></param>
-        public TypedObject(ObjectType objType, string objStringedView, string objCaption) : base(objStringedView, objCaption)
+        public TypedObject(ObjectType objType, string objStringedView, string objCaption)
+            : base(objStringedView, objCaption)
         {
             Type = objType;
         }

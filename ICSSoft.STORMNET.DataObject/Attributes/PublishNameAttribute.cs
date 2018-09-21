@@ -38,11 +38,17 @@ namespace ICSSoft.STORMNET
         /// <summary>
         /// Имя типа для публикации.
         /// </summary>
-        public string TypePublishName { get { return typePublishName; } }
+        public string TypePublishName
+        {
+            get { return typePublishName; }
+        }
 
         /// <summary>
         /// Имя набора сущностей для публикации.
         /// </summary>
-        public string EntitySetPublishName { get { return entitySetPublishName; } }
+        public string EntitySetPublishName
+        {
+            get { return entitySetPublishName; }
+        }
     }
 }

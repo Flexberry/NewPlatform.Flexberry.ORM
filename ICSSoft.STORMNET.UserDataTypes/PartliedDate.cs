@@ -9,7 +9,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
     {
         internal string fValue;
 
-        private PartliedDate(string val) {fValue = val; }
+        private PartliedDate(string val)
+        {
+            fValue = val;
+        }
 
         public PartliedDate()
         {

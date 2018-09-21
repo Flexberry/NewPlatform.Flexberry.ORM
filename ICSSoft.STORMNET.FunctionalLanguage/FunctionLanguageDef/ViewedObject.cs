@@ -14,15 +14,18 @@
         /// <summary>
         /// Строковое представление
         /// </summary>
-        public virtual string StringedView{get{return fieldStringedView;} set{fieldStringedView = value;} }
+        public virtual string StringedView
+        {
+            get { return fieldStringedView; } set { fieldStringedView = value; }
+        }
 
         /// <summary>
         /// Заголовок
         /// </summary>
         public virtual string Caption
         {
-            get {return fieldCaption; }
-            set {fieldCaption = value;}
+            get { return fieldCaption; }
+            set { fieldCaption = value; }
         }
 
         /// <summary>
