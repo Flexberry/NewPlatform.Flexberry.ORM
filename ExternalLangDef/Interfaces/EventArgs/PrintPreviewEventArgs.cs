@@ -29,7 +29,7 @@
         /// <param name="objects"></param>
         /// <param name="contpath"></param>
         /// <param name="propertyname"></param>
-        public PrintPreviewEventArgs(DataObject[] objects, string contpath, string propertyname )
+        public PrintPreviewEventArgs(DataObject[] objects, string contpath, string propertyname)
         {
             m_arrObjects = objects;
 

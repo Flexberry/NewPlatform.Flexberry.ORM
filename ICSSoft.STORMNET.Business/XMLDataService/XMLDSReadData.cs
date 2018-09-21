@@ -33,8 +33,10 @@
             maxCountKeys = 0;
             storageStructs = new StorageStructForView[customizationStruct.LoadingTypes.Length];
 
-            if(customizationStruct.LoadingTypes.Length  == 0)
+            if(customizationStruct.LoadingTypes.Length == 0)
+            {
                 return resData;
+            }
 
             var countKeys = new int[customizationStruct.LoadingTypes.Length];
 
@@ -45,16 +47,20 @@
                 countKeys[i] = Utils.CountMasterKeysInSelect(storageStructs[i]);
 
                 if (countKeys[i] > maxCountKeys)
+                {
                     maxCountKeys = countKeys[i];
+                }
             }
 
             resData.TableName = "__" + customizationStruct.LoadingTypes[0].Name;
             List<ColumnInfo> columnsInfo = AddColumnsToDataTable(resData, storageStructs);
 
             for (int i = 0; i < storageStructs.Length; i++)
+            {
                 FillDataTable(resData, storageStructs[i], columnsInfo, i);
+            }
 
-            //TODO разобраться с for (int j = 0; j < addingKeysCount;  j++) AddColumn(STORMJoinedMasterKey)
+            // TODO разобраться с for (int j = 0; j < addingKeysCount;  j++) AddColumn(STORMJoinedMasterKey)
 
             return resData;
         }
@@ -77,8 +83,10 @@
             int startRowsIndex = dt.Rows.Count;
 
             // Добавляем столько строк, сколько их в таблице основного объекта данных
-            for (int i= 0; i < mainDataTable.Rows.Count; i++)
+            for (int i = 0; i < mainDataTable.Rows.Count; i++)
+            {
                 dt.Rows.Add(dt.NewRow());
+            }
 
             // В этот список будут записаны мастеровые таблицы после соединения.
             var masterTables = new Dictionary<StorageStructForView.PropSource, DataTable>();
@@ -102,14 +110,18 @@
                     if (propSource == storageStruct.sources)
                     {
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
+                        {
                             dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][propStorage.Name];
+                        }
                     }
                     else if(masterTables.ContainsKey(propSource))
                     {
                         // иначе это свойство мастера и надо брать его из таблицы мастеров после соединения
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
+                        {
                             dt.Rows[i + startRowsIndex][columnInfo.ColumnName] =
                                 masterTables[propSource].Rows[i][propStorage.simpleName];
+                        }
                     }
                 }
                 else
@@ -118,15 +130,19 @@
                     {
                         // в эту колонку записываются первичные ключи основного объекта данных
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
+                        {
                             dt.Rows[i + startRowsIndex][columnInfo.ColumnName] =
                                 mainDataTable.Rows[i][storageStruct.sources.storage[0].PrimaryKeyStorageName];
+                        }
                     }
                     else if(columnInfo.IsStormDataObjectType)
                     {
                         // В эту колонку записывается номер типа для загрузки данных.
                         // Он необходим когда читаются наследники через базовый класс.
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
+                        {
                             dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = structIndex;
+                        }
                     }
                     else if (columnInfo.IsStormJoinedMasterKey)
                     {
@@ -137,15 +153,21 @@
 
                         // в эти колонки записываются первичные ключи мастеров
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
+                        {
 
                             // Ключ мастера храниться в таблице мастера
                             if (masterTables.ContainsKey(propSource))
+                            {
                                 dt.Rows[i + startRowsIndex][columnInfo.ColumnName] =
                                     masterTables[propSource].Rows[i][simpleName];
+                            }
                             else
+                            {
 
                                 // или его можно взять сразу из таблицы основного объекта данных
                                 dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][simpleName];
+                            }
+                        }
                     }
                 }
             }
@@ -162,7 +184,9 @@
                                         Dictionary<StorageStructForView.PropSource, DataTable> result)
         {
             if (propSource.LinckedStorages == null || propSource.LinckedStorages.Length == 0)
+            {
                 return;
+            }
 
             foreach (var source in propSource.LinckedStorages)
             {
@@ -246,7 +270,9 @@
             var result = new DataTable(dt2.TableName);
 
             foreach (var propMasterName in propMasterNames)
+            {
                 result.Columns.Add(new DataColumn(propMasterName, dt2.Columns[propMasterName].DataType));
+            }
 
             propMasterNames.ToDictionary(propMasterName => propMasterName,
                                                       propMasterName => new object[dt1.Rows.Count]);
@@ -260,7 +286,9 @@
                 {
                     // если ссылка на мастера пустая забиваем все null'ми
                     foreach (var propMasterName in propMasterNames)
+                    {
                         result.Rows[i][propMasterName] = DBNull.Value;
+                    }
                 }
                 else
                 {
@@ -270,13 +298,17 @@
                     {
                         // по умолчанию считаем, что ключ уникален, поэтому берем данные только из rows[0]
                         foreach (var propMasterName in propMasterNames)
+                        {
                             result.Rows[i][propMasterName] = rows[0][propMasterName];
+                        }
                     }
                     else
                     {
                         // если не нашли мастера с таким ключом забиваем все null'ми
                         foreach (var propMasterName in propMasterNames)
+                        {
                             result.Rows[i][propMasterName] = DBNull.Value;
+                        }
                     }
                 }
             }
@@ -292,7 +324,9 @@
         private List<StorageStructForView.PropSource> GetAllLinkedStoragesFroPropSource(StorageStructForView.PropSource propSource)
         {
             if (propSource.LinckedStorages == null || propSource.LinckedStorages.Length == 0)
+            {
                 return new List<StorageStructForView.PropSource>();
+            }
 
             var result = new List<StorageStructForView.PropSource>();
 
@@ -321,7 +355,9 @@
             DataTable mainDataTable = _dataSet.Tables[storageStructs[0].sources.storage[0].Storage];
 
             if (mainStructureTable == null || mainDataTable == null)
+            {
                 return new List<ColumnInfo>();
+            }
 
             var columnsInfo = new List<ColumnInfo>();
             var listMasters = new List<List<StorageStructForView.PropStorage>>();
@@ -331,7 +367,9 @@
             foreach (var prop in storageStructs[0].props)
             {
                 if(prop.Name == "__PrimaryKey")
+                {
                     continue;
+                }
 
                 // Если это мастер, то значит будет записан гуид, а гуиды записываются строкой
                 Type colType = prop.MastersTypesCount == 0 ? prop.propertyType : typeof(string);
@@ -348,29 +386,39 @@
                         DataTable masterTable = _altdataSet.Tables[prop.source.storage[0].Storage];
 
                         if (masterTable != null && masterTable.Columns.Contains(prop.simpleName))
+                        {
                             colType = masterTable.Columns[prop.simpleName].DataType;
+                        }
                     }
                 }
 
                 if (colType.IsEnum)
+                {
                     colType = typeof(string);
+                }
 
                 dt.Columns.Add(prop.Name, colType);
                 columnsInfo.Add(new ColumnInfo(prop.Name, prop));
 
                 if(prop.MastersTypesCount > 0)
-                    listMasters.Add(new List<StorageStructForView.PropStorage> { prop } );
+                {
+                    listMasters.Add(new List<StorageStructForView.PropStorage> { prop });
+                }
             }
 
             // затем добавим свойства для остальных структур, они понадобятся при заполнении таблицы данными
-            for (int i = 1; i < storageStructs.Length; i++ )
+            for (int i = 1; i < storageStructs.Length; i++)
+            {
                 for (int j = 0; j < storageStructs[i].props.Length; j++)
                 {
                     columnsInfo[j].PropStorages.Add(storageStructs[i].props[j]);
 
                     if (storageStructs[i].props[j].MastersTypesCount > 0)
+                    {
                         listMasters[j].Add(storageStructs[i].props[j]);
+                    }
                 }
+            }
 
             // добавим колонку для первичных ключей объектов
             dt.Columns.Add(StormMainObjectKey);
@@ -398,7 +446,9 @@
                 var linkedMasters2 = GetAllLinkedStoragesFroPropSource(storageStructs[i].sources);
 
                 for (int j = startIndexJoinedMasterKeys; j < linkedMasters2.Count + startIndexJoinedMasterKeys; j++)
+                {
                     columnsInfo[j].PropSources.Add(linkedMasters2[j - startIndexJoinedMasterKeys]);
+                }
             }
 
             // затем добавим дополнительные колонки для всех мастеров из представления.
@@ -417,20 +467,22 @@
 
         private object[][] ReadData(LoadingCustomizationStruct customizationStruct, out StorageStructForView[] storageStruct)
         {
-            //строим запрос
+            // строим запрос
             View dataObjectView = customizationStruct.View;
             Function limitFunction = customizationStruct.LimitFunction;
             int maxCountKeys;
 
             var resData = GetDataSet(customizationStruct, out storageStruct, out maxCountKeys);
 
-            //строим Wrap-Select
+            // строим Wrap-Select
             #region задаем порядок колонок в запросе - результат в props : StringCollection
 
             var props = new StringCollection();
 
             for (int i = 0; i < dataObjectView.Properties.Length; i++)
+            {
                 props.Add(dataObjectView.Properties[i].Name);
+            }
 
             ColumnsSortDef[] sorts = customizationStruct.GetOwnerOnlySortDef();
 
@@ -459,7 +511,9 @@
             props.Add(StormMainObjectKey);
 
             for (int i = 0; i < maxCountKeys; i++)
+            {
                 props.Add(StormJoinedMasterKey + i);
+            }
 
             props.Add(StormDataObjectType);
             #endregion
@@ -468,7 +522,9 @@
             string sort = "";
 
             if (limitFunction != null)
+            {
                 expression = LimitFunction2FilterExpression(limitFunction);
+            }
 
             string[] ascDesc = { "", " ASC", " DESC" };
 
@@ -481,7 +537,9 @@
                     if (props.Contains(columnsSortDef.Name))
                     {
                         if (notfirst)
+                        {
                             sort += ", ";
+                        }
 
                         sort += PutIdentifierIntoBrackets(columnsSortDef.Name) + ascDesc[(int)columnsSortDef.Sort];
                         notfirst = true;
@@ -510,7 +568,9 @@
                 var curRes = new object[props.Count];
 
                 for (int j = 0; j < props.Count; j++)
+                {
                     curRes[j] = curRow[props[j]];
+                }
 
                 res[indexCurrentRow++] = curRes;
             }

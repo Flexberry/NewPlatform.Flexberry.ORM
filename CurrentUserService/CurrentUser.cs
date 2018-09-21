@@ -54,7 +54,9 @@
         private CurrentUserService.IUser GetUser()
         {
             if (HttpContext.Current != null)
+            {
                 return _webHttpUser ?? (_webHttpUser = new CurrentWebHttpUser());
+            }
 
             return _winUser ?? (_winUser = new CurrentWindowsUser());
         }

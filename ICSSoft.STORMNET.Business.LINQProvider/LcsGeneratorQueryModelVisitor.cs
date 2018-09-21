@@ -183,7 +183,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
                     int maxNumber = _resultLcs.ReturnTop == 0 ? int.MaxValue : _resultLcs.ReturnTop;
                     if (_resultLcs.RowNumber == null)
                     {
-                        _resultLcs.RowNumber = new RowNumberDef((int) minNumberExpression.Value + 1, maxNumber);
+                        _resultLcs.RowNumber = new RowNumberDef((int)minNumberExpression.Value + 1, maxNumber);
                     }
                     else
                     {
@@ -228,11 +228,15 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
                 {
                     expression = (ordering.Expression as ConditionalExpression).IfFalse;
                     while (expression is ConditionalExpression)
+                    {
                         expression = (expression as ConditionalExpression).IfFalse;
+                    }
                 }
 
                 while (expression != null && expression.NodeType == ExpressionType.Convert)
+                {
                     expression = (expression as UnaryExpression).Operand;
+                }
 
                 MemberExpression memberExpression = expression as MemberExpression;
                 while (memberExpression != null)
@@ -240,18 +244,26 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
                     member = UtilsLcs.GetObjectPropertyValue(memberExpression, "Member");
                     memberExpression = memberExpression.Expression as MemberExpression;
                     if (member == null)
+                    {
                         break;
+                    }
                     else if (member.Name == "Value")
+                    {
                         continue;
+                    }
 
                     if (path.Length > 0)
+                    {
                         path.Insert(0, ".");
+                    }
 
                     path.Insert(0, member.Name);
                 }
 
                 if (path.Length > 0)
+                {
                     AddColumnSort(path.ToString(), GetOrder(ordering.OrderingDirection));
+                }
             }
 
             VisitOrderings(orderByClause.Orderings, queryModel, orderByClause);
@@ -293,11 +305,15 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         protected virtual void SetLimitFuncion(Function limitFunction, LoadingCustomizationStruct lcs)
         {
             if (lcs.LimitFunction != null)
+            {
 
                 // Для поддержки цепочного вызова Where необходимо объединить переданное ограничение с уже существующим.
                 lcs.LimitFunction = langdef.GetFunction(langdef.funcAND, lcs.LimitFunction, limitFunction);
+            }
             else
+            {
                 lcs.LimitFunction = limitFunction;
+            }
         }
 
         /// <summary>

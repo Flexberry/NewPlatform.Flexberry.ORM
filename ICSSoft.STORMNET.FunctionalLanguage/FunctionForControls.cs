@@ -139,11 +139,13 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     case "Variable":
                         string varName = subel.GetAttribute("Value");
                         foreach (ICSSoft.STORMNET.FunctionalLanguage.VariableDef vd in vars)
+                        {
                             if (vd.StringedView == varName)
                             {
                                 parameters[i] = vd;
                                 break;
                             }
+                        }
 
                         break;
                     case "Value":
@@ -164,17 +166,24 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                         }
 
                         if (parameters[i] == null)
-                            parameters[i] = subel.GetAttribute("Value");
-                        break;
+                            {
+                                parameters[i] = subel.GetAttribute("Value");
+                            }
+
+                            break;
                     }
                 }
 ;
             }
 
             if (funcname == null || funcname == "")
+            {
                 return null;
+            }
             else
+            {
                 return lang.GetFunction(funcname, parameters);
+            }
         }
 
         /// <summary>
@@ -210,7 +219,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 {
                     ICSSoft.STORMNET.FunctionalLanguage.ObjectType t = lang.GetObjectTypeForNetType(propType);
                     if (t != null)
+                    {
                         arvars.Add(new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(t, piv.Name, piv.Caption));
+                    }
                 }
                 catch
                 { }
@@ -220,9 +231,14 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             ICSSoft.STORMNET.FunctionalLanguage.Function fnc = FromXMLElements((System.Xml.XmlElement)doc.FirstChild, lang, vars);
             FunctionForControls res = null;
             if (fnc == null)
+            {
                 res = new FunctionForControls(v, fnc);
+            }
             else
+            {
                 res = new FunctionForControls(v, fnc.FunctionDef, fnc.Parameters.ToArray());
+            }
+
             try
             {
                 res.Name = ((System.Xml.XmlElement)doc.FirstChild).GetAttribute("___Name");

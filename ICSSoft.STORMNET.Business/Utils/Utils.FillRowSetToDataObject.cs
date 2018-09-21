@@ -56,7 +56,11 @@
             for (int i = 0; i < advColsLength; i++)
             {
                 object value = values[i + customizationStructViewPropertiesLength];
-                if (value == DBNull.Value) value = null;
+                if (value == DBNull.Value)
+                {
+                    value = null;
+                }
+
                 properiesValues.Add(new[] { advCols[i].Name, value, dobject });
                 allAdvCols.Add(advCols[i].Name);
                 dobject.DynamicProperties.Add(advCols[i].Name, null);
@@ -80,10 +84,16 @@
                             value = values[i];
                         }
 
-                        if (value == DBNull.Value) value = null;
+                        if (value == DBNull.Value)
+                        {
+                            value = null;
+                        }
+
                         if (tmp != null)
+                        {
                             properiesValues.Add(
                                 new[] { prop.simpleName, value, tmp[0] });
+                        }
                     }
                     else
                     {
@@ -94,15 +104,25 @@
                             int tmp1 = (int)tmp[1];
                             int curMasterPosition = masterPosition;
                             for (int j = 0; j < tmp1; j++)
+                            {
                                 curMasterPosition += prop.MastersTypes[j].Length;
+                            }
+
                             int k = 0;
                             object value = values[curMasterPosition];
-                            if (value == DBNull.Value) value = null;
+                            if (value == DBNull.Value)
+                            {
+                                value = null;
+                            }
+
                             while (k < prop.MastersTypes[tmp1].Length - 1 && value == null)
                             {
                                 k++;
                                 value = values[curMasterPosition + k];
-                                if (value == DBNull.Value) value = null;
+                                if (value == DBNull.Value)
+                                {
+                                    value = null;
+                                }
                             }
 
                             object tmp0 = tmp[0];
@@ -160,7 +180,9 @@
                         {
                             curObjProperiesValues.Add(tmp0, tmp[1]);
                             if (!loadedPropsColl.Contains((string)tmp0))
+                            {
                                 loadedPropsColl.Add((string)tmp0);
+                            }
                         }
 
                         properiesValues.RemoveAt(i);
@@ -182,7 +204,9 @@
 
                 int curObjPropertiesValuesCount = curObjProperiesValues.Count;
                 for (int i = 0; i < curObjPropertiesValuesCount; i++)
+                {
                     Information.SetPropValueByName(curobj, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
+                }
 
                 if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
                 {

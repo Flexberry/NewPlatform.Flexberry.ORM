@@ -15,7 +15,9 @@
             {
                 string taskCompName = System.Configuration.ConfigurationSettings.AppSettings["BusinessTaskMonitorType"];
                 if (taskCompName != null && taskCompName != "")
+                {
                     taskMonitor = (IBusinessTaskMonitor)Activator.CreateInstance(Type.GetType(taskCompName));
+                }
             }
             catch { }
         }
@@ -46,9 +48,13 @@
         public static object BeginTask(string TaskName)
         {
             if (taskMonitor != null)
+            {
                 return taskMonitor.BeginTask(TaskName);
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>

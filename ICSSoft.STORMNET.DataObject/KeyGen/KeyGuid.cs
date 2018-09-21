@@ -71,9 +71,9 @@
 
         public static bool operator <(KeyGuid x, KeyGuid y)
         {
-            if((object) x == null)
+            if((object)x == null)
             {
-                return (object) y != null;
+                return (object)y != null;
             }
 
             return x.CompareTo(y) < 0;
@@ -103,7 +103,7 @@
         {
             if ((object)x == null)
             {
-                return (object) y == null;
+                return (object)y == null;
             }
 
             return x.CompareTo(y) >= 0;
@@ -258,7 +258,10 @@
         public override bool Equals(object obj)
         {
             if (obj is KeyGuid)
+            {
                 return (obj as KeyGuid).Guid.Equals(Guid);
+            }
+
             return false;
         }
 

@@ -18,12 +18,14 @@
                                                    delegatePutIdentifierToBrackets convertIdentifier)
         {
             if (!(DataService is SQLDataService))
+            {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExist));
+            }
 
-            var dvd = (DetailVariableDef) func.Parameters[0];
+            var dvd = (DetailVariableDef)func.Parameters[0];
             string[] agregatorKeys = dvd.OwnerConnectProp.Length == 0
-                                          ? new[] {"STORMMainObjectKey"}
+                                          ? new[] {"STORMMainObjectKey" }
                                           : dvd.OwnerConnectProp;
             string detailAlias = "STORMGENERATEDQUERY_S";
             string agregatorAlias = "STORMGENERATEDQUERY";
@@ -38,19 +40,23 @@
             if (conditionFunc != null)
             {
                 if (!(conditionFunc is Function))
+                {
 
                     // Если функция была задана переменной логического типа, то необходимо сформировать функцию
                     conditionFunc = GetFunction(funcAND, conditionFunc);
+                }
                 else
+                {
 
                     // Для случаев, когда для обработки детейлового атрибута применяется И, ИЛИ, НЕ из базового языка
                     ((Function)conditionFunc).FunctionDef.Language = this;
+                }
 
                 conditionFunc = TransformVariables((Function)conditionFunc, dvd.StringedView, new ArrayList());
             }
 
             // генерируем where часть для подзапроса в exists
-            string whereForConition = SQLTranslFunction((Function) conditionFunc, convertValue,
+            string whereForConition = SQLTranslFunction((Function)conditionFunc, convertValue,
                                                         identifier =>
                                                         ConvertIdentifierForDetail(identifier, dvd.ConnectMasterPorp,
                                                                                    agregatorAlias, detailAlias,
@@ -116,8 +122,12 @@
             lcs.View.AddProperty(dvd.ConnectMasterPorp);
 
             if (additionalProperties != null)
+            {
                 foreach (var propName in additionalProperties)
+                {
                     lcs.View.AddProperty(propName);
+                }
+            }
 
             string query = ((SQLDataService)DataService).GenerateSQLSelect(lcs, false);
             return query;

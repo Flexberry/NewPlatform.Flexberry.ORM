@@ -7,12 +7,12 @@ namespace ICSSoft.STORMNET.Exceptions
     /// Исключительная ситуация, возникающая при пустом значении в свойстве, которое должно быть заполнено
     /// </summary>
     [ Serializable ]
-    public class PropertyCouldnotBeNullException:Exception, ISerializable
+    public class PropertyCouldnotBeNullException: Exception, ISerializable
     {
         /// <summary>
         /// Имя свойства
         /// </summary>
-        public string propName ="";
+        public string propName = "";
 
         /// <summary>
         /// объект
@@ -24,7 +24,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="prop">свойство</param>
         /// <param name="obj">объект</param>
-        public PropertyCouldnotBeNullException(string prop,DataObject obj)
+        public PropertyCouldnotBeNullException(string prop, DataObject obj)
         {
             propName = prop;
             dataobject = obj;
@@ -35,9 +35,9 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public PropertyCouldnotBeNullException( SerializationInfo info, StreamingContext context )
+        public PropertyCouldnotBeNullException( SerializationInfo info, StreamingContext context)
         {
-            propName = ( string )info.GetValue( "propName", typeof( string ) );
+            propName = (string)info.GetValue( "propName", typeof( string));
 
             dataobject = null;
         }
@@ -49,14 +49,14 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue( "propName", this.propName );
+            info.AddValue( "propName", this.propName);
         }
 
         public override string Message
         {
             get
             {
-                return string.Format("Property '{0}' could not be NULL in {1}",propName,dataobject.GetType().Name);
+                return string.Format("Property '{0}' could not be NULL in {1}", propName, dataobject.GetType().Name);
             }
         }
     }
@@ -65,19 +65,19 @@ namespace ICSSoft.STORMNET.Exceptions
     ///
     /// </summary>
     [ Serializable ]
-    public class DataServiceNotFoundException:Exception, ISerializable
+    public class DataServiceNotFoundException: Exception, ISerializable
     {
         /// <summary>
         ///
         /// </summary>
-        public DataServiceNotFoundException(){}
+        public DataServiceNotFoundException() { }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public DataServiceNotFoundException( SerializationInfo info, StreamingContext context )
+        public DataServiceNotFoundException( SerializationInfo info, StreamingContext context)
         {
         }
 
@@ -95,19 +95,19 @@ namespace ICSSoft.STORMNET.Exceptions
     ///
     /// </summary>
     [ Serializable ]
-    public class ObjectNotAlteredException:Exception, ISerializable
+    public class ObjectNotAlteredException: Exception, ISerializable
     {
         /// <summary>
         ///
         /// </summary>
-        public ObjectNotAlteredException(){}
+        public ObjectNotAlteredException() { }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public ObjectNotAlteredException( SerializationInfo info, StreamingContext context )
+        public ObjectNotAlteredException( SerializationInfo info, StreamingContext context)
         {
         }
 
@@ -125,7 +125,7 @@ namespace ICSSoft.STORMNET.Exceptions
     /// Все изменяемые поля должны быть первоначально загружены(исключительная ситуация)
     /// </summary>
     [ Serializable ]
-    public class CantUpdateNotLoadedPropertiesException:Exception, ISerializable
+    public class CantUpdateNotLoadedPropertiesException: Exception, ISerializable
     {
         /// <summary>
         /// объект данных
@@ -142,7 +142,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="aDataObject"></param>
         /// <param name="aProps"></param>
-        public CantUpdateNotLoadedPropertiesException(ICSSoft.STORMNET.DataObject aDataObject,params string[] aProps)
+        public CantUpdateNotLoadedPropertiesException(ICSSoft.STORMNET.DataObject aDataObject, params string[] aProps)
         {
             dobject = aDataObject;
             props = aProps;
@@ -153,11 +153,11 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="aDataObject"></param>
         /// <param name="aProps"></param>
-        public CantUpdateNotLoadedPropertiesException(ICSSoft.STORMNET.DataObject aDataObject,System.Collections.Specialized.StringCollection aProps)
+        public CantUpdateNotLoadedPropertiesException(ICSSoft.STORMNET.DataObject aDataObject, System.Collections.Specialized.StringCollection aProps)
         {
             dobject = aDataObject;
             props = new string[aProps.Count];
-            aProps.CopyTo(props,0);
+            aProps.CopyTo(props, 0);
         }
 
         /// <summary>
@@ -165,10 +165,10 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public CantUpdateNotLoadedPropertiesException( SerializationInfo info, StreamingContext context )
+        public CantUpdateNotLoadedPropertiesException( SerializationInfo info, StreamingContext context)
         {
             dobject = null;
-            props = ( string[] )info.GetValue( "props", typeof( string[] ) );
+            props = (string[])info.GetValue( "props", typeof( string[]));
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue( "props", props );
+            info.AddValue( "props", props);
         }
 
         public override string Message
@@ -186,7 +186,7 @@ namespace ICSSoft.STORMNET.Exceptions
             get
             {
                 return string.Format( "Can't update object {0}. There are not loaded properties :{1} ",
-                    dobject.GetType().Name,string.Join(",",props));
+                    dobject.GetType().Name, string.Join(",", props));
             }
         }
     }
@@ -195,7 +195,7 @@ namespace ICSSoft.STORMNET.Exceptions
     /// Исключение, которое возникает при отсутствии в хранилище данных объекта
     /// </summary>
     [ Serializable ]
-    public class CantFindDataObjectException:Exception, ISerializable
+    public class CantFindDataObjectException: Exception, ISerializable
     {
         private System.Type type;
         private object key;
@@ -205,26 +205,26 @@ namespace ICSSoft.STORMNET.Exceptions
         /// </summary>
         /// <param name="doType">тип объекта</param>
         /// <param name="doKey">ключ объекта</param>
-        public CantFindDataObjectException(System.Type doType,object doKey){type=doType;key=doKey;}
+        public CantFindDataObjectException(System.Type doType, object doKey) {type = doType;key = doKey; }
 
         /// <summary>
         /// тип объекта
         /// </summary>
-        public System.Type DataObjectType {get {return type;}}
+        public System.Type DataObjectType {get {return type;} }
 
         /// <summary>
         /// ключ объекта
         /// </summary>
-        public object DataObjectKey {get {return key;}}
+        public object DataObjectKey {get {return key;} }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public CantFindDataObjectException( SerializationInfo info, StreamingContext context )
+        public CantFindDataObjectException( SerializationInfo info, StreamingContext context)
         {
-            type = ( Type )info.GetValue( "type", typeof( Type ) );
+            type = (Type)info.GetValue( "type", typeof( Type));
         }
 
         public override string Message
@@ -242,7 +242,7 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue( "type", type );
+            info.AddValue( "type", type);
         }
     }
 }

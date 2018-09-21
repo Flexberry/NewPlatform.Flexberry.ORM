@@ -41,7 +41,9 @@
                     {
                         DataObject[] objects = _ds.LoadObjects(lcs);
                         if (!objects.Any())
+                        {
                             throw new InvalidOperationException("Sequence contains no matching element");
+                        }
 
                         return _ds.LoadObjects(lcs)[0];
                     }
@@ -81,7 +83,9 @@
         {
             // Представление динамическое.
             if (View == null)
+            {
                 return LinqToLcs.GetLcs<T, Q>(expression);
+            }
 
             // Представление задано.
             var lcs = LinqToLcs.GetLcs<Q>(expression, View, _resolvingViews);

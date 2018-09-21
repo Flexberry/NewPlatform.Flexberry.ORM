@@ -42,11 +42,17 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         {
             string typeName = type.FullName;
 
-            if (_knownTypes.Contains(typeName)) return;
+            if (_knownTypes.Contains(typeName))
+            {
+                return;
+            }
+
             lock (_lockConst)
             {
                 if (!_knownTypes.Contains(typeName))
+                {
                     _knownTypes.Add(typeName);
+                }
             }
         }
 
@@ -57,7 +63,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 lock (_lockConst)
                 {
                     if (!_checkedTypes.Contains(systemtype.FullName))
+                    {
                         _checkedTypes.Add(systemtype.FullName);
+                    }
                 }
             }
 
@@ -85,7 +93,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     lock (_lockConst)
                     {
                         if (!sl.Contains(to[i].FullName))
+                        {
                             sl.Add(to[i].FullName);
+                        }
                     }
                 }
             }
@@ -98,7 +108,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     lock (_lockConst)
                     {
                         if (!_canConvertTo.ContainsKey(from[i].FullName))
+                        {
                             _canConvertTo.Add(from[i].FullName, new System.Collections.Specialized.StringCollection());
+                        }
                     }
                 }
 
@@ -109,7 +121,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     lock (_lockConst)
                     {
                         if (!sl.Contains(systemtype.FullName))
+                        {
                             sl.Add(systemtype.FullName);
+                        }
                     }
                 }
             }
@@ -145,11 +159,15 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 
                     sl = (System.Collections.Specialized.StringCollection)_canConvertTo[f.FullName];
                     if (!sl.Contains(t.FullName))
+                    {
                         lock (_lockConst)
                         {
                             if (!sl.Contains(t.FullName))
+                            {
                                 sl.Add(t.FullName);
+                            }
                         }
+                    }
                 }
             }
         }
@@ -172,7 +190,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             {
                 emptyStack = _stack == null;
                 if (emptyStack)
+                {
                     _stack = new System.Collections.Specialized.StringCollection();
+                }
             }
 
             bool res = false;
@@ -198,7 +218,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                                     _stack.Add(k);
                                     res = FoundTransform(k, to);
                                     _stack.RemoveAt(_stack.Count - 1);
-                                    if (res) break;
+                                    if (res)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -206,12 +229,14 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 }
             }
 
-            //else
+            // else
             //    res = false;
             lock (_lockConst)
             {
                 if (emptyStack)
+                {
                     _stack = null;
+                }
             }
 
             return res;
@@ -275,9 +300,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 return retValue;
             }
 
-            //стандартный Convert
+            // стандартный Convert
 
-            //              System.Reflection.ConstructorInfo ci =from.GetConstructor(new System.Type[0]);
+            // System.Reflection.ConstructorInfo ci =from.GetConstructor(new System.Type[0]);
             //              try
             //              {
             //                  object obj = ci.Invoke(new object[0]);
@@ -291,7 +316,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             //              }
             //              catch
             //              {}
-            //implicit преобразования
+            // implicit преобразования
             if (_checkedTypes == null)
             {
                 lock (_lockConst)
@@ -302,92 +327,92 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                         _canConvertTo = new System.Collections.SortedList();
                         _knownTypes = new System.Collections.Specialized.StringCollection();
 
-                        //predefined implicit conversion
-                        //bool
+                        // predefined implicit conversion
+                        // bool
                         AddPredifinedConvertion(
                             typeof (bool),
-                            new Type[] {},
-                            new[] {typeof (int)});
+                            new Type[] { },
+                            new[] {typeof (int) });
 
-                        //typeof(byte)
+                        // typeof(byte)
                         AddPredifinedConvertion(
                             typeof (byte),
-                            new Type[] {},
+                            new Type[] { },
                             new[]
                                 {
                                     typeof (short), typeof (ushort), typeof (int), typeof (uint), typeof (long),
-                                    typeof (ulong)
-                                    , typeof (float), typeof (double), typeof (decimal)
+                                    typeof (ulong),
+                                    typeof (float), typeof (double), typeof (decimal)
                                 });
 
-                        //typeof(sbyte)
+                        // typeof(sbyte)
                         AddPredifinedConvertion(
                             typeof (sbyte),
-                            new Type[] {},
+                            new Type[] { },
                             new[]
                                 {
                                     typeof (short), typeof (int), typeof (long), typeof (float), typeof (double),
                                     typeof (decimal)
                                 });
 
-                        //typeof(char)
+                        // typeof(char)
                         AddPredifinedConvertion(
                             typeof (char),
-                            new Type[] {},
+                            new Type[] { },
                             new[]
                                 {
                                     typeof (ushort), typeof (int), typeof (uint), typeof (long), typeof (ulong),
-                                    typeof (float)
-                                    , typeof (double), typeof (decimal)
+                                    typeof (float),
+                                    typeof (double), typeof (decimal)
                                 });
 
-                        //typeof(int)
+                        // typeof(int)
                         AddPredifinedConvertion(
                             typeof (int),
-                            new[] {typeof (sbyte), typeof (byte), typeof (short), typeof (ushort), typeof (char)},
-                            new[] {typeof (long), typeof (float), typeof (double), typeof (decimal)});
+                            new[] {typeof (sbyte), typeof (byte), typeof (short), typeof (ushort), typeof (char) },
+                            new[] {typeof (long), typeof (float), typeof (double), typeof (decimal) });
 
-                        //typeof(uint)
+                        // typeof(uint)
                         AddPredifinedConvertion(
                             typeof (uint),
-                            new[] {typeof (byte), typeof (ushort), typeof (char)},
-                            new[] {typeof (long), typeof (ulong), typeof (float), typeof (double), typeof (decimal)});
+                            new[] {typeof (byte), typeof (ushort), typeof (char) },
+                            new[] {typeof (long), typeof (ulong), typeof (float), typeof (double), typeof (decimal) });
 
-                        //typeof(long)
+                        // typeof(long)
                         AddPredifinedConvertion(
                             typeof (long),
                             new[]
                                 {
                                     typeof (sbyte), typeof (byte), typeof (short), typeof (ushort), typeof (int),
-                                    typeof (uint)
-                                    , typeof (char)
+                                    typeof (uint),
+                                    typeof (char)
                                 },
-                            new[] {typeof (float), typeof (double), typeof (decimal)});
+                            new[] {typeof (float), typeof (double), typeof (decimal) });
 
-                        //typeof(ulong)
+                        // typeof(ulong)
                         AddPredifinedConvertion(
                             typeof (ulong),
-                            new[] {typeof (byte), typeof (ushort), typeof (uint), typeof (char)},
-                            new[] {typeof (float), typeof (double), typeof (decimal)});
+                            new[] {typeof (byte), typeof (ushort), typeof (uint), typeof (char) },
+                            new[] {typeof (float), typeof (double), typeof (decimal) });
 
-                        //typeof(short)
+                        // typeof(short)
                         AddPredifinedConvertion(
                             typeof (short),
-                            new Type[] {},
-                            new[] {typeof (int), typeof (long), typeof (float), typeof (double), typeof (decimal)});
+                            new Type[] { },
+                            new[] {typeof (int), typeof (long), typeof (float), typeof (double), typeof (decimal) });
 
-                        //typeof(ushort)
+                        // typeof(ushort)
                         AddPredifinedConvertion(
                             typeof (ushort),
-                            new[] {typeof (byte), typeof (char)},
+                            new[] {typeof (byte), typeof (char) },
                             new[]
                                 {
                                     typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (float),
-                                    typeof (double)
-                                    , typeof (decimal)
+                                    typeof (double),
+                                    typeof (decimal)
                                 });
 
-                        //typeof(string)
+                        // typeof(string)
                         AddPredifinedConvertion(
                             typeof (string),
                             new[]
@@ -395,21 +420,26 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                                     typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (float),
                                     typeof (double), typeof (decimal)
                                 },
-                            new Type[] {});
+                            new Type[] { });
 
-                        //typeof(Guid)
+                        // typeof(Guid)
                         AddPredifinedConvertion(
                             typeof (Guid),
-                            new Type[] {},
-                            new[] {typeof (string)});
+                            new Type[] { },
+                            new[] {typeof (string) });
                     }
                 }
             }
 
             if (!_checkedTypes.Contains(from.FullName))
+            {
                 AddType(from);
+            }
+
             if (!_checkedTypes.Contains(to.FullName))
+            {
                 AddType(to);
+            }
 
             if (_canConvertTo.ContainsKey(from.FullName))
             {

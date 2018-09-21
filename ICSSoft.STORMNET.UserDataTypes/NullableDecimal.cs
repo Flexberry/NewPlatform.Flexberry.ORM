@@ -49,7 +49,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public implicit operator NullableInt(System.Int64 value)
+        static public implicit operator NullableInt(long value)
         {
             int intValue = (int)Convert.ChangeType(value, typeof(int));
 
@@ -101,7 +101,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableInt(Decimal value)
+        static public explicit operator NullableInt(decimal value)
         {
             return new NullableInt((int)value);
         }
@@ -139,7 +139,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static NullableInt Parse(string s)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s))
+            {
+                return null;
+            }
+
             return (NullableInt)int.Parse(s);
         }
 
@@ -151,7 +155,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static NullableInt Parse(string s, IFormatProvider provider)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s))
+            {
+                return null;
+            }
+
             return (NullableInt)decimal.Parse(s, provider);
         }
 
@@ -242,12 +250,24 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public int Compare(Object x, Object y)
+        public int Compare(object x, object y)
         {
-            if ((x == null) && (y == null)) return 0;
-            if ((x == null) && (y != null)) return -1;
-            if ((x != null) && (y == null)) return 1;
-            return Decimal.Compare(((NullableInt)x).fValue, ((NullableInt)y).fValue);
+            if ((x == null) && (y == null))
+            {
+                return 0;
+            }
+
+            if ((x == null) && (y != null))
+            {
+                return -1;
+            }
+
+            if ((x != null) && (y == null))
+            {
+                return 1;
+            }
+
+            return decimal.Compare(((NullableInt)x).fValue, ((NullableInt)y).fValue);
         }
 
         /// <summary>
@@ -453,7 +473,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
             string value = reader.ReadString();
 
             if(!string.IsNullOrEmpty(value))
+            {
                 fValue = Parse(value).Value;
+            }
         }
 
         public void WriteXml(XmlWriter writer)
@@ -469,10 +491,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
     /// </summary>
     [ICSSoft.STORMNET.Windows.Forms.Binders.ControlProvider("ICSSoft.STORMNET.UserDataTypes.NullableDecimalControlProvider, ICSSoft.STORMNET.Windows.Forms")]
     [Serializable]
-    [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.SQLDataService), typeof(Decimal))]
+    [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.SQLDataService), typeof(decimal))]
     public class NullableDecimal : IComparable, IComparableType, IConvertible, System.Xml.Serialization.IXmlSerializable
     {
-        private System.Decimal fValue;
+        private decimal fValue;
 
         /// <summary>
         /// Конструктор без параметров, нужен для Activator.CreateInstance
@@ -481,14 +503,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
         }
 
-        private NullableDecimal(Decimal val) { Value = val; }
+        private NullableDecimal(decimal val) { Value = val; }
 
         /// <summary>
         /// Явное преобразование к Decimal
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator Decimal(NullableDecimal value)
+        static public explicit operator decimal(NullableDecimal value)
         {
             return value.Value;
         }
@@ -498,7 +520,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDecimal(Decimal value)
+        static public explicit operator NullableDecimal(decimal value)
         {
             return new NullableDecimal(value);
         }
@@ -508,7 +530,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator Decimal?(NullableDecimal value)
+        static public explicit operator decimal?(NullableDecimal value)
         {
             if (value == null)
             {
@@ -523,7 +545,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDecimal(Decimal? value)
+        static public explicit operator NullableDecimal(decimal? value)
         {
             if (value == null)
             {
@@ -621,11 +643,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <summary>
         /// Собственно значение
         /// </summary>
-        public virtual System.Decimal Value
+        public virtual decimal Value
         {
             get
             {
-                System.Decimal result = this.fValue;
+                decimal result = this.fValue;
                 return result;
             }
 
@@ -642,7 +664,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static NullableDecimal Parse(string s)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s))
+            {
+                return null;
+            }
+
             return (NullableDecimal)decimal.Parse(s);
         }
 
@@ -654,7 +680,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public static NullableDecimal Parse(string s, IFormatProvider provider)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s))
+            {
+                return null;
+            }
+
             return (NullableDecimal)decimal.Parse(s, provider);
         }
 
@@ -717,9 +747,15 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public int CompareTo(object obj)
         {
-            if (!(obj is NullableDecimal)) throw new ArgumentException();
+            if (!(obj is NullableDecimal))
+            {
+                throw new ArgumentException();
+            }
 
-            if (obj == null) return 1;
+            if (obj == null)
+            {
+                return 1;
+            }
 
             return Value.CompareTo(((NullableDecimal)obj).Value);
         }
@@ -730,12 +766,24 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public int Compare(Object x, Object y)
+        public int Compare(object x, object y)
         {
-            if ((x == null) && (y == null)) return 0;
-            if ((x == null) && (y != null)) return -1;
-            if ((x != null) && (y == null)) return 1;
-            return Decimal.Compare(((NullableDecimal)x).fValue, ((NullableDecimal)y).fValue);
+            if ((x == null) && (y == null))
+            {
+                return 0;
+            }
+
+            if ((x == null) && (y != null))
+            {
+                return -1;
+            }
+
+            if ((x != null) && (y == null))
+            {
+                return 1;
+            }
+
+            return decimal.Compare(((NullableDecimal)x).fValue, ((NullableDecimal)y).fValue);
         }
 
         /// <summary>
@@ -744,7 +792,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static Decimal operator -(NullableDecimal x, NullableDecimal y)
+        public static decimal operator -(NullableDecimal x, NullableDecimal y)
         {
             return ((x != null) ? x.Value : 0) - ((y != null) ? y.Value : 0);
         }
@@ -755,7 +803,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static Decimal operator -(Decimal x, NullableDecimal y)
+        public static decimal operator -(decimal x, NullableDecimal y)
         {
             return x - ((y != null) ? y.Value : 0);
         }
@@ -766,7 +814,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static Decimal operator -(NullableDecimal x, Decimal y)
+        public static decimal operator -(NullableDecimal x, decimal y)
         {
             return ((x != null) ? x.Value : 0) - y;
         }
@@ -777,7 +825,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static Decimal operator +(NullableDecimal x, NullableDecimal y)
+        public static decimal operator +(NullableDecimal x, NullableDecimal y)
         {
             return ((x != null) ? x.Value : 0) + ((y != null) ? y.Value : 0);
         }
@@ -788,7 +836,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static Decimal operator +(Decimal x, NullableDecimal y)
+        public static decimal operator +(decimal x, NullableDecimal y)
         {
             return x + ((y != null) ? y.Value : 0);
         }
@@ -799,7 +847,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static Decimal operator +(NullableDecimal x, Decimal y)
+        public static decimal operator +(NullableDecimal x, decimal y)
         {
             return ((x != null) ? x.Value : 0) + y;
         }
@@ -931,7 +979,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
             string value = reader.ReadString();
 
             if(!string.IsNullOrEmpty(value))
+            {
                 fValue = Parse(value).Value;
+            }
         }
 
         public void WriteXml(XmlWriter writer)

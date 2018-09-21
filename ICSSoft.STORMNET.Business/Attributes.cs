@@ -35,13 +35,13 @@ namespace ICSSoft.STORMNET.Business
         /// <summary>
         /// На все
         /// </summary>
-        OnAllEvents = OnInsertToStorage|OnUpdateInStorage|OnDeleteFromStorage
+        OnAllEvents = OnInsertToStorage | OnUpdateInStorage | OnDeleteFromStorage
     }
 
     /// <summary>
     /// невозможно применить атрибут к этому типу
     /// </summary>
-    public class CantApplyBusinessServerAttributeWithNotBusinessServiceTypeException:Exception
+    public class CantApplyBusinessServerAttributeWithNotBusinessServiceTypeException: Exception
     {
         /// <summary>
         /// проверяемый тип
@@ -61,8 +61,8 @@ namespace ICSSoft.STORMNET.Business
     /// <summary>
     /// Атрибут лоя установки бизнессервера обработки событий
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface,AllowMultiple=false)]
-    public class BusinessServerAttribute:Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple=false)]
+    public class BusinessServerAttribute: Attribute
     {
         /// <summary>
         /// Тип бизнессервера
@@ -89,9 +89,13 @@ namespace ICSSoft.STORMNET.Business
         {
             Order = order;
             if (businessServerType.IsSubclassOf(typeof(BusinessServer)))
+            {
                 BusinessServerType = businessServerType;
+            }
             else
+            {
                 throw new CantApplyBusinessServerAttributeWithNotBusinessServiceTypeException(businessServerType);
+            }
         }
 
         /// <summary>
@@ -101,25 +105,28 @@ namespace ICSSoft.STORMNET.Business
         public BusinessServerAttribute(System.Type businessServerType)
         {
             if (businessServerType.IsSubclassOf(typeof(BusinessServer)))
+            {
                 BusinessServerType = businessServerType;
+            }
             else
+            {
                 throw new CantApplyBusinessServerAttributeWithNotBusinessServiceTypeException(businessServerType);
+            }
         }
 
         /// <summary>
         /// Бизнессервер
         /// </summary>
         /// <param name="businessServerType">Тип бизнессервера</param>
-        public BusinessServerAttribute(string businessServerType):this(Type.GetType(businessServerType,true,true))
-        {}
+        public BusinessServerAttribute(string businessServerType) : this(Type.GetType(businessServerType, true, true))
+        { }
 
         /// <summary>
         /// Бизнессервер
         /// </summary>
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
-        public BusinessServerAttribute(System.Type businessServerType,DataServiceObjectEvents serverEvents):
-            this(businessServerType)
+        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents) : this(businessServerType)
         {
             ServerEvents = serverEvents;
         }
@@ -130,8 +137,7 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
         /// <param name="order">Упорядочение бизнес-серверов. 0 - выполнится раньше остальных, int.MaxValue - выполнится последним</param>
-        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents, int order) :
-            this(businessServerType)
+        public BusinessServerAttribute(System.Type businessServerType, DataServiceObjectEvents serverEvents, int order) : this(businessServerType)
         {
             ServerEvents = serverEvents;
             Order = order;
@@ -142,9 +148,8 @@ namespace ICSSoft.STORMNET.Business
         /// </summary>
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
-        public BusinessServerAttribute(string businessServerType,DataServiceObjectEvents serverEvents):
-            this (Type.GetType(businessServerType,true,true),serverEvents)
-        {}
+        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents) : this (Type.GetType(businessServerType, true, true), serverEvents)
+        { }
 
         /// <summary>
         /// Бизнессервер
@@ -152,8 +157,7 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="businessServerType">Тип бизнессервера</param>
         /// <param name="serverEvents">События</param>
         /// <param name="order">Упорядочение бизнес-серверов. 0 - выполнится раньше остальных, int.MaxValue - выполнится последним</param>
-        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents, int order) :
-            this(Type.GetType(businessServerType, true, true), serverEvents, order)
+        public BusinessServerAttribute(string businessServerType, DataServiceObjectEvents serverEvents, int order) : this(Type.GetType(businessServerType, true, true), serverEvents, order)
         { }
     }
 
@@ -162,7 +166,7 @@ namespace ICSSoft.STORMNET.Business
     /// </summary>
     public class BusinessServerProvider
     {
-        private BusinessServerProvider(){}
+        private BusinessServerProvider() { }
 
         /// <summary>
         /// Кеш бизнессерверов
@@ -180,11 +184,11 @@ namespace ICSSoft.STORMNET.Business
             switch(objectStatus)
             {
                 case ObjectStatus.Altered:
-                    return GetBusinessServer(dataObjectType,DataServiceObjectEvents.OnUpdateInStorage, ds);
+                    return GetBusinessServer(dataObjectType, DataServiceObjectEvents.OnUpdateInStorage, ds);
                 case ObjectStatus.Created:
-                    return GetBusinessServer(dataObjectType,DataServiceObjectEvents.OnInsertToStorage, ds);
+                    return GetBusinessServer(dataObjectType, DataServiceObjectEvents.OnInsertToStorage, ds);
                 case ObjectStatus.Deleted:
-                    return GetBusinessServer(dataObjectType,DataServiceObjectEvents.OnDeleteFromStorage, ds);
+                    return GetBusinessServer(dataObjectType, DataServiceObjectEvents.OnDeleteFromStorage, ds);
                 default:
                     return null;
             }
@@ -198,15 +202,15 @@ namespace ICSSoft.STORMNET.Business
         /// <returns></returns>
         static public BusinessServer[] GetBusinessServer(System.Type dataObjectType, DataServiceObjectEvents dsevent, IDataService ds)
         {
-            //2011-08-04 Братчиков: кешируем с учётом разных строк соединения. Это нужно для того чтобы не переписывать чужому бизнес-серверу датасервис
-            string key = dataObjectType.FullName + "." + dsevent + "." + (ds!=null? (ds.CustomizationString ?? "salt"):"tlas").GetHashCode();
+            // 2011-08-04 Братчиков: кешируем с учётом разных строк соединения. Это нужно для того чтобы не переписывать чужому бизнес-серверу датасервис
+            string key = dataObjectType.FullName + "." + dsevent + "." + (ds != null ? (ds.CustomizationString ?? "salt") : "tlas").GetHashCode();
             lock(cache)
             {
                 if (cache.ContainsKey(key))
                 {
                     BusinessServer[] ret_bs = (BusinessServer[])cache[key];
 
-                    foreach( BusinessServer bsi in ret_bs )
+                    foreach( BusinessServer bsi in ret_bs)
                     {
                         bsi.DataService = ds;
                     }
@@ -216,12 +220,12 @@ namespace ICSSoft.STORMNET.Business
 
                 ArrayList bss = new ArrayList();
                 bool needSort = false;
-                while (dataObjectType!=typeof(DataObject) && dataObjectType!=typeof(object))
+                while (dataObjectType != typeof(DataObject) && dataObjectType != typeof(object))
                 { // TODO: разобраться с логикой выполнения и привести в соответствие со статьёй http://storm:3013/Otrabotka-polzovatelskih-operacii-v-processe-raboty-servisa-dannyh-integraciya-s-biznes-serverom.ashx.
-                    //получим сначала бизнес-сервера у самого класса (не может быть больше одного)
-                    ArrayList atrs = new ArrayList(dataObjectType.GetCustomAttributes(typeof(BusinessServerAttribute),false));
+                    // получим сначала бизнес-сервера у самого класса (не может быть больше одного)
+                    ArrayList atrs = new ArrayList(dataObjectType.GetCustomAttributes(typeof(BusinessServerAttribute), false));
 
-                    //добавим бизнес-сервера, которые достались от интерфейсов
+                    // добавим бизнес-сервера, которые достались от интерфейсов
                     Type[] interfaces = dataObjectType.GetInterfaces();
                     List<Type> baseInterfaces = new List<Type>();
                     if (dataObjectType.BaseType != null)
@@ -237,7 +241,7 @@ namespace ICSSoft.STORMNET.Business
                         }
                     }
 
-                    //создадим инстанции бизнес-серверов и добавим в итоговый массив
+                    // создадим инстанции бизнес-серверов и добавим в итоговый массив
                     foreach (BusinessServerAttribute atr in atrs)
                     {
                         if ((dsevent & atr.ServerEvents) == dsevent)
@@ -257,11 +261,11 @@ namespace ICSSoft.STORMNET.Business
                     dataObjectType = dataObjectType.BaseType;
                 }
 
-                //пересортируем бизнессерверы
+                // пересортируем бизнессерверы
                 if (needSort)
                 {
-                    //Получим отсортированный список, в котором будет упорядоченная коллекция с допустимыми одинаковыми ключами
-                    //bss.Sort(new BusinesServerComparer());
+                    // Получим отсортированный список, в котором будет упорядоченная коллекция с допустимыми одинаковыми ключами
+                    // bss.Sort(new BusinesServerComparer());
                     ArrayList sortedArList = new ArrayList();
                     SortedList sl = new SortedList();
                     foreach (BusinessServer bs in bss)
@@ -283,8 +287,8 @@ namespace ICSSoft.STORMNET.Business
                     bss = sortedArList;
                 }
 
-                BusinessServer[] res =(BusinessServer[]) bss.ToArray(typeof(BusinessServer));
-                cache.Add(key,res);
+                BusinessServer[] res = (BusinessServer[])bss.ToArray(typeof(BusinessServer));
+                cache.Add(key, res);
                 return res;
             }
         }

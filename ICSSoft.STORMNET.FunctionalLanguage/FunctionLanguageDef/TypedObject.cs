@@ -7,14 +7,14 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     /// Расширение класса <see cref="ViewedObject"/> за счёт введения <see cref="ObjectType"/>-типа (атрибут Type)
     /// </summary>
     [NotStored]
-    public abstract class TypedObject:ViewedObject
+    public abstract class TypedObject: ViewedObject
     {
         private ObjectType fieldType;
 
         /// <summary>
         /// ObjectType-тип
         /// </summary>
-        public virtual ObjectType Type {get{return fieldType;}set{fieldType=value;}}
+        public virtual ObjectType Type {get{return fieldType;} set{fieldType = value;} }
 
         /// <summary>
         /// конструктор
@@ -30,8 +30,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objStringedView"></param>
         /// <param name="objCaption"></param>
         /// <param name="objImagedView"></param>
-        public TypedObject(ObjectType objType,string objStringedView,string objCaption):
-            base(objStringedView,objCaption)
+        public TypedObject(ObjectType objType, string objStringedView, string objCaption) : base(objStringedView, objCaption)
         {
             Type = objType;
         }

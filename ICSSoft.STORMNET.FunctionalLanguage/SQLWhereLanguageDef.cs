@@ -69,7 +69,10 @@
                 lock (_objNull)
                 {
                     if (_lngDef == null)
+                    {
                         _lngDef = new SQLWhereLanguageDef();
+                    }
+
                     return /*new SQLWhereLanguageDef();*/_lngDef;
                 }
             }
@@ -100,17 +103,35 @@
             }
 
             if (type.IsEnum)
+            {
                 return StringType;
+            }
+
             if (type == typeof(KeyGen.KeyGuid))
+            {
                 return GuidType;
+            }
+
             if (type == typeof(string))
+            {
                 return StringType;
-            if (type == typeof(int) || type == typeof(Int64))
+            }
+
+            if (type == typeof(int) || type == typeof(long))
+            {
                 return NumericType;
+            }
+
             if (type == typeof(DateTime))
+            {
                 return DateTimeType;
+            }
+
             if (type == typeof(bool))
+            {
                 return BoolType;
+            }
+
             return base.GetObjectTypeForNetType(type);
         }
 
@@ -291,7 +312,7 @@
             {
                 if ((value as VariableDef).Language != null)
                 {
-                    //                  if ((value as VariableDef).Type==SQLWhereLanguageDef.LanguageDef.BoolType)
+                    // if ((value as VariableDef).Type==SQLWhereLanguageDef.LanguageDef.BoolType)
                     //                  {
                     //                      return string.Format("{0}=1",((value as VariableDef).Language as SQLWhereLanguageDef).SQLTranslVariable((value as VariableDef),convertValue,convertIdentifier));
                     //                  }
@@ -299,7 +320,7 @@
                     //                  {
                     return ((value as VariableDef).Language as SQLWhereLanguageDef).SQLTranslVariable((value as VariableDef), convertValue, convertIdentifier);
 
-                    //                  }
+                    // }
                 }
 
                 return SQLTranslVariable((value as VariableDef), convertValue, convertIdentifier);
@@ -340,7 +361,9 @@
 
             var valueType = value.Parameters[0].GetType();
             if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
                 valueType = Nullable.GetUnderlyingType(valueType);
+            }
 
             switch (value.FunctionDef.StringedView)
             {
@@ -356,7 +379,9 @@
 
                         var vdType = vdf.Type.NetCompatibilityType;
                         if (vdType.IsGenericType && vdType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        {
                             vdType = Nullable.GetUnderlyingType(vdType);
+                        }
 
                         if (vdType == SQLWhereLanguageDef.LanguageDef.BoolType.NetCompatibilityType)
                         {
@@ -381,7 +406,10 @@
                     par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier);
 
                     if (value.Parameters[1] != null && value.Parameters[1].GetType() == typeof(string))
+                    {
                         par2 = par2.Replace(UserLikeAnyStringSymbol, QueryLikeAnyStringSymbol).Replace(UserLikeAnyCharacterSymbol, QueryLikeAnyCharacterSymbol);
+                    }
+
                     return string.Format("( {0} like {1} )", par1, par2);
                 case "OR":
                 case "AND":
@@ -406,11 +434,13 @@
 
                             Type vdType = vdf.Type.NetCompatibilityType;
                             if (vdType.IsGenericType && vdType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                            {
                                 vdType = Nullable.GetUnderlyingType(vdType);
+                            }
 
                             if (vdType == LanguageDef.BoolType.NetCompatibilityType)
                             {
-                                String funcStringed = value.FunctionDef.StringedView;
+                                string funcStringed = value.FunctionDef.StringedView;
 
                                 // Если не применена операция "=" или "<>" для двух булевых типов.
                                 if (!(((funcStringed == "=") || (funcStringed == "<>")) && (pars.Length == 2)))
@@ -425,15 +455,21 @@
                         {
                             parType = value.Parameters[i].GetType();
                             if (parType.IsGenericType && parType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                            {
                                 parType = Nullable.GetUnderlyingType(parType);
+                            }
                         }
 
                         // Для И и ИЛИ.
                         if ((parType == typeof(bool)) && (value.FunctionDef.StringedView == LanguageDef.funcAND || value.FunctionDef.StringedView == LanguageDef.funcOR))
+                        {
                             pars[i] = string.Format("(({0}={1}))", convertValue(value.Parameters[i]), convertValue(true));
+                        }
 
                         if (pars[i] == string.Empty)
+                        {
                             pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                        }
 
                         #region Обработка ситуации, когда операндом у функции "=" или "<>" идут функции.
 
@@ -443,8 +479,8 @@
                             LanguageDef.BoolType.NetCompatibilityType)
                         {
                             var func = (Function)value.Parameters[i];
-                            String funcStringed = func.FunctionDef.StringedView;
-                            String trimmedAllPars = TrimAndUnbrake(pars[i]);
+                            string funcStringed = func.FunctionDef.StringedView;
+                            string trimmedAllPars = TrimAndUnbrake(pars[i]);
 
                             // Упрощение запроса: если true, то не нужен case.
                             if ((funcStringed.ToLower() == "true") || (trimmedAllPars == "0"))
@@ -461,7 +497,7 @@
                             }
                             else
                             {
-                                pars[i] = String.Format("(case when {0} then 1 else 0 end)", pars[i]);
+                                pars[i] = string.Format("(case when {0} then 1 else 0 end)", pars[i]);
                             }
                         }
 
@@ -471,9 +507,7 @@
                     result = "( " + string.Join(" " + value.FunctionDef.StringedView + " ", pars) + ")";
                     return result;
                 case "IN":
-                    if (OptimizeINOperator && value.Parameters.Count == 2 && (!
-                        (value.Parameters[1] is Function && (value.Parameters[1] as Function).FunctionDef.StringedView == "SQL")
-                        ))
+                    if (OptimizeINOperator && value.Parameters.Count == 2 && (!(value.Parameters[1] is Function && (value.Parameters[1] as Function).FunctionDef.StringedView == "SQL")))
                     {
                         pars = new string[value.Parameters.Count];
                         for (int i = 0; i < pars.Length; i++)
@@ -510,15 +544,21 @@
         /// <returns></returns>
         private static string TrimAndUnbrake(string param)
         {
-            if (string.IsNullOrEmpty(param)) return String.Empty;
+            if (string.IsNullOrEmpty(param))
+            {
+                return string.Empty;
+            }
 
-            String res = param.Replace(" ", string.Empty);
+            string res = param.Replace(" ", string.Empty);
 
-            if (string.IsNullOrEmpty(res)) return String.Empty;
+            if (string.IsNullOrEmpty(res))
+            {
+                return string.Empty;
+            }
 
             while ((res[0] == '(') && (res[res.Length - 1] == ')'))
             {
-                //здесь res.Length точно > 1
+                // здесь res.Length точно > 1
                 res = res.Substring(1, res.Length - 2);
             }
 
@@ -542,7 +582,7 @@
                 return retStr;
             }
 
-            if (CaseInsensitive && value is String)
+            if (CaseInsensitive && value is string)
             {
                 retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier);
                 return retStr;
@@ -607,93 +647,92 @@
 
                 Functions.AddRange(
 
-                    //ISNULL
+                    // ISNULL
                     new FunctionDef(1, fieldBoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(fieldBoolType)),
                     new FunctionDef(2, fieldBoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(3, fieldBoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(4, fieldBoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(fieldDateTimeType)),
                     new FunctionDef(5, fieldBoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(fieldGuidType)),
 
-                    //SQLQUERY
+                    // SQLQUERY
                     new FunctionDef(6, fieldQueryType, "SQL", "SQL", "SQL ('{0}')", true, new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(7, fieldBoolType, "SQL", "SQL", "SQL ('{0}')", true, new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(8, fieldNumericType, "SQL", "SQL", "SQL ('{0}')", true, new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(9, fieldStringType, "SQL", "SQL", "SQL ('{0}')", true, new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(10, fieldDateTimeType, "SQL", "SQL", "SQL ('{0}')", true, new FunctionParameterDef(fieldStringType)),
 
-                    //NOT
+                    // NOT
                     new FunctionDef(11, fieldBoolType, "NOT", "НЕ", "НЕ {0}", new FunctionParameterDef(fieldBoolType)),
 
-                    //OR
+                    // OR
                     new FunctionDef(12, fieldBoolType, "OR", "ИЛИ", "({* ИЛИ})", new FunctionParameterDef(fieldBoolType), new FunctionParameterDef(fieldBoolType, true)),
 
-                    //AND
+                    // AND
                     new FunctionDef(13, fieldBoolType, "AND", "И", "{* И}", new FunctionParameterDef(fieldBoolType), new FunctionParameterDef(fieldBoolType, true)),
 
-                    //+
+                    // +
                     new FunctionDef(14, fieldNumericType, "+", "+", "({* +})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType, true)),
 
-                    //*
+                    // *
                     new FunctionDef(15, fieldNumericType, "*", "*", "{* *}", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType, true)),
 
-                    //-
+                    // -
                     new FunctionDef(16, fieldNumericType, "-", "-", "({0} - {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
 
                     // /
                     new FunctionDef(17, fieldNumericType, "/", "/", "({0} / {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
 
-                    //LIKE
+                    // LIKE
                     new FunctionDef(18, fieldBoolType, "LIKE", "ПО МАСКЕ", "({0} УДОВЛ.МАСКЕ {1})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
 
-                    //<
+                    // <
                     new FunctionDef(19, fieldBoolType, "<", "<", "({0} < {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(20, fieldBoolType, "<", "<", "({0} < {1})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(21, fieldBoolType, "<", "<", "({0} < {1})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
 
-                    //<=
+                    // <=
                     new FunctionDef(22, fieldBoolType, "<=", "<=", "({0} <= {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(23, fieldBoolType, "<=", "<=", "({0} <= {1})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(24, fieldBoolType, "<=", "<=", "({0} <= {1})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
 
-                    //>
+                    // >
                     new FunctionDef(25, fieldBoolType, ">", ">", "({0} > {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(26, fieldBoolType, ">", ">", "({0} > {1})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(27, fieldBoolType, ">", ">", "({0} > {1})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
 
-                    //>=
+                    // >=
                     new FunctionDef(28, fieldBoolType, ">=", ">=", "({0} >= {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(29, fieldBoolType, ">=", ">=", "({0} >= {1})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(30, fieldBoolType, ">=", ">=", "({0} >= {1})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
 
-                    //<>
+                    // <>
                     new FunctionDef(31, fieldBoolType, "<>", "<>", "({0} <> {1})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(32, fieldBoolType, "<>", "<>", "({0} <> {1})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(33, fieldBoolType, "<>", "<>", "({0} <> {1})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
                     new FunctionDef(34, fieldBoolType, "<>", "<>", "({0} <> {1})", new FunctionParameterDef(fieldGuidType), new FunctionParameterDef(fieldGuidType)),
 
-                    //=
+                    // =
                     new FunctionDef(35, fieldBoolType, "=", "=", "{0} = {1}", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(36, fieldBoolType, "=", "=", "{0} = {1}", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(37, fieldBoolType, "=", "=", "{0} = {1}", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
                     new FunctionDef(38, fieldBoolType, "=", "=", "{0} = {1}", new FunctionParameterDef(fieldGuidType), new FunctionParameterDef(fieldGuidType)),
 
-                    //IN
+                    // IN
                     new FunctionDef(39, fieldBoolType, "IN", "СРЕДИ ЗНАЧЕНИЙ", "({0} СРЕДИ {{{* ,}}})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType, true)),
                     new FunctionDef(40, fieldBoolType, "IN", "СРЕДИ ЗНАЧЕНИЙ", "({0} СРЕДИ {{{* ,}}})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType, true)),
                     new FunctionDef(41, fieldBoolType, "IN", "СРЕДИ ЗНАЧЕНИЙ", "({0} СРЕДИ {{{* ,}}})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType, true)),
                     new FunctionDef(42, fieldBoolType, "IN", "СРЕДИ ЗНАЧЕНИЙ", "({0} СРЕДИ {{{* ,}}})", new FunctionParameterDef(fieldGuidType), new FunctionParameterDef(fieldGuidType, true)),
 
-                    //BETWEEN
+                    // BETWEEN
                     new FunctionDef(43, fieldBoolType, "BETWEEN", "ДИАПАЗОН", "({0} в диапазоне от {1} до {2})", new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(44, fieldBoolType, "BETWEEN", "ДИАПАЗОН", "({0} в диапазоне от {1} до {2})", new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     new FunctionDef(45, fieldBoolType, "BETWEEN", "ДИАПАЗОН", "({0} в диапазоне от {1} до {2})", new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType), new FunctionParameterDef(fieldDateTimeType)),
 
-                    //Равенство Boolean
+                    // Равенство Boolean
                     new FunctionDef(46, fieldBoolType, "=", "=", "{0} = {1}", new FunctionParameterDef(BoolType), new FunctionParameterDef(BoolType)),
 
-                    //Неавенство Boolean
-                    new FunctionDef(47, fieldBoolType, "<>", "<>", "{0} <> {1}", new FunctionParameterDef(BoolType), new FunctionParameterDef(BoolType))
-                    );
+                    // Неавенство Boolean
+                    new FunctionDef(47, fieldBoolType, "<>", "<>", "{0} <> {1}", new FunctionParameterDef(BoolType), new FunctionParameterDef(BoolType)));
             }
         }
     }

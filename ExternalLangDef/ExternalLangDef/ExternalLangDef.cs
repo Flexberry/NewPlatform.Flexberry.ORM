@@ -434,7 +434,9 @@
             var v = new View { DefineClassType = dobj.GetType() };
             var props = (string[])obj[2];
             foreach (var prop in props)
+            {
                 v.AddProperty(prop);
+            }
 
             DataService.LoadObject(v, dobj);
 
@@ -462,7 +464,9 @@
         public override ObjectType GetObjectTypeForNetType(Type type)
         {
             if (type.IsSubclassOf(typeof(DetailArray)))
+            {
                 return DetailsType;
+            }
 
             return type.IsSubclassOf(typeof(DataObject)) ? DataObjectType : base.GetObjectTypeForNetType(type);
         }
@@ -825,7 +829,11 @@
         public override string[] GetExistingVariableNames(ICSSoft.STORMNET.FunctionalLanguage.Function f)
         {
             var al = new ArrayList();
-            if (retVars != null) al.AddRange(retVars);
+            if (retVars != null)
+            {
+                al.AddRange(retVars);
+            }
+
             if (ChFuncNames == null)
             {
                 ChFuncNames = new System.Collections.Specialized.StringCollection();
@@ -841,7 +849,9 @@
             {
                 var r1 = base.GetExistingVariableNames(f);
                 if (r1 != null)
+                {
                     al.AddRange(r1);
+                }
             }
 
             return (string[])al.ToArray(typeof(string));
@@ -874,16 +884,16 @@
         /// <returns></returns>
         private static string WrapNull(object param, string translSwitch, string wrapper)
         {
-            String res = translSwitch;
+            string res = translSwitch;
 
             if ((param is Function) &&
                 ((Function)param).FunctionDef.ReturnType.NetCompatibilityType ==
                 LanguageDef.BoolType.NetCompatibilityType)
             {
-                res = String.Format("(case when {0} then 1 else 0 end)", translSwitch);
+                res = string.Format("(case when {0} then 1 else 0 end)", translSwitch);
             }
 
-            return String.Format("({0} {1} )", res, wrapper);
+            return string.Format("({0} {1} )", res, wrapper);
         }
 
         protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
@@ -926,43 +936,43 @@
 
             if (value.FunctionDef.StringedView == "hhPart" || value.FunctionDef.StringedView == "miPart")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == funcDayOfWeekZeroBased)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == funcDaysInMonth)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
@@ -1065,7 +1075,7 @@
                 if ((parBoolVariableDef != null)
                     && (parBoolVariableDef.Type.NetCompatibilityType == BoolType.NetCompatibilityType))
                 {
-                    sumExpression = String.Format("CONVERT(INT,{0})", sumExpression);
+                    sumExpression = string.Format("CONVERT(INT,{0})", sumExpression);
                 }
 
                 string res = string.Empty;
@@ -1130,10 +1140,10 @@
                     }
                 }
 
-                //Братчиков 24.10.2008
+                // Братчиков 24.10.2008
                 DetFuncs = false;
 
-                //Братчиков 24.10.2008
+                // Братчиков 24.10.2008
 
                 if (!DetFuncs)
                 {
@@ -1141,7 +1151,7 @@
                 }
                 else
                 {
-                    //Удаляет первый и последний символ
+                    // Удаляет первый и последний символ
                     string[] strs = new string[value.Parameters.Count];
                     string p = string.Empty;
                     for (int i = 0; i < strs.Length; i++)
@@ -1156,7 +1166,7 @@
                             p = s.Substring(0, s.IndexOf("in (") + 4);
                             s = s.Substring(s.IndexOf("in (") + 5 - 1);
 
-                            //s = s.Substring(0,s.Length-1);
+                            // s = s.Substring(0,s.Length-1);
                         }
 
                         strs[i] = s;
@@ -1211,7 +1221,7 @@
             return base.SQLTranslFunction(value, convertValue, convertIdentifier);
         }
 
-        //Заслуженный химик
+        // Заслуженный химик
 
         public FunctionalLanguage.Function TransformVariables(FunctionalLanguage.Function f, string killalias, ArrayList vars)
         {
@@ -1247,7 +1257,10 @@
                     if (vd.StringedView.StartsWith(killalias + ".") && !alien)
                     {
                         if (vars != null)
+                        {
                             vars.Add(vd.StringedView.Substring(killalias.Length + 1));
+                        }
+
                         objj[i] = new VariableDef(vd.Type,
                                                                      vd.StringedView.Substring(killalias.Length + 1),
                                                                      vd.Caption);
@@ -1255,7 +1268,10 @@
                     else
                     {
                         if (vars != null)
+                        {
                             vars.Add(vd.StringedView);
+                        }
+
                         objj[i] = vd;
                     }
                 }
@@ -1266,7 +1282,10 @@
                 else
                 {
                     if (f.Parameters[i] is DetailVariableDef)
+                    {
                         otherDvds.Add((f.Parameters[i] as DetailVariableDef).StringedView);
+                    }
+
                     objj[i] = f.Parameters[i];
                 }
             }
@@ -1286,12 +1305,18 @@
                 if (vd.StringedView.StartsWith(killalias + "."))
                 {
                     if (vars != null)
+                    {
                         vars.Add(vd.StringedView.Substring(killalias.Length + 1));
+                    }
+
                     return new FunctionalLanguage.VariableDef(vd.Type, vd.StringedView.Substring(killalias.Length + 1), vd.Caption);
                 }
 
                 if (vars != null)
+                {
                     vars.Add(vd.StringedView);
+                }
+
                 return o;
             }
 

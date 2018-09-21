@@ -11,9 +11,13 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(InstanceDescriptor))
+            {
                 return true;
+            }
             else
+            {
                 return base.CanConvertTo(context, destinationType);
+            }
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

@@ -8,17 +8,17 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     /// Определение функции
     /// </summary>
     [NotStored]
-    public class FunctionDef:TypedObject
+    public class FunctionDef: TypedObject
     {
         private DetailArrayOfFunctionalParameterDef fieldParameters;
         private string fieldUserViewFormat;
         private bool fieldFreeQuery;
-        private int  fID = 0;
+        private int fID = 0;
 
         /// <summary>
         /// Целочисленный ключ определения функции
         /// </summary>
-        public int ID {get {return fID;}set{fID=value;}}
+        public int ID {get {return fID;} set{fID = value;} }
 
         /// <summary>
         /// конструктор
@@ -29,8 +29,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objCaption"></param>
         /// <param name="objImagedView"></param>
         /// <param name="userViewFormat"></param>
-        public FunctionDef(int  ID,ObjectType returnType,string objStringedView,string objCaption,string userViewFormat)
-            :base(returnType,objStringedView,objCaption)
+        public FunctionDef(int ID, ObjectType returnType, string objStringedView, string objCaption, string userViewFormat)
+            : base(returnType, objStringedView, objCaption)
         {
             fieldParameters = new DetailArrayOfFunctionalParameterDef(this);
             fieldUserViewFormat = userViewFormat;
@@ -47,13 +47,16 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objImagedView"></param>
         /// <param name="userViewFormat"></param>
         /// <param name="parameters"></param>
-        public FunctionDef(int  ID,ObjectType returnType,string objStringedView,string objCaption,string userViewFormat,
+        public FunctionDef(int ID, ObjectType returnType, string objStringedView, string objCaption, string userViewFormat,
             params FunctionParameterDef[] parameters)
-            :base(returnType,objStringedView,objCaption)
+            : base(returnType, objStringedView, objCaption)
         {
             fieldParameters = new DetailArrayOfFunctionalParameterDef(this);
-            for (int i = 0;i<parameters.Length;i++)
+            for (int i = 0;i < parameters.Length;i++)
+            {
                 fieldParameters.Add(parameters[i]);
+            }
+
             fieldUserViewFormat = userViewFormat;
             this.ID = ID;
         }
@@ -69,13 +72,16 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="userViewFormat"></param>
         /// <param name="FreeQuery"></param>
         /// <param name="parameters"></param>
-        public FunctionDef(int  ID,ObjectType returnType,string objStringedView,string objCaption,string userViewFormat,bool FreeQuery,
+        public FunctionDef(int ID, ObjectType returnType, string objStringedView, string objCaption, string userViewFormat, bool FreeQuery,
             params FunctionParameterDef[] parameters)
-            :base(returnType,objStringedView,objCaption)
+            : base(returnType, objStringedView, objCaption)
         {
             fieldParameters = new DetailArrayOfFunctionalParameterDef(this);
-            for (int i = 0;i<parameters.Length;i++)
+            for (int i = 0;i < parameters.Length;i++)
+            {
                 fieldParameters.Add(parameters[i]);
+            }
+
             fieldUserViewFormat = userViewFormat;
             fieldFreeQuery = FreeQuery;
             this.ID = ID;
@@ -84,22 +90,22 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <summary>
         /// Влияет на генерацию SQL-запроса. Если true, то добавляются все поля
         /// </summary>
-        public bool FreeQuery {get{return fieldFreeQuery;}}
+        public bool FreeQuery {get{return fieldFreeQuery;} }
 
         /// <summary>
         /// Тип возвращаемого значения
         /// </summary>
-        public ObjectType ReturnType {get{return Type;}}
+        public ObjectType ReturnType {get{return Type;} }
 
         /// <summary>
         /// Параметры функции
         /// </summary>
-        public DetailArrayOfFunctionalParameterDef Parameters {get {return fieldParameters;}}
+        public DetailArrayOfFunctionalParameterDef Parameters {get {return fieldParameters;} }
 
         /// <summary>
         /// формат отображения пользователю (используется на форме задания ограничений)
         /// </summary>
-        public string UserViewFormat {get {return fieldUserViewFormat;}}
+        public string UserViewFormat {get {return fieldUserViewFormat;} }
 
         private FunctionalLanguageDef fieldLanguage;
 
@@ -107,20 +113,20 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// Язык ограничений, в рамках которого существует данное определение функции (язык включает все определения как детейлы)
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
-        public FunctionalLanguageDef Language {get{return fieldLanguage;}set {fieldLanguage=value;} }
+        public FunctionalLanguageDef Language {get{return fieldLanguage;} set {fieldLanguage = value; } }
     }
 
     /// <summary>
     /// массив параметров
     /// </summary>
-    public class DetailArrayOfFunctionalParameterDef:DetailArray
+    public class DetailArrayOfFunctionalParameterDef: DetailArray
     {
         /// <summary>
         /// конструктор
         /// </summary>
         /// <param name="masterObj"></param>
-        public DetailArrayOfFunctionalParameterDef(FunctionDef masterObj):base(typeof(FunctionParameterDef),masterObj)
-        {}
+        public DetailArrayOfFunctionalParameterDef(FunctionDef masterObj) : base(typeof(FunctionParameterDef), masterObj)
+        { }
 
         /// <summary>
         /// получить функцию по индексу
@@ -129,14 +135,14 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <returns></returns>
         public FunctionParameterDef this[int index]
         {
-            get {return (FunctionParameterDef)ItemByIndex(index);}
+            get {return (FunctionParameterDef)ItemByIndex(index); }
         }
 
         /// <summary>
         /// добавление
         /// </summary>
         /// <param name="dataobject"></param>
-        public  void Add(FunctionParameterDef dataobject)
+        public void Add(FunctionParameterDef dataobject)
         {
             AddObject(dataobject);
         }

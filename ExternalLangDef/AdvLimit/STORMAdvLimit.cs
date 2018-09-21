@@ -4,12 +4,15 @@
     /// Объектное представление сохраняемого в базе ограничения. Не содержит логики по десериализации. Сам класс знает только сериализованное Value. Десериализуется в своё нехранимое свойство AdvLimit при помощи AdvLimitComponent.
     /// </summary>
     [AutoAltered()]
-    [View("V", new string[] {   "User",
+    [View("V", new string[]
+    {
+        "User",
                                 "Published",
                                 "Module",
                                 "Name",
                                 "Value",
-                                "HotKeyData"})]
+                                "HotKeyData"
+    })]
     public partial class STORMAdvLimit : DataObject
     {
         private string fName;

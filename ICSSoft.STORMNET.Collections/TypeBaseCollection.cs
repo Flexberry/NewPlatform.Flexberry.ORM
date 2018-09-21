@@ -125,12 +125,16 @@
             {
                 int index = types.IndexOf(key);
                 if (index >= 0)
+                {
                     lock (values)
                     {
                         return values[index];
                     }
+                }
                 else
+                {
                     throw new ArgumentOutOfRangeException("key", "");
+                }
             }
 
             set
@@ -167,9 +171,13 @@
                     lock (values)
                     {
                         if (index < types.Count && index >= 0)
+                        {
                             return values[index];
+                        }
                         else
+                        {
                             throw new ArgumentOutOfRangeException("index", "");
+                        }
                     }
                 }
             }
@@ -181,9 +189,13 @@
                     lock (values)
                     {
                         if (index < types.Count && index >= 0)
+                        {
                             values[index] = value;
+                        }
                         else
+                        {
                             throw new ArgumentOutOfRangeException("index", "");
+                        }
                     }
                 }
             }
@@ -257,7 +269,9 @@
         public void Remove(System.Type key)
         {
             if (Contains(key))
+            {
                 Remove(types.IndexOf(key));
+            }
         }
 
         /// <summary>
@@ -272,9 +286,13 @@
                 lock (values)
                 {
                     if (index >= 0 && index <= types.Count)
+                    {
                         return (System.Type)types[index];
+                    }
                     else
+                    {
                         throw new ArgumentOutOfRangeException("index", "");
+                    }
                 }
             }
         }
@@ -297,7 +315,9 @@
                 {
                     key = key.BaseType;
                     if (Contains(key))
+                    {
                         return this[key];
+                    }
                 }
 
                 return null;
@@ -315,8 +335,12 @@
             lock (types)
             {
                 foreach (System.Type curType in types)
+                {
                     if (curType == key || key.IsSubclassOf(curType))
+                    {
                         res.Add(curType);
+                    }
+                }
             }
 
             object[] resa = new object[res.Count];
@@ -332,7 +356,9 @@
         {
             var result = new Dictionary<Type, object>();
             for (int i = 0; i < types.Count; i++)
+            {
                 result.Add(types[i] as Type, values[i]);
+            }
 
             return result;
         }

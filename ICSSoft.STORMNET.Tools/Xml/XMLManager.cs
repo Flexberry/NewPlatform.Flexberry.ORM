@@ -25,7 +25,9 @@
         public static string GetAttributeValue(XmlNode node, string name)
         {
             if (node.Attributes == null)
+            {
                 return null;
+            }
 
             var attr = node.Attributes[name];
             return (attr != null) ? attr.Value : null;
@@ -287,7 +289,9 @@
             string attributeValue = GetAttributeValue(node, attributeName);
 
             if (string.IsNullOrEmpty(attributeValue))
+            {
                 return false;
+            }
 
             try
             {
@@ -328,14 +332,20 @@
             string attributeValue = GetAttributeValue(node, attributeName);
 
             if (string.IsNullOrEmpty(attributeValue))
+            {
                 return false;
+            }
 
             try
             {
                 if (value is Enum)
+                {
                     value = (T)Enum.Parse(typeof(T), attributeValue);
+                }
                 else
+                {
                     value = (T)Convert.ChangeType(attributeValue, typeof(T));
+                }
             }
             catch (Exception)
             {

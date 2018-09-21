@@ -10,14 +10,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
     /// DateTime с поддержкой null (в ту эпоху, когда ещё не было DateTime? у нас уже был этот класс - так и повелось).
     /// </summary>
     [ControlProvider("ICSSoft.STORMNET.UserDataTypes.NullableDateTimeControlProvider, ICSSoft.STORMNET.Windows.Forms")]
-    [StoreInstancesInType(typeof(Business.SQLDataService),typeof(DateTime))]
+    [StoreInstancesInType(typeof(Business.SQLDataService), typeof(DateTime))]
     [Serializable]
     public class NullableDateTime : IFormattable, IComparable, IConvertible, IComparableType, System.Xml.Serialization.IXmlSerializable
     {
         private DateTime fValue;
         private const string DateTimeFormatForXmlSerializable = "dd.MM.yyyy HH:mm:ss";
 
-        private NullableDateTime(DateTime val){Value = val;}
+        private NullableDateTime(DateTime val) {Value = val; }
 
         /// <summary>
         /// Конструктор без параметров, нужен для Activator.CreateInstance
@@ -202,15 +202,15 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
             return null;
 
-            //try
-            //{
+            // try
+            // {
             //    DateTime dt = DateTime.Parse(value);
             //    return new NullableDateTime(dt);
-            //}
-            //catch
-            //{
+            // }
+            // catch
+            // {
             //    return null;
-            //}
+            // }
         }
 
         /// <summary>
@@ -219,9 +219,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public override string ToString()
         {
-            //if (format==null)
+            // if (format==null)
             string format = System.Configuration.ConfigurationManager.AppSettings["NullableDateTimeDefaultFormat"];
-            if( format != null )
+            if( format != null)
             {
                 return Value.ToString(format);
             }
@@ -303,9 +303,12 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
         string IFormattable.ToString(string format, IFormatProvider formatProvider)
         {
-            if (format==null)
+            if (format == null)
+            {
                 format = System.Configuration.ConfigurationSettings.AppSettings["NullableDateTimeDefaultFormat"];
-            return Value.ToString(format,formatProvider);
+            }
+
+            return Value.ToString(format, formatProvider);
         }
 
         #endregion
@@ -319,14 +322,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns></returns>
         public int CompareTo(object obj)
         {
-            NullableDateTime ndt = ( NullableDateTime )obj;
+            NullableDateTime ndt = (NullableDateTime)obj;
 
-            if( ndt == null )
+            if( ndt == null)
             {
                 return 1;
             }
 
-            return fValue.CompareTo( ndt.Value );
+            return fValue.CompareTo( ndt.Value);
         }
 
         #endregion
@@ -524,7 +527,9 @@ namespace ICSSoft.STORMNET.UserDataTypes
                 DateTime val;
 
                 if (DateTime.TryParse(value, out val))
+                {
                     fValue = val;
+                }
             }
         }
 

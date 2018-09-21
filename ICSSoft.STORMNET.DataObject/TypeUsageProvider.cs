@@ -16,7 +16,7 @@
         ///
         /// </summary>
         public TypeUsage()
-        {}
+        { }
 
         private System.Collections.SortedList typeusagecollection = new System.Collections.SortedList();
         private ICSSoft.STORMNET.Collections.TypeBaseCollection usetypeascollection = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
@@ -29,7 +29,10 @@
         public Type[] GetUseTypesAs(Type dataObjectTypeTemplate)
         {
             if(!usetypeascollection.Contains(dataObjectTypeTemplate))
-                AddUseTypesAs(dataObjectTypeTemplate,null);
+            {
+                AddUseTypesAs(dataObjectTypeTemplate, null);
+            }
+
             return ((ICSSoft.STORMNET.Collections.TypesArrayList)usetypeascollection[dataObjectTypeTemplate]).ToArray();
         }
 
@@ -38,7 +41,7 @@
         /// </summary>
         /// <param name="dataObjectTypeTmplate"></param>
         /// <param name="usageTypes"></param>
-        public void AddUseTypesAs(Type dataObjectTypeTmplate,params Type[] usageTypes)
+        public void AddUseTypesAs(Type dataObjectTypeTmplate, params Type[] usageTypes)
         {
             lock (m_objNull)
             {
@@ -62,8 +65,12 @@
                 }
 
                 foreach (Type t in usageTypes)
+                {
                     if (!types.Contains(t))
+                    {
                         types.Add(t);
+                    }
+                }
             }
         }
 
@@ -73,7 +80,7 @@
         /// <param name="DataObjectType"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public Type[] GetUsageTypes(Type DataObjectType,string propertyName)
+        public Type[] GetUsageTypes(Type DataObjectType, string propertyName)
         {
             string key = GetTypeUsageKey(DataObjectType, propertyName);
             lock (m_objNull)
@@ -86,8 +93,13 @@
                         System.Type[] tps = Information.GetCompatibleTypesForDetailProperty(DataObjectType, propertyName);
                         ICSSoft.STORMNET.Collections.TypesArrayList types = new ICSSoft.STORMNET.Collections.TypesArrayList();
                         foreach (Type t in tps)
+                        {
                             if (!types.Contains(t))
+                            {
                                 types.Add(t);
+                            }
+                        }
+
                         typeusagecollection.Add(key, types);
                     }
                     else
@@ -95,8 +107,13 @@
                         System.Type[] tps = Information.GetCompatibleTypesForProperty(DataObjectType, propertyName);
                         ICSSoft.STORMNET.Collections.TypesArrayList types = new ICSSoft.STORMNET.Collections.TypesArrayList();
                         foreach (Type t in tps)
+                        {
                             if (!types.Contains(t))
+                            {
                                 types.Add(t);
+                            }
+                        }
+
                         typeusagecollection.Add(key, types);
                     }
                 }
@@ -118,17 +135,24 @@
         /// <param name="DataObjectType"></param>
         /// <param name="propertyName"></param>
         /// <param name="addtypes"></param>
-        public void AddUsageTypes(Type DataObjectType,string propertyName,params Type[] addtypes)
+        public void AddUsageTypes(Type DataObjectType, string propertyName, params Type[] addtypes)
         {
             string key = GetTypeUsageKey(DataObjectType, propertyName);
             if (!typeusagecollection.ContainsKey(key))
-                GetUsageTypes(DataObjectType,propertyName);
+            {
+                GetUsageTypes(DataObjectType, propertyName);
+            }
+
             lock (m_objNull)
             {
                 ICSSoft.STORMNET.Collections.TypesArrayList types = (ICSSoft.STORMNET.Collections.TypesArrayList)typeusagecollection[key];
                 foreach (Type t in addtypes)
+                {
                     if (!types.Contains(t))
+                    {
                         types.Add(t);
+                    }
+                }
             }
         }
 
@@ -138,24 +162,31 @@
         /// <param name="DataObjectType"></param>
         /// <param name="propertyName"></param>
         /// <param name="addtypes"></param>
-        public void SetUsageTypes(Type DataObjectType,string propertyName,params Type[] addtypes)
+        public void SetUsageTypes(Type DataObjectType, string propertyName, params Type[] addtypes)
         {
             string key = GetTypeUsageKey(DataObjectType, propertyName);
             if (!typeusagecollection.ContainsKey(key))
-                GetUsageTypes(DataObjectType,propertyName);
+            {
+                GetUsageTypes(DataObjectType, propertyName);
+            }
+
             lock (m_objNull)
             {
                 ICSSoft.STORMNET.Collections.TypesArrayList types = (ICSSoft.STORMNET.Collections.TypesArrayList)typeusagecollection[key];
                 types.Clear();
                 foreach (Type t in addtypes)
+                {
                     if (!types.Contains(t))
+                    {
                         types.Add(t);
+                    }
+                }
             }
         }
 
         private static string GetTypeUsageKey(Type DataObjectType, string propertyName)
         {
-            return DataObjectType.AssemblyQualifiedName+"("+propertyName+")";
+            return DataObjectType.AssemblyQualifiedName + "(" + propertyName + ")";
         }
 
         /// <summary>
@@ -164,25 +195,32 @@
         /// <param name="DataObjectType"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public Type[] GetCombinedTypeUsage(Type DataObjectType,string propertyName)
+        public Type[] GetCombinedTypeUsage(Type DataObjectType, string propertyName)
         {
-            int PointIndex =propertyName.IndexOf(".");
-            if (PointIndex<0)
+            int PointIndex = propertyName.IndexOf(".");
+            if (PointIndex < 0)
             {
-                return GetUsageTypes(DataObjectType,propertyName);
+                return GetUsageTypes(DataObjectType, propertyName);
             }
             else
             {
-                string ownProp = propertyName.Substring(0,PointIndex);
-                string newPropName =propertyName.Substring(PointIndex+1);
-                Type[] types =GetUsageTypes(DataObjectType,ownProp);
+                string ownProp = propertyName.Substring(0, PointIndex);
+                string newPropName = propertyName.Substring(PointIndex + 1);
+                Type[] types = GetUsageTypes(DataObjectType, ownProp);
                 Array[] arrays = new Array[types.Length];
-                for (int i=0;i<types.Length;i++)
-                    arrays[i]=GetCombinedTypeUsage(types[i],newPropName);
-                if (types.Length==1)
+                for (int i = 0;i < types.Length;i++)
+                {
+                    arrays[i] = GetCombinedTypeUsage(types[i], newPropName);
+                }
+
+                if (types.Length == 1)
+                {
                     return (Type[])arrays[0];
+                }
                 else
-                    return (Type[])ICSSoft.STORMNET.Collections.ArrayOperations.ConcatArrays(typeof(System.Type),arrays);
+                {
+                    return (Type[])ICSSoft.STORMNET.Collections.ArrayOperations.ConcatArrays(typeof(System.Type), arrays);
+                }
             }
         }
     }
@@ -193,7 +231,7 @@
     public class TypeUsageProvider
     {
         private TypeUsageProvider()
-        {}
+        { }
 
         private static TypeUsage fieldTypeUsages;
 
@@ -204,8 +242,11 @@
         {
             get
             {
-                if (fieldTypeUsages==null)
+                if (fieldTypeUsages == null)
+                {
                     fieldTypeUsages = new TypeUsage();
+                }
+
                 return fieldTypeUsages;
             }
         }

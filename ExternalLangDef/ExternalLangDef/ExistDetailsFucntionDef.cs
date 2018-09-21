@@ -14,15 +14,19 @@ namespace ICSSoft.STORMNET.Windows.Forms
                                                    delegatePutIdentifierToBrackets convertIdentifier)
         {
             if (!(DataService is SQLDataService))
+            {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExistDetails));
+            }
 
             string wrongParametersMessage = string.Format(
                 "Кострукция ограничения {0} поддерживает только операцию сравнения между двумя различными детейловыми свойствами одного уровня.",
                 funcExistDetails);
 
             if (!CheckParametersFunctionForExistDetails(func))
+            {
                 throw new Exception(wrongParametersMessage);
+            }
 
             var detail1 = (DetailVariableDef)func.Parameters[0];
             var detail2 = (DetailVariableDef)func.Parameters[1];
@@ -41,7 +45,9 @@ namespace ICSSoft.STORMNET.Windows.Forms
 
             if (!CheckConditionFunctionForExistDetails(conditionFunc.FunctionDef) || conditionParameters.Count != 2
                 || !(conditionParameters[0] is VariableDef) || !(conditionParameters[1] is VariableDef))
+            {
                 throw new Exception(wrongParametersMessage);
+            }
 
             string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null);
             selectForDetail1 = selectForDetail1.Replace("STORMMainObjectKey", "STORMMainObjectKey1");
@@ -52,12 +58,16 @@ namespace ICSSoft.STORMNET.Windows.Forms
             string propName1 = ((VariableDef)conditionParameters[0]).StringedView;
 
             if(propName1.StartsWith(detail1.StringedView + "."))
+            {
                 propName1 = propName1.Remove(0, detail1.StringedView.Length + 1);
+            }
 
             string propName2 = ((VariableDef)conditionParameters[1]).StringedView;
 
             if(propName2.StartsWith(detail2.StringedView + "."))
+            {
                 propName2 = propName2.Remove(0, detail2.StringedView.Length + 1);
+            }
 
             string propIdetifier1 = convertIdentifier(propName1);
             string propIdetifier2 = convertIdentifier(propName2);
@@ -70,13 +80,17 @@ namespace ICSSoft.STORMNET.Windows.Forms
             foreach (var keyName in agregatorKeys1)
             {
                 if (joinCondition.Length != 0)
+                {
                     joinCondition.Append(" and ");
+                }
 
                 joinCondition.AppendFormat("{0} = {1}.{2}", keyName, detailAlias1, agregatorPropName1);
             }
 
             foreach (var keyName in agregatorKeys2)
+            {
                 joinCondition.AppendFormat(" and {0} = {1}.{2}", keyName, detailAlias2, agregatorPropName2);
+            }
 
             string result = string.Format(
                 "exists(select * from ({0}) {3} join ({1}) {4} on {2} and ({5}))",

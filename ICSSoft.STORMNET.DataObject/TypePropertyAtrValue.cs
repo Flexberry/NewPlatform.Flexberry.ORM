@@ -8,7 +8,7 @@
     /// </summary>
     public class TypePropertyAtrValueCollection
     {
-        //private SortedList sl = new SortedList();
+        // private SortedList sl = new SortedList();
         private Dictionary<long, object> sl = new Dictionary<long, object>();
 
         /// <summary>
@@ -33,7 +33,7 @@
         {
             get
             {
-                //string key = tp.AssemblyQualifiedName+"."+propname;
+                // string key = tp.AssemblyQualifiedName+"."+propname;
                 long key = tp.GetHashCode() * 10000000000 + propname.GetHashCode();
                 object retObj;
                 if (sl.TryGetValue(key, out retObj))
@@ -56,10 +56,14 @@
 
             set
             {
-                //string key = tp.AssemblyQualifiedName + "." + propname;
+                // string key = tp.AssemblyQualifiedName + "." + propname;
                 long key = tp.GetHashCode() * 10000000000 + propname.GetHashCode();
 
-                if (sl.ContainsKey(key)) sl.Remove(key);
+                if (sl.ContainsKey(key))
+                {
+                    sl.Remove(key);
+                }
+
                 sl.Add(key, value);
             }
         }
@@ -70,7 +74,7 @@
     /// </summary>
     public class TypeAtrValueCollection
     {
-        //private SortedList sl = new SortedList();
+        // private SortedList sl = new SortedList();
         private Dictionary<int, object> sl = new Dictionary<int, object>();
 
         /// <summary>
@@ -95,7 +99,7 @@
         {
             get
             {
-                //string key = tp.AssemblyQualifiedName;
+                // string key = tp.AssemblyQualifiedName;
                 int key = tp.GetHashCode();
                 object retObj;
                 if (sl.TryGetValue(key, out retObj))
@@ -118,10 +122,14 @@
 
             set
             {
-                //string key = tp.AssemblyQualifiedName;
+                // string key = tp.AssemblyQualifiedName;
                 int key = tp.GetHashCode();
 
-                if (sl.ContainsKey(key)) sl.Remove(key);
+                if (sl.ContainsKey(key))
+                {
+                    sl.Remove(key);
+                }
+
                 sl.Add(key, value);
             }
         }

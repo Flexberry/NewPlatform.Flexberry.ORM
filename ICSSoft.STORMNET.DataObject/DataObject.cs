@@ -239,13 +239,17 @@
                 {
                     if (Information.CheckPropertyExist(GetType(), attribute)
                         && Information.GetPropertyType(GetType(), attribute) == typeof(string))
+                    {
                         return Information.GetPropValueByName(this, attribute) as string;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 if (LogService.Log.IsWarnEnabled)
+                {
                     LogService.Log.Warn("Ошибка при поиске имени для ярлыка.", ex);
+                }
             }
             #endregion
 
@@ -286,7 +290,9 @@
         protected void CheckReadOnly()
         {
             if (IsReadOnly)
+            {
                 throw new DataObjectIsReadOnlyException();
+            }
         }
 
         /// <summary>
@@ -298,9 +304,13 @@
             if (IsReadOnly)
             {
                 if (key.Equals(readKey))
+                {
                     readKey = null;
+                }
                 else
+                {
                     throw new UnlockObjectDifferentKeyException();
+                }
             }
         }
 
@@ -319,7 +329,10 @@
             set
             {
                 if (CheckDetail && (array != null) && (value != null) && (value != array))
+                {
                     throw new ObjectAlreadyInDetailArrayException();
+                }
+
                 array = value;
             }
         }
@@ -338,7 +351,7 @@
             this.SetStatus(ObjectStatus.Created);
             this.SetLoadingState(LoadingState.NotLoaded);
             LoadedProperties = new string[0];// Information.GetStorablePropertyNames(this.GetType());
-            //Array.Sort(LoadedProperties);
+            // Array.Sort(LoadedProperties);
         }
 
         /// <summary>
@@ -385,7 +398,9 @@
                     foreach (string s in ap)
                     {
                         if (!lp.Contains(s))
+                        {
                             sc.Add(s);
+                        }
                     }
 
                     if (withMasters)
@@ -404,7 +419,9 @@
                                 {
                                     string[] mp = mpValue.GetInitializedProperties();
                                     foreach (string ss in mp)
+                                    {
                                         sc.Add(s + "." + ss);
+                                    }
                                 }
                             }
                         }
@@ -448,7 +465,9 @@
 
                 primaryKey = value;
                 if (oldkey != null)
+                {
                     DataObjectCache.ChangeKeyForLivingDataObject(this, oldkey);
+                }
             }
         }
 
@@ -464,7 +483,10 @@
                 if (array != null)
                 {
                     if (array.keys.ContainsKey(value))
+                    {
                         throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
+                    }
+
                     object val = array.keys[oldkey];
                     array.keys.Remove(oldkey);
                     array.keys.Add(value, val);
@@ -499,9 +521,13 @@
                     else
                     {
                         if (Convertors.InOperatorsConverter.CanConvert(valueType, keyType))
+                        {
                             SetKey(Convertors.InOperatorsConverter.Convert(value, keyType));
+                        }
                         else
+                        {
                             throw new PrimaryKeyTypeException();
+                        }
                     }
                 }
                 else
@@ -517,9 +543,11 @@
         public ObjectStatus GetStatus()
         {
             if (IsDataCopy)
+            {
                 return state;
+            }
 
-            if (state == ObjectStatus.Deleted)//Братчиков: 2010-05-26 Для ускорения, поскольку для удалённых объектов нет смысла пересчитывать изменённые свойства
+            if (state == ObjectStatus.Deleted) // Братчиков: 2010-05-26 Для ускорения, поскольку для удалённых объектов нет смысла пересчитывать изменённые свойства
             {
                 return state;
             }
@@ -528,7 +556,7 @@
             {
                 if ((state == ObjectStatus.Altered || state == ObjectStatus.UnAltered))
                 {
-                    fieldAlteredpropertyNames = null;//потому как эта штука всё помнит, а нам сейчас это не нужно, мы бегали не по всем свойствам
+                    fieldAlteredpropertyNames = null;// потому как эта штука всё помнит, а нам сейчас это не нужно, мы бегали не по всем свойствам
                     state = ContainsAlteredProps() ? ObjectStatus.Altered : ObjectStatus.UnAltered;
                 }
                 else
@@ -548,9 +576,15 @@
         public ObjectStatus GetStatus(bool recountIfAutoaltered)
         {
             if (IsDataCopy)
+            {
                 return state;
+            }
+
             if (recountIfAutoaltered)
+            {
                 return GetStatus();
+            }
+
             return state;
         }
 
@@ -572,9 +606,14 @@
                         {
                             case ObjectStatus.Deleted:
                                 if (loading == LoadingState.NotLoaded)
+                                {
                                     state = ObjectStatus.Created;
+                                }
                                 else
+                                {
                                     state = ObjectStatus.Altered;
+                                }
+
                                 break;
                             case ObjectStatus.UnAltered:
                                 state = ObjectStatus.Altered;
@@ -600,9 +639,14 @@
                                 break;
                             case ObjectStatus.Deleted:
                                 if (loading == LoadingState.NotLoaded)
+                                {
                                     state = ObjectStatus.Created;
+                                }
                                 else
+                                {
                                     state = ObjectStatus.UnAltered;
+                                }
+
                                 break;
                         }
 
@@ -619,7 +663,9 @@
             if (newState == LoadingState.NotLoaded)
             {
                 if (state == ObjectStatus.Altered || state == ObjectStatus.UnAltered)
+                {
                     state = ObjectStatus.Created;
+                }
             }
             else
             {
@@ -639,7 +685,10 @@
         public string[] GetLoadedProperties()
         {
             if (LoadedProperties == null)
+            {
                 LoadedProperties = new string[0];
+            }
+
             return (string[])LoadedProperties.Clone();
         }
 
@@ -651,7 +700,10 @@
         public List<string> GetLoadedPropertiesList()
         {
             if (LoadedProperties == null)
+            {
                 return new List<string>();
+            }
+
             return new List<string>(LoadedProperties);
         }
 
@@ -671,13 +723,22 @@
         /// <param name="addingLoadedProperties">Массив добавляемых свойств.</param>
         public void AddLoadedProperties(params string[] addingLoadedProperties)
         {
-            if (LoadedProperties == null) LoadedProperties = new string[0];
+            if (LoadedProperties == null)
+            {
+                LoadedProperties = new string[0];
+            }
+
             System.Collections.Specialized.StringCollection sc = new System.Collections.Specialized.StringCollection();
             sc.AddRange(LoadedProperties);
             foreach (string s in addingLoadedProperties)
+            {
                 if (!sc.Contains(s))
+                {
                     sc.Add(s);
-            LoadedProperties = new String[sc.Count];
+                }
+            }
+
+            LoadedProperties = new string[sc.Count];
             sc.CopyTo(LoadedProperties, 0);
             sc.Clear();
         }
@@ -729,7 +790,7 @@
             string s = Information.GetAgregatePropertyName(thisType);
             object agregator = (s == null || s == string.Empty) ? null : Information.GetPropValueByName(this, s);
 
-            //object p = null;
+            // object p = null;
             foreach (FieldInfo fi in fis)
             {
                 string name = fi.Name;
@@ -739,7 +800,10 @@
                     name == "PrimaryKeyIsUnique" ||
                     name == "fieldAlteredpropertyNames" ||
                     name == "inInitDataCopy" ||
-                    name == "DisabledInitDataCopy") continue;
+                    name == "DisabledInitDataCopy")
+                {
+                    continue;
+                }
 
                 GetHandler getHandler;
                 SetHandler setHandler;
@@ -768,7 +832,7 @@
                     }
                 }
 
-                //fieldval = fi.GetValue(this);
+                // fieldval = fi.GetValue(this);
                 object fieldval;
                 try
                 {
@@ -787,7 +851,7 @@
                         if (fieldval == agregator)
                         {
                             System.Type motype = fieldval.GetType();
-                            System.Object primKey = ((DataObject)fieldval).__PrimaryKey;
+                            object primKey = ((DataObject)fieldval).__PrimaryKey;
                             DataObject newobj = DataObjectCache.GetLivingDataObject(motype, primKey);
                             if (newobj == null)
                             {
@@ -797,7 +861,7 @@
 
                             newobj.IsDataCopy = true;
 
-                            //fi.SetValue(toObject, newobj);
+                            // fi.SetValue(toObject, newobj);
                             try
                             {
                                 setHandler(toObject, newobj);
@@ -813,15 +877,20 @@
                             bool prevClipping = old.ClippingCacheOnCopy;
                             old.ClippingCacheOnCopy = false;
                             if (old.dataCopy == null)
+                            {
                                 old.InitDataCopy(DataObjectCache);
+                            }
                             else if (
                                 DataObjectCache.GetLivingDataObject(old.dataCopy.GetType(),
                                                                     old.dataCopy.__PrimaryKey) != old)
+                            {
                                 DataObjectCache.AddDataObject(old.dataCopy);
+                            }
+
                             old.ClippingCacheOnCopy = prevClipping;
                             DataObject newobj = old.dataCopy;
 
-                            //fi.SetValue(toObject, newobj);
+                            // fi.SetValue(toObject, newobj);
                             try
                             {
                                 setHandler(toObject, newobj);
@@ -835,8 +904,7 @@
                     else if (tp.IsSubclassOf(datype))
                     {
                         DetailArray newarr =
-                            (DetailArray)
-                            fieldval.GetType().GetConstructor(new Type[] { thisType }).Invoke(new object[] { this });
+                            (DetailArray)fieldval.GetType().GetConstructor(new Type[] { thisType }).Invoke(new object[] { this });
                         DetailArray curArr = (DetailArray)fieldval;
                         for (int i = 0; i < curArr.Count; i++)
                         {
@@ -855,8 +923,8 @@
                                         arobject.DynamicProperties.Remove("MasterInitDataCopy");
                                     }
 
-                                    //arobject.InitDataCopy(DataObjectCache);
-                                    //Братчиков
+                                    // arobject.InitDataCopy(DataObjectCache);
+                                    // Братчиков
                                     DataObjectCache.AddDataObject(arobject);
                                 }
                             }
@@ -875,7 +943,7 @@
                             }
                         }
 
-                        //fi.SetValue(toObject, newarr);
+                        // fi.SetValue(toObject, newarr);
                         try
                         {
                             setHandler(toObject, newarr);
@@ -887,7 +955,7 @@
                     }
                     else
                     {
-                        //fi.SetValue(toObject, fieldval);
+                        // fi.SetValue(toObject, fieldval);
                         try
                         {
                             setHandler(toObject, fieldval);
@@ -897,12 +965,12 @@
                             fi.SetValue(toObject, fieldval);
                         }
 
-                        //bool b = false;
-                        //if (b)
-                        //{
+                        // bool b = false;
+                        // if (b)
+                        // {
                         //    System.Reflection.FieldInfo fi1 = toObject.GetType().GetField(fi.Name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
                         //    fi1.SetValue(toObject, fieldval);
-                        //}
+                        // }
                     }
                 }
             }
@@ -926,9 +994,12 @@
                     name == "fieldAlteredpropertyNames" ||
                     name == "inInitDataCopy" ||
                     name == "PrimaryKeyIsUnique" ||
-                    name == "IsDataCopy") continue;
+                    name == "IsDataCopy")
+                {
+                    continue;
+                }
 
-                //object fieldval = fi.GetValue(this);
+                // object fieldval = fi.GetValue(this);
                 GetHandler getHandler;
                 SetHandler setHandler;
 
@@ -956,7 +1027,7 @@
                     }
                 }
 
-                //fieldval = fi.GetValue(this);
+                // fieldval = fi.GetValue(this);
                 object fieldval;
                 try
                 {
@@ -975,7 +1046,7 @@
                         if (tp.IsSubclassOf(dotype))
                         {
                             Type motype = fieldval.GetType();
-                            Object primKey = ((DataObject)fieldval).__PrimaryKey;
+                            object primKey = ((DataObject)fieldval).__PrimaryKey;
                             DataObject newobj = dataObjectCache.GetLivingDataObject(motype, primKey);
                             if (newobj == null)
                             {
@@ -984,7 +1055,7 @@
                                                                             dataObjectCache);
                             }
 
-                            //fi.SetValue(toObject, newobj);
+                            // fi.SetValue(toObject, newobj);
                             try
                             {
                                 setHandler(toObject, newobj);
@@ -997,14 +1068,13 @@
                         else if (tp.IsSubclassOf(datype))
                         {
                             DetailArray newarr =
-                                (DetailArray)
-                                fieldval.GetType().GetConstructor(new[] { thisType }).Invoke(new object[] { toObject });
+                                (DetailArray)fieldval.GetType().GetConstructor(new[] { thisType }).Invoke(new object[] { toObject });
                             DetailArray curArr = (DetailArray)fieldval;
                             for (int i = 0; i < curArr.Count; i++)
                             {
                                 DataObject arobject = curArr.ItemByIndex(i);
                                 Type detotype = arobject.GetType();
-                                Object primKey;
+                                object primKey;
                                 if (!primaryKeyCopy)
                                 {
                                     primKey = KeyGenerator.Generate(detotype, null);
@@ -1031,7 +1101,7 @@
                                 newobj.CheckDetail = true;
                             }
 
-                            //fi.SetValue(toObject, newarr);
+                            // fi.SetValue(toObject, newarr);
                             try
                             {
                                 setHandler(toObject, newarr);
@@ -1043,7 +1113,7 @@
                         }
                         else
                         {
-                            //fi.SetValue(toObject, fieldval);
+                            // fi.SetValue(toObject, fieldval);
                             try
                             {
                                 setHandler(toObject, fieldval);
@@ -1056,7 +1126,7 @@
                     }
                     else
                     {
-                        //fi.SetValue(toObject, fieldval);
+                        // fi.SetValue(toObject, fieldval);
                         try
                         {
                             setHandler(toObject, fieldval);
@@ -1095,7 +1165,7 @@
                 usedDobjs = new Hashtable();
             }
 
-            //проверим, не было ли этого объекта уже
+            // проверим, не было ли этого объекта уже
             Type thisObjType = GetType();
             if (usedDobjs.ContainsKey(this))
             {
@@ -1130,9 +1200,12 @@
                     name == "PrimaryKeyIsUnique" ||
                     name == "fieldAlteredpropertyNames" ||
                     name == "inInitDataCopy" ||
-                    name == "IsDataCopy") continue;
+                    name == "IsDataCopy")
+                {
+                    continue;
+                }
 
-                //object fieldval = fi.GetValue(this);
+                // object fieldval = fi.GetValue(this);
                 GetHandler getHandler;
                 SetHandler setHandler;
 
@@ -1160,7 +1233,7 @@
                     }
                 }
 
-                //fieldval = fi.GetValue(this);
+                // fieldval = fi.GetValue(this);
                 object fieldval;
                 try
                 {
@@ -1179,24 +1252,24 @@
                         if (tp.IsSubclassOf(dotype))
                         {
                             Type motype = fieldval.GetType();
-                            Object primKey = ((DataObject)fieldval).__PrimaryKey;
+                            object primKey = ((DataObject)fieldval).__PrimaryKey;
 
                             primKey = Information.TranslateValueToPrimaryKeyType(motype, primKey);
                             if (primKey.ToString() == "{fbd82b95-cba3-4f84-9fc2-cbb08ce9da9a}")
                             {
-                                //этот бред взят из DataObjectCache.CreateDataObject потому что есть подозрение на логику в ToString()
+                                // этот бред взят из DataObjectCache.CreateDataObject потому что есть подозрение на логику в ToString()
                                 temp = "oiphohoih";
                             }
 
                             DataObject newobj = (DataObject)DataObjectCache.Creator.CreateObject(motype);
                             newobj.__PrimaryKey = primKey;
 
-                            //newobj  = dataObjectCache.CreateDataObject(motype, primKey);
+                            // newobj  = dataObjectCache.CreateDataObject(motype, primKey);
 
                             ((DataObject)fieldval).PrvCopyToObjectWithoutCache(ref newobj, true, primaryKeyCopy,
                                                                                 usedDobjs);
 
-                            //fi.SetValue(toObject, newobj);
+                            // fi.SetValue(toObject, newobj);
                             try
                             {
                                 setHandler(toObject, newobj);
@@ -1209,16 +1282,17 @@
                         else if (tp.IsSubclassOf(datype))
                         {
                             DetailArray newarr =
-                                (DetailArray)
-                                fieldval.GetType().GetConstructor(new Type[] { this.GetType() }).Invoke(new object[] { toObject });
+                                (DetailArray)fieldval.GetType().GetConstructor(new Type[] { this.GetType() }).Invoke(new object[] { toObject });
                             DetailArray curArr = (DetailArray)fieldval;
                             for (int i = 0; i < curArr.Count; i++)
                             {
                                 DataObject arobject = curArr.ItemByIndex(i);
                                 Type detotype = arobject.GetType();
-                                Object primKey = arobject.__PrimaryKey;
+                                object primKey = arobject.__PrimaryKey;
                                 if (!primaryKeyCopy)
+                                {
                                     primKey = KeyGenerator.Generate(detotype, null);
+                                }
 
                                 primKey = Information.TranslateValueToPrimaryKeyType(detotype, primKey);
                                 if (primKey.ToString() == "{fbd82b95-cba3-4f84-9fc2-cbb08ce9da9a}")
@@ -1229,7 +1303,7 @@
                                 DataObject newobj = (DataObject)DataObjectCache.Creator.CreateObject(detotype);
                                 newobj.__PrimaryKey = primKey;
 
-                                //DataObject newobj = dataObjectCache.CreateDataObject(detotype, primKey);
+                                // DataObject newobj = dataObjectCache.CreateDataObject(detotype, primKey);
                                 arobject.PrvCopyToObjectWithoutCache(ref newobj, true, primaryKeyCopy, usedDobjs);
                                 if (!primaryKeyCopy)
                                 {
@@ -1242,7 +1316,7 @@
                                 newobj.CheckDetail = true;
                             }
 
-                            //fi.SetValue(toObject, newarr);
+                            // fi.SetValue(toObject, newarr);
                             try
                             {
                                 setHandler(toObject, newarr);
@@ -1254,7 +1328,7 @@
                         }
                         else
                         {
-                            //fi.SetValue(toObject, fieldval);
+                            // fi.SetValue(toObject, fieldval);
                             try
                             {
                                 setHandler(toObject, fieldval);
@@ -1267,7 +1341,7 @@
                     }
                     else
                     {
-                        //fi.SetValue(toObject, fieldval);
+                        // fi.SetValue(toObject, fieldval);
                         try
                         {
                             setHandler(toObject, fieldval);
@@ -1304,7 +1378,7 @@
         /// <param name="UseParentCaching">Использовать ли вышеустановленное кеширование</param>
         public virtual void CopyTo(DataObject toObject, bool CreateDataObjectsCopy, bool PrimaryKeyCopy, bool UseParentCaching, DataObjectCache DataObjectCache)
         {
-            //DataObjectCache DataObjectCache = new DataObjectCache();
+            // DataObjectCache DataObjectCache = new DataObjectCache();
             DataObjectCache.StartCaching(!UseParentCaching);
             try
             {
@@ -1336,7 +1410,10 @@
             {
                 string name = fi.Name;
 
-                if (!propsForCopy.Contains(name)) continue;
+                if (!propsForCopy.Contains(name))
+                {
+                    continue;
+                }
 
                 GetHandler getHandler;
                 SetHandler setHandler;
@@ -1413,7 +1490,9 @@
                     if (proptype.IsSubclassOf(typeof(DetailArray)))
                     {
                         foreach (DataObject detobj in (DetailArray)Information.GetPropValueByName(this, property))
+                        {
                             detobj.ClearPrototyping(withDetails);
+                        }
                     }
                 }
             }
@@ -1449,7 +1528,9 @@
                     if (proptype.IsSubclassOf(typeof(DetailArray)))
                     {
                         foreach (DataObject detobj in (DetailArray)Information.GetPropValueByName(this, property))
-                            detobj.Prototyping(true);//потому что if (withDetails)
+                        {
+                            detobj.Prototyping(true);// потому что if (withDetails)
+                        }
                     }
                 }
             }
@@ -1499,9 +1580,16 @@
         /// </summary>
         public void InitDataCopy(DataObjectCache DataObjectCache)
         {
-            if (DisabledInitDataCopy) return;
+            if (DisabledInitDataCopy)
+            {
+                return;
+            }
 
-            if (inInitDataCopy) return;
+            if (inInitDataCopy)
+            {
+                return;
+            }
+
             inInitDataCopy = true;
 
             SetStatus(ObjectStatus.UnAltered);
@@ -1536,8 +1624,12 @@
                         {
                             DetailArray dar = (DetailArray)Information.GetPropValueByName(this, prop);
                             if (dar != null)
+                            {
                                 foreach (DataObject d in dar)
+                                {
                                     d.InitDataCopy(DataObjectCache);
+                                }
+                            }
                         }
                     }
                 }
@@ -1561,7 +1653,10 @@
         /// </summary>
         public void FullClearDataCopy()
         {
-            if (this.inInitDataCopy) return;
+            if (this.inInitDataCopy)
+            {
+                return;
+            }
 
             this.inInitDataCopy = true;
 
@@ -1572,6 +1667,7 @@
                 System.Type datype = typeof(DetailArray);
 
                 foreach (FieldInfo fi in fis)
+                {
                     if ((fi.Name != "ClippingCacheOnCopy") && (fi.Name != "IsDataCopy"))
                     {
                         this.clearDataCopy();
@@ -1594,6 +1690,7 @@
                             }
                         }
                     }
+                }
             }
             finally
             {
@@ -1619,11 +1716,17 @@
         public string[] GetAlteredPropertyNames(bool Recount)
         {
             if (Recount)
+            {
                 return GetAlteredPropertyNames();
+            }
             else if (fieldAlteredpropertyNames == null)
+            {
                 return GetAlteredPropertyNames();
+            }
             else
+            {
                 return (fieldAlteredpropertyNames == null) ? null : (string[])fieldAlteredpropertyNames.Clone();
+            }
         }
 
         /// <summary>
@@ -1659,7 +1762,7 @@
             return Information.ContainsAlteredProps(this, dataCopy, true);
         }
 
-        //private static Collections.TypeBaseCollection fieldsCollection = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+        // private static Collections.TypeBaseCollection fieldsCollection = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
 
         /// <summary>
         /// Кэш массивов приватных полей
@@ -1691,7 +1794,10 @@
                             FieldInfo[] fis = ct.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
                             resarr.AddRange(fis);
                             if (ct == typeof(DataObject))
+                            {
                                 break;
+                            }
+
                             ct = ct.BaseType;
                         }
 
@@ -1724,9 +1830,11 @@
                     name == "ClippingCacheOnCopy" ||
                     name == "state" ||
                     name == "loading")
+                {
                     continue;
+                }
 
-                //fi.SetValue(this, null);
+                // fi.SetValue(this, null);
                 if (fi.FieldType.IsValueType)
                 {
                     fi.SetValue(this, null);
@@ -1921,7 +2029,11 @@
         /// <returns>Заголовки свойств незаполненных полей.</returns>
         public virtual string[] CheckNotNullProperties(Dictionary<Type, bool> detailSkip)
         {
-            if (state == ObjectStatus.Deleted) return new string[0];
+            if (state == ObjectStatus.Deleted)
+            {
+                return new string[0];
+            }
+
             Type thisType = GetType();
             ArrayList sc = new ArrayList();
             foreach (string property in Information.GetAllPropertyNames(thisType))
@@ -1930,7 +2042,9 @@
                 if (Information.GetPropertyNotNull(thisType, property))
                 {
                     if (Information.IsEmptyPropertyValue(val))
+                    {
                         sc.Add(property);
+                    }
                 }
 
                 DetailArray dar = val as DetailArray;
@@ -1941,7 +2055,9 @@
                         Type detailType = dar.ItemByIndex(i).GetType();
                         bool skipDeletedDetails = false;
                         if (detailSkip != null && detailSkip.ContainsKey(detailType))
+                        {
                             skipDeletedDetails = detailSkip[detailType];
+                        }
 
                         if (!skipDeletedDetails || dar.ItemByIndex(i).GetStatus() != ObjectStatus.Deleted)
                         {
@@ -1951,7 +2067,9 @@
                             if (props.Length > 0)
                             {
                                 foreach (string p in props)
+                                {
                                     sc.Add($"{property}[{j}].{p}");
+                                }
                             }
                         }
                     }
@@ -1966,7 +2084,9 @@
             try
             {
                 if (val == null)
+                {
                     return true;
+                }
 
                 var propertyType = val.GetType();
                 var fields = propertyType.GetFields();
@@ -1974,30 +2094,39 @@
                 foreach (var field in fields)
                 {
                     if (field.IsSpecialName)
+                    {
                         continue;
+                    }
 
                     var atrs = field.GetCustomAttributes(typeof(EmptyEnumValueAttribute), true);
 
-                    //Если текущее значение совпадает с помеченным значением, то покажем таракана.
+                    // Если текущее значение совпадает с помеченным значением, то покажем таракана.
                     if (atrs != null && atrs.Length > 0)
                     {
                         usedEmptyEnumValueAttribute = true;
                         if ( /*Enum.Parse(propertyType, field.Name) == propertyValue*/
                             Enum.GetName(propertyType, val) == field.Name)
+                        {
                             return true;
+                        }
                     }
                 }
 
                 var caption = EnumCaption.GetCaptionFor(val);
                 if (!usedEmptyEnumValueAttribute && string.IsNullOrEmpty(caption))
+                {
                     return true;
+                }
 
                 return false;
             }
             catch (Exception ex)
             {
                 if (LogService.Log.IsWarnEnabled)
+                {
                     LogService.Log.Warn("Ошибка в методе IsEnumValueEmpty.", ex);
+                }
+
                 return false;
             }
         }
@@ -2020,21 +2149,30 @@
         /// <returns>Заголовки свойств незаполненных полей.</returns>
         public virtual string[] CheckNotNullProperties(View view, bool returnCaptions, Dictionary<Type, bool> detailSkip)
         {
-            if (state == ObjectStatus.Deleted) return new string[0];
+            if (state == ObjectStatus.Deleted)
+            {
+                return new string[0];
+            }
+
             Type thisType = GetType();
             ArrayList sc = new ArrayList();
             foreach (PropertyInView property in view.Properties)
             {
                 string propertyCaption = property.Caption;
                 if (propertyCaption == null || propertyCaption.Trim() == string.Empty)
+                {
                     propertyCaption = property.Name;
+                }
+
                 if (property.Name.IndexOf('.') == -1)
                 {
                     object val = Information.GetPropValueByName(this, property.Name);
                     if (Information.GetPropertyNotNull(thisType, property.Name))
                     {
                         if (Information.IsEmptyPropertyValue(val))
+                        {
                             sc.Add(returnCaptions ? propertyCaption : property.Name);
+                        }
                     }
                 }
             }
@@ -2044,7 +2182,9 @@
                 DetailArray dar = Information.GetPropValueByName(this, div.Name) as DetailArray;
                 string propertyCaption = div.Caption;
                 if (propertyCaption == null || propertyCaption.Trim() == string.Empty)
+                {
                     propertyCaption = div.Name;
+                }
 
                 if (dar != null)
                 {
@@ -2053,7 +2193,9 @@
                         Type detailType = dar.ItemByIndex(i).GetType();
                         bool skipDeletedDetails = false;
                         if (detailSkip != null && detailSkip.ContainsKey(detailType))
+                        {
                             skipDeletedDetails = detailSkip[detailType];
+                        }
 
                         if (!skipDeletedDetails || dar.ItemByIndex(i).GetStatus() != ObjectStatus.Deleted)
                         {
@@ -2063,7 +2205,9 @@
                             if (props.Length > 0)
                             {
                                 foreach (string p in props)
+                                {
                                     sc.Add($"{(returnCaptions ? propertyCaption : div.Name)}[{j}].{p}");
+                                }
                             }
                         }
                     }
@@ -2122,9 +2266,13 @@
             bool IEnumerator.MoveNext()
             {
                 if (curIndex++ >= arr.Count - 1)
+                {
                     return false;
+                }
                 else
+                {
                     return true;
+                }
             }
 
             object IEnumerator.Current { get { return arr.ItemByIndex(curIndex); } }
@@ -2155,7 +2303,9 @@
         public void Clear()
         {
             while (objects.Count > 0)
+            {
                 RemoveByIndex(0);
+            }
         }
 
         /// <summary>
@@ -2168,13 +2318,21 @@
             if (Index >= 0 && Index <= Count)
             {
                 for (int i = 0; i < keys.Count; i++)
+                {
                     if (((int)keys.GetByIndex(i)) >= Index)
+                    {
                         keys.SetByIndex(i, ((int)keys.GetByIndex(i)) + 1);
+                    }
+                }
+
                 objects.Insert(Index, obj);
                 keys.Add(obj.__PrimaryKey, Index);
                 prv_SetAggregator(obj);
                 if (OrderedObjects())
+                {
                     Renumerate();
+                }
+
                 obj.DetailArray = this;
             }
             else
@@ -2204,7 +2362,10 @@
         private bool OrderedObjects()
         {
             if (countOrdered)
+            {
                 return orderedObjects;
+            }
+
             countOrdered = true;
             orderedObjects = (Information.GetOrderPropertyName(objectType) != string.Empty);
             return orderedObjects;
@@ -2234,7 +2395,9 @@
                             {
                                 Information.SetPropValueByName(item, orderProp, index);
                                 if (item.GetStatus() == ObjectStatus.UnAltered)
+                                {
                                     item.SetStatus(ObjectStatus.Altered);
+                                }
                             }
 
                             index++;
@@ -2269,8 +2432,8 @@
                         DataObject item = ItemByIndex(i);
                         if (item.GetStatus(false) != ObjectStatus.Deleted)
                         {
-                            //Братчиков 15.04.2008 Исправление бага:
-                            //пользователи сами лезут к orderProp и из-за этого ключи могут повториться
+                            // Братчиков 15.04.2008 Исправление бага:
+                            // пользователи сами лезут к orderProp и из-за этого ключи могут повториться
                             object key = Information.GetPropValueByName(item, orderProp);
                             if (key is int)
                             {
@@ -2290,9 +2453,14 @@
 
                     Clear();
                     for (int i = 0; i < sl.Count; i++)
+                    {
                         AddObject((DataObject)sl.GetByIndex(i));
+                    }
+
                     for (int i = 0; i < deleted.Count; i++)
+                    {
                         AddObject((DataObject)deleted[i]);
+                    }
                 }
                 catch
                 {
@@ -2350,10 +2518,13 @@
 
         private void Init(Type objecttype, PropertyInfo key, DataObject masterObj, long fixedsize)
         {
-            //if ( masterObj == null ) throw new OnCreationDetailArrayAgregatorObjectCantBeNullException();
+            // if ( masterObj == null ) throw new OnCreationDetailArrayAgregatorObjectCantBeNullException();
             string agregatorName = Information.GetAgregatePropertyName(objecttype);
             if (agregatorName == string.Empty)
+            {
                 throw new NotFoundAggregatorProperty();
+            }
+
             masterProp = objecttype.GetProperty(Information.GetAgregatePropertyName(objecttype));
             objects = new ArrayList();
             keys = new SortedList();
@@ -2416,12 +2587,16 @@
         /// </summary>
         public DataObject GetByKey(object key)
         {
-            //return null;
+            // return null;
             // if (keys.Contains(null))
             if (keys.Contains(key))
+            {
                 return (DataObject)objects[(int)keys[key]];
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -2442,7 +2617,10 @@
             }
 
             prv_SetAggregator(value);
-            if (OrderedObjects()) Renumerate();
+            if (OrderedObjects())
+            {
+                Renumerate();
+            }
         }
 
         /// <summary>
@@ -2466,7 +2644,10 @@
                 }
 
                 if (keys.ContainsKey(dataobject.__PrimaryKey))
+                {
                     throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
+                }
+
                 dataobject.DetailArray = this;
                 objects.Add(dataobject);
                 keys.Add(dataobject.__PrimaryKey, objects.Count - 1);
@@ -2474,7 +2655,9 @@
             }
 
             if (dataobjects.Length > 0 && OrderedObjects())
+            {
                 Renumerate();
+            }
 
             OnItemsAdded(new ItemsAddedEventArgs { DataObjects = dataobjects });
         }
@@ -2484,14 +2667,17 @@
         /// </summary>
         public void AddObject(DataObject dataobject)
         {
-            //Information.CheckUsingType(dataobject);
+            // Information.CheckUsingType(dataobject);
             if (dataobject.__PrimaryKey == null)
             {
                 KeyGenerator.Generate(dataobject, null);
             }
 
             if (keys.ContainsKey(dataobject.__PrimaryKey))
+            {
                 throw new DetailArrayAlreadyContainsObjectWithThatKeyException();
+            }
+
             SetByKey(dataobject.__PrimaryKey, dataobject);
         }
 
@@ -2523,7 +2709,10 @@
                 }
             }
 
-            if (OrderedObjects()) Renumerate();
+            if (OrderedObjects())
+            {
+                Renumerate();
+            }
         }
 
         /// <summary>
@@ -2555,7 +2744,10 @@
                 }
             }
 
-            if (OrderedObjects()) Renumerate();
+            if (OrderedObjects())
+            {
+                Renumerate();
+            }
         }
 
         /// <summary>
@@ -2584,7 +2776,10 @@
         public void OnItemsAdded(ItemsAddedEventArgs e)
         {
             EventHandler<ItemsAddedEventArgs> handler = ItemsAdded;
-            if (handler != null) handler(this, e);
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
     }
 

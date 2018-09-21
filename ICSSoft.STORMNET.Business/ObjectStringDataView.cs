@@ -75,9 +75,13 @@
             set
             {
                 if (value.IsSubclassOf(typeof(DataObject)))
+                {
                     objectType = value;
+                }
                 else
+                {
                     throw new Exceptions.CantProcessingNonDataobjectTypeException();
+                }
             }
         }
 
@@ -89,16 +93,20 @@
         public static string ConvertSimpleValueString(object value)
         {
             if (value == null)
+            {
                 return null;
+            }
 
             Type valType = value.GetType();
-            if (valType == typeof(Decimal))
+            if (valType == typeof(decimal))
             {
                 return ((decimal)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo);
             }
 
             if (valType == typeof(Guid))
+            {
                 return ((Guid)value).ToString("B");
+            }
 
             return value.ToString();
         }
@@ -111,7 +119,9 @@
             get
             {
                 if (objectedData == null || objectedData.Length == 0)
+                {
                     return null;
+                }
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder(ConvertSimpleValueString(objectedData[0]));
                 for (int i = 1; i < objectedData.Length; i++)

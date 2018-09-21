@@ -115,7 +115,10 @@
         public DataObject[] OnUpdateDataobject(DataObject UpdateObject)
         {
             if (Method == null)
+            {
                 return new DataObject[0];
+            }
+
             try
             {
                 return (DataObject[])Method.Invoke(this, new object[] { UpdateObject });
@@ -126,9 +129,15 @@
                 {
                     Exception ex = e.InnerException;
                     if (ex.GetType() == typeof(Exception))
+                    {
                         throw ex;
+                    }
+
                     if (ex.GetType().FullName.StartsWith("System."))
+                    {
                         throw e;
+                    }
+
                     throw ex;
                 }
 

@@ -10,8 +10,8 @@ namespace ICSSoft.STORMNET.KeyGen
     /// </summary>
     public class KeyGenerator
     {
-        //TODO: Проверить скорость работы, если заменить на Dictionary<Type, BaseKeyGenerator>
-        //private static ICSSoft.STORMNET.Collections.TypeBaseCollection cacheGenerators = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+        // TODO: Проверить скорость работы, если заменить на Dictionary<Type, BaseKeyGenerator>
+        // private static ICSSoft.STORMNET.Collections.TypeBaseCollection cacheGenerators = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
         private static Dictionary<Type, BaseKeyGenerator> cacheGenerators = new Dictionary<Type, BaseKeyGenerator>();
 
         private static Dictionary<Type, Type> _cacheKeys = new Dictionary<Type, Type>();

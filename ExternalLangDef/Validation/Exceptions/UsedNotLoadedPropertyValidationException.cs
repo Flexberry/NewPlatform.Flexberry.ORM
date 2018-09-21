@@ -13,8 +13,7 @@
         /// Создание исключения, сообщающего, что в функции ограничения используется незагруженное свойство.
         /// </summary>
         /// <param name="propertyName">Имя незагруженного свойства.</param>
-        public UsedNotLoadedPropertyValidationException(string propertyName) :
-            base(string.Format(ResourceData.UsedNotLoadedPropertyValidationExceptionMessage, propertyName))
+        public UsedNotLoadedPropertyValidationException(string propertyName) : base(string.Format(ResourceData.UsedNotLoadedPropertyValidationExceptionMessage, propertyName))
         {
         }
     }

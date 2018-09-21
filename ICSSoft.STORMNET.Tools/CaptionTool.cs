@@ -38,28 +38,46 @@
                         allYetUpper = allYetUpper & upper;
 
                         if (upper)
+                        {
                             if (allYetUpper)
+                            {
                                 wordTitle = c.ToString() + wordTitle;
+                            }
                             else if (prevUpper)
+                            {
                                 wordTitle = char.ToLower(c).ToString() + " " + wordTitle;
+                            }
                             else
+                            {
                                 wordTitle = char.ToLower(c).ToString() + wordTitle;
+                            }
+                        }
                         else if (prevUpper)
+                        {
                             wordTitle = c.ToString() + " " + wordTitle;
+                        }
                         else
+                        {
                             wordTitle = c.ToString() + wordTitle;
+                        }
 
                         prevUpper = upper;
                     }
 
                     if (wordTitle.Length > 0)
+                    {
                         wordTitle = char.ToUpper(wordTitle[0]) + wordTitle.Remove(0, 1);
+                    }
 
                     if (!string.IsNullOrEmpty(captionText) && wordTitle.Length > 1
                         && char.IsUpper(wordTitle[0]) && char.IsLower(wordTitle[1]))
+                    {
                         captionText += char.ToLower(wordTitle[0]) + wordTitle.Substring(1);
+                    }
                     else
+                    {
                         captionText += wordTitle;
+                    }
                 }
 
                 if (i != 0)

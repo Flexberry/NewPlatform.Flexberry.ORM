@@ -9,7 +9,7 @@ namespace ICSSoft.STORMNET.Business
     /// <summary>
     /// Summary description for ODBCAccessDataService.
     /// </summary>
-    public class ODBCAccessDataService:ODBCDataService
+    public class ODBCAccessDataService: ODBCDataService
     {
             public ODBCAccessDataService()
             {
@@ -62,7 +62,7 @@ namespace ICSSoft.STORMNET.Business
 
             public override string PutIdentifierIntoBrackets (string identifier)
             {
-                if (identifier.IndexOf(".")>=0 || identifier.Length>32)
+                if (identifier.IndexOf(".") >= 0 || identifier.Length > 32)
                 {
                     if (identDict.ContainsKey(identifier))
                 {
@@ -70,25 +70,32 @@ namespace ICSSoft.STORMNET.Business
                 }
                 else
                     {
-                        string ni = "[gi"+Guid.NewGuid().ToString("N").Substring(4)+"]";
-                        identDict.Add(identifier,ni);
+                        string ni = "[gi" + Guid.NewGuid().ToString("N").Substring(4) + "]";
+                        identDict.Add(identifier, ni);
                         return ni;
                     }
                 }
                 else
             {
-                return "["+identifier+"]";
+                return "[" + identifier + "]";
             }
         }
 
             private void translateFunction(STORMFunction LimitFunction)
             {
-                if (LimitFunction.FunctionDef.StringedView=="=")
-                    LimitFunction.FunctionDef.StringedView="IN";
-                for (int i = 0;i<LimitFunction.Parameters.Count;i++)
-                    if (LimitFunction.Parameters[i] is STORMFunction)
-                        translateFunction((STORMFunction)LimitFunction.Parameters[i]);
+                if (LimitFunction.FunctionDef.StringedView == "=")
+            {
+                LimitFunction.FunctionDef.StringedView = "IN";
             }
+
+            for (int i = 0;i < LimitFunction.Parameters.Count;i++)
+            {
+                if (LimitFunction.Parameters[i] is STORMFunction)
+                {
+                    translateFunction((STORMFunction)LimitFunction.Parameters[i]);
+                }
+            }
+        }
 
             public override string LimitFunction2SQLWhere(ICSSoft.STORMNET.FunctionalLanguage.Function LimitFunction, StorageStructForView[] StorageStruct, string[] asnameprop, bool MustNewGenerate)
             {
@@ -103,7 +110,7 @@ namespace ICSSoft.STORMNET.Business
             public override string LimitFunction2SQLWhere(STORMFunction LimitFunction)
             {
                 translateFunction(LimitFunction);
-                ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.OptimizeINOperator=false;
+                ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.OptimizeINOperator = false;
                 return
                     ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(LimitFunction,
                     new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString(ConvertValueToQueryValueString),
@@ -112,29 +119,32 @@ namespace ICSSoft.STORMNET.Business
 
             public override string GetIfNullExpression(params string[] identifiers)
             {
-                string result = identifiers[identifiers.Length-1];
-                for (int i= identifiers.Length-2;i>=0;i--)
-                    result = string.Concat("IIF ( IsNULL (", identifiers[i],"),", result, ", ",identifiers[i],")");
-                return result;
+                string result = identifiers[identifiers.Length - 1];
+                for (int i = identifiers.Length - 2;i >= 0;i--)
+            {
+                result = string.Concat("IIF ( IsNULL (", identifiers[i], "),", result, ", ", identifiers[i], ")");
+            }
+
+            return result;
             }
 
             public override string ConvertSimpleValueToQueryValueString(object value)
             {
                 string res = "";
-                if (value!=null && value.GetType()==typeof(DateTime))
+                if (value != null && value.GetType() == typeof(DateTime))
                 {
                     string frmt = System.Configuration.ConfigurationSettings.AppSettings["AccessDateFormat"];
-                    if (frmt!=null && frmt!="")
+                    if (frmt != null && frmt != "")
                 {
-                    res =  ((DateTime)value).ToString(frmt,System.Globalization.CultureInfo.InvariantCulture);
+                    res = ((DateTime)value).ToString(frmt, System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else
                     {
-                        res = base.ConvertSimpleValueToQueryValueString(value).Replace("'","#");
+                        res = base.ConvertSimpleValueToQueryValueString(value).Replace("'", "#");
 
-                        //Access не поддерживает доли секунд, поэтому
-                        //Шлыков
-                        res = System.Text.RegularExpressions.Regex.Replace(res,@"\.\d*\#","#");
+                        // Access не поддерживает доли секунд, поэтому
+                        // Шлыков
+                        res = System.Text.RegularExpressions.Regex.Replace(res, @"\.\d*\#", "#");
                     }
 
                     return res;

@@ -34,7 +34,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// <returns>Результат сравнения</returns>
         public int Compare(object obj)
         {
-            var contact = (Contact) obj;
+            var contact = (Contact)obj;
 
             // проверяем на равенство, если не равны, то допустим результат сравнения будет 1 - это не так важно.
             return Name == contact.Name && Value == contact.Value && ContactType == contact.ContactType
@@ -46,9 +46,20 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             // Лучше будет использовать Json, но нет возможности
             var xml = new XElement("contact");
-            if (value.ContactType != null) xml.Add(new XAttribute("type", value.ContactType));
-            if (value.Name != null) xml.Add(new XAttribute("name", value.Name));
-            if (value.Value != null) xml.Add(new XAttribute("value", value.Value));
+            if (value.ContactType != null)
+            {
+                xml.Add(new XAttribute("type", value.ContactType));
+            }
+
+            if (value.Name != null)
+            {
+                xml.Add(new XAttribute("name", value.Name));
+            }
+
+            if (value.Value != null)
+            {
+                xml.Add(new XAttribute("value", value.Value));
+            }
 
             return xml.ToString();
         }
@@ -56,11 +67,16 @@ namespace ICSSoft.STORMNET.UserDataTypes
         public static explicit operator Contact(string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return null;
+            }
 
             // Лучше будет использовать Json, но нет возможности
             var xml = XElement.Parse(value);
-            if (xml == null) throw new ArgumentException("Ошибка при десериализации");
+            if (xml == null)
+            {
+                throw new ArgumentException("Ошибка при десериализации");
+            }
 
             var contact = new Contact();
 

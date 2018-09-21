@@ -6,7 +6,7 @@ namespace ICSSoft.STORMNET.Business
     /// <summary>
     /// Summary description for ODBCMySQLDataService.
     /// </summary>
-    public class ODBCMySQLDataService:ODBCDataService
+    public class ODBCMySQLDataService: ODBCDataService
     {
         private System.Collections.Specialized.StringDictionary identDict = new System.Collections.Specialized.StringDictionary();
 
@@ -23,7 +23,7 @@ namespace ICSSoft.STORMNET.Business
 
         public override string PutIdentifierIntoBrackets(string identifier)
         {
-            if (identifier.IndexOf(".")>=0 || identifier.Length>32)
+            if (identifier.IndexOf(".") >= 0 || identifier.Length > 32)
             {
                 if (identDict.ContainsKey(identifier))
                 {
@@ -31,8 +31,8 @@ namespace ICSSoft.STORMNET.Business
                 }
                 else
                 {
-                    string ni = "gi"+Guid.NewGuid().ToString("N").Substring(4)+"";
-                    identDict.Add(identifier,ni);
+                    string ni = "gi" + Guid.NewGuid().ToString("N").Substring(4) + "";
+                    identDict.Add(identifier, ni);
                     return ni;
                 }
             }
@@ -85,20 +85,20 @@ namespace ICSSoft.STORMNET.Business
             sd.Add("Я", "YA");
 
             string result = "";
-            for (int i=0; i<stringRu.Length; i++)
+            for (int i = 0; i < stringRu.Length; i++)
             {
                 string ruSimbol = stringRu[i].ToString();
                 string tlSimbol = "";
                 if (sd.ContainsKey(ruSimbol))
                 {
-                    tlSimbol=sd[ruSimbol];
+                    tlSimbol = sd[ruSimbol];
                 }
                 else
                 {
-                    tlSimbol=ruSimbol;
+                    tlSimbol = ruSimbol;
                 }
 
-                result=string.Format("{0}{1}", result, tlSimbol);
+                result = string.Format("{0}{1}", result, tlSimbol);
             }
 
             return result;
@@ -108,12 +108,12 @@ namespace ICSSoft.STORMNET.Business
         {
             if (value is DateTime)
             {
-                return String.Format("'{0}'", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
+                return string.Format("'{0}'", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
             }
             else if (value is string)
             {
                 string res = base.ConvertSimpleValueToQueryValueString (value);
-                return res.Replace(@"\",@"\\");
+                return res.Replace(@"\", @"\\");
             }
             else
             {

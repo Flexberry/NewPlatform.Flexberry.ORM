@@ -39,8 +39,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="property"></param>
         /// <param name="objCaption"></param>
         /// <param name="ldef"></param>
-        public VariableDef(Type baseType, string property, string objCaption, FunctionalLanguageDef ldef) :
-            base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, objCaption)
+        public VariableDef(Type baseType, string property, string objCaption, FunctionalLanguageDef ldef) : base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, objCaption)
         {
             ldef.Variables.AddObject(this);
         }
@@ -51,8 +50,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="baseType"></param>
         /// <param name="property"></param>
         /// <param name="ldef"></param>
-        public VariableDef(Type baseType, string property, FunctionalLanguageDef ldef) :
-            base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, property)
+        public VariableDef(Type baseType, string property, FunctionalLanguageDef ldef) : base(ldef.GetObjectTypeForNetType(Information.GetPropertyType(baseType, property)), property, property)
         {
             ldef.Variables.AddObject(this);
         }
@@ -101,7 +99,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 
             Type = ldef.GetObjectType(vals[0]);
 
-            //Шлыков
+            // Шлыков
             if (Type == null)
             {
                 if (string.IsNullOrEmpty(vals[0]))
@@ -123,7 +121,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     }
                 }
 
-                //Братчиков 09.12.2008 Баг при десереализации
+                // Братчиков 09.12.2008 Баг при десереализации
                 if (tp == null)
                 {
                     string s = vals[0].ToLower();
@@ -145,14 +143,21 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     }
                 }
 
-                //Братчиков 09.12.2008 Баг при десереализации
+                // Братчиков 09.12.2008 Баг при десереализации
                 Type = new ObjectType(tp.AssemblyQualifiedName, tp.Name, tp);
                 ldef.Types.AddObject(Type);
             }
 
             StringedView = vals[1];
-            if (vals.Length > 2) Caption = vals[2];
-            if (Caption == null) Caption = StringedView;
+            if (vals.Length > 2)
+            {
+                Caption = vals[2];
+            }
+
+            if (Caption == null)
+            {
+                Caption = StringedView;
+            }
         }
     }
 

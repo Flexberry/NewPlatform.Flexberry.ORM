@@ -78,7 +78,10 @@
         {
             object[] Pars = new object[Parameters.Length];
             for (int i = 0; i < Pars.Length; i++)
+            {
                 Pars[i] = Parameters[i].ToSimpleValue();
+            }
+
             return new object[] { Name, Pars, fld.FunctionToSimpleStruct(Function), FormCustomizeString, paramValues };
         }
 
@@ -154,7 +157,10 @@
         /// <returns></returns>
         public Function ConvertFunction(Function func)
         {
-            if (func == null) return null;
+            if (func == null)
+            {
+                return null;
+            }
 
             FunctionalLanguage.Function res = new ICSSoft.STORMNET.FunctionalLanguage.Function(func.FunctionDef);
             ArrayList pars = new ArrayList(); pars.AddRange(func.Parameters);
@@ -182,13 +188,18 @@
                             {
                                 object ops = ICSSoft.STORMNET.Information.GetPropValueByName(obj, (pars[i] as ParameterDef).ParamName);
                                 if (ops == null)
+                                {
                                     dar.Remove(obj);
+                                }
                             }
                         }
 
                         object[] pp = new object[dar.Count];
                         for (int j = 0; j < pp.Length; j++)
+                        {
                             pp[j] = ICSSoft.STORMNET.Information.GetPropValueByName(dar.ItemByIndex(j), (pars[i] as ParameterDef).ParamName);
+                        }
+
                         if (func.FunctionDef.Parameters[func.FunctionDef.Parameters.Count - 1].MultiValueSupport)
                         {
                             pars.RemoveAt(i);

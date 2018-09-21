@@ -29,7 +29,7 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="doType"> тип объекта данных</param>
         /// <param name="propName">Свойство</param>
         /// <param name="usTypes">типы которые можно использовать для этого свойства</param>
-        public PropertyUsingTypes(Type doType,string propName,params Type[] usTypes)
+        public PropertyUsingTypes(Type doType, string propName, params Type[] usTypes)
         {
             DataObjectType = doType;
             PropertyName = propName;
@@ -45,7 +45,7 @@ namespace ICSSoft.STORMNET.Business
         /// <summary>
         ///
         /// </summary>
-        //private PropertyUsingTypes[] usingTypes;
+        // private PropertyUsingTypes[] usingTypes;
         /// <summary>
         ///
         /// </summary>

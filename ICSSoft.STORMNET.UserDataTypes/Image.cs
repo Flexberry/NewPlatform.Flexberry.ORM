@@ -67,19 +67,27 @@ namespace ICSSoft.STORMNET.UserDataTypes
             var xml = new XElement("image");
 
             if (value.Name != null)
+            {
                 xml.Add(new XAttribute("name", value.Name));
+            }
 
             if (value.Format != null)
+            {
                 xml.Add(new XAttribute("format", value.Format));
+            }
 
             xml.Add(new XAttribute("Width", value.Width));
             xml.Add(new XAttribute("Height", value.Height));
 
             if (!string.IsNullOrEmpty(value.Data))
+            {
                 xml.Add(new XAttribute("rawData", value.Data));
+            }
 
             if (!string.IsNullOrEmpty(value.URL))
+            {
                 xml.Add(new XAttribute("URL", value.URL));
+            }
 
             return xml.ToString();
         }
@@ -87,11 +95,16 @@ namespace ICSSoft.STORMNET.UserDataTypes
         public static explicit operator Image(string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return null;
+            }
 
             // Лучше будет использовать Json, но нет возможности
             var xml = XElement.Parse(value);
-            if (xml == null) throw new ArgumentException("Ошибка при десериализации");
+            if (xml == null)
+            {
+                throw new ArgumentException("Ошибка при десериализации");
+            }
 
             var image = new Image();
 

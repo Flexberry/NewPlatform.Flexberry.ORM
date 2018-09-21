@@ -268,7 +268,7 @@
                 && ((expression.Right.NodeType == ExpressionType.Constant
                         && expression.Right.Type == typeof(bool)
                         && (bool)((ConstantExpression)expression.Right).Value)
-                     ||((boolRightExpression = expression.Right).Type == typeof(bool?)
+                     || ((boolRightExpression = expression.Right).Type == typeof(bool?)
                         && ((boolRightExpression.NodeType == ExpressionType.Convert
                                 && (convertOperand = ((UnaryExpression)boolRightExpression).Operand) != null
                                 && convertOperand.NodeType == ExpressionType.Constant
@@ -417,8 +417,7 @@
                     && expression.Member.ReflectedType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     || expression.Member.DeclaringType == typeof(NullableDateTime)
                     || expression.Member.DeclaringType == typeof(NullableInt)
-                    || expression.Member.DeclaringType == typeof(NullableDecimal))
-                    )
+                    || expression.Member.DeclaringType == typeof(NullableDecimal)))
             { // Value от Nullable-типа при переводе в lcs нам ничего не даст, поэтому просто опускаем его.
                 expression = (MemberExpression)expression.Expression;
                 return expression;
@@ -612,8 +611,7 @@
                         var paramDef = new ParameterDef
                         {
                             ParamName =
-                                (string)
-                                ((ConstantExpression)expression.Arguments[0]).Value,
+                                (string)((ConstantExpression)expression.Arguments[0]).Value,
                             Type =
                                 new ObjectType(
                                 paramType.AssemblyQualifiedName,
@@ -646,7 +644,11 @@
 
                 case "IsLike":
                     UtilsLcs.CheckMethodArguments(expression, new[] { typeof(string) });
-                    if (expression.Arguments.Count != 2) throw new Exception("Метод IsLike ожидает два параметра");
+                    if (expression.Arguments.Count != 2)
+                    {
+                        throw new Exception("Метод IsLike ожидает два параметра");
+                    }
+
                     var exprPattern = expression.Arguments[1] as ConstantExpression;
                     if (exprPattern == null || exprPattern.Type != typeof(string))
                     {
@@ -658,7 +660,10 @@
 
                 case "CompareTo":
                     UtilsLcs.CheckMethodArguments(expression, new[] { typeof(string) });
-                    if (expression.Arguments.Count != 1) throw new Exception("Функция CompareTo ожидает один параметр");
+                    if (expression.Arguments.Count != 1)
+                    {
+                        throw new Exception("Функция CompareTo ожидает один параметр");
+                    }
 
                     // Передача параметров в стек для дальнейшей обертки в стандартное сравнение lcs
                     VisitExpression(expression.Object);
@@ -683,9 +688,12 @@
                 case "EndsWith":
                     UtilsLcs.CheckMethodArguments(expression, new[] { typeof(string) });
                     if (expression.Arguments[0].NodeType != ExpressionType.Constant)
+                    {
                         throw new NotSupportedException(
                             string.Format(
                                 "Методу {0} в качестве аргумента может быть передана только константа", methodName));
+                    }
+
                     return PushFunctionlike(expression, UtilsLcs.GetLikePatternByFunctionName(methodName));
 
                 case "Substring":
@@ -775,7 +783,9 @@
             #region Неподдерживаемые функции
 
             if (UtilsLcs.ExpressionMethodEquals(expression, "AddDays", new[] { typeof(double) }))
+            {
                 throw new NotImplementedException();
+            }
 
             #endregion Неподдерживаемые функции
 
@@ -1035,12 +1045,36 @@
         /// <returns> Тип lcs. </returns>
         private ObjectType GetObjectTypeByType(Type memberType)
         {
-            if (memberType == typeof(string)) return _ldef.StringType;
-            if (memberType == typeof(int) || memberType == typeof(long) || memberType == typeof(DayOfWeek) || memberType == typeof(NullableInt) || memberType == typeof(NullableDecimal)) return _ldef.NumericType;
-            if (memberType == typeof(DateTime) || memberType == typeof(NullableDateTime)) return _ldef.DateTimeType;
-            if (memberType == typeof(bool)) return _ldef.BoolType;
-            if (memberType == typeof(KeyGuid)) return _ldef.GuidType;
-            if (memberType.IsSubclassOf(typeof(DataObject))) return _ldef.DataObjectType;
+            if (memberType == typeof(string))
+            {
+                return _ldef.StringType;
+            }
+
+            if (memberType == typeof(int) || memberType == typeof(long) || memberType == typeof(DayOfWeek) || memberType == typeof(NullableInt) || memberType == typeof(NullableDecimal))
+            {
+                return _ldef.NumericType;
+            }
+
+            if (memberType == typeof(DateTime) || memberType == typeof(NullableDateTime))
+            {
+                return _ldef.DateTimeType;
+            }
+
+            if (memberType == typeof(bool))
+            {
+                return _ldef.BoolType;
+            }
+
+            if (memberType == typeof(KeyGuid))
+            {
+                return _ldef.GuidType;
+            }
+
+            if (memberType.IsSubclassOf(typeof(DataObject)))
+            {
+                return _ldef.DataObjectType;
+            }
+
             throw new UnknownTypeException("Неизвестный тип операнда " + memberType.Name);
         }
 
@@ -1083,7 +1117,7 @@
             // Если родитель этого Member предыдущий Member
             if (ReferenceEquals(_previosVisitedMemberExpression, expression.Expression) ||
                 value != null && value.Type == typeof(DateTime) && value.Member.Name == "Value" && // Добавлена поддержка для Nullable<DateTime> и NullableDateTime
-                ReferenceEquals(_previosVisitedMemberExpression, value.Expression))                // при обработке свойств DateTime (Day, Month, Year и т.д.).
+                ReferenceEquals(_previosVisitedMemberExpression, value.Expression)) // при обработке свойств DateTime (Day, Month, Year и т.д.).
             {
                 param = _stacksHolder.PopParam();
 

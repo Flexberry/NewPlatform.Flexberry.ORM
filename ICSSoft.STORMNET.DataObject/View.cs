@@ -294,7 +294,7 @@
                     if (obj is PropSource)
                     {
                         PropSource o = obj as PropSource;
-                        return String.Compare(Name, o.Name);
+                        return string.Compare(Name, o.Name);
                     }
                     else
                     {
@@ -312,7 +312,10 @@
                     string[] subs = new string[LinckedStorages.Length];
                     string sss = Environment.NewLine[1] + "\t";
                     for (int i = 0; i < subs.Length; i++)
+                    {
                         subs[i] = "\t" + string.Join(sss, LinckedStorages[i].ToString().Split(Environment.NewLine[1]));
+                    }
+
                     return (subs.Length > 0) ? res + Environment.NewLine + string.Join(Environment.NewLine, subs) : res;
                 }
             }
@@ -377,7 +380,10 @@
             {
                 string[] prs = new string[props.Length];
                 for (int i = 0; i < props.Length; i++)
+                {
                     prs[i] = props[i].ToString();
+                }
+
                 return "Properties:" + Environment.NewLine + string.Join(Environment.NewLine, prs) +
                     Environment.NewLine + "Sources:" + Environment.NewLine + sources.ToString();
             }
@@ -426,7 +432,11 @@
         {
             get
             {
-                if (detailAdaptiveTypeViews == null) detailAdaptiveTypeViews = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                if (detailAdaptiveTypeViews == null)
+                {
+                    detailAdaptiveTypeViews = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                }
+
                 return detailAdaptiveTypeViews;
             }
 
@@ -716,7 +726,12 @@
         {
             get
             {
-                if (masterTypeFilters == null) masterTypeFilters = new ICSSoft.STORMNET.Collections.NameObjectCollection(); return masterTypeFilters;
+                if (masterTypeFilters == null)
+                {
+                    masterTypeFilters = new ICSSoft.STORMNET.Collections.NameObjectCollection();
+                }
+
+                return masterTypeFilters;
             }
         }
 
@@ -800,7 +815,9 @@
                 }
 
                 if (propType != null && !propType.IsSubclassOf(DetArrType))
+                {
                     AddProperty(prop, prop, false, string.Empty);
+                }
             }
 
             details = new DetailInView[0];
@@ -851,7 +868,9 @@
                 else
                 {
                     if (!Information.GetPropertyDisableAutoViewing(DataObjectType, allstorProps[i]))
+                    {
                         simpleprops.Add(allstorProps[i]);
+                    }
                 }
             }
 
@@ -885,7 +904,9 @@
             foreach (PropertyInView p in properties)
             {
                 if (p.Name.StartsWith(master + "."))
+                {
                     res.AddProperty(p.Name.Substring(master.Length + 1), p.Caption, p.Visible, p.FormPath);
+                }
             }
 
             return res;
@@ -899,13 +920,26 @@
         public MasterInView GetMaster(string masterName)
         {
             if (masters == null)
+            {
                 masters = new MasterInView[0];
+            }
+
             for (int i = 0; i < masters.Length; i++)
+            {
                 if (masters[i].MasterName == masterName)
+                {
                     return masters[i];
+                }
+            }
+
             for (int i = 0; i < properties.Length; i++)
+            {
                 if (properties[i].Name.StartsWith(masterName + "."))
+                {
                     return new MasterInView(masterName, LookupTypeEnum.Standard, string.Empty, string.Empty);
+                }
+            }
+
             throw new IndexOutOfRangeException(masterName);
         }
 
@@ -916,14 +950,28 @@
         public void RemoveMaster(string masterName)
         {
             if (masters == null)
+            {
                 masters = new MasterInView[0];
-            if (masters.Length == 0) return;
+            }
+
+            if (masters.Length == 0)
+            {
+                return;
+            }
+
             bool masterfound = false;
             for (int i = 0; i < masters.Length; i++)
+            {
                 if (masters[i].MasterName == masterName)
+                {
                     masterfound = true;
+                }
                 else if (masterfound)
+                {
                     masters[i - 1] = masters[i];
+                }
+            }
+
             if (masterfound)
             {
                 var newMasters = new MasterInView[masters.Length - 1];
@@ -947,12 +995,23 @@
         public DetailInView GetDetail(string detailName)
         {
             if (details == null)
+            {
                 details = new DetailInView[0];
+            }
+
             if (details.Length == 0)
+            {
                 throw new IndexOutOfRangeException(detailName);
+            }
+
             for (int i = 0; i < details.Length; i++)
+            {
                 if (details[i].Name == detailName)
+                {
                     return details[i];
+                }
+            }
+
             throw new IndexOutOfRangeException(detailName);
         }
 
@@ -963,19 +1022,36 @@
         public void RemoveDetail(string detailname)
         {
             if (details == null)
+            {
                 details = new DetailInView[0];
-            if (details.Length == 0) return;
+            }
+
+            if (details.Length == 0)
+            {
+                return;
+            }
+
             bool propfound = false;
             for (int i = 0; i < details.Length; i++)
+            {
                 if (details[i].Name == detailname)
+                {
                     propfound = true;
+                }
                 else if (propfound)
+                {
                     details[i - 1] = details[i];
+                }
+            }
+
             if (propfound)
             {
                 DetailInView[] newprops = new DetailInView[details.Length - 1];
                 for (int i = 0; i < newprops.Length; i++)
+                {
                     newprops[i] = details[i];
+                }
+
                 details = newprops;
             }
         }
@@ -988,12 +1064,23 @@
         public PropertyInView GetProperty(string propertyName)
         {
             if (properties == null)
+            {
                 properties = new PropertyInView[0];
+            }
+
             if (properties.Length == 0)
+            {
                 throw new IndexOutOfRangeException(propertyName);
+            }
+
             for (int i = 0; i < properties.Length; i++)
+            {
                 if (properties[i].Name == propertyName)
+                {
                     return properties[i];
+                }
+            }
+
             throw new IndexOutOfRangeException(propertyName);
         }
 
@@ -1026,19 +1113,36 @@
         public void RemoveProperty(string propName)
         {
             if (properties == null)
+            {
                 properties = new PropertyInView[0];
-            if (properties.Length == 0) return;
+            }
+
+            if (properties.Length == 0)
+            {
+                return;
+            }
+
             bool propfound = false;
             for (int i = 0; i < properties.Length; i++)
+            {
                 if (properties[i].Name == propName)
+                {
                     propfound = true;
+                }
                 else if (propfound)
+                {
                     properties[i - 1] = properties[i];
+                }
+            }
+
             if (propfound)
             {
                 PropertyInView[] newprops = new PropertyInView[properties.Length - 1];
                 for (int i = 0; i < newprops.Length; i++)
+                {
                     newprops[i] = properties[i];
+                }
+
                 properties = newprops;
             }
         }
@@ -1067,10 +1171,18 @@
         public void AddDetailInView(string detailname, View detailview, bool loadOnLoadAgregator, string path, bool visible, string caption, string[] aggregateFunctions)
         {
             if (details == null)
+            {
                 details = new DetailInView[0];
+            }
+
             for (int i = 0; i < details.Length; i++)
+            {
                 if (details[i].Name == detailname)
+                {
                     return;
+                }
+            }
+
             DetailInView[] divs = details;
             details = new DetailInView[divs.Length + 1];
             divs.CopyTo(details, 0);
@@ -1087,10 +1199,18 @@
         public void AddMasterInView(string masterName, LookupTypeEnum lookupType, string lookupcustomizationstring, string lookupProperty)
         {
             if (masters == null)
+            {
                 masters = new MasterInView[0];
+            }
+
             for (int i = 0; i < masters.Length; i++)
+            {
                 if (masters[i].MasterName == masterName)
+                {
                     return;
+                }
+            }
+
             MasterInView[] oldmasters = masters;
             masters = new MasterInView[oldmasters.Length + 1];
             oldmasters.CopyTo(masters, 0);
@@ -1099,7 +1219,9 @@
             if (lookupProperty != string.Empty)
             {
                 if (!CheckPropname(masterName + "." + lookupProperty))
+                {
                     AddProperty(masterName + "." + lookupProperty);
+                }
             }
         }
 
@@ -1142,14 +1264,21 @@
         /// <param name="propPath"></param>
         public void AddProperty(string propName, string propCaption, bool visible, string propPath)
         {
-            //проверим может оно уже есть
+            // проверим может оно уже есть
             if (properties == null)
+            {
                 properties = new PropertyInView[0];
-            for (int i = 0; i < properties.Length; i++)
-                if (properties[i].Name == propName)
-                    return;
+            }
 
-            //увеличим количество свойств
+            for (int i = 0; i < properties.Length; i++)
+            {
+                if (properties[i].Name == propName)
+                {
+                    return;
+                }
+            }
+
+            // увеличим количество свойств
             ArrayList propss = new ArrayList();
             PropertyInView[] piv = properties;
             properties = new PropertyInView[piv.Length + 1];
@@ -1159,27 +1288,37 @@
             if (propCaption == string.Empty)
             {
                 if (!propName.EndsWith("*"))
-                    propCaption = propName;  //'Information.GetPropertyCaption(DefineClassType,propName);
+                {
+                    propCaption = propName;  // 'Information.GetPropertyCaption(DefineClassType,propName);
+                }
             }
 
             if (propName.EndsWith("*"))
             {
                 if (propCaption.EndsWith("*"))
+                {
                     propCaption = propCaption.Substring(0, propCaption.Length - 1);
+                }
 
-                //смотрим ктоже ето
+                // смотрим ктоже ето
                 string pref = string.Empty;
                 if (propName.LastIndexOf(".") >= 0)
+                {
                     pref = propName.Substring(0, propName.LastIndexOf("."));
+                }
+
                 System.Type cType = DefineClassType;
                 string[] path = pref.Split('.');
                 if (pref != string.Empty)
                 {
                     for (int pathind = 0; pathind < path.Length; pathind++)
+                    {
                         cType = Information.GetPropertyType(cType, path[pathind]);
+                    }
+
                     pref = pref + ".";
 
-                    //                  if (propCaption=="") propCaption = pref;
+                    // if (propCaption=="") propCaption = pref;
                 }
 
                 string[] allprops = Information.GetAllPropertyNames(cType);
@@ -1187,20 +1326,22 @@
                 {
                     if (!Information.GetPropertyType(cType, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
                     {
-                        //добавляем атрибут
+                        // добавляем атрибут
                         if (propsind != 0)
                         {
-                            //1. увеличим массив
+                            // 1. увеличим массив
                             piv = properties;
                             properties = new PropertyInView[piv.Length + 1];
                             piv.CopyTo(properties, 0);
                         }
 
                         if (propCaption == string.Empty && pref == string.Empty)
+                        {
 
-                            //                          properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
+                            // properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
                             //                      else
                             properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
+                        }
                     }
                 }
             }
@@ -1213,9 +1354,13 @@
         private string lightTrim(string s)
         {
             if (s == string.Empty)
+            {
                 return s;
+            }
             else
+            {
                 return s.Substring(1, s.Length - 2);
+            }
         }
 
         private void ParsePropDef(string propDef, out string propName, out string propCaption, out string FormPath)
@@ -1250,27 +1395,49 @@
                 string propname, propCaption, propPath;
                 ParsePropDef(ViewDefAttribute.Properties[i], out propname, out propCaption, out propPath);
                 if (!propname.EndsWith("*") && propCaption == null)
+                {
                     propCaption = propname;
-                if (propCaption == null) propCaption = string.Empty;
-                if (propPath == null) propPath = string.Empty;
+                }
+
+                if (propCaption == null)
+                {
+                    propCaption = string.Empty;
+                }
+
+                if (propPath == null)
+                {
+                    propPath = string.Empty;
+                }
+
                 bool visible = true;
                 if (propname.EndsWith("*"))
                 {
                     if (propCaption.EndsWith("*"))
+                    {
                         propCaption = propCaption.Substring(0, propCaption.Length - 1);
+                    }
 
                     // Cмотрим, кто же это.
                     string pref = string.Empty;
                     if (propname.LastIndexOf(".") >= 0)
+                    {
                         pref = propname.Substring(0, propname.LastIndexOf("."));
+                    }
+
                     System.Type cType = ViewDefClass;
                     string[] path = pref.Split('.');
                     if (pref != string.Empty)
                     {
                         for (int pathind = 0; pathind < path.Length; pathind++)
+                        {
                             cType = Information.GetPropertyType(cType, path[pathind]);
+                        }
+
                         pref = pref + ".";
-                        if (propCaption == string.Empty) propCaption = pref;
+                        if (propCaption == string.Empty)
+                        {
+                            propCaption = pref;
+                        }
                     }
 
                     string[] allprops = Information.GetAllPropertyNames(cType);
@@ -1288,7 +1455,11 @@
                 }
                 else
                 {
-                    if (Array.IndexOf(hiddenAtrs, propname) >= 0) visible = false;
+                    if (Array.IndexOf(hiddenAtrs, propname) >= 0)
+                    {
+                        visible = false;
+                    }
+
                     propsAL.Add(new PropertyInView(propname, propCaption, visible, propPath));
                 }
             }
@@ -1302,7 +1473,13 @@
             {
                 int DetCount = 0;
                 for (int i = 0; i < atrs.Length; i++)
-                    if (((AssociatedDetailViewAttribute)atrs[i]).ViewName == viewName) DetCount++;
+                {
+                    if (((AssociatedDetailViewAttribute)atrs[i]).ViewName == viewName)
+                    {
+                        DetCount++;
+                    }
+                }
+
                 details = new DetailInView[DetCount];
                 DetCount = 0;
                 for (int i = 0; i < atrs.Length; i++)
@@ -1351,7 +1528,13 @@
             {
                 int mcount = 0;
                 for (int i = 0; i < atrs.Length; i++)
-                    if (((MasterViewDefineAttribute)atrs[i]).ViewName == viewName) mcount++;
+                {
+                    if (((MasterViewDefineAttribute)atrs[i]).ViewName == viewName)
+                    {
+                        mcount++;
+                    }
+                }
+
                 masters = new MasterInView[mcount];
                 mcount = 0;
                 for (int i = 0; i < atrs.Length; i++)
@@ -1363,7 +1546,9 @@
                         if (atr.LookupProperty != string.Empty)
                         {
                             if (!CheckPropname(atr.MasterName + "." + atr.LookupProperty))
+                            {
                                 AddProperty(atr.MasterName + "." + atr.LookupProperty);
+                            }
                         }
                     }
                 }
@@ -1373,7 +1558,9 @@
             {
                 if (Information.GetPropertyType(ViewDefClass, piv.Name).IsSubclassOf(typeof(DataObject)) &&
                     piv.Name.IndexOf(".") == -1)
+                {
                     AddMasterInView(piv.Name);
+                }
             }
         }
 
@@ -1415,7 +1602,11 @@
                         else
                         {
                             View dv = Information.GetView(div.View.Name, tp);
-                            if (dv == null) dv = div.View;
+                            if (dv == null)
+                            {
+                                dv = div.View;
+                            }
+
                             tc.Add(tp, dv);
                             dv.LoadingAdaptation(tp);
                         }
@@ -1486,7 +1677,9 @@
         public string ToString(bool fullView)
         {
             if (!fullView)
+            {
                 return ToString();
+            }
 
             var res = new StringBuilder();
             res.Append(ToString());
@@ -1528,13 +1721,22 @@
             Type secondType = secondView.defineClass;
             View Result = new View();
             if (secondType == firstType)
+            {
                 Result.defineClass = firstType;
+            }
             else if (secondType.IsSubclassOf(firstType))
+            {
                 Result.defineClass = secondType;
+            }
             else if (firstType.IsSubclassOf(secondType))
+            {
                 Result.defineClass = firstType;
+            }
             else
+            {
                 throw new IncompatibleTypesForViewOperationException(firstView.ToString(), secondView.ToString());
+            }
+
             return Result;
         }
 
@@ -1546,16 +1748,28 @@
         /// <returns></returns>
         public static View operator |(View firstView, View secondView)
         {
-            if (firstView == null) return secondView;
-            if (secondView == null) return firstView;
+            if (firstView == null)
+            {
+                return secondView;
+            }
+
+            if (secondView == null)
+            {
+                return firstView;
+            }
+
             View Result = getViewForViews(firstView, secondView);
             Result.Name = firstView.ToString() + "|" + secondView.ToString();
             System.Collections.SortedList temp = new SortedList();
 
-            //properties
+            // properties
             for (int i = 0; i < secondView.properties.Length; i++)
+            {
                 temp.Add(secondView.properties[i].Name, secondView.properties[i]);
+            }
+
             for (int i = 0; i < firstView.properties.Length; i++)
+            {
                 if (!temp.ContainsKey(firstView.properties[i].Name))
                 {
                     temp.Add(firstView.properties[i].Name, firstView.properties[i]);
@@ -1567,16 +1781,21 @@
                     p.Caption = p.Caption + " / " + firstView.properties[i].Caption;
                     temp[firstView.properties[i].Name] = p;
                 }
+            }
 
             PropertyInView[] props = new PropertyInView[temp.Count];
             temp.Values.CopyTo(props, 0);
             Result.properties = props;
 
-            //detail-properties
+            // detail-properties
             temp.Clear();
             for (int i = 0; i < secondView.details.Length; i++)
+            {
                 temp.Add(secondView.details[i].Name, secondView.details[i]);
+            }
+
             for (int i = 0; i < firstView.details.Length; i++)
+            {
                 if (!temp.ContainsKey(firstView.details[i].Name))
                 {
                     temp.Add(firstView.details[i].Name, firstView.details[i]);
@@ -1588,6 +1807,7 @@
                     v.View = v.View | firstView.details[i].View;
                     temp[firstView.details[i].Name] = v;
                 }
+            }
 
             DetailInView[] dets = new DetailInView[temp.Count];
             temp.Values.CopyTo(dets, 0);
@@ -1603,37 +1823,54 @@
         /// <returns></returns>
         public static View operator &(View firstView, View secondView)
         {
-            if (firstView == null || secondView == null) return null;
+            if (firstView == null || secondView == null)
+            {
+                return null;
+            }
+
             View Result = getViewForViews(firstView, secondView);
             Result.Name = firstView.ToString() + "&" + secondView.ToString();
             System.Collections.SortedList temp = new SortedList();
             System.Collections.SortedList temp1 = new SortedList();
 
-            //properties
+            // properties
             for (int i = 0; i < secondView.properties.Length; i++)
+            {
                 temp.Add(secondView.properties[i].Name, secondView.properties[i]);
+            }
+
             for (int i = 0; i < firstView.properties.Length; i++)
+            {
                 if (temp.ContainsKey(firstView.properties[i].Name))
+                {
                     temp1.Add(firstView.properties[i].Name, firstView.properties[i]);
+                }
+            }
+
             PropertyInView[] props = new PropertyInView[temp1.Count];
             temp1.Values.CopyTo(props, 0);
             Result.properties = props;
 
-            //detail-properties
+            // detail-properties
             temp.Clear();
             temp1.Clear();
             for (int i = 0; i < secondView.details.Length; i++)
+            {
                 temp.Add(secondView.details[i].Name, secondView.details[i]);
+            }
+
             for (int i = 0; i < firstView.details.Length; i++)
+            {
                 if (temp.ContainsKey(firstView.details[i].Name))
                 {
                     DetailInView div1 = (DetailInView)temp[firstView.details[i].Name];
                     DetailInView div2 = (DetailInView)firstView.details[i];
-                    DetailInView resdiv = new DetailInView
-                        (div1.Name, div1.View & div1.View, div1.LoadOnLoadAgregator && div1.LoadOnLoadAgregator, div1.FormPath,
+                    DetailInView resdiv = new DetailInView(
+                        div1.Name, div1.View & div1.View, div1.LoadOnLoadAgregator && div1.LoadOnLoadAgregator, div1.FormPath,
                         div1.Caption + " & " + div2.Caption, div1.Visible && div2.Visible, div2.AggregationFunctions);
                     temp1.Add(firstView.details[i].Name, resdiv);
                 }
+            }
 
             DetailInView[] dets = new DetailInView[temp1.Count];
             temp1.Values.CopyTo(dets, 0);
@@ -1654,25 +1891,41 @@
             System.Collections.SortedList temp = new SortedList();
             System.Collections.SortedList temp1 = new SortedList();
 
-            //properties
+            // properties
             for (int i = 0; i < firstView.properties.Length; i++)
+            {
                 temp.Add(firstView.properties[i].Name, firstView.properties[i]);
+            }
+
             for (int i = 0; i < secondView.properties.Length; i++)
+            {
                 if (temp.ContainsKey(secondView.properties[i].Name))
+                {
                     temp.Remove(secondView.properties[i].Name);
+                }
+            }
+
             PropertyInView[] props = new PropertyInView[temp.Count];
             temp.Values.CopyTo(props, 0);
             Result.properties = props;
 
-            //detail-properties
+            // detail-properties
             temp.Clear();
             temp1.Clear();
 
             for (int i = 0; i < firstView.details.Length; i++)
+            {
                 temp.Add(firstView.details[i].Name, firstView.details[i]);
+            }
+
             for (int i = 0; i < secondView.details.Length; i++)
+            {
                 if (temp.ContainsKey(secondView.details[i].Name))
+                {
                     temp.Remove(secondView.details[i].Name);
+                }
+            }
+
             DetailInView[] dets = new DetailInView[temp.Count];
             temp.Values.CopyTo(dets, 0);
             Result.details = dets;
@@ -1698,7 +1951,10 @@
             {
                 int[] res = new int[properties.Length];
                 for (int i = 0; i < res.Length; i++)
+                {
                     res[i] = i;
+                }
+
                 return res;
             }
             else
@@ -1737,8 +1993,12 @@
                     }
 
                     for (int i = 0; i < allProps.Length; i++)
+                    {
                         if (allProps[i] != null)
+                        {
                             res[resindex++] = i;
+                        }
+                    }
 
                     return res;
                 }

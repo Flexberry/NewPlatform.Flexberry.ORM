@@ -78,7 +78,9 @@
                 foreach (ColumnsSortDef csd in ColumnsSort)
                 {
                     if (View.CheckPropname(csd.Name) || csd.Name.IndexOf(".") == -1)
+                    {
                         al.Add(csd);
+                    }
                 }
 
                 return (ColumnsSortDef[])al.ToArray(typeof(ColumnsSortDef));
@@ -118,10 +120,10 @@
         {
             string s1 = info.GetString("ddd");
 
-            //return;
+            // return;
             this.fieldColumnsSort = (ColumnsSortDef[])info.GetValue("fieldColumnsSort", typeof(ColumnsSortDef[]));
 
-            //this.fieldLimitFunction = ( STORMFunction )info.GetValue( "fieldLimitFunction", typeof( STORMFunction ) );
+            // this.fieldLimitFunction = ( STORMFunction )info.GetValue( "fieldLimitFunction", typeof( STORMFunction ) );
             this.fieldLoadingTypes = (System.Type[])info.GetValue("fieldLoadingTypes", typeof(System.Type[]));
             this.fieldView = (ICSSoft.STORMNET.View)info.GetValue("fieldView", typeof(ICSSoft.STORMNET.View));
             this.fieldColumnsOrder = (string[])info.GetValue("fieldColumnsOrder", typeof(string[]));
@@ -235,7 +237,7 @@
 
             info.AddValue("fieldColumnsSort", this.fieldColumnsSort);
 
-            //info.AddValue( "fieldLimitFunction", this.fieldLimitFunction );
+            // info.AddValue( "fieldLimitFunction", this.fieldLimitFunction );
             info.AddValue("fieldLoadingTypes", this.fieldLoadingTypes);
             info.AddValue("fieldView", this.fieldView);
             info.AddValue("fieldColumnsOrder", this.fieldColumnsOrder);
@@ -365,7 +367,9 @@
                 }
 
                 if (!testTypeIsAllParent)
+                {
                     testType = testType.BaseType;
+                }
             }
 
             return testType;
@@ -399,8 +403,7 @@
             Function ldLimitFunction,
             System.Type[] ldLoadingTypes,
             ICSSoft.STORMNET.View ldView,
-            string[] ldColumnsOrder
-            )
+            string[] ldColumnsOrder)
         {
             Init(ldColumnsSort, ldLimitFunction, ldLoadingTypes, ldView, null, ldColumnsOrder);
         }
@@ -420,22 +423,21 @@
             System.Type[] ldLoadingTypes,
             ICSSoft.STORMNET.View ldView,
             AdvansedColumn[] ldAdvansedColumns,
-            string[] ldColumnsOrder
-            )
+            string[] ldColumnsOrder)
         {
-            //ldLimitFunction.Cop
+            // ldLimitFunction.Cop
 
-            //Перед инициализацией LCS скопируем настройки колонок и ограничения, чтобы внутрь lcs
+            // Перед инициализацией LCS скопируем настройки колонок и ограничения, чтобы внутрь lcs
             if (ldColumnsSort != null)
             {
                 fieldColumnsSort = new ColumnsSortDef[ldColumnsSort.Length];
                 ldColumnsSort.CopyTo(fieldColumnsSort, 0);
             }
 
-            //fieldColumnsSort = ldColumnsSort;
+            // fieldColumnsSort = ldColumnsSort;
 
-            //ldLimitFunction.FunctionDef.CopyTo()
-            //ldLimitFunction.Parameters.CopyTo
+            // ldLimitFunction.FunctionDef.CopyTo()
+            // ldLimitFunction.Parameters.CopyTo
 
             if (ldLimitFunction != null)
             {
@@ -448,13 +450,13 @@
                 ldLoadingTypes.CopyTo(fieldLoadingTypes, 0);
             }
 
-            //fieldLoadingTypes = ldLoadingTypes;
+            // fieldLoadingTypes = ldLoadingTypes;
             if (ldView != null)
             {
                 fieldView = ldView.Clone();
             }
 
-            //fieldView = ldView;
+            // fieldView = ldView;
 
             if (ldColumnsOrder != null)
             {
@@ -462,14 +464,14 @@
                 ldColumnsOrder.CopyTo(fieldColumnsOrder, 0);
             }
 
-            //fieldColumnsOrder = ldColumnsOrder;
+            // fieldColumnsOrder = ldColumnsOrder;
             if (ldAdvansedColumns != null)
             {
                 fieldAdvansedColumns = new AdvansedColumn[ldAdvansedColumns.Length];
                 ldAdvansedColumns.CopyTo(fieldAdvansedColumns, 0);
             }
 
-            //fieldAdvansedColumns = ldAdvansedColumns;
+            // fieldAdvansedColumns = ldAdvansedColumns;
         }
 
         static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View)
@@ -527,18 +529,30 @@
         private bool ViewsEquals(View v1, View v2)
         {
             if (v1 == null)
+            {
                 return v2 == null;
+            }
+
             if (v2 == null)
+            {
                 return false;
+            }
+
             return v1.ToString(true) == v2.ToString(true);
         }
 
         private bool FunctionEquals(Function f1, Function f2)
         {
             if (f1 == null)
+            {
                 return f2 == null;
+            }
+
             if (f2 == null)
+            {
                 return false;
+            }
+
             return f1.ToString() == f2.ToString();
         }
 

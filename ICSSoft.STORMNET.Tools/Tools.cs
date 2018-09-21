@@ -319,7 +319,7 @@
             MemoryStream str = new MemoryStream();
             SoapFormatter formatter = new SoapFormatter();
 
-            //formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
+            // formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
             formatter.Serialize(str, o);
             str.Flush();
             str.Seek(0, SeekOrigin.Begin);
@@ -419,9 +419,13 @@
                 {
                     string dpstr = xmlEl.GetAttribute("DynamicProperties");
                     if (string.IsNullOrEmpty(dpstr))
+                    {
                         dataObject.DynamicProperties = new NameObjectCollection();
+                    }
                     else
+                    {
                         dataObject.DynamicProperties = (NameObjectCollection)ObjectFromString(dpstr);
+                    }
                 }
             }
 
@@ -579,7 +583,7 @@
             MemoryStream strm = new MemoryStream();
             BinaryFormatter formatter = new BinaryFormatter();
 
-            //formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
+            // formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
             formatter.Serialize(strm, o);
             strm.Position = 0;
             byte[] binData = new byte[strm.Length];
@@ -612,7 +616,9 @@
             BinaryFormatter formatter = new BinaryFormatter();
 
             if (binder != null)
+            {
                 formatter.Binder = binder;
+            }
 
             MemoryStream strm = new MemoryStream();
             formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
@@ -752,7 +758,7 @@
         {
             string asmName = args.Name;
 
-            //MessageBox.Show("Разрешаю сборку: " + asmName);
+            // MessageBox.Show("Разрешаю сборку: " + asmName);
             Assembly asm = null;
             if (asmName.IndexOf("Culture=") > -1 || asmName.IndexOf("PublicKeyToken=") > -1)
             {
@@ -784,13 +790,13 @@
             string assemblyQualifiedName = args.Name;
             string shortName = assemblyQualifiedName;
 
-            //TODO: comment this
-            //MessageBox.Show("Resolve " + assemblyQualifiedName);
+            // TODO: comment this
+            // MessageBox.Show("Resolve " + assemblyQualifiedName);
             if ((assemblyQualifiedName.IndexOf("Culture=") > -1 || assemblyQualifiedName.IndexOf("PublicKeyToken=") > -1))
             {
                 int indCult =
                     (assemblyQualifiedName.LastIndexOf("Culture=", StringComparison.InvariantCultureIgnoreCase) - 2);
-                int indPKT = (assemblyQualifiedName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) -2);
+                int indPKT = (assemblyQualifiedName.LastIndexOf("PublicKeyToken=", StringComparison.InvariantCultureIgnoreCase) - 2);
                 int ind = indCult > indPKT ? indPKT : indCult;
 
                 shortName = assemblyQualifiedName.Substring(0, ind);
@@ -813,8 +819,12 @@
     {
         public override Type BindToType(string asmName, string typeName)
         {
-            //MessageBox.Show("BindToType: " + asmName + " type " + typeName);
-            if (asmName == null) throw new ArgumentNullException("asmName");
+            // MessageBox.Show("BindToType: " + asmName + " type " + typeName);
+            if (asmName == null)
+            {
+                throw new ArgumentNullException("asmName");
+            }
+
             Type typeToDeserialize = null;
 
             if (asmName.IndexOf("Culture=") > -1 || asmName.IndexOf("PublicKeyToken=") > -1)
@@ -825,7 +835,7 @@
                 string shortAsmName = asmName.Substring(0, ind);
 
                 // Get the type using the typeName and assemblyName
-                typeToDeserialize = Type.GetType(String.Format("{0}, {1}",
+                typeToDeserialize = Type.GetType(string.Format("{0}, {1}",
                                                                typeName, shortAsmName));
             }
 
@@ -843,7 +853,10 @@
         {
             ArrayList arl = new ArrayList();
             if (System.IO.Path.GetDirectoryName(filename) == "")
+            {
                 filename = System.IO.Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + @"\" + filename;
+            }
+
             Assembly asm = Assembly.LoadFile(filename);
             foreach (Type t in asm.GetTypes())
             {
@@ -858,7 +871,10 @@
                 else
                 {
                     Type tt = t.GetInterface(filter.Name);
-                    if (tt != null) arl.Add(t);
+                    if (tt != null)
+                    {
+                        arl.Add(t);
+                    }
                 }
             }
 
@@ -880,7 +896,10 @@
             Type[] alltypes = GetTypes(filename, filter);
             object[] res = new object[alltypes.Length];
             for (int i = 0; i < res.Length; i++)
+            {
                 res[i] = Activator.CreateInstance(alltypes[i], parameters);
+            }
+
             return res;
         }
 
@@ -895,7 +914,10 @@
                 Type[] alltypes = GetTypes(filename, filter);
                 object[] res = new object[alltypes.Length];
                 for (int i = 0; i < res.Length; i++)
+                {
                     res[i] = Activator.CreateInstance(alltypes[i], parametersDelegate(alltypes[i]));
+                }
+
                 return res;
             }
         }
@@ -961,7 +983,7 @@
 
             MemoryStream resstream = new MemoryStream();
 
-            //****
+            // ****
             byte[] data = new byte[4096];
             int size;
 
@@ -969,15 +991,16 @@
             {
                 size = zs.Read(data, 0, data.Length);
                 resstream.Write(data, 0, size);
-            } while (size > 0);
+            }
+            while (size > 0);
 
-            //*****
+            // *****
 
-            //b = new byte[zs.Length];
+            // b = new byte[zs.Length];
 
-            //zs.Read(b,0,b.Length);
+            // zs.Read(b,0,b.Length);
 
-            //resstream.Write(b,0,b.Length);
+            // resstream.Write(b,0,b.Length);
 
             resstream.Seek(0, SeekOrigin.Begin);
             zs.Close();
@@ -993,12 +1016,12 @@
         {
             MemoryStream ms = new MemoryStream();
 
-            //StreamWriter strw = new StreamWriter(ms);
-            //strw.Write(несжатаяСтрока);
+            // StreamWriter strw = new StreamWriter(ms);
+            // strw.Write(несжатаяСтрока);
             BinaryWriter binw = new BinaryWriter(ms);
             binw.Write(несжатаяСтрока);
 
-            //binw.Close();
+            // binw.Close();
 
             MemoryStream retMS = Compress(ms);
             byte[] byteArr = retMS.ToArray();
@@ -1017,8 +1040,8 @@
         {
             MemoryStream ms = new MemoryStream();
 
-            //StreamWriter strw = new StreamWriter(ms);
-            //strw.Write(несжатаяСтрока);
+            // StreamWriter strw = new StreamWriter(ms);
+            // strw.Write(несжатаяСтрока);
             BinaryWriter binw = new BinaryWriter(ms);
             binw.Write(Convert.FromBase64String(сжатаяСтрока));
 

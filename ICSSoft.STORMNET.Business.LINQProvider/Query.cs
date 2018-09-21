@@ -11,7 +11,7 @@
     /// <typeparam name="T"></typeparam>
     public class Query<T> : IOrderedQueryable<T> // where T : new()
     {
-        //QueryProvider provider;
+        // QueryProvider provider;
         private IQueryProvider provider;
 
         private Expression expression;
@@ -27,7 +27,7 @@
             }
         }
 
-        //public Query(QueryProvider provider)
+        // public Query(QueryProvider provider)
         public Query()
             : this(new T[1].AsQueryable().Provider)
         {
@@ -36,7 +36,7 @@
         public Query(IQueryProvider provider)
         {
             this.provider = provider;
-            this.expression = Expression.Constant(this); //this function implicitly calls the ToString method in Debug
+            this.expression = Expression.Constant(this); // this function implicitly calls the ToString method in Debug
         }
 
         public Query(IQueryProvider provider, Expression expression)

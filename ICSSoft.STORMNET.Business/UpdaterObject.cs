@@ -9,7 +9,7 @@ namespace ICSSoft.STORMNET.Business
     /// Update или Delete в источнике данных
     /// </summary>
     [NotStored]
-    public class UpdaterObject:DataObject
+    public class UpdaterObject: DataObject
     {
         private DataObject fTemplateObject;
         private Function fFunction;
@@ -29,7 +29,7 @@ namespace ICSSoft.STORMNET.Business
 
             set
             {
-                fTemplateObject=value;
+                fTemplateObject = value;
             }
         }
 
@@ -62,7 +62,11 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="fFunction">Функция условия, по которому проводить удаление или обновление</param>
         public UpdaterObject(DataObject fTemplateObject, Function fFunction)
         {
-            if (fFunction==null) throw new Exception("fFunction parameter can't be null!");
+            if (fFunction == null)
+            {
+                throw new Exception("fFunction parameter can't be null!");
+            }
+
             this.fTemplateObject = fTemplateObject;
             this.fFunction = fFunction;
         }
@@ -84,7 +88,7 @@ namespace ICSSoft.STORMNET.Business
 
         }*/
 
-//      public override string[] GetAlteredPropertyNames()
+// public override string[] GetAlteredPropertyNames()
 //      {
 //          return this.GetAlteredPropertyNames (true);
 //      }

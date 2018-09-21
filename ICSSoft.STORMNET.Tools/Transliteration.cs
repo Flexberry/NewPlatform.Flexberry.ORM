@@ -137,7 +137,11 @@
         private static Dictionary<string, string> GetDictionaryByType(TransliterationType type)
         {
             Dictionary<string, string> tdict = iso;
-            if (type == TransliterationType.Gost) tdict = gost;
+            if (type == TransliterationType.Gost)
+            {
+                tdict = gost;
+            }
+
             return tdict;
         }
 
@@ -146,11 +150,11 @@
         /// </summary>
         static Transliteration()
         {
-            //gost.Add("╙", "EH");
-            //gost.Add("╡", "I");
-            //gost.Add("Ё", "i");
-            //gost.Add("╧", "#");
-            //gost.Add("╨", "eh");
+            // gost.Add("╙", "EH");
+            // gost.Add("╡", "I");
+            // gost.Add("Ё", "i");
+            // gost.Add("╧", "#");
+            // gost.Add("╨", "eh");
             gost.Add("Щ", "SHH"); // Сортировка идёт по количеству символов.
             gost.Add("щ", "shh");
             gost.Add("Ё", "JO");
@@ -218,17 +222,17 @@
             gost.Add("ь", "");
             gost.Add("Ь", "");
 
-            //gost.Add("╚", "");
-            //gost.Add("╩", "");
-            //gost.Add("≈", "-");
+            // gost.Add("╚", "");
+            // gost.Add("╩", "");
+            // gost.Add("≈", "-");
 
-            //iso.Add("╙", "YE");
-            //iso.Add("╡", "I");
-            //iso.Add("│", "G");
-            //iso.Add("Ё", "i");
-            //iso.Add("╧", "#");
-            //iso.Add("╨", "ye");
-            //iso.Add("┐", "g");
+            // iso.Add("╙", "YE");
+            // iso.Add("╡", "I");
+            // iso.Add("│", "G");
+            // iso.Add("Ё", "i");
+            // iso.Add("╧", "#");
+            // iso.Add("╨", "ye");
+            // iso.Add("┐", "g");
             iso.Add("Щ", "SHH"); // Сортировка идёт по количеству символов.
             iso.Add("щ", "shh");
             iso.Add("Ё", "YO");
@@ -296,9 +300,9 @@
             iso.Add("Ь", "");
             iso.Add("ь", "");
 
-            //iso.Add("╚", "");
-            //iso.Add("╩", "");
-            //iso.Add("≈", "-");
+            // iso.Add("╚", "");
+            // iso.Add("╩", "");
+            // iso.Add("≈", "-");
         }
     }
 }

@@ -21,7 +21,10 @@
         {
             int Length = 0;
             for (int i = 0; i < arrays.Length; i++)
+            {
                 Length += arrays[i].Length;
+            }
+
             Array res = Array.CreateInstance(elementType, Length);
             Length = 0;
             for (int i = 0; i < arrays.Length; i++)

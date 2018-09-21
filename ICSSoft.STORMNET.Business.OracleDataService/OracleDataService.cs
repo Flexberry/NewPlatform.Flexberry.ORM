@@ -91,7 +91,7 @@
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return string.Format("TO_CHAR({1}, \'{0}\')", "D",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
             }
@@ -103,7 +103,7 @@
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 string.Format("to_char(last_day(to_date('01.'||{0}||'.'||{1},'dd.mm.yyyy')),'dd')", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
                 return string.Empty;
             }
@@ -118,8 +118,8 @@
             {
                 return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
 
-                //у нее нет параметров
-                //langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                // у нее нет параметров
+                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
@@ -181,11 +181,14 @@
                 ArrayList al = new ArrayList();
                 object par = langDef.TransformObject(value.Parameters[1], dvd.StringedView, al);
                 foreach (string s in al)
+                {
                     lcs.View.AddProperty(s);
+                }
+
                 string Slct = GenerateSQLSelect(lcs, false).Replace("STORMGENERATEDQUERY", "SGQ" + Guid.NewGuid().ToString().Replace("-", string.Empty));
                 string CountIdentifier = convertIdentifier("g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
-                //FunctionalLanguage.Function numFunc = (value.Parameters[1] as FunctionalLanguage.Function);
+                // FunctionalLanguage.Function numFunc = (value.Parameters[1] as FunctionalLanguage.Function);
 
                 string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier);
 
@@ -199,13 +202,16 @@
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
 
-                    //convertIdentifier(dvd.OwnerConnectProp),
+                    // convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
 
-                    //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
+                    // ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "NVL(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += "))";
 
                 langDef.retVars = prevRetVars;
@@ -236,7 +242,10 @@
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
                     Slct);
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += ")),0))";
 
                 langDef.retVars = prevRetVars;
@@ -313,13 +322,16 @@
 
             byte[] identifierBytes = encoding.GetBytes(identifier);
 
-            if (identifierBytes.Length <= MaxBytes) return identifier;
+            if (identifierBytes.Length <= MaxBytes)
+            {
+                return identifier;
+            }
 
             // Получаем хэш идентификатора (для формирования уникального имени).
             string identifierHash = GetIdentifierHashCode(identifier).ToString();
 
             // Урезаем основную часть идентификатора, чтобы дополнить хэшем.
-            string shortIdentifier = encoding.GetString(identifierBytes, 0, 30-1- identifierHash.Length);
+            string shortIdentifier = encoding.GetString(identifierBytes, 0, 30 - 1 - identifierHash.Length);
             int lastIndex = shortIdentifier.Length - 1;
             if (identifier[lastIndex] != shortIdentifier[lastIndex])
             {
@@ -363,9 +375,12 @@
         /// <returns></returns>
         public override string GetIfNullExpression(params string[] identifiers)
         {
-            string result = identifiers[identifiers.Length-1];
-            for (int i= identifiers.Length-2;i>=0;i--)
-                result = string.Concat("NVL(",identifiers[i],", ",result,")");
+            string result = identifiers[identifiers.Length - 1];
+            for (int i = identifiers.Length - 2;i >= 0;i--)
+            {
+                result = string.Concat("NVL(", identifiers[i], ", ", result, ")");
+            }
+
             return result;
         }
 
@@ -390,7 +405,7 @@
                 if (match.Success)
                 {
                     string topcnt = match.Groups["topcnt"].ToString();
-                    query = String.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", query.Replace("TOP " + topcnt, string.Empty), topcnt);
+                    query = string.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", query.Replace("TOP " + topcnt, string.Empty), topcnt);
                 }
             }
 
@@ -408,28 +423,31 @@
             // генерируем отключив настройку в customizationStruct (подобно Postgre), делая одну обёртку с rownum.
             int top = customizationStruct.ReturnTop;
 
-            if (top > 0) customizationStruct.ReturnTop = 0;
-
-            string res=base.GenerateSQLSelect (customizationStruct, ForReadValues, out StorageStruct, Optimized);
-
-            if (top>0)
+            if (top > 0)
             {
-                res=String.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", res, top);
+                customizationStruct.ReturnTop = 0;
+            }
+
+            string res = base.GenerateSQLSelect (customizationStruct, ForReadValues, out StorageStruct, Optimized);
+
+            if (top > 0)
+            {
+                res = string.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", res, top);
                 customizationStruct.ReturnTop = top;
             }
 
             return res;
         }
 
-        public override string GetConvertToTypeExpression(Type valType,string value)
+        public override string GetConvertToTypeExpression(Type valType, string value)
         {
-            if (valType==typeof(Decimal))
+            if (valType == typeof(decimal))
             {
                 return value;
             }
-            else if (valType==typeof(Guid))
+            else if (valType == typeof(Guid))
             {
-                //382c74c3-721d-4f34-80e5-57657b6cbc27
+                // 382c74c3-721d-4f34-80e5-57657b6cbc27
 //              string res=value.ToString();
 //              res=res.Remove(23,1);
 //              res=res.Remove(18,1);
@@ -438,8 +456,12 @@
 //              return String.Format("HEXTORAW('{0}')",res);
                 byte[] byteArrGuid = (new Guid(value)).ToByteArray();
                 string hexGuidString = "";
-                foreach (byte b in byteArrGuid) hexGuidString += b.ToString("x2");//Получаем строку байтов.
-                return String.Format("HEXTORAW('{0}')",hexGuidString);
+                foreach (byte b in byteArrGuid)
+                {
+                    hexGuidString += b.ToString("x2");// Получаем строку байтов.
+                }
+
+                return string.Format("HEXTORAW('{0}')", hexGuidString);
             }
             else
             {
@@ -447,17 +469,17 @@
             }
         }
 
-        private System.Collections.ArrayList arParams=new System.Collections.ArrayList();
+        private System.Collections.ArrayList arParams = new System.Collections.ArrayList();
 
         public override string ConvertSimpleValueToQueryValueString(object value)
         {
             if (value is DateTime)
             {
-                return String.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
+                return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
             }
             else if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
             {
-                //382c74c3-721d-4f34-80e5-57657b6cbc27
+                // 382c74c3-721d-4f34-80e5-57657b6cbc27
 //              string res=value.ToString();
 //              res=res.Remove(23,1);
 //              res=res.Remove(18,1);
@@ -465,18 +487,22 @@
 //              res=res.Remove(8,1);
                 byte[] byteArrGuid = (new Guid(value.ToString())).ToByteArray();
                 string hexGuidString = "";
-                foreach (byte b in byteArrGuid) hexGuidString += b.ToString("x2");//Получаем строку байтов.
-                return String.Format("HEXTORAW('{0}')",hexGuidString);
+                foreach (byte b in byteArrGuid)
+                {
+                    hexGuidString += b.ToString("x2");// Получаем строку байтов.
+                }
+
+                return string.Format("HEXTORAW('{0}')", hexGuidString);
             }
 
             // Исключаем Error: ORA-01704: string literal too long
-            else if (value is System.String && value.ToString().Length>4000)
+            else if (value is string && value.ToString().Length > 4000)
             {
-                string paramName="param_"+arParams.Count;
-                OracleParameter param = new OracleParameter(paramName,OracleType.Clob);
-                param.Value=value;
+                string paramName = "param_" + arParams.Count;
+                OracleParameter param = new OracleParameter(paramName, OracleType.Clob);
+                param.Value = value;
                 arParams.Add(param);
-                return ':'+paramName;
+                return ':' + paramName;
             }
             else
             {
@@ -487,7 +513,10 @@
         protected override void CustomizeCommand(System.Data.IDbCommand cmd)
         {
             foreach(OracleParameter param in arParams)
+            {
                 (cmd as OracleCommand).Parameters.Add(param);
+            }
+
             arParams.Clear();
             base.CustomizeCommand (cmd);
         }

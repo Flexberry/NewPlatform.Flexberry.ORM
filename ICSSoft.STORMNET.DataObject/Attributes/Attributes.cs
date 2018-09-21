@@ -145,7 +145,9 @@
             Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName == assemblyName);
 
             if (assembly == null)
+            {
                 throw new ArgumentException("В текущем домене приложения не найдена сборка " + assemblyName);
+            }
 
             var types = new List<Type>(typeNames.Length);
             types.AddRange(typeNames.Select(typeName => assembly.GetType(typeName)));
@@ -178,7 +180,9 @@
                     }
 
                     if (ts[i] == null)
+                    {
                         throw new Exception("TypeUsage Exception: Невозможно найти тип " + ts[i]);
+                    }
                 }
             }
 
@@ -253,7 +257,7 @@
 
     #endregion
 
-    //Хранение (Storage level)
+    // Хранение (Storage level)
     #region Где данные хранятся
     #region .. Вся сборка
 
@@ -668,7 +672,7 @@
     }
     #endregion
 
-    //Представление (Presentation level)
+    // Представление (Presentation level)
     #region Определение представления
 
     /// <summary>
@@ -691,7 +695,11 @@
         /// <param name="properties">свойства в представлении</param>
         public ViewAttribute(string ViewName, string[] properties)
         {
-            if (ViewName == "") throw new Exception("View name in ViewAttribute coultd not be empty");
+            if (ViewName == "")
+            {
+                throw new Exception("View name in ViewAttribute coultd not be empty");
+            }
+
             this.viewName = ViewName;
             this.properties = (properties == null) ? null : (string[])properties.Clone();
             this.hiddenProperties = new string[0];

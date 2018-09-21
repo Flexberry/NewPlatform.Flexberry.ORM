@@ -973,7 +973,7 @@
             {
                 var auditDsSettingList = (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
                     where
-                        String.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
+                        string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
                         && auditDsSetting.DataServiceType == dataServiceType
                         && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
                     select auditDsSetting.ConnStringName).ToList();

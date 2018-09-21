@@ -51,7 +51,7 @@
             : this()
         {
             // первый вариант десериализации, без учета функций, входящих в ExternalLangDef
-            //var f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
+            // var f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
             //    Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
 
             Function f;
@@ -74,8 +74,7 @@
             {
                 MethodInfo functionFromSimpleStruct = externalLangDef.GetMethod("FunctionFromSimpleStruct");
                 PropertyInfo languageDef = externalLangDef.GetProperty("LanguageDef");
-                f = (Function)
-                    functionFromSimpleStruct.Invoke(languageDef.GetValue(null, null),
+                f = (Function)functionFromSimpleStruct.Invoke(languageDef.GetValue(null, null),
                                                     new object[]
                                                         {
                                                             Tools.ToolBinarySerializer.ObjectFromString(
@@ -123,12 +122,12 @@
             {
                 if (obj is VariableDef)
                 {
-                    //это имя свойства
+                    // это имя свойства
                     arl.Add((obj as VariableDef).StringedView);
                 }
                 else if (obj is Function)
                 {
-                    //спускаемся вниз
+                    // спускаемся вниз
                     InternalGetLimitProperties(obj as Function, arl);
                 }
             }
@@ -164,7 +163,7 @@
         /// </summary>
         /// <param name="obj"> Объект, с которым идёт сравнение (если это не Function, то вернётся null). </param>
         /// <returns> True, если значение ToString совпало. </returns>
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Function))
             {
@@ -193,7 +192,9 @@
         public static bool operator ==(Function function1, Function function2)
         {
             if ((object)function1 == null || ((object)function2) == null)
-                return Object.Equals(function1, function2);
+            {
+                return object.Equals(function1, function2);
+            }
 
             return function1.Equals(function2);
         }
@@ -207,7 +208,9 @@
         public static bool operator !=(Function function1, Function function2)
         {
             if ((object)function1 == null || ((object)function2) == null)
-                return !Object.Equals(function1, function2);
+            {
+                return !object.Equals(function1, function2);
+            }
 
             return !function1.Equals(function2);
         }
@@ -221,6 +224,7 @@
             StringBuilder stringBuilder = new StringBuilder(_fieldFunctionDef.StringedView);
             stringBuilder.Append(" (");
             foreach (object par in fieldParameters)
+            {
                 if (par is ViewedObject)
                 {
                     stringBuilder.Append(" ");
@@ -236,6 +240,7 @@
                 {
                     stringBuilder.Append(" NULL ");
                 }
+            }
 
             stringBuilder.Append(")");
             return stringBuilder.ToString();
@@ -252,16 +257,24 @@
             {
                 var par = Parameters[i];
                 if (par is VariableDef)
+                {
                     parameters[i] = (par as VariableDef).Caption;
+                }
                 else if (par is Function)
+                {
                     parameters[i] = (par as Function).ToUserFriendlyString();
+                }
                 else
+                {
                     parameters[i] = par;
+                }
             }
 
             if (FunctionDef.StringedView == SQLWhereLanguageDef.LanguageDef.funcEQ
                 && parameters.Length == 1)
+            {
                 return string.Format("{0}", parameters);
+            }
 
             var frm = Convertors.Formatter.transfertformat(FunctionDef.UserViewFormat, parameters.Length);
             return string.Format(frm, parameters);
@@ -302,10 +315,16 @@
 
             object[] newpars = new object[Parameters.Count];
             for (int i = 0; i < newpars.Length; i++)
+            {
                 if (Parameters[i] is Function)
+                {
                     newpars[i] = (Parameters[i] as Function).Clone();
+                }
                 else
+                {
                     newpars[i] = Parameters[i];
+                }
+            }
 
             return new Function(FunctionDef, newpars);
         }
@@ -321,7 +340,7 @@
             {
                 return false;
 
-                //throw new NullFunctionDefException();
+                // throw new NullFunctionDefException();
             }
 
             if ((fieldParameters.Count != _fieldFunctionDef.Parameters.Count)
@@ -330,7 +349,7 @@
             {
                 return false;
 
-                //throw new ParameterCountException();
+                // throw new ParameterCountException();
             }
 
             for (int i = 0; i < fieldParameters.Count; i++)
@@ -347,7 +366,9 @@
                         }
 
                         if (checkSubFunctions)
+                        {
                             (fieldParameters[i] as Function).Check(true);
+                        }
                     }
                 }
                 else if (fieldParameters[i] is VariableDef)
@@ -378,11 +399,18 @@
         /// <exception cref="UncompatibleParameterTypeException"></exception>
         public void Check(bool checkSubFunctions)
         {
-            if (_fieldFunctionDef == null) throw new NullFunctionDefException();
+            if (_fieldFunctionDef == null)
+            {
+                throw new NullFunctionDefException();
+            }
+
             if ((fieldParameters.Count != _fieldFunctionDef.Parameters.Count)
                 && (fieldParameters.Count > _fieldFunctionDef.Parameters.Count)
                 && (!_fieldFunctionDef.Parameters[_fieldFunctionDef.Parameters.Count - 1].MultiValueSupport))
+            {
                 throw new ParameterCountException();
+            }
+
             for (int i = 0; i < fieldParameters.Count; i++)
             {
                 ObjectType parameterDefType = (i >= _fieldFunctionDef.Parameters.Count)
@@ -403,7 +431,9 @@
                         }
 
                         if (checkSubFunctions)
+                        {
                             (fieldParameters[i] as Function).Check(true);
+                        }
                     }
                 }
                 else if (fieldParameters[i] is VariableDef)

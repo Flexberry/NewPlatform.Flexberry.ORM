@@ -1,12 +1,10 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-
-    using ICSSoft.STORMNET.Business.Audit;
-
-    using Security;
     using FunctionalLanguage;
     using FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Business.Audit;
+    using Security;
 
     /// <summary>
     /// Интерфейс сервисов данных.
@@ -104,7 +102,7 @@
         /// <param name="dobject">объект данных, который требуется загрузить</param>
         /// <param name="ClearDataObject">очищать ли объект</param>
         /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        /// <param name="ChфтпуeckExistingObject">проверять ли существование объекта в хранилище</param>
+        /// <param name="DataObjectCache">Кеш объектов данных.</param>
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);
@@ -120,7 +118,7 @@
         /// <param name="CheckExistingObject">проверять существование</param>
         /// <param name="DataObjectCache">использовать кеш</param>
         /// <param name="changeViewForTypeDelegate">делегат для изменения View для типа</param>
-        //void LoadObject(
+        // void LoadObject(
         //    ICSSoft.STORMNET.View dataObjectView,
         //    ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject,
         //    DataObjectCache DataObjectCache, ChangeViewForTypeDelegate changeViewForTypeDelegate);
@@ -132,8 +130,7 @@
         /// <param name="dataobjects">исходные объекты</param>
         /// <param name="dataObjectView">представлене</param>
         /// <param name="ClearDataobject">очищать ли существующие</param>
-        void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
-            ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject, DataObjectCache DataObjectCache);
+        void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects, ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject, DataObjectCache DataObjectCache);
 
         /// <summary>
         /// Загрузка объектов данных

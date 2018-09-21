@@ -55,10 +55,14 @@
 
                 string sop = OperationName;
                 if (ErrorNameConverter != null)
+                {
                     sop = ErrorNameConverter.Convert(sop);
+                }
 
                 if (coll.ContainsKey(sop))
+                {
                     sop = (string)coll[sop];
+                }
 
                 return "Недостаточно полномочий для выполнения операции " + sop + (sop == "открытия формы" ? " " : " над объектом ") + Information.GetClassCaption(Tp);
             }

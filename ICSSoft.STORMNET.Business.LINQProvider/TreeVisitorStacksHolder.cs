@@ -21,7 +21,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
 
         public void PushFunction(Function function)
         {
-            _paramsStack.Push((object) function);
+            _paramsStack.Push((object)function);
         }
 
         public void PushParam(object param)

@@ -264,7 +264,9 @@
             get
             {
                 if (_auditService != null)
+                {
                     return _auditService;
+                }
 
                 return ICSSoft.STORMNET.Business.Audit.AuditService.Current;
             }
@@ -382,10 +384,14 @@
         {
             var ret = new Dictionary<int, string>();
             if (lcs == null || limitFunction == null)
+            {
                 return ret;
+            }
 
             if (maxResults.HasValue && maxResults < 0)
+            {
                 throw new ArgumentOutOfRangeException("maxResults", "Максимальное число возвращаемых результатов не может быть отрицательным.");
+            }
 
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
@@ -410,7 +416,10 @@
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
             string orderByExpr = string.Empty, nl = Environment.NewLine;
             if (orderByIndex > -1)
+            {
                 orderByExpr = innerQuery.Substring(orderByIndex);
+            }
+
             int fromInd = innerQuery.ToLower().IndexOf("from");
 
             if (!string.IsNullOrEmpty(orderByExpr))
@@ -462,7 +471,9 @@
             commandTimeout = System.Configuration.ConfigurationManager.AppSettings["SQLDataServiceCommandTimeout"];
 
             if (commandTimeout == null) // lanin: Для совместимости с 2003-м Штормом.
+            {
                 commandTimeout = System.Configuration.ConfigurationManager.AppSettings["SqlCommandTimeout"];
+            }
 
             if (commandTimeout != null)
             {
@@ -512,7 +523,10 @@
             get
             {
                 if (fldTypeUsage == null)
+                {
                     fldTypeUsage = ICSSoft.STORMNET.TypeUsageProvider.TypeUsage;
+                }
+
                 return fldTypeUsage;
             }
 
@@ -728,7 +742,7 @@
                 customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
             }
 
-            //if (dobject.GetStatus(false)==ObjectStatus.Created && !dobject.Prototyped) return;
+            // if (dobject.GetStatus(false)==ObjectStatus.Created && !dobject.Prototyped) return;
             DataObjectCache.StartCaching(false);
             try
             {
@@ -760,7 +774,7 @@
 
                 FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
 
-                //          ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef fd = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+                // ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef fd = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 lc.Init(new ColumnsSortDef[0], func, new Type[] { doType }, dataObjectView, new string[0]);
 
                 // Применим полномочия на строки: НАЧАЛО.
@@ -779,17 +793,17 @@
                 }
                 else
                 {
-                    //TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
+                    // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
                     LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
                 }
 
                 // Применим полномочия на строки: КОНЕЦ.
 
-                //строим запрос
+                // строим запрос
                 STORMDO.Business.StorageStructForView[] StorageStruct;// = STORMDO.Information.GetStorageStructForView(dataObjectView,doType);
                 string Query = GenerateSQLSelect(lc, false, out StorageStruct, false);
 
-                //получаем данные
+                // получаем данные
                 object state = null;
                 object[][] resValue = ReadFirst(Query, ref state, 0);
                 if (resValue == null)
@@ -903,7 +917,7 @@
                             {
                                 if (dataCopyWasEmpty || !alteredPropertyNames.Contains(name))
                                 {
-                                    //обработаем случай с Altered-свойствами, которые не входят в loaded - меняем значение только если не Altered
+                                    // обработаем случай с Altered-свойствами, которые не входят в loaded - меняем значение только если не Altered
                                     Information.SetPropValueByName(dataObject, name, Information.GetPropValueByName(dobject, name));
                                 }
 
@@ -954,8 +968,8 @@
 
             // TODO: кеш объектов данных - мастеровые объекты должны быть одинаковые
 
-            //TODO: реализовать дочитку всех встречных мастеров. Пусть будет куча запросов - это остаётся на совести прикладных программистов.
-            //TODO: подумать насчёт иерархии
+            // TODO: реализовать дочитку всех встречных мастеров. Пусть будет куча запросов - это остаётся на совести прикладных программистов.
+            // TODO: подумать насчёт иерархии
             foreach (KeyValuePair<string, View> masterView in masterViews)
             {
                 DataObject masterObject = (DataObject)Information.GetPropValueByName(dataObject, masterView.Key);
@@ -1082,9 +1096,12 @@
         {
             Type thisType = this.GetType();
             if (func == null)
+            {
                 return;
+            }
+
             if (func.FunctionDef.FreeQuery)
-            {//добавляем все поля
+            {// добавляем все поля
                 curView.Properties = OldView.Properties;
                 return;
             }
@@ -1258,12 +1275,14 @@
                     }
                 }
 
-                //строим запрос
+                // строим запрос
                 System.Type[] dataObjectType = customizationStruct.LoadingTypes;
                 if (StorageStruct == null)
+                {
                     StorageStruct = new STORMDO.Business.StorageStructForView[dataObjectType.Length];
+                }
 
-                //Танцы с бубнами по поводу вычислимых свойств
+                // Танцы с бубнами по поводу вычислимых свойств
                 STORMDO.View dataObjectView = customizationStruct.View;
                 if (dataObjectView.Name == string.Empty)
                 {
@@ -1299,7 +1318,10 @@
                     if (StorageStruct[i] != null)
                     {
                         CountKeys[i] = Utils.CountMasterKeysInSelect(StorageStruct[i]);
-                        if (CountKeys[i] > MaxCountKeys) MaxCountKeys = CountKeys[i];
+                        if (CountKeys[i] > MaxCountKeys)
+                        {
+                            MaxCountKeys = CountKeys[i];
+                        }
                     }
                 }
 
@@ -1313,7 +1335,7 @@
                     for (int i = 0; i < StorageStruct[0].props.Length; i++)
                     {
                         asnameprop[i] = StorageStruct[0].props[i].Name;
-                        if (StorageStruct[0].props[i].storage[0][0] != null)//не вычислимое св-во
+                        if (StorageStruct[0].props[i].storage[0][0] != null) // не вычислимое св-во
                         {
                             StorageStruct[0].props[i].Name = StorageStruct[0].props[i].source.Name + "0." +
                                 StorageStruct[0].props[i].storage[0][0];
@@ -1327,6 +1349,7 @@
                 string UA = nl + " UNION ALL" + nl;
                 bool MustDopSelect = (dataObjectType.Length > 1);
                 for (int i = 0; i < dataObjectType.Length; i++)
+                {
                     if (StorageStruct[i] != null)
                     {
                         if (mustNewgenerate)
@@ -1338,21 +1361,35 @@
                             Queries[i] = GenerateSQLSelectByStorageStruct(StorageStruct[i], true, true, GetConvertToTypeExpression(typeof(decimal), i.ToString()) + " as " + PutIdentifierIntoBrackets("STORMNETDATAOBJECTTYPE"), MaxCountKeys - CountKeys[i], StorageType == StorageTypeEnum.HierarchicalStorage);
                         }
 
-                        if (notemptyQuery) QueryBilder.Append(UA);
+                        if (notemptyQuery)
+                        {
+                            QueryBilder.Append(UA);
+                        }
+
                         notemptyQuery = true;
                         QueryBilder.Append(Queries[i]);
                     }
+                }
 
-                string Query = QueryBilder.ToString();//string.Join(Environment.NewLine+" UNION ALL"+Environment.NewLine,Queries);
+                string Query = QueryBilder.ToString();// string.Join(Environment.NewLine+" UNION ALL"+Environment.NewLine,Queries);
 
-                if (Query == string.Empty) return string.Empty;
+                if (Query == string.Empty)
+                {
+                    return string.Empty;
+                }
 
-                //строим Wrap-Select
+                // строим Wrap-Select
                 string resQuery = "SELECT ";
                 if (customizationStruct.Distinct /*&& ForReadValues*/)
+                {
                     resQuery += "DISTINCT ";
+                }
+
                 if (customizationStruct.ReturnTop > 0)
+                {
                     resQuery += "TOP " + customizationStruct.ReturnTop.ToString() + " ";
+                }
+
                 string resStart = resQuery;
 
                 #region задаем порядок колонок в запросе - результат в props : StringCollection
@@ -1360,7 +1397,10 @@
                 System.Collections.Specialized.StringCollection props = new System.Collections.Specialized.StringCollection();
                 ICSSoft.STORMNET.Collections.NameObjectCollection advprops = new ICSSoft.STORMNET.Collections.NameObjectCollection();
                 for (int i = 0; i < dataObjectView.Properties.Length; i++)
+                {
                     props.Add(PutIdentifierIntoBrackets(dataObjectView.Properties[i].Name));
+                }
+
                 if (customizationStruct.AdvansedColumns != null)
                 {
                     for (int i = 0; i < customizationStruct.AdvansedColumns.Length; i++)
@@ -1411,7 +1451,10 @@
                     for (int i = 0; i < MaxCountKeys; i++)
                     {
                         if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                        {
                             props.Add(PutIdentifierIntoBrackets("STORMJoinedMasterType" + i.ToString()));
+                        }
+
                         props.Add(PutIdentifierIntoBrackets("STORMJoinedMasterKey" + i.ToString()));
                     }
 
@@ -1425,9 +1468,14 @@
                 {
                     Query = "SELECT ";
                     if (customizationStruct.Distinct /*&& ForReadValues*/)
+                    {
                         Query += "DISTINCT ";
+                    }
+
                     if (customizationStruct.ReturnTop > 0)
+                    {
                         Query += "TOP " + customizationStruct.ReturnTop.ToString() + " ";
+                    }
                 }
 
                 for (int i = 0; i < props.Count; i++)
@@ -1458,7 +1506,7 @@
                                     altnameprop[j] = this.GetIfNullExpression(names);
                                     selectF = altnameprop[j] + " as " + props[i];
                                 }
-                                else if (StorageStruct[0].props[j].storage[0][0] != null)//не вычислимое св-во
+                                else if (StorageStruct[0].props[j].storage[0][0] != null) // не вычислимое св-во
                                 {
                                     altnameprop[j] = PutIdentifierIntoBrackets(StorageStruct[0].props[j].source.Name + "0") + "." +
                                         PutIdentifierIntoBrackets(StorageStruct[0].props[j].storage[0][0]);
@@ -1481,7 +1529,10 @@
                             }
                         }
 
-                        if (selectF != string.Empty) Query += ((i > 0) ? "," : string.Empty) + nl + selectF;
+                        if (selectF != string.Empty)
+                        {
+                            Query += ((i > 0) ? "," : string.Empty) + nl + selectF;
+                        }
                     }
                     else
                     {
@@ -1489,9 +1540,9 @@
                     }
                 }
 
-                //colsPart = resQuery;
+                // colsPart = resQuery;
 
-                //добавим From-часть
+                // добавим From-часть
                 resQuery += nl + "FROM (" + nl + Query + nl + ") " + PutIdentifierIntoBrackets("STORMGENERATEDQUERY");
 
                 if (customizationStruct.AdvansedColumns != null)
@@ -1510,7 +1561,7 @@
                 {
                     for (int i = 0; i < StorageStruct[0].props.Length; i++)
                     {
-                        if (StorageStruct[0].props[i].storage[0][0] != null)//не вычислимое св-во
+                        if (StorageStruct[0].props[i].storage[0][0] != null) // не вычислимое св-во
                         {
                             Query = System.Text.RegularExpressions.Regex.Replace(Query,
                                 StorageStruct[0].props[i].source.Name + "0." + StorageStruct[0].props[i].storage[0][0],
@@ -1526,7 +1577,7 @@
                     Query += ((Query == "SELECT ") ? string.Empty : ",") + colsPart;
                 }
 
-                //добавим Where-часть
+                // добавим Where-часть
                 if (LimitFunction != null)
                 {
                     string sw = LimitFunction2SQLWhere(LimitFunction, StorageStruct, asnameprop, mustNewgenerate);
@@ -1542,7 +1593,7 @@
                     resQuery = Query;
                 }
 
-                //добавим OrderBy-часть
+                // добавим OrderBy-часть
                 string orderByExpr = string.Empty;
                 if (!Optimized)
                 {
@@ -1651,8 +1702,8 @@
         {
             string nl = Environment.NewLine;
 
-            //поддержка Row_number() Братчиков 07.03.2009
-            //if (resQuery.ToLower().IndexOf("$row_number$") > -1)
+            // поддержка Row_number() Братчиков 07.03.2009
+            // if (resQuery.ToLower().IndexOf("$row_number$") > -1)
             if (customizationStruct.RowNumber != null)
             {
                 int fromInd = resQuery.IndexOf("FROM (");
@@ -1672,7 +1723,7 @@
                     orderByExpr;
             }
 
-            //поддержка Row_number() Братчиков 07.03.2009
+            // поддержка Row_number() Братчиков 07.03.2009
         }
 
         /// <summary>
@@ -1708,7 +1759,10 @@
         virtual public void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
             ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject, DataObjectCache DataObjectCache)
         {
-            if (dataobjects == null || dataobjects.Length == 0) return;
+            if (dataobjects == null || dataobjects.Length == 0)
+            {
+                return;
+            }
 
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
@@ -1780,18 +1834,22 @@
                 string SelectString = string.Empty;
                 SelectString = GenerateSQLSelect(customizationStruct, false, out StorageStruct, false);
 
-                //получаем данные
+                // получаем данные
                 object State = null;
 
                 object[][] resValue = (SelectString == string.Empty) ? new object[0][] : ReadFirst(
-                    SelectString
-                    , ref State, 0);
+                    SelectString,
+                    ref State, 0);
                 if (resValue != null && resValue.Length != 0)
                 {
                     DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[resValue.Length];
                     int ObjectTypeIndexPOs = resValue[0].Length - 1;
                     int keyIndex = StorageStruct[0].props.Length - 1;
-                    while (StorageStruct[0].props[keyIndex].MultipleProp) keyIndex--;
+                    while (StorageStruct[0].props[keyIndex].MultipleProp)
+                    {
+                        keyIndex--;
+                    }
+
                     keyIndex++;
 
                     for (int i = 0; i < resValue.Length; i++)
@@ -1804,7 +1862,10 @@
                         {
                             loadobjects[i] = dataobjects[(int)ALobjectsKeys.GetByIndex(indexobj)];
                             if (ClearDataobject)
+                            {
                                 loadobjects[i].Clear();
+                            }
+
                             DataObjectCache.AddDataObject(loadobjects[i]);
                         }
                         else
@@ -1969,10 +2030,10 @@
                 string SelectString = string.Empty;
                 SelectString = GenerateSQLSelect(customizationStruct, false, out StorageStruct, false);
 
-                //получаем данные
+                // получаем данные
                 object[][] resValue = ReadFirst(
-                    SelectString
-                    , ref State, customizationStruct.LoadingBufferSize);
+                    SelectString,
+                    ref State, customizationStruct.LoadingBufferSize);
                 State = new object[] { State, dataObjectType, StorageStruct, customizationStruct, customizationString };
                 ICSSoft.STORMNET.DataObject[] res = null;
                 if (resValue == null)
@@ -2048,11 +2109,14 @@
         virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache DataObjectCache)
         {
             if (State == null)
+            {
                 return new DataObject[0];
+            }
+
             DataObjectCache.StartCaching(false);
             try
             {
-                //получаем данные
+                // получаем данные
                 object[] stateArr = (object[])State;
                 ICSSoft.STORMNET.DataObject[] res = null;
                 if (stateArr[0] == null)
@@ -2091,7 +2155,7 @@
                 myCommand.Transaction = Transaction;
                 CustomizeCommand(myCommand);
 
-                //Connection.Open();
+                // Connection.Open();
                 System.Data.IDataReader myReader = myCommand.ExecuteReader();
                 object[] state = new object[] { Connection, myReader };
                 State = state;
@@ -2137,10 +2201,14 @@
             catch (Exception e)
             {
                 if (reader != null)
+                {
                     reader.Close();
+                }
 
                 if (connection != null)
+                {
                     connection.Close();
+                }
 
                 throw new ExecutingQueryException(query, string.Empty, e);
             }
@@ -2152,7 +2220,11 @@
 
         public virtual object[][] ReadNextByExtConn(ref object State, int LoadingBufferSize)
         {
-            if (State == null || !State.GetType().IsArray) return null;
+            if (State == null || !State.GetType().IsArray)
+            {
+                return null;
+            }
+
             System.Data.IDataReader myReader = (System.Data.IDataReader)((object[])State)[1];
             if (myReader.Read())
             {
@@ -2160,26 +2232,29 @@
                 int i = 1;
                 int FieldCount = myReader.FieldCount;
 
-                //object[][] resar = new object[LoadingBufferSize][];
+                // object[][] resar = new object[LoadingBufferSize][];
 
                 while (i <= LoadingBufferSize || LoadingBufferSize == 0)
                 {
                     if (i > 1)
                     {
-                        if (!myReader.Read()) break;
+                        if (!myReader.Read())
+                        {
+                            break;
+                        }
                     }
 
                     object[] tmp = new object[FieldCount];
                     myReader.GetValues(tmp);
                     arl.Add(tmp);
 
-                    //resar[i-1]= tmp;
+                    // resar[i-1]= tmp;
                     i++;
                 }
 
                 object[][] result = null;
 
-                //              if (i<LoadingBufferSize)
+                // if (i<LoadingBufferSize)
                 //              {
                 //                  result = new object[i-1][];
                 //                  for (int j=0;j<i-1;j++)
@@ -2194,8 +2269,8 @@
                 {
                     myReader.Close();
 
-                    //System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
-                    //myConnection.Close();
+                    // System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
+                    // myConnection.Close();
                     State = null;
                 }
 
@@ -2206,7 +2281,7 @@
                 System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
                 myReader.Close();
 
-                //myConnection.Close();
+                // myConnection.Close();
                 State = null;
                 return null;
             }
@@ -2221,7 +2296,9 @@
         public virtual object[][] ReadNext(ref object state, int loadingBufferSize)
         {
             if (state == null || !state.GetType().IsArray)
+            {
                 return null;
+            }
 
             IDataReader reader = (IDataReader)((object[])state)[1];
             if (reader.Read())
@@ -2235,7 +2312,9 @@
                     if (i > 1)
                     {
                         if (!reader.Read())
+                        {
                             break;
+                        }
                     }
 
                     object[] tmp = new object[fieldCount];
@@ -2286,9 +2365,17 @@
 
         private string GenString(string StringBlock, int count)
         {
-            if (count == 0) return string.Empty;
+            if (count == 0)
+            {
+                return string.Empty;
+            }
+
             System.Text.StringBuilder sb = new System.Text.StringBuilder(StringBlock.Length * count);
-            for (int i = 0; i < count; i++) sb.Append(StringBlock);
+            for (int i = 0; i < count; i++)
+            {
+                sb.Append(StringBlock);
+            }
+
             return sb.ToString();
         }
 
@@ -2340,7 +2427,7 @@
                 string.Concat(parentAliasWithKey, " = ", subTableKeyField)
                 : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey));
 
-            FromPart = String.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
+            FromPart = string.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
                 GetJoinTableModifierExpression(),
                 subJoins,
                 nl, " ON ", parentAliasWithKey, " = ", joinCondition);
@@ -2368,7 +2455,10 @@
         {
             string result = identifiers[identifiers.Length - 1];
             for (int i = identifiers.Length - 2; i >= 0; i--)
+            {
                 result = string.Concat(" IN (", identifiers[i], ", ", result, ")");
+            }
+
             return result;
         }
 
@@ -2381,7 +2471,10 @@
         {
             string result = identifiers[identifiers.Length - 1];
             for (int i = identifiers.Length - 2; i >= 0; i--)
+            {
                 result = string.Concat("IFNULL(", identifiers[i], ", ", result, ")");
+            }
+
             return result;
         }
 
@@ -2392,7 +2485,7 @@
         /// <returns>оформленный идентификатор(например в кавычках)</returns>
         public virtual string PutIdentifierIntoBrackets(string identifier)
         {
-            return String.Concat("\"", identifier, "\"");
+            return string.Concat("\"", identifier, "\"");
         }
 
         /// <summary>
@@ -2425,14 +2518,13 @@
                         joinscount++;
                         string curAlias = subSource.Name + j.ToString();
                         keysandtypes.Add(
-                            new string[]{
-                                        PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
-                                        PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
+                            new string[]
+                            {
+                                        PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
+                                        PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
                                             subSource.Name
-                                    }
-
-                            );
-                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);//+"_M"+(locindex++).ToString());
+                                    });
+                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);// +"_M"+(locindex++).ToString());
                         int subjoinscount;
                         string subjoin = string.Empty; string temp;
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp);
@@ -2450,13 +2542,20 @@
 
                             string deniedAccessValue;
                             if (!string.IsNullOrEmpty(expression) && !SecurityManager.CheckAccessToAttribute(expression, out deniedAccessValue))
+                            {
                                 Link = deniedAccessValue;
+                            }
                         }
 
                         if (subSource.storage[j].nullableLink)
+                        {
                             GetLeftJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                        }
                         else
+                        {
                             GetInnerJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                        }
+
                         FromPart += FromStr + ")";
                     }
                 }
@@ -2499,25 +2598,32 @@
                         joinscount++;
                         string curAlias = subSource.Name + j.ToString();
                         keysandtypes.Add(
-                            new string[]{
-                                            PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
-                                            PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
+                            new string[]
+                            {
+                                            PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
+                                            PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
                                             subSource.Name
-                                        }
-
-                            );
-                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);//+"_M"+(locindex++).ToString());
+                                        });
+                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);// +"_M"+(locindex++).ToString());
                         string subjoin = string.Empty; string temp;
                         int subjoinscount = 0;
                         string FromStr, WhereStr;
 
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
                         if (subSource.storage[j].nullableLink)
+                        {
                             GetLeftJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                        }
                         else
+                        {
                             GetInnerJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                        }
+
                         FromPart += FromStr;
-                        if (subjoin != string.Empty) FromPart += subjoin;
+                        if (subjoin != string.Empty)
+                        {
+                            FromPart += subjoin;
+                        }
                     }
                 }
             }
@@ -2558,9 +2664,14 @@
                     else
                     {
                         if (!PointExistInSourceIdentifier && expressarr[nextIndex].IndexOf(".") >= 0)
+                        {
                             PointExistInSourceIdentifier = true;
+                        }
+
                         if (namespacewithpoint != string.Empty)
+                        {
                             result += exteranlnamewithpoint + PutIdentifierIntoBrackets(namespacewithpoint + expressarr[nextIndex]);
+                        }
 
                         string st1 = exteranlnamewithpoint.Trim('.', '"');
                         if ((st1.IndexOf(".") == -1) && (expressarr[nextIndex].IndexOf(".") > 0))
@@ -2592,10 +2703,17 @@
         virtual public string GetConvertToTypeExpression(Type valType, string value)
         {
             if (valType == typeof(Guid))
+            {
                 return "Convert(uniqueidentifier," + value + ")";
-            else if (valType == typeof(Decimal))
+            }
+            else if (valType == typeof(decimal))
+            {
                 return "Convert(decimal," + value + ")";
-            else return string.Empty;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -2645,7 +2763,9 @@
                 {
                     selectPartFields += nlk;
                     if (!prop.AdditionalProp)
+                    {
                         superSelectPartFileds += nlk;
+                    }
                 }
 
                 bool propStored = prop.Stored;
@@ -2680,13 +2800,17 @@
 
                         selectPartFields += field + " as " + brackedIdent;
                         if (!prop.AdditionalProp)
+                        {
                             superSelectPartFileds += brackedIdent;
+                        }
                     }
                     else
                     {
                         string[] names = new string[prop.storage.Length];
                         for (int j = 0; j < prop.storage.Length; j++)
+                        {
                             names[j] = PutIdentifierIntoBrackets(prop.source.Name + j.ToString()) + "." + PutIdentifierIntoBrackets(prop.storage[j][0]);
+                        }
 
                         string field = this.GetIfNullExpression(names);
                         string deniedAccessValue = string.Empty;
@@ -2696,11 +2820,15 @@
                         // иначе выводим специальное значение из того же DataServiceExpression.
                         if (SecurityManager.UseRightsOnAttribute
                             && !SecurityManager.CheckAccessToAttribute(prop.Expression, out deniedAccessValue))
+                        {
                             field = deniedAccessValue;
+                        }
 
                         selectPartFields += field + " as " + brackedIdent;
                         if (!prop.AdditionalProp)
+                        {
                             superSelectPartFileds += brackedIdent;
+                        }
                     }
                 }
                 else
@@ -2736,7 +2864,10 @@
                             {
                                 string mainObjectKeyReplace = "{" + namespacewithpoint + "STORMMainObjectKey}";
 
-                                if (!mainKeyByNamespace.ContainsKey(prop.source.Name)) mainKeyByNamespace.Add(prop.source.Name, mainObjectKeyReplace);
+                                if (!mainKeyByNamespace.ContainsKey(prop.source.Name))
+                                {
+                                    mainKeyByNamespace.Add(prop.source.Name, mainObjectKeyReplace);
+                                }
 
                                 var regex = new Regex("\"?STORMMainObjectKey\"?", RegexOptions.IgnoreCase);
                                 translatedExpression = regex.Replace(translatedExpression, mainObjectKeyReplace);
@@ -2746,13 +2877,17 @@
                         selectPartFields += "NULL as " + brackedIdent;
                         HasExpresions = true;
                         if (!prop.AdditionalProp)
+                        {
                             superSelectPartFileds += translatedExpression;
+                        }
                     }
                     else
                     {
                         selectPartFields += "NULL as " + brackedIdent;
                         if (!prop.AdditionalProp)
+                        {
                             superSelectPartFileds += brackedIdent;
+                        }
                     }
                 }
 
@@ -2780,12 +2915,18 @@
                 if (joinsCount > 0)
                 {
                     if (!MustNewGenerate)
+                    {
                         fromstring = GenString("(", joinsCount) + fromstring;
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(wherepar))
                 {
-                    if (wherestring != string.Empty) wherestring += " and ";
+                    if (wherestring != string.Empty)
+                    {
+                        wherestring += " and ";
+                    }
+
                     wherestring += wherepar;
                 }
             }
@@ -2835,9 +2976,17 @@
             {
                 string MasterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + keyIndex.ToString());
 
-                if (selectKeyFields != string.Empty) selectKeyFields += ", ";
+                if (selectKeyFields != string.Empty)
+                {
+                    selectKeyFields += ", ";
+                }
+
                 selectKeyFields += GetConvertToTypeExpression(typeof(Guid), "null") + " as " + MasterKeyBracked;
-                if (superSelectKeyFields != string.Empty) superSelectKeyFields += ", ";
+                if (superSelectKeyFields != string.Empty)
+                {
+                    superSelectKeyFields += ", ";
+                }
+
                 superSelectKeyFields += MasterKeyBracked;
 
                 keyIndex++;
@@ -2845,9 +2994,17 @@
 
             if (AddingAdvansedField != string.Empty)
             {
-                if (selectKeyFields != string.Empty) selectKeyFields += ", ";
+                if (selectKeyFields != string.Empty)
+                {
+                    selectKeyFields += ", ";
+                }
+
                 selectKeyFields += AddingAdvansedField;
-                if (superSelectKeyFields != string.Empty) superSelectKeyFields += ", ";
+                if (superSelectKeyFields != string.Empty)
+                {
+                    superSelectKeyFields += ", ";
+                }
+
                 superSelectKeyFields += AddingAdvansedField;
             }
 
@@ -2863,12 +3020,15 @@
             }
 
             if (HasExpresions && MustDopSelect)
+            {
                 MainSelect =
                     "SELECT " + nl
                     + superSelectPartFileds + nlk
                     + superSelectKeyFields + nl
                     + "FROM " + nl +
                     "( " + MainSelect + ")" + PutIdentifierIntoBrackets(storageStruct.sources.storage[0].ownerType.FullName);
+            }
+
             return MainSelect;
         }
 
@@ -2888,7 +3048,9 @@
             if (valType == typeof(string))
             {
                 if ((string)value == string.Empty)
+                {
                     return "NULL";
+                }
 
                 return "'" + value.ToString().Replace("'", "''") + "'";
             }
@@ -2917,21 +3079,29 @@
             {
                 string s = STORMDO.EnumCaption.GetCaptionFor(value);
                 if (s == null || s == string.Empty)
+                {
                     return "NULL";
+                }
                 else
+                {
                     return "'" + s + "'";
+                }
             }
 
             if (valType == typeof(bool))
             {
                 if ((bool)value)
+                {
                     return "1";
+                }
 
                 return "0";
             }
 
             if (valType == typeof(Guid))
+            {
                 return "'" + ((Guid)value).ToString("B") + "'";
+            }
 
             if (valType == typeof(double))
             {
@@ -2949,7 +3119,9 @@
             }
 
             if (valType.IsSubclassOf(typeof(DataObject)))
+            {
                 return ConvertSimpleValueToQueryValueString(((DataObject)value).__PrimaryKey);
+            }
 
             if (valType == typeof(byte[]))
             {
@@ -2986,7 +3158,10 @@
                     {
                         string s = STORMDO.EnumCaption.GetCaptionFor(value);
                         if (s == null || s == string.Empty)
+                        {
                             return "NULL";
+                        }
+
                         return "'" + s + "'";
                     }
 
@@ -3023,9 +3198,13 @@
                     {
                         string s = STORMDO.EnumCaption.GetCaptionFor(value);
                         if (s == null || s == string.Empty)
+                        {
                             return "NULL";
+                        }
                         else
+                        {
                             return "'" + s + "'";
+                        }
                     }
                     else
                     {
@@ -3045,14 +3224,14 @@
                 string doprst = string.Empty;
                 string rexst = "[^\"" + @"\w]" + asname + "[^\"" + @"\w]";
 
-                //если кто-то написал в ограничениях без двойных кавычек, то исправляем
+                // если кто-то написал в ограничениях без двойных кавычек, то исправляем
                 while (System.Text.RegularExpressions.Regex.IsMatch(sw, rexst))
                 {
                     string dsw = System.Text.RegularExpressions.Regex.Match(sw, rexst).Value;
                     sw = sw.Replace(dsw, dsw.Replace(asname, PutIdentifierIntoBrackets(asname)));
                 }
 
-                //заменим алиасы на нужные значения
+                // заменим алиасы на нужные значения
                 rexst = string.Empty;
                 string[] names = new string[StorageStruct[0].props[i].storage.Length];
                 if (StorageStruct[0].props[i].MastersTypesCount > 0)
@@ -3072,7 +3251,7 @@
 
                     rexst = this.GetIfNullExpression(names);
 
-                    //doprst = GetValueForLimitParam(LimitFunction, asname);
+                    // doprst = GetValueForLimitParam(LimitFunction, asname);
                 }
                 else if (StorageStruct[0].props[i].storage[0][0] != null)
                 {
@@ -3112,7 +3291,10 @@
                     bexists = CheckExists((ICSSoft.STORMNET.FunctionalLanguage.Function)LimitFunction.Parameters[i]);
                 }
 
-                if (bexists) return true;
+                if (bexists)
+                {
+                    return true;
+                }
             }
 
             if (LimitFunction.FunctionDef.StringedView.StartsWith("Exist"))
@@ -3144,7 +3326,7 @@
             {
                 sw = ReplaceAliases(StorageStruct, asnameprop, sw);
 
-                //не применять для существуют такие и им подобных..
+                // не применять для существуют такие и им подобных..
                 bool bExistsFounded = CheckExists(LimitFunction); ;
                 if (!bExistsFounded)
                 {
@@ -3162,7 +3344,7 @@
                     k = sw.IndexOf(sPK, k + 1);
                     if (k > 0)
                     {
-                        //здесь еще раз заменяем алиас связующего поля, во внутреннем запросе и PK внешней таблицы..
+                        // здесь еще раз заменяем алиас связующего поля, во внутреннем запросе и PK внешней таблицы..
                         string st1 = sw.Substring(k + sPK.Length);
                         st1 = System.Text.RegularExpressions.Regex.Match(st1, @"\"".*\""",
                             System.Text.RegularExpressions.RegexOptions.IgnoreCase).Value;
@@ -3254,10 +3436,10 @@
 
                 object id1 = BusinessTaskMonitor.BeginSubTask(SelectString, ID);
 
-                //получаем данные
+                // получаем данные
                 object[][] resValue = ReadFirst(
-                    SelectString
-                    , ref State, customizationStruct.LoadingBufferSize);
+                    SelectString,
+                    ref State, customizationStruct.LoadingBufferSize);
 
                 // Если представление было изменено, то ..
                 if (!object.ReferenceEquals(customizationStruct.View, origView))
@@ -3275,6 +3457,7 @@
 
                     // .. удаляем лишние данные из результата
                     if (resValue != null)
+                    {
                         for (int i = 0; i < resValue.Length; i++)
                         {
                             object[] bak = resValue[i];
@@ -3283,9 +3466,13 @@
                             {
                                 resValue[i][j] = bak[k];
                                 k++;
-                                if (k == origViewLength) k += dif;
+                                if (k == origViewLength)
+                                {
+                                    k += dif;
+                                }
                             }
                         }
+                    }
 
                     // .. восстанавливаем исходное представление
                     customizationStruct.View = origView;
@@ -3295,9 +3482,14 @@
                 object[] procRead = null; ;
                 ObjectStringDataView[] result = null;
                 if (resValue == null)
+                {
                     result = new ObjectStringDataView[0];
+                }
                 else
+                {
                     result = Utils.ProcessingRowSet2StringedView(resValue, dataObjectType, PropCount, separator, customizationStruct, StorageStruct, this, Types, ref procRead, SecurityManager);
+                }
+
                 State = new object[] { State, dataObjectType, StorageStruct, separator, PropCount, customizationStruct, procRead };
                 BusinessTaskMonitor.EndSubTask(id1);
                 return result;
@@ -3396,7 +3588,10 @@
                         {
                             resValue[i][j] = bak[k];
                             k++;
-                            if (k == origView.Properties.Length) k += dif;
+                            if (k == origView.Properties.Length)
+                            {
+                                k += dif;
+                            }
                         }
                     }
 
@@ -3436,18 +3631,23 @@
 
                 object id1 = BusinessTaskMonitor.BeginSubTask(SelectString, ID);
 
-                //получаем данные
+                // получаем данные
                 object State = null;
                 object[][] resValue = ReadFirst(
-                    SelectString
-                    , ref State, customizationStruct.LoadingBufferSize);
+                    SelectString,
+                    ref State, customizationStruct.LoadingBufferSize);
                 int PropCount = customizationStruct.View.Properties.Length + ((customizationStruct.AdvansedColumns != null) ? customizationStruct.AdvansedColumns.Length : 0);
                 object[] procRead = null; ;
                 ObjectStringDataView[] result = null;
                 if (resValue == null)
+                {
                     result = new ObjectStringDataView[0];
+                }
                 else
+                {
                     result = Utils.ProcessingRowSet2StringedView(resValue, true, dataObjectType, PropCount, separator, customizationStruct, StorageStruct, this, Types, ref procRead, new DataObjectCache(), SecurityManager);
+                }
+
                 State = new object[] { State, dataObjectType, StorageStruct, separator, PropCount, customizationStruct, procRead };
                 BusinessTaskMonitor.EndSubTask(id1);
                 return result;
@@ -3467,7 +3667,7 @@
             System.Type[] dataObjectType = (System.Type[])statearr[1];
             STORMDO.Business.StorageStructForView[] StorageStruct = (STORMDO.Business.StorageStructForView[])statearr[2];
 
-            //получаем данные
+            // получаем данные
             LoadingCustomizationStruct customizationStruct = (LoadingCustomizationStruct)statearr[5];
             object[][] resValue = ReadNext(ref statearr[0], customizationStruct.LoadingBufferSize);
             object[] procRread = (object[])statearr[6];
@@ -3475,11 +3675,15 @@
             int PropCount = (int)statearr[4];
             char separator = (char)statearr[3];
             if (resValue == null)
+            {
                 return new ObjectStringDataView[0];
+            }
             else
+            {
                 return Utils.ProcessingRowSet2StringedView(resValue, dataObjectType, PropCount, separator, customizationStruct, StorageStruct, this, Types, ref procRread, SecurityManager);
+            }
 
-            //statearr[6] = procRread;
+            // statearr[6] = procRread;
         }
 
         /// <summary>
@@ -3488,15 +3692,22 @@
         /// <param name="state">Параметр состояния загрузки (массив объектов).</param>
         public void CompleteLoadStringedObjectView(ref object state)
         {
-            if (state == null || !state.GetType().IsArray) return;
+            if (state == null || !state.GetType().IsArray)
+            {
+                return;
+            }
 
             var stateArray = (object[])state;
 
             if (stateArray.Length == 0)
+            {
                 return;
+            }
 
             if (stateArray[0] == null || !stateArray[0].GetType().IsArray)
+            {
                 return;
+            }
 
             var parameterArray = (object[])stateArray[0];
 
@@ -3505,10 +3716,14 @@
             var connection = parameterArray[0] as IDbConnection;
 
             if (reader != null && !reader.IsClosed)
+            {
                 reader.Close();
+            }
 
             if (connection != null && connection.State != ConnectionState.Closed)
+            {
                 connection.Close();
+            }
 
             state = null;
         }
@@ -3527,9 +3742,13 @@
             STORMDO.DataObject[] arr = new STORMDO.DataObject[] { dobject };
             UpdateObjects(ref arr, DataObjectCache, AlwaysThrowException);
             if (arr != null && arr.Length > 0)
+            {
                 dobject = arr[0];
+            }
             else
+            {
                 dobject = null;
+            }
         }
 
         virtual public void UpdateObject(ICSSoft.STORMNET.DataObject dobject)
@@ -3588,11 +3807,15 @@
                 {
                     int index = alteredprops.IndexOf(lp);
                     if (index >= 0)
+                    {
                         alteredprops.Remove(lp);
+                    }
                 }
 
                 if (alteredprops.Count > 0)
+                {
                     throw new CantUpdateNotLoadedPropertiesException(dobject, alteredprops);
+                }
             }
 
             foreach (string prop in props)
@@ -3607,7 +3830,10 @@
                     System.Type[] mastertypes = TypeUsage.GetUsageTypes(type, prop);
                     System.Type propValType = (propval == null) ? null : propval.GetType();
                     if (propval == null && Information.GetPropertyNotNull(type, prop))
+                    {
                         throw new PropertyCouldnotBeNullException(prop, dobject);
+                    }
+
                     bool findedMasterType = false;
 
                     if (ReturnPropStorageNames)
@@ -3616,9 +3842,13 @@
                         {
                             string realpropname;
                             if (propstor == string.Empty)
+                            {
                                 realpropname = PutIdentifierIntoBrackets(STORMDO.Information.GetPropertyStorageName(type, prop, i));
+                            }
                             else
+                            {
                                 realpropname = PutIdentifierIntoBrackets(propstor + "_m" + i.ToString());
+                            }
 
                             if (propValType != mastertypes[i])
                             {
@@ -3634,7 +3864,13 @@
 
                                 ObjectStatus os = dobjval.GetStatus(false);
                                 if (os == ObjectStatus.Created || os == ObjectStatus.Deleted)
-                                    if (Array.IndexOf(Information.GetAutoStoreMastersDisabled(type), prop) == -1) masters.Add(dobjval);//Автосоздание мастеров только, если не отключено
+                                {
+                                    if (Array.IndexOf(Information.GetAutoStoreMastersDisabled(type), prop) == -1)
+                                    {
+                                        masters.Add(dobjval);// Автосоздание мастеров только, если не отключено
+                                    }
+                                }
+
                                 propsWithValues.Add(realpropname, ConvertValueToQueryValueString(dobjval.__PrimaryKey));
                                 findedMasterType = true;
                             }
@@ -3648,7 +3884,9 @@
                     }
 
                     if (!findedMasterType && propval != null)
+                    {
                         throw new NotFoundInTypeUsageException(type, prop, propValType);
+                    }
                 }
                 else if (propType.IsSubclassOf(typeof(STORMDO.DetailArray)))
                 { // Детейловые объекты
@@ -3657,7 +3895,9 @@
                         foreach (DataObject dob in (STORMDO.DetailArray)propval)
                         {
                             if (dob.GetStatus() != STORMDO.ObjectStatus.UnAltered)
+                            {
                                 details.Add(dob);
+                            }
                         }
                     }
                 }
@@ -3665,8 +3905,8 @@
                 { // Обычное свойство
                     propsWithValues.Add(
                         (ReturnPropStorageNames) ? PutIdentifierIntoBrackets(propstor)
-                        : propstor
-                        , ConvertValueToQueryValueString(propval));
+                        : propstor,
+                        ConvertValueToQueryValueString(propval));
                 }
             }
 
@@ -3674,7 +3914,10 @@
             foreach (var key in propsWithValues.GetAllKeys())
             {
                 if (tmpPropsWithValues.ContainsKey(key))
+                {
                     continue;
+                }
+
                 tmpPropsWithValues.Add(key, propsWithValues.Get(key));
             }
 
@@ -3888,9 +4131,14 @@
                             {
                                 int index0 = prevDicValue.LastIndexOf((char)0);
                                 if (prevDicValue.Length - index0 > 5000)
+                                {
                                     prevDicValue = DeleteDictionary[tableName] + ((char)0).ToString();
+                                }
                                 else
+                                {
                                     prevDicValue = DeleteDictionary[tableName] + " OR ";
+                                }
+
                                 DeleteDictionary[tableName] = prevDicValue + selectQuery;
                             }
                         }
@@ -4062,7 +4310,9 @@
             IDbTransaction transaction = null)
         {
             if (!AuditService.IsAuditEnabled)
+            {
                 return;
+            }
 
             var processingObjectsList = processingObjects.Cast<DataObject>().ToList();
 
@@ -4175,10 +4425,15 @@
                 var aggregatorsToLoad = new List<DataObject>();
 
                 if (oldAggregator != null && !oldAggregator.CheckLoadedProperty(detailArrayPropertyName))
+                {
                     aggregatorsToLoad.Add(oldAggregator);
+                }
+
                 if (newAggregator != null && newAggregator != oldAggregator
                     && !newAggregator.CheckLoadedProperty(detailArrayPropertyName))
+                {
                     aggregatorsToLoad.Add(newAggregator);
+                }
 
                 foreach (DataObject aggregator in aggregatorsToLoad)
                 {
@@ -4272,7 +4527,9 @@
             if (dependencies.ContainsKey(to))
             {
                 if (dependencies[to].IndexOf(@from) < 0)
+                {
                     dependencies[to].Add(@from);
+                }
             }
             else
             {
@@ -4506,7 +4763,10 @@
                             TypeKeyPair typeKeyPair = new TypeKeyPair(typeOfProcessingObject, prevPrimaryKey);
                             processingObjectsKeys.Remove(typeKeyPair);
                             if (processingObject.GetStatus(false) == ObjectStatus.Created)
+                            {
                                 KeyGen.KeyGenerator.GenerateUnique(processingObject, this);
+                            }
+
                             AddToProcessingObjectsKeys(processingObjectsKeys, processingObject);
                         }
 
@@ -4516,7 +4776,10 @@
                             if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
                             {
                                 if (subobject.GetStatus(false) == ObjectStatus.Created)
+                                {
                                     KeyGen.KeyGenerator.GenerateUnique(subobject, this);
+                                }
+
                                 processingObjects.Add(subobject);
                                 AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
                             }
@@ -4556,7 +4819,10 @@
                                 if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                 {
                                     if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
                                         KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
+
                                     processingObjects.Add(detobj);
                                     AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
                                 }
@@ -4607,7 +4873,10 @@
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                        {
                                             KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                        }
+
                                         processingObjects.Add(detobj);
                                         AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
                                     }
@@ -4618,7 +4887,10 @@
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                        {
                                             KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                        }
+
                                         processingObjects.Add(detobj);
                                         AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
                                     }
@@ -4678,7 +4950,10 @@
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                        {
                                             KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                        }
+
                                         processingObjects.Add(detobj);
                                         AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
                                     }
@@ -4691,7 +4966,10 @@
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                        {
                                             KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                        }
+
                                         processingObjects.Add(detobj);
                                         AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
                                     }
@@ -4738,7 +5016,10 @@
                                 foreach (DataObject detobj in detailsObjects)
                                 {
                                     if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
                                         KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
+
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         processingObjects.Add(detobj);
@@ -4749,7 +5030,9 @@
                                 foreach (DataObject detobj in mastersObjects)
                                 {
                                     if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
                                         KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
 
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
@@ -4788,13 +5071,20 @@
 
                                         string values = propsInTable[0] + " = " + propsWithValues[propsInTable[0]];
                                         for (int j = 1; j < propsInTable.Count; j++)
+                                        {
                                             values += nlk + PutIdentifierIntoBrackets(propsInTable[j]) + " = " + propsWithValues[propsInTable[j]];
+                                        }
+
                                         query += values + nl + " WHERE ";
                                         FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                                         var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
                                             lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(t).KeyType), Information.GetPrimaryKeyStorageName(t));
                                         FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
-                                        if (updaterobject != null) func = updaterobject.Function;
+                                        if (updaterobject != null)
+                                        {
+                                            func = updaterobject.Function;
+                                        }
+
                                         query += LimitFunction2SQLWhere(func);
                                         AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
                                         if (!updateQueries.Contains(query))
@@ -4810,7 +5100,10 @@
                                 foreach (DataObject detobj in detailsObjects)
                                 {
                                     if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
                                         KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
+
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         processingObjects.Add(detobj);
@@ -4822,7 +5115,10 @@
                                 foreach (DataObject detobj in mastersObjects)
                                 {
                                     if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
                                         KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
+
                                     if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                     {
                                         processingObjects.Add(detobj);
@@ -4836,17 +5132,26 @@
                                     string[] cols = propsWithValues.GetAllKeys();
                                     string values = cols[0] + " = " + propsWithValues[cols[0]];
                                     for (int j = 1; j < propsWithValues.Count; j++)
+                                    {
                                         values += nlk + cols[j] + " = " + propsWithValues[cols[j]];
+                                    }
+
                                     query += values + nl + " WHERE ";
                                     FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                                     var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
                                         lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(processingObject.GetType()).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
                                     FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
-                                    if (updaterobject != null) func = updaterobject.Function;
+                                    if (updaterobject != null)
+                                    {
+                                        func = updaterobject.Function;
+                                    }
+
                                     query += LimitFunction2SQLWhere(func);
                                     AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
                                     if (!updateQueries.Contains(query))
+                                    {
                                         updateQueries.Add(query);
+                                    }
                                 }
                             }
 
@@ -5067,7 +5372,9 @@
             }
 
             if (OnCreateCommand != null)
+            {
                 OnCreateCommand(this, new ICSSoft.STORMNET.Business.CreateCommandEventArgs(cmd));
+            }
         }
 
         protected virtual Exception RunCommands(StringCollection queries, StringCollection tables,
@@ -5315,7 +5622,8 @@
                         {
                             go = false;
                         }
-                    } while (go);
+                    }
+                    while (go);
 
                     if (queryOrder.Count > 0)
                     {
@@ -5355,7 +5663,8 @@
                             {
                                 go = false;
                             }
-                        } while (go);
+                        }
+                        while (go);
                     }
 
                     foreach (string table in queryOrder)
@@ -5428,7 +5737,9 @@
                 {
                     if (dobj.GetStatus(false) != STORMDO.ObjectStatus.Deleted
                         && dobj.GetStatus(false) != STORMDO.ObjectStatus.UnAltered)
+                    {
                         Utils.UpdateInternalDataInObjects(dobj, true, dataObjectCache);
+                    }
                 }
 
                 objects = new ICSSoft.STORMNET.DataObject[res.Count];
@@ -5437,13 +5748,17 @@
             }
 
             if (AfterUpdateObjects != null)
+            {
                 AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
+            }
         }
 
         private void OnBeforeUpdateObjects(ArrayList allQueriedObjects)
         {
             if (BeforeUpdateObjects == null)
+            {
                 return;
+            }
 
             var changedObjects = new List<DataObject>(allQueriedObjects.Count);
 
@@ -5611,19 +5926,29 @@
             instance.prvTypesByKeys = prvTypesByKeys;
 
             if (AfterGenerateSQLSelectQueryStatic != null)
+            {
                 instance.AfterGenerateSQLSelectQuery = (AfterGenerateSQLSelectQueryEventHandler)AfterGenerateSQLSelectQueryStatic.Clone();
+            }
 
             if (AfterUpdateObjects != null)
+            {
                 instance.AfterUpdateObjects = (AfterUpdateObjectsEventHandler)AfterUpdateObjects.Clone();
+            }
 
             if (BeforeUpdateObjects != null)
+            {
                 instance.BeforeUpdateObjects = (BeforeUpdateObjectsEventHandler)BeforeUpdateObjects.Clone();
+            }
 
             if (OnCreateCommand != null)
+            {
                 instance.OnCreateCommand = (OnCreateCommandEventHandler)OnCreateCommand.Clone();
+            }
 
             if (OnGenerateSQLSelect != null)
+            {
                 instance.OnGenerateSQLSelect = (OnGenerateSQLSelectEventHandler)OnGenerateSQLSelect.Clone();
+            }
 
             return instance;
         }

@@ -95,7 +95,9 @@
                     || input.StartsWith(string.Format("INSERT INTO \"{0}\"", filter), true, CultureInfo.InvariantCulture)
                     || input.StartsWith(string.Format("DELETE FROM \"{0}\"", filter), true, CultureInfo.InvariantCulture)
                     || input.StartsWith(string.Format("UPDATE \"{0}\"", filter), true, CultureInfo.InvariantCulture))
+                {
                     return;
+                }
             }
 
             lock (_lockConst)
@@ -115,12 +117,12 @@
 
         public void BeginTask(string taskName, object ID)
         {
-            //Print(taskName);
+            // Print(taskName);
         }
 
         public object BeginTask(string taskName)
         {
-            //Print(taskName);
+            // Print(taskName);
             return null;
         }
 
@@ -131,22 +133,24 @@
                 return;
             }
 
-            //Подтвердим выполнение запроса
+            // Подтвердим выполнение запроса
             if (_queries.ContainsKey(subTaskID))
             {
                 lock (_lockConst)
                 {
                     if (_queries.ContainsKey(subTaskID))
+                    {
                         _queries[subTaskID].Approvement = true;
+                    }
                 }
             }
 
-            //это мы не записываем
+            // это мы не записываем
         }
 
         public void EndTask(object ID)
         {
-            //это мы не записываем
+            // это мы не записываем
         }
 
         #endregion

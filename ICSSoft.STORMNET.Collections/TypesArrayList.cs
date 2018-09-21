@@ -39,7 +39,10 @@
             get
             {
                 if (stComparer == null)
+                {
                     stComparer = new TypeComaprer();
+                }
+
                 return stComparer;
             }
         }
@@ -126,8 +129,7 @@
         public virtual int BinarySearch(
             int index,
             int count,
-            Type value
-            )
+            Type value)
         {
             return dataArray.BinarySearch(index, count, value, Comparer);
         }
@@ -143,8 +145,7 @@
         /// <param name="item"></param>
         /// <returns></returns>
         public virtual bool Contains(
-            Type item
-            )
+            Type item)
         {
             return dataArray.Contains(item);
         }
@@ -154,8 +155,7 @@
         /// </summary>
         /// <param name="array"></param>
         public virtual void CopyTo(
-            Type[] array
-            )
+            Type[] array)
         {
             dataArray.CopyTo(array);
         }
@@ -167,8 +167,7 @@
         /// <param name="arrayIndex"></param>
         public virtual void CopyTo(
             Type[] array,
-            int arrayIndex
-            )
+            int arrayIndex)
         {
             dataArray.CopyTo(array, arrayIndex);
         }
@@ -184,8 +183,7 @@
             int index,
             Type[] array,
             int arrayIndex,
-            int count
-            )
+            int count)
         {
             dataArray.CopyTo(index, array, arrayIndex, count);
         }
@@ -196,13 +194,16 @@
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(
-            object obj
-            )
+            object obj)
         {
             if (obj is TypesArrayList)
+            {
                 return dataArray.Equals(((TypesArrayList)obj).dataArray);
+            }
             else
+            {
                 return false;
+            }
         }
 
         /// <summary>
@@ -213,8 +214,7 @@
         /// <returns></returns>
         public static new bool Equals(
             object objA,
-            object objB
-            )
+            object objB)
         {
             return objA.Equals(objB);
         }
@@ -225,8 +225,7 @@
         /// <param name="value"></param>
         /// <returns></returns>
         public virtual int IndexOf(
-            Type value
-            )
+            Type value)
         {
             return dataArray.IndexOf(value);
         }
@@ -239,8 +238,7 @@
         /// <returns></returns>
         public virtual int IndexOf(
             Type value,
-            int startIndex
-            )
+            int startIndex)
         {
             return dataArray.IndexOf(value, startIndex);
         }
@@ -255,8 +253,7 @@
         public virtual int IndexOf(
             Type value,
             int startIndex,
-            int count
-            )
+            int count)
         {
             return dataArray.IndexOf(value, startIndex, count);
         }
@@ -268,8 +265,7 @@
         /// <param name="value"></param>
         public virtual void Insert(
             int index,
-            Type value
-            )
+            Type value)
         {
             dataArray.Insert(index, value);
         }
@@ -280,8 +276,7 @@
         /// <param name="value"></param>
         /// <returns></returns>
         public virtual int LastIndexOf(
-            Type value
-            )
+            Type value)
         {
             return dataArray.LastIndexOf(value);
         }
@@ -294,8 +289,7 @@
         /// <returns></returns>
         public virtual int LastIndexOf(
             Type value,
-            int startIndex
-            )
+            int startIndex)
         {
             return dataArray.LastIndexOf(value, startIndex);
         }
@@ -310,8 +304,7 @@
         public virtual int LastIndexOf(
             Type value,
             int startIndex,
-            int count
-            )
+            int count)
         {
             return dataArray.LastIndexOf(value, startIndex, count);
         }
@@ -321,8 +314,7 @@
         /// </summary>
         /// <param name="obj"></param>
         public virtual void Remove(
-            Type obj
-            )
+            Type obj)
         {
             dataArray.Remove(obj);
         }
@@ -332,8 +324,7 @@
         /// </summary>
         /// <param name="index"></param>
         public virtual void RemoveAt(
-            int index
-            )
+            int index)
         {
             dataArray.RemoveAt(index);
         }
@@ -345,8 +336,7 @@
         /// <param name="count"></param>
         public virtual void RemoveRange(
             int index,
-            int count
-            )
+            int count)
         {
             dataArray.RemoveRange(index, count);
         }
@@ -359,8 +349,7 @@
         /// <returns></returns>
         public static TypesArrayList Repeat(
             TypesArrayList value,
-            int count
-            )
+            int count)
         {
             TypesArrayList res = new TypesArrayList();
             res.dataArray = ArrayList.Repeat(value.dataArray, count);
@@ -382,8 +371,7 @@
         /// <param name="count"></param>
         public virtual void Reverse(
             int index,
-            int count
-            )
+            int count)
         {
             dataArray.Reverse(index, count);
         }
@@ -403,8 +391,7 @@
         /// <param name="count"></param>
         public virtual void Sort(
             int index,
-            int count
-            )
+            int count)
         {
             dataArray.Sort(index, count, Comparer);
         }

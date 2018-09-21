@@ -465,17 +465,17 @@
             }
 
             // Снимается экранирование со всех символов, кроме *, [, ], _.
-            //regexString = regexString.Replace(@"\*", "{*}");
-            //regexString = regexString.Replace(@"\[", "{[}");
-            //regexString = regexString.Replace(@"\]", "{]}");
-            //regexString = regexString.Replace(@"\_", "{_}");
-            regexString = regexString.Replace(@"\", string.Empty); //TODO: временно экранирование снимается со всех символов
-            //regexString = regexString.Replace("{_}", @"\_");
-            //regexString = regexString.Replace("{]}", @"\]");
-            //regexString = regexString.Replace("{[}", @"\[");
-            //regexString = regexString.Replace("{*}", @"\*");
+            // regexString = regexString.Replace(@"\*", "{*}");
+            // regexString = regexString.Replace(@"\[", "{[}");
+            // regexString = regexString.Replace(@"\]", "{]}");
+            // regexString = regexString.Replace(@"\_", "{_}");
+            regexString = regexString.Replace(@"\", string.Empty); // TODO: временно экранирование снимается со всех символов
+            // regexString = regexString.Replace("{_}", @"\_");
+            // regexString = regexString.Replace("{]}", @"\]");
+            // regexString = regexString.Replace("{[}", @"\[");
+            // regexString = regexString.Replace("{*}", @"\*");
 
-            regexString = regexString.Replace(TempNotAccessibleString, @"\"); //TODO: временно экранирование снимается со всех символов
+            regexString = regexString.Replace(TempNotAccessibleString, @"\"); // TODO: временно экранирование снимается со всех символов
 
             return regexString;
         }
@@ -716,7 +716,10 @@
             masterName = masterName.Split('.')[0];
 
             // "__PrimaryKey" - не мастер.
-            if ("__PrimaryKey".Equals(masterName)) return;
+            if ("__PrimaryKey".Equals(masterName))
+            {
+                return;
+            }
 
             if (!view.Properties.Any(x => x.Name.Equals(masterName)))
             {

@@ -289,7 +289,7 @@ namespace ICSSoft.STORMNET.FileType
 
                 fsSource.Read(readed, 0, length);
 
-                _zippedValue=Convert.ToBase64String(readed);
+                _zippedValue = Convert.ToBase64String(readed);
             }
         }
 
@@ -395,13 +395,17 @@ namespace ICSSoft.STORMNET.FileType
         public int Compare(object x)
         {
             if (x == null)
+            {
                 return -1;
+            }
 
             if (x is File)
             {
                 var file = x as File;
                 if (file._zippedValue == _zippedValue)
+                {
                     return 0;
+                }
             }
 
             return -1;

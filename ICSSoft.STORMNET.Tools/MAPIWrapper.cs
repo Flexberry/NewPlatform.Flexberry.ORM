@@ -80,7 +80,9 @@ namespace ICSSoft.STORMNET.Tools
         {
             recipCount = 0;
             if (m_recipients.Count == 0)
+            {
                 return IntPtr.Zero;
+            }
 
             int size = Marshal.SizeOf(typeof(MapiRecipDesc));
             IntPtr intPtr = Marshal.AllocHGlobal(m_recipients.Count * size);
@@ -100,11 +102,15 @@ namespace ICSSoft.STORMNET.Tools
         {
             fileCount = 0;
             if (m_attachments == null)
+            {
                 return IntPtr.Zero;
+            }
 
             if ((m_attachments.Count <= 0) || (m_attachments.Count >
                 maxAttachments))
+            {
                 return IntPtr.Zero;
+            }
 
             int size = Marshal.SizeOf(typeof(MapiFileDesc));
             IntPtr intPtr = Marshal.AllocHGlobal(m_attachments.Count * size);
@@ -166,11 +172,15 @@ namespace ICSSoft.STORMNET.Tools
         public string GetLastError()
         {
             if (m_lastError <= 26)
+            {
                 return errors[m_lastError];
+            }
+
             return "MAPI error [" + m_lastError.ToString() + "]";
         }
 
-        readonly string[] errors = new string[] {
+        readonly string[] errors = new string[]
+        {
         "OK [0]", "User abort [1]", "General MAPI failure [2]",
                 "MAPI login failure [3]", "Disk full [4]",
                 "Insufficient memory [5]", "Access denied [6]",

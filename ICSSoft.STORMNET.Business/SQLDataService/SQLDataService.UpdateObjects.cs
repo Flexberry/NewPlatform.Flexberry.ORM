@@ -74,7 +74,7 @@
             OnBeforeUpdateObjects(AllQueriedObjects);
 
             // Сортируем объекты в порядке заданным графом связности.
-            extraProcessingList.Sort((x,y) =>
+            extraProcessingList.Sort((x, y) =>
             {
                 int indexX = QueryOrder.IndexOf(Information.GetClassStorageName(x.GetType()));
                 int indexY = QueryOrder.IndexOf(Information.GetClassStorageName(y.GetType()));
@@ -135,7 +135,10 @@
                     {
                         string table = QueryOrder[0];
                         if (!TableOperations.ContainsKey(table))
+                        {
                             TableOperations.Add(table, OperationType.None);
+                        }
+
                         var ops = (OperationType)TableOperations[table];
 
                         if ((ops & OperationType.Delete) != OperationType.Delete)
@@ -274,12 +277,17 @@
                     }
 
                     if (trans != null)
+                    {
                         trans.Commit();
+                    }
                 }
                 catch (Exception excpt)
                 {
                     if (trans != null)
+                    {
                         trans.Rollback();
+                    }
+
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
@@ -308,7 +316,9 @@
                 {
                     if (dobj.GetStatus(false) != STORMDO.ObjectStatus.Deleted
                         && dobj.GetStatus(false) != STORMDO.ObjectStatus.UnAltered)
+                    {
                         Utils.UpdateInternalDataInObjects(dobj, true, DataObjectCache);
+                    }
                 }
 
                 objects = new DataObject[res.Count];
@@ -317,7 +327,9 @@
             }
 
             if (AfterUpdateObjects != null)
+            {
                 AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
+            }
         }
 
         /// <summary>

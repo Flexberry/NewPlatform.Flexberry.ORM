@@ -70,12 +70,14 @@
 
         public override object ToSimpleValue()
         {
-            return new object[]{
+            return new object[]
+            {
                 fView.Name,
                 fView.DefineClassType.AssemblyQualifiedName,
                 ConnectMasterPorp,
                 OwnerConnectProp,
-                base.ToSimpleValue()};
+                base.ToSimpleValue()
+            };
         }
 
         /// <summary>
@@ -109,9 +111,13 @@
 
             ConnectMasterPorp = (string)obj[2];
             if (obj[3] == null)
+            {
                 OwnerConnectProp = null;
+            }
             else
+            {
                 OwnerConnectProp = (obj[3].GetType() == typeof(string)) ? new string[] { (string)obj[3] } : (string[])obj[3];
+            }
 
             fView.AddProperty(ConnectMasterPorp);
         }

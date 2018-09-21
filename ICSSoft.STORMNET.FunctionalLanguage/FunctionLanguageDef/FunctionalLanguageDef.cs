@@ -40,7 +40,9 @@
             foreach (FunctionDef fd in Functions)
             {
                 if (fd.ID == id)
+                {
                     return fd;
+                }
             }
 
             throw new Exception("Неизвестный идентификатор сериализованной функции." +
@@ -57,7 +59,9 @@
             foreach (FunctionDef fd in Functions)
             {
                 if (fd.StringedView == stringedView)
+                {
                     return fd;
+                }
             }
 
             throw new Exception("Неизвестное строковое представление сериализованной функции." +
@@ -74,7 +78,9 @@
             foreach (ObjectType ot in Types)
             {
                 if (ot.StringedView == typeName)
+                {
                     return ot;
+                }
             }
 
             return null;
@@ -261,11 +267,21 @@
         public virtual ObjectType GetObjectTypeForNetType(Type type)
         {
             foreach (ObjectType t in Types)
+            {
                 if (t.NetCompatibilityType == type)
+                {
                     return t;
+                }
+            }
+
             foreach (ObjectType t in Types)
+            {
                 if (CompatibilityTypeTest.Check(type, t.NetCompatibilityType) != TypesCompatibilities.No)
+                {
                     return t;
+                }
+            }
+
             return null;
         }
 
@@ -321,14 +337,15 @@
         {
             lock (m_objNull)
             {
-                //1. ищем все функции для данной Function String
+                // 1. ищем все функции для данной Function String
                 if (FunctionsByStringedViewList.Count == 0)
                 {
                     foreach (FunctionDef f in _fieldFunctions)
                     {
                         if (!FunctionsByStringedViewList.ContainsKey(f.StringedView))
+                        {
                             FunctionsByStringedViewList.Add(f.StringedView, new ArrayList());
-                        ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
+                        } ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
                     }
                 }
             }
@@ -347,7 +364,9 @@
             InitFunctionsByStringedViewList();
 
             if (!FunctionsByStringedViewList.ContainsKey(functionString))
+            {
                 throw new NotFoundFunctionBySignatureException();
+            }
 
             if ((functionString == "=" || functionString == "<>") && parameters.Count() == 2)
             { // В этом месте нет возможности получить доступ к привычным константам ExternalLangDef

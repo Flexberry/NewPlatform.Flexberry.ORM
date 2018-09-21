@@ -40,22 +40,32 @@
                 if ((fromType == typeof(string) && toType.IsEnum)
                     ||
                     (toType == typeof(string) && fromType.IsEnum))
+                {
                     return true;
+                }
 
                 if ((fromType == typeof(int) && toType.IsEnum)
                     ||
                     (toType == typeof(int) && fromType.IsEnum))
+                {
                     return true;
+                }
 
                 TypeTypePair key = new TypeTypePair(fromType, toType);
                 if (TypeToTypeMethods.ContainsKey(key))
+                {
                     return true;
+                }
 
                 if (!ParsedTypes.Contains(fromType))
+                {
                     AddTypeOperator(fromType);
+                }
 
                 if (!ParsedTypes.Contains(toType))
+                {
                     AddTypeOperator(toType);
+                }
 
                 return TypeToTypeMethods.ContainsKey(key);
             }
@@ -74,26 +84,40 @@
                 Type fromType = value.GetType();
 
                 if (fromType == toType)
+                {
                     return value;
+                }
 
                 if (fromType == typeof(string) && toType.IsEnum)
+                {
                     return EnumCaption.GetValueFor((string)value, toType);
+                }
 
                 if (fromType.IsEnum && toType == typeof(string))
+                {
                     return EnumCaption.GetCaptionFor(value);
+                }
 
                 if (fromType == typeof(int) && toType.IsEnum)
+                {
                     return Enum.Parse(toType, Enum.GetName(toType, value));
+                }
 
                 if (fromType.IsEnum && toType == typeof(int))
+                {
                     return (int)value;
+                }
 
                 TypeTypePair key = new TypeTypePair(fromType, toType);
                 if (!ParsedTypes.Contains(fromType))
+                {
                     AddTypeOperator(fromType);
+                }
 
                 if (!ParsedTypes.Contains(toType))
+                {
                     AddTypeOperator(toType);
+                }
 
                 if (TypeToTypeMethods.ContainsKey(key))
                 {
@@ -102,7 +126,9 @@
                 }
 
                 if (toType == typeof(string))
+                {
                     return value.ToString();
+                }
 
                 return System.Convert.ChangeType(value, toType);
             }
@@ -117,12 +143,16 @@
             ParsedTypes.Add(type);
             MethodInfo[] mis = type.GetMethods();
             foreach (MethodInfo curmi in mis)
+            {
                 if (((curmi.IsSpecialName && (curmi.Name == "op_Implicit" || curmi.Name == "op_Explicit")) || curmi.Name == "Parse") && curmi.GetParameters().Length == 1)
                 {
                     TypeTypePair key = new TypeTypePair(curmi.GetParameters()[0].ParameterType, curmi.ReturnType);
                     if (!TypeToTypeMethods.ContainsKey(key))
+                    {
                         TypeToTypeMethods.Add(key, curmi);
+                    }
                 }
+            }
         }
 
         /// <summary>

@@ -123,7 +123,9 @@
             get
             {
                 if (_schemaStream != null && _schemaStream.CanSeek)
+                {
                     _schemaStream.Seek(0, SeekOrigin.Begin);
+                }
 
                 return _schemaStream;
             }
@@ -138,7 +140,9 @@
                 ClearDataSet();
                 _schemaStream = value;
                 if (_dataStream != null || _dataWorkMode == WorkMode.FileSystem)
+                {
                     LoadDataSet();
+                }
             }
         }
 
@@ -155,7 +159,10 @@
             get
             {
                 if (_dataStream != null && _dataStream.CanSeek)
+                {
                     _dataStream.Seek(0, SeekOrigin.Begin);
+                }
+
                 return _dataStream;
             }
 
@@ -205,9 +212,14 @@
                     _customizationString = value;
 
                     if (value.Contains("SchemaMode=InMemory"))
+                    {
                         _schemaWorkMode = WorkMode.InMemory;
+                    }
+
                     if (value.Contains("DataMode=InMemory"))
+                    {
                         _dataWorkMode = WorkMode.InMemory;
+                    }
 
                     string[] parts = value.Split(';');
                     string filePath = parts.FirstOrDefault(x => !x.Contains("="));
@@ -276,7 +288,9 @@
                 dataObjectCache.AddDataObject(dobject);
 
                 if (clearDataObject)
+                {
                     dobject.Clear();
+                }
 
                 Type doType = dobject.GetType();
                 var lc = new LoadingCustomizationStruct(GetInstanceId());
@@ -286,7 +300,9 @@
                 object prevPrimaryKey = null;
 
                 if (dobject.Prototyped)
+                {
                     prevPrimaryKey = dobject.__PrimaryKey;
+                }
 
                 FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, dobject.__PrimaryKey);
                 lc.Init(new ColumnsSortDef[0], func, new[] { doType }, dataObjectView, new string[0]);
@@ -316,21 +332,27 @@
                     lc = cst;
                 }
 
-                //строим запрос
+                // строим запрос
                 StorageStructForView[] storageStruct;
 
-                //получаем данные
+                // получаем данные
                 object[][] resValue = ReadData(lc, out storageStruct);
 
                 if (resValue != null && resValue.Length == 0)
+                {
                     resValue = null;
+                }
 
                 if (resValue == null)
                 {
                     if (checkExistingObject)
+                    {
                         throw new CantFindDataObjectException(doType, dobject.__PrimaryKey);
+                    }
                     else
+                    {
                         return;
+                    }
                 }
 
                 var rrr = new[] { dobject };
@@ -355,7 +377,9 @@
                                        ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
+            {
                 _changeViewForTypeDelegate = changeViewForTypeDelegate;
+            }
 
             LoadObject(dataObjectView, dobject, true, true, dataObjectCache);
         }
@@ -514,7 +538,9 @@
                             loadobjects[i] = dataobjects[(int)aLobjectsKeys.GetByIndex(indexobj)];
 
                             if (clearDataobject)
+                            {
                                 loadobjects[i].Clear();
+                            }
 
                             dataObjectCache.AddDataObject(loadobjects[i]);
                         }
@@ -584,7 +610,7 @@
                     customizationStruct = cst;
                 }
 
-                //получаем данные
+                // получаем данные
                 object[][] resValue = ReadData(customizationStruct, out storageStruct);
                 state = null;
 
@@ -605,7 +631,7 @@
         {
             return null;
 
-            //все никакого иного кода быть не может
+            // все никакого иного кода быть не может
         }
 
         public virtual DataObject[] LoadObjects(View dataObjectView)
@@ -618,7 +644,9 @@
         public virtual DataObject[] LoadObjects(View dataObjectView, ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
+            {
                 _changeViewForTypeDelegate = changeViewForTypeDelegate;
+            }
 
             return LoadObjects(dataObjectView);
         }
@@ -638,7 +666,9 @@
                 res = LoadObjects(view);
 
                 foreach (DataObject dataObject in res)
+                {
                     arr.Add(dataObject);
+                }
             }
 
             res = new DataObject[arr.Count];
@@ -656,7 +686,9 @@
                 res = LoadObjects(customizationStruct, new DataObjectCache());
 
                 foreach (DataObject dataObject in res)
+                {
                     arr.Add(dataObject);
+                }
             }
 
             res = new DataObject[arr.Count];
@@ -667,7 +699,9 @@
         public virtual DataObject[] LoadObjects(View[] dataObjectViews, ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
+            {
                 _changeViewForTypeDelegate = changeViewForTypeDelegate;
+            }
 
             return LoadObjects(dataObjectViews);
         }
@@ -676,7 +710,9 @@
                                                 ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
+            {
                 _changeViewForTypeDelegate = changeViewForTypeDelegate;
+            }
 
             return LoadObjects(customizationStructs);
         }
@@ -718,7 +754,9 @@
             object[] stst = null;
 
             if (resValue == null)
+            {
                 return new ObjectStringDataView[0];
+            }
 
             return Utils.ProcessingRowSet2StringedView(resValue, dataObjectType, propCount, separator,
                                                        customizationStruct, storageStruct, this, null, ref stst, SecurityManager);
@@ -728,7 +766,7 @@
         {
             return null;
 
-            //все никакого иного кода быть не может
+            // все никакого иного кода быть не может
         }
 
         /// <summary>
@@ -752,9 +790,13 @@
             var arr = new[] { dataObject };
             UpdateObjects(ref arr, dataObjectCache);
             if (arr != null && arr.Length > 0)
+            {
                 dataObject = arr[0];
+            }
             else
+            {
                 dataObject = null;
+            }
         }
 
         /// <summary>
@@ -798,7 +840,7 @@
 
         public virtual void UpdateObjects(ref DataObject[] objects)
         {
-            UpdateObjects(ref  objects, new DataObjectCache());
+            UpdateObjects(ref objects, new DataObjectCache());
         }
 
         /// <summary>
@@ -813,7 +855,7 @@
         public virtual void UpdateObjects(ref DataObject[] objects, bool alwaysThrowException)
         {
             UpdateObjects(
-                ref  objects, new DataObjectCache(), alwaysThrowException);
+                ref objects, new DataObjectCache(), alwaysThrowException);
         }
 
         public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache dataObjectCache,
@@ -833,7 +875,9 @@
             MethodInfo methodInfo = castType.GetMethod("Parse", new[] { typeof(string) });
 
             if (methodInfo != null && methodInfo.IsStatic)
+            {
                 return methodInfo.Invoke(Activator.CreateInstance(castType), new object[] { sValue });
+            }
 
             return Convert.ChangeType(sValue, castType);
         }
@@ -850,19 +894,23 @@
 
             // отключаем проверку ссылочной целостности на время обновления объектов данных
             if (_dataSet.EnforceConstraints)
+            {
                 _dataSet.EnforceConstraints = false;
+            }
 
             if (deletedObjects.Count > 0 || updatedObjects.Count > 0 || insertedObjects.Count > 0)
             {
-                //порядок выполнения запросов
-                //delete,insert,update
+                // порядок выполнения запросов
+                // delete,insert,update
                 for (int i = deletedObjects.Count - 1; i >= 0; i--)
                 {
                     var dos = (DeleteObjectStruct)deletedObjects[i];
                     DataTable dt = _dataSet.Tables[dos.Table];
 
                     if (dt.PrimaryKey == null || dt.PrimaryKey.Length == 0)
+                    {
                         dt.PrimaryKey = new[] { dt.Columns[dos.PrimaryKeyName] };
+                    }
 
                     DataRow dr = dt.Rows.Find(dos.Key);
                     dr.Delete();
@@ -881,10 +929,14 @@
                         if (dt.Columns.IndexOf(colName) != -1)
                         {
                             if ((value != null) && (value != DBNull.Value))
+                            {
                                 dr[colName] = ChangeType(value.ToString(),
                                                          _altdataSet.Tables[ios.Table].Columns[colName].DataType);
+                            }
                             else
+                            {
                                 dr[colName] = DBNull.Value;
+                            }
                         }
                         else if ((value != null) && (value != DBNull.Value))
                         {
@@ -902,7 +954,9 @@
                     DataTable dt = _dataSet.Tables[uos.Table];
 
                     if (dt.PrimaryKey == null || dt.PrimaryKey.Length == 0)
+                    {
                         dt.PrimaryKey = new[] { dt.Columns[uos.PrimaryKeyName] };
+                    }
 
                     DataRow dr = dt.Rows.Find(uos.Key);
                     bool bnewr = false;
@@ -921,10 +975,14 @@
                         if (dt.Columns.IndexOf(colName) != -1)
                         {
                             if ((value != null) && (value != DBNull.Value))
+                            {
                                 dr[colName] = ChangeType(value.ToString(),
                                                                  _altdataSet.Tables[uos.Table].Columns[colName].DataType);
+                            }
                             else
+                            {
                                 dr[colName] = DBNull.Value;
+                            }
                         }
                         else if ((value != null) && (value != DBNull.Value))
                         {
@@ -935,7 +993,9 @@
                     }
 
                     if (bnewr)
+                    {
                         dt.Rows.Add(dr);
+                    }
                 }
 
                 Exception enforceConstraintsError = null;
@@ -943,7 +1003,9 @@
                 try
                 {
                     if (enforceConstraints)
+                    {
                         _dataSet.EnforceConstraints = true;
+                    }
                 }
                 catch (Exception exception)
                 {
@@ -981,7 +1043,9 @@
                         string err = "";
 
                         foreach (DataTable dt in _dataSet.Tables)
+                        {
                             err += dt.TableName + Environment.NewLine;
+                        }
 
                         exception = new Exception("DataSet Error in" + err);
                     }
@@ -999,9 +1063,13 @@
             if (_dataSet.Tables.Count == 0)
             {
                 if (_schemaWorkMode == WorkMode.FileSystem)
+                {
                     _altdataSet.ReadXmlSchema(Folder + @"\" + DataBaseName + ".XSD");
+                }
                 else
+                {
                     _altdataSet.ReadXmlSchema(SchemaStream);
+                }
 
                 LoadDataSet(_dataSet);
             }
@@ -1010,15 +1078,22 @@
         private void LoadDataSet(DataSet dataSet)
         {
             if (_schemaWorkMode == WorkMode.FileSystem)
-
+            {
                 dataSet.ReadXmlSchema(Folder + @"\" + DataBaseName + ".XSD");
+            }
             else
+            {
                 dataSet.ReadXmlSchema(SchemaStream);
+            }
 
             if (_dataWorkMode == WorkMode.FileSystem)
+            {
                 dataSet.ReadXml(Folder + @"\" + DataBaseName + ".XML");
+            }
             else
+            {
                 dataSet.ReadXml(DataStream);
+            }
         }
 
         public void ClearDataSet()
@@ -1029,18 +1104,26 @@
         public void SaveDataSet()
         {
             if (_dataWorkMode == WorkMode.FileSystem)
+            {
                 _dataSet.WriteXml(Folder + @"\" + DataBaseName + ".XML");
+            }
             else
+            {
                 _dataSet.WriteXml(DataStream);
+            }
         }
 
         public void AddDataStructForTable(Type dataObjectType)
         {
             CreateTableForClass(dataObjectType, _dataSet);
             if (_schemaWorkMode == WorkMode.FileSystem)
+            {
                 _dataSet.WriteXmlSchema(Folder + @"\" + DataBaseName + ".XSD");
+            }
             else
+            {
                 _dataSet.WriteXmlSchema(SchemaStream);
+            }
         }
 
         private DataTable CreateTableForClass(Type dataobjectType, DataSet ds)
@@ -1054,7 +1137,7 @@
                 Type dotype = typeof(DataObject);
                 Type datype = typeof(DetailArray);
 
-                //вначале PrimaryKey;
+                // вначале PrimaryKey;
                 Type primkeyType = Information.GetStorageTypeForType(Information.GetPropertyType(dataobjectType, "__PrimaryKey"),
                                                                      typeof(XMLFileDataService));
                 dt.Columns.Add(new System.Data.DataColumn(Information.GetPrimaryKeyStorageName(dataobjectType),
@@ -1076,9 +1159,13 @@
                             string propstorname;
 
                             if (propstor == "")
+                            {
                                 propstorname = Information.GetPropertyStorageName(dataobjectType, prop, mi);
+                            }
                             else
+                            {
                                 propstorname = propstor + "_M" + mi;
+                            }
 
                             Type masterkeyType =
                                 Information.GetStorageTypeForType(Information.GetPropertyType(mastertypes[mi], "__PrimaryKey"),
@@ -1095,11 +1182,15 @@
                     {
                         Type[] dettypes = TypeUsage.GetUsageTypes(dataobjectType, prop);
                         foreach (Type tp in dettypes)
+                        {
                             CreateTableForClass(tp, ds);
+                        }
                     }
                     else if (prop != "__PrimaryKey")
+                    {
                         dt.Columns.Add(
                             new System.Data.DataColumn(propstor, storType, "", System.Data.MappingType.Attribute));
+                    }
                 }
             }
 
@@ -1111,7 +1202,7 @@
             string tableName = Information.GetClassStorageName(view.DefineClassType);
             string prkeyStorName = view.Properties[1].Name;
 
-            //string prevDicValue = "";
+            // string prevDicValue = "";
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
             var var = new FunctionalLanguage.VariableDef(
                 lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(view.DefineClassType).KeyType), prkeyStorName);
@@ -1144,7 +1235,9 @@
                 {
                     int index = alteredprops.IndexOf(lp);
                     if (index >= 0)
+                    {
                         alteredprops.Remove(lp);
+                    }
                 }
             }
 
@@ -1158,16 +1251,23 @@
                 {
                     Type[] mastertypes = TypeUsage.GetUsageTypes(type, prop);
                     Type propValType = null;
-                    if (propval != null) propValType = propval.GetType();
+                    if (propval != null)
+                    {
+                        propValType = propval.GetType();
+                    }
 
                     for (int i = 0; i < mastertypes.Length; i++)
                     {
                         string realpropname;
 
                         if (propstor == "")
+                        {
                             realpropname = Information.GetPropertyStorageName(type, prop, i);
+                        }
                         else
+                        {
                             realpropname = propstor + "_M" + i;
+                        }
 
                         propsWithValues.Add(realpropname, propValType == mastertypes[i]
                                                           ? ((DataObject)propval).__PrimaryKey
@@ -1181,7 +1281,9 @@
                         foreach (DataObject dob in (DetailArray)propval)
                         {
                             if (dob.GetStatus(false) != ObjectStatus.UnAltered)
+                            {
                                 details.Add(dob);
+                            }
                         }
                     }
                 }
@@ -1232,7 +1334,9 @@
                                 subobject.SetStatus(ObjectStatus.Deleted);
 
                                 if (!processingObjects.Contains(subobject))
+                                {
                                     processingObjects.Add(subobject);
+                                }
                             }
 
                             foreach (View subview in views)
@@ -1244,7 +1348,9 @@
                                     subobject.SetStatus(ObjectStatus.Deleted);
 
                                     if (!processingObjects.Contains(subobject))
+                                    {
                                         processingObjects.Add(subobject);
+                                    }
                                 }
                             }
 
@@ -1258,8 +1364,12 @@
                             GetAlteredPropsWithValues(dobject, false, out propsWithValues, out detailsObjects);
 
                             foreach (DataObject detobj in detailsObjects)
+                            {
                                 if (!processingObjects.Contains(detobj))
+                                {
                                     processingObjects.Add(detobj);
+                                }
+                            }
 
                             InsertObjectStruct ios;
                             ios.Table = Information.GetClassStorageName(doType);
@@ -1277,8 +1387,12 @@
                             GetAlteredPropsWithValues(dobject, checkLoadedProps, out propsWithValues, out detailsObjects);
 
                             foreach (DataObject detobj in detailsObjects)
+                            {
                                 if (!processingObjects.Contains(detobj))
+                                {
                                     processingObjects.Add(detobj);
+                                }
+                            }
 
                             if (propsWithValues.Count > 0)
                             {
@@ -1301,30 +1415,44 @@
             Type valType = value.GetType();
 
             if (valType == typeof(string))
+            {
                 return "'" + value + "'";
+            }
 
             if (valType == typeof(DateTime))
+            {
                 return "'" + ((DateTime)value).ToString(System.Globalization.DateTimeFormatInfo.CurrentInfo.UniversalSortableDateTimePattern) + "'";
+            }
 
             if (valType.IsEnum)
+            {
                 return "'" + EnumCaption.GetCaptionFor(value) + "'";
+            }
 
             if (valType == typeof(bool))
             {
                 if ((bool)value)
+                {
                     return "1";
+                }
 
                 return "0";
             }
 
             if (valType == typeof(Guid))
+            {
                 return "'" + ((Guid)value).ToString("B") + "'";
+            }
 
             if (valType == typeof(KeyGen.KeyGuid))
+            {
                 return "'" + value + "'";
+            }
 
             if (valType == typeof(decimal))
+            {
                 return ((decimal)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo);
+            }
 
             return value.ToString();
         }
@@ -1332,15 +1460,21 @@
         public virtual string ConvertValueToQueryValueString(object value)
         {
             if (value == null)
+            {
                 return "NULL";
+            }
 
             if (Utils.IsInternalBaseType(value))
+            {
                 return ConvertSimpleValueToQueryValueString(value);
+            }
 
             Type valType = value.GetType();
 
             if (valType.IsEnum)
+            {
                 return "'" + EnumCaption.GetCaptionFor(value) + "'";
+            }
 
             Type storageType = Information.GetStorageType(value, GetType());
             value = Convertors.InOperatorsConverter.Convert(value, storageType);

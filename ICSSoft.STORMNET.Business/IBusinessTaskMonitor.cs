@@ -32,7 +32,7 @@
         /// <param name="SubTask">Имя подзадачи.</param>
         /// <param name="TaskID">Некоторый идентификатор задачи в конкретном мониторе.</param>
         /// <returns>Некоторый идентификатор подзадачи в конкретном мониторе.</returns>
-        object BeginSubTask(string SubTask,object TaskID);
+        object BeginSubTask(string SubTask, object TaskID);
 
         /// <summary>
         /// ПодЗадача закончила выполняться.
