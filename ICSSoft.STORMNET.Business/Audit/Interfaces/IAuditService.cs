@@ -42,7 +42,7 @@
         /// Следует ли отображать записи с изменением первичного ключа на формах.
         /// </summary>
         bool ShowPrimaryKey { get; set; }
-        
+
         #endregion Основные свойства
 
         #region Разное
@@ -87,14 +87,14 @@
         /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - true).</param>
         /// <param name="transaction">
         /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию, 
+        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
         /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// По умолчанию - null. 
+        /// По умолчанию - null.
         /// </param>
         /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
         Guid? WriteCommonAuditOperation(
             DataObject operationedObject, IDataService dataService, bool throwExceptions = true, IDbTransaction transaction = null);
-        
+
         /// <summary>
         /// Подтверждение созданных ранее операций аудита
         /// (если аудит идёт в одну БД с приложением, то будет использован сервис данных по умолчанию)
@@ -116,15 +116,15 @@
         /// <param name="throwExceptions"> Следует ли пробрасывать дальше возникшее исключение </param>
         /// <returns> True, если всё закончилось без ошибок </returns>
         bool RatifyAuditOperation(
-            tExecutionVariant executionVariant, 
-            List<Guid> auditOperationIdList, 
+            tExecutionVariant executionVariant,
+            List<Guid> auditOperationIdList,
             string dataServiceConnectionString,
             Type dataServiceType,
             bool throwExceptions);
 
         /// <summary>
         /// Подтверждение созданных ранее операций аудита (выполнение зависит от выбранного режима записи данных аудита)
-        /// (если аудит идёт в одну БД с приложением, 
+        /// (если аудит идёт в одну БД с приложением,
         /// то будет в сервис аудита передаваться имя строки соединения,
         /// найденное в AuditService.Current.AppSetting.AuditDSSettings по параметрам переданного сервиса данных)
         /// </summary>
@@ -135,8 +135,8 @@
         /// <returns> True, если всё закончилось без ошибок </returns>
         bool RatifyAuditOperation(
             tExecutionVariant executionVariant,
-            List<Guid> auditOperationIdList, 
-            IDataService dataService, 
+            List<Guid> auditOperationIdList,
+            IDataService dataService,
             bool throwExceptions);
 
         /// <summary>
@@ -150,7 +150,7 @@
 
         /// <summary>
         /// Сделать запись в аудит
-        /// (если аудит идёт в одну БД с приложением, 
+        /// (если аудит идёт в одну БД с приложением,
         /// то будет в сервис аудита передаваться имя строки соединения,
         /// найденное в AuditService.Current.AppSetting.AuditDSSettings по параметрам переданного сервиса данных)
         /// </summary>
@@ -162,7 +162,7 @@
 
         /// <summary>
         /// Сделать запись в аудит
-        /// (если аудит идёт в одну БД с приложением, 
+        /// (если аудит идёт в одну БД с приложением,
         /// то будет в сервис аудита передаваться имя строки соединения,
         /// найденное в AuditService.Current.AppSetting.AuditDSSettings по параметрам переданного сервиса данных)
         /// </summary>
@@ -177,7 +177,7 @@
             Type dataServiceType,
             bool throwExceptions);
 
-        #endregion Основные методы, используемый для аудита 
+        #endregion Основные методы, используемый для аудита
 
         #region Добавление полей аудита
 
@@ -231,9 +231,9 @@
         /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - true).</param>
         /// <param name="transaction">
         /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию, 
+        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
         /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// По умолчанию - null. 
+        /// По умолчанию - null.
         /// </param>
         /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
         AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
@@ -244,7 +244,7 @@
 
         /// <summary>
         /// Подтверждение созданных ранее операций аудита (выполнение зависит от выбранного режима записи данных аудита)
-        /// (если аудит идёт в одну БД с приложением, 
+        /// (если аудит идёт в одну БД с приложением,
         /// то будет в сервис аудита передаваться имя строки соединения,
         /// найденное в AuditService.Current.AppSetting.AuditDSSettings по параметрам переданного сервиса данных)
         /// </summary>

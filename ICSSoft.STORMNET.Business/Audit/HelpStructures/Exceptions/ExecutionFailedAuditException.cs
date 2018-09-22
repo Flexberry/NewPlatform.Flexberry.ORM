@@ -13,7 +13,8 @@
         /// Конструктор для инициализации сообщения исключениия
         /// </summary>
         /// <param name="innerException"> Внутреннее исключение </param>
-        public ExecutionFailedAuditException(Exception innerException) : base(AuditExecutionFailedErrorMessage, innerException)
+        public ExecutionFailedAuditException(Exception innerException)
+            : base(AuditExecutionFailedErrorMessage, innerException)
         {
         }
 

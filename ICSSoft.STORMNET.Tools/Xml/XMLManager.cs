@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
     using System.Xml;
-    
+
     /// <summary>
     /// Manager для работы с xml. Упрощает создание новых вершин, запись и чтение атрибутов различных типов.
     /// </summary>
@@ -25,7 +25,9 @@
         public static string GetAttributeValue(XmlNode node, string name)
         {
             if (node.Attributes == null)
+            {
                 return null;
+            }
 
             var attr = node.Attributes[name];
             return (attr != null) ? attr.Value : null;
@@ -287,7 +289,9 @@
             string attributeValue = GetAttributeValue(node, attributeName);
 
             if (string.IsNullOrEmpty(attributeValue))
+            {
                 return false;
+            }
 
             try
             {
@@ -328,14 +332,20 @@
             string attributeValue = GetAttributeValue(node, attributeName);
 
             if (string.IsNullOrEmpty(attributeValue))
+            {
                 return false;
+            }
 
             try
             {
                 if (value is Enum)
+                {
                     value = (T)Enum.Parse(typeof(T), attributeValue);
+                }
                 else
+                {
                     value = (T)Convert.ChangeType(attributeValue, typeof(T));
+                }
             }
             catch (Exception)
             {
@@ -498,7 +508,7 @@
             // Не важно с какой культурой запишем значение в xml, при чтении будем автоматически её подбирать.
             WriteValue(node, name, value.ToString(CultureInfo.CurrentCulture));
         }
-        
+
         /// <summary>
         /// Записать значение атрибута для вершины.
         /// </summary>

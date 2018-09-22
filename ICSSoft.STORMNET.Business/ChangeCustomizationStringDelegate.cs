@@ -1,4 +1,4 @@
-﻿namespace ICSSoft.STORMNET.Business 
+﻿namespace ICSSoft.STORMNET.Business
 {
     /// <summary>
     /// Делегат для изменения строки соединения (организация работы с несколькими базами).

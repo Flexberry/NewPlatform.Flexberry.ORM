@@ -31,6 +31,7 @@
             {
                 return _login;
             }
+
             set
             {
                 _login = value;
@@ -66,7 +67,9 @@
 
                 var searchResult = ds.FindOne();
                 if (searchResult == null)
+                {
                     return null;
+                }
 
                 string friendlyName = searchResult.Properties[UserCommonNameProperty][0].ToString();
                 return friendlyName;

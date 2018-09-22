@@ -10,6 +10,7 @@
     #region Определяем данные
 
     #region ..Взаимосвязь объектов
+
     /// <summary>
     /// Указывает объект, являющийся частью вышестоящего объекта.
     /// логика работы не реализована
@@ -20,8 +21,11 @@
         /// <summary>
         /// Возможно вам понадобится этот конструетор для создания экземпляра класса SubobjectAttribute
         /// </summary>
-        public SubobjectAttribute() { }
+        public SubobjectAttribute()
+        {
+        }
     }
+
     /// <summary>
     /// Указывает Агрегирующий объект для детейлового объекта
     /// </summary>
@@ -31,10 +35,13 @@
         /// <summary>
         /// Возможно вам понадобится этот конструетор для создания экземпляра класса AgregatorAttribute
         /// </summary>
-        public AgregatorAttribute() { }
+        public AgregatorAttribute()
+        {
+        }
     }
     #endregion
     #region ..Значения свойств
+
     /// <summary>
     /// Указывает, что данный атрибут не может принимать значения Null
     /// </summary>
@@ -80,7 +87,7 @@
     public class StrLenAttribute : Attribute
     {
         private int len;
-        
+
         /// <summary>
         /// Используется для указания отсутствия проверки на длину
         /// </summary>
@@ -88,7 +95,7 @@
         {
             len = -1;
         }
-        
+
         /// <summary>
         /// Используется для указания допустимой длины строки
         /// Для отмены пишите -1;
@@ -97,7 +104,7 @@
         {
             this.len = value;
         }
-        
+
         /// <summary>
         /// Значение атрибута. Если -1, то проверки не будет.
         /// </summary>
@@ -119,12 +126,14 @@
         /// <summary>
         /// Возможно вам понадобится этот конструетор для создания экземпляра класса OrderAttribute
         /// </summary>
-        public OrderAttribute() { }
+        public OrderAttribute()
+        {
+        }
     }
     #endregion
 
     /// <summary>
-    /// Укеазывает допустимые по присваиванию объекты объектов данных 
+    /// Укеазывает допустимые по присваиванию объекты объектов данных
     /// для мастеровых свойств и детайловых классов
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
@@ -142,7 +151,9 @@
             Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName == assemblyName);
 
             if (assembly == null)
+            {
                 throw new ArgumentException("В текущем домене приложения не найдена сборка " + assemblyName);
+            }
 
             var types = new List<Type>(typeNames.Length);
             types.AddRange(typeNames.Select(typeName => assembly.GetType(typeName)));
@@ -175,7 +186,9 @@
                     }
 
                     if (ts[i] == null)
+                    {
                         throw new Exception("TypeUsage Exception: Невозможно найти тип " + ts[i]);
+                    }
                 }
             }
 
@@ -250,9 +263,10 @@
 
     #endregion
 
-    //Хранение (Storage level)
+    // Хранение (Storage level)
     #region Где данные хранятся
     #region .. Вся сборка
+
     /// <summary>
     /// Место сохранения объектов данных в данной сборке.
     /// Указывается имя сервиса данных, использующихся для хранения
@@ -269,13 +283,19 @@
         /// <summary>
         /// наименование хранилища
         /// </summary>
-        public string Name { get { return name; } }
-        
+        public string Name
+        {
+            get { return name; }
+        }
+
         /// <summary>
         /// сервис данных для работы с указанным хранилищем
         /// </summary>
-        public Type DataServiceType { get { return dataServiceType; } }
-        
+        public Type DataServiceType
+        {
+            get { return dataServiceType; }
+        }
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса AssemblyStorageAttribute
         /// </summary>
@@ -286,13 +306,15 @@
             name = StorageName;
             dataServiceType = StorageDataServiceName;
         }
-        
+
         public AssemblyStorageAttribute(string StorageName, string StorageDataServiceName)
             : this(StorageName, Type.GetType(StorageDataServiceName, true, true))
-        { }
+        {
+        }
     }
     #endregion
     #region ... Объекты класса
+
     /// <summary>
     /// Некоторое логическое имя, под которым хранятся экземпляры объектов данных,
     /// например, для реляционного хранения это -- имя таблицы.
@@ -301,12 +323,15 @@
     public class ClassStorageAttribute : Attribute
     {
         private string name;
-        
+
         /// <summary>
         /// Наименование хранилища для класса
         /// </summary>
-        public string Name { get { return name; } }
-        
+        public string Name
+        {
+            get { return name; }
+        }
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса ClassStorageAttribute
         /// </summary>
@@ -331,7 +356,8 @@
         /// <param name="typeofgenerator">тип генератора ключей</param>
         public KeyGeneratorAttribute(string typeofgenerator)
             : this(Type.GetType(typeofgenerator, true, true))
-        { }
+        {
+        }
 
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса KeyGeneratorAttribute
@@ -345,7 +371,10 @@
         /// <summary>
         /// тип генератора ключей
         /// </summary>
-        public Type TypeOfGenerator { get { return typeofgenerator; } }
+        public Type TypeOfGenerator
+        {
+            get { return typeofgenerator; }
+        }
     }
     #endregion
     #region .... Свойства объектов
@@ -359,17 +388,23 @@
     {
         private string name = string.Empty;
         private string[] names = null;
-        
+
         /// <summary>
         /// наименование хранилища атрибута
         /// </summary>
-        public string Name { get { return name; } }
-        
+        public string Name
+        {
+            get { return name; }
+        }
+
         /// <summary>
         /// наименование хранилища для множественного связывания
         /// </summary>
-        public string[] Names { get { return names; } }
-        
+        public string[] Names
+        {
+            get { return names; }
+        }
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyStorageAttribute
         /// </summary>
@@ -390,7 +425,7 @@
     }
     #endregion
     #region .... Первичный ключ
-    
+
     /// <summary>
     /// Некоторое логическое имя, под которым хранится первичный ключ,
     /// например, для реляционного хранения это -- имя поля в таблице.
@@ -399,7 +434,7 @@
     public class PrimaryKeyStorageAttribute : Attribute
     {
         private string name;
-        
+
         /// <summary>
         /// наименование хранилища первичного ключа
         /// </summary>
@@ -410,7 +445,7 @@
                 return name;
             }
         }
-        
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса PrimaryKeyStorageAttribute
         /// </summary>
@@ -422,7 +457,7 @@
     }
     #endregion
     #region .... ключ типа
-    
+
     /// <summary>
     /// Некоторое логическое имя, под которым хранится тип,
     /// например, для реляционного хранения это -- имя таблицы.
@@ -432,12 +467,15 @@
     public class TypeStorageAttribute : Attribute
     {
         private string name;
-        
+
         /// <summary>
         /// наименование хранилища для типа
         /// </summary>
-        public string Name { get { return name; } }
-        
+        public string Name
+        {
+            get { return name; }
+        }
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса PrimaryKeyStorageAttribute
         /// </summary>
@@ -481,12 +519,12 @@
             {
                 return fAutoCreateMasterDisabled;
             }
+
             set
             {
                 fAutoCreateMasterDisabled = value;
             }
         }
-
     }
 
     /// <summary>
@@ -505,7 +543,7 @@
         {
             this.notstored = notStored;
         }
-        
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса NotStoredAttribute
         /// </summary>
@@ -513,11 +551,14 @@
         {
             this.notstored = true;
         }
-        
+
         /// <summary>
         /// нехранимое/хранимое
         /// </summary>
-        public bool Value { get { return notstored; } }
+        public bool Value
+        {
+            get { return notstored; }
+        }
     }
 
     /// <summary>
@@ -528,7 +569,7 @@
     {
         private Type dataServiceType;
         private string storageExpression;
-        
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса DataServiceExpressionAttribute
         /// </summary>
@@ -539,7 +580,7 @@
             this.dataServiceType = DataServiceType;
             this.storageExpression = StorageExpression;
         }
-        
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса DataServiceExpressionAttribute
         /// </summary>
@@ -547,21 +588,28 @@
         /// <param name="StorageExpression">запрос-формула</param>
         public DataServiceExpressionAttribute(string DataServiceType, string StorageExpression)
             : this(Type.GetType(DataServiceType, true, true), StorageExpression)
-        { }
-        
+        {
+        }
+
         /// <summary>
         /// запрос-формула
         /// </summary>
-        public string Expression { get { return storageExpression; } }
-        
+        public string Expression
+        {
+            get { return storageExpression; }
+        }
+
         /// <summary>
-        ///тип датасервиса
+        /// тип датасервиса
         /// </summary>
-        public Type TypeofDataService { get { return dataServiceType; } }
+        public Type TypeofDataService
+        {
+            get { return dataServiceType; }
+        }
     }
 
     /// <summary>
-    /// Определение порядка загрузки атрибутов, для тех случаев, 
+    /// Определение порядка загрузки атрибутов, для тех случаев,
     /// например, часть объектов детейлов является мастерами других детейлов,
     /// либо, например, для правильного счёта вычислимых атрибутов.
     /// Важно помнить, что принципиальный порядок загрузки остается следующим
@@ -573,7 +621,7 @@
     public class LoadingOrderAttribute : Attribute
     {
         private string[] order;
-        
+
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса LoadingOrderAttribute
         /// </summary>
@@ -582,11 +630,14 @@
         {
             this.order = order;
         }
-        
+
         /// <summary>
         /// порядок загрузки атрибутов
         /// </summary>
-        public string[] Order { get { return order; } set { order = value; } }
+        public string[] Order
+        {
+            get { return order; } set { order = value; }
+        }
     }
     #endregion
     #region Как хранятся
@@ -631,19 +682,22 @@
     }
 
     /// <summary>
-    /// происходит обрубание строк(применять функцию Trim()) при работе со строковыми данными через 
-    /// <see cref="Information.GetPropValueByName"/>  и <see cref="Information.GetPropValueByName"/> 
+    /// происходит обрубание строк(применять функцию Trim()) при работе со строковыми данными через
+    /// <see cref="Information.GetPropValueByName"/>  и <see cref="Information.GetPropValueByName"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     public class TrimmedStringStorageAttribute : System.Attribute
     {
         private bool trimmedStrings;
-        
+
         /// <summary>
         /// обрубать строки,или нет
         /// </summary>
-        public bool TrimmedStrings { get { return trimmedStrings; } }
-        
+        public bool TrimmedStrings
+        {
+            get { return trimmedStrings; }
+        }
+
         /// <summary>
         /// обрубать строки,или нет
         /// </summary>
@@ -652,7 +706,7 @@
         {
             this.trimmedStrings = trimmedStrings;
         }
-        
+
         /// <summary>
         /// обрубать строки
         /// </summary>
@@ -663,8 +717,9 @@
     }
     #endregion
 
-    //Представление (Presentation level)
+    // Представление (Presentation level)
     #region Определение представления
+
     /// <summary>
     /// Указывает представление для класса объекта данных
     /// формат указания: [Имя мастера].[Имя мастера мастера].[Имя мастера мастера мастера ...].[Имя атрибута] as [пользовательское имя атрибута]
@@ -677,30 +732,40 @@
         private string[] properties;
         private string[] hiddenProperties;
         private string viewName;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="ViewName">имя представления</param>
         /// <param name="properties">свойства в представлении</param>
         public ViewAttribute(string ViewName, string[] properties)
         {
-            if (ViewName == "") throw new Exception("View name in ViewAttribute coultd not be empty");
+            if (ViewName == string.Empty)
+            {
+                throw new Exception("View name in ViewAttribute coultd not be empty");
+            }
+
             this.viewName = ViewName;
             this.properties = (properties == null) ? null : (string[])properties.Clone();
             this.hiddenProperties = new string[0];
         }
-        
+
         /// <summary>
         /// имя представления
         /// </summary>
-        public string Name { get { return viewName; } }
-        
+        public string Name
+        {
+            get { return viewName; }
+        }
+
         /// <summary>
         /// состав атрибутов
         /// </summary>
-        public string[] Properties { get { return (properties == null) ? null : (string[])properties.Clone(); } }
-        
+        public string[] Properties
+        {
+            get { return (properties == null) ? null : (string[])properties.Clone(); }
+        }
+
         /// <summary>
         /// невидимые атрибуты
         /// </summary>
@@ -709,7 +774,7 @@
             get
             {
                 return (hiddenProperties == null) ? null : (string[])hiddenProperties.Clone();
-            } 
+            }
 
             set
             {
@@ -738,10 +803,13 @@
         /// <summary>
         /// использовать ли адаптивную вычитку
         /// </summary>
-        public bool UseAdaptiveViewsLoading { get { return detailUseAdaptiveViewsLoading; } set { detailUseAdaptiveViewsLoading = value; } }
+        public bool UseAdaptiveViewsLoading
+        {
+            get { return detailUseAdaptiveViewsLoading; } set { detailUseAdaptiveViewsLoading = value; }
+        }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="viewname">представление шапки</param>
         /// <param name="detailname">имя детейла</param>
@@ -764,64 +832,91 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="viewname">представление</param>
         /// <param name="detailname">имя детейла</param>
         /// <param name="detailviewname">представление детейла</param>
         /// <param name="detailLoadOnLoadAgregator">прочитывать ли при загрузке</param>
         public AssociatedDetailViewAttribute(string viewname, string detailname, string detailviewname, bool detailLoadOnLoadAgregator)
-            : this(viewname, detailname, detailviewname, detailLoadOnLoadAgregator, "", "", false, new string[0])
-        { }
+            : this(viewname, detailname, detailviewname, detailLoadOnLoadAgregator, string.Empty, string.Empty, false, new string[0])
+        {
+        }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="viewname">представление</param>
         /// <param name="detailname">имя детейла</param>
         /// <param name="detailviewname">представление детейла</param>
         public AssociatedDetailViewAttribute(string viewname, string detailname, string detailviewname)
             : this(viewname, detailname, detailviewname, true)
-        { }
-        
+        {
+        }
+
         /// <summary>
         /// имя детейла
         /// </summary>
-        public string DetailName { get { return detailName; } }
-        
+        public string DetailName
+        {
+            get { return detailName; }
+        }
+
         /// <summary>
         /// представление детейла
         /// </summary>
-        public string DetailViewName { get { return detailViewName; } }
-        
+        public string DetailViewName
+        {
+            get { return detailViewName; }
+        }
+
         /// <summary>
         /// представление шапки
         /// </summary>
-        public string ViewName { get { return viewname; } }
-        
+        public string ViewName
+        {
+            get { return viewname; }
+        }
+
         /// <summary>
         /// читать ли детейл при чтении агрегирующего объекта
         /// </summary>
-        public bool LoadOnLoadAgregator { get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; } }
-        
+        public bool LoadOnLoadAgregator
+        {
+            get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; }
+        }
+
         /// <summary>
         /// где располагается на форме
         /// </summary>
-        public string FormPath { get { return detailPath; } set { detailPath = value; } }
-        
+        public string FormPath
+        {
+            get { return detailPath; } set { detailPath = value; }
+        }
+
         /// <summary>
         /// Заголовок на форме
         /// </summary>
-        public string Caption { get { return detailcaption; } set { detailcaption = value; } }
-        
+        public string Caption
+        {
+            get { return detailcaption; } set { detailcaption = value; }
+        }
+
         /// <summary>
         /// видимость контрола на форме
         /// </summary>
-        public bool Visible { get { return detailvisible; } set { detailvisible = value; } }
-        
+        public bool Visible
+        {
+            get { return detailvisible; } set { detailvisible = value; }
+        }
+
         /// <summary>
         /// аггрегирующие операции доступные в этом представлении
         /// </summary>
-        public string[] AggregateOperations { get { return (aggregateOperations == null) ? null : (string[])aggregateOperations.Clone(); } set { aggregateOperations = value; } }
+        public string[] AggregateOperations
+        {
+            get { return (aggregateOperations == null) ? null : (string[])aggregateOperations.Clone(); } set { aggregateOperations = value; }
+        }
     }
     #endregion
     #region Контролы для представления
@@ -833,14 +928,17 @@
     public class CaptionAttribute : Attribute
     {
         private string value;
-        
+
         /// <summary>
         /// заголовок
         /// </summary>
-        public string Value { get { return value; } }
-        
+        public string Value
+        {
+            get { return value; }
+        }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="caption">заголовок</param>
         public CaptionAttribute(string caption)
@@ -858,12 +956,15 @@
     public class OnlyShowSelectedValueAttribute : Attribute
     {
         private bool value;
-        
+
         /// <summary>
         /// показывать только выделенное значение?
         /// </summary>
-        public bool Value { get { return value; } }
-        
+        public bool Value
+        {
+            get { return value; }
+        }
+
         /// <summary>
         /// показывать только выделенное значение
         /// </summary>
@@ -882,7 +983,6 @@
     }
     #endregion
 
-
     /// <summary>
     /// Помещать ли свойство в автоматически генерируемые прадставления
     /// </summary>
@@ -893,14 +993,16 @@
         /// Значение (true/false)
         /// </summary>
         public bool value = true;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public DisableAutoViewedAttribute() { }
-        
+        public DisableAutoViewedAttribute()
+        {
+        }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         public DisableAutoViewedAttribute(bool val)
@@ -919,14 +1021,16 @@
         /// Значение (true/false)
         /// </summary>
         public bool Value = true;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public DisableInsertPropertyAttribute() { }
-        
+        public DisableInsertPropertyAttribute()
+        {
+        }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         public DisableInsertPropertyAttribute(bool val)
@@ -934,7 +1038,6 @@
             Value = val;
         }
     }
-
 
     // Поведение объекта
 
@@ -948,14 +1051,16 @@
         /// автоматическое вычисление статуса Altered
         /// </summary>
         public bool value = true;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public AutoAlteredAttribute() { }
-        
+        public AutoAlteredAttribute()
+        {
+        }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="avalue">Если True, статус Altered вычисляется автоматически</param>
         public AutoAlteredAttribute(bool avalue)
@@ -965,7 +1070,7 @@
     }
 
     /// <summary>
-    /// Картинка для класса. 
+    /// Картинка для класса.
     /// Должна лежать в этой же сборке как embedded ресурс
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
@@ -977,7 +1082,7 @@
         public string fileName = string.Empty;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="fName">Имя картинки</param>
         public ClassImageFileAttribute(string fName)
@@ -996,9 +1101,9 @@
         /// название свойства
         /// </summary>
         public string property = string.Empty;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="fproperty">название свойства</param>
         public ClassImagePropertyAttribute(string fproperty)
@@ -1006,7 +1111,6 @@
             property = fproperty;
         }
     }
-
 
     /// <summary>
     /// Свойство, предоставляющее заголовок для экземпляров этого класса
@@ -1018,9 +1122,9 @@
         /// название свойства
         /// </summary>
         public string fieldCaptionProperty = string.Empty;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="CaptionProperty">название свойства</param>
         public InstanceCaptionPropertyAttribute(string CaptionProperty)
@@ -1028,8 +1132,6 @@
             fieldCaptionProperty = CaptionProperty;
         }
     }
-
-
 
     /// <summary>
     /// Агрегирующая функция в DetailArray
@@ -1041,14 +1143,14 @@
         /// как выводить результат ( типа "сумма = {0} или больше")
         /// </summary>
         public string CaptionFormat;
-        
+
         /// <summary>
         /// под каким свойством выводить в табличных контролах
         /// </summary>
         public string PropertyName;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="captionFormat">как выводить результат ( типа "сумма = {0} или больше")</param>
         /// <param name="propertyName">под каким свойством выводить в табличных контролах</param>
@@ -1068,17 +1170,17 @@
         /// Выпадающий список - комбобокс
         /// </summary>
         Combo,
-        
+
         /// <summary>
         /// По умолчанию, в отдельном списке
         /// </summary>
         Standard,
-        
+
         /// <summary>
         /// Коротенький список по представлению
         /// </summary>
         Quick,
-        
+
         /// <summary>
         /// Другой, произвольный
         /// </summary>
@@ -1096,9 +1198,9 @@
         private string masterName;
         private string customizationString;
         private string lookupProperty;
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="viewname">имя представления</param>
         /// <param name="mastername">имя свойства - мастера</param>
@@ -1115,41 +1217,56 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="viewname"></param>
         /// <param name="mastername"></param>
         /// <param name="lookuptype"></param>
         public MasterViewDefineAttribute(string viewname, string mastername, LookupTypeEnum lookuptype)
-            : this(viewname, mastername, lookuptype, "", "")
-        { }
-        
+            : this(viewname, mastername, lookuptype, string.Empty, string.Empty)
+        {
+        }
+
         /// <summary>
         /// имя представления
         /// </summary>
-        public string ViewName { get { return viewName; } }
-        
+        public string ViewName
+        {
+            get { return viewName; }
+        }
+
         /// <summary>
         /// имя свойства - мастера
         /// </summary>
-        public string MasterName { get { return masterName; } }
-        
+        public string MasterName
+        {
+            get { return masterName; }
+        }
+
         /// <summary>
         /// настройка лукапа
         /// </summary>
-        public string CustomizationString { get { return customizationString; } }
-        
+        public string CustomizationString
+        {
+            get { return customizationString; }
+        }
+
         /// <summary>
         /// тип лукапа
         /// </summary>
-        public LookupTypeEnum LookupType { get { return lookupType; } }
-        
+        public LookupTypeEnum LookupType
+        {
+            get { return lookupType; }
+        }
+
         /// <summary>
         /// отображаемое свойство
         /// </summary>
-        public string LookupProperty { get { return lookupProperty; } }
+        public string LookupProperty
+        {
+            get { return lookupProperty; }
+        }
     }
-
 
     /// <summary>
     /// Тип для кэтчера
@@ -1158,12 +1275,12 @@
     public class EventArgCatcherTypeAttribute : Attribute
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string value = string.Empty;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         public EventArgCatcherTypeAttribute(string type)

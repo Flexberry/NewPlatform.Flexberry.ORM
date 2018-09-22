@@ -2,7 +2,7 @@
 {
     using System;
     using System.Globalization;
-    
+
     /// <summary>
     /// Вспомагательный класс для работы <see cref="XMLManager"/>.
     /// Содержит методы для работы с типами данных.
@@ -18,9 +18,9 @@
         /// Строковый формат числа с точкой.
         /// </summary>
         private static NumberFormatInfo _formatPoint = new NumberFormatInfo { NumberDecimalSeparator = "." };
-        
+
         /// <summary>
-        /// Попробовать распарсить <see cref="Double"/> из строки без учета культуры.
+        /// Попробовать распарсить <see cref="double"/> из строки без учета культуры.
         /// </summary>
         /// <param name="value">Строковое значение, которое следует распарсить.</param>
         /// <param name="result">Распарсеное значение. Результат аналогичен при работе метода <see cref="double.TryParse(string, out double)"/>.</param>
@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Попробовать распарсить <see cref="Decimal"/> из строки без учета культуры.
+        /// Попробовать распарсить <see cref="decimal"/> из строки без учета культуры.
         /// </summary>
         /// <param name="value">Строковое значение, которое следует распарсить.</param>
         /// <param name="result">Распарсеное значение. Результат аналогичен при работе метода <see cref="decimal.TryParse(string, out decimal)"/>.</param>
@@ -42,7 +42,7 @@
             NumberFormatInfo format = GetFormatForString(value);
             return decimal.TryParse(value, NumberStyles.Float | NumberStyles.AllowThousands, format, out result);
         }
-        
+
         /// <summary>
         /// Поллучить актуальный формат для парсинга числа из строки.
         /// </summary>

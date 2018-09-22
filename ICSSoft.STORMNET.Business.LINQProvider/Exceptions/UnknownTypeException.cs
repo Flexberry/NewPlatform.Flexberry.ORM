@@ -7,6 +7,9 @@
     /// </summary>
     public class UnknownTypeException : Exception
     {
-        public UnknownTypeException(string message) : base(message) { }
+        public UnknownTypeException(string message)
+            : base(message)
+        {
+        }
     }
 }

@@ -20,12 +20,14 @@
 #endif
 
     #region class Information
+
     /// <summary>
     /// Доступ к метаданным
     /// </summary>
     public sealed class Information
     {
         #region Информация о генераторе первичных ключей
+
         /// <summary>
         /// Получить .Net-тип генератора первичных ключей, указываемого атрибутом KeyGeneratorAttribute
         /// </summary>
@@ -42,7 +44,9 @@
             {
                 Type res = (Type)cacheGetKeyGeneratorType[typeofdataobject];
                 if (res != null)
+                {
                     return res;
+                }
                 else
                 {
                     object[] genattrs = typeofdataobject.GetCustomAttributes(typeof(KeyGeneratorAttribute), true);
@@ -52,11 +56,15 @@
                 }
             }
         }
+
         #endregion
         #region Конструкторы классов
-        private Information() { }
+        private Information()
+        {
+        }
         #endregion
         #region Доступ к свойствам класса
+
         /// <summary>
         /// кэш для делегатов получения значения свойств из объектов
         /// </summary>
@@ -67,7 +75,11 @@
         /// </summary>
         static public object GetPropValueByName(DataObject obj, string propName)
         {
-            if (obj == null) return null;
+            if (obj == null)
+            {
+                return null;
+            }
+
             int pointIndex = propName.IndexOf(".");
             if (pointIndex >= 0)
             {
@@ -75,7 +87,9 @@
                 propName = propName.Substring(pointIndex + 1);
                 DataObject masterObject = (DataObject)GetPropValueByName(obj, masterName);
                 if (masterObject == null)
+                {
                     return null;
+                }
 
                 return GetPropValueByName(masterObject, propName);
             }
@@ -87,7 +101,7 @@
             {
                 value = obj.DynamicProperties[propName];
             }
-            else if (pi != null)//надо проверить что такое свойство есть
+            else if (pi != null) // надо проверить что такое свойство есть
             {
                 long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
                 if (!cacheGetPropValueByNameHandler.ContainsKey(key))
@@ -101,20 +115,23 @@
                         }
                     }
                 }
+
                 try
                 {
                     value = cacheGetPropValueByNameHandler[key](obj);
                 }
                 catch (InvalidProgramException)
                 {
-                    //сюда вываливаются, например, статические свойства (хотя что они делают в этом методе - непонятно)
+                    // сюда вываливаются, например, статические свойства (хотя что они делают в этом методе - непонятно)
                     value = pi.GetValue(obj, null);
                 }
 
                 if (value != null && pi.PropertyType == typeof(string))
                 {
                     if (TrimmedStringStorage(tp, propName))
+                    {
                         value = ((string)value).Trim();
+                    }
                 }
             }
 
@@ -135,7 +152,6 @@
             {
                 if (cacheTrimmedStringStorage[tp, propname] == null)
                 {
-
                     int pointIndex = propname.IndexOf(".");
                     if (pointIndex >= 0)
                     {
@@ -146,7 +162,6 @@
                     }
                     else
                     {
-
                         PropertyInfo pi = tp.GetProperty(propname);
                         object[] atrs = pi.GetCustomAttributes(typeof(TrimmedStringStorageAttribute), true);
                         if (atrs.Length == 0)
@@ -155,26 +170,34 @@
                             if (atrs.Length != 0)
                             {
                                 if (((TrimmedStringStorageAttribute)atrs[0]).TrimmedStrings)
+                                {
                                     cacheTrimmedStringStorage[tp, propname] = true;
+                                }
                                 else
+                                {
                                     cacheTrimmedStringStorage[tp, propname] = false;
+                                }
                             }
                             else
+                            {
                                 cacheTrimmedStringStorage[tp, propname] = false;
-
+                            }
                         }
                         else
                             if (((TrimmedStringStorageAttribute)atrs[0]).TrimmedStrings)
-                                cacheTrimmedStringStorage[tp, propname] = true;
-                            else
-                                cacheTrimmedStringStorage[tp, propname] = false;
+                        {
+                            cacheTrimmedStringStorage[tp, propname] = true;
+                        }
+                        else
+                        {
+                            cacheTrimmedStringStorage[tp, propname] = false;
+                        }
                     }
                 }
+
                 return (bool)cacheTrimmedStringStorage[tp, propname];
             }
         }
-
-
 
         /// <summary>
         /// Установить значение свойства объекта данных по имени этого свойства,
@@ -182,9 +205,9 @@
         /// При установке свойства выполняется попытка преобразовать строковое значение
         /// в значение соответствующего типа путём вызова статического метода Parse(string)
         /// у этого типа.
-        /// </summary>      
-        ///  <param name="obj">Объект данных, значение свойства которого кстанавливается данным методом </param>
-      /// <param name="propName">Имя свойства объекта данных, значение которого устанавливается данным методом</param>
+        /// </summary>
+        /// <param name="obj">Объект данных, значение свойства которого кстанавливается данным методом </param>
+        /// <param name="propName">Имя свойства объекта данных, значение которого устанавливается данным методом</param>
         /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом</param>
         static public void SetPropValueByName(DataObject obj, string propName, string PropValue)
         {
@@ -199,12 +222,12 @@
                 }
                 else
                 {
-
                     if (PropValue == null)
                     {
                         SetPropValueByName(obj, propName, (object)PropValue);
                         return;
                     }
+
                     System.Type propType;
                     System.Type tp = obj.GetType();
                     PropertyInfo pi = tp.GetProperty(propName);
@@ -222,9 +245,13 @@
                     else
                     {
                         if (propName != "__PrimaryKey")
+                        {
                             propType = GetPropertyType(tp, propName);
+                        }
                         else
+                        {
                             propType = KeyGen.KeyGenerator.KeyType(tp);
+                        }
                     }
 
                     if (propType.IsGenericType && propType.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -252,6 +279,7 @@
                                 {
                                     sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
                                 }
+
                                 cacheSetPropValueByName.Add(key, sh);
                             }
                         }
@@ -333,14 +361,20 @@
                                         {
                                             MethodInfo opImpl = propType.GetMethod("op_Implicit", new Type[] { typeof(string) });
                                             if (opImpl != null && opImpl.IsSpecialName)
-                                                newPropVal = opImpl.Invoke(null, new Object[] { propValString });
+                                            {
+                                                newPropVal = opImpl.Invoke(null, new object[] { propValString });
+                                            }
                                             else
                                             {
                                                 MethodInfo opExpl = propType.GetMethod("op_Explicit", new Type[] { typeof(string) });
                                                 if (opExpl != null && opExpl.IsSpecialName)
-                                                    newPropVal = opExpl.Invoke(null, new Object[] { propValString });
+                                                {
+                                                    newPropVal = opExpl.Invoke(null, new object[] { propValString });
+                                                }
                                                 else
+                                                {
                                                     throw new InvalidCastException();
+                                                }
                                             }
 
                                             setHandler(obj, newPropVal);
@@ -381,6 +415,7 @@
                     stTypesList.Add(name, name.StartsWith("System.") && (name.IndexOf(".", 7) == -1));
                     res = stTypesList[name];
                 }
+
                 return (bool)res;
             }
         }
@@ -396,7 +431,11 @@
         {
             try
             {
-                if (obj == null) return;
+                if (obj == null)
+                {
+                    return;
+                }
+
                 int pointIndex = propName.IndexOf(".");
                 if (pointIndex >= 0)
                 {
@@ -407,7 +446,10 @@
                 else
                 {
                     if (PropValue == System.DBNull.Value)
+                    {
                         PropValue = null;
+                    }
+
                     if ((PropValue != null) && (PropValue.GetType() == typeof(string)))
                     {
                         SetPropValueByName(obj, propName, (string)PropValue);
@@ -434,6 +476,7 @@
                                         SetPropValueByName(obj, propName, null);
                                         return;
                                     }
+
                                     propType = Nullable.GetUnderlyingType(propType);
                                 }
 
@@ -450,6 +493,7 @@
                                         }
                                     }
                                 }
+
                                 SetHandler setHandler = cacheSetPropValueByName[key];
                                 if (propType.IsEnum && PropValue == null)
                                 {
@@ -485,7 +529,7 @@
                                         {
                                             setHandler(obj, Convert.ChangeType(PropValue, propType));
                                         }
-                                        else if (valType == typeof(System.Byte[]) && propInfo.PropertyType == typeof(System.Guid) && (PropValue as byte[]).Length == 16)
+                                        else if (valType == typeof(byte[]) && propInfo.PropertyType == typeof(System.Guid) && (PropValue as byte[]).Length == 16)
                                         {
                                             setHandler(obj, new Guid(PropValue as byte[]));
                                         }
@@ -624,7 +668,7 @@
         }
 
         /// <summary>
-        /// Получить представление, "совместимое" с переданными классами. 
+        /// Получить представление, "совместимое" с переданными классами.
         /// Ищет общего предка, затем пытается взять у него указанное представление.
         /// Если представление не найдено, возвращается null.
         /// </summary>
@@ -633,25 +677,35 @@
         /// <returns></returns>
         static public View GetCompatibleView(string ViewName, System.Type[] types)
         {
-            //ищем базовый класс
+            // ищем базовый класс
             System.Type testType = types[0];
             bool compAll = false;
             while (!compAll || testType == typeof(DataObject))
             {
                 compAll = true;
                 for (int i = 1; i < types.Length; i++)
+                {
                     if (types[i] != testType && !types[i].IsSubclassOf(testType))
                     {
                         compAll = false;
                         break;
                     }
-                if (!compAll) testType = testType.BaseType;
-            }
-            if (testType != typeof(DataObject))
-                return GetView(ViewName, testType);
-            else
-                return null;
+                }
 
+                if (!compAll)
+                {
+                    testType = testType.BaseType;
+                }
+            }
+
+            if (testType != typeof(DataObject))
+            {
+                return GetView(ViewName, testType);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #endregion
@@ -662,24 +716,30 @@
         /// <summary>
         /// Получить список имён представлений для указанного класса объекта данных
         /// </summary>
-       /// <param name="type">Тип представления</param>
-       /// <returns>Массив строк, содержащих имена представлений для указанного типа</returns>
+        /// <param name="type">Тип представления</param>
+        /// <returns>Массив строк, содержащих имена представлений для указанного типа</returns>
         static public string[] AllViews(System.Type type)
         {
             lock (cacheAllViews)
             {
                 string[] res = (string[])cacheAllViews[type];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
-                    Object[] classAttributes = type.GetCustomAttributes(typeof(ViewAttribute), true);
+                    object[] classAttributes = type.GetCustomAttributes(typeof(ViewAttribute), true);
                     ArrayList arl = new ArrayList(classAttributes.Length);
                     for (int i = 0; i < classAttributes.Length; i++)
                     {
                         string viewName = ((ViewAttribute)classAttributes[i]).Name;
-                        if (!arl.Contains(viewName)) arl.Add(viewName);
+                        if (!arl.Contains(viewName))
+                        {
+                            arl.Add(viewName);
+                        }
                     }
+
                     string[] retval = new string[arl.Count];
                     arl.CopyTo(retval);
                     arl.Clear();
@@ -703,17 +763,26 @@
         static public string[] AllViews(params System.Type[] types)
         {
             if (types.Length == 0)
+            {
                 return new string[0];
+            }
             else
             {
                 string[] viewfortype = AllViews(types[0]);
                 ArrayList res = new ArrayList(viewfortype.Length);
                 for (int i = 0; i < viewfortype.Length; i++)
+                {
                     if (CheckViewForClasses((string)viewfortype[i], types))
+                    {
                         res.Add(viewfortype[i]);
+                    }
+                }
+
                 string[] resarr = new string[res.Count];
                 if (res.Count == 0)
+                {
                     return resarr;
+                }
                 else
                 {
                     res.CopyTo(resarr);
@@ -723,23 +792,40 @@
         }
         #endregion
         #region "bool CheckViewForClasses(string ViewName,params System.Type[] types)"
+
         /// <summary>
-        /// Проверить, доступно ли указанное по имени представление во всех перечисленных классах. 
+        /// Проверить, доступно ли указанное по имени представление во всех перечисленных классах.
         /// Речь идёт о ситуации, когда образующие иерархию наследования классы
         /// имеют представления, что означает, что имеется множество представлений,
         /// общее для некоторого множества классов.
         /// </summary>
         static public bool CheckViewForClasses(string ViewName, params System.Type[] types)
         {
-            if (types.Length == 0) return false;
+            if (types.Length == 0)
+            {
+                return false;
+            }
+
             View firstView = GetView(ViewName, types[0]);
-            if (firstView == null) return false;
+            if (firstView == null)
+            {
+                return false;
+            }
+
             for (int i = 1; i < types.Length; i++)
             {
                 View curView = GetView(ViewName, types[i]);
-                if (curView == null) return false;
-                if (curView.DefineClassType != firstView.DefineClassType) return false;
+                if (curView == null)
+                {
+                    return false;
+                }
+
+                if (curView.DefineClassType != firstView.DefineClassType)
+                {
+                    return false;
+                }
             }
+
             return true;
         }
         #endregion
@@ -754,7 +840,9 @@
             var result = new List<Type>();
 
             if (view == null || view.DefineClassType == null)
+            {
                 return result;
+            }
 
             // Получим список типов свойств представления без дублей.
             result = view.Properties.Select(p => GetPropertyType(view.DefineClassType, p.Name)).Distinct().ToList();
@@ -816,8 +904,9 @@
         #region Информация о свойствах
 
         static private TypeAtrValueCollection cacheGetTypeStorageName = new TypeAtrValueCollection();
+
         /// <summary>
-        ///Имя хранилища для типа
+        /// Имя хранилища для типа
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -827,21 +916,27 @@
             {
                 object res = cacheGetTypeStorageName[type];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
-                    Object[] typeAttributes = type.GetCustomAttributes(typeof(TypeStorageAttribute), true);
+                    object[] typeAttributes = type.GetCustomAttributes(typeof(TypeStorageAttribute), true);
 
                     if (typeAttributes.Length == 0)
-                        res = type.Name;//"typeId"
+                    {
+                        res = type.Name; // "typeId"
+                    }
                     else
+                    {
                         res = ((TypeStorageAttribute)typeAttributes[0]).Name;
+                    }
+
                     cacheGetTypeStorageName[type] = res;
                     return (string)res;
                 }
             }
         }
-
 
         static private TypeAtrValueCollection cacheGetPrimaryKeyStorageName = new TypeAtrValueCollection();
 
@@ -856,15 +951,22 @@
             {
                 object res = cacheGetPrimaryKeyStorageName[type];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
-                    Object[] typeAttributes = type.GetCustomAttributes(typeof(PrimaryKeyStorageAttribute), true);
+                    object[] typeAttributes = type.GetCustomAttributes(typeof(PrimaryKeyStorageAttribute), true);
 
                     if (typeAttributes.Length == 0)
+                    {
                         res = "primaryKey";
+                    }
                     else
+                    {
                         res = ((PrimaryKeyStorageAttribute)typeAttributes[0]).Name;
+                    }
+
                     cacheGetPrimaryKeyStorageName[type] = res;
                     return (string)res;
                 }
@@ -885,7 +987,9 @@
             {
                 System.Type[] res = (System.Type[])cacheGetCompatibleTypesForProperty[type, property];
                 if (res != null)
+                {
                     return CopyTypeArray(res);
+                }
                 else
                 {
                     int pointIndex = property.IndexOf(".");
@@ -898,7 +1002,6 @@
                     }
                     else
                     {
-
                         object[] classAtrs = type.GetCustomAttributes(typeof(PropertyTypeUsageAttribute), false);
 
                         if (classAtrs.Length > 0)
@@ -928,7 +1031,6 @@
             }
         }
 
-
         private static TypePropertyAtrValueCollection cacheGetItemType = new TypePropertyAtrValueCollection();
 
         /// <summary>
@@ -939,15 +1041,15 @@
         /// <returns></returns>
         static public System.Type GetItemType(System.Type AgregatorType, string DetailPropertyName)
         {
-
             lock (cacheGetItemType)
             {
                 Type res = (Type)cacheGetItemType[AgregatorType, DetailPropertyName];
                 if (res != null)
+                {
                     return res;
+                }
                 else
                 {
-
                     int pointIndex = DetailPropertyName.IndexOf(".");
                     if (pointIndex >= 0)
                     {
@@ -955,14 +1057,18 @@
                         DetailPropertyName = DetailPropertyName.Substring(pointIndex + 1);
                         System.Type MasterType = GetPropertyType(AgregatorType, MasterName);
                         if (MasterType == null)
+                        {
                             throw new CantFindPropertyException(MasterName, AgregatorType);
+                        }
                         else
+                        {
                             res = GetItemType(MasterType, DetailPropertyName);
+                        }
+
                         return res;
                     }
                     else
                     {
-
                         string err = string.Empty;
 
                         try
@@ -984,13 +1090,14 @@
                                             (pars[0].ParameterType == AgregatorType).ToString() +
 
                                             ";";
-                                        if ((pars[0].ParameterType == AgregatorType) || (AgregatorType.IsSubclassOf(pars[0].ParameterType)))
+                                        if ((pars[0].ParameterType == AgregatorType) || AgregatorType.IsSubclassOf(pars[0].ParameterType))
                                         {
                                             ci = cci;
                                             break;
                                         }
                                     }
                                 }
+
                                 if (ci != null)
                                 {
                                     DetailArray da = (DetailArray)ci.Invoke(new object[] { null });
@@ -1003,7 +1110,9 @@
                                 }
                             }
                             else
+                            {
                                 res = null;
+                            }
                         }
                         catch
                         {
@@ -1086,8 +1195,6 @@
             }
         }
 
-
-
         static private TypePropertyAtrValueCollection cacheGetPropertyDisableAutoViewing = new TypePropertyAtrValueCollection();
 
         /// <summary>
@@ -1102,7 +1209,10 @@
             {
                 var res = cacheGetPropertyDisableAutoViewing[type, property];
                 if (res != null)
+                {
                     return (bool)res;
+                }
+
                 int pointIndex = property.IndexOf(".");
                 if (pointIndex >= 0)
                 {
@@ -1120,19 +1230,25 @@
                 {
                     PropertyInfo pi = type.GetProperty(property);
                     if (pi == null)
+                    {
                         throw new CantFindPropertyException(property, type);
+                    }
+
                     object[] typeAttributes = pi.GetCustomAttributes(typeof(DisableAutoViewedAttribute), true);
                     if (typeAttributes.Length == 0)
+                    {
                         res = false;
+                    }
                     else
+                    {
                         res = ((DisableAutoViewedAttribute)typeAttributes[0]).value;
+                    }
                 }
 
                 cacheGetPropertyDisableAutoViewing[type, property] = res;
                 return (bool)res;
             }
         }
-
 
         static private TypePropertyAtrValueCollection cacheGetPropertyStorageName = new TypePropertyAtrValueCollection();
 
@@ -1148,23 +1264,35 @@
             {
                 object res = cacheGetPropertyStorageName[type, property];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string resstr = string.Empty;
                     if (property == "__PrimaryKey")
+                    {
                         resstr = GetPrimaryKeyStorageName(type);
+                    }
                     else
                     {
                         PropertyInfo pi = type.GetProperty(property);
                         if (pi == null)
+                        {
                             throw new CantFindPropertyException(property, type);
+                        }
+
                         object[] typeAttributes = pi.GetCustomAttributes(typeof(PropertyStorageAttribute), true);
                         if (typeAttributes.Length == 0)
+                        {
                             resstr = property;
+                        }
                         else
+                        {
                             resstr = ((PropertyStorageAttribute)typeAttributes[0]).Name;
+                        }
                     }
+
                     cacheGetPropertyStorageName[type, property] = resstr;
                     return resstr;
                 }
@@ -1185,7 +1313,9 @@
             {
                 object res = cacheGetpropertyCaption[type, property];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string resstr = string.Empty;
@@ -1196,21 +1326,33 @@
                         string mpropname = property.Substring(pointIndex + 1);
                         System.Type MasterType = GetPropertyType(type, MasterName);
                         if (MasterType == null)
+                        {
                             throw new CantFindPropertyException(MasterName, type);
+                        }
                         else
+                        {
                             resstr = GetPropertyCaption(MasterType, mpropname);
+                        }
                     }
                     else
                     {
                         PropertyInfo pi = type.GetProperty(property);
                         if (pi == null)
+                        {
                             throw new CantFindPropertyException(property, type);
+                        }
+
                         object[] typeAttributes = pi.GetCustomAttributes(typeof(CaptionAttribute), true);
                         if (typeAttributes.Length == 0)
+                        {
                             resstr = property;
+                        }
                         else
+                        {
                             resstr = ((CaptionAttribute)typeAttributes[0]).Value;
+                        }
                     }
+
                     cacheGetpropertyCaption[type, property] = resstr;
                     return resstr;
                 }
@@ -1232,12 +1374,16 @@
             {
                 object res = cachePropertyStorageNameIndexed[type, property + "/" + index.ToString()];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     res = cachePropertyStorageNameIndexed[type, property];
                     if (res != null)
+                    {
                         return (string)res;
+                    }
                     else
                     {
                         if (property == "__PrimaryKey")
@@ -1250,7 +1396,10 @@
                         {
                             PropertyInfo pi = type.GetProperty(property);
                             if (pi == null)
+                            {
                                 throw new CantFindPropertyException(property, type);
+                            }
+
                             object[] typeAttributes = pi.GetCustomAttributes(typeof(PropertyStorageAttribute), true);
                             if (typeAttributes.Length == 0)
                             {
@@ -1261,7 +1410,10 @@
                             {
                                 string[] resarr = ((PropertyStorageAttribute)typeAttributes[0]).Names;
                                 for (int i = 0; i < resarr.Length; i++)
+                                {
                                     cachePropertyStorageNameIndexed[type, property + "/" + i.ToString()] = resarr[i];
+                                }
+
                                 return resarr[index];
                             }
                         }
@@ -1284,7 +1436,9 @@
             {
                 object res = cacheGetPropertyNotNull[type, property];
                 if (res != null)
+                {
                     return (bool)res;
+                }
                 else
                 {
                     bool resbool;
@@ -1299,13 +1453,21 @@
                     {
                         PropertyInfo pi = type.GetProperty(property);
                         if (pi == null)
+                        {
                             throw new CantFindPropertyException(property, type);
+                        }
+
                         object[] typeAttributes = pi.GetCustomAttributes(typeof(NotNullAttribute), true);
                         if (typeAttributes.Length == 0)
+                        {
                             resbool = false;
+                        }
                         else
+                        {
                             resbool = ((NotNullAttribute)typeAttributes[0]).NotNull;
+                        }
                     }
+
                     cacheGetPropertyNotNull[type, property] = resbool;
                     return resbool;
                 }
@@ -1326,7 +1488,9 @@
             {
                 object resCache = cacheGetPropertyStrLen[type, property];
                 if (resCache != null)
+                {
                     return (int)resCache;
+                }
                 else
                 {
                     int resInt = -1;
@@ -1341,13 +1505,21 @@
                     {
                         PropertyInfo pi = type.GetProperty(property);
                         if (pi == null)
+                        {
                             throw new CantFindPropertyException(property, type);
+                        }
+
                         object[] typeAttributes = pi.GetCustomAttributes(typeof(StrLenAttribute), true);
                         if (typeAttributes.Length == 0)
+                        {
                             resInt = -1;
+                        }
                         else
+                        {
                             resInt = ((StrLenAttribute)typeAttributes[0]).StrLen;
+                        }
                     }
+
                     cacheGetPropertyStrLen[type, property] = resInt;
                     return resInt;
                 }
@@ -1358,7 +1530,7 @@
         /// Проверить, нет ли непустых значений в NotNull .Net-свойствах
         /// </summary>
         /// <param name="dataObject">объект данных</param>
-        /// <returns>возвращает null, если непустых значений нет, 
+        /// <returns>возвращает null, если непустых значений нет,
         /// иначе одномерный строковый массив с именами свойств, где значения есть</returns>
         static public string[] CheckNotNullAttributes(DataObject dataObject)
         {
@@ -1398,7 +1570,9 @@
                 Type res = null;
                 res = (System.Type)cacheDefinePropertyClassType[declarationType, propname];
                 if (res != null)
+                {
                     return res;
+                }
                 else
                 {
                     int pointIndex = propname.IndexOf(".");
@@ -1408,17 +1582,26 @@
                         string mpropname = propname.Substring(pointIndex + 1);
                         System.Type MasterType = GetPropertyType(declarationType, MasterName);
                         if (MasterType == null)
+                        {
                             throw new CantFindPropertyException(MasterName, declarationType);
+                        }
                         else
+                        {
                             res = GetPropertyDefineClassType(MasterType, mpropname);
+                        }
                     }
                     else
                     {
                         PropertyInfo pi = declarationType.GetProperty(propname);
                         if (pi == null)
+                        {
                             throw new CantFindPropertyException(propname, declarationType);
+                        }
+
                         if (propname == "__PrimaryKey")
+                        {
                             res = typeof(DataObject);
+                        }
                         else
                         {
                             System.Type ptype = pi.DeclaringType;
@@ -1449,11 +1632,16 @@
             lock (cacheGetCompatibleTypesForTypeConvertion)
             {
                 if (type == typeof(DataObject) || type == typeof(object))
+                {
                     return Type.EmptyTypes;
+                }
+
                 Type[] res = null;
                 res = (Type[])cacheGetCompatibleTypesForTypeConvertion[type];
                 if (res != null)
+                {
                     return res;
+                }
                 else
                 {
                     ArrayList nr = new ArrayList();
@@ -1479,7 +1667,9 @@
             Type res = null;
             res = (System.Type)cachePropertyType[declarationType, propname];
             if (res != null)
+            {
                 return res;
+            }
             else
             {
                 int pointIndex = propname.IndexOf(".");
@@ -1489,19 +1679,31 @@
                     string mpropname = propname.Substring(pointIndex + 1);
                     System.Type MasterType = GetPropertyType(declarationType, MasterName);
                     if (MasterType.IsSubclassOf(typeof(DetailArray)))
+                    {
                         MasterType = GetItemType(declarationType, MasterName);
+                    }
+
                     if (MasterType == null)
+                    {
                         throw new CantFindPropertyException(MasterName, declarationType);
+                    }
                     else
+                    {
                         res = GetPropertyType(MasterType, mpropname);
+                    }
                 }
                 else
                 {
                     PropertyInfo pi = declarationType.GetProperty(propname);
                     if (pi == null)
+                    {
                         throw new CantFindPropertyException(propname, declarationType);
+                    }
+
                     if (propname == "__PrimaryKey")
+                    {
                         res = KeyGen.KeyGenerator.Generator(declarationType).KeyType;
+                    }
                     else
                     {
                         System.Type ptype = pi.PropertyType;
@@ -1519,7 +1721,6 @@
                             cachePropertyType[declarationType, propname] = res;
                         }
                     }
-
                 }
 
                 return res;
@@ -1536,17 +1737,23 @@
         /// <returns></returns>
         static public Type GetPropertyType(System.Type declarationType, string propname, string masterpref, Collections.NameObjectCollection masterTypes)
         {
-
             int pointIndex = propname.IndexOf(".");
             if (masterTypes != null && masterTypes.Count > 0)
             {
                 System.Type MasterType = (masterTypes == null) ? null : (Type)masterTypes[propname];
-                if (MasterType != null) return MasterType;
+                if (MasterType != null)
+                {
+                    return MasterType;
+                }
+
                 if (pointIndex > 0)
                 {
                     string MasterName = propname.Substring(0, pointIndex);
                     string rMasterName = (masterpref == string.Empty) ? MasterName : masterpref + "." + MasterName;
-                    if (MasterType != null) return MasterType;
+                    if (MasterType != null)
+                    {
+                        return MasterType;
+                    }
                 }
             }
 
@@ -1558,23 +1765,33 @@
                 string mpropname = propname.Substring(pointIndex + 1);
                 System.Type MasterType = GetPropertyType(declarationType, MasterName);
                 if (MasterType == null)
+                {
                     throw new CantFindPropertyException(propname, declarationType);
+                }
                 else
+                {
                     res = GetPropertyType(MasterType, mpropname, rMasterName, masterTypes);
+                }
             }
             else
             {
                 PropertyInfo pi = declarationType.GetProperty(propname);
                 if (pi == null)
+                {
                     throw new CantFindPropertyException(propname, declarationType);
+                }
+
                 if (propname == "__PrimaryKey")
+                {
                     res = KeyGen.KeyGenerator.Generator(declarationType).KeyType;
+                }
                 else
                 {
                     System.Type ptype = pi.PropertyType;
                     res = ptype;
                 }
             }
+
             return res;
         }
 
@@ -1582,7 +1799,6 @@
         /// Возвращает ???
         /// </summary>
         public delegate string[] GetPropertiesInExpressionDelegate(string expression, string namespacewithpoint);
-
 
         /// <summary>
         /// Вернуть структуру хранения для представления
@@ -1612,7 +1828,7 @@
         }
 
         /// <summary>
-        /// Получить структуру хранения данных в соответствии 
+        /// Получить структуру хранения данных в соответствии
         /// с указанным представлением указанного .Net-типа класса объекта данных.
         /// </summary>
         /// <param name="view">представление</param>
@@ -1623,7 +1839,9 @@
         static private Business.StorageStructForView GetSimpleStorageStructForView(View view, System.Type type, GetPropertiesInExpressionDelegate getPropertiesInExpression, System.Type DataServiceType)
         {
             if (type != view.DefineClassType && !type.IsSubclassOf(view.DefineClassType))
+            {
                 throw new ClassIsNotSubclassOfOtherException(type, view.DefineClassType);
+            }
 
             var pvs = new Queue(view.Properties);
 
@@ -1637,7 +1855,6 @@
 
             retVal.sources.Name = view.DefineClassType.Name;
             var addedProperties = new StringCollection();
-
 
             int propsCount = pvs.Count;
             while (pvs.Count > 0)
@@ -1653,7 +1870,10 @@
                     prop.MultipleProp = false;
                 }
                 else
+                {
                     prop.MultipleProp = true;
+                }
+
                 string spropname = curprop.Name;
                 string scurpropnamepart = string.Empty;
                 string scrupropnamepref = string.Empty;
@@ -1675,6 +1895,7 @@
                         scrupropnamepref = scurpropnamepart;
                         scurpropnamepart = scurpropnamepart + "." + propname[j];
                     }
+
                     if (j == propname.Length - 1)
                     {
                         propalias = IsStoredProperty(p, propname[j]) ? GetPropertyStorageName(p, propname[j]) : null;
@@ -1690,15 +1911,17 @@
 
                         string newStorageAlias = curSource.Name + propname[j];
                         for (int index = 0; index < curSource.LinckedStorages.Length; index++)
+                        {
                             if (curSource.LinckedStorages[index].Name == newStorageAlias)
                             {
                                 found = true;
                                 nextSource = curSource.LinckedStorages[index];
                                 break;
                             }
+                        }
+
                         if (!found)
                         {
-
                             var newSources = new Business.StorageStructForView.PropSource[curSource.LinckedStorages.Length + 1];
                             nextSource = new Business.StorageStructForView.PropSource();
                             nextSource.Name = newStorageAlias;
@@ -1706,14 +1929,20 @@
 
                             for (int l = 0; l < curSource.storage.Length; l++)
                             {
-                                //***
+                                // ***
                                 System.Type filterType = (Type)view.MasterTypeFilters[scurpropnamepart];
-                                if (filterType == null) filterType = typeof(DataObject);
+                                if (filterType == null)
+                                {
+                                    filterType = typeof(DataObject);
+                                }
+
                                 var colMasterTypes = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                                //***
+
+                                // ***
 
                                 System.Type[] masterTypes = TypeUsageProvider.TypeUsage.GetUsageTypes(curSource.storage[l].ownerType, propname[j]);
-                                //***
+
+                                // ***
                                 for (int k = 0; k < masterTypes.Length; k++)
                                 {
                                     Type t = masterTypes[k];
@@ -1721,34 +1950,45 @@
                                     {
                                         string storname = GetPropertyStorageName(curSource.storage[l].ownerType, nextSource.ObjectLink);
                                         if (storname == string.Empty)
+                                        {
                                             storname = GetPropertyStorageName(curSource.storage[l].ownerType, nextSource.ObjectLink, k);
+                                        }
                                         else
+                                        {
                                             storname = storname + "_m" + k.ToString();
+                                        }
+
                                         colMasterTypes.Add(t, storname);
                                     }
                                 }
 
-                                //***
+                                // ***
                                 if (colMasterTypes.Count == 0)
+                                {
                                     return null;
-
+                                }
 
                                 Business.StorageStructForView.ClassStorageDef[] tempArr;
                                 if (nextSource.storage.Length == 1 && nextSource.storage[0].PrimaryKeyStorageName == null)
+                                {
                                     tempArr = new Business.StorageStructForView.ClassStorageDef[0];
+                                }
                                 else
+                                {
                                     tempArr = nextSource.storage;
+                                }
 
                                 nextSource.storage = new Business.StorageStructForView.ClassStorageDef[colMasterTypes.Count + tempArr.Length];
                                 tempArr.CopyTo(nextSource.storage, 0);
 
                                 for (int k = 0; k < colMasterTypes.Count; k++)
                                 {
-                                    //****
+                                    // ****
                                     int kindex = k + tempArr.Length;
                                     System.Type mtype = colMasterTypes.Key(k);
                                     string storname = (string)colMasterTypes[k];
-                                    //****
+
+                                    // ****
                                     nextSource.storage[kindex].Storage = GetClassStorageName(mtype);
                                     nextSource.storage[kindex].PrimaryKeyStorageName = GetPrimaryKeyStorageName(mtype);
                                     nextSource.storage[kindex].TypeStorageName = GetTypeStorageName(mtype);
@@ -1760,9 +2000,11 @@
 
                                 curSource.LinckedStorages.CopyTo(newSources, 0);
                             }
+
                             newSources[newSources.Length - 1] = nextSource;
                             curSource.LinckedStorages = newSources;
                         }
+
                         p = GetPropertyType(p, propname[j], scrupropnamepref, view.MasterTypeFilters);
                         curSource = nextSource;
                     }
@@ -1775,13 +2017,15 @@
 
                 bool propertyIsMaster = GetPropertyType(curSource.storage[0].ownerType, pname).IsSubclassOf(typeof(DataObject));
                 if (propertyIsMaster)
+                {
                     prop.MastersTypes = new System.Type[curSource.storage.Length][];
+                }
 
                 for (int k = 0; k < curSource.storage.Length; k++)
                 {
                     System.Type ownerType = curSource.storage[k].ownerType;
                     bool propsotred = IsStoredProperty(ownerType, pname);
-                    string storname = (propsotred) ? GetPropertyStorageName(ownerType, pname) : null;
+                    string storname = propsotred ? GetPropertyStorageName(ownerType, pname) : null;
                     prop.storage[k] = new string[] { storname };
                     if (propertyIsMaster)
                     {
@@ -1791,13 +2035,18 @@
                         if (storname != string.Empty)
                         {
                             for (int m = 0; m < masterTypes.Length; m++)
+                            {
                                 prop.storage[k][m] = storname + "_m" + m.ToString();
+                            }
                         }
                         else
                         {
                             for (int m = 0; m < masterTypes.Length; m++)
+                            {
                                 prop.storage[k][m] = GetPropertyStorageName(ownerType, pname, m);
+                            }
                         }
+
                         prop.MastersTypesCount += prop.MastersTypes[k].Length;
                     }
                 }
@@ -1805,13 +2054,15 @@
                 prop.Name = curprop.Name;
                 prop.simpleName = propname[propname.Length - 1];
                 prop.Stored = IsStoredProperty(curSource.storage[0].ownerType, pname);
-                //if (!prop.Stored)
+
+                // if (!prop.Stored)
                 {
                     prop.Expression = (string)GetExpressionForProperty(curSource.storage[0].ownerType, pname).GetMostCompatible(DataServiceType);
                 }
             }
+
             retVal.props = (Business.StorageStructForView.PropStorage[])props.ToArray(typeof(Business.StorageStructForView.PropStorage));
-            
+
             // строим структуру
             return retVal;
         }
@@ -1840,7 +2091,9 @@
         static private Business.StorageStructForView GetHierarchicalStorageStructForView(View view, System.Type type, GetPropertiesInExpressionDelegate getPropertiesInExpression, System.Type DataServiceType)
         {
             if (type != view.DefineClassType && !type.IsSubclassOf(view.DefineClassType))
+            {
                 throw new ClassIsNotSubclassOfOtherException(type, view.DefineClassType);
+            }
 
             int sourceIndex = 0;
             var allsources = new SortedList();
@@ -1856,20 +2109,14 @@
             retVal.sources.storage[0].ownerType = type;
             retVal.sources.ObjectLink = string.Empty;
 
-
-
-
             newalias = "A" + (sourceIndex++).ToString();
             allsources.Add("(" + view.DefineClassType.FullName + ")", retVal.sources);
             retVal.sources.Name = newalias;
 
             StringCollection addedProperties = new StringCollection();
 
-
-
             for (int i = 0; i < pvs.Length; i++)
             {
-
                 Business.StorageStructForView.PropStorage prop = new Business.StorageStructForView.PropStorage();
                 props.Add(prop);
                 string spropname = pvs[i].Name;
@@ -1879,10 +2126,15 @@
                     prop.MultipleProp = false;
                 }
                 else
+                {
                     prop.MultipleProp = true;
+                }
 
                 if (Information.GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
+                {
                     spropname = spropname + ".__PrimaryKey";
+                }
+
                 string scurpropnamepart = string.Empty;
                 string scrupropnamepref = string.Empty;
                 string[] propname = spropname.Split('.');
@@ -1906,7 +2158,10 @@
                     }
 
                     propDefineType = GetPropertyDefineClassType(p, propname[j]);
-                    if (propDefineType == typeof(DataObject)) propDefineType = p;
+                    if (propDefineType == typeof(DataObject))
+                    {
+                        propDefineType = p;
+                    }
 
                     propalias = GetPropertyStorageName(p, propname[j]);
 
@@ -1920,8 +2175,11 @@
                             allsources.Add(typepath, curSource);
                         }
                         else
+                        {
                             curSource = (Business.StorageStructForView.PropSource)allsources[typepath];
+                        }
                     }
+
                     if (j == propname.Length - 1)
                     {
                         propType = GetPropertyType(p, propname[j]);
@@ -1939,7 +2197,9 @@
                             allsources.Add(typepath, curSource);
                         }
                         else
+                        {
                             curSource = (Business.StorageStructForView.PropSource)allsources[typepath];
+                        }
                     }
                 }
 
@@ -1955,13 +2215,16 @@
                 prop.Name = pvs[i].Name;
                 prop.simpleName = propname[propname.Length - 1];
                 prop.Stored = IsStoredProperty(curSource.storage[0].ownerType, pname);
-                //if (!prop.Stored)
+
+                // if (!prop.Stored)
                 {
                     prop.Expression = (string)GetExpressionForProperty(curSource.storage[0].ownerType, pname).GetMostCompatible(DataServiceType);
                 }
             }
+
             retVal.props = (Business.StorageStructForView.PropStorage[])props.ToArray(typeof(Business.StorageStructForView.PropStorage));
-            //строим структуру
+
+            // строим структуру
             return retVal;
         }
 
@@ -1991,14 +2254,21 @@
             {
                 object res = cacheClassStorageName[type];
                 if (res != null)
+                {
                     return (string)res;
+                }
 
                 string resstr;
-                Object[] typeAttributes = type.GetCustomAttributes(typeof(ClassStorageAttribute), true);
+                object[] typeAttributes = type.GetCustomAttributes(typeof(ClassStorageAttribute), true);
                 if (typeAttributes.Length == 0)
+                {
                     resstr = type.Name;
+                }
                 else
+                {
                     resstr = ((ClassStorageAttribute)typeAttributes[0]).Name;
+                }
+
                 // обработаем делегат
                 if (ChangeClassStorageName != null)
                 {
@@ -2008,11 +2278,11 @@
                         resstr = changedClassStorageName;
                     }
                 }
+
                 cacheClassStorageName[type] = resstr;
                 return resstr;
             }
         }
-
 
         static private TypeAtrValueCollection cacheAutoAlteredClass = new TypeAtrValueCollection();
 
@@ -2027,15 +2297,22 @@
             {
                 object res = cacheAutoAlteredClass[type];
                 if (res != null)
+                {
                     return (bool)res;
+                }
                 else
                 {
                     bool bres;
-                    Object[] typeAttributes = type.GetCustomAttributes(typeof(AutoAlteredAttribute), true);
+                    object[] typeAttributes = type.GetCustomAttributes(typeof(AutoAlteredAttribute), true);
                     if (typeAttributes.Length == 0)
+                    {
                         bres = false;
+                    }
                     else
+                    {
                         bres = ((AutoAlteredAttribute)typeAttributes[0]).value;
+                    }
+
                     cacheAutoAlteredClass[type] = bres;
                     return bres;
                 }
@@ -2055,15 +2332,22 @@
             {
                 object res = cacheAssemblyStorageName[type];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string sres;
-                    Object[] typeAttributes = type.Assembly.GetCustomAttributes(typeof(AssemblyStorageAttribute), true);
+                    object[] typeAttributes = type.Assembly.GetCustomAttributes(typeof(AssemblyStorageAttribute), true);
                     if (typeAttributes.Length == 0)
+                    {
                         sres = string.Empty;
+                    }
                     else
+                    {
                         sres = ((AssemblyStorageAttribute)typeAttributes[0]).Name;
+                    }
+
                     cacheAssemblyStorageName[type] = sres;
                     return sres;
                 }
@@ -2071,7 +2355,7 @@
         }
 
         static private TypePropertyAtrValueCollection cacheSortByLoadingOrder = new TypePropertyAtrValueCollection();
-        
+
         /// <summary>
         /// Отсортировать, согласно LoadingOrder для указанного класса.
         /// </summary>
@@ -2085,7 +2369,9 @@
                 string key = string.Join(",", props);
                 string[] res = (string[])cacheSortByLoadingOrder[type, key];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
                     string[] ls = GetLoadingOrder(type);
@@ -2101,22 +2387,28 @@
                             props[index] = string.Empty;
                         }
                     }
+
                     for (int i = 0; i < props.Length; i++)
+                    {
                         if (props[i] != string.Empty)
+                        {
                             res[curindex++] = props[i];
+                        }
+                    }
+
                     cacheSortByLoadingOrder[type, key] = res;
                     return CopyStringArray(res);
                 }
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Используйте метод GetAlteredPropertyNames
-        ///</summary>
-        ///<param name="obj1"></param>
-        ///<param name="obj2"></param>
-        ///<param name="withDetailsComparing"></param>
-        ///<returns></returns>
+        /// </summary>
+        /// <param name="obj1"></param>
+        /// <param name="obj2"></param>
+        /// <param name="withDetailsComparing"></param>
+        /// <returns></returns>
         [Obsolete]
         static public string[] GetAlteredProperyNames(DataObject obj1, DataObject obj2, bool withDetailsComparing)
         {
@@ -2133,21 +2425,28 @@
         static public string[] GetAlteredPropertyNames(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
         {
             if (obj1 == null && obj2 == null)
-                return (new string[0]);
+            {
+                return new string[0];
+            }
             else
             {
                 if (obj1 == null || obj2 == null)
                 {
                     if (obj1 != null)
+                    {
                         return GetStorablePropertyNames(obj1.GetType());
+                    }
                     else
+                    {
                         return GetStorablePropertyNames(obj2.GetType());
+                    }
                 }
                 else
                 {
-
                     if (obj1.GetType() != obj2.GetType())
+                    {
                         throw new DifferentDataObjectTypesException();
+                    }
                     else
                     {
                         System.Type type = obj1.GetType();
@@ -2163,29 +2462,37 @@
                             object val2 = GetPropValueByName(obj2, props[i]);
                             bool UnAltered = false;
                             if (val1 == null && val2 == null)
+                            {
                                 UnAltered = true;
+                            }
                             else if (val1 == null || val2 == null)
+                            {
                                 UnAltered = false;
+                            }
                             else if (propType.IsValueType)
                             {
                                 UnAltered = val1.Equals(val2);
                             }
                             else if (propType.IsSubclassOf(dobjectType))
-                                UnAltered = (val1.GetType() == val2.GetType() &&
-                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey));
+                            {
+                                UnAltered = val1.GetType() == val2.GetType() &&
+                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey);
+                            }
                             else if (propType.IsSubclassOf(darrayType))
                             {
                                 DetailArray ar1 = (DetailArray)val1;
                                 DetailArray ar2 = (DetailArray)val2;
                                 if (ar1.Count != ar2.Count)
+                                {
                                     UnAltered = false;
+                                }
                                 else
                                 {
                                     UnAltered = true;
                                     for (int j = 0; j < ar1.Count; j++)
                                     {
                                         DataObject do1 = ar1.ItemByIndex(j);
-                                        DataObject do2 = ar2.GetByKey(do1.__PrimaryKey); //ar2.ItemByIndex(j);
+                                        DataObject do2 = ar2.GetByKey(do1.__PrimaryKey); // ar2.ItemByIndex(j);
 
                                         if (do2 == null)
                                         {
@@ -2195,8 +2502,14 @@
 
                                         UnAltered = do1.GetType() == do2.GetType() && do1.GetStatus() == do2.GetStatus() && do1.__PrimaryKey.Equals(do2.__PrimaryKey);
                                         if (UnAltered && WithDetailsComparing)
+                                        {
                                             UnAltered = GetAlteredPropertyNames(do1, do2, true).Length == 0;
-                                        if (!UnAltered) break;
+                                        }
+
+                                        if (!UnAltered)
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -2211,11 +2524,19 @@
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
                             }
                             else
+                            {
                                 UnAltered = val1.ToString() == val2.ToString();
-                            if (!UnAltered) Arr.Add(props[i]);
+                            }
+
+                            if (!UnAltered)
+                            {
+                                Arr.Add(props[i]);
+                            }
                         }
+
                         string[] retval = new string[Arr.Count];
-                        Arr.CopyTo(retval); Arr.Clear();
+                        Arr.CopyTo(retval);
+                        Arr.Clear();
                         return retval;
                     }
                 }
@@ -2232,15 +2553,25 @@
         static public string[] GetAlteredPropertyNamesWithNotStored(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
         {
             if (obj1 == null && obj2 == null)
-                return (new string[0]);
+            {
+                return new string[0];
+            }
+
             if (obj1 == null || obj2 == null)
             {
                 if (obj1 != null)
+                {
                     return GetAllPropertyNames(obj1.GetType());
+                }
+
                 return GetAllPropertyNames(obj2.GetType());
             }
+
             if (obj1.GetType() != obj2.GetType())
+            {
                 throw new DifferentDataObjectTypesException();
+            }
+
             var type = obj1.GetType();
             string[] props = GetAllPropertyNames(type);
             var Arr = new ArrayList(props.Length);
@@ -2254,29 +2585,37 @@
                 object val2 = GetPropValueByName(obj2, props[i]);
                 bool UnAltered = false;
                 if (val1 == null && val2 == null)
+                {
                     UnAltered = true;
+                }
                 else if (val1 == null || val2 == null)
+                {
                     UnAltered = false;
+                }
                 else if (propType.IsValueType)
                 {
                     UnAltered = val1.Equals(val2);
                 }
                 else if (propType.IsSubclassOf(dobjectType))
-                    UnAltered = (val1.GetType() == val2.GetType() &&
-                                 ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey));
+                {
+                    UnAltered = val1.GetType() == val2.GetType() &&
+                                 ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey);
+                }
                 else if (propType.IsSubclassOf(darrayType))
                 {
                     DetailArray ar1 = (DetailArray)val1;
                     DetailArray ar2 = (DetailArray)val2;
                     if (ar1.Count != ar2.Count)
+                    {
                         UnAltered = false;
+                    }
                     else
                     {
                         UnAltered = true;
                         for (int j = 0; j < ar1.Count; j++)
                         {
                             DataObject do1 = ar1.ItemByIndex(j);
-                            DataObject do2 = ar2.GetByKey(do1.__PrimaryKey); //ar2.ItemByIndex(j);
+                            DataObject do2 = ar2.GetByKey(do1.__PrimaryKey); // ar2.ItemByIndex(j);
 
                             if (do2 == null)
                             {
@@ -2286,8 +2625,14 @@
 
                             UnAltered = do1.GetType() == do2.GetType() && do1.GetStatus() == do2.GetStatus() && do1.__PrimaryKey.Equals(do2.__PrimaryKey);
                             if (UnAltered && WithDetailsComparing)
+                            {
                                 UnAltered = GetAlteredPropertyNames(do1, do2, true).Length == 0;
-                            if (!UnAltered) break;
+                            }
+
+                            if (!UnAltered)
+                            {
+                                break;
+                            }
                         }
                     }
                 }
@@ -2302,11 +2647,19 @@
                     UnAltered = ((IComparableType)val1).Compare(val2) == 0;
                 }
                 else
+                {
                     UnAltered = val1.ToString() == val2.ToString();
-                if (!UnAltered) Arr.Add(props[i]);
+                }
+
+                if (!UnAltered)
+                {
+                    Arr.Add(props[i]);
+                }
             }
+
             string[] retval = new string[Arr.Count];
-            Arr.CopyTo(retval); Arr.Clear();
+            Arr.CopyTo(retval);
+            Arr.Clear();
             return retval;
         }
 
@@ -2320,7 +2673,9 @@
         static public bool ContainsAlteredProps(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
         {
             if (obj1 == null && obj2 == null)
+            {
                 return false;
+            }
             else
             {
                 if (obj1 == null || obj2 == null)
@@ -2329,14 +2684,16 @@
                 }
                 else
                 {
-
                     if (obj1.GetType() != obj2.GetType())
+                    {
                         throw new DifferentDataObjectTypesException();
+                    }
                     else
                     {
                         System.Type type = obj1.GetType();
                         string[] props = GetStorablePropertyNames(type);
-                        //ArrayList Arr = new ArrayList(props.Length);
+
+                        // ArrayList Arr = new ArrayList(props.Length);
                         System.Type dobjectType = typeof(DataObject);
                         System.Type darrayType = typeof(DetailArray);
                         for (int i = 0; i < props.Length; i++)
@@ -2347,10 +2704,15 @@
                             object val2 = GetPropValueByName(obj2, props[i]);
                             bool UnAltered = false;
                             if (val1 == null && val2 == null)
+                            {
                                 UnAltered = true;
+                            }
                             else if (val1 == null || val2 == null)
-                                //UnAltered = false;
+                            {
+
+                                // UnAltered = false;
                                 return true;
+                            }
                             else if (propType.IsValueType)
                             {
                                 UnAltered = val1.Equals(val2);
@@ -2361,8 +2723,8 @@
                             }
                             else if (propType.IsSubclassOf(dobjectType))
                             {
-                                UnAltered = (val1.GetType() == val2.GetType() &&
-                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey));
+                                UnAltered = val1.GetType() == val2.GetType() &&
+                                    ((DataObject)val1).__PrimaryKey.Equals(((DataObject)val2).__PrimaryKey);
                                 if (!UnAltered)
                                 {
                                     return true;
@@ -2373,28 +2735,36 @@
                                 DetailArray ar1 = (DetailArray)val1;
                                 DetailArray ar2 = (DetailArray)val2;
                                 if (ar1.Count != ar2.Count)
-                                    //UnAltered = false;
+                                {
+                                    // UnAltered = false;
                                     return true;
+                                }
                                 else
                                 {
                                     UnAltered = true;
                                     for (int j = 0; j < ar1.Count; j++)
                                     {
                                         DataObject do1 = ar1.ItemByIndex(j);
-                                        DataObject do2 = ar2.GetByKey(do1.__PrimaryKey); //ar2.ItemByIndex(j);
+                                        DataObject do2 = ar2.GetByKey(do1.__PrimaryKey); // ar2.ItemByIndex(j);
 
                                         if (do2 == null)
                                         {
-                                            //UnAltered = false;
-                                            //break;
+                                            // UnAltered = false;
+                                            // break;
                                             return true;
                                         }
 
                                         UnAltered = do1.GetType() == do2.GetType() && do1.GetStatus() == do2.GetStatus() && do1.__PrimaryKey.Equals(do2.__PrimaryKey);
                                         if (UnAltered && WithDetailsComparing)
+                                        {
                                             UnAltered = !ContainsAlteredProps(do1, do2, true);
-                                        //UnAltered = GetAlteredProperyNames(do1, do2, true).Length == 0;
-                                        if (!UnAltered) return true;
+                                        }
+
+                                        // UnAltered = GetAlteredProperyNames(do1, do2, true).Length == 0;
+                                        if (!UnAltered)
+                                        {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
@@ -2409,9 +2779,16 @@
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
                             }
                             else
+                            {
                                 UnAltered = val1.ToString() == val2.ToString();
-                            if (!UnAltered) return true;
+                            }
+
+                            if (!UnAltered)
+                            {
+                                return true;
+                            }
                         }
+
                         return false;
                     }
                 }
@@ -2431,13 +2808,18 @@
             {
                 string[] res = (string[])cacheAllPropertyNames[type];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
                     PropertyInfo[] Properties = type.GetProperties();
                     string[] returnValue = new string[Properties.Length];
                     for (int i = 0; i < Properties.Length; i++)
+                    {
                         returnValue[i] = Properties[i].Name;
+                    }
+
                     cacheAllPropertyNames[type] = returnValue;
                     return returnValue;
                 }
@@ -2456,7 +2838,7 @@
             {
                 throw new Exception("Не указан тип для определения наличия свойства <" + propName + "> в нём");
             }
-            
+
             var props = new System.Collections.Generic.List<string>(GetAllPropertyNames(type));
             return props.Contains(propName);
         }
@@ -2475,7 +2857,9 @@
             {
                 var res = (string[])cacheAutoStoreMastersDisabled[type];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
                     var Properties = type.GetProperties();
@@ -2485,7 +2869,7 @@
                     {
                         if (Properties[i].PropertyType.IsSubclassOf(typeof(DataObject)))
                         {
-                            Object[] myAttributes = Properties[i].GetCustomAttributes(typeof(AutoStoreMasterDisabled), true);
+                            object[] myAttributes = Properties[i].GetCustomAttributes(typeof(AutoStoreMasterDisabled), true);
                             if (myAttributes.Length > 0)
                             {
                                 AutoStoreMasterDisabled autostoremaster = (AutoStoreMasterDisabled)myAttributes[0];
@@ -2501,22 +2885,22 @@
                     RetArray.CopyTo(returnValue);
                     RetArray.Clear();
                     RetArray = null;
-                    
+
                     // Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
                     if (type.Assembly.FullName != "TempAssembly, Version=0.0.0.0")
                     {
                         cacheAutoStoreMastersDisabled[type] = returnValue;
                     }
+
                     return CopyStringArray(returnValue);
                 }
             }
         }
 
-
         static private TypeAtrValueCollection cacheStorablePropertyNames = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных, 
+        /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных,
         /// которые хранятся (не содержат атрибут <see cref="NotStoredAttribute"/>)
         /// </summary>
         /// <param name="type">.Net-тип класса объекта данных</param>
@@ -2527,18 +2911,19 @@
             {
                 string[] res = (string[])cacheStorablePropertyNames[type];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
-
                     var Properties = type.GetProperties();
                     var RetArray = new ArrayList();
-                    Object[] typeAttributes = type.GetCustomAttributes(typeof(NotStoredAttribute), false);
+                    object[] typeAttributes = type.GetCustomAttributes(typeof(NotStoredAttribute), false);
                     if (typeAttributes.Length == 0 || ((NotStoredAttribute)typeAttributes[0]).Value == false)
                     {
                         for (int i = 0; i < Properties.Length; i++)
                         {
-                            Object[] myAttributes = Properties[i].GetCustomAttributes(typeof(NotStoredAttribute), true);
+                            object[] myAttributes = Properties[i].GetCustomAttributes(typeof(NotStoredAttribute), true);
                             if (myAttributes.Length > 0)
                             {
                                 NotStoredAttribute notStored = (NotStoredAttribute)myAttributes[0];
@@ -2548,7 +2933,9 @@
                                 }
                             }
                             else
+                            {
                                 RetArray.Add(Properties[i].Name);
+                            }
                         }
                     }
 
@@ -2562,6 +2949,7 @@
                     {
                         cacheStorablePropertyNames[type] = returnValue;
                     }
+
                     return CopyStringArray(returnValue);
                 }
             }
@@ -2580,13 +2968,14 @@
             {
                 string[] res = (string[])cachePropertyNamesForInsert[type];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
-
                     PropertyInfo[] properties = type.GetProperties();
                     var retArray = new ArrayList();
-                    Object[] typeAttributes = type.GetCustomAttributes(typeof(NotStoredAttribute), false);
+                    object[] typeAttributes = type.GetCustomAttributes(typeof(NotStoredAttribute), false);
                     if (typeAttributes.Length == 0 || ((NotStoredAttribute)typeAttributes[0]).Value == false)
                     {
                         for (int i = 0; i < properties.Length; i++)
@@ -2594,7 +2983,7 @@
                             PropertyInfo propertyInfo = properties[i];
                             string name = propertyInfo.Name;
                             bool needAddProp = false;
-                            Object[] notStoredAttributes = propertyInfo.GetCustomAttributes(typeof(NotStoredAttribute), true);
+                            object[] notStoredAttributes = propertyInfo.GetCustomAttributes(typeof(NotStoredAttribute), true);
                             if (notStoredAttributes.Length > 0)
                             {
                                 NotStoredAttribute notStored = (NotStoredAttribute)notStoredAttributes[0];
@@ -2604,10 +2993,13 @@
                                 }
                             }
                             else
+                            {
                                 needAddProp = true;
+                            }
+
                             if (needAddProp)
                             {
-                                Object[] disableInsertPropertyAttributes =
+                                object[] disableInsertPropertyAttributes =
                                     propertyInfo.GetCustomAttributes(typeof(DisableInsertPropertyAttribute), true);
                                 if (disableInsertPropertyAttributes.Length > 0)
                                 {
@@ -2626,6 +3018,7 @@
                             }
                         }
                     }
+
                     string[] returnValue = new string[retArray.Count];
                     retArray.CopyTo(returnValue);
                     retArray.Clear();
@@ -2636,6 +3029,7 @@
                     {
                         cachePropertyNamesForInsert[type] = returnValue;
                     }
+
                     return CopyStringArray(returnValue);
                 }
             }
@@ -2644,22 +3038,31 @@
         static private string[] CopyStringArray(string[] a)
         {
             if (a == null)
+            {
                 return null;
+            }
             else
+            {
                 return (string[])a.Clone();
+            }
         }
+
         static private Type[] CopyTypeArray(Type[] a)
         {
             if (a == null)
+            {
                 return null;
+            }
             else
+            {
                 return (Type[])a.Clone();
+            }
         }
 
         static private TypeAtrValueCollection cacheGetNotStorablePropertyNames = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных, 
+        /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных,
         /// которые не хранятся (управление атрибутом <see cref="NotStoredAttribute"/>)
         /// </summary>
         /// <param name="type">.Net-тип класса объекта данных</param>
@@ -2670,14 +3073,16 @@
             {
                 string[] res = (string[])cacheGetNotStorablePropertyNames[type];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
                     PropertyInfo[] Properties = type.GetProperties();
                     ArrayList RetArray = new ArrayList(Properties.Length);
                     for (int i = 0; i < Properties.Length; i++)
                     {
-                        Object[] myAttributes = Properties[i].GetCustomAttributes(typeof(NotStoredAttribute), true);
+                        object[] myAttributes = Properties[i].GetCustomAttributes(typeof(NotStoredAttribute), true);
                         if (myAttributes.Length > 0)
                         {
                             NotStoredAttribute notStored = (NotStoredAttribute)myAttributes[0];
@@ -2687,9 +3092,11 @@
                             }
                         }
                     }
+
                     string[] returnValue = new string[RetArray.Count];
                     RetArray.CopyTo(returnValue);
-                    RetArray.Clear(); RetArray = null;
+                    RetArray.Clear();
+                    RetArray = null;
                     cacheGetNotStorablePropertyNames[type] = returnValue;
                     return returnValue;
                 }
@@ -2712,6 +3119,7 @@
             {
                 return cacheIsStoredProp[key];
             }
+
             lock (cacheIsStoredProp)
 
             {
@@ -2731,10 +3139,12 @@
                 }
                 else
                 {
-
                     PropertyInfo prop = type.GetProperty(propName);
                     if (prop == null)
+                    {
                         throw new NoSuchPropertyException(type, propName);
+                    }
+
                     var myAttributes = prop.GetCustomAttributes(typeof(NotStoredAttribute), true);
                     if (myAttributes.Length > 0)
                     {
@@ -2742,7 +3152,9 @@
                         bres = !notStored.Value;
                     }
                     else
+                    {
                         bres = true;
+                    }
                 }
 
                 cacheIsStoredProp.Add(key, bres);
@@ -2759,23 +3171,27 @@
         /// <returns></returns>
         static public bool IsStoredType(Type type)
         {
-
             lock (cacheIsStoredType)
             {
                 object res = cacheIsStoredType[type];
                 if (res != null)
+                {
                     return (bool)res;
+                }
 
                 bool bres;
 
-                Object[] myAttributes = type.GetCustomAttributes(typeof(NotStoredAttribute), false);
+                object[] myAttributes = type.GetCustomAttributes(typeof(NotStoredAttribute), false);
                 if (myAttributes.Length > 0)
                 {
                     var notStored = (NotStoredAttribute)myAttributes[0];
                     bres = !notStored.Value;
                 }
                 else
+                {
                     bres = true;
+                }
+
                 cacheIsStoredType[type] = bres;
                 return bres;
             }
@@ -2795,7 +3211,9 @@
             {
                 object res = cacheCanWriteProperty[type, propName];
                 if (res != null)
+                {
                     return (bool)res;
+                }
                 else
                 {
                     int pointIndex = propName.IndexOf(".");
@@ -2832,7 +3250,9 @@
             {
                 object res = cacheCanReadProperty[type, propName];
                 if (res != null)
+                {
                     return (bool)res;
+                }
                 else
                 {
                     int pointIndex = propName.IndexOf(".");
@@ -2870,7 +3290,9 @@
                 string key = templatetype.Name;
                 string[] res = (string[])cacheGetPropertyNamesByType[typeofDataObject, key];
                 if (res != null)
+                {
                     return CopyStringArray(res);
+                }
                 else
                 {
                     PropertyInfo[] Properties = typeofDataObject.GetProperties();
@@ -2885,12 +3307,15 @@
 
                     string[] returnValue = new string[RetArray.Count];
                     RetArray.CopyTo(returnValue);
-                    RetArray.Clear(); RetArray = null;
-                    //Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
+                    RetArray.Clear();
+                    RetArray = null;
+
+                    // Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
                     if (typeofDataObject.Assembly.FullName != "TempAssembly, Version=0.0.0.0")
                     {
                         cacheGetPropertyNamesByType[typeofDataObject, key] = returnValue;
                     }
+
                     return returnValue;
                 }
             }
@@ -2909,7 +3334,9 @@
             {
                 object res = cacheGetAgregatePropertyName[type];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string sres = GetPropertyName(type, typeof(AgregatorAttribute), true);
@@ -2928,15 +3355,22 @@
         public static string GetDetailArrayPropertyName(Type aggregatorType, Type detailType)
         {
             if (aggregatorType == null)
+            {
                 throw new ArgumentNullException("type");
+            }
+
             if (detailType == null)
+            {
                 throw new ArgumentNullException("detailType");
+            }
 
             var properties = aggregatorType.GetProperties();
             foreach (var propertyInfo in properties)
             {
-                if (propertyInfo.PropertyType.IsSubclassOf(typeof(DetailArray)) && GetItemType(aggregatorType, propertyInfo.Name) == detailType) 
+                if (propertyInfo.PropertyType.IsSubclassOf(typeof(DetailArray)) && GetItemType(aggregatorType, propertyInfo.Name) == detailType)
+                {
                     return propertyInfo.Name;
+                }
             }
 
             return null;
@@ -2954,16 +3388,21 @@
             PropertyInfo[] Properties = type.GetProperties();
             for (int i = 0; i < Properties.Length; i++)
             {
-                Object[] myAttributes = Properties[i].GetCustomAttributes(attribute, inherit);
+                object[] myAttributes = Properties[i].GetCustomAttributes(attribute, inherit);
                 if (myAttributes.Length > 0)
                 {
                     return Properties[i].Name;
                 }
             }
+
             if (!inherit || type == typeof(DataObject) || type == typeof(object))
+            {
                 return string.Empty;
+            }
             else
+            {
                 return GetPropertyName(type.BaseType, attribute, inherit);
+            }
         }
 
         static private TypeAtrValueCollection cacheOrderPropertyType = new TypeAtrValueCollection();
@@ -2983,6 +3422,7 @@
                     res = GetPropertyName(type, typeof(OrderAttribute), true);
                     cacheOrderPropertyType[type] = res;
                 }
+
                 return (string)res;
             }
         }
@@ -3001,7 +3441,9 @@
             {
                 ICSSoft.STORMNET.Collections.TypeBaseCollection res = (ICSSoft.STORMNET.Collections.TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
                 if (res != null)
+                {
                     return res;
+                }
                 else
                 {
                     res = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
@@ -3016,9 +3458,12 @@
                     PropertyInfo prop = type.GetProperty(propName);
                     if (prop != null)
                     {
-                        Object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
+                        object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
                         foreach (DataServiceExpressionAttribute atr in myAttributes)
+                        {
                             res.Add(atr.TypeofDataService, atr.Expression);
+                        }
+
                         cacheGetExpressionForProperty[type, propName] = res;
                     }
 
@@ -3059,12 +3504,15 @@
                         string[] order = ((LoadingOrderAttribute)myAttributes[i]).Order;
                         orders[i] = order;
                     }
+
                     res = prv_MakeGraph(orders);
                     cacheLoadingOrder[type] = res;
                     return res;
                 }
                 else
+                {
                     return CopyStringArray(res);
+                }
             }
         }
 
@@ -3075,27 +3523,29 @@
         /// <param name="testObj"></param>
         static public void CheckUsingType(DataObject testObj)
         {
+            if (testObj == null)
+            {
+                return;
+            }
 
-            if (testObj == null) return;
-            //откуда вызов?
+            // откуда вызов?
             var stackTrace = new System.Diagnostics.StackTrace();
             var CallMethodInfo = (MethodInfo)stackTrace.GetFrame(1).GetMethod();
 
-            //узнаем что это за метод
+            // узнаем что это за метод
             string Name = CallMethodInfo.Name;
             Type DeclMethodType = CallMethodInfo.DeclaringType;
             bool CallMethodIsSpecialName = CallMethodInfo.IsSpecialName;
             Type[] CheckTypes = null;
             string propName = string.Empty;
             if (CallMethodIsSpecialName
-                && (Name.StartsWith("set_"))
-                && (DeclMethodType.IsSubclassOf(typeof(DataObject))))
+                && Name.StartsWith("set_")
+                && DeclMethodType.IsSubclassOf(typeof(DataObject)))
             {
-                //проверка из свойства объекта данных
-                //атрибут должен прописываться у свойства
+                // проверка из свойства объекта данных
+                // атрибут должен прописываться у свойства
 
-
-                //поднимимся по перегруженным методам
+                // поднимимся по перегруженным методам
                 int frameIndex = 2;
                 while (frameIndex < stackTrace.FrameCount)
                 {
@@ -3108,7 +3558,9 @@
                         frameIndex++;
                     }
                     else
+                    {
                         break;
+                    }
                 }
 
                 propName = Name.Substring(4);
@@ -3116,27 +3568,33 @@
             }
             else if
                 (!CallMethodIsSpecialName &&
-                (DeclMethodType.IsSubclassOf(typeof(DetailArray))))
+                DeclMethodType.IsSubclassOf(typeof(DetailArray)))
             {
                 // проверка из операции ДетэйлАррея
                 // атрибут должен прописываться у класса
                 object[] atrs = DeclMethodType.GetCustomAttributes(typeof(TypeUsageAttribute), false);
                 if (atrs.Length > 0)
+                {
                     CheckTypes = ((TypeUsageAttribute)atrs[0]).UseTypes;
+                }
             }
 
             if (CheckTypes != null)
             {
-                string allTypes = string.Empty; ;
+                string allTypes = string.Empty;
+                ;
                 foreach (Type testType in CheckTypes)
                 {
-                    if (testObj.GetType() == testType) return;
+                    if (testObj.GetType() == testType)
+                    {
+                        return;
+                    }
+
                     allTypes += testType.Name + ";";
                 }
+
                 throw new IncomatibleCheckingTypeException(DeclMethodType.FullName, propName, testObj.GetType().FullName, allTypes);
             }
-
-
         }
 
         /// <summary>
@@ -3162,10 +3620,12 @@
             {
                 for (int j = 0; j < s[i].Length; j++)
                 {
-                    if (!po.Contains(s[i][j])) po.Add(s[i][j]);
+                    if (!po.Contains(s[i][j]))
+                    {
+                        po.Add(s[i][j]);
+                    }
                 }
             }
-
 
             bool bFound = true;
             while (p1.Count > 0)
@@ -3179,7 +3639,11 @@
                         {
                             string tmpstring = p2[i];
                             scresult.Insert(0, tmpstring);
-                            if (po.Contains(tmpstring)) po.Remove(tmpstring);
+                            if (po.Contains(tmpstring))
+                            {
+                                po.Remove(tmpstring);
+                            }
+
                             for (int j = 0; j < p2.Count; j++)
                             {
                                 if (p2[j] == tmpstring)
@@ -3194,11 +3658,15 @@
                     }
                 }
 
-                if (p1.Count > 0) 
+                if (p1.Count > 0)
                 { // Значит, ещё не конец, надо взять первый попавшийся
                     string tmpstring = p2[0];
                     scresult.Insert(0, tmpstring);
-                    if (po.Contains(tmpstring)) po.Remove(tmpstring);
+                    if (po.Contains(tmpstring))
+                    {
+                        po.Remove(tmpstring);
+                    }
+
                     for (int i = 0; i < p2.Count; i++)
                     {
                         if (p2[i] == tmpstring)
@@ -3210,10 +3678,11 @@
                 }
             }
 
-            for (int i = 0; i < po.Count; i++) 
+            for (int i = 0; i < po.Count; i++)
             { // Дописываем оставшиеся
                 scresult.Insert(0, po[i]);
             }
+
             string[] result = new string[scresult.Count];
             scresult.CopyTo(result, 0);
             return result;
@@ -3234,13 +3703,17 @@
             {
                 object res = cacheGetClassCaptionProperty[dataobjectType];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string sres;
                     object[] atrs = dataobjectType.GetCustomAttributes(typeof(InstanceCaptionPropertyAttribute), true);
                     if (atrs.Length == 0)
+                    {
                         sres = string.Empty;
+                    }
                     else
                     {
                         var atr = (InstanceCaptionPropertyAttribute)atrs[0];
@@ -3266,13 +3739,17 @@
             {
                 object res = cacheGetClassImageProperty[dataobjectType];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string sres;
                     object[] atrs = dataobjectType.GetCustomAttributes(typeof(ClassImagePropertyAttribute), true);
                     if (atrs.Length == 0)
+                    {
                         sres = string.Empty;
+                    }
                     else
                     {
                         var atr = (ClassImagePropertyAttribute)atrs[0];
@@ -3320,7 +3797,6 @@
             return sb.ToString();
         }
 
-
         private static TypeAtrValueCollection cacheGetClassCaption = new TypeAtrValueCollection();
 
         /// <summary>
@@ -3334,13 +3810,17 @@
             {
                 object res = cacheGetClassCaption[dataobjectType];
                 if (res != null)
+                {
                     return (string)res;
+                }
                 else
                 {
                     string sres;
                     object[] atrs = dataobjectType.GetCustomAttributes(typeof(CaptionAttribute), true);
                     if (atrs.Length == 0)
+                    {
                         sres = dataobjectType.Name;
+                    }
                     else
                     {
                         var atr = (CaptionAttribute)atrs[0];
@@ -3353,7 +3833,6 @@
             }
         }
 
-
         /// <summary>
         /// Преобразовать значение к типу ключей объектов класса.
         /// </summary>
@@ -3365,13 +3844,19 @@
             Type keyType = KeyGen.KeyGenerator.KeyType(dataobjecttype);
             Type valueType = value.GetType();
             if (valueType == keyType)
+            {
                 return value;
-            if ((value is Guid) && (keyType.Equals(typeof(KeyGen.KeyGuid))))
+            }
+
+            if ((value is Guid) && keyType.Equals(typeof(KeyGen.KeyGuid)))
             {
                 return new KeyGen.KeyGuid((Guid)value);
             }
+
             if (Convertors.InOperatorsConverter.CanConvert(valueType, keyType))
+            {
                 return Convertors.InOperatorsConverter.Convert(value, keyType);
+            }
 
             throw new PrimaryKeyTypeException();
         }
@@ -3385,15 +3870,22 @@
         private static int GetMostCompatibleType(System.Type testType, System.Type[] types)
         {
             for (int i = 0; i < types.Length; i++)
+            {
                 if (testType == types[i])
+                {
                     return i;
+                }
+            }
+
             if (testType == typeof(object))
+            {
                 return -1;
+            }
             else
+            {
                 return GetMostCompatibleType(testType.BaseType, types);
-
+            }
         }
-
 
         private static TypePropertyAtrValueCollection cacheGetStorageTypeForType = new TypePropertyAtrValueCollection();
 
@@ -3410,13 +3902,19 @@
                 string key = DataServiceType.Name;
                 System.Type res = (System.Type)cacheGetStorageTypeForType[type, key];
                 if (res != null)
+                {
                     return res;
+                }
                 else
                 {
                     if (type.IsSubclassOf(typeof(DataObject)))
+                    {
                         res = type;
+                    }
                     else if (type.IsSubclassOf(typeof(DetailArray)))
+                    {
                         res = type;
+                    }
                     else
                     {
                         object[] atrs = type.GetCustomAttributes(typeof(StoreInstancesInTypeAttribute), true);
@@ -3425,10 +3923,15 @@
                         {
                             System.Type[] types = new Type[atrs.Length];
                             for (int i = 0; i < atrs.Length; i++)
+                            {
                                 types[i] = ((StoreInstancesInTypeAttribute)atrs[i]).DataServiceType;
+                            }
+
                             int atrindex = GetMostCompatibleType(DataServiceType, types);
                             if (atrindex >= 0)
+                            {
                                 res = ((StoreInstancesInTypeAttribute)atrs[atrindex]).StorageType;
+                            }
                         }
                     }
 
@@ -3452,7 +3955,6 @@
         public static System.Type GetStorageType(object value, System.Type DataServiceType)
         {
             return GetStorageTypeForType(value.GetType(), DataServiceType);
-
         }
 
         /// <summary>
@@ -3474,19 +3976,27 @@
         public static bool IsEmptyPropertyValue(object value)
         {
             if (value == null)
+            {
                 return true;
+            }
 
             // В методе EditManager’а была проверка (propertyValue.GetType() == typeof(string) && (string)propertyValue == ""),
             // в DataObject (val == String.Empty)
 
             if (string.Equals(value, string.Empty))
+            {
                 return true;
+            }
 
             if (value.GetType().IsEnum && IsEmptyEnumValue(value))
+            {
                 return true;
+            }
 
             if (value is ISpecialEmptyValue)
+            {
                 return (value as ISpecialEmptyValue).IsEmptyValue(value);
+            }
 
             return false;
         }
@@ -3501,7 +4011,9 @@
             try
             {
                 if (value == null)
+                {
                     return true;
+                }
 
                 var propertyType = value.GetType();
                 var fields = propertyType.GetFields();
@@ -3509,7 +4021,9 @@
                 foreach (var field in fields)
                 {
                     if (field.IsSpecialName)
+                    {
                         continue;
+                    }
 
                     var atrs = field.GetCustomAttributes(typeof(EmptyEnumValueAttribute), true);
 
@@ -3518,20 +4032,27 @@
                     {
                         usedEmptyEnumValueAttribute = true;
                         if (Enum.GetName(propertyType, value) == field.Name)
+                        {
                             return true;
+                        }
                     }
                 }
 
                 var caption = EnumCaption.GetCaptionFor(value);
                 if (!usedEmptyEnumValueAttribute && string.IsNullOrEmpty(caption))
+                {
                     return true;
+                }
 
                 return false;
             }
             catch (Exception ex)
             {
                 if (LogService.Log.IsWarnEnabled)
+                {
                     LogService.Log.Warn("Ошибка в методе IsEmptyEnumValue.", ex);
+                }
+
                 return false;
             }
         }
@@ -3551,17 +4072,20 @@
         public static List<DataObject> GetMastersForDataObjectByView(DataObject dataObject, string viewName)
         {
             Type dataObjectType = dataObject.GetType();
-            Object[] viewAttributes = dataObjectType.GetCustomAttributes(typeof(ViewAttribute), false);
+            object[] viewAttributes = dataObjectType.GetCustomAttributes(typeof(ViewAttribute), false);
             var viewAttribute = viewAttributes.FirstOrDefault(item => ((ViewAttribute)item).Name == viewName) as ViewAttribute;
 
             if (viewAttribute == null)
+            {
                 return new List<DataObject>();
+            }
 
             var result = new List<DataObject>();
 
             foreach (var property in viewAttribute.Properties)
             {
                 string[] partsPropName = property.Split(new[] { '.' }, StringSplitOptions.None);
+
                 // цепочка объектов данных, для вычитки цепочки мастетор (проход по иерархии)
                 var allDataObjects = new List<DataObject> { dataObject };
 
@@ -3581,7 +4105,9 @@
 
                         // и если его нет ещё в списке результа, то и в результат
                         if (!result.Contains((DataObject)master))
+                        {
                             result.Add((DataObject)master);
+                        }
                     }
                     else
                     {
@@ -3661,13 +4187,13 @@
         /// </code>
         /// </summary>
         /// <typeparam name="TSource">
-        /// Тип класса - источника 
+        /// Тип класса - источника
         /// </typeparam>
         /// <param name="propertyExpression">
-        /// Лямбда - выражение для доступа к свойству 
+        /// Лямбда - выражение для доступа к свойству
         /// </param>
         /// <returns>
-        /// Имя свойства (одиночное!) 
+        /// Имя свойства (одиночное!)
         /// </returns>
         public static string ExtractPropertyName<TSource>(Expression<Func<TSource, object>> propertyExpression)
         {
@@ -3705,7 +4231,7 @@
         /// <typeparam name="TSource"> Тип класса - источника </typeparam>
         /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
         /// <returns>
-        /// Полный путь к свойству (разделение через точку) 
+        /// Полный путь к свойству (разделение через точку)
         /// </returns>
         public static string ExtractPropertyPath<TSource>(Expression<Func<TSource, object>> propertyExpression)
         {
@@ -3740,7 +4266,10 @@
         /// <returns> Полный путь к свойству (разделение через точку) </returns>
         private static string InternalExtractPropertyPath(MemberExpression propertyExpression)
         {
-            if (propertyExpression == null) return null;
+            if (propertyExpression == null)
+            {
+                return null;
+            }
 
             var currentPathItem = propertyExpression.Member.Name;
             var itemsBefore = InternalExtractPropertyPath(propertyExpression.Expression as MemberExpression);
@@ -3798,7 +4327,9 @@
             var body = propertyExpression.Body;
             var memberBody = body as MemberExpression;
             if (memberBody == null && (body.NodeType == ExpressionType.Convert || body.NodeType == ExpressionType.ConvertChecked))
+            {
                 memberBody = ((UnaryExpression)body).Operand as MemberExpression;
+            }
 
             if (memberBody == null)
             {
@@ -3892,7 +4423,8 @@
             return attributes.Cast<MasterViewDefineAttribute>().FirstOrDefault(attr => attr.ViewName == view.Name && attr.MasterName == masterName);
         }
 
-        //ToDo: Представленный ниже метод механически выделен из метода SetPropValueByName. Необходимо произвести рефакторинг этих методов и вызывать ParsePropertyValue в SetPropValueByName для пакринга строкового значения. 
+        // ToDo: Представленный ниже метод механически выделен из метода SetPropValueByName. Необходимо произвести рефакторинг этих методов и вызывать ParsePropertyValue в SetPropValueByName для пакринга строкового значения.
+
         /// <summary>
         /// Метод преобразования строкового значения с объектное значение.
         /// </summary>
@@ -3903,24 +4435,34 @@
         public static object ParsePropertyValue(Type tp, string propertyName, string value)
         {
             if (value == null)
+            {
                 return null;
+            }
 
             Type propertyType;
 
             PropertyInfo pi = tp.GetProperty(propertyName);
             if (pi == null)
+            {
                 throw new CantFindPropertyException(propertyName, tp);
+            }
 
             if (propertyName != "__PrimaryKey")
+            {
                 propertyType = GetPropertyType(tp, propertyName);
+            }
             else
+            {
                 propertyType = KeyGen.KeyGenerator.KeyType(tp);
+            }
 
             if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 // Сервис данных обрабатывает string.Empty как null-значение, так что будем присваивать его напрямую. Также это закрывает проблему с десериализацией объектов, когда null записан как string.Empty
                 if (value == string.Empty)
+                {
                     return null;
+                }
 
                 propertyType = Nullable.GetUnderlyingType(propertyType);
             }
@@ -3928,7 +4470,9 @@
             if (propertyType == typeof(string))
             {
                 if (TrimmedStringStorage(tp, propertyName))
+                {
                     value = value.Trim();
+                }
 
                 return value;
             }
@@ -3941,7 +4485,7 @@
                 newPropVal = EnumCaption.GetValueFor(propValString, propertyType);
                 return newPropVal;
             }
-            
+
             if (propertyType != typeof(object))
             {
                 if (propertyType == typeof(DateTime))
@@ -3949,7 +4493,7 @@
                     DateTime dtVal;
                     if (DateTime.TryParse(propValString, out dtVal))
                     {
-                        return  dtVal;
+                        return dtVal;
                     }
 
                     IFormatProvider culture = new System.Globalization.CultureInfo("ru-RU", false);
@@ -3978,14 +4522,20 @@
 
                 MethodInfo opImpl = propertyType.GetMethod("op_Implicit", new Type[] { typeof(string) });
                 if (opImpl != null && opImpl.IsSpecialName)
-                    newPropVal = opImpl.Invoke(null, new Object[] { propValString });
+                {
+                    newPropVal = opImpl.Invoke(null, new object[] { propValString });
+                }
                 else
                 {
                     MethodInfo opExpl = propertyType.GetMethod("op_Explicit", new Type[] { typeof(string) });
                     if (opExpl != null && opExpl.IsSpecialName)
-                        newPropVal = opExpl.Invoke(null, new Object[] { propValString });
+                    {
+                        newPropVal = opExpl.Invoke(null, new object[] { propValString });
+                    }
                     else
+                    {
                         throw new InvalidCastException();
+                    }
                 }
 
                 return newPropVal;
@@ -3993,7 +4543,6 @@
 
             newPropVal = value;
             return newPropVal;
-
         }
 
         /// <summary>
@@ -4006,10 +4555,10 @@
         /// <returns>Если у текущего пользователя есть права на доступ к указанному свойству, то <c>true</c>, иначе - <c>false</c>.</returns>
         public static bool CheckAccessToAttribute(Type type, string propertyName, out object deniedAccessValue)
         {
-           deniedAccessValue = null;
+            deniedAccessValue = null;
 
-           // Регулярное выражение для удаления кавычек и других символов из sql-константы значения по умолчанию.
-           const string sqlValuePattern = @"(?<=(['#])).*(?=\1)";
+            // Регулярное выражение для удаления кавычек и других символов из sql-константы значения по умолчанию.
+            const string sqlValuePattern = @"(?<=(['#])).*(?=\1)";
 
             string expression = null;
 
@@ -4060,34 +4609,43 @@
             System.Collections.ArrayList sc = new System.Collections.ArrayList();
 
             string[] expressarr = expression.Split('@');
-            //string result = "";
+
+            // string result = "";
             int nextIndex = 1;
             for (int i = 0; i < expressarr.Length; i++)
             {
                 if (i != nextIndex)
                 {
-                    //result += expressarr[i];
+                    // result += expressarr[i];
                 }
                 else
                 {
                     if (expressarr[nextIndex] == string.Empty)
                     {
-                        //							result+="@";
+                        // result+="@";
                         nextIndex++;
                     }
                     else
                     {
                         if (namespacewithpoint != string.Empty)
+                        {
                             sc.Add(namespacewithpoint + expressarr[nextIndex]);
-                        //result+=PutIdentifierIntoBrackets(namespacewithpoint+expressarr[nextIndex]);
+                        }
+
+                        // result+=PutIdentifierIntoBrackets(namespacewithpoint+expressarr[nextIndex]);
                         else
-                            //result+=PutIdentifierIntoBrackets(expressarr[nextIndex]);
+                        {
+
+                            // result+=PutIdentifierIntoBrackets(expressarr[nextIndex]);
                             sc.Add(expressarr[nextIndex]);
+                        }
+
                         nextIndex += 2;
                     }
                 }
             }
-            //return "("+result+")";
+
+            // return "("+result+")";
             return (string[])sc.ToArray(typeof(string));
         }
     }

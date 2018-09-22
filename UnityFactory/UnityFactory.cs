@@ -1,7 +1,7 @@
 ﻿namespace ICSSoft.Services
 {
     using System.Configuration;
-    
+
     using Microsoft.Practices.Unity.Configuration;
 
     using Unity;
@@ -48,7 +48,10 @@
         {
             var container = new UnityContainer();
             if (_section == null)
+            {
                 _section = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
+            }
+
             _section?.Configure(container);
             return container;
         }

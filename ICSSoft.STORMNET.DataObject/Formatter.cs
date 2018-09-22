@@ -4,7 +4,7 @@
 
     /// <summary>
     /// Позволяет использовать в строке форматирования параметр вида {* ,}.
-    /// Пример: 
+    /// Пример:
     /// "Результат: {*, }" c параметрами object[]{1,2,3} ->
     /// "Результат: 1, 2, 3",
     /// а формат вида: "Преобразование: {*->}" ->
@@ -38,7 +38,7 @@
         /// <summary>
         /// Преобразовать строку форматирования к стандартному виду.
         /// Пример:
-        /// "Результат: {*, }" 
+        /// "Результат: {*, }"
         /// с parameterscount=3 дает
         /// "Результат: {0}, {1}, {2}".
         /// </summary>
@@ -49,19 +49,26 @@
         {
             string key = parameterscount + "," + format;
             if (formats.ContainsKey(key))
+            {
                 return formats[key];
+            }
 
             if (formats.ContainsKey(format))
+            {
                 return format;
+            }
 
             lock (formats)
             {
                 if (formats.ContainsKey(key))
+                {
                     return formats[key];
+                }
 
                 if (formats.ContainsKey(format))
+                {
                     return format;
-
+                }
 
                 int index = format.IndexOf("{* ");
                 if (index == -1)
@@ -74,17 +81,27 @@
                 string and = string.Empty;
                 index += 3;
                 while (format[index] != '}')
+                {
                     and += format[index++].ToString(CultureInfo.InvariantCulture);
+                }
+
                 and = " " + and + " ";
                 string suf = format.Substring(index + 1);
                 int ni = 0;
-                while (format.IndexOf("{" + ni + "}") >= 0) ni++;
+                while (format.IndexOf("{" + ni + "}") >= 0)
+                {
+                    ni++;
+                }
+
                 string newformat = pref;
                 if (parameterscount > ni)
                 {
                     int i = ni;
                     for (; i < parameterscount - 1; i++)
+                    {
                         newformat += "{" + i + "}" + and;
+                    }
+
                     newformat += "{" + i + "}";
                 }
 

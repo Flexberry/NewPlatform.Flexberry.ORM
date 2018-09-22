@@ -26,7 +26,7 @@
         private const string RegexCheckPattern = @"(([^\\](\\\\)*(([\+\?\{\}\(\)\|\[\]])|([^\.\\]\*)|(\\\.\*)|(\\\w)|(\$.+$)))|(^.*[^\\](\\\\)*\^))";
 
         /// <summary>
-        /// Шаблон, по которому проверяются ограничения по переводу из Regex в sql-like, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like. 
+        /// Шаблон, по которому проверяются ограничения по переводу из Regex в sql-like, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like.
         /// </summary>
         private const string RegexDatabaseDependedPattern = @"(([^\\](\\\\)*\\\*)|_|%|(\\\\))";
 
@@ -41,7 +41,7 @@
         private static Regex RegexDatabaseDependedChecker = new Regex(RegexDatabaseDependedPattern);
 
         /// <summary>
-        /// Шаблон, по которому проверяются ограничения по переводу из sql-like в Regex, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like. 
+        /// Шаблон, по которому проверяются ограничения по переводу из sql-like в Regex, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like.
         /// </summary>
         private const string RegexDatabaseDependedPatternBack = @"[%\\]";
 
@@ -337,9 +337,8 @@
             }
         }
 
-
         /// <summary>
-        /// Минимальная проверка шаблона sql-like: то, что в нём нет символов, которые пока нельзя перевести в Regex и обратно. 
+        /// Минимальная проверка шаблона sql-like: то, что в нём нет символов, которые пока нельзя перевести в Regex и обратно.
         /// </summary>
         /// <param name="sqlString"> Шаблон поиска в sql-like. </param>
         public static void MinimalSqlCheck(string sqlString)
@@ -355,7 +354,7 @@
         /// Метод преобразует шаблон поиска в стиле sql-like в шаблон в стиле Regex.
         /// Как будет переводиться (*, а не %, поскольку так переводит SQLDataService):
         /// *abc* => abc
-        /// abc* => ^abc 
+        /// abc* => ^abc
         /// *abc => abc$
         /// abc*d => abc.*d
         /// ab_c => ab.c
@@ -388,7 +387,7 @@
         }
 
         /// <summary>
-        /// Минимальная проверка шаблона регулярных выражений: то, что он вообще валиден, и то, что в нём нет символов, которые нельзя перевести в sql-like. 
+        /// Минимальная проверка шаблона регулярных выражений: то, что он вообще валиден, и то, что в нём нет символов, которые нельзя перевести в sql-like.
         /// </summary>
         /// <param name="regexString"> Шаблон регулярного выражения. </param>
         public static void MinimalRegexCheck(string regexString)
@@ -418,7 +417,6 @@
             }
         }
 
-
         /// <summary>
         /// Преобразование из шаблона поиска Regex в шаблон поиска для sql-функции like.
         /// Как будет переводиться (*, а не %, поскольку так переводит SQLDataService):
@@ -427,7 +425,7 @@
         /// abc$ => *abc
         /// abc.*d => abc*d
         /// ab.c => ab_c
-        /// Порядок замены: 
+        /// Порядок замены:
         /// 1. Экранируются _. //TODO: временно не делается
         /// 2. .* (точка не экранирована, это проверилось ранее)
         /// 3. . (если точка не экранирована)
@@ -445,7 +443,7 @@
             // regexString = regexString.Replace("_", @"\_"); //TODO: временно не делается
 
             // .* (точка не экранирована, это проверилось ранее)
-            regexString = regexString.Replace(".*", "*"); 
+            regexString = regexString.Replace(".*", "*");
 
             // . (если точка не экранирована)
             regexString = regexString.Replace(@"\.", TempNotAccessibleString);
@@ -467,17 +465,17 @@
             }
 
             // Снимается экранирование со всех символов, кроме *, [, ], _.
-            //regexString = regexString.Replace(@"\*", "{*}");
-            //regexString = regexString.Replace(@"\[", "{[}");
-            //regexString = regexString.Replace(@"\]", "{]}");
-            //regexString = regexString.Replace(@"\_", "{_}");
-            regexString = regexString.Replace(@"\", string.Empty); //TODO: временно экранирование снимается со всех символов
-            //regexString = regexString.Replace("{_}", @"\_");
-            //regexString = regexString.Replace("{]}", @"\]");
-            //regexString = regexString.Replace("{[}", @"\[");
-            //regexString = regexString.Replace("{*}", @"\*");
+            // regexString = regexString.Replace(@"\*", "{*}");
+            // regexString = regexString.Replace(@"\[", "{[}");
+            // regexString = regexString.Replace(@"\]", "{]}");
+            // regexString = regexString.Replace(@"\_", "{_}");
+            regexString = regexString.Replace(@"\", string.Empty); // TODO: временно экранирование снимается со всех символов
+            // regexString = regexString.Replace("{_}", @"\_");
+            // regexString = regexString.Replace("{]}", @"\]");
+            // regexString = regexString.Replace("{[}", @"\[");
+            // regexString = regexString.Replace("{*}", @"\*");
 
-            regexString = regexString.Replace(TempNotAccessibleString, @"\"); //TODO: временно экранирование снимается со всех символов
+            regexString = regexString.Replace(TempNotAccessibleString, @"\"); // TODO: временно экранирование снимается со всех символов
 
             return regexString;
         }
@@ -525,7 +523,7 @@
         public static Function GetParamBinaryFunc(ExpressionType exprType, object par2, object par1)
         {
             if (par1 == null && par2 == null)
-            { 
+            {
                 switch (exprType)
                 {
                     case ExpressionType.Equal:
@@ -596,7 +594,6 @@
             {
                 return null;
             }
-            
         }
 
         /// <summary>
@@ -719,7 +716,10 @@
             masterName = masterName.Split('.')[0];
 
             // "__PrimaryKey" - не мастер.
-            if ("__PrimaryKey".Equals(masterName)) return;
+            if ("__PrimaryKey".Equals(masterName))
+            {
+                return;
+            }
 
             if (!view.Properties.Any(x => x.Name.Equals(masterName)))
             {
@@ -737,7 +737,7 @@
 
         /// <summary>
         /// Возвращает представление детейла из представления агрегатора.
-        /// Если представление динамическое и в нем не оказалось нужного детейла, то 
+        /// Если представление динамическое и в нем не оказалось нужного детейла, то
         /// добавляет его, задавая в качестве представления пустое представление (которое будет заполняться
         /// при разборе подзапросов к данному детейлу)
         /// </summary>

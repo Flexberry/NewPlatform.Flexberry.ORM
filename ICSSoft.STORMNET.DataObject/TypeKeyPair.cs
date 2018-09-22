@@ -6,7 +6,7 @@
     /// Вспомогательный класс для объединения в пары типа объекта и ключа.
     /// Используется в коллекции "живущих" сейчас объектов, собственно,
     /// для доступа к объекту.
-    /// </summary> 
+    /// </summary>
     public class TypeKeyPair : IComparable
     {
         /// <summary>
@@ -46,7 +46,7 @@
         }
 
         /// <summary>
-        /// Serves as a hash function for a type. 
+        /// Serves as a hash function for a type.
         /// </summary>
         /// <returns>
         /// A hash code for the current object.

@@ -14,12 +14,14 @@
         private System.Collections.ArrayList values = new System.Collections.ArrayList();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public TypeBaseCollection() { }
+        public TypeBaseCollection()
+        {
+        }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -32,6 +34,7 @@
             {
                 types.AddRange(typesarr);
             }
+
             lock (values)
             {
                 values.AddRange(valuesarr);
@@ -39,7 +42,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -49,11 +52,13 @@
             {
                 info.AddValue("types", types.ToArray(typeof(System.Type)));
             }
+
             lock (values)
             {
                 info.AddValue("values", values.ToArray(typeof(object)));
             }
         }
+
         /// <summary>
         /// содержит ли ключ
         /// </summary>
@@ -76,6 +81,7 @@
             {
                 types.Clear();
             }
+
             lock (values)
             {
                 values.Clear();
@@ -85,7 +91,11 @@
         /// <summary>
         /// количество
         /// </summary>
-        public int Count { get { return types.Count; } }
+        public int Count
+        {
+            get { return types.Count; }
+        }
+
         /// <summary>
         /// добавить элемент
         /// </summary>
@@ -99,14 +109,18 @@
                 {
                     types.Add(key);
                 }
+
                 lock (values)
                 {
                     values.Add(value);
                 }
             }
             else
+            {
                 throw new ArgumentException("Key already exists", "key");
+            }
         }
+
         /// <summary>
         /// доступ по ключу
         /// </summary>
@@ -116,13 +130,18 @@
             {
                 int index = types.IndexOf(key);
                 if (index >= 0)
+                {
                     lock (values)
                     {
                         return values[index];
                     }
+                }
                 else
-                    throw new ArgumentOutOfRangeException("key", "");
+                {
+                    throw new ArgumentOutOfRangeException("key", string.Empty);
+                }
             }
+
             set
             {
                 int index = -1;
@@ -139,9 +158,12 @@
                     }
                 }
                 else
+                {
                     Add(key, value);
+                }
             }
         }
+
         /// <summary>
         /// доступ по индексу
         /// </summary>
@@ -154,12 +176,17 @@
                     lock (values)
                     {
                         if (index < types.Count && index >= 0)
+                        {
                             return values[index];
+                        }
                         else
-                            throw new ArgumentOutOfRangeException("index", "");
+                        {
+                            throw new ArgumentOutOfRangeException("index", string.Empty);
+                        }
                     }
                 }
             }
+
             set
             {
                 lock (types)
@@ -167,14 +194,17 @@
                     lock (values)
                     {
                         if (index < types.Count && index >= 0)
+                        {
                             values[index] = value;
+                        }
                         else
-                            throw new ArgumentOutOfRangeException("index", "");
+                        {
+                            throw new ArgumentOutOfRangeException("index", string.Empty);
+                        }
                     }
                 }
             }
         }
-
 
         /// <summary>
         /// вставить элемент
@@ -190,7 +220,6 @@
                 {
                     lock (values)
                     {
-
                         if (index >= 0 && index <= types.Count)
                         {
                             for (int i = types.Count; i > index; i--)
@@ -198,16 +227,21 @@
                                 types[i] = types[i - 1];
                                 values[i] = types[i - 1];
                             }
+
                             types[index] = key;
                             values[index] = value;
                         }
                         else
-                            throw new ArgumentOutOfRangeException("index", "");
+                        {
+                            throw new ArgumentOutOfRangeException("index", string.Empty);
+                        }
                     }
                 }
             }
             else
+            {
                 throw new ArgumentException("Key already exists", "key");
+            }
         }
 
         /// <summary>
@@ -220,14 +254,15 @@
             {
                 lock (values)
                 {
-
                     if (index >= 0 && index <= types.Count)
                     {
                         types.RemoveAt(index);
                         values.RemoveAt(index);
                     }
                     else
-                        throw new ArgumentOutOfRangeException("index", "");
+                    {
+                        throw new ArgumentOutOfRangeException("index", string.Empty);
+                    }
                 }
             }
         }
@@ -239,7 +274,9 @@
         public void Remove(System.Type key)
         {
             if (Contains(key))
+            {
                 Remove(types.IndexOf(key));
+            }
         }
 
         /// <summary>
@@ -253,14 +290,18 @@
             {
                 lock (values)
                 {
-
                     if (index >= 0 && index <= types.Count)
+                    {
                         return (System.Type)types[index];
+                    }
                     else
-                        throw new ArgumentOutOfRangeException("index", "");
+                    {
+                        throw new ArgumentOutOfRangeException("index", string.Empty);
+                    }
                 }
             }
         }
+
         /// <summary>
         /// вернуть по шаблону(наиболее подходящий)
         /// </summary>
@@ -269,7 +310,9 @@
         public object GetMostCompatible(System.Type key)
         {
             if (Contains(key))
+            {
                 return this[key];
+            }
             else
             {
                 System.Type objectType = typeof(object);
@@ -277,11 +320,15 @@
                 {
                     key = key.BaseType;
                     if (Contains(key))
+                    {
                         return this[key];
+                    }
                 }
+
                 return null;
             }
         }
+
         /// <summary>
         /// вернуть по шаблону
         /// </summary>
@@ -293,13 +340,17 @@
             lock (types)
             {
                 foreach (System.Type curType in types)
+                {
                     if (curType == key || key.IsSubclassOf(curType))
+                    {
                         res.Add(curType);
+                    }
+                }
             }
+
             object[] resa = new object[res.Count];
             res.CopyTo(resa);
             return resa;
-
         }
 
         /// <summary>
@@ -310,7 +361,9 @@
         {
             var result = new Dictionary<Type, object>();
             for (int i = 0; i < types.Count; i++)
+            {
                 result.Add(types[i] as Type, values[i]);
+            }
 
             return result;
         }

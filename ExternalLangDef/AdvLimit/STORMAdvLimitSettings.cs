@@ -22,6 +22,7 @@
                 bool result = this.fPublished;
                 return result;
             }
+
             set
             {
                 fPublished = value;

@@ -63,7 +63,7 @@
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier)
         {
-            ExternalLangDef langDef= sqlLangDef as ExternalLangDef;
+            ExternalLangDef langDef = sqlLangDef as ExternalLangDef;
             if (value.FunctionDef.StringedView == "TODAY")
             {
                 return "getdate()";
@@ -88,10 +88,9 @@
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return string.Format("(datepart({0}, {1})+@@DATEFIRST-2)%7 + 1", "DW",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
@@ -105,10 +104,10 @@
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
-                //здесь требуется преобразование из DATASERVICE
-                string monthStr = String.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-                string yearStr = String.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
-                monthStr = String.Format("CASE WHEN LEN({0})=1 THEN '0'+{0} ELSE {0} END", monthStr);
+                // здесь требуется преобразование из DATASERVICE
+                string monthStr = string.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                string yearStr = string.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
+                monthStr = string.Format("CASE WHEN LEN({0})=1 THEN '0'+{0} ELSE {0} END", monthStr);
                 return string.Format("DAY(DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,CAST({0}+{1}+'01' AS DATETIME))+1,0)))", yearStr, monthStr);
             }
 
@@ -153,7 +152,10 @@
                 var al = new ArrayList();
                 var par = langDef.TransformObject(value.Parameters[1], dvd.StringedView, al);
                 foreach (string s in al)
+                {
                     lcs.View.AddProperty(s);
+                }
+
                 var Slct = GenerateSQLSelect(lcs, false).Replace("STORMGENERATEDQUERY", "SGQ" + Guid.NewGuid().ToString().Replace("-", string.Empty));
                 var CountIdentifier = convertIdentifier("g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
@@ -168,17 +170,21 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
-                    //convertIdentifier(dvd.OwnerConnectProp),
+
+                    // convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
-                    //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
+
+                    // ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "isnull(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += "))";
 
                 langDef.retVars = prevRetVars;
                 return res;
-
             }
 
             if (value.FunctionDef.StringedView == langDef.funcCountWithLimit || value.FunctionDef.StringedView == "Count")
@@ -198,15 +204,19 @@
                 var res = string.Format(
                     "( Isnull(  ( SELECT {0} From ( " +
                     "SELECT Count(*) {0},{1} from ( {4} )pip group by {1} ) " +
-                    " ahh where {1} in ({3}",//),0))",
+                    " ahh where {1} in ({3}", // ),0))",
                     CountIdentifier,
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
-                    //convertIdentifier(dvd.OwnerConnectProp),
+
+                    // convertIdentifier(dvd.OwnerConnectProp),
                     Slct);
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += ")),0))";
 
                 langDef.retVars = prevRetVars;
@@ -240,12 +250,14 @@
             {
                 // Общее преобразование в строку, задается значение и длина строки
                 if (value.Parameters.Count == 2)
+                {
                     return string.Format(
                         "CONVERT(VARCHAR({1}), {0})",
                         langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
                         value.Parameters[1]);
+                }
 
-                // Преобразование даты и времени в строку; кроме значения, числом задается стиль 
+                // Преобразование даты и времени в строку; кроме значения, числом задается стиль
                 // даты-времени, например, 104 (dd.mm.yyyy).
                 // Стили перечислены здесь: http://msdn.microsoft.com/ru-ru/library/ms187928.aspx
                 if (value.Parameters.Count == 3)
@@ -257,6 +269,7 @@
                         value.Parameters[2]);
                 }
             }
+
             return string.Empty;
         }
 
@@ -278,9 +291,9 @@
                 throw new ArgumentException("Identifiers array is empty.", "identifiers");
             }
 
-            /* 
+            /*
              * Создаём строку вида:
-             * 
+             *
              * ds.GetIfNullExpression("identifier1");
              * //"identifier1"
              *
@@ -293,7 +306,10 @@
              */
             string result = identifiers[identifiersLength - 1];
             for (int i = identifiers.Length - 2; i >= 0; i--)
+            {
                 result = string.Concat("ISNULL(", identifiers[i], ", ", result, ")");
+            }
+
             return result;
         }
 
@@ -332,7 +348,9 @@
                 if (valueType == typeof(string))
                 {
                     if ((string)value == string.Empty)
-                            return "NULL";
+                    {
+                        return "NULL";
+                    }
 
                     return "N'" + value.ToString().Replace("'", "''") + "'";
                 }

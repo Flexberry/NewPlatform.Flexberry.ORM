@@ -45,18 +45,19 @@ namespace ICSSoft.STORMNET.Tools
 
                 var directorySearcher = new DirectorySearcher(directoryEntry)
                 {
-                    Filter = String.Format("(SAMAccountName={0})", userLogin)
+                    Filter = string.Format("(SAMAccountName={0})", userLogin)
                 };
                 var resultCollection = directorySearcher.FindAll();
                 if (resultCollection.Count > 0)
                 {
                     return resultCollection[0].Properties["Name"][0].ToString();
                 }
+
                 return string.Empty;
             }
             catch (ActiveDirectoryObjectNotFoundException)
             {
-                // Если не нашли такую ActiveDirectory, 
+                // Если не нашли такую ActiveDirectory,
                 // то возможно мы в другой сети или она не верно задана.
                 return string.Empty;
             }

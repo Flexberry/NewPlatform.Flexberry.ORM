@@ -51,7 +51,7 @@
             : this()
         {
             // первый вариант десериализации, без учета функций, входящих в ExternalLangDef
-            //var f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
+            // var f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
             //    Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
 
             Function f;
@@ -60,7 +60,7 @@
             // содержится больше функций, чем в SQLWhereLangDef
             var externalLangDef = Type.GetType(
                 "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ExternalLangDef, Version=1.0.0.0, " +
-                "Culture=neutral, PublicKeyToken=50dc27591ed591e6", 
+                "Culture=neutral, PublicKeyToken=50dc27591ed591e6",
                 false);
             if(externalLangDef == null)
             {
@@ -74,8 +74,7 @@
             {
                 MethodInfo functionFromSimpleStruct = externalLangDef.GetMethod("FunctionFromSimpleStruct");
                 PropertyInfo languageDef = externalLangDef.GetProperty("LanguageDef");
-                f = (Function)
-                    functionFromSimpleStruct.Invoke(languageDef.GetValue(null, null),
+                f = (Function)functionFromSimpleStruct.Invoke(languageDef.GetValue(null, null),
                                                     new object[]
                                                         {
                                                             Tools.ToolBinarySerializer.ObjectFromString(
@@ -88,7 +87,6 @@
                 f = SQLWhereLanguageDef.LanguageDef.FunctionFromSimpleStruct(
                         Tools.ToolBinarySerializer.ObjectFromString(info.GetString(FuncName)));
             }
-            
 
             fieldParameters = f.fieldParameters;
             _fieldFunctionDef = f._fieldFunctionDef;
@@ -124,27 +122,32 @@
             {
                 if (obj is VariableDef)
                 {
-                    //это имя свойства
+                    // это имя свойства
                     arl.Add((obj as VariableDef).StringedView);
                 }
                 else if (obj is Function)
                 {
-                    //спускаемся вниз
+                    // спускаемся вниз
                     InternalGetLimitProperties(obj as Function, arl);
                 }
             }
         }
 
-
         /// <summary>
         /// Определение функции
         /// </summary>
-        public FunctionDef FunctionDef { get { return _fieldFunctionDef; } set { _fieldFunctionDef = value; } }
+        public FunctionDef FunctionDef
+        {
+            get { return _fieldFunctionDef; } set { _fieldFunctionDef = value; }
+        }
 
         /// <summary>
         /// Массив параметров
         /// </summary>
-        public ArrayList Parameters { get { return fieldParameters; } }
+        public ArrayList Parameters
+        {
+            get { return fieldParameters; }
+        }
 
         /// <summary>
         /// Переопределяем сравнение функций (сравнение идёт по функциям, получаемым методом ToString).
@@ -166,7 +169,7 @@
         /// </summary>
         /// <param name="obj"> Объект, с которым идёт сравнение (если это не Function, то вернётся null). </param>
         /// <returns> True, если значение ToString совпало. </returns>
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Function))
             {
@@ -195,7 +198,9 @@
         public static bool operator ==(Function function1, Function function2)
         {
             if ((object)function1 == null || ((object)function2) == null)
-                return Object.Equals(function1, function2);
+            {
+                return object.Equals(function1, function2);
+            }
 
             return function1.Equals(function2);
         }
@@ -209,7 +214,9 @@
         public static bool operator !=(Function function1, Function function2)
         {
             if ((object)function1 == null || ((object)function2) == null)
-                return !Object.Equals(function1, function2);
+            {
+                return !object.Equals(function1, function2);
+            }
 
             return !function1.Equals(function2);
         }
@@ -223,6 +230,7 @@
             StringBuilder stringBuilder = new StringBuilder(_fieldFunctionDef.StringedView);
             stringBuilder.Append(" (");
             foreach (object par in fieldParameters)
+            {
                 if (par is ViewedObject)
                 {
                     stringBuilder.Append(" ");
@@ -238,6 +246,8 @@
                 {
                     stringBuilder.Append(" NULL ");
                 }
+            }
+
             stringBuilder.Append(")");
             return stringBuilder.ToString();
         }
@@ -253,16 +263,24 @@
             {
                 var par = Parameters[i];
                 if (par is VariableDef)
+                {
                     parameters[i] = (par as VariableDef).Caption;
+                }
                 else if (par is Function)
+                {
                     parameters[i] = (par as Function).ToUserFriendlyString();
+                }
                 else
+                {
                     parameters[i] = par;
+                }
             }
 
             if (FunctionDef.StringedView == SQLWhereLanguageDef.LanguageDef.funcEQ
                 && parameters.Length == 1)
+            {
                 return string.Format("{0}", parameters);
+            }
 
             var frm = Convertors.Formatter.transfertformat(FunctionDef.UserViewFormat, parameters.Length);
             return string.Format(frm, parameters);
@@ -275,6 +293,7 @@
         {
             Check(true);
         }
+
         /// <summary>
         /// Проверка без вложений
         /// </summary>
@@ -302,13 +321,18 @@
 
             object[] newpars = new object[Parameters.Count];
             for (int i = 0; i < newpars.Length; i++)
+            {
                 if (Parameters[i] is Function)
+                {
                     newpars[i] = (Parameters[i] as Function).Clone();
+                }
                 else
+                {
                     newpars[i] = Parameters[i];
+                }
+            }
 
             return new Function(FunctionDef, newpars);
-
         }
 
         /// <summary>
@@ -321,15 +345,19 @@
             if (_fieldFunctionDef == null)
             {
                 return false;
-                //throw new NullFunctionDefException();
+
+                // throw new NullFunctionDefException();
             }
+
             if ((fieldParameters.Count != _fieldFunctionDef.Parameters.Count)
                 && (fieldParameters.Count > _fieldFunctionDef.Parameters.Count)
                 && (!_fieldFunctionDef.Parameters[_fieldFunctionDef.Parameters.Count - 1].MultiValueSupport))
             {
                 return false;
-                //throw new ParameterCountException();
+
+                // throw new ParameterCountException();
             }
+
             for (int i = 0; i < fieldParameters.Count; i++)
             {
                 ObjectType parameterDefType = (i >= _fieldFunctionDef.Parameters.Count) ? _fieldFunctionDef.Parameters[_fieldFunctionDef.Parameters.Count - 1].Type : _fieldFunctionDef.Parameters[i].Type;
@@ -342,8 +370,11 @@
                         {
                             return false;
                         }
+
                         if (checkSubFunctions)
+                        {
                             (fieldParameters[i] as Function).Check(true);
+                        }
                     }
                 }
                 else if (fieldParameters[i] is VariableDef)
@@ -361,24 +392,31 @@
                     }
                 }
             }
+
             return true;
         }
 
-        ///<summary>
+        /// <summary>
         /// Проверка функции с выбросом эксепшенов
-        ///</summary>
-        ///<param name="checkSubFunctions"></param>
-        ///<exception cref="NullFunctionDefException"></exception>
-        ///<exception cref="ParameterCountException"></exception>
-        ///<exception cref="UncompatibleParameterTypeException"></exception>
+        /// </summary>
+        /// <param name="checkSubFunctions"></param>
+        /// <exception cref="NullFunctionDefException"></exception>
+        /// <exception cref="ParameterCountException"></exception>
+        /// <exception cref="UncompatibleParameterTypeException"></exception>
         public void Check(bool checkSubFunctions)
         {
+            if (_fieldFunctionDef == null)
+            {
+                throw new NullFunctionDefException();
+            }
 
-            if (_fieldFunctionDef == null) throw new NullFunctionDefException();
             if ((fieldParameters.Count != _fieldFunctionDef.Parameters.Count)
                 && (fieldParameters.Count > _fieldFunctionDef.Parameters.Count)
                 && (!_fieldFunctionDef.Parameters[_fieldFunctionDef.Parameters.Count - 1].MultiValueSupport))
+            {
                 throw new ParameterCountException();
+            }
+
             for (int i = 0; i < fieldParameters.Count; i++)
             {
                 ObjectType parameterDefType = (i >= _fieldFunctionDef.Parameters.Count)
@@ -397,8 +435,11 @@
                         {
                             throw new UncompatibleParameterTypeException(i);
                         }
+
                         if (checkSubFunctions)
+                        {
                             (fieldParameters[i] as Function).Check(true);
+                        }
                     }
                 }
                 else if (fieldParameters[i] is VariableDef)

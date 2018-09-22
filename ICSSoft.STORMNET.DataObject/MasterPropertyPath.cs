@@ -46,12 +46,16 @@
             Separator = DefaultSeparator;
 
             if (string.IsNullOrEmpty(value))
+            {
                 throw new ArgumentNullException("value", @"Необходимо указать непустой путь до мастерового свойства.");
+            }
 
             _masterPropertyPath = value;
 
             if (GetMasterLevel() < 1)
+            {
                 throw new ArgumentException("Необходимо указать корректный путь до мастерового свойства.");
+            }
         }
 
         /// <summary>
@@ -94,13 +98,17 @@
             string[] parts = GetMasterPropertyPathParts();
 
             if (masterName == null)
+            {
                 return parts.Length - 1;
+            }
 
             // Просматриваем все части пути кроме последней. Так как последняя часть не является мастером.
             for (int i = parts.Length - 2; i >= 0; i--)
             {
                 if (parts[i] == masterName)
+                {
                     return i + 1;
+                }
             }
 
             return -1;
@@ -125,7 +133,9 @@
         public string ReplacePart(int partLevel, string replacementString)
         {
             if (partLevel < 1)
+            {
                 throw new ArgumentException("Части пути начинают считаться с 1.");
+            }
 
             string[] parts = GetMasterPropertyPathParts();
             string replacedString = parts[partLevel - 1];
@@ -137,7 +147,9 @@
 
                 // Если мы хотим заменить не на пустую строку, то добавим разделитель и в начале подменной строки, чтобы все разделители сохранились.
                 if (!string.IsNullOrEmpty(replacementString))
+                {
                     replacementString = Separator + replacementString;
+                }
             }
 
             if (partLevel < parts.Length - 1)
@@ -146,7 +158,9 @@
 
                 // Если мы хотим заменить на не пустую строку в середине или конце пути, то добавим разделитель и в конце подменной строки, чтобы все разделители сохранились.
                 if (!string.IsNullOrEmpty(replacementString) || partLevel != 1)
+                {
                     replacementString += Separator;
+                }
             }
 
             _masterPropertyPath = _masterPropertyPath.Replace(replacedString, replacementString);
@@ -162,7 +176,9 @@
         public string ChangeSeparator(string newSeparator)
         {
             if (string.IsNullOrEmpty(newSeparator))
+            {
                 throw new ArgumentNullException("newSeparator", @"Разделитель не может быть пустым.");
+            }
 
             _masterPropertyPath = _masterPropertyPath.Replace(Separator, newSeparator);
             Separator = newSeparator;
@@ -185,12 +201,18 @@
             List<string> parts = GetMasterPropertyPathParts().ToList();
 
             if (level > parts.Count - 1)
+            {
                 throw new ArgumentException("Переданный уровень мастера не может превышать максимального уровня.");
+            }
 
             if (level < 1)
+            {
                 parts.RemoveAt(parts.Count - 1);
+            }
             else
+            {
                 parts.RemoveRange(level, parts.Count - level);
+            }
 
             return string.Join(Separator, parts.ToArray());
         }
@@ -211,14 +233,18 @@
             List<string> parts = GetMasterPropertyPathParts().ToList();
 
             if (level > parts.Count - 1)
+            {
                 throw new ArgumentException("Переданный уровень мастера не может превышать максимального уровня.");
+            }
 
             if (level < 1)
+            {
                 level = parts.Count - 1;
+            }
 
             return parts[level - 1];
         }
-        
+
         /// <summary>
         /// Получить части пути до мастерового свойства.
         /// </summary>

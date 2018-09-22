@@ -26,14 +26,25 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// Полигоны в формате WKT (см. http://en.wikipedia.org/wiki/Well-known_text)
         /// </summary>
         public string Poligons { get; set; }
-        
+
         public static explicit operator string(GeoData value)
         {
             // Лучше будет использовать Json, но нет возможности
             var xml = new XElement("geoData");
-            if (value.Name != null) xml.Add(new XAttribute("name", value.Name));
-            if (value.AxesSystem != null) xml.Add(new XAttribute("axes", value.AxesSystem));
-            if (value.Poligons != null) xml.Add(new XAttribute("wkt", value.Poligons));
+            if (value.Name != null)
+            {
+                xml.Add(new XAttribute("name", value.Name));
+            }
+
+            if (value.AxesSystem != null)
+            {
+                xml.Add(new XAttribute("axes", value.AxesSystem));
+            }
+
+            if (value.Poligons != null)
+            {
+                xml.Add(new XAttribute("wkt", value.Poligons));
+            }
 
             return xml.ToString();
         }
@@ -41,11 +52,16 @@ namespace ICSSoft.STORMNET.UserDataTypes
         public static explicit operator GeoData(string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return null;
+            }
 
             // Лучше будет использовать Json, но нет возможности
             var xml = XElement.Parse(value);
-            if (xml == null) throw new ArgumentException("Ошибка при десериализации");
+            if (xml == null)
+            {
+                throw new ArgumentException("Ошибка при десериализации");
+            }
 
             var geoData = new GeoData();
 

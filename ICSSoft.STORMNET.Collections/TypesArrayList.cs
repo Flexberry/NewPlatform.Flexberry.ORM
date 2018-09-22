@@ -10,14 +10,13 @@
     public class TypesArrayList : IEnumerable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
 
         private class TypeComaprer : IComparer
         {
@@ -32,27 +31,31 @@
 
             #endregion
         }
+
         private static IComparer stComparer;
+
         private static IComparer Comparer
         {
             get
             {
                 if (stComparer == null)
+                {
                     stComparer = new TypeComaprer();
+                }
+
                 return stComparer;
             }
         }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)dataArray).GetEnumerator();
         }
 
-
-
         private ArrayList dataArray;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="capacity"></param>
         public TypesArrayList(int capacity)
@@ -61,21 +64,29 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TypesArrayList()
         {
             dataArray = new ArrayList();
-
         }
+
         /// <summary>
         /// емкость
         /// </summary>
-        public virtual int Capacity { get { return dataArray.Capacity; } set { dataArray.Capacity = value; } }
+        public virtual int Capacity
+        {
+            get { return dataArray.Capacity; } set { dataArray.Capacity = value; }
+        }
+
         /// <summary>
         /// количество элементов
         /// </summary>
-        public virtual int Count { get { return dataArray.Count; } }
+        public virtual int Count
+        {
+            get { return dataArray.Count; }
+        }
+
         /// <summary>
         /// вернуть по индексу
         /// </summary>
@@ -84,22 +95,35 @@
             get { return (Type)dataArray[index]; }
             set { dataArray[index] = value; }
         }
+
         /// <summary>
         /// объект для синхронизации доступа к массиву
         /// </summary>
-        public virtual object SyncRoot { get { return dataArray.SyncRoot; } }
+        public virtual object SyncRoot
+        {
+            get { return dataArray.SyncRoot; }
+        }
+
         /// <summary>
         /// Array wrapper
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static ArrayList Adapter(IList list) { return ArrayList.Adapter(list); }
+        public static ArrayList Adapter(IList list)
+        {
+            return ArrayList.Adapter(list);
+        }
+
         /// <summary>
         /// добавить
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public virtual int Add(Type value) { return dataArray.Add(value); }
+        public virtual int Add(Type value)
+        {
+            return dataArray.Add(value);
+        }
+
         /// <summary>
         /// поиск
         /// </summary>
@@ -109,6 +133,7 @@
         {
             return dataArray.BinarySearch(value, Comparer);
         }
+
         /// <summary>
         /// поиск
         /// </summary>
@@ -119,36 +144,40 @@
         public virtual int BinarySearch(
             int index,
             int count,
-            Type value
-            )
+            Type value)
         {
             return dataArray.BinarySearch(index, count, value, Comparer);
         }
+
         /// <summary>
         /// очистить
         /// </summary>
-        public virtual void Clear() { dataArray.Clear(); }
+        public virtual void Clear()
+        {
+            dataArray.Clear();
+        }
+
         /// <summary>
         /// проверка на вхождение
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
         public virtual bool Contains(
-            Type item
-            )
+            Type item)
         {
             return dataArray.Contains(item);
         }
+
         /// <summary>
         /// копирование
         /// </summary>
         /// <param name="array"></param>
         public virtual void CopyTo(
-            Type[] array
-            )
+            Type[] array)
         {
             dataArray.CopyTo(array);
         }
+
         /// <summary>
         /// копирование
         /// </summary>
@@ -156,11 +185,11 @@
         /// <param name="arrayIndex"></param>
         public virtual void CopyTo(
             Type[] array,
-            int arrayIndex
-            )
+            int arrayIndex)
         {
             dataArray.CopyTo(array, arrayIndex);
         }
+
         /// <summary>
         /// копирование
         /// </summary>
@@ -172,25 +201,29 @@
             int index,
             Type[] array,
             int arrayIndex,
-            int count
-            )
+            int count)
         {
             dataArray.CopyTo(index, array, arrayIndex, count);
         }
+
         /// <summary>
         /// проверка на равенство
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(
-            object obj
-            )
+            object obj)
         {
             if (obj is TypesArrayList)
+            {
                 return dataArray.Equals(((TypesArrayList)obj).dataArray);
+            }
             else
+            {
                 return false;
+            }
         }
+
         /// <summary>
         /// проверка на равенство
         /// </summary>
@@ -199,8 +232,7 @@
         /// <returns></returns>
         public static new bool Equals(
             object objA,
-            object objB
-            )
+            object objB)
         {
             return objA.Equals(objB);
         }
@@ -211,11 +243,11 @@
         /// <param name="value"></param>
         /// <returns></returns>
         public virtual int IndexOf(
-            Type value
-            )
+            Type value)
         {
             return dataArray.IndexOf(value);
         }
+
         /// <summary>
         /// индекс объекта
         /// </summary>
@@ -224,11 +256,11 @@
         /// <returns></returns>
         public virtual int IndexOf(
             Type value,
-            int startIndex
-            )
+            int startIndex)
         {
             return dataArray.IndexOf(value, startIndex);
         }
+
         /// <summary>
         /// индекс объекта
         /// </summary>
@@ -239,11 +271,11 @@
         public virtual int IndexOf(
             Type value,
             int startIndex,
-            int count
-            )
+            int count)
         {
             return dataArray.IndexOf(value, startIndex, count);
         }
+
         /// <summary>
         /// Вставить объект
         /// </summary>
@@ -251,22 +283,22 @@
         /// <param name="value"></param>
         public virtual void Insert(
             int index,
-            Type value
-            )
+            Type value)
         {
             dataArray.Insert(index, value);
         }
+
         /// <summary>
         /// индекс объекта с конца
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public virtual int LastIndexOf(
-            Type value
-            )
+            Type value)
         {
             return dataArray.LastIndexOf(value);
         }
+
         /// <summary>
         /// индекс объекта с конца
         /// </summary>
@@ -275,11 +307,11 @@
         /// <returns></returns>
         public virtual int LastIndexOf(
             Type value,
-            int startIndex
-            )
+            int startIndex)
         {
             return dataArray.LastIndexOf(value, startIndex);
         }
+
         /// <summary>
         /// индекс объекта с конца
         /// </summary>
@@ -290,31 +322,31 @@
         public virtual int LastIndexOf(
             Type value,
             int startIndex,
-            int count
-            )
+            int count)
         {
             return dataArray.LastIndexOf(value, startIndex, count);
         }
+
         /// <summary>
         /// удалить объект
         /// </summary>
         /// <param name="obj"></param>
         public virtual void Remove(
-            Type obj
-            )
+            Type obj)
         {
             dataArray.Remove(obj);
         }
+
         /// <summary>
         /// удалить по индексу
         /// </summary>
         /// <param name="index"></param>
         public virtual void RemoveAt(
-            int index
-            )
+            int index)
         {
             dataArray.RemoveAt(index);
         }
+
         /// <summary>
         /// удалить кучу
         /// </summary>
@@ -322,27 +354,26 @@
         /// <param name="count"></param>
         public virtual void RemoveRange(
             int index,
-            int count
-            )
+            int count)
         {
             dataArray.RemoveRange(index, count);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <param name="count"></param>
         /// <returns></returns>
         public static TypesArrayList Repeat(
             TypesArrayList value,
-            int count
-            )
+            int count)
         {
             TypesArrayList res = new TypesArrayList();
             res.dataArray = ArrayList.Repeat(value.dataArray, count);
             return res;
         }
+
         /// <summary>
         /// вывернуть
         /// </summary>
@@ -350,6 +381,7 @@
         {
             dataArray.Reverse();
         }
+
         /// <summary>
         /// вывернуть
         /// </summary>
@@ -357,11 +389,11 @@
         /// <param name="count"></param>
         public virtual void Reverse(
             int index,
-            int count
-            )
+            int count)
         {
             dataArray.Reverse(index, count);
         }
+
         /// <summary>
         /// отсортировать
         /// </summary>
@@ -369,6 +401,7 @@
         {
             dataArray.Sort(Comparer);
         }
+
         /// <summary>
         /// отсортировать
         /// </summary>
@@ -376,11 +409,11 @@
         /// <param name="count"></param>
         public virtual void Sort(
             int index,
-            int count
-            )
+            int count)
         {
             dataArray.Sort(index, count, Comparer);
         }
+
         /// <summary>
         /// преобразовать в массив
         /// </summary>
@@ -389,6 +422,7 @@
         {
             return (Type[])dataArray.ToArray(typeof(Type));
         }
+
         /// <summary>
         /// в строку
         /// </summary>
@@ -397,6 +431,7 @@
         {
             return dataArray.ToString();
         }
+
         /// <summary>
         /// обрезать лишнее
         /// </summary>

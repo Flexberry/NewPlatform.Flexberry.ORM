@@ -7,6 +7,9 @@
     /// </summary>
     public class MasterLevelException : Exception
     {
-        public MasterLevelException(string message) : base(message) { }
+        public MasterLevelException(string message)
+            : base(message)
+        {
+        }
     }
 }

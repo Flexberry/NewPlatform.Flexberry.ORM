@@ -8,7 +8,7 @@
         private const string WrongAdditionalInfoErrorMessage = "Попытка дописать значения аудита для поля, который не имеет атрибута DisableInsertPropertyAttribute.";
 
         /// <summary>
-        /// Конструктор для инициализации исключения с сообщением 
+        /// Конструктор для инициализации исключения с сообщением
         /// "Попытка дописать значения аудита для поля, который не имеет атрибута DisableInsertPropertyAttribute".
         /// </summary>
         public WrongAdditionalInfoAuditException()

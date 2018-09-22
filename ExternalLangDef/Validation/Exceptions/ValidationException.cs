@@ -12,7 +12,8 @@
         /// Создание исключения.
         /// </summary>
         /// <param name="message">Сообщение об ошибке.</param>
-        protected ValidationException(string message) : base(message)
+        protected ValidationException(string message)
+            : base(message)
         {
         }
     }

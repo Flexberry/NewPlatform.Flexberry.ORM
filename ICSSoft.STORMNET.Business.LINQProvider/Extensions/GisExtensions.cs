@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+
     /// <summary>
     /// Методы расширения Gis для LINQProvider.
     /// </summary>
@@ -55,7 +56,7 @@
         /// <returns>Cтрока в формате WKT.</returns>
         public static string GetWKT(this Geography geo)
         {
-            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", "");
+            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", string.Empty);
         }
 
         /// <summary>
@@ -67,7 +68,6 @@
         {
             return geo.CoordinateSystem.Id;
         }
-
     }
 #endif
 }

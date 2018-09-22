@@ -39,7 +39,7 @@
         }
 
         #endregion
-        		
+
         /// <summary>
         /// Конструктор
         /// </summary>

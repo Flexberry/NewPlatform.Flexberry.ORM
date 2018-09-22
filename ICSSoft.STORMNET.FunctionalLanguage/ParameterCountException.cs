@@ -7,6 +7,8 @@
     /// </summary>
     public class ParameterCountException : Exception
     {
-        internal ParameterCountException() { }
+        internal ParameterCountException()
+        {
+        }
     }
 }

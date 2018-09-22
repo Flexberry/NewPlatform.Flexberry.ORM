@@ -21,7 +21,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         /// Результирующий LCS.
         /// </summary>
         private readonly LoadingCustomizationStruct _resultLcs = new LoadingCustomizationStruct(null);
-        
+
         /// <summary>
         /// Представление.
         /// </summary>
@@ -41,7 +41,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         /// Определение функций ограничения.
         /// </summary>
         protected SQLWhereLanguageDef langdef = SQLWhereLanguageDef.LanguageDef;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LcsGeneratorQueryModelVisitor"/> class.
         /// </summary>
@@ -61,7 +61,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             {
                 // ToDo: Представление записывается в LCS только в случае динамического
                 // ToDo: представления, потому что иначе не проходятся существующие тесты
-                // ToDo: (их нужно исправить, чтобы они записывали представление в LCS, 
+                // ToDo: (их нужно исправить, чтобы они записывали представление в LCS,
                 // ToDo: с которой сравнивается результат)
                 _resultLcs.View = View;
             }
@@ -92,7 +92,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             VisitQueryModel(queryModel);
             return GetLcs();
         }
-        
+
         /// <summary>
         /// Получить внутреннюю пременную LCS. Перед вызовом убедитесь, что она готова.
         /// </summary>
@@ -183,16 +183,17 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
                     int maxNumber = _resultLcs.ReturnTop == 0 ? int.MaxValue : _resultLcs.ReturnTop;
                     if (_resultLcs.RowNumber == null)
                     {
-                        _resultLcs.RowNumber = new RowNumberDef((int) minNumberExpression.Value + 1, maxNumber);
+                        _resultLcs.RowNumber = new RowNumberDef((int)minNumberExpression.Value + 1, maxNumber);
                     }
                     else
                     {
                         _resultLcs.RowNumber.StartRow = _resultLcs.RowNumber.StartRow + (int)minNumberExpression.Value;
                     }
+
                     _resultLcs.ReturnTop = 0;
                 }
             }
-            
+
             base.VisitResultOperator(resultOperator, queryModel, index);
         }
 
@@ -216,18 +217,26 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
                 Expression expression = null;
                 StringBuilder path = new StringBuilder();
                 if (ordering.Expression is MemberExpression)
+                {
                     expression = ordering.Expression as MemberExpression;
+                }
                 else if (ordering.Expression is UnaryExpression)
+                {
                     expression = ordering.Expression as UnaryExpression;
+                }
                 else if (ordering.Expression is ConditionalExpression)
                 {
                     expression = (ordering.Expression as ConditionalExpression).IfFalse;
                     while (expression is ConditionalExpression)
+                    {
                         expression = (expression as ConditionalExpression).IfFalse;
+                    }
                 }
 
                 while (expression != null && expression.NodeType == ExpressionType.Convert)
+                {
                     expression = (expression as UnaryExpression).Operand;
+                }
 
                 MemberExpression memberExpression = expression as MemberExpression;
                 while (memberExpression != null)
@@ -235,18 +244,26 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
                     member = UtilsLcs.GetObjectPropertyValue(memberExpression, "Member");
                     memberExpression = memberExpression.Expression as MemberExpression;
                     if (member == null)
+                    {
                         break;
+                    }
                     else if (member.Name == "Value")
+                    {
                         continue;
+                    }
 
                     if (path.Length > 0)
+                    {
                         path.Insert(0, ".");
+                    }
 
                     path.Insert(0, member.Name);
                 }
 
                 if (path.Length > 0)
+                {
                     AddColumnSort(path.ToString(), GetOrder(ordering.OrderingDirection));
+                }
             }
 
             VisitOrderings(orderByClause.Orderings, queryModel, orderByClause);
@@ -288,12 +305,17 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         protected virtual void SetLimitFuncion(Function limitFunction, LoadingCustomizationStruct lcs)
         {
             if (lcs.LimitFunction != null)
-                // Для поддержки цепочного вызова Where необходимо объединить переданное ограничение с уже существующим. 
+            {
+
+                // Для поддержки цепочного вызова Where необходимо объединить переданное ограничение с уже существующим.
                 lcs.LimitFunction = langdef.GetFunction(langdef.funcAND, lcs.LimitFunction, limitFunction);
+            }
             else
+            {
                 lcs.LimitFunction = limitFunction;
+            }
         }
-        
+
         /// <summary>
         /// The fill lcs limit function.
         /// </summary>

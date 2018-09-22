@@ -19,7 +19,7 @@
         /// <summary>
         /// Режим проверки вплоть до объектов, а не для всего типа сразу, выключен - всегда возвращается <c>false</c>.
         /// </summary>
-        public bool UseRightsOnObjects 
+        public bool UseRightsOnObjects
         {
             get { return false; }
         }
@@ -60,7 +60,7 @@
             return true;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Проверка операций с объектом. Всегда возвращается <c>true</c>.
         /// </summary>
         /// <param name="type">Тип объекта данных.</param>
@@ -72,7 +72,7 @@
             return true;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Проверка операций с объектом. Всегда возвращается <c>true</c>.
         /// </summary>
         /// <param name="type">Объект данных.</param>

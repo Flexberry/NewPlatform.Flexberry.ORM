@@ -20,7 +20,8 @@
         /// Конструктор класса <see cref="LcsGeneratorExpressionTreeVisitorCommon"/>.
         /// </summary>
         /// <param name="stacksHolder"> Элемент, организующий стек. </param>
-        public LcsGeneratorExpressionTreeVisitorCommon(TreeVisitorStacksHolder stacksHolder) : base(stacksHolder)
+        public LcsGeneratorExpressionTreeVisitorCommon(TreeVisitorStacksHolder stacksHolder)
+            : base(stacksHolder)
         {
         }
 
@@ -49,7 +50,6 @@
         {
             return new LcsGeneratorQueryModelVisitor(viewIsDynamic, view, resolvingViews);
         }
-
 
         /// <summary>
         /// Получить функцию ограничения для <see cref="LoadingCustomizationStruct"/>.

@@ -17,7 +17,8 @@
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// </exception>
-        public LcsQuery(LcsQueryProvider<T, Q> provider) : base(provider)
+        public LcsQuery(LcsQueryProvider<T, Q> provider)
+            : base(provider)
         {
         }
     }

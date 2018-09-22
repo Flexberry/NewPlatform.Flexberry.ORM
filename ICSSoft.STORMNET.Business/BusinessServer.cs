@@ -38,6 +38,7 @@
             {
                 return m_arrObjectsToUpdate;
             }
+
             set
             {
                 m_arrObjectsToUpdate = value;
@@ -60,7 +61,6 @@
             }
         }
 
-
         /// <summary>
         /// Установить "создаватель" объектов.
         /// </summary>
@@ -75,7 +75,7 @@
         private System.Reflection.MethodInfo Method = null;
 
         /// <summary>
-        /// Определяем метод, в который записан бизнес-сервер для типа объекта. 
+        /// Определяем метод, в который записан бизнес-сервер для типа объекта.
         /// Например, для класса "Журнал", это будет "OnUpdateЖурнал" с определённой сигнатурой.
         /// </summary>
         /// <param name="objectType">
@@ -89,13 +89,13 @@
                 string methodinfoName = methodInfo.Name;
                 System.Reflection.ParameterInfo[] ps;
 
-                if (methodinfoName.StartsWith(BsMethodNameStart) 
+                if (methodinfoName.StartsWith(BsMethodNameStart)
                     && methodInfo.ReturnType == typeof(DataObject[])
                     && (ps = methodInfo.GetParameters()).Length == 1
                     && (
                         (ps[0].ParameterType.IsSubclassOf(typeof(DataObject)) && ps[0].ParameterType == objectType) // Это на случай, если BS навешен непосредственно на класс или его предка.
                         || (ps[0].ParameterType.IsInterface && objectType.GetInterfaces().Contains(ps[0].ParameterType))) // Это на случай, если BS навешен на интерфейс его предка.
-                    && BsMethodNameStart + ps[0].ParameterType.Name == methodinfoName 
+                    && BsMethodNameStart + ps[0].ParameterType.Name == methodinfoName
                     && ps[0].Name == "UpdatedObject")
                 {
                     Method = methodInfo;
@@ -115,7 +115,10 @@
         public DataObject[] OnUpdateDataobject(DataObject UpdateObject)
         {
             if (Method == null)
+            {
                 return new DataObject[0];
+            }
+
             try
             {
                 return (DataObject[])Method.Invoke(this, new object[] { UpdateObject });
@@ -126,13 +129,19 @@
                 {
                     Exception ex = e.InnerException;
                     if (ex.GetType() == typeof(Exception))
+                    {
                         throw ex;
+                    }
+
                     if (ex.GetType().FullName.StartsWith("System."))
+                    {
                         throw e;
+                    }
+
                     throw ex;
                 }
 
-                throw e;    
+                throw e;
             }
         }
 
@@ -183,7 +192,7 @@
                         val2.SetExistObjectPrimaryKey((val as DataObject).__PrimaryKey);
 
                         Information.SetPropValueByName(obj, propname, val2);
-                        
+
                         // Тут ничего не делаем.
                         bcopy = false;
                     }

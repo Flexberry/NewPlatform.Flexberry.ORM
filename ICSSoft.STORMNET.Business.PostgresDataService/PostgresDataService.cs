@@ -34,7 +34,8 @@
         /// Псевдонимы типов в Postgres. Первый элемент в каждом массиве - это тип, остальные псевдонимы.
         /// </summary>
         static private string[][] typesAliases =
-            new[]{
+            new[]
+            {
                 new[] { "bigint", "int8" },
                 new[] { "bigserial", "serial8" },
                 new[] { "bit varying", "varbit" },
@@ -219,19 +220,18 @@
                 string type = Regex.Replace(types[i], @"\s+", " ").ToLower();
                 if (type.Contains("without time zone"))
                 {
-                    type = type.Replace("without time zone", "");
+                    type = type.Replace("without time zone", string.Empty);
                 }
 
                 if (type.Contains("with time zone"))
                 {
-                    type = type.Replace("with time zone", "");
+                    type = type.Replace("with time zone", string.Empty);
                     if (type.Contains("timestamp"))
                     {
                         if (!type.Contains("timestamptz"))
                         {
-                            type = type.Replace("timestamp", "timestamptz"); 
+                            type = type.Replace("timestamp", "timestamptz");
                         }
-
                     }
                     else
                     {
@@ -256,7 +256,7 @@
                 string tail = string.Empty;
                 if (tokens.Length == 3)
                 {
-                    tail = $"({tokens[1].Replace(" ", "")}){tokens[2]}";
+                    tail = $"({tokens[1].Replace(" ", string.Empty)}){tokens[2]}";
                 }
 
                 types[i] = tokens[0];
@@ -346,7 +346,7 @@
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
 
                 return string.Format("DATE_PART('days', DATE_TRUNC('month', to_date('01.{0}.{1}','dd.mm.yyyy')) + '1 MONTH'::INTERVAL - DATE_TRUNC('month', to_date('01.{0}.{1}','dd.mm.yyyy')) )",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
@@ -356,7 +356,6 @@
             {
                 return string.Format("date_trunc('day',{0})",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
@@ -423,7 +422,10 @@
                 var al = new ArrayList();
                 var par = langDef.TransformObject(value.Parameters[1], dvd.StringedView, al);
                 foreach (string s in al)
+                {
                     lcs.View.AddProperty(s);
+                }
+
                 var Slct = GenerateSQLSelect(lcs, false).Replace("STORMGENERATEDQUERY", "SGQ" + Guid.NewGuid().ToString().Replace("-", string.Empty));
                 var CountIdentifier = convertIdentifier("g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
@@ -438,12 +440,17 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
-                    //convertIdentifier(dvd.OwnerConnectProp),
+
+                    // convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
-                    //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
+
+                    // ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "COALESCE(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += "))";
 
                 langDef.retVars = prevRetVars;
@@ -474,7 +481,10 @@
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
                     Slct);
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += ")),0))";
 
                 langDef.retVars = prevRetVars;
@@ -505,7 +515,6 @@
                     "Функция {0} не реализована для Postgres", value.FunctionDef.StringedView));
         }
 
-
         /// <summary>
         /// Get connection by Npgsql.
         /// </summary>
@@ -525,7 +534,9 @@
             string postgresIdentifier = PrepareIdentifier(identifier);
 
             if (!this.isGenerateSqlSelect)
+            {
                 return postgresIdentifier;
+            }
 
             if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
             {
@@ -557,9 +568,21 @@
         /// <returns>Converted value.</returns>
         public override string GetConvertToTypeExpression(Type valType, string value)
         {
-            if (valType == typeof(Guid)) return "cast('" + value + "' as uuid)";
-            if (valType == typeof(decimal)) return "cast(" + value + " as numeric)";
-            if (valType == typeof(DateTime)) return "cast(" + value + " as timestamp)";
+            if (valType == typeof(Guid))
+            {
+                return "cast('" + value + "' as uuid)";
+            }
+
+            if (valType == typeof(decimal))
+            {
+                return "cast(" + value + " as numeric)";
+            }
+
+            if (valType == typeof(DateTime))
+            {
+                return "cast(" + value + " as timestamp)";
+            }
+
             return string.Empty;
         }
 
@@ -581,7 +604,7 @@
                 return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
             }
 
-            if (value.GetType().FullName== "Microsoft.OData.Edm.Library.Date")
+            if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
             {
                 return $"date '{value.ToString()}'";
             }
@@ -636,14 +659,17 @@
         }
 
         /// <summary>
-        /// Метод переопределён, чтобы заменить длиные псевдонимы на короткие. 
+        /// Метод переопределён, чтобы заменить длиные псевдонимы на короткие.
         /// </summary>
         /// <param name="identifiers">The identifiers.</param>
         /// <returns>If null expression.</returns>
         public override string GetIfNullExpression(params string[] identifiers)
         {
             string result = ReplaceLongAlias(identifiers[identifiers.Length - 1]);
-            for (int i = identifiers.Length - 2; i >= 0; i--) result = string.Concat("COALESCE(", ReplaceLongAlias(identifiers[i]), ", ", result, ")");
+            for (int i = identifiers.Length - 2; i >= 0; i--)
+            {
+                result = string.Concat("COALESCE(", ReplaceLongAlias(identifiers[i]), ", ", result, ")");
+            }
 
             return result;
         }
@@ -658,11 +684,17 @@
         {
             int top = customizationStruct.ReturnTop;
 
-            if (top > 0) customizationStruct.ReturnTop = 0;
+            if (top > 0)
+            {
+                customizationStruct.ReturnTop = 0;
+            }
 
             string sql = base.GenerateSQLSelect(customizationStruct, optimized);
 
-            if (top > 0 && customizationStruct.RowNumber == null) sql += " LIMIT " + top;
+            if (top > 0 && customizationStruct.RowNumber == null)
+            {
+                sql += " LIMIT " + top;
+            }
 
             return sql;
         }
@@ -695,10 +727,13 @@
             StorageStructForView storageStruct,
             bool addNotMainKeys,
             bool addMasterFieldsCustomizer,
+
             // ReSharper disable once InconsistentNaming
             string AddingAdvansedField,
+
             // ReSharper disable once InconsistentNaming
             int AddingKeysCount,
+
             // ReSharper disable once InconsistentNaming
             bool SelectTypesIds)
         {
@@ -742,7 +777,10 @@
                     }
                     else
                     {
-                        for (int j = 0; j < prop.storage.Length; j++) GenerateShortName(prop.source.Name + j);
+                        for (int j = 0; j < prop.storage.Length; j++)
+                        {
+                            GenerateShortName(prop.source.Name + j);
+                        }
                     }
                 }
             }
@@ -770,10 +808,13 @@
         /// </returns>
         public override string GenerateSQLSelect(
             LoadingCustomizationStruct customizationStruct,
+
             // ReSharper disable once InconsistentNaming
             bool ForReadValues,
+
             // ReSharper disable once InconsistentNaming
             out StorageStructForView[] StorageStruct,
+
             // ReSharper disable once InconsistentNaming
             bool Optimized)
         {
@@ -786,6 +827,7 @@
                     dictionaryShortNames.Clear();
                     indexesShortNames.Clear();
                 }
+
                 countGenerateSqlSelect++;
                 //// Закомментировать следующую строку, если будет возникать NeedRestartGenerateSqlSelectExcepton и выяснить почему это происходит. По идее никогда не должен происходить.
                 res = base.GenerateSQLSelect(customizationStruct, ForReadValues, out StorageStruct, Optimized);
@@ -807,7 +849,11 @@
                     break;
                 }*/
                 countGenerateSqlSelect--;
-                if (countGenerateSqlSelect == 0) isGenerateSqlSelect = false;
+                if (countGenerateSqlSelect == 0)
+                {
+                    isGenerateSqlSelect = false;
+                }
+
                 return res;
             }
         }
@@ -831,16 +877,23 @@
                 {
                     resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
                 }
+
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)
+                {
                     customizationStruct.RowNumber.StartRow = 1;
+                }
+
                 if (customizationStruct.RowNumber.StartRow > 0)
                 {
                     offset = customizationStruct.RowNumber.StartRow - 1;
                     if (customizationStruct.RowNumber.EndRow >= customizationStruct.RowNumber.StartRow)
+                    {
                         limit = customizationStruct.RowNumber.EndRow - customizationStruct.RowNumber.StartRow + 1;
+                    }
                 }
+
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExpr + nl +
                     "OFFSET " + offset.ToString() + " LIMIT " + limit.ToString();
             }
@@ -873,10 +926,15 @@
                 dictionaryShortNames.Clear();
                 indexesShortNames.Clear();
             }
+
             countGenerateSqlSelect++;
             IDictionary<int, string> ret = GetObjectIndexesWithPksImplementation(lcs, limitFunction, maxResults);
             countGenerateSqlSelect--;
-            if (countGenerateSqlSelect == 0) isGenerateSqlSelect = false;
+            if (countGenerateSqlSelect == 0)
+            {
+                isGenerateSqlSelect = false;
+            }
+
             return ret;
         }
 
@@ -888,10 +946,14 @@
             string nl = Environment.NewLine;
             var ret = new Dictionary<int, string>();
             if (lcs == null || limitFunction == null)
+            {
                 return ret;
+            }
 
             if (maxResults.HasValue && maxResults < 0)
+            {
                 throw new ArgumentOutOfRangeException("maxResults", "Максимальное число возвращаемых результатов не может быть отрицательным.");
+            }
 
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
@@ -916,14 +978,19 @@
                 int posOffset = innerQuery.LastIndexOf("OFFSET ");
                 offset = innerQuery.Substring(posOffset);
                 innerQuery = innerQuery.Substring(0, posOffset);
-                //+ nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
+
+                // + nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
             }
+
             // надо добавить RowNumber
             // top int.MaxValue
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
-            string orderByExpr = string.Empty;//, nl = Environment.NewLine;
+            string orderByExpr = string.Empty; // , nl = Environment.NewLine;
             if (orderByIndex > -1)
+            {
                 orderByExpr = innerQuery.Substring(orderByIndex);
+            }
+
             int fromInd = innerQuery.ToLower().IndexOf("from");
 
             if (!string.IsNullOrEmpty(orderByExpr))
@@ -938,7 +1005,7 @@
 
             if (lcs.RowNumber != null)
             {
-                innerQuery+= nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
+                innerQuery += nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
             }
 
             string query = string.Format(
@@ -949,7 +1016,8 @@
             maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
             orderByExpr,
             PutIdentifierIntoBrackets("STORMMainObjectKey"));
-            //if (offset != null)
+
+            // if (offset != null)
             //    query += nl + offset;
             object state = null;
             object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
@@ -1117,10 +1185,10 @@
         }
 
         /// <summary>
-        /// Этот Exception необходим для прерывания обработки в методе GenerateSQLSelect в случае, 
-        /// если в процессе выполнения метода GetIfNullExpression было обнаружено, 
+        /// Этот Exception необходим для прерывания обработки в методе GenerateSQLSelect в случае,
+        /// если в процессе выполнения метода GetIfNullExpression было обнаружено,
         /// что обрабатываемые там идентификаторы превышают допустимую длину и не имеют короткого имени.
-        /// Для исправления этой ситуации необходимо заново запустить обработку GenerateSQLSelect с 
+        /// Для исправления этой ситуации необходимо заново запустить обработку GenerateSQLSelect с
         /// сохранением коротких имён, созданных в предыдущей итерации GenerateSQLSelect.
         /// По идее никогда не должен происходить.
         /// </summary>

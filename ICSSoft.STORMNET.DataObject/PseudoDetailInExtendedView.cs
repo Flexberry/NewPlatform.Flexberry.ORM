@@ -22,8 +22,8 @@
         /// <summary>
         /// Имя представления, определяющего псевдодетейл.
         /// </summary>
-        public string PseudoDetailViewName 
-        { 
+        public string PseudoDetailViewName
+        {
             get
             {
                 return _pseudoDetailViewName;
@@ -52,7 +52,6 @@
             }
         }
 
-
         /// <summary>
         /// Имя псевдосвойства, по которому идёт связь от мастера к детейлу.
         /// </summary>
@@ -63,7 +62,7 @@
                 return _masterToDetailPseudoProperty;
             }
         }
-        
+
         /// <summary>
         /// Конструктор.
         /// </summary>

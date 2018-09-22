@@ -16,7 +16,9 @@
         public static string GetDownLevelLogonName(this CurrentUserService.IUser user)
         {
             if (user == null)
+            {
                 throw new ArgumentNullException("user");
+            }
 
             return string.Concat(user.Domain, "\\", user.Login);
         }

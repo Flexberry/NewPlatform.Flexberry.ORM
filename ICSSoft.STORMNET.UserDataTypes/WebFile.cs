@@ -63,17 +63,17 @@
 
         public override string ToString()
         {
-            //var xmlSerializer = new XmlSerializer(typeof(WebFile));
-            //var memoryStream = new MemoryStream();
-            //using (var xmlTextWriter =
+            // var xmlSerializer = new XmlSerializer(typeof(WebFile));
+            // var memoryStream = new MemoryStream();
+            // using (var xmlTextWriter =
             //    new XmlTextWriter(memoryStream, Encoding.UTF8) { Formatting = Formatting.Indented })
-            //{
+            // {
             //    xmlSerializer.Serialize(xmlTextWriter, this);
             //    memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
             //    string xmlText = new UTF8Encoding().GetString(memoryStream.ToArray());
             //    memoryStream.Dispose();
             //    return xmlText;
-            //}
+            // }
 
             return this.Name;
         }

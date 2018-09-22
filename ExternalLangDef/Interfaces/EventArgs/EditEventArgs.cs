@@ -17,7 +17,6 @@
         public EditEventArgs(string propertyname, DataObject dataobject, string contpath)
             : base(propertyname, dataobject, contpath)
         {
-
         }
 
         /// <summary>
@@ -29,9 +28,9 @@
         public EditEventArgs(string propertyname, DataObject dataobject, string contpath, object tag)
             : base(propertyname, dataobject, contpath, tag)
         {
-
         }
     }
+
     /// <summary>
     /// Делегат для событий редактирования объекта
     /// </summary>

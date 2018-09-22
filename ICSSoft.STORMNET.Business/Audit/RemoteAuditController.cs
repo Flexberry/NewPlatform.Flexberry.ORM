@@ -8,7 +8,7 @@
     /// Класс для организации доcтупа к сервису аудита через wcf
     /// </summary>
     public class RemoteAuditController
-    { 
+    {
         /// <summary>
         /// Фабрика каналов для связи.
         /// </summary>
@@ -20,7 +20,7 @@
         private IAuditWcfService _service = null;
 
         /// <summary>
-        /// Закешированное значение адреса, где располагается сервис 
+        /// Закешированное значение адреса, где располагается сервис
         /// (используется, чтобы не пересоздавать подключение к сервису).
         /// </summary>
         private string _cashedUri = string.Empty;

@@ -59,7 +59,9 @@
         {
             string s = GetIdentityName();
             if (s == null)
+            {
                 return null;
+            }
 
             int index = s.IndexOf("\\", StringComparison.InvariantCulture);
             return (index > -1) ? s.Substring(index + 1, s.Length - index - 1) : s;
@@ -76,7 +78,9 @@
         {
             string s = GetIdentityName();
             if (s == null)
+            {
                 return null;
+            }
 
             int index = s.IndexOf("\\", StringComparison.InvariantCulture);
             return (index > -1) ? s.Substring(0, index) : string.Empty;
@@ -94,15 +98,21 @@
         {
             var context = HttpContext.Current;
             if (context == null)
+            {
                 throw new WebException("Отсутствует текущий веб контекст.");
+            }
 
             var user = context.User;
             if (user == null)
+            {
                 throw new HttpException("В текущем HTTP запросе отсутствует информация о пользователе.");
+            }
 
             var identity = user.Identity;
             if (!identity.IsAuthenticated)
+            {
                 return null;
+            }
 
             return identity.Name;
         }
