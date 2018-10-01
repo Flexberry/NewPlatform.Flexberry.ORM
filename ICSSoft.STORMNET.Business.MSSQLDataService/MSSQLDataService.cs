@@ -8,16 +8,79 @@
     using FunctionalLanguage.SQLWhere;
     using FunctionalLanguage;
     using Windows.Forms;
+    using System.Linq;
 #if DNX4
     using Services;
 #endif
     using System.Collections;
+    using System.Data.SqlClient;
 
     /// <summary>
     /// Сервис данных для работы с Microsoft SQL Server.
     /// </summary>
     public class MSSQLDataService : SQLDataService
     {
+
+        public override Exception TransformUpdateException(Exception exception, DataObject[] objects)
+        {
+            Exception ex = exception;
+            while (!(ex is SqlException))
+                ex = ex.InnerException;
+            if (ex == null)
+                return exception;
+            else
+            {
+                string s = "";
+                foreach (SqlError sqlerror in (ex as SqlException).Errors)
+                {
+                    if (sqlerror.Number == 547)
+                    {
+                        List<string> Conflictref = 
+                            sqlerror.Message.Split(',').TakeLast(2).Select(x=>x.Trim().Split(' ')[1].Trim()).ToList();
+                        string ClassStorage = Conflictref[0].Substring(1,Conflictref[0].Length-2).ToUpper();
+                        if (ClassStorage.Contains('.')) ClassStorage = ClassStorage.Substring(ClassStorage.IndexOf('.') + 1);
+                        string PropStorage = Conflictref[1].Substring(1, Conflictref[1].Length - 3).ToUpper();
+                        Type ClassType = null;
+                        foreach (Type t in objects[0].GetType().Assembly.GetTypes())
+                        {
+                            if (t.IsSubclassOf(typeof(DataObject)) && Information.IsStoredType(t))
+                            {
+                                string storName = Information.GetClassStorageName(t);
+                                if (storName.ToUpper() == ClassStorage)
+                                {
+                                    ClassType = t;
+                                    break;
+                                }
+                            }
+                        }
+                        if (ClassType != null)
+                        {
+                            foreach (string propname in Information.GetStorablePropertyNames(ClassType))
+                            {
+                                if (Information.GetPropertyType(ClassType,propname).IsSubclassOf(typeof(DataObject)))
+                                {
+                                    string propstor = Information.GetPropertyStorageName(ClassType, propname);
+                                    for (int i = 0; i < Information.GetCompatibleTypesForProperty(ClassType, propname).Length; i++)
+                                    {
+                                        
+                                        string storName =(string.IsNullOrEmpty(propstor))?Information.GetPropertyStorageName(ClassType, propname, i):$"{propstor}_M{i}";
+                                        if (storName.ToUpper() == PropStorage)
+                                        {
+                                            return new OnDeleteConflictReferenceException(exception.Message, ClassType, propname, exception);
+                                        }
+                                    }
+                                }
+                               
+                            }
+                        }
+                        return exception;
+                    }
+
+                }
+            }
+            return exception;
+        }
+
         /// <summary>
         /// Создание сервиса данных для Microsoft SQL Server без параметров.
         /// </summary>
@@ -65,7 +128,8 @@
             Function value,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
-            ref List<string> OTBSubquery)
+            ref List<string> OTBSubquery,
+            StorageStructForView[] storageStruct)
         {
             ExternalLangDef langDef= sqlLangDef as ExternalLangDef;
             if (value.FunctionDef.StringedView == "TODAY")
@@ -79,7 +143,7 @@
                 value.FunctionDef.StringedView == "DayPart")
             {
                 return string.Format("{0}({1})", value.FunctionDef.StringedView.Substring(0, value.FunctionDef.StringedView.Length - 4),
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery,storageStruct, this));
             }
 
             if (
@@ -87,14 +151,14 @@
                 value.FunctionDef.StringedView == "miPart")
             {
                 return string.Format("datepart({0},{1})", value.FunctionDef.StringedView.Substring(0, value.FunctionDef.StringedView.Length - 4),
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery,storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 //здесь требуется преобразование из DATASERVICE
                 return string.Format("(datepart({0}, {1})+@@DATEFIRST-2)%7 + 1", "DW",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
 
             }
 
@@ -104,14 +168,14 @@
                 return string.Format(
                     "(datepart({0}, {1})+@@DATEFIRST-1)%7",
                     "DW",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
                 //здесь требуется преобразование из DATASERVICE
-                string monthStr = String.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
-                string yearStr = String.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, this));
+                string monthStr = String.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct,  this));
+                string yearStr = String.Format("LTRIM(RTRIM(STR({0})))", langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, storageStruct,  this));
                 monthStr = String.Format("CASE WHEN LEN({0})=1 THEN '0'+{0} ELSE {0} END", monthStr);
                 return string.Format("DAY(DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,CAST({0}+{1}+'01' AS DATETIME))+1,0)))", yearStr, monthStr);
             }
@@ -119,7 +183,7 @@
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
                 return string.Format("cast(CONVERT(varchar(8), {1}, {0}) as datetime)", "112",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
@@ -133,15 +197,15 @@
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
                 return string.Format("cast(CONVERT(varchar(8), {1}, {0}) as datetime)", "114",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == "DATEDIFF")
             {
                 return string.Format("DATEDIFF ( {0} , {1} , {2})",
-                langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this),
-                langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, this),
-                langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, ref OTBSubquery, this));
+                langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
+                langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
+                langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == "SUM" ||
@@ -164,7 +228,7 @@
                 var Slct = GenerateSQLSelect(lcs, false).Replace("STORMGENERATEDQUERY", "SGQ" + Guid.NewGuid().ToString().Replace("-", string.Empty));
                 var CountIdentifier = convertIdentifier("g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
-                string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier, ref OTBSubquery, this);
+                string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this);
 
                 string res = string.Empty;
                 res = string.Format(
@@ -201,8 +265,13 @@
                 langDef.retVars = new string[] { dvd.ConnectMasterPorp };
                 var Slct = GenerateSQLSelect(lcs, true);
                 var CountIdentifier = convertIdentifier("g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
+                var res =
 
-                var res = string.Format(
+                    $"( Isnull(  ( SELECT max(isnull({CountIdentifier},0)) From ( " +
+                    $"SELECT Count(*) {CountIdentifier},{convertIdentifier(dvd.ConnectMasterPorp)} from ( {Slct} )pip group by {convertIdentifier(dvd.ConnectMasterPorp)} ) " +
+                    $" ahh where {convertIdentifier(dvd.ConnectMasterPorp)} in ({convertIdentifier("STORMGENERATEDQUERY") + "." + ((dvd.OwnerConnectProp.Length==0)?"STORMMAINOBJECTKEY":convertIdentifier(dvd.OwnerConnectProp[0]))}";
+                /*
+                    string.Format(
                     "( Isnull(  ( SELECT {0} From ( " +
                     "SELECT Count(*) {0},{1} from ( {4} )pip group by {1} ) " +
                     " ahh where {1} in ({3}",//),0))",
@@ -212,6 +281,8 @@
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
                     //convertIdentifier(dvd.OwnerConnectProp),
                     Slct);
+
+                 */
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
                 res += ")),0))";
@@ -224,23 +295,23 @@
             {
                 return string.Format(
                     "Upper({0})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcToLower)
             {
                 return string.Format(
                     "Lower({0})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDateAdd)
             {
                 return string.Format(
                     "dateadd({0}, {1}, {2})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this),
-                    langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, this),
-                    langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, ref OTBSubquery, this));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
+                    langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
+                    langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcToChar)
@@ -249,7 +320,7 @@
                 if (value.Parameters.Count == 2)
                     return string.Format(
                         "CONVERT(VARCHAR({1}), {0})",
-                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this),
+                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
                         value.Parameters[1]);
 
                 // Преобразование даты и времени в строку; кроме значения, числом задается стиль 
@@ -259,7 +330,7 @@
                 {
                     return string.Format(
                         "CONVERT(VARCHAR({1}), {0}, {2})",
-                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, this),
+                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery,storageStruct, this),
                         value.Parameters[1],
                         value.Parameters[2]);
                 }

@@ -29,10 +29,16 @@
             set { _order = value; }
         }
 
+
+        private DataObjectCache _dataObjectCache = null;
+
         /// <summary>
         /// Кэш, установливается при инициализации для использования сервиса
         /// </summary>
-        public DataObjectCache DataObjectCache { get; set; }
+        public DataObjectCache DataObjectCache {
+            get { if (_dataObjectCache == null)
+                { _dataObjectCache = new DataObjectCache();_dataObjectCache.StartCaching(false); } return _dataObjectCache; }
+            set { _dataObjectCache = value; } }
 
         /// <summary>
         /// Ссылка на обновляемые объекты (устанавливается сервисом данных).

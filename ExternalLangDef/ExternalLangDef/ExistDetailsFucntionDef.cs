@@ -11,12 +11,9 @@ namespace ICSSoft.STORMNET.Windows.Forms
     public partial class ExternalLangDef
 	{
         private string GetConditionForExistDetails(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier)
+                                                   delegatePutIdentifierToBrackets convertIdentifier, Business.SQLDataService DataService)
         {
-            if (!(DataService is SQLDataService))
-                throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
-                                                  funcExistDetails));
-
+            lIDataService = DataService;
             string wrongParametersMessage = string.Format(
                 "Кострукция ограничения {0} поддерживает только операцию сравнения между двумя различными детейловыми свойствами одного уровня.",
                 funcExistDetails);
@@ -32,10 +29,10 @@ namespace ICSSoft.STORMNET.Windows.Forms
             string agregatorPropName1 = convertIdentifier(detail1.ConnectMasterPorp);
             string agregatorPropName2 = convertIdentifier(detail2.ConnectMasterPorp);
             string[] agregatorKeys1 = detail1.OwnerConnectProp.Length == 0
-                                          ? new [] { "STORMMainObjectKey" }
+                                          ? new [] { StormMainObjectKey }
                                           : detail1.OwnerConnectProp;
             string[] agregatorKeys2 = detail2.OwnerConnectProp.Length == 0
-                                          ? new[] { "STORMMainObjectKey" }
+                                          ? new[] { StormMainObjectKey }
                                           : detail2.OwnerConnectProp;
             var conditionParameters = conditionFunc.Parameters;
 
@@ -43,10 +40,12 @@ namespace ICSSoft.STORMNET.Windows.Forms
                 || !(conditionParameters[0] is VariableDef) || !(conditionParameters[1] is VariableDef))
                 throw new Exception(wrongParametersMessage);
 
-            string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null);
-            selectForDetail1 = selectForDetail1.Replace("STORMMainObjectKey", "STORMMainObjectKey1");
-            string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null);
-            selectForDetail2 = selectForDetail2.Replace("STORMMainObjectKey", "STORMMainObjectKey2");
+            StorageStructForView[] storStruct1;
+            string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null,DataService,out storStruct1);
+            selectForDetail1 = selectForDetail1.Replace(StormMainObjectKey, "STORMMainObjectKey1");
+            StorageStructForView[] storStruct2;
+            string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null,DataService,out storStruct2);
+            selectForDetail2 = selectForDetail2.Replace(StormMainObjectKey, "STORMMainObjectKey2");
            
             // формируем условие для функции
             string propName1 = ((VariableDef)conditionParameters[0]).StringedView;

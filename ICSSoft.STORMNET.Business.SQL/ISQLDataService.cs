@@ -7,6 +7,23 @@ using ICSSoft.STORMNET.FunctionalLanguage;
 
 namespace ICSSoft.STORMNET.Business
 {
+    public class OnDeleteConflictReferenceException : Exception
+    {
+        public Type DataObjectType { get; set; }
+        public string Property { get; set; }
+
+        public OnDeleteConflictReferenceException(string message, Type dataobjecttype, string property) : base(message)
+        {
+            DataObjectType = dataobjecttype;
+            Property = property;
+        }
+        public OnDeleteConflictReferenceException(string message, Type dataobjecttype, string property,Exception innerexception) : base(message,innerexception)
+        {
+            DataObjectType = dataobjecttype;
+            Property = property;
+        }
+    }
+
     public interface ISQLDataService:IDataService
     {
         /// <summary>
@@ -26,6 +43,7 @@ namespace ICSSoft.STORMNET.Business
             Function function,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
-            ref List<string> OTBSubquery);
+            ref List<string> OTBSubquery,
+            StorageStructForView[] StorageStruct);
     }
 }

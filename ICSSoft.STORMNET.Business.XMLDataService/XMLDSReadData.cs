@@ -464,7 +464,7 @@
             string sort = "";
 
             if (limitFunction != null)
-                expression = LimitFunction2FilterExpression(limitFunction);
+                expression = LimitFunction2FilterExpression(limitFunction,storageStruct);
 
             string[] ascDesc = { "", " ASC", " DESC" };
 

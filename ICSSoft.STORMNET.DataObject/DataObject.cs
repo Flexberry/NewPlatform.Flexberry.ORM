@@ -759,9 +759,13 @@
 
                 //fieldval = fi.GetValue(this);
                 object fieldval;
+
                 try
                 {
-                    fieldval = getHandler(this);
+                    if (getHandler==null)
+                        fieldval = fi.GetValue(this);
+                    else
+                        fieldval = getHandler(this);
                 }
                 catch
                 {
@@ -862,7 +866,10 @@
                         //fi.SetValue(toObject, newarr);
                         try
                         {
-                            setHandler(toObject, newarr);
+                            if (setHandler == null)
+                                fi.SetValue(toObject, newarr);
+                            else
+                                setHandler(toObject, newarr);
                         }
                         catch
                         {
@@ -874,8 +881,11 @@
                     {
                         //fi.SetValue(toObject, fieldval);
                         try
-                        {
-                            setHandler(toObject, fieldval);
+                        {   
+                            if (setHandler==null)
+                                fi.SetValue(toObject, fieldval);
+                            else
+                                setHandler(toObject, fieldval);
                         }
                         catch
                         {
@@ -891,6 +901,7 @@
                 }
             }
         }
+
 
 
         private void PrvCopyToCopyObject(DataObject toObject, bool createDataObjectsCopy, bool primaryKeyCopy, DataObjectCache dataObjectCache)
@@ -1467,33 +1478,42 @@
         /// </summary>
         private bool inInitDataCopy = false;
 
-        /// <summary>
-        /// Проинициализировать копию данных
-        /// </summary>
-        public void InitDataCopy()
-        {
-            InitDataCopy(new DataObjectCache());
-        }
+
+
 
         /// <summary>
         /// Проинициализировать копию данных
         /// </summary>
-        public void InitDataCopy(DataObjectCache DataObjectCache)
+        public void InitDataCopy(DataObjectCache DataObjectCache=null, bool exceptAlteredProperies=false)
         {
             if (DisabledInitDataCopy) return;
 
             if (inInitDataCopy) return;
             inInitDataCopy = true;
+            if (DataObjectCache == null) DataObjectCache = new DataObjectCache();
 
-            SetStatus(ObjectStatus.UnAltered);
+            Dictionary<string, object> AlteredValues = new Dictionary<string, object>();
+            //сохраним предыдущие значения (установив временно их копии)
+            if (exceptAlteredProperies)
+            {
+                foreach (string s in this.GetAlteredPropertyNames(false))
+                {
+                    if (!(Information.GetPropValueByName(this, s) is DetailArray))
+                    {
+                        AlteredValues.Add(s, Information.GetPropValueByName(this, s));
+                        Information.SetPropValueByName(this, s, Information.GetPropValueByName(this.dataCopy, s));
+                    }
+                }
+            }
+            if (GetStatus(false)!=ObjectStatus.Deleted)
+                SetStatus(ObjectStatus.UnAltered);
             if (GetStatus(false) != ObjectStatus.Created)
             {
                 DataObjectCache.StartCaching(ClippingCacheOnCopy);
                 try
                 {
                     dataCopy = DataObjectCache.CreateDataObject(this.GetType(), __PrimaryKey);
-
-
+                    
                     prvCopyTo_initDataCopy(dataCopy, DataObjectCache);
                 }
                 finally
@@ -1518,11 +1538,20 @@
                             DetailArray dar = (DetailArray)Information.GetPropValueByName(this, prop);
                             if (dar != null)
                                 foreach (DataObject d in dar)
-                                    d.InitDataCopy(DataObjectCache);
+                                    d.InitDataCopy(DataObjectCache,exceptAlteredProperies);
                         }
                     }
                 }
                 dataCopy = null;
+            }
+
+            if (exceptAlteredProperies)
+            {
+                foreach (KeyValuePair<string, object> kvp in AlteredValues)
+                {
+                    if (!(kvp.Value is DetailArray))
+                        Information.SetPropValueByName(this, kvp.Key, kvp.Value);
+                }
             }
             inInitDataCopy = false;
         }
@@ -1721,7 +1750,10 @@
                                 }
                             }
                         }
-                        fiSetValue(this, null);
+                        if (fiSetValue!=null)
+                            fiSetValue(this, null);
+                        else
+                            fi.SetValue(this, null);
                     }
                     catch
                     {

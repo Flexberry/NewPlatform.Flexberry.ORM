@@ -3,9 +3,11 @@
     using System;
     using System.Reflection;
     using System.Runtime.Serialization;
+    using System.Linq;
 
     using ICSSoft.STORMNET.FunctionalLanguage;
     using System.Xml.Serialization;
+    using System.Collections.Generic;
 
     /// <summary>
     /// настройка загрузки группы объектов
@@ -13,6 +15,11 @@
     [ Serializable ]
     public class LoadingCustomizationStruct : ISerializable
     {
+
+        public override string ToString()
+        {
+            return $"LCS({View} + {string.Join(",",AdvancedColumns.Select(x=>"#"+x.Expression+"#").ToArray())} [{LimitFunction}])";
+        }
         private object creatorKey;
         private ColumnsSortDef[] fieldColumnsSort;
         private Function fieldLimitFunction;
@@ -21,7 +28,7 @@
         private System.Type[] fieldLoadingTypes;
         private ICSSoft.STORMNET.View fieldView;
         private string[] fieldColumnsOrder;
-        private AdvansedColumn[] fieldAdvansedColumns;
+        private AdvancedColumn[] fieldAdvancedColumns;
         private bool fieldInitDataCopy  = true;
 		
         private int fieldReturnTop = 0;
@@ -41,6 +48,7 @@
                 fieldRowNumber = value;
             }
         }
+
 
         private bool fieldDistinct = false;
         public bool Distinct {get {return fieldDistinct;}set {fieldDistinct = value;}}
@@ -106,6 +114,28 @@
             }
         }
 
+
+        [NonSerialized]
+        private List<string> arrColNames;
+
+        /// <summary>
+        /// Возвращает индекс для колонки, соотв. атрибуту или дополнительной колонке в результирующем наборе данных с учетом 
+        /// наличия этих самых дополнительных колонок в <see cref="AdvancedColumns"/> и настройки порядка следования колонок <see cref="ColumnsOrder"/>
+        /// </summary>
+        /// <param name="attributeOrAdvColumnName"></param>
+        /// <returns></returns>
+        public int GetColumnIndex(string attributeOrAdvColumnName)
+        {
+            if (arrColNames == null)
+            {
+                arrColNames = new List<string>();
+                ColumnsOrder = ColumnsOrder == null ? new string[] { } : ColumnsOrder;
+                arrColNames.AddRange(ColumnsOrder);
+                arrColNames.AddRange(View.Properties.Select(x => x.Name).Except(ColumnsOrder));
+                arrColNames.AddRange(AdvancedColumns.Select(x => x.Name).Except(ColumnsOrder));
+            }
+            return arrColNames.IndexOf(attributeOrAdvColumnName);
+        }
 
         /// <summary>
         /// Десереализация
@@ -275,16 +305,16 @@
         /// <summary>
         /// Дополнительные колонки
         /// </summary>
-        public AdvansedColumn[] AdvansedColumns
+        public AdvancedColumn[] AdvancedColumns
         {
             get
             {
-                return fieldAdvansedColumns ?? (fieldAdvansedColumns = new AdvansedColumn[0]);
+                return fieldAdvancedColumns ?? (fieldAdvancedColumns = new AdvancedColumn[0]);
             }
 
             set
             {
-                fieldAdvansedColumns = value;
+                fieldAdvancedColumns = value;
             }
         }
 
@@ -446,7 +476,7 @@
             Function ldLimitFunction,
             System.Type[] ldLoadingTypes,
             ICSSoft.STORMNET.View ldView,
-            AdvansedColumn[] ldAdvansedColumns,
+            AdvancedColumn[] ldAdvancedColumns,
             string[] ldColumnsOrder
             )
         {
@@ -489,14 +519,23 @@
                 ldColumnsOrder.CopyTo(fieldColumnsOrder,0);
             }
             //fieldColumnsOrder = ldColumnsOrder;
-            if (ldAdvansedColumns!=null)
+            if (ldAdvancedColumns!=null)
             {
-                fieldAdvansedColumns = new AdvansedColumn[ldAdvansedColumns.Length];
-                ldAdvansedColumns.CopyTo(fieldAdvansedColumns,0);
+                fieldAdvancedColumns = new AdvancedColumn[ldAdvancedColumns.Length];
+                ldAdvancedColumns.CopyTo(fieldAdvancedColumns,0);
             }
             //fieldAdvansedColumns = ldAdvansedColumns;
         }
 
+
+        public void Init(LoadingCustomizationStruct other)
+        {
+            Init(other.ColumnsSort, other.LimitFunction, other.LoadingTypes, other.View, other.AdvancedColumns, other.ColumnsOrder);
+            this.Distinct = other.Distinct;
+            this.InitDataCopy = other.InitDataCopy;
+            this.ReturnTop = other.ReturnTop;
+            this.RowNumber =(other.RowNumber==null)?null:new RowNumberDef(other.RowNumber.StartRow, other.RowNumber.EndRow, other.RowNumber.RankPropertyName);
+        }
 
         static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType,string View)
         {
@@ -578,7 +617,7 @@
                    && FunctionEquals(other.fieldLimitFunction, fieldLimitFunction)
                    && Utils.ArraysEqual(other.fieldLoadingTypes, fieldLoadingTypes, false)
                    && ViewsEquals(other.fieldView, fieldView) && Utils.ArraysEqual(other.fieldColumnsOrder, fieldColumnsOrder, false)
-                   && Utils.ArraysEqual(other.fieldAdvansedColumns, fieldAdvansedColumns, false)
+                   && Utils.ArraysEqual(other.fieldAdvancedColumns, fieldAdvancedColumns, false)
                    && other.fieldInitDataCopy.Equals(fieldInitDataCopy) && other.fieldReturnTop == fieldReturnTop
                    && other.fieldLoadingBufferSize == fieldLoadingBufferSize
                    && Equals(other.fieldRowNumber, fieldRowNumber) && other.fieldDistinct.Equals(fieldDistinct)
@@ -595,7 +634,7 @@
                 result = (result * 397) ^ (fieldLoadingTypes != null ? fieldLoadingTypes.GetHashCode() : 0);
                 result = (result * 397) ^ (fieldView != null ? fieldView.GetHashCode() : 0);
                 result = (result * 397) ^ (fieldColumnsOrder != null ? fieldColumnsOrder.GetHashCode() : 0);
-                result = (result * 397) ^ (fieldAdvansedColumns != null ? fieldAdvansedColumns.GetHashCode() : 0);
+                result = (result * 397) ^ (fieldAdvancedColumns != null ? fieldAdvancedColumns.GetHashCode() : 0);
                 result = (result * 397) ^ fieldInitDataCopy.GetHashCode();
                 result = (result * 397) ^ fieldReturnTop;
                 result = (result * 397) ^ fieldLoadingBufferSize;

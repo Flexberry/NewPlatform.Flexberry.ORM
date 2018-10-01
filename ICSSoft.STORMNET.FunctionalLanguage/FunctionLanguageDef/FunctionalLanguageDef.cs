@@ -5,6 +5,7 @@
     using System.Collections;
     using System.Text;
     using System.Xml.Serialization;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Определение языка ограничений для конструирования ограничивающих функций
@@ -16,6 +17,139 @@
         private DetailArrayOfObjectType _fieldTypes;
         private DetailArrayOfVariableDef _fieldVariables;
         private DetailArrayOfFunctionDef _fieldFunctions;
+
+        /// <summary>
+        /// Константа для STORMMainObjectKey
+        /// </summary>
+        public const string StormMainObjectKey = "STORMMainObjectKey";
+
+
+        protected static bool ObjectToBool(object obj)
+        {
+            if (obj is Boolean)
+                return (Boolean)obj;
+            else if (obj is string)
+                return Boolean.Parse(obj as string);
+            else
+                throw new Exception(obj.ToString() + " is not a bool");
+        }
+
+        protected static decimal ObjectToDecimal(object obj)
+        {
+            if (obj is decimal)
+                return (decimal)obj;
+            else
+                return decimal.Parse(obj.ToString());
+
+        }
+
+        protected static string ObjectToString(object obj)
+        {
+            if (obj is KeyGen.KeyGuid)
+            {
+                string s = obj.ToString();
+                if (s.StartsWith("{")) s = s.Substring(1, s.Length - 2);
+                return s;
+            }
+            else if (obj is string)
+                return obj as string;
+            else
+                return obj.ToString();
+        }
+
+        protected static DateTime ObjectToDateTime(object obj)
+        {
+            if (obj is string)
+                return (DateTime.Parse(obj as string));
+            else
+                return (DateTime)obj;
+        }
+
+        protected static Guid ObjectToGuid(object obj)
+        {
+            if (obj is string)
+                return (Guid.Parse(obj as string));
+            else
+                return (Guid)obj;
+        }
+
+        /// <summary>
+        /// Проверка соответствия данных ограничивающей функции
+        /// </summary>
+        /// <param name="func">функция с ограничениями</param>
+        /// <param name="dataObject">объект данных</param>
+        /// <param name="listParameters">дополнительные параметры</param>
+        /// <returns>соответствие данных ограничивающей функции</returns>
+        public static bool CheckDataByFunction(
+            ICSSoft.STORMNET.FunctionalLanguage.Function func,
+            ICSSoft.STORMNET.DataObject dataObject = null,
+            Dictionary<string, object> listParameters = null
+           )
+        {
+            return ObjectToBool(FunctionComputation(func, dataObject));
+        }
+
+        /// <summary>
+        /// Вычисление функции
+        /// </summary>
+        /// <param name="func">функция</param>
+        /// <param name="dataObject">объект данных</param>
+        /// <param name="listParameters">дополнительные параметры</param>
+        /// <returns>вычисленный объект</returns>
+        public static object FunctionComputation(
+            ICSSoft.STORMNET.FunctionalLanguage.Function func,
+            ICSSoft.STORMNET.DataObject dataObject = null,
+            Dictionary<string, object> listParameters = null
+            )
+        {
+
+            string SPRO = func.FunctionDef.ToString() + ":" + string.Join(",", func.Parameters.ToArray().Select(x => (x == null) ? "null" : x.ToString()));
+
+            if (func.FunctionDef.CalculationFunction == null)
+            {
+                throw new NotImplementedException(func.FunctionDef.ToString());
+            }
+            //1. ФОРМИРУЕМ аргументы
+            List<object> args = new List<object>();
+            for (int i = 0; i < func.Parameters.Count; i++)
+            {
+                object par = func.Parameters[i];
+                if (par is Function f)
+                    args.Add(FunctionComputation(f, dataObject));
+                else if (par is VariableDef vd)
+                    args.Add(GetVarValue(vd.StringedView, dataObject));
+                else
+                    args.Add(par);
+            }
+            try
+            {
+                return func.FunctionDef.CalculationFunction(args);
+            }
+            catch (NotImplementedException ex)
+            {
+                throw new NotImplementedException(SPRO, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Computation exception :{SPRO}", ex);
+            }
+        }
+
+
+
+        protected static object GetVarValue(string name, ICSSoft.STORMNET.DataObject dataObject = null,
+            Dictionary<string, object> listParameters = null)
+        {
+            if (listParameters != null && listParameters.ContainsKey(name))
+                return listParameters[name];
+            else
+            {
+                if (name == StormMainObjectKey)
+                    return dataObject.__PrimaryKey;
+                else
+                    return ICSSoft.STORMNET.Information.GetPropValueByName(dataObject, name);
+            }
+        }
 
         /// <summary>
         /// Имя сборки ICSSoft.STORMNET.UI, где раньше лежали классы ExternalLangDef.
@@ -45,7 +179,7 @@
                     return fd;
             }
 
-            throw new Exception("Неизвестный идентификатор сериализованной функции." +
+            throw new Exception($@"Неизвестный идентификатор {id} сериализованной функции." +
                                 "Возможно, следует добавить в проект ссылку на сборку ExternalLangDef");
         }
 
@@ -62,7 +196,7 @@
                     return fd;
             }
 
-            throw new Exception("Неизвестное строковое представление сериализованной функции." +
+            throw new Exception($@"Неизвестное строковое представление сериализованной функции ""{stringedView}""." +
                                 "Возможно, следует добавить в проект ссылку на сборку ExternalLangDef");
         }
 
@@ -330,7 +464,7 @@
                     foreach (FunctionDef f in arr)
                         result.Add(f);
                 }
-                return (FunctionDef[]) result.ToArray();
+                return (FunctionDef[]) result.ToArray(typeof(FunctionDef));
             }
             set
             {
@@ -368,16 +502,15 @@
             }
         }
 
-        private SortedList FunctionsByParametersTypes = new SortedList();
+        [XmlIgnore]
+        [NonSerialized]
+        public SortedList FunctionsByParametersTypes = new SortedList();
 
-        /// <summary>
-        /// Создание ограничивающей функции
-        /// </summary>
-        /// <param name="functionString">Функция (langdef.funcEQ, например)</param>
-        /// <param name="parameters">Параметры. Например, new VariableDef(langdef.StringType, "Фамилия"), "Иванов"</param>
-        /// <returns>Ограничивающая функция</returns>
-        public virtual Function GetFunction(string functionString, params object[] parameters)
+        public virtual System.Collections.Generic.List<Function>
+             GetFunctions(string functionString, params object[] parameters)
         {
+            System.Collections.Generic.List<Function> result = new System.Collections.Generic.List<Function>();
+
             InitFunctionsByStringedViewList();
 
             if (!FunctionsByStringedViewList.ContainsKey(functionString))
@@ -387,7 +520,8 @@
             { // В этом месте нет возможности получить доступ к привычным константам ExternalLangDef
                 if (parameters[0] == null && parameters[1] == null)
                 { // По сути null == null (True) или null != null (NOT(True))
-                    return functionString == "=" ? GetFunction("True") : GetFunction("NOT", GetFunction("True"));
+                    result.Add(functionString == "=" ? GetFunction("True") : GetFunction("NOT", GetFunction("True")));
+                    return result;
                 }
 
                 object[] parametersNew = null;
@@ -402,7 +536,8 @@
 
                 if (parametersNew != null)
                 { // По сути "Сущность" is null или "Сущность" is not null
-                    return GetFunction(functionString == "=" ? "ISNULL" : "NOTISNULL", parametersNew);
+                    result.Add(GetFunction(functionString == "=" ? "ISNULL" : "NOTISNULL", parametersNew));
+                    return result;
                 }
             }
 
@@ -426,7 +561,8 @@
                 else
                 {
                     if (prm == null)
-                    { // Без этого кидается exception, по которому сложно определить проблему
+                    { 
+                        // Без этого кидается exception, по которому сложно определить проблему
                         throw new NullReferenceException("В конструктор функции ограничения передан null в качестве параметра в недопустимой позиции.");
                     }
 
@@ -440,8 +576,8 @@
             if (FunctionsByParametersTypes.ContainsKey(key))
             {
                 var fd = (FunctionDef)FunctionsByParametersTypes[key];
-                var f = new Function(fd, parameters);
-                return f;
+                result.Add(new Function(fd, parameters));
+                return result;
             }
 
             lock (m_objNull)
@@ -449,8 +585,8 @@
                 if (FunctionsByParametersTypes.ContainsKey(key))
                 {
                     var fd = (FunctionDef)FunctionsByParametersTypes[key];
-                    var f = new Function(fd, parameters);
-                    return f;
+                    result.Add(new Function(fd, parameters));
+                    return result;
                 }
 
                 var functionArrList = (ArrayList)FunctionsByStringedViewList[functionString];
@@ -460,14 +596,44 @@
                     var f = new Function(fd, parameters);
                     if (f.CheckWithoutSubFoldersSafetly())
                     {
-                        FunctionsByParametersTypes.Add(key, fd);
-                        return f;
+                        if (!FunctionsByParametersTypes.Contains(key))
+                            FunctionsByParametersTypes.Add(key, fd);
+                        result.Add(f);
                     }
                 }
+                return result;
             }
-
-            throw new NotFoundFunctionParametersException();
         }
+
+
+        /// <summary>
+        /// Создание ограничивающей функции
+        /// </summary>
+        /// <param name="functionString">Функция (langdef.funcEQ, например)</param>
+        /// <param name="parameters">Параметры. Например, new VariableDef(langdef.StringType, "Фамилия"), "Иванов"</param>
+        /// <returns>Ограничивающая функция</returns>
+
+        public virtual Function GetFunction(string functionString,params object[] parameters)
+        {
+            System.Collections.Generic.List<Function> funcs = GetFunctions(functionString, parameters);
+            if (funcs == null || funcs.Count == 0)
+                throw new NotFoundFunctionParametersException();
+            else
+                return funcs[0];
+        }
+
+        public virtual Function GetFunction(string functionString, List<object> parameters)
+        {
+            return GetFunction(functionString, parameters.ToArray());
+        }
+
+
+        public virtual Function GetFunction(string functionString,object parameter, List<object> parameters)
+        {
+            List<object> pars = new List<object>(parameters);pars.Insert(0, parameter);
+            return GetFunction(functionString, pars.ToArray());
+        }
+
     }
 
     /// <summary>

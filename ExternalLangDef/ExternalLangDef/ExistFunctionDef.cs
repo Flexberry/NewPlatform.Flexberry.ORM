@@ -15,21 +15,20 @@
         public const string ExistViewName = "__ExistView__";
 
         private string GetConditionForExist(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier)
+                                                   delegatePutIdentifierToBrackets convertIdentifier, ref List<string> OTBSubqueries,StorageStructForView[] storageStruct,  Business.SQLDataService DataService)
         {
-            if (!(DataService is SQLDataService))
-                throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
-                                                  funcExist));
+            lIDataService = DataService;
 
             var dvd = (DetailVariableDef) func.Parameters[0];
             string[] agregatorKeys = dvd.OwnerConnectProp.Length == 0
-                                          ? new[] {"STORMMainObjectKey"}
+                                          ? new[] { StormMainObjectKey }
                                           : dvd.OwnerConnectProp;
             string detailAlias = "STORMGENERATEDQUERY_S";
             string agregatorAlias = "STORMGENERATEDQUERY";
 
             // генерируем подзапрос для exists
-            string selectForCondition = GetSelectForDetailVariableDef(dvd, null);
+            StorageStructForView[] storStruct;
+            string selectForCondition = GetSelectForDetailVariableDef(dvd, null,DataService,out storStruct);
             selectForCondition = selectForCondition.Replace(convertIdentifier(agregatorAlias),
                                                             convertIdentifier(detailAlias));
             
@@ -52,7 +51,7 @@
                                                         identifier =>
                                                         ConvertIdentifierForDetail(identifier, dvd.ConnectMasterPorp,
                                                                                    agregatorAlias, detailAlias,
-                                                                                   convertIdentifier));
+                                                                                   convertIdentifier),ref OTBSubqueries, storStruct,  DataService);
             
             string condition = string.Format("{0} WHERE {1}", selectForCondition, whereForConition);
             string result = string.Format("exists({4} and {2}.{0} = {3}.{1})",
@@ -97,8 +96,9 @@
 	    /// Свойства, которые необходимо добавить в представление при вычитки детейлов.
 	    /// </param>
 	    /// <returns>Сформированный запрос по представлению детейла.</returns>
-	    private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties)
+	    private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties,ICSSoft.STORMNET.Business.SQLDataService DataService, out StorageStructForView[] StorStruct)
         {
+            lIDataService = DataService;
             var lcs = new LoadingCustomizationStruct(null)
             {
                 LoadingTypes = new[] { dvd.View.DefineClassType },
@@ -115,7 +115,7 @@
                 foreach (var propName in additionalProperties)
                     lcs.View.AddProperty(propName);
 
-            string query = ((SQLDataService)DataService).GenerateSQLSelect(lcs, false);
+            string query = ((SQLDataService)DataService).GenerateSQLSelect(lcs,true,out StorStruct, false, out _);
             return query;
         }
     }

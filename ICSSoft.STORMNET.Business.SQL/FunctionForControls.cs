@@ -188,7 +188,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             doc.LoadXml(value);
             ICSSoft.STORMNET.FunctionalLanguage.FunctionalLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
             ICSSoft.STORMNET.FunctionalLanguage.VariableDef[] vars; ArrayList arvars = new ArrayList();
-            arvars.Add(new ICSSoft.STORMNET.FunctionalLanguage.VariableDef((lang as ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef).GuidType, "STORMMainObjectKey"));
+            arvars.Add(new ICSSoft.STORMNET.FunctionalLanguage.VariableDef((lang as ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef).GuidType, SQLWhere.SQLWhereLanguageDef.StormMainObjectKey));
             foreach (ICSSoft.STORMNET.PropertyInView piv in v.Properties)
             {
                 System.Type propType = ICSSoft.STORMNET.Information.GetPropertyType(v.DefineClassType, piv.Name);

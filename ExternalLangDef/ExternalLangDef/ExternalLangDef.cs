@@ -45,30 +45,9 @@
         /// <summary>
         /// сервис данных для построения подзапросов
         /// </summary>
-        private Business.IDataService m_objDataService;
+        private Business.ISQLDataService m_objDataService;
 
-        /// <summary>
-        /// Сервис данных для построения подзапросов. Если не указан, используется DataServiceProvider.DataService
-        /// </summary>
-        public Business.IDataService DataService
-        {
-            get
-            {
-                if (m_objDataService != null)
-                {
-                    return m_objDataService;
-                }
-                else
-                {
-                    m_objDataService = Business.DataServiceProvider.DataService;
-                    return m_objDataService;
-                }
-            }
-            set
-            {
-                m_objDataService = value;
-            }
-        }
+       
 
 
         public string paramTrue { get { return "True"; } }
@@ -379,6 +358,8 @@
             return new object[] { dobj.GetType().AssemblyQualifiedName, dobj.__PrimaryKey, dobj.GetLoadedProperties() };
         }
 
+        private IDataService lIDataService { get; set; }
+
         /// <summary>
         /// Делегат для получения типа по его имени в методе SimpleValueToDataObject
         /// </summary>
@@ -419,10 +400,16 @@
             foreach (var prop in props)
                 v.AddProperty(prop);
 
-            DataService.LoadObject(v, dobj);
+            lIDataService.LoadObject(v, dobj);
 
             return dobj;
         }
+
+        public DetailVariableDef DetailVariableDef(string name, View v, string cmp=null, params string[] ocp)
+        {
+            return new DetailVariableDef(DetailsType,name, v, cmp, ocp);
+        }
+
 
         private ObjectType fieldDetails = new ObjectType("Details", "Зависимые объекты", typeof(DetailArray));
         public ObjectType DetailsType { get { return fieldDetails; } }
@@ -445,6 +432,7 @@
 
         protected override void InitializeDefs()
         {
+            
             Types.AddObject(DetailsType);
             Types.AddObject(DataObjectType);
             Types.AddObject(DatePartType);
@@ -455,6 +443,7 @@
                     "Count",
                     "Количество",
                     "(Количество({0}))",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 1}"),
                     new FunctionParameterDef(fieldDetails)),
                 new FunctionDef(
                     base.MaxFuncID + 2,
@@ -462,6 +451,7 @@
                     "Exist",
                     "Существуют такие ...",
                     "(Существуют такие ({0}) , что {1})",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 2}"),
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(BoolType)),
                 new FunctionDef(
@@ -470,6 +460,7 @@
                     "ExistExact",
                     "Существуют только такие ...",
                     "(Существуют только такие({0}) , что {1})",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 11}"),
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(BoolType)),
                 new FunctionDef(
@@ -478,6 +469,7 @@
                     funcCountWithLimit,
                     "Количество с ограничением",
                     "(Количество из ({0}) таких, что {1})",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 13}"),
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(BoolType)),
                 new FunctionDef(
@@ -486,6 +478,7 @@
                     "=",
                     "=",
                     "({0}={1})",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 4}"),
                     new FunctionParameterDef(fieldDataObjectType),
                     new FunctionParameterDef(fieldDataObjectType)),
                 new FunctionDef(
@@ -494,6 +487,13 @@
                     "IN",
                     "СРЕДИ ЗНАЧЕНИЙ",
                     "({0} СРЕДИ {{{* ,}}})",
+                    (x) =>
+                    {
+                        if (x[0] == null) return false;
+                        string objkey = (x[0] is DataObject) ? ((DataObject)x[0]).__PrimaryKey.ToString() : x[0].ToString();
+                        List<string> vals = x.Skip(1).Select(y => (y is DataObject) ? ((DataObject)y).__PrimaryKey.ToString() : y.ToString()).ToList();
+                        return vals.Contains(objkey);
+                    },
                     new FunctionParameterDef(fieldDataObjectType),
                     new FunctionParameterDef(fieldDataObjectType, true)),
                 new FunctionDef(
@@ -502,6 +502,8 @@
                     "SUM",
                     "СУММА",
                     "( СУММА В {0} ПО {1} )",
+                     (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 6}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType)),
                 new FunctionDef(
@@ -510,6 +512,8 @@
                     "AVG",
                     "СРЕДНЕЕ ЗНАЧЕНИЕ",
                     "( СРЕДНЕЕ В {0} ПО {1} )",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 7}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType)),
                 new FunctionDef(
@@ -518,6 +522,8 @@
                     "MAX",
                     "МАКСИМАЛЬНОЕ ЗНАЧЕНИЕ",
                     "( МАКСИМУМ В {0} ПО {1} )",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 8}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType)),
                 new FunctionDef(
@@ -526,6 +532,8 @@
                     "MIN",
                     "МИНИМАЛЬНОЕ ЗНАЧЕНИЕ",
                     "( МИНИМУМ В {0} ПО {1} )",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 9}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType)),
                 new FunctionDef(base.MaxFuncID + 10, DateTimeType, "TODAY", "СЕГОДНЯ", "( СЕГОДНЯ())"),
@@ -535,6 +543,8 @@
                     funcSumWithLimit,
                     "СУММА С ОГРАНИЧЕНИЕМ",
                     "(СУММА В ({0}) ПО {1} из таких, что {2})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 12}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(BoolType)),
@@ -544,6 +554,8 @@
                     funcAvgWithLimit,
                     "СРЕДНЕЕ ЗНАЧЕНИЕ С ОГРАНИЧЕНИЕМ",
                     "(СРЕДНЕЕ В ({0}) ПО {1} из таких, что {2})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 13}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(BoolType)),
@@ -553,6 +565,8 @@
                     funcMaxWithLimit,
                     "МАКСИМАЛЬНОЕ ЗНАЧЕНИЕ С ОГРАНИЧЕНИЕМ",
                     "(МАКСИМУМ В ({0}) ПО {1} из таких, что {2})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 14}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(BoolType)),
@@ -562,6 +576,7 @@
                     funcMinWithLimit,
                     "МИНИМАЛЬНОЕ ЗНАЧЕНИЕ С ОГРАНИЧЕНИЕМ",
                     "(МИНИМУМ В ({0}) ПО {1} из таких, что {2})",
+                    (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 15}"),
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(BoolType)),
@@ -571,6 +586,8 @@
                     "DATEDIFF",
                     "РАЗНОСТЬ ДАТ",
                     "(РАЗНОСТЬ ДАТ (ед измерения {0}) с даты {1} по дату{2})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 16}"),
+
                     new FunctionParameterDef(DatePartType),
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(DateTimeType)),
@@ -587,6 +604,8 @@
                     "YearPart",
                     "ГОД",
                     "ГОД ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 33}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 34,
@@ -594,6 +613,8 @@
                     "MonthPart",
                     "МЕСЯЦ",
                     "МЕСЯЦ ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 34}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 35,
@@ -601,6 +622,8 @@
                     "DayPart",
                     "ДЕНЬ",
                     "ДЕНЬ ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 35}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 37,
@@ -608,6 +631,8 @@
                     "hhPart",
                     "ЧАС",
                     "ЧАС ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 37}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 39,
@@ -615,6 +640,8 @@
                     "miPart",
                     "Минута",
                     "Минута ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 39}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 40,
@@ -622,6 +649,8 @@
                     "DayOfWeek",
                     "День недели",
                     "День недели ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 40}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 46,
@@ -629,6 +658,8 @@
                     funcDayOfWeekZeroBased,
                     "День недели с 0",
                     "День недели с 0({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 46}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 41,
@@ -636,6 +667,8 @@
                     "OnlyDate",
                     "Только дата",
                     "Только дата ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 41}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 42, StringType, "CurrentUser", "Текущий пользователь", "Текущий пользователь"),
@@ -645,6 +678,8 @@
                     "OnlyTime",
                     "Только время",
                     "Только время ({0})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 43}"),
+
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 44,
@@ -652,6 +687,8 @@
                     funcImplication,
                     "Если... то...",
                     "Если ({0}), то ({1})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 44}"),
+
                     new FunctionParameterDef(BoolType),
                     new FunctionParameterDef(BoolType)),
                 new FunctionDef(
@@ -660,6 +697,8 @@
                     "ExistAll",
                     "Существуют все такие ...",
                     "(Существуют все такие({0}) , что {* И})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 22}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(BoolType, true)),
                 new FunctionDef(
@@ -668,6 +707,8 @@
                     "ExistAllExact",
                     "Существуют все только такие ...",
                     "(Существуют все только такие({0}) , что {* И})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 23}"),
+
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(BoolType, true)),
                 new FunctionDef(
@@ -676,6 +717,8 @@
                     "<>",
                     "<>",
                     "({0}<>{1})",
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 20}"),
+
                     new FunctionParameterDef(fieldDataObjectType),
                     new FunctionParameterDef(fieldDataObjectType)),
                 new FunctionDef(
@@ -684,48 +727,50 @@
                     "NOTISNULL",
                     "НЕ ПУСТО",
                     "({0} не пусто)",
+                    (x) => x[0] != null,
+
                     new FunctionParameterDef(BoolType)),
                 new FunctionDef(
                     base.MaxFuncID + 26,
                     BoolType,
                     "NOTISNULL",
                     "НЕ ПУСТО",
-                    "({0} не пусто)",
+                    "({0} не пусто)", (x) => x[0] != null,
                     new FunctionParameterDef(NumericType)),
                 new FunctionDef(
                     base.MaxFuncID + 27,
                     BoolType,
                     "NOTISNULL",
                     "НЕ ПУСТО",
-                    "({0} не пусто)",
+                    "({0} не пусто)", (x) => x[0] != null,
                     new FunctionParameterDef(StringType)),
                 new FunctionDef(
                     base.MaxFuncID + 28,
                     BoolType,
                     "NOTISNULL",
                     "НЕ ПУСТО",
-                    "({0} не пусто)",
+                    "({0} не пусто)", (x) => x[0] != null,
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
                     base.MaxFuncID + 29,
                     BoolType,
                     "NOTISNULL",
                     "НЕ ПУСТО",
-                    "({0} не пусто)",
+                    "({0} не пусто)", (x) => x[0] != null,
                     new FunctionParameterDef(GuidType)),
                 new FunctionDef(
                     base.MaxFuncID + 31,
                     BoolType,
                     "NOTISNULL",
                     "НЕ ПУСТО",
-                    "({0} не пусто)",
+                    "({0} не пусто)", (x) => x[0] != null,
                     new FunctionParameterDef(DataObjectType)),
                 new FunctionDef(
                     base.MaxFuncID + 32,
                     BoolType,
                     "ISNULL",
                     "НЕ ЗАПОЛНЕНО",
-                    "({0} не заполнено)",
+                    "({0} не заполнено)", (x) => x[0] == null,
                     new FunctionParameterDef(DataObjectType)),
                 new FunctionDef(base.MaxFuncID + 24, BoolType, "True", "Истина", "(Истина)"),
                 new FunctionDef(
@@ -733,7 +778,7 @@
                     NumericType,
                     funcDaysInMonth,
                     "Дней в месяце",
-                    "Дней в {0} месяце {1} года",
+                    "Дней в {0} месяце {1} года", (x) => DateTime.DaysInMonth((int)ObjectToDecimal(x[0]), (int)ObjectToDecimal(x[1])),
                     new FunctionParameterDef(NumericType, "Month", "Месяц"),
                     new FunctionParameterDef(NumericType, "Year", "Год")),
                 new FunctionDef(
@@ -742,6 +787,7 @@
                     funcExistDetails,
                     "Cуществуют такие и такие что...",
                     "Существуют такие {0} и такие {1}, что {2}",
+                    null,
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(fieldDetails),
                     new FunctionParameterDef(BoolType)),
@@ -751,6 +797,7 @@
                     funcToUpper,
                     "Преобразовать в верхний регистр",
                     "Преобразовать '{0}' в верхний регистр",
+                    (x) => ObjectToString(x[0]).ToUpper(),
                     new FunctionParameterDef(StringType)),
                 new FunctionDef(
                     MaxFuncID + 47,
@@ -758,6 +805,7 @@
                     funcToLower,
                     "Преобразовать в нижний регистр",
                     "Преобразовать '{0}' в нижний регистр",
+                    (x) => ObjectToString(x[0]).ToLower(),
                     new FunctionParameterDef(StringType)),
                 new FunctionDef(
                     MaxFuncID + 48,
@@ -765,6 +813,7 @@
                     funcDateAdd,
                     "Добавить дату",
                     "Добавить (ед измерения '{0}') '{1}' к '{2}'",
+                    null,
                     new FunctionParameterDef(DatePartType),
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(DateTimeType)),
@@ -774,22 +823,43 @@
                     funcToChar,
                     "Привести к строке",
                     "Привести {0} к строке длиной {1}",
+                    null,
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(NumericType)),
-                    new FunctionDef(
+               new FunctionDef(
                     MaxFuncID + 50,
                     StringType,
                     funcToChar,
                     "Привести к строке",
                     "Привести дату {0} к строке длиной {1} в формате {2}",
+                    null,
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(NumericType),
-                    new FunctionParameterDef(NumericType)));
+                    new FunctionParameterDef(NumericType)),
+                 new FunctionDef(
+                    base.MaxFuncID + 51,
+                    BoolType,
+                    "=",
+                    "=",
+                    "({0}={1})",
+                    null,
+                    new FunctionParameterDef(fieldDataObjectType),
+                    new FunctionParameterDef(StringType)),
+                new FunctionDef(
+                    base.MaxFuncID + 52,
+                    BoolType,
+                    "=",
+                    "=",
+                    "({0}={1})",
+                    null,
+                    new FunctionParameterDef(fieldDataObjectType),
+                    new FunctionParameterDef(GuidType))
+                 );
 
             base.InitializeDefs();
         }
 
-        public override int MaxFuncID { get { return base.MaxFuncID + 35; } }
+        public override int MaxFuncID { get { return base.MaxFuncID + 52; } }
         private System.Collections.Specialized.StringCollection ChFuncNames = null;
         public override string[] GetExistingVariableNames(ICSSoft.STORMNET.FunctionalLanguage.Function f)
         {
@@ -823,9 +893,15 @@
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
         /// <returns></returns>
-        private string DataServiceSwitch(ICSSoft.STORMNET.FunctionalLanguage.Function value, ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString convertValue, ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets convertIdentifier)
+        private string DataServiceSwitch(ICSSoft.STORMNET.FunctionalLanguage.Function value, 
+            ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString convertValue, 
+            ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets convertIdentifier,
+            ref List<string> OTBSubquery, 
+            StorageStructForView[] storageStruct,
+            SQLDataService DataService)
         {
-            return DataService.FunctionToSql(this, value, convertValue, convertIdentifier);
+            this.lIDataService = DataService;
+            return DataService.FunctionToSql(this, value, convertValue, convertIdentifier, ref OTBSubquery,storageStruct);
         }
 
         public string[] retVars = null;
@@ -854,17 +930,23 @@
             return String.Format("({0} {1} )", res, wrapper);
         }
 
-        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
+        protected override string SQLTranslFunction(Function value, 
+            delegateConvertValueToQueryValueString convertValue, 
+            delegatePutIdentifierToBrackets convertIdentifier, 
+            ref List<string> OTBSubqueries,
+            StorageStructForView[] StorageStruct,
+            ICSSoft.STORMNET.Business.SQLDataService DataService)
         {
+            lIDataService = DataService;
             if (value.FunctionDef.StringedView == "NOTISNULL")
             {
-                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier);
+                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
                 return WrapNull(value.Parameters[0], translSwitch, "IS NOT NULL");
             }
             
             if (value.FunctionDef.StringedView == "ISNULL")
             {
-                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier);
+                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct,  DataService);
                 return WrapNull(value.Parameters[0], translSwitch, "IS NULL");
             }
             
@@ -875,7 +957,7 @@
             
             if (value.FunctionDef.StringedView == "TODAY")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "YearDIFF" || value.FunctionDef.StringedView == "quarterDIFF"
@@ -889,49 +971,49 @@
             if (value.FunctionDef.StringedView == "YearPart" || value.FunctionDef.StringedView == "MonthPart"
                      || value.FunctionDef.StringedView == "DayPart")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "hhPart" || value.FunctionDef.StringedView == "miPart")
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcDayOfWeekZeroBased)
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier,ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcDaysInMonth)
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
                 //здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcImplication)
@@ -940,37 +1022,37 @@
                 var f1 = GetFunction(funcNOT, value.Parameters[0]);
                 // не А или В
                 var fres = GetFunction(funcOR, f1, value.Parameters[1]);
-                return base.SQLTranslFunction(fres, convertValue, convertIdentifier);
+                return base.SQLTranslFunction(fres, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "DATEDIFF")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcExistExact)
             {
-                return GetConditionForExistExact(value, convertValue, convertIdentifier);
+                return GetConditionForExistExact(value, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct,  DataService);
             }
             
             if (value.FunctionDef.StringedView == funcExistDetails)
             {
-                return GetConditionForExistDetails(value, convertValue, convertIdentifier);
+                return GetConditionForExistDetails(value, convertValue, convertIdentifier, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcExistAll)
             {
-                return GetConditionForExistAll(value, convertValue, convertIdentifier);
+                return GetConditionForExistAll(value, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct,  DataService);
             }
             
             if (value.FunctionDef.StringedView == funcExistAllExact)
             {
-                return GetConditionForExistAllExact(value, convertValue, convertIdentifier);
+                return GetConditionForExistAllExact(value, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct,   DataService);
             }
             
             if (value.FunctionDef.StringedView == funcExist)
             {
-                return GetConditionForExist(value, convertValue, convertIdentifier);
+                return GetConditionForExist(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcSumWithLimit
@@ -1014,7 +1096,7 @@
                 retVars = (string[])al.ToArray(typeof(string));
 
                 string Slct =
-                    (DataService as ICSSoft.STORMNET.Business.SQLDataService).GenerateSQLSelect(lcs, true)
+                    DataService.GenerateSQLSelect(lcs, true)
                                                                              .Replace(
                                                                                  "STORMGENERATEDQUERY",
                                                                                  "SGQ"
@@ -1026,7 +1108,7 @@
                     convertIdentifier(
                         "g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
-                var sumExpression = SQLTranslSwitch(par, convertValue, convertIdentifier);
+                var sumExpression = SQLTranslSwitch(par, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
 
                 var parBoolVariableDef = par as VariableDef;
                 if ((parBoolVariableDef != null)
@@ -1062,14 +1144,14 @@
             if (value.FunctionDef.StringedView == funcCountWithLimit
                      || value.FunctionDef.StringedView == "Count")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "SUM" || value.FunctionDef.StringedView == "AVG"
                      || value.FunctionDef.StringedView == "MAX"
                      || value.FunctionDef.StringedView == "MIN")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == "OR")
@@ -1102,7 +1184,7 @@
 
                 if (!DetFuncs)
                 {
-                    return base.SQLTranslFunction(value, convertValue, convertIdentifier);
+                    return base.SQLTranslFunction(value, convertValue, convertIdentifier,ref OTBSubqueries, StorageStruct, DataService);
                 }
                 else
                 {
@@ -1115,7 +1197,7 @@
                             SQLTranslFunction(
                                 value.Parameters[i] as FunctionalLanguage.Function,
                                 convertValue,
-                                convertIdentifier);
+                                convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
                         if (s.IndexOf("in (") > 0)
                         {
                             p = s.Substring(0, s.IndexOf("in (") + 4);
@@ -1151,20 +1233,20 @@
             if (value.FunctionDef.StringedView == funcToUpper
                      || value.FunctionDef.StringedView == funcToLower)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcDateAdd)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
             
             if (value.FunctionDef.StringedView == funcToChar)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct, DataService);
             }
 
-            return base.SQLTranslFunction(value, convertValue, convertIdentifier);
+            return base.SQLTranslFunction(value, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct, DataService);
         }
 
         //Заслуженный химик

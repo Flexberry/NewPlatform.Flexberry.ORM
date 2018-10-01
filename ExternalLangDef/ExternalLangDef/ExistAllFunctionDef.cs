@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using ICSSoft.STORMNET.FunctionalLanguage;
 using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 
@@ -9,8 +10,10 @@ namespace ICSSoft.STORMNET.Windows.Forms
 	{
         private string GetConditionForExistAll(Function func,
                                                delegateConvertValueToQueryValueString convertValue,
-                                               delegatePutIdentifierToBrackets convertIdentifier)
+                                               delegatePutIdentifierToBrackets convertIdentifier,
+                                               ref List<string> OTBSubqueries,Business.StorageStructForView[] StorageStruct,  Business.SQLDataService DataService)
         {
+            lIDataService = DataService;
             if (!(func.Parameters[1] is Function) ||
                 ((Function) func.Parameters[1]).FunctionDef.StringedView != funcEQ &&
                 ((Function) func.Parameters[1]).FunctionDef.StringedView != funcIN)
@@ -42,7 +45,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
                                          ? func.Parameters[1]
                                          : GetFunction(funcAND, funcAdv, func.Parameters[1]));
 
-                return SQLTranslFunction(f, convertValue, convertIdentifier);
+                return SQLTranslFunction(f, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct, DataService);
             }
 
             var vdefDet = func.Parameters[0] as VariableDef;
@@ -60,7 +63,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
             }
 
             Function function = GetFunction(funcAND, newpars);
-            return base.SQLTranslFunction(function, convertValue, convertIdentifier);
+            return base.SQLTranslFunction(function, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct,  DataService);
         }
 	}
 }

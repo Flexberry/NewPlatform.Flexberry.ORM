@@ -163,28 +163,29 @@
         /// </returns>
         public DataObject CreateDataObject(Type typeofdataobject, object key)
         {
-            key = Information.TranslateValueToPrimaryKeyType(typeofdataobject, key);
+           
+                key = Information.TranslateValueToPrimaryKeyType(typeofdataobject, key);
 
-            DataObject dobj = null;
-            if (!NoCaches)
-                dobj = PrvGetLivingDataObject(typeofdataobject, key);
-            if (dobj == null)
-            {
-                dobj = (DataObject)Creator.CreateObject(typeofdataobject);
-                dobj.__PrimaryKey = key;
+                DataObject dobj = null;
                 if (!NoCaches)
+                    dobj = PrvGetLivingDataObject(typeofdataobject, key);
+                if (dobj == null)
                 {
-                    lock (_objectCaches)
+                    dobj = (DataObject)Creator.CreateObject(typeofdataobject);
+                    dobj.__PrimaryKey = key;
+                    if (!NoCaches)
                     {
-                        if (PrvGetLivingDataObject(typeofdataobject, key) == null)
+                        lock (_objectCaches)
                         {
-                            AddLivingDataObject(dobj);
+                            if (PrvGetLivingDataObject(typeofdataobject, key) == null)
+                            {
+                                AddLivingDataObject(dobj);
+                            }
                         }
                     }
                 }
-            }
 
-            return dobj;
+                return dobj;
         }
 
 

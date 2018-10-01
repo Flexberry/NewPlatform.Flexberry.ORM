@@ -7,7 +7,7 @@
     /// Дополнительная колоночка
     /// </summary>
     [Serializable]
-    public struct AdvansedColumn : ISerializable
+    public struct AdvancedColumn : ISerializable
     {
         #region Constants and Fields
 
@@ -42,7 +42,7 @@
         /// <param name="StorageSourceModification">
         /// The storage source modification.
         /// </param>
-        public AdvansedColumn(string Name, string Expression, string StorageSourceModification)
+        public AdvancedColumn(string Name, string Expression, string StorageSourceModification)
         {
             name = Name;
             expression = Expression;
@@ -58,7 +58,7 @@
         /// <param name="context">
         /// The context.
         /// </param>
-        public AdvansedColumn(SerializationInfo info, StreamingContext context)
+        public AdvancedColumn(SerializationInfo info, StreamingContext context)
         {
             name = info.GetString("name");
             expression = info.GetString("expression");

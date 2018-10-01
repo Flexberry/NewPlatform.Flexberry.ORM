@@ -19,6 +19,19 @@
     /// </summary>
     public abstract partial class SQLDataService : System.ComponentModel.Component, ISQLDataService
     {
+
+
+        /// <summary>
+        /// Обработка-трансформация исключительных ситуаций при
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
+        public virtual Exception TransformUpdateException(Exception exception, DataObject[] objects)
+        {
+            return exception;
+        }
+
+
         /// <summary>
         /// Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку
         /// и откатывать транзакцию при неудачном запросе в базу данных). Если
@@ -125,121 +138,142 @@
                         trans = CreateTransaction(conection);
                         IDbCommand command = conection.CreateCommand();
                         command.Transaction = trans;
-
-                        #region прошли вглубь обрабатывая only Update||Insert
                         bool go = true;
-                        do
-                        {
-                            string table = QueryOrder[0];
-                            if (!TableOperations.ContainsKey(table))
-                                TableOperations.Add(table, OperationType.None);
-                            var ops = (OperationType)TableOperations[table];
 
-                            if ((ops & OperationType.Delete) != OperationType.Delete)
-                            {
-                                // Смотрим есть ли Инсерты
-                                if ((ops & OperationType.Insert) == OperationType.Insert)
-                                {
-                                    if (
-                                        (ex =
-                                         RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
-                                        == null)
-                                    {
-                                        ops = Minus(ops, OperationType.Insert);
-                                        TableOperations[table] = ops;
-                                    }
-                                    else
-                                    {
-                                        go = false;
-                                    }
-                                }
+                        #region Старая версия реализации
+                        #region прошли вглубь обрабатывая only Update||Insert
 
-                                // Смотрим есть ли Update
-                                if (go && ((ops & OperationType.Update) == OperationType.Update))
-                                {
-                                    if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
-                                    {
-                                        ops = Minus(ops, OperationType.Update);
-                                        TableOperations[table] = ops;
-                                    }
-                                    else
-                                    {
-                                        go = false;
-                                    }
-                                }
+                        //do
+                        //{
+                        //    string table = QueryOrder[0];
+                        //    if (!TableOperations.ContainsKey(table))
+                        //        TableOperations.Add(table, OperationType.None);
+                        //    var ops = (OperationType)TableOperations[table];
 
-                                if (go)
-                                {
-                                    QueryOrder.RemoveAt(0);
-                                    go = QueryOrder.Count > 0;
-                                }
-                            }
-                            else
-                                go = false;
+                        //    if ((ops & OperationType.Delete) != OperationType.Delete)
+                        //    {
+                        //        // Смотрим есть ли Инсерты
+                        //        if ((ops & OperationType.Insert) == OperationType.Insert)
+                        //        {
+                        //            if (
+                        //                (ex =
+                        //                 RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException, true))
+                        //                == null)
+                        //            {
+                        //                ops = Minus(ops, OperationType.Insert);
+                        //                TableOperations[table] = ops;
+                        //            }
+                        //            else
+                        //            {
+                        //                go = false;
+                        //            }
+                        //        }
 
-                        }
-                        while (go);
+                        //        // Смотрим есть ли Update
+                        //        if (go && ((ops & OperationType.Update) == OperationType.Update))
+                        //        {
+                        //            if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException, false)) == null)
+                        //            {
+                        //                ops = Minus(ops, OperationType.Update);
+                        //                TableOperations[table] = ops;
+                        //            }
+                        //            else
+                        //            {
+                        //                go = false;
+                        //            }
+                        //        }
+
+                        //        if (go)
+                        //        {
+                        //            QueryOrder.RemoveAt(0);
+                        //            go = QueryOrder.Count > 0;
+                        //        }
+                        //    }
+                        //    else
+                        //        go = false;
+
+                        //}
+                        //while (go);
 
                         #endregion
-                        if (QueryOrder.Count > 0)
-                        {
-                            #region сзади чистые Update
+                        //if (QueryOrder.Count > 0)
+                        //{
+                        //    #region сзади чистые Update
 
-                            go = true;
-                            int queryOrderIndex = QueryOrder.Count - 1;
-                            do
-                            {
-                                string table = QueryOrder[queryOrderIndex];
-                                if (TableOperations.ContainsKey(table))
-                                {
-                                    var ops = (OperationType)TableOperations[table];
+                        //    go = true;
+                        //    int queryOrderIndex = QueryOrder.Count - 1;
+                        //    do
+                        //    {
+                        //        string table = QueryOrder[queryOrderIndex];
+                        //        if (TableOperations.ContainsKey(table))
+                        //        {
+                        //            var ops = (OperationType)TableOperations[table];
 
-                                    if (ops == OperationType.Update)
-                                    {
-                                        if (
-                                            (ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
-                                        {
-                                            ops = Minus(ops, OperationType.Update);
-                                            TableOperations[table] = ops;
-                                        }
-                                        else
-                                        {
-                                            go = false;
-                                        }
+                        //            if (ops == OperationType.Update)
+                        //            {
+                        //                if (
+                        //                    (ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException,false)) == null)
+                        //                {
+                        //                    ops = Minus(ops, OperationType.Update);
+                        //                    TableOperations[table] = ops;
+                        //                }
+                        //                else
+                        //                {
+                        //                    go = false;
+                        //                }
 
-                                        if (go)
-                                        {
-                                            queryOrderIndex--;
-                                            go = queryOrderIndex >= 0;
-                                        }
-                                    }
-                                    else
-                                        go = false;
-                                }
-                                else
-                                    queryOrderIndex--;
-                            }
-                            while (go);
+                        //                if (go)
+                        //                {
+                        //                    queryOrderIndex--;
+                        //                    go = queryOrderIndex >= 0;
+                        //                }
+                        //            }
+                        //            else
+                        //                go = false;
+                        //        }
+                        //        else
+                        //            queryOrderIndex--;
+                        //    }
+                        //    while (go);
 
-                            #endregion
-                        }
+                        //    #endregion
+                        //}
 
-                        // Удаляем в обратном порядке.
-                        for (int i = QueryOrder.Count - 1; i >= 0; i--)
-                        {
-                            string table = QueryOrder[i];
-                            if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
+                        //// Удаляем в обратном порядке.
+                        //for (int i = QueryOrder.Count - 1; i >= 0; i--)
+                        //{
+                        //    string table = QueryOrder[i];
+                        //    if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException,false)) != null)
+                        //        throw ex;
+                        //}
+
+                        //// А теперь опять с начала
+                        //foreach (string table in QueryOrder)
+                        //{
+                        //    if ((ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException,true)) != null)
+                        //        throw ex;
+                        //    if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException,false)) != null)
+                        //        throw ex;
+                        //}
+                        #endregion
+
+
+                        #region новая реализация
+                        List<string> QOrder = new List<string>();
+                        foreach (string s in QueryOrder) QOrder.Add(s);
+
+                        foreach (string table in QOrder)
+                            if ((ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException, true)) != null)
+                                       throw   ex;
+                        foreach (string table in QOrder)
+                            if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException, true)) != null)
                                 throw ex;
-                        }
+                        QOrder.Reverse();
+                        foreach (string table in QOrder)
+                            if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException, true)) != null)
+                                throw ex;
 
-                        // А теперь опять с начала
-                        foreach (string table in QueryOrder)
-                        {
-                            if ((ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException)) != null)
-                                throw ex;
-                            if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
-                                throw ex;
-                        }
+                        #endregion
 
                         if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                         { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
@@ -264,7 +298,9 @@
 
                         conection.Close();
                         BusinessTaskMonitor.EndSubTask(subTask);
-                        throw new ExecutingQueryException(query, prevQueries, excpt);
+                        throw  TransformUpdateException(
+                            new  ExecutingQueryException(query, prevQueries, excpt),objects
+                            );
                     }
 
                     conection.Close();

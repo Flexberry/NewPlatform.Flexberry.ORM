@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -11,6 +12,7 @@
     {
         private int _startRow;
         private int _endRow;
+
 
         /// <summary>
         /// Со строчки номер
@@ -36,7 +38,10 @@
         {
             info.AddValue("StartRow", _startRow);
             info.AddValue("EndRow", _endRow);
+            info.AddValue(nameof(RankPropertyName), RankPropertyName);
         }
+
+
 
         #endregion
 
@@ -47,15 +52,21 @@
         {
         }
 
+        public string RankPropertyName { get; set; }
+
+        public List<string> PartitionPropertyName { get; set; }
+
+
         /// <summary>
         /// Конструктор
         /// </summary>
         /// <param name="StartRow">Загрузим с объекта (включительно)</param>
         /// <param name="EndRow">Загрузим до объекта (включительно)</param>
-        public RowNumberDef(int StartRow, int EndRow)
+        public RowNumberDef(int StartRow, int EndRow, string rankPropertyName=null)
         {
             _startRow = StartRow;
             _endRow = EndRow;
+            RankPropertyName = rankPropertyName;
         }
 
         /// <summary>
@@ -67,6 +78,7 @@
         {
             _startRow = info.GetInt32("StartRow");
             _endRow = info.GetInt32("EndRow");
+            RankPropertyName = info.GetString(nameof(RankPropertyName));
         }
 
         public override bool Equals(object obj)
@@ -101,7 +113,7 @@
                 return true;
             }
 
-            return other._startRow == _startRow && other._endRow == _endRow;
+            return other._startRow == _startRow && other._endRow == _endRow && other.RankPropertyName == RankPropertyName;
         }
 
         public override int GetHashCode()

@@ -11,6 +11,7 @@
     /// <summary>
     /// Определение переменной ограничения, предназначенное для описания детейлов.
     /// </summary>
+    [NotStored]
     public class DetailVariableDef : VariableDef
     {
         private View fView;
@@ -21,7 +22,7 @@
         public string ConnectMasterPorp { get { return fConnectMasterPorp; } set { fConnectMasterPorp = value; } }
         public string[] OwnerConnectProp { get { return fownerConnectProp; } set { fownerConnectProp = value; } }
 
-        public DetailVariableDef(ICSSoft.STORMNET.FunctionalLanguage.ObjectType type, string name, View v, string cmp, params string[] ocp)
+       public DetailVariableDef(ICSSoft.STORMNET.FunctionalLanguage.ObjectType type, string name, View v, string cmp=null, params string[] ocp)
             : base(type, name, name)
         {
             fView = v;
@@ -29,6 +30,7 @@
             OwnerConnectProp = (ocp == null || (ocp.Length == 1 && ocp[0] == null)) ? new string[] { FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.StormMainObjectKey } : ocp;
             fView.AddProperty(ConnectMasterPorp);
         }
+
 
         /// <summary>
         /// Получение представления по его имени и типу.

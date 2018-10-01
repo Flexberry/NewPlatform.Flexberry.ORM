@@ -119,22 +119,22 @@ namespace ICSSoft.STORMNET.Business.SQL
 
             int ObjectTypeIndexPOs = value[0].Length - 1;
             object[] keys = new object[value.Length];
-            int keyIndex = customizationStruct.View.Properties.Length + customizationStruct.AdvansedColumns.Length;
-            bool[] readedTypes = new bool[dataObjectType.Length];
-            Array.Clear(readedTypes, 0, readedTypes.Length);
+            int keyIndex = customizationStruct.View.Properties.Length + customizationStruct.AdvancedColumns.Length;
+            bool[] WasReadingTypes = new bool[dataObjectType.Length];
+            Array.Clear(WasReadingTypes, 0, WasReadingTypes.Length);
 
 
             //#if NETFX_35
             for (int i = 0; i < value.Length; i++)
             //#else
-            //    System.Threading.Tasks.Parallel.For(0, value.Length, i =>
+            // System.Threading.Tasks.Parallel.For(0, value.Length, i =>
             //#endif
             {
                 Int64 index = Convert.ToInt64(value[i][ObjectTypeIndexPOs].ToString());
-                readedTypes[index] = true;
+                WasReadingTypes[index] = true;
                 if (res[i] == null)
                     res[i] = dataObjectCache.CreateDataObject(dataObjectType[index], value[i][keyIndex]);
-                ICSSoft.STORMNET.Business.Utils.FillRowSetToDataObject(res[i], value[i], storageStruct[index], customizationStruct, typesByKeys, customizationStruct.AdvansedColumns, dataObjectCache, securityManager);
+                ICSSoft.STORMNET.Business.Utils.FillRowSetToDataObject(res[i], value[i], storageStruct[index], customizationStruct, typesByKeys, customizationStruct.AdvancedColumns, dataObjectCache, securityManager);
                 keys[i] = res[i].__PrimaryKey;
             }
             //#if NETFX_35
@@ -167,7 +167,7 @@ namespace ICSSoft.STORMNET.Business.SQL
                         var detTypes = new ArrayList();
                         for (int h = 0; h < dataObjectType.Length; h++)
                         {
-                            if (readedTypes[h])
+                            if (WasReadingTypes[h])
                             {
                                 Type[] tu = dataService.TypeUsage.GetUsageTypes(dataObjectType[h], div.Name);
                                 for (int n = 0; n < tu.Length; n++)
@@ -282,7 +282,7 @@ namespace ICSSoft.STORMNET.Business.SQL
                                             DataObject dobj = detArr.AgregatorObject;
                                             dobj.AddLoadedProperties(div.Name);
                                             if (customizationStruct.InitDataCopy)
-                                                dobj.InitDataCopy(dataObjectCache);
+                                                dobj.InitDataCopy(dataObjectCache,!сlearDataObjects);
                                         }
                                         detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], div.Name);
                                         if (detArr == null)
@@ -459,8 +459,12 @@ namespace ICSSoft.STORMNET.Business.SQL
                 //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
                 //#endif
                 {
-                    dobj.SetStatus(ObjectStatus.UnAltered);
-                    dobj.InitDataCopy(dataObjectCache);
+                    ObjectStatus prevStatus = dobj.GetStatus(false);
+                    dobj.InitDataCopy(dataObjectCache, !сlearDataObjects);
+                    if  (prevStatus== ObjectStatus.Deleted)
+                        dobj.SetStatus(ObjectStatus.Deleted);
+                    else
+                        dobj.SetStatus(ObjectStatus.UnAltered);
                 }
                 //#if NETFX_35 
                 //#else

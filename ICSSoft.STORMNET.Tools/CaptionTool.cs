@@ -2,6 +2,20 @@
 {
     using System;
 
+
+    public class UserMessageException:Exception
+    {
+        public string UserMessage { get; set; }
+        public UserMessageException(string message, string userMessage) : base(message)
+        {
+            UserMessage = userMessage;
+        }
+        public UserMessageException(string message, string userMessage, Exception innerException):base(message,innerException)
+        {
+            UserMessage = userMessage;
+        }
+    }
+
     /// <summary>
     /// Вспомогательный класс для обработки и получения Caption'ов и других имён
     /// </summary>

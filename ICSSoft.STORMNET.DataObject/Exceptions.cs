@@ -130,10 +130,10 @@ namespace ICSSoft.STORMNET.Exceptions
 	/// </summary>
 	public class ObjectAlreadyInDetailArrayException:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public ObjectAlreadyInDetailArrayException(){}
+        /// <summary>
+        /// 
+        /// </summary>
+        public ObjectAlreadyInDetailArrayException(){}
 	}
 
 	/// <summary>
@@ -141,36 +141,37 @@ namespace ICSSoft.STORMNET.Exceptions
 	/// </summary>
 	public class DetailArrayAlreadyContainsObjectWithThatKeyException:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public DetailArrayAlreadyContainsObjectWithThatKeyException(){}
+        /// <summary>
+        /// 
+        /// </summary>
+        public DetailArrayAlreadyContainsObjectWithThatKeyException(){}
 	}
 
 	/// <summary>
-	/// представление не подходит для класса
+	/// Представление не подходит для класса
 	/// </summary>
-	public class UncompatibleViewForClassException:Exception
+	public class UncompatibleViewForClassException : Exception
 	{
 		/// <summary>
-		/// 
+		/// Наименование вью
 		/// </summary>
 		public string viewName;
 		/// <summary>
-		/// 
+		/// Наименование класса
 		/// </summary>
-		public System.Type classType;
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="viewN"></param>
-		/// <param name="classT"></param>
-		public UncompatibleViewForClassException(string viewN,System.Type classT)
+		public Type classType;
+        /// <summary>
+        /// Представление не подходит для класса
+        /// </summary>
+        /// <param name="viewN">наименование вью</param>
+        /// <param name="classT">наименование класса</param>
+        public UncompatibleViewForClassException(string viewN, Type classT)
+            : base($"Uncompatible view {viewN} for class {classT}")
 		{
 			viewName = viewN;
 			classType = classT;
 		}
-	}
+    }
 
 	/// <summary>
 	/// Один класс не является потомком другого класса
@@ -196,7 +197,6 @@ namespace ICSSoft.STORMNET.Exceptions
 			baseType = baseT;
 		}
 	}
-
 
 	/// <summary>
 	/// Не обнаружено свойство
@@ -238,20 +238,19 @@ namespace ICSSoft.STORMNET.Exceptions
 		/// <param name="defType"></param>
 		public AgregatorPropertyMustBeDataObjectTypeException(System.Type defType)
 		{
-			DefinitionType = defType;
+            DefinitionType = defType;
 		}
 	}
-
 
 	/// <summary>
 	/// при создании DetailArray необходимо передать объект-владелец
 	/// </summary>
 	public class OnCreationDetailArrayAgregatorObjectCantBeNullException:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public OnCreationDetailArrayAgregatorObjectCantBeNullException(){}
+        /// <summary>
+        /// 
+        /// </summary>
+        public OnCreationDetailArrayAgregatorObjectCantBeNullException(){}
 	}
 
 	/// <summary>
@@ -259,22 +258,21 @@ namespace ICSSoft.STORMNET.Exceptions
 	/// </summary>
 	public class CantProcessingNonDataobjectTypeException:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public CantProcessingNonDataobjectTypeException(){}
+        /// <summary>
+        /// 
+        /// </summary>
+        public CantProcessingNonDataobjectTypeException(){}
 	}
-
 
 	/// <summary>
 	/// 
 	/// </summary>
 	public class DifferentDataObjectTypesException:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public DifferentDataObjectTypesException(){}
+        /// <summary>
+        /// 
+        /// </summary>
+        public DifferentDataObjectTypesException(){}
 	}
 
 	/// <summary>
@@ -287,8 +285,8 @@ namespace ICSSoft.STORMNET.Exceptions
 		/// </summary>
 		public PrimaryKeyTypeException()
 		{
-		}
-	}
+        }
+    }
 
 	/// <summary>
 	/// Исключение,возникающее в операциях над представлениями пи несовместимости представлений
@@ -310,7 +308,8 @@ namespace ICSSoft.STORMNET.Exceptions
 		/// <param name="SecondViewType"></param>
 		public IncompatibleTypesForViewOperationException(string FirstViewType,string SecondViewType)
 		{
-			this.FirstViewType = FirstViewType;
+            //TODO: ivashkevich: task2138: сформировать внятное сообщение
+            this.FirstViewType = FirstViewType;
 			this.SecondViewType = SecondViewType;
 		}
 	}
@@ -333,7 +332,8 @@ namespace ICSSoft.STORMNET.Exceptions
 		/// <param name="sMustBeTypes">должны бать следующие типы</param>
 		public IncompatibleTypeException(string sObjectType,string sPropName ,string sTypeName,string sMustBeTypes)
 		{
-			this.sObjectType = sObjectType;
+            //TODO: ivashkevich: task2138: сформировать внятное сообщение
+            this.sObjectType = sObjectType;
 			this.sPropName = sPropName;
 			this.sTypeName = sTypeName;
 			this.sMustBeTypes=sMustBeTypes;
@@ -356,6 +356,7 @@ namespace ICSSoft.STORMNET.Exceptions
 		public string PropName {get{return sPropName;}}
 
 	}
+
 	/// <summary>
 	///  Тип проверяемого объекта не соответствует типу в TypeUsageAttribute
 	/// </summary>
@@ -366,16 +367,17 @@ namespace ICSSoft.STORMNET.Exceptions
 		/// </summary>
 		public IncomatibleCheckingTypeException(string sObjectType,string sPropName ,string sTypeName,string sMustBeTypes):base(sObjectType,sPropName, sTypeName,sMustBeTypes){}
 	}
+
 	/// <summary>
 	/// Тип не является перечислимым типом
 	/// </summary>
 	public class NotEnumTypeException:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="TypeName"></param>
-		public NotEnumTypeException(string TypeName):base(TypeName){}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="TypeName"></param>
+        public NotEnumTypeException(string TypeName):base(TypeName){}
 	}
 
 	/// <summary>
@@ -383,10 +385,10 @@ namespace ICSSoft.STORMNET.Exceptions
 	/// </summary>
 	public class NotFoundAggregatorProperty:Exception
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public NotFoundAggregatorProperty():base(){}
+        /// <summary>
+        /// 
+        /// </summary>
+        public NotFoundAggregatorProperty():base(){}
 	}
 
 	/// <summary>
@@ -414,6 +416,7 @@ namespace ICSSoft.STORMNET.Exceptions
 		/// <param name="checkedType">Проверяемый тип</param>
 		public NotFoundInTypeUsageException(Type objectType,string property,Type checkedType)
 		{
+            //TODO: ivashkevich: task2138: сформировать внятное сообщение
 			ObjectType = objectType;
 			Property = property;
 			CheckedType = checkedType;

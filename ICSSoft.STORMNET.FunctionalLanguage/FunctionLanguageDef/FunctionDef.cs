@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 
 namespace ICSSoft.STORMNET.FunctionalLanguage
 {
 	using ICSSoft.STORMNET;
+    using System.Collections.Generic;
     using System.Xml.Serialization;
+    using System.Linq;
 
     /// <summary>
     /// Определение функции
@@ -49,18 +52,29 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objStringedView"></param>
         /// <param name="objCaption"></param>
         /// <param name="objImagedView"></param>
+        /// <param name="func">вычислитель функции</param>
         /// <param name="userViewFormat"></param>
         /// <param name="parameters"></param>
-        public FunctionDef(int  ID,ObjectType returnType,string objStringedView,string objCaption,string userViewFormat,
-			params FunctionParameterDef[] parameters)
+        public FunctionDef(int  ID,
+                          ObjectType returnType,
+                          string objStringedView,
+                          string objCaption,
+                          string userViewFormat,
+                          Func<List<object>, Object> func,
+                          params FunctionParameterDef[] parameters)
 			:base(returnType,objStringedView,objCaption)
 		{
 			fieldParameters = new DetailArrayOfFunctionalParameterDef(this);
 			for (int i = 0;i<parameters.Length;i++)
 				fieldParameters.Add(parameters[i]);
 			fieldUserViewFormat = userViewFormat;
+            CalculationFunction = func;
 			this.ID = ID;
 		}
+
+        [XmlIgnore]
+        public  Func<List<object>, Object> CalculationFunction { get; set; }
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -100,6 +114,13 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// формат отображения пользователю (используется на форме задания ограничений)
         /// </summary>
 		public string UserViewFormat {get {return fieldUserViewFormat;}}
+
+
+        public override string ToString()
+        {
+            return $"{StringedView}({ID})[{string.Join(",",Parameters.GetAllObjects().Cast<FunctionParameterDef>().Select(x=>x.Type.StringedView).ToArray())}]";
+        }
+
 
         [NonSerialized]
         private FunctionalLanguageDef fieldLanguage;

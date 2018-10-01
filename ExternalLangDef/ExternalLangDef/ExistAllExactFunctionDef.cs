@@ -2,14 +2,16 @@
 using System.Collections;
 using ICSSoft.STORMNET.FunctionalLanguage;
 using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+using System.Collections.Generic;
 
 namespace ICSSoft.STORMNET.Windows.Forms
 {
 	public partial class ExternalLangDef
 	{
         private string GetConditionForExistAllExact(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier)
+                                                   delegatePutIdentifierToBrackets convertIdentifier, ref List<string> OTBSubqueries,Business.StorageStructForView[] StorageStruct,  Business.SQLDataService DataService)
         {
+            lIDataService = DataService;
             if (!(func.Parameters[1] is Function) ||
                 ((Function) func.Parameters[1]).FunctionDef.StringedView != funcEQ &&
                 ((Function) func.Parameters[1]).FunctionDef.StringedView != funcIN)
@@ -37,7 +39,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
                                                 GetFunction(funcCountWithLimit, vdefDet, GetFunction(funcNOT, funcAdv)));
             Function function = GetFunction(funcAND, funcOperand1, funcOperand2);
 
-            return base.SQLTranslFunction(function, convertValue, convertIdentifier);
+            return base.SQLTranslFunction(function, convertValue, convertIdentifier, ref OTBSubqueries,StorageStruct,  DataService);
         }
 	}
 }

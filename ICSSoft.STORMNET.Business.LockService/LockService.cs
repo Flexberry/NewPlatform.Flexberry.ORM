@@ -98,7 +98,7 @@
             {
 
                 prv_ClearLocksByFunction(ld.GetFunction(ld.funcAND,
-                ld.GetFunction(ld.funcEQ, new VariableDef(ld.StringType, "STORMMainObjectKey"), lockName),
+                ld.GetFunction(ld.funcEQ, new VariableDef(ld.StringType, SQLWhereLanguageDef.StormMainObjectKey), lockName),
                 ld.GetFunction(ld.funcEQ, new VariableDef(ld.StringType, "UserName"), userName)
                 ));
             }
@@ -129,7 +129,7 @@
         }
 
         /// <summary>
-        /// Устанавливает блокировку. Если удачно - то возвращается пустая строка, если нет - UserName.
+        /// Устанавливает блокировку. Если удачно - то возвращается UserName под которым устанавливается, если нет - UserName под которым установленно.
         /// </summary>
         /// <returns>Имя пользователя, которым занят ресурс</returns>
         public string SetLock(string lockName, string userName)
@@ -145,7 +145,7 @@
                     SQLWhereLanguageDef ld = SQLWhereLanguageDef.LanguageDef;
 
                     LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(LockData), "V");
-                    lcs.LimitFunction = ld.GetFunction(ld.funcEQ, new VariableDef(ld.StringType, "STORMMainObjectKey"), lockName);
+                    lcs.LimitFunction = ld.GetFunction(ld.funcEQ, new VariableDef(ld.StringType, SQLWhereLanguageDef.StormMainObjectKey), lockName);
 
                     DataObject[] locks = ds.LoadObjects(lcs);
                     if (locks.Length > 0)

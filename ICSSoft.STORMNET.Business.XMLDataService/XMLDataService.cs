@@ -201,7 +201,8 @@
             Function function,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
-            ref List<string> OTBSubquery)
+            ref List<string> OTBSubquery,
+            StorageStructForView[] StorageStruct)
         {
             throw new NotImplementedException();
         }
@@ -294,7 +295,7 @@
                 var lc = new LoadingCustomizationStruct(GetInstanceId());
                 var lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 var var = new FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(doType).KeyType), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(doType).KeyType), SQLWhereLanguageDef.StormMainObjectKey);
                 object prevPrimaryKey = null;
 
                 if (dobject.Prototyped)
@@ -311,7 +312,7 @@
                     if (v != null)
                     {
                         cst = LoadingCustomizationStruct.GetSimpleStruct(doType, v);
-                        cst.AdvansedColumns = lc.AdvansedColumns;
+                        cst.AdvancedColumns = lc.AdvancedColumns;
                         cst.ColumnsOrder = lc.ColumnsOrder;
                         cst.ColumnsSort = lc.ColumnsSort;
                         cst.Distinct = lc.Distinct;
@@ -498,7 +499,7 @@
                 var customizationStruct = new LoadingCustomizationStruct(_instanceId);
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 var var = new FunctionalLanguage.VariableDef(lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectView.DefineClassType).KeyType),
-                                                             "STORMMainObjectKey");
+                                                             SQLWhereLanguageDef.StormMainObjectKey);
                 var keys = new object[alKeys.Count + 1]; alKeys.CopyTo(keys, 1);
                 keys[0] = var;
                 FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys);
@@ -571,7 +572,7 @@
                         if (v != null)
                         {
                             cst = LoadingCustomizationStruct.GetSimpleStruct(type, v);
-                            cst.AdvansedColumns = customizationStruct.AdvansedColumns;
+                            cst.AdvancedColumns = customizationStruct.AdvancedColumns;
                             cst.ColumnsOrder = customizationStruct.ColumnsOrder;
                             cst.ColumnsSort = customizationStruct.ColumnsSort;
                             cst.Distinct = customizationStruct.Distinct;
@@ -1342,13 +1343,13 @@
             return ConvertSimpleValueToQueryValueString(value);
         }
 
-        private string LimitFunction2FilterExpression(STORMFunction limitFunction)
+        private string LimitFunction2FilterExpression(STORMFunction limitFunction,StorageStructForView[] storageStruct )
         {
             System.Collections.Generic.List<string> OTBSubQueries = new System.Collections.Generic.List<string>();
 
             return FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(limitFunction,
                                                                                ConvertValueToQueryValueString,
-                                                                               PutIdentifierIntoBrackets,ref OTBSubQueries, null);
+                                                                               PutIdentifierIntoBrackets,ref OTBSubQueries, storageStruct, null);
         }
 
         public virtual string PutIdentifierIntoBrackets(string identifier)

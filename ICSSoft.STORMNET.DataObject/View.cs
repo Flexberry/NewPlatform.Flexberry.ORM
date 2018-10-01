@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
@@ -11,6 +12,8 @@
 
     using ICSSoft.STORMNET.Exceptions;
     using System.Xml.Serialization;
+    using System.Xml;
+    using System.Xml.Schema;
 
     namespace Business
     {
@@ -126,11 +129,11 @@
                 /// </summary>
                 public PropSource source;
                 /// <summary>
-                /// для совойств DataObject-ного типа список типов мастеров для каждой  ветви выборки
+                /// для свойств DataObject-ного типа список типов мастеров для каждой  ветви выборки
                 /// </summary>
                 public System.Type[][] MastersTypes = null;
                 /// <summary>
-                /// для совойств DataObject-ного,количество объектов в <see cref="PropStorage.MastersTypes"/>
+                /// для свойств DataObject-ного,количество объектов в <see cref="PropStorage.MastersTypes"/>
                 /// </summary>
                 public int MastersTypesCount = 0;
                 /// <summary>
@@ -150,7 +153,10 @@
                 /// формула для хранения вычислимых атрибутов
                 /// </summary>
                 public string Expression = null;
-
+                /// <summary>
+                /// Формолы для вычислимых атрибутов по ветвям
+                /// </summary>
+                public string[][] Expressions = new string[1][];
                 /// <summary>
                 /// тип свойства
                 /// </summary>
@@ -192,6 +198,7 @@
                     this.Expression = info.GetString("Expression");
                     this.propertyType = (Type)info.GetValue("propertyType", typeof(Type));
                     this.MultipleProp = info.GetBoolean("MultipleProp");
+                    this.Expressions = (string[][])info.GetValue("Expressions", typeof(string[][]));
                 }
 
                 /// <summary>
@@ -211,6 +218,7 @@
                     info.AddValue("Expression", this.Expression);
                     info.AddValue("propertyType", this.propertyType);
                     info.AddValue("MultipleProp", this.MultipleProp);
+                    info.AddValue("Expressions", this.Expressions);
                 }
 
             }
@@ -396,6 +404,7 @@
         private bool detailvisible;
         private string detailcaption;
         private string detailPath;
+        private int order;
         private string[] aggregationFunctions;
         private bool detailUseAdaptiveTypeLoading;
         private ICSSoft.STORMNET.Collections.TypeBaseCollection detailAdaptiveTypeViews;
@@ -420,6 +429,19 @@
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="detailname">имя детейла</param>
+        /// <param name="detailview">представление детейла</param>
+        /// <param name="detailLoadOnLoadAgregator">загружать ли детейл при загрузке шапки</param>
+        /// <param name="detailPath">путь на форме</param>
+        /// <param name="caption">заголовок</param>
+        /// <param name="visible">видимость</param>
+        /// <param name="aggregationfunctions">агр.функции</param>
+        public DetailInView(string detailname, View detailview, bool detailLoadOnLoadAgregator, string detailPath, string caption, bool visible, string[] aggregationfunctions): this(detailname, detailview, detailLoadOnLoadAgregator, detailPath, caption, visible, aggregationfunctions, int.MaxValue)
+        {
+        }
 
         /// <summary>
         /// 
@@ -431,7 +453,8 @@
         /// <param name="caption">заголовок</param>
         /// <param name="visible">видимость</param>
         /// <param name="aggregationfunctions">агр.функции</param>
-        public DetailInView(string detailname, View detailview, bool detailLoadOnLoadAgregator, string detailPath, string caption, bool visible, string[] aggregationfunctions)
+        /// <param name="order">Порядок следования атрибута на форме</param>
+        public DetailInView(string detailname, View detailview, bool detailLoadOnLoadAgregator, string detailPath, string caption, bool visible, string[] aggregationfunctions, int order)
         {
             this.detailName = detailname;
             this.detailView = detailview;
@@ -442,6 +465,7 @@
             this.detailUseAdaptiveTypeLoading = false;
             this.detailAdaptiveTypeViews = null;
             this.aggregationFunctions = (aggregationfunctions == null) ? null : (string[])aggregationfunctions.Clone();
+            this.order = order;
         }
 
         /// <summary>
@@ -460,6 +484,7 @@
             this.aggregationFunctions = (string[])info.GetValue("aggregationFunctions", typeof(string[]));
             this.detailUseAdaptiveTypeLoading = info.GetBoolean("detailUseAdaptiveTypeLoading");
             this.detailAdaptiveTypeViews = (ICSSoft.STORMNET.Collections.TypeBaseCollection)info.GetValue("detailAdaptiveTypeViews", typeof(ICSSoft.STORMNET.Collections.TypeBaseCollection));
+            this.order = info.GetInt32("order");
         }
 
         /// <summary>
@@ -478,6 +503,7 @@
             info.AddValue("aggregationFunctions", aggregationFunctions);
             info.AddValue("detailUseAdaptiveTypeLoading", detailUseAdaptiveTypeLoading);
             info.AddValue("detailAdaptiveTypeViews", detailAdaptiveTypeViews);
+            info.AddValue("order", order);
         }
 
         /// <summary>
@@ -496,6 +522,12 @@
         /// Путь на форме
         /// </summary>
         public string FormPath { get { return detailPath; } set { detailPath = value; } }
+
+        /// <summary>
+        /// Порядок следования детейла на форме (для автоматической генерации формы)
+        /// </summary>
+        public int Order { get { return order; } set { order = value; } }
+
         /// <summary>
         /// загружать ли вместе с владельцем
         /// </summary>
@@ -593,12 +625,16 @@
         /// <param name="caption">заголовок</param>
         /// <param name="visible">видимость</param>
         /// <param name="formPath">путь на форме</param>
-        public PropertyInView(string name, string caption, bool visible, string formPath)
+        /// <param name="order">порядок следования атрибута на форме (для автоматической генерации формы)</param>
+        /// <param name="format">строка форматирования, которая должна применяться для атрибута в этом представлении</param>
+        public PropertyInView(string name, string caption, bool visible, string formPath, int order, string format)
         {
             Name = (name == null) ? string.Empty : name;
             Caption = (caption == null) ? string.Empty : caption;
             Visible = visible;
             FormPath = (formPath == null) ? string.Empty : formPath;
+            Order = order;
+            Format = (format == null) ? string.Empty : format;
         }
 
         /// <summary>
@@ -612,6 +648,8 @@
             this.Caption = info.GetString("Caption");
             this.Visible = info.GetBoolean("Visible");
             this.FormPath = info.GetString("FormPath");
+            this.Order = info.GetInt32("Order");
+            this.Format = info.GetString("Format");
         }
 
         /// <summary>
@@ -625,6 +663,8 @@
             info.AddValue("Caption", this.Caption);
             info.AddValue("Visible", this.Visible);
             info.AddValue("FormPath", this.FormPath);
+            info.AddValue("Order", this.Order);
+            info.AddValue("Format", this.Format);
         }
 
         public override string ToString()
@@ -646,6 +686,16 @@
         public bool Visible;
 
         /// <summary>
+        /// Порядок следования атрибута на форме (для автоматической генерации формы)
+        /// </summary>
+        public int Order;
+
+        /// <summary>
+        /// Строка форматирования, которая должна применяться для атрибута в этом представлении
+        /// </summary>
+        public string Format;
+
+        /// <summary>
         /// Путь на форме
         /// </summary>
         public string FormPath;
@@ -665,7 +715,7 @@
         private MasterInView[] masters;
         private bool generatedByType = false;
         private View.ReadType readType;
-        private Collections.NameObjectCollection masterTypeFilters;
+        private Dictionary<string,List<Type>> masterTypeFilters;
 
         /// <summary>
         /// Создание копии представления
@@ -684,18 +734,44 @@
             return res;
         }
 
-
+        [XmlIgnore]
         /// <summary>
         /// ограничения по типам для вычитывания данных
         /// </summary>
-        public Collections.NameObjectCollection MasterTypeFilters
+        public Dictionary<string, List<Type>> MasterTypeFilters
         {
             get
             {
-                if (masterTypeFilters == null) masterTypeFilters = new ICSSoft.STORMNET.Collections.NameObjectCollection(); return masterTypeFilters;
+                if (masterTypeFilters == null) masterTypeFilters = new Dictionary<string, List<Type>>(); return masterTypeFilters;
+            }
+            set
+            {
+                masterTypeFilters = value;
             }
         }
 
+        [XmlElement(nameof(MasterTypeFilters))]
+        public string MasterTypeFiltersAsString
+        {
+            get
+            {
+                return
+                    string.Join("@", MasterTypeFilters.Select(x => x.Key + "$" +
+                        string.Join("*", x.Value.Select(y => y.AssemblyQualifiedName).ToArray())).ToArray());
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    string[] vals = value.Split("@");
+                    foreach (string x in vals)
+                    {
+                        string[] y = x.Split("$");
+                        MasterTypeFilters.Add(y[0], y[1].Split("*").Select(tps => Type.GetType(tps)).ToList());
+                    }
+                }
+            }
+        }
 
 
         /// <summary>
@@ -732,7 +808,14 @@
             this.properties = (PropertyInView[])info.GetValue("properties", typeof(PropertyInView[]));
             this.details = (DetailInView[])info.GetValue("details", typeof(DetailInView[]));
             this.masters = (MasterInView[])info.GetValue("masters", typeof(MasterInView[]));
-            this.masterTypeFilters = (Collections.NameObjectCollection)info.GetValue("masterTypeFilters", typeof(Collections.NameObjectCollection));
+            string s = nameof(masterTypeFilters);
+            int cnt = (int)info.GetValue($"{s}_count", typeof(int));
+            for (int i = 0; i < cnt; i++)
+            {
+                string name = (string)info.GetValue($"{s}_{i}_Name", typeof(string));
+                Type[] vals = (Type[])info.GetValue($"{s}_{i}Value", typeof(Type[]));
+                this.masterTypeFilters.Add(name, vals.ToList());
+            }
         }
 
         /// <summary>
@@ -749,7 +832,15 @@
             info.AddValue("properties", this.properties);
             info.AddValue("details", this.details);
             info.AddValue("masters", this.masters);
-            info.AddValue("masterTypeFilters", this.masterTypeFilters);
+            string s = nameof(masterTypeFilters);
+            info.AddValue($"{s}_count", this.masterTypeFilters.Count);
+            int i = 0;
+            foreach (KeyValuePair<string, List<Type>> kvp in this.masterTypeFilters)
+            {
+                info.AddValue($"{s}_{i}_Name", kvp.Key);
+                info.AddValue($"{s}_{i}_Value", kvp.Value.ToArray());
+                i++;
+            }
         }
 
         /// <summary>
@@ -1114,11 +1205,21 @@
         /// <summary>
         /// Добавить свойство
         /// </summary>
+        public void AddProperty(string propName, string propCaption, bool visible, string propPath)
+        {
+            AddProperty(propName, propCaption, visible, propPath, 0, string.Empty);
+        }
+
+        /// <summary>
+        /// Добавить свойство
+        /// </summary>
         /// <param name="propName"></param>
         /// <param name="propCaption"></param>
         /// <param name="visible"></param>
         /// <param name="propPath"></param>
-        public void AddProperty(string propName, string propCaption, bool visible, string propPath)
+        /// <param name="visible"></param>
+        /// <param name="propPath"></param>
+        public void AddProperty(string propName, string propCaption, bool visible, string propPath, int order, string format)
         {
             //проверим может оно уже есть
             if (properties == null)
@@ -1171,13 +1272,13 @@
                         if (propCaption == string.Empty && pref == string.Empty)
                             //							properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
                             //						else
-                            properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
+                            properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath, order, format);
                     }
                 }
             }
             else
             {
-                properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath);
+                properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath, order, format);
             }
 
         }
@@ -1190,17 +1291,32 @@
                 return s.Substring(1, s.Length - 2);
         }
 
-        private void ParsePropDef(string propDef, out string propName, out string propCaption, out string FormPath)
+        private void ParsePropDef(string propDef, out string propName, out string propCaption, out string FormPath, out string format, out int order)
         {
             string captionreg = "(\\s*[aA][sS]\\s*(?<caption>([\"][^\"]*[\"])|([\'][^\']*[\'])))?";
             string placementreg = "(\\s*[oO][nN]\\s*(?<placement>([\"][^\"]*[\"])|([\'][^\']*[\'])))?";
-            string propnamereg = @"(?<propName>\S+)";
+            string propnamereg = @"(?<propName>\S+)";            
             System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(
                 "(" + propnamereg + captionreg + placementreg + ")|(" + propnamereg + placementreg + captionreg + ")");
             System.Text.RegularExpressions.Match m = r.Match(propDef);
             propName = (m.Groups["propName"].Success) ? m.Groups["propName"].Value : null;
-            propCaption = (m.Groups["caption"].Success) ? lightTrim(m.Groups["caption"].Value) : null;
-            FormPath = (m.Groups["placement"].Success) ? lightTrim(m.Groups["placement"].Value) : null;
+            FormPath = (m.Groups["placement"].Success) ? lightTrim(m.Groups["placement"].Value) : string.Empty;
+
+            propCaption = (m.Groups["caption"].Success) ? lightTrim(m.Groups["caption"].Value) : string.Empty;
+
+            ParsePropCaption(propName, propCaption, out propCaption, out format, out order);
+        }
+
+        private void ParsePropCaption(string propName, string srcCaption, out string propCaption, out string format, out int order)
+        {
+            string captiondetailsreg = @"^\s*(?<order>\d*)?\s*\*?\s*(?<caption>(.*[^{^}])*)\s*(\{(?<format>.*)\})?\s*$";
+            System.Text.RegularExpressions.Regex r1 = new System.Text.RegularExpressions.Regex(captiondetailsreg);
+            System.Text.RegularExpressions.Match m1 = r1.Match(srcCaption);
+
+            propCaption = (m1.Groups["caption"].Success) ? (m1.Groups["caption"].Value) : string.Empty;
+            propCaption = string.IsNullOrEmpty(propCaption) ? propName : propCaption.Trim();
+            format = (m1.Groups["format"].Success) ? (m1.Groups["format"].Value) : string.Empty;
+            order = int.Parse((m1.Groups["order"].Success) ? (string.IsNullOrEmpty((m1.Groups["order"].Value)) ? "0" : (m1.Groups["order"].Value)) : "0");
         }
 
         /// <summary>
@@ -1219,12 +1335,13 @@
             string[] hiddenAtrs = ViewDefAttribute.Hidden;
             for (int i = 0; i < ViewDefAttribute.Properties.Length; i++)
             {
-                string propname, propCaption, propPath;
-                ParsePropDef(ViewDefAttribute.Properties[i], out propname, out propCaption, out propPath);
+                string propname, propCaption, propPath, propFormat;
+                int propOrder;
+                ParsePropDef(ViewDefAttribute.Properties[i], out propname, out propCaption, out propPath, out propFormat, out propOrder);
                 if (!propname.EndsWith("*") && propCaption == null)
                     propCaption = propname;
-                if (propCaption == null) propCaption = string.Empty;
-                if (propPath == null) propPath = string.Empty;
+                //if (propCaption == null) propCaption = string.Empty;
+                //if (propPath == null) propPath = string.Empty;
                 bool visible = true;
                 if (propname.EndsWith("*"))
                 {
@@ -1251,7 +1368,7 @@
                             if (!Information.GetPropertyDisableAutoViewing(ViewDefClass, pref + allprops[propsind]))
                             {
                                 visible = Array.IndexOf(hiddenAtrs, propname) < 0 && Array.IndexOf(hiddenAtrs, pref + allprops[propsind]) < 0;
-                                propsAL.Add(new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath));
+                                propsAL.Add(new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath, propOrder, propFormat));
                             }
                         }
                     }
@@ -1259,7 +1376,7 @@
                 else
                 {
                     if (Array.IndexOf(hiddenAtrs, propname) >= 0) visible = false;
-                    propsAL.Add(new PropertyInView(propname, propCaption, visible, propPath));
+                    propsAL.Add(new PropertyInView(propname, propCaption, visible, propPath, propOrder, propFormat));
                 }
             }
             properties = (PropertyInView[])propsAL.ToArray(typeof(PropertyInView));
@@ -1278,6 +1395,14 @@
                 for (int i = 0; i < atrs.Length; i++)
                 {
                     AssociatedDetailViewAttribute atr = (AssociatedDetailViewAttribute)atrs[i];
+
+                    string propCaption;
+                    int propOrder;
+                    string propFormat;
+
+                    ParsePropCaption(atr.DetailName, atr.Caption, out propCaption, out propFormat, out propOrder);
+                    propOrder = propOrder == 0 ? int.MaxValue : propOrder;
+
                     if (atr.ViewName == viewName)
                     {
                         System.Type[] dettypes = TypeUsageProvider.TypeUsage.GetUsageTypes(defineClass, atr.DetailName);
@@ -1292,7 +1417,7 @@
                             }
                             details[DetCount] = new DetailInView(atr.DetailName,
                                     comv,
-                                    atr.LoadOnLoadAgregator, atr.FormPath, atr.Caption, atr.Visible, atr.AggregateOperations);
+                                    atr.LoadOnLoadAgregator, atr.FormPath, propCaption, atr.Visible, atr.AggregateOperations, propOrder);
                             details[DetCount].UseAdaptiveTypeLoading = true;
                         }
                         else
@@ -1301,7 +1426,7 @@
                             {
                                 details[DetCount] = new DetailInView(atr.DetailName,
                                     Information.GetView(atr.DetailViewName, dettypes[0]),
-                                    atr.LoadOnLoadAgregator, atr.FormPath, atr.Caption, atr.Visible, atr.AggregateOperations);
+                                    atr.LoadOnLoadAgregator, atr.FormPath, propCaption, atr.Visible, atr.AggregateOperations, propOrder);
                                 details[DetCount].UseAdaptiveTypeLoading = false;
                             }
                             else
@@ -1472,11 +1597,7 @@
         /// <returns></returns>
         public override string ToString()
         {
-            string res = viewName + "(" + defineClass.Name + ") p {";
-            foreach (PropertyInView pi in properties)
-                res += pi.Name + ",";
-            res += "}";
-            return res;
+            return $"{viewName}({defineClass.Name})p{{{string.Join(',',properties.Select(x=>x.Name).ToArray())}}} mf {MasterTypeFiltersAsString}";
         }
 
         /// <summary>
@@ -1653,7 +1774,7 @@
                     DetailInView div2 = (DetailInView)firstView.details[i];
                     DetailInView resdiv = new DetailInView
                         (div1.Name, div1.View & div1.View, div1.LoadOnLoadAgregator && div1.LoadOnLoadAgregator, div1.FormPath,
-                        div1.Caption + " & " + div2.Caption, div1.Visible && div2.Visible, div2.AggregationFunctions);
+                        div1.Caption + " & " + div2.Caption, div1.Visible && div2.Visible, div2.AggregationFunctions, div2.Order);
                     temp1.Add(firstView.details[i].Name, resdiv);
                 }
             DetailInView[] dets = new DetailInView[temp1.Count];
@@ -1715,66 +1836,45 @@
             return res;
         }
 
-
-        public int[] GetOrderedIndexes(string[] orderCols, string[] advCols)
+        /// <summary>
+        /// Получение массива индексов свойств
+        /// </summary>
+        /// <param name="orderCols">заданный порядок (может быть залдан частично)</param>
+        /// <param name="advCols">дополнительные свойства</param>
+        /// <param name="returnOrderIndexForPropery">false - индексы свойст в упорядоченном массиве, true - индекс свойства по позиции</param>
+        /// <returns></returns>
+        public int[] GetOrderedIndexes(string[] orderCols, string[] advCols, bool returnOrderIndexForPropery)
         {
-            if (orderCols == null || orderCols.Length == 0)
-            {
-                int[] res = new int[properties.Length];
-                for (int i = 0; i < res.Length; i++)
-                    res[i] = i;
-                return res;
-            }
+
+            List<string> DestProps = GetOrderedProperies(orderCols, advCols, out List<string> AllProps);
+            if (returnOrderIndexForPropery)
+                return AllProps.Select(x => DestProps.FindIndex(y => y == x)).ToArray();
             else
-            {
-                if (properties == null)
-                {
-                    return new int[0];
-                }
-                else
-                {
-                    string[] allProps = new string[properties.Length + advCols.Length];
-                    for (int i = 0; i < properties.Length; i++)
-                    {
-                        allProps[i] = properties[i].Name;
-                    }
-                    int k = properties.Length;
-                    for (int i = 0; i < advCols.Length; i++)
-                    {
-                        allProps[k++] = advCols[i];
-                    }
-                    int[] res = new int[allProps.Length];
-                    int resindex = 0;
-                    for (int i = 0; i < orderCols.Length; i++)
-                    {
-                        for (int j = 0; j < allProps.Length; j++)
-                        {
-                            if (allProps[j] == orderCols[i])
-                            {
-                                res[resindex++] = j;
-                                allProps[j] = null;
-                                break;
-                            }
-                        }
-                    }
-                    for (int i = 0; i < allProps.Length; i++)
-                        if (allProps[i] != null)
-                            res[resindex++] = i;
-
-                    return res;
-
-                }
-            }
+                return DestProps.Select(x => AllProps.FindIndex(y => y == x)).ToArray();
         }
 
         /// <summary>
-        /// вернуть порядок упоминания свойств в представлении
+        /// список упорядоченных свойста
         /// </summary>
-        /// <param name="orderCols"></param>
+        /// <param name="orderCols">порядок</param>
+        /// <param name="advCols">дополнительные свойства</param>
+        /// <param name="DefaultProperties">порядок по умолчанию</param>
         /// <returns></returns>
-        public int[] GetOrderedIndexes(params string[] orderCols)
+        public List<string> GetOrderedProperies(string[] orderCols, string[] advCols,out List<string> DefaultProperties)
         {
-            return GetOrderedIndexes(orderCols, new string[0]);
+            List<string> AllProps = this.Properties.Select(x => x.Name).ToList();
+            if (advCols != null) AllProps.AddRange(advCols);
+            List<string> DestProps = new List<string>();
+            if (orderCols != null)
+            {
+                List<string> errCols = orderCols.Where(x => !AllProps.Contains(x)).ToList();
+                if (errCols.Count > 0)
+                    throw new Exception($"Can't find ordering properties:({string.Join(',', errCols.ToArray())}) in ({string.Join(',', AllProps.ToArray())})");
+                DestProps.AddRange(orderCols);
+            }
+            DestProps.AddRange(AllProps.Where(x => !DestProps.Contains(x)));
+            DefaultProperties = AllProps;
+            return DestProps;
         }
 
         /// <summary>

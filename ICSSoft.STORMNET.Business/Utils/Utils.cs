@@ -29,7 +29,7 @@
             return value.GetType().Assembly == typeof(int).Assembly;
         }
 
-        private static int CountJoins(STORMDO.Business.StorageStructForView.PropSource source, int index)
+        public static int CountJoins(STORMDO.Business.StorageStructForView.PropSource source, int index)
         {
             int res = 0;
 
@@ -126,6 +126,7 @@
         {
 
             /*access changes*/
+
             foreach (Type tp in dataObjectType)
             {
                 if (!securityManager.AccessObjectCheck(tp, tTypeAccess.Full, false))
@@ -151,8 +152,8 @@
             int[] indexes;
             object[] emptyObjcts;
 
-            AdvansedColumn[] advansedColumns = customizationStruct.AdvansedColumns;
-            int advansedColumnsLength = advansedColumns.Length;
+            AdvancedColumn[] advancedColumns = customizationStruct.AdvancedColumns;
+            int advancedColumnsLength = advancedColumns.Length;
             if (prevState != null)
             {
                 valueObjects = (System.Reflection.MethodInfo[])prevState[0];
@@ -169,32 +170,29 @@
 
                 emptyObjcts = null;
                 string[] columnsOrder = customizationStruct.ColumnsOrder;
-                if (advansedColumnsLength > 0)
+                if (advancedColumnsLength > 0)
                 {
-                    ArrayList al = new ArrayList();
-                    for (int i = 0; i < advansedColumnsLength; i++)
-                        al.Add(advansedColumns[i].Name);
-                    indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder, (string[])al.ToArray(typeof(string)));
+                    indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder,advancedColumns.Select(x=>x.Name).ToArray(),true);
                 }
                 else
-                    indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder);
+                    indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder,new string[0],true);
                 //System.Collections.ArrayList NotInitiedMethodsIndex = new System.Collections.ArrayList();
                 for (int i = 0; i < valueObjectInited.Length; i++)
                 {
-                    valueObjectInited[i] = true;
+                    valueObjectInited[i] = false;
                     valueObjects[i] = null;
                 }
 
-                for (int i = 0; i < propCount; i++)
+                for (int i = 0; i < Math.Min(propCount,storageStruct[0].props.Length); i++)
                 {
-                    Type propType = (indexes[i] >= storageStruct[0].props.Length) ? typeof(object) : storageStruct[0].props[indexes[i]].propertyType;//  STORMDO.Information.GetPropertyType(customizationStruct.View.DefineClassType,StorageStruct[0].props[indexes[i]].Name);
+                    Type propType = storageStruct[0].props[i].propertyType;//  STORMDO.Information.GetPropertyType(customizationStruct.View.DefineClassType,StorageStruct[0].props[indexes[i]].Name);
                     if (propType.IsSubclassOf(typeof(DataObject)))
                         propType = KeyGen.KeyGenerator.KeyType(propType);
                     if (propType.Assembly == sysAsm)
                         valueObjectInited[i] = true;
-                    else if (resValue[0][i] != null && resValue[0][i] != DBNull.Value)
+                    else if (resValue[0][indexes[i]] != null && resValue[0][indexes[i]] != DBNull.Value)
                     {
-                        valueObjects[i] = propType.GetMethod("op_Implicit", new[] { resValue[0][i].GetType() });
+                        valueObjects[i] = propType.GetMethod("op_Implicit", new[] { resValue[0][indexes[i]].GetType() });
                         valueObjectInited[i] = true;
                     }
                     else
@@ -224,16 +222,16 @@
                             }
                         }
                     }
-                    for (int i = 0; i < advansedColumnsLength; i++)
+                    for (int i = 0; i < advancedColumnsLength; i++)
                     {
-                        string expression = advansedColumns[i].Expression;
+                        string expression = advancedColumns[i].Expression;
                         if (string.IsNullOrEmpty(expression))
                         {
                             if (notstoredprops == null)
                                 notstoredprops = new SortedList[dataObjectType.Length];
                             if (notstoredprops[j] == null)
                                 notstoredprops[j] = new SortedList();
-                            notstoredprops[j].Add(advansedColumns[i].Name, i);
+                            notstoredprops[j].Add(advancedColumns[i].Name, i);
                         }
                     }
                 }
@@ -243,9 +241,10 @@
                     testDos = new DataObject[dataObjectType.Length];
                     emptyObjcts = new Object[0];
                     //произведем упорядоченность
+
                     StringCollection props = new StringCollection();
-                    for (int i = 0; i < advansedColumnsLength; i++)
-                        props.Add(advansedColumns[i].Name);
+                    for (int i = 0; i < advancedColumnsLength; i++)
+                        props.Add(advancedColumns[i].Name);
                     PropertyInView[] propertiesInView = customizationStruct.View.Properties;
                     int propInViewLength = propertiesInView.Length;
                     for (int i = 0; i < propInViewLength; i++)
@@ -336,7 +335,7 @@
                         else
                             testDos[index].Clear();
                         /*Utils.*/
-                         FillRowSetToDataObject(testDos[index], keysarr, storageStructForView, customizationStruct, typesByKeys, advansedColumns, dataObjectCache, securityManager);
+                         FillRowSetToDataObject(testDos[index], keysarr, storageStructForView, customizationStruct, typesByKeys, advancedColumns, dataObjectCache, securityManager);
                         int count = nspsAtThisIndex.Count;
                         for (int j = 0; j < count; j++)
                         {
@@ -353,9 +352,9 @@
                     StorageStructForView.PropStorage[] props = storageStructForView.props;
                     int storageStructForViewPropsLength = props.Length;
                     int keyindex = storageStructForViewPropsLength - 1;
-                    while (props[keyindex].MultipleProp)
+                    while (props[keyindex].MultipleProp || props[keyindex].AdditionalProp)
                         keyindex--;
-                    keyindex = keyindex + 2 + advansedColumnsLength;
+                    keyindex = keyindex + 2 + advancedColumnsLength;
                     ArrayList al = new ArrayList();
                     GetMasterObjectStructs(keysarr, ref keyindex, 0, storageStructForView.sources, al, string.Empty);
 
@@ -408,39 +407,44 @@
                 {
                     //string valstring ="";
                     //object keysarrAtJ = keysarr[j];
-                    if (keysarr[j] != DBNull.Value)
+                    int nJ = indexes[j];
+                    
+                    if (keysarr[nJ] != DBNull.Value)
                     {
-                        if (!valueObjectInited[j])
+                        if (j < storageStruct[0].props.Length)
                         {
-                            Type propType = (indexes[j] > storageStruct[0].props.Length) ? typeof(object) : storageStruct[0].props[indexes[j]].propertyType;
-                            if (propType.IsSubclassOf(typeof(DataObject)))
-                                propType = KeyGen.KeyGenerator.KeyType(propType);
-                            if (propType.Assembly != sysAsm)
-                                valueObjects[j] = propType.GetMethod("op_Implicit", new[] { keysarr[j].GetType() });
-                            valueObjectInited[j] = true;
-                        }
-                        if (valueObjects[j] != null)
-                        {
-                            pars[0] = keysarr[j];
-                            try
+                            if (!valueObjectInited[j])
                             {
-                                keysarr[j] = valueObjects[j].Invoke(null, pars);
+                                Type propType = (nJ > storageStruct[0].props.Length) ? typeof(object) : storageStruct[0].props[j].propertyType;
+                                if (propType.IsSubclassOf(typeof(DataObject)))
+                                    propType = KeyGen.KeyGenerator.KeyType(propType);
+                                if (propType.Assembly != sysAsm)
+                                    valueObjects[j] = propType.GetMethod("op_Implicit", new[] { keysarr[nJ].GetType() });
+                                valueObjectInited[j] = true;
                             }
-                            catch (Exception ex)
+                            if (valueObjects[j] != null)
                             {
-                                if (LogService.Log.IsWarnEnabled)
-                                    LogService.Log.Warn("STORMNET ProcessingRowset2StringedView " + keysarr[j], ex);
-                                //System.Diagnostics.EventLog.WriteEntry("STORMNET", keysarrAtJ.ToString(), System.Diagnostics.EventLogEntryType.Error);
-                                throw ex;
-                            }
+                                pars[0] = keysarr[nJ];
+                                try
+                                {
+                                    keysarr[nJ] = valueObjects[j].Invoke(null, pars);
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (LogService.Log.IsWarnEnabled)
+                                        LogService.Log.Warn("STORMNET ProcessingRowset2StringedView " + keysarr[nJ], ex);
+                                    //System.Diagnostics.EventLog.WriteEntry("STORMNET", keysarrAtJ.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                                    throw ex;
+                                }
 
+                            }
                         }
                     }
                     else
-                        keysarr[j] = null;
-                    if (keysarr[j] is string)
-                        keysarr[j] = ((string)keysarr[j]).TrimEnd();
-                    resobjects[j] = keysarr[j];//valstring;
+                        keysarr[nJ] = null;
+                    if (keysarr[nJ] is string)
+                        keysarr[nJ] = ((string)keysarr[nJ]).TrimEnd();
+                    resobjects[nJ] = keysarr[nJ];//valstring;
                 }
                 res[i].ObjectedData = resobjects;
                 res[i].Separator = separator;
@@ -513,17 +517,24 @@
 
             foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
+                
                 for (int j = 0; j < subSource.storage.Length; j++)
                 {
+                   
                     if (subSource.storage[j].parentStorageindex == index)
                     {
+                       
+                            
                         if (dataObject == null)
                         {
                             keyindex++;
-                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            if (subSource.LinckedStorages.Length > 0)
+                                CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
                         }
-                        else if (keysarr[keyindex] != null && keysarr[keyindex] != DBNull.Value)
+                        else 
+                        //if (keysarr[keyindex] != null && keysarr[keyindex] != DBNull.Value)
                         {
+                            int prevKeyIndex = keyindex;
                             DataObject masterobj = null;
                             if (!subSource.HierarchicalLink)
                             {
@@ -531,52 +542,62 @@
                                 if (TypesByKeys == null)
                                 {
                                     object masterkey = keysarr[keyindex++];
-                                    if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
-                                        && exmasterobj.GetType() == subSource.storage[j].ownerType)
+                                    if (masterkey == DBNull.Value) masterkey = null;
+                                    if (masterkey != null)
                                     {
-                                        DataObjectCache.AddDataObject(exmasterobj);
-                                        masterobj = exmasterobj;
-                                    }
-                                    else
-                                    {
-                                        masterobj = DataObjectCache.CreateDataObject(
-                                            subSource.storage[j].ownerType, masterkey);
+                                        if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
+                                            && exmasterobj.GetType() == subSource.storage[j].ownerType)
+                                        {
+                                            DataObjectCache.AddDataObject(exmasterobj);
+                                            masterobj = exmasterobj;
+                                        }
+                                        else
+                                        {
+                                            masterobj = DataObjectCache.CreateDataObject(
+                                                subSource.storage[j].ownerType, masterkey);
 
-                                        // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
-                                        masterobj.DynamicProperties.Add("MasterInitDataCopy", true);
+                                            // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
+                                            masterobj.DynamicProperties.Add("MasterInitDataCopy", true);
+                                        }
                                     }
                                 }
                                 else
                                 {
                                     object mastertype = keysarr[keyindex++];
                                     object masterkey = keysarr[keyindex++];
-
-                                    if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
-                                        && exmasterobj.GetType() == (Type)TypesByKeys[mastertype])
+                                    if (mastertype != DBNull.Value && mastertype != null)
                                     {
-                                        DataObjectCache.AddDataObject(exmasterobj);
-                                        masterobj = exmasterobj;
-                                    }
-                                    else
-                                    {
-                                        masterobj = DataObjectCache.CreateDataObject(
-                                            (Type)TypesByKeys[mastertype], masterkey);
+                                        if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
+                                            && exmasterobj.GetType() == (Type)TypesByKeys[mastertype])
+                                        {
+                                            DataObjectCache.AddDataObject(exmasterobj);
+                                            masterobj = exmasterobj;
+                                        }
+                                        else
+                                        {
+                                            masterobj = DataObjectCache.CreateDataObject(
+                                                (Type)TypesByKeys[mastertype], masterkey);
 
-                                        // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
-                                        masterobj.DynamicProperties.Add("MasterInitDataCopy", true);
+                                            // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
+                                            masterobj.DynamicProperties.Add("MasterInitDataCopy", true);
+                                        }
                                     }
                                 }
-                                if (masterobj.GetStatus(false) == ObjectStatus.Created)
+                                if (masterobj != null)
                                 {
-                                    masterobj.SetLoadingState(LoadingState.LightLoaded);
-                                    masterobj.SetStatus(ObjectStatus.UnAltered);
-                                    masterobj.InitDataCopy(DataObjectCache);
-                                    masterobj.AddLoadedProperties("__PrimaryKey");
-                                }
+                                    if (masterobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
+                                        masterobj.SetLoadingState(LoadingState.LightLoaded);
+                                        masterobj.SetStatus(ObjectStatus.UnAltered);
+                                        masterobj.InitDataCopy(DataObjectCache);
+                                        masterobj.AddLoadedProperties("__PrimaryKey");
+                                    }
 
-                                Information.SetPropValueByName(dataObject, subSource.ObjectLink, masterobj);
-                                sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
-                                dataObject.AddLoadedProperties(subSource.ObjectLink);
+                                    Information.SetPropValueByName(dataObject, subSource.ObjectLink, masterobj);
+                                    sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
+                                    dataObject.AddLoadedProperties(subSource.ObjectLink);
+                                }
+                                
                             }
                             else
                             {
@@ -584,28 +605,33 @@
                                 masterobj = dataObject;
                                 sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
                             }
-                            CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            if (subSource.LinckedStorages.Length > 0)
+                                CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
                         }
-                        else
-                        {
-                            keyindex++;
-                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
-                        }
+                        //else
+                        //{
+                        //    keyindex++;
+                        //    if (subSource.LinckedStorages.Length>0)
+                        //         CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                        //}
                     }
                 }
             }
         }
 
 
-        
+
+
+       
+
         /// <summary>
         /// Получить детейловые объекты
         /// </summary>
         /// <param name="dataService"></param>
         /// <param name="dobject"></param>
-        /// <param name="readedDetailObjects"></param>
-        /// <param name="unreadedDetailsViewsForDetailPath"></param>
-        public static void getDetailsObjects(IDataService dataService, STORMDO.DataObject dobject, out STORMDO.DataObject[] readedDetailObjects, out STORMDO.DataObject[] mastersObjects, out STORMDO.View[] unreadedDetailsViewsForDetailPath)
+        /// <param name="DetailObjects"></param>
+        /// <param name="DetailsViewsForReadingByDetailPath"></param>
+        public static void getDetailsObjects(IDataService dataService, STORMDO.DataObject dobject, out STORMDO.DataObject[] DetailObjects, out STORMDO.DataObject[] mastersObjects, out STORMDO.View[] DetailsViewsForReadingByDetailPath)
         {
             System.Type dotype = dobject.GetType();
             string[] props = STORMDO.Information.GetStorablePropertyNames(dotype);
@@ -636,12 +662,12 @@
                         {
 
                             resarr.Add(arrobj);
-                            STORMDO.DataObject[] subreadedDetailObjects;
+                            STORMDO.DataObject[] subDetailObjects;
                             STORMDO.DataObject[] smastersObjs;
-                            STORMDO.View[] subunreadedDetailsViewsForDetailPath;
-                            getDetailsObjects(dataService, arrobj, out subreadedDetailObjects, out smastersObjs, out subunreadedDetailsViewsForDetailPath);
-                            resarr.AddRange(subreadedDetailObjects);
-                            resview.AddRange(subunreadedDetailsViewsForDetailPath);
+                            STORMDO.View[] subDetailsViewsForReadingByDetailPath;
+                            getDetailsObjects(dataService, arrobj, out subDetailObjects, out smastersObjs, out subDetailsViewsForReadingByDetailPath);
+                            resarr.AddRange(subDetailObjects);
+                            resview.AddRange(subDetailsViewsForReadingByDetailPath);
                             resmasters.AddRange(smastersObjs);
                         }
                     }
@@ -659,7 +685,7 @@
                             //добавляем ссылку на мастера
                             curDetView.AddProperty(agrname, string.Empty, false, string.Empty);
 
-                            curDetView.MasterTypeFilters.Add(agrname, dotype);
+                            curDetView.MasterTypeFilters.Add(agrname, new Type[] { dotype }.ToList());
                             resview.Add(curDetView);
                         }
 
@@ -675,20 +701,20 @@
             }
 
             if (resarr.Count == 0)
-                readedDetailObjects = new STORMDO.DataObject[0];
+                DetailObjects = new STORMDO.DataObject[0];
             else
             {
-                readedDetailObjects = new ICSSoft.STORMNET.DataObject[resarr.Count];
-                resarr.CopyTo(readedDetailObjects);
+                DetailObjects = new ICSSoft.STORMNET.DataObject[resarr.Count];
+                resarr.CopyTo(DetailObjects);
             }
 
             mastersObjects = (ICSSoft.STORMNET.DataObject[])resmasters.ToArray(typeof(STORMDO.DataObject));
             if (resview.Count == 0)
-                unreadedDetailsViewsForDetailPath = new STORMDO.View[0];
+                DetailsViewsForReadingByDetailPath = new STORMDO.View[0];
             else
             {
-                unreadedDetailsViewsForDetailPath = new STORMDO.View[resview.Count];
-                resview.CopyTo(unreadedDetailsViewsForDetailPath);
+                DetailsViewsForReadingByDetailPath = new STORMDO.View[resview.Count];
+                resview.CopyTo(DetailsViewsForReadingByDetailPath);
             }
         }
 
@@ -781,10 +807,10 @@
                         //добавляем ссылку на мастера
                         curDetView.AddProperty(agrname + Upmaster, string.Empty, false, string.Empty);
 
-                        Collections.NameObjectCollection noc = curDetView.MasterTypeFilters;
-                        for (int i = 0; i < MasterTypes.Count; i++)
-                            noc.Add(MasterTypes.Keys[i], MasterTypes.Get(i));
-                        noc.Add(agrname, dotype);
+                        //Collections.NameObjectCollection noc = curDetView.MasterTypeFilters;
+                        //for (int i = 0; i < MasterTypes.Count; i++)
+                        //    noc.Add(MasterTypes.Keys[i], MasterTypes.Get(i));
+                        //noc.Add(agrname, dotype);
 
                         res.Add(curDetView);
                     }
@@ -798,9 +824,9 @@
                     }
                 }
             }
-            STORMDO.View[] unreadedDetailsViewsForDetailPath = new STORMDO.View[res.Count];
-            res.CopyTo(unreadedDetailsViewsForDetailPath);
-            return unreadedDetailsViewsForDetailPath;
+            STORMDO.View[] DetailsViewsForDetailPath = new STORMDO.View[res.Count];
+            res.CopyTo(DetailsViewsForDetailPath);
+            return DetailsViewsForDetailPath;
         }
 
         /// <summary>

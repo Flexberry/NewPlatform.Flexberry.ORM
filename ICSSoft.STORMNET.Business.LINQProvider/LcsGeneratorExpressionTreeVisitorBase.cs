@@ -391,6 +391,7 @@
         /// <returns> Фактически возвращается то же выражение, но при этом в стеке появляются необходимые параметры. </returns>
         protected Expression VisitMemberExpressionHelper(MemberExpression expression)
         {
+            //TODO: ivashkevich: перевести на использование расширения In (COP.Utils.Extensions.CollectionExtensions) предварительно перенеся его в какую-нибудь более общую сборку
             var declaringType = expression.Member.DeclaringType;
             var memberType = Information.GetPropertyType(declaringType, expression.Member.Name);
 
@@ -518,6 +519,11 @@
             {
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
                 _stacksHolder.PushParam(new VariableDef(_ldef.StringType, varname));
+            }
+            // утиная типизация - вызываем статическим метод, который сделает хорошо с этим неизвестным типом
+            else if (memberType.GetMethod("LINQProviderExpressionProcess", new Type[] { typeof(TreeVisitorStacksHolder), typeof(string), typeof(View), typeof(bool) }) is MethodInfo method)
+            {
+                method.Invoke(null, new object[] { _stacksHolder, varname, _view, _viewIsDynamic });
             }
             else
             {

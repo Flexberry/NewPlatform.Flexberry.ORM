@@ -6,12 +6,15 @@
     using ICSSoft.STORMNET.Security;
     using STORMDO = ICSSoft.STORMNET;
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
+    using System.Linq;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
     /// </summary>
     public partial class Utils
     {
+
+       
         /// <summary>
         /// Заполнить объект данных.
         /// </summary>
@@ -23,7 +26,7 @@
         /// <param name="advCols">Дополнительные колонки.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        public static void FillRowSetToDataObject(DataObject dobject, object[] values, StorageStructForView storageStruct, LoadingCustomizationStruct customizationStruct, System.Collections.SortedList typesByKeys, AdvansedColumn[] advCols, DataObjectCache dataObjectCache, ISecurityManager securityManager)
+        public static void FillRowSetToDataObject(DataObject dobject, object[] values, StorageStructForView storageStruct, LoadingCustomizationStruct customizationStruct, System.Collections.SortedList typesByKeys, AdvancedColumn[] advCols, DataObjectCache dataObjectCache, ISecurityManager securityManager)
         {
             Type dobjectType = dobject.GetType();
 
@@ -35,6 +38,7 @@
             }
 
             /* access type */
+
 
             // Заливаем данные в объект данных.
             int customizationStructViewPropertiesLength = customizationStruct.View.Properties.Length;
@@ -62,33 +66,38 @@
                 dobject.DynamicProperties.Add(advCols[i].Name, null);
             }
 
+            string[] columnsOrder = customizationStruct.ColumnsOrder;
+            int[] indexes;
+            if (customizationStruct.AdvancedColumns.Length > 0)
+            {
+                indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder, customizationStruct.AdvancedColumns.Select(x => x.Name).ToArray(),true);
+            }
+            else
+                indexes = customizationStruct.View.GetOrderedIndexes(columnsOrder,new string[0],true);
+
             for (int i = 0; i < customizationStructViewPropertiesLength; i++)
             {
                 StorageStructForView.PropStorage prop = storageStruct.props[i];
-                if (Information.IsStoredProperty(dobjectType, prop.Name) || prop.Expression != null)
+                Type testType = null; 
+                string testName = null;
+                object[] tmp = (object[])assList[prop.source];
+                if (tmp != null)
                 {
-                    if (prop.MastersTypes == null)
+                    testType = ((object[])assList[prop.source])[0].GetType();
+                    testName = prop.simpleName;
+                    if (Information.IsStoredProperty(testType, testName) || prop.Expression != null)
                     {
-                        object[] tmp = (object[])assList[prop.source];
-                        object value;
-                        if (customizationStruct.ColumnsOrder != null && customizationStruct.ColumnsOrder.Length >= customizationStructViewPropertiesLength)
+                        if (prop.MastersTypes == null)
                         {
-                            value = values[Array.IndexOf(customizationStruct.ColumnsOrder, prop.Name)];
+
+                            object value = values[indexes[i]];
+
+                            if (value == DBNull.Value) value = null;
+                            if (tmp != null)
+                                properiesValues.Add(
+                                    new[] { prop.simpleName, value, tmp[0] });
                         }
                         else
-                        {
-                            value = values[i];
-                        }
-
-                        if (value == DBNull.Value) value = null;
-                        if (tmp != null)
-                            properiesValues.Add(
-                                new[] { prop.simpleName, value, tmp[0] });
-                    }
-                    else
-                    {
-                        object[] tmp = (object[])assList[prop.source];
-                        if (tmp != null)
                         {
                             // Ищем позицию.
                             int tmp1 = (int)tmp[1];
@@ -130,10 +139,9 @@
                             else
                                 properiesValues.Add(new[] { prop.simpleName, null, tmp0 });
                         }
-
-                        masterPosition += prop.MastersTypesCount;
                     }
                 }
+                masterPosition += prop.MastersTypesCount;
             }
 
             // 2.2 Записываем в объекты.
@@ -144,6 +152,7 @@
                 // a. Выбираем для текущего объекта все свойства.
                 object[] tmp = (object[])properiesValues[0];
                 DataObject curobj = (DataObject)tmp[2];
+                prevCurObjPropertiesValues.Clear();
                 dobjectType = curobj.GetType();
                 curObjProperiesValues.Clear();
 
@@ -206,15 +215,23 @@
                 }
                 if (customizationStruct.InitDataCopy)
                 {
-                    curobj.InitDataCopy();
-                    curobj.SetStatus(ObjectStatus.UnAltered);
+                    ObjectStatus prevObjectStatus = curobj.GetStatus(false);
+                    curobj.InitDataCopy(null, prevCurObjPropertiesValues.Count>0);
+                    if (prevObjectStatus == ObjectStatus.Deleted)
+                        curobj.SetStatus(ObjectStatus.Deleted);
+                    else
+                        curobj.SetStatus(ObjectStatus.UnAltered);
                 }
                 //возвращаем старые
                 for (int i = 0; i < prevCurObjPropertiesValues.Count; i++)
+                {
                     Information.SetPropValueByName(curobj, (string)prevCurObjPropertiesValues.GetKey(i), prevCurObjPropertiesValues.GetByIndex(i));
-
-
+                }
             }
         }
+
+
+
+       
     }
 }

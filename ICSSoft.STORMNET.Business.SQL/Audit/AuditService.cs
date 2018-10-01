@@ -665,9 +665,9 @@
                 // TODO: временно данный вариант отключён из-за проблемы с HttpContext.Current
                 throw new NotImplementedException("вызов асинхронного аудита");
 
-                // Режим записи данных асинхронный, нужно самостоятельно определить Guid записи.
-                auditOperationId = Guid.NewGuid();
-                commonAuditParameters.AuditEntityGuid = auditOperationId;
+                //// Режим записи данных асинхронный, нужно самостоятельно определить Guid записи.
+                //auditOperationId = Guid.NewGuid();
+                //commonAuditParameters.AuditEntityGuid = auditOperationId;
             }
 
             if (IsAuditRemote)
@@ -719,8 +719,8 @@
                 throw new NotImplementedException("вызов асинхронного аудита");
 
                 // Режим записи данных асинхронный, нужно самостоятельно определить Guid записи.
-                auditOperationId = Guid.NewGuid();
-                checkedCustomAuditParameters.AuditEntityGuid = auditOperationId;
+                //auditOperationId = Guid.NewGuid();
+                //checkedCustomAuditParameters.AuditEntityGuid = auditOperationId;
             }
 
             if (IsAuditRemote)
