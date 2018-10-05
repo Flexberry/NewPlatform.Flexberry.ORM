@@ -338,6 +338,14 @@
                                             setHandler(obj, geo);
                                             return;
                                         }
+
+                                        if (propType == typeof(Geometry))
+                                        {
+                                            WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
+                                            var geo = wktFormatter.Read<Geometry>(new StringReader(propValString));
+                                            setHandler(obj, geo);
+                                            return;
+                                        }
 #endif
 
                                         if (propType.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[] { typeof(string), typeof(System.IFormatProvider) }, null) != null)
@@ -2518,6 +2526,10 @@
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
                             }
+                            else if (val1 is Geometry && val2 is Geometry)
+                            {
+                                UnAltered = ((Geometry)val1).Equals((Geometry)val2);
+                            }
 #endif
                             else if (val1 is IComparableType)
                             {
@@ -2640,6 +2652,10 @@
                 else if (val1 is Geography && val2 is Geography)
                 {
                     UnAltered = ((Geography)val1).Equals((Geography)val2);
+                }
+                else if (val1 is Geometry && val2 is Geometry)
+                {
+                    UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                 }
 #endif
                 else if (val1 is IComparableType)
@@ -2772,6 +2788,10 @@
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
+                            }
+                            else if (val1 is Geometry && val2 is Geometry)
+                            {
+                                UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
 #endif
                             else if (val1 is IComparableType)
