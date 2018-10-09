@@ -32,7 +32,7 @@
         /// <param name="geo1">Объект 1 Geometry.</param>
         /// <param name="geo2">Объект 2 Geometry.</param>
         /// <returns>Если существует пересечение двух объектов, то возвращает true, иначе false.</returns>
-        public static bool GeoIntersects(this Geometry geo1, Geometry geo2)
+        public static bool GeomIntersects(this Geometry geo1, Geometry geo2)
         {
             return false;
         }
