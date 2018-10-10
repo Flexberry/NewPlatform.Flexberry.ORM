@@ -536,6 +536,11 @@
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
                 _stacksHolder.PushParam(new VariableDef(_ldef.GeographyType, varname));
             }
+            else if (memberType == typeof(Geometry))
+            {
+                UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
+                _stacksHolder.PushParam(new VariableDef(_ldef.GeometryType, varname));
+            }
 #endif
             else
             {
@@ -598,6 +603,18 @@
                     var arg1 = _stacksHolder.PopParam();
 
                     _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeoIntersects, arg1, arg2));
+
+                    return expression;
+
+                case "GeomIntersects":
+                    UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geometry), typeof(Geometry) });
+
+                    VisitExpression(expression.Arguments[0]);
+                    VisitExpression(expression.Arguments[1]);
+                    var arg_2 = _stacksHolder.PopParam();
+                    var arg_1 = _stacksHolder.PopParam();
+
+                    _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeomIntersects, arg_1, arg_2));
 
                     return expression;
 #endif

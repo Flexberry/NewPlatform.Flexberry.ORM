@@ -118,6 +118,14 @@
         {
             get { return "GeoIntersects"; }
         }
+
+        /// <summary>
+        /// Функция, возвращает истину, если гео-данные пересекаются.
+        /// </summary>
+        public string funcGeomIntersects
+        {
+            get { return "GeomIntersects"; }
+        }
 #endif
 
         /// <summary>
@@ -558,6 +566,13 @@
         {
             get { return fieldGeography; }
         }
+
+        private ObjectType fieldGeometry = new ObjectType("Geometry", "Гео-данные", typeof(Geometry));
+
+        public ObjectType GeometryType
+        {
+            get { return fieldGeometry; }
+        }
 #endif
 
         private ObjectType fieldDetails = new ObjectType("Details", "Зависимые объекты", typeof(DetailArray));
@@ -935,7 +950,9 @@
                     new FunctionParameterDef(NumericType))
 #if NETFX_45
                     , new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
-                    new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType))
+                    new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
+                    new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
+                    new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType))
 #endif
                 );
 
@@ -1335,7 +1352,7 @@
             }
 
 #if NETFX_45
-            if (value.FunctionDef.StringedView == funcGeoIntersects)
+            if (value.FunctionDef.StringedView == funcGeoIntersects || value.FunctionDef.StringedView == funcGeomIntersects)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
