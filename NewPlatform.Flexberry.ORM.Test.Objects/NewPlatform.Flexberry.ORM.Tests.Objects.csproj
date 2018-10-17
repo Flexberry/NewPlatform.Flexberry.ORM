@@ -40,7 +40,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test.Objects.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Net45|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Net45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -54,7 +54,7 @@
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release-Net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
