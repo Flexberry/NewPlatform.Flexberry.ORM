@@ -1,22 +1,20 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Security;
-
-    using Npgsql;
     using FunctionalLanguage;
     using FunctionalLanguage.SQLWhere;
-    using Windows.Forms;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Security;
+    using Npgsql;
     using Services;
-    using System.Collections;
+    using Windows.Forms;
     using static Windows.Forms.ExternalLangDef;
-    using System.Linq;
 
     /// <summary>
     /// DataService for PostgreSQL.
@@ -33,7 +31,7 @@
         /// <summary>
         /// Псевдонимы типов в Postgres. Первый элемент в каждом массиве - это тип, остальные псевдонимы.
         /// </summary>
-        static private string[][] typesAliases =
+        private static string[][] typesAliases =
             new[]
             {
                 new[] { "bigint", "int8" },
@@ -161,11 +159,6 @@
         private readonly Dictionary<string, string> dictionaryShortNames = new Dictionary<string, string>();
 
         /// <summary>
-        /// Индексы для генерации коротких имён. Используется для отладочного алгоритма, реализованного в методе GenerateShortName_OnlyForDebugEnvironment.
-        /// </summary>
-        private readonly Dictionary<string, int> indexesShortNames = new Dictionary<string, int>();
-
-        /// <summary>
         /// The is generate sql select.
         /// </summary>
         private bool isGenerateSqlSelect;
@@ -212,7 +205,7 @@
         /// <param name="type1">Имя типа 1.</param>
         /// <param name="type2">Имя типа 2.</param>
         /// <returns>Если имена эквивалентны, то возвращает true.</returns>
-        static public bool IsTypesEquals(string type1, string type2)
+        public static bool IsTypesEquals(string type1, string type2)
         {
             var types = new string[] { type1, type2 };
             for (int i = 0; i < types.Length; i++)
@@ -533,7 +526,8 @@
         {
             string postgresIdentifier = PrepareIdentifier(identifier);
 
-            if (!this.isGenerateSqlSelect)
+            // Multithreading app with single DS may be failed.
+            if (!isGenerateSqlSelect)
             {
                 return postgresIdentifier;
             }
@@ -727,14 +721,8 @@
             StorageStructForView storageStruct,
             bool addNotMainKeys,
             bool addMasterFieldsCustomizer,
-
-            // ReSharper disable once InconsistentNaming
             string AddingAdvansedField,
-
-            // ReSharper disable once InconsistentNaming
             int AddingKeysCount,
-
-            // ReSharper disable once InconsistentNaming
             bool SelectTypesIds)
         {
             StorageStructForView.PropSource source = storageStruct.sources;
@@ -824,8 +812,6 @@
                 if (countGenerateSqlSelect == 0)
                 {
                     isGenerateSqlSelect = true;
-                    dictionaryShortNames.Clear();
-                    indexesShortNames.Clear();
                 }
 
                 countGenerateSqlSelect++;
@@ -859,8 +845,7 @@
         }
 
         /// <inheritdoc cref="SQLDataService"/>
-        public override void GenerateSQLRowNumber(LoadingCustomizationStruct customizationStruct, ref string resQuery,
-            string orderByExpr)
+        public override void GenerateSQLRowNumber(LoadingCustomizationStruct customizationStruct, ref string resQuery, string orderByExpr)
         {
             string nl = Environment.NewLine;
             if (customizationStruct.RowNumber != null)
@@ -923,8 +908,6 @@
             if (countGenerateSqlSelect == 0)
             {
                 isGenerateSqlSelect = true;
-                dictionaryShortNames.Clear();
-                indexesShortNames.Clear();
             }
 
             countGenerateSqlSelect++;
@@ -1080,58 +1063,6 @@
             return postgresIdentifier;
         }
 
-        /*
-        /// <summary>The generate short name.</summary>
-        /// <param name="postgresIdentifier">The postgres identifier. </param>
-        /// <returns>The <see cref="string"/>.</returns>
-        private string GenerateShortName(string postgresIdentifier)
-        {
-            return GenerateShortName_OnlyForDebugEnvironment(postgresIdentifier);
-        }
-
-        /// <summary>
-        /// Отладочный алгоритм генерации коротких имён. Только для тестирования в отладочной среде, потому что могут быть коллизии с именами таблиц и столбцов.
-        /// </summary>
-        /// <param name="postgresIdentifier">The postgres identifier. </param>
-        /// <returns>The <see cref="string"/>.</returns>
-        private string GenerateShortName_OnlyForDebugEnvironment(string postgresIdentifier)
-        {
-            if (Encoding.UTF8.GetByteCount(postgresIdentifier) > MaxNameLength)
-            {
-                if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
-                {
-                    dictionaryShortNames[postgresIdentifier] = null;
-                }
-
-                if (dictionaryShortNames[postgresIdentifier] == null)
-                {
-                    int len = postgresIdentifier.Length - 1;
-                    while (Encoding.UTF8.GetByteCount(postgresIdentifier.Substring(0, len)) > MaxNameLength)
-                    {
-                        len--;
-                    }
-
-                    var shortName = postgresIdentifier.Substring(0, len);
-                    if (!indexesShortNames.ContainsKey(shortName))
-                    {
-                        indexesShortNames[shortName] = 0;
-                    }
-
-                    var indexStr = indexesShortNames[shortName].ToString(CultureInfo.InvariantCulture);
-                    string resultString = shortName.Substring(0, shortName.Length - indexStr.Length) + indexStr;
-                    indexesShortNames[shortName]++;
-                    dictionaryShortNames[postgresIdentifier] = resultString;
-                    postgresIdentifier = resultString;
-                }
-                else
-                {
-                    postgresIdentifier = dictionaryShortNames[postgresIdentifier];
-                }
-            }
-
-            return postgresIdentifier;
-        }*/
-
         /// <summary>
         /// Алгоритм генерации коротких имён. Не возникает коллизий с именами таблиц и столбцов, т.к. в коротких именах используется GUID.
         /// </summary>
@@ -1155,7 +1086,6 @@
                     string guid = Guid.NewGuid().ToString("N");
                     if (guid.Length >= MaxNameLength)
                     {
-                        // ReSharper disable once NotResolvedInText
                         throw new ArgumentOutOfRangeException("guid.Length >= MaxNameLength");
                     }
 
@@ -1171,7 +1101,7 @@
                         byteCount -= Encoding.UTF8.GetByteCount(postgresIdentifier[len - 1].ToString(CultureInfo.InvariantCulture));
                     }
 
-                    var shortName = postgresIdentifier.Substring(0, len) + guid;
+                    string shortName = postgresIdentifier.Substring(0, len) + guid;
                     dictionaryShortNames[postgresIdentifier] = shortName;
                     postgresIdentifier = shortName;
                 }
