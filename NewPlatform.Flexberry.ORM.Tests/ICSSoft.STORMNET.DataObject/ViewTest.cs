@@ -160,10 +160,71 @@
             Information.TuneStaticViewDelegate = null;
         }
 
+        /// <summary>
+        /// Проверяется обработка ситуации при добавлении повторяющегося свойства в представление методом <see cref="View.AddProperty(string)"/>.
+        /// </summary>
+        [Fact]
+        public void TestAddPropertyToView()
+        {
+            // Arrange.
+            View view = InformationTestClass.Views.InformationTestClassE;
+            Assert.True(view.CheckPropname(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty)));
+            bool success = false;
+            int propCount = view.Properties.Length;
+
+            // Act.
+            try
+            {
+                view.AddProperty(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty));
+
+                if (propCount == view.Properties.Length)
+                {
+                    success = true;
+                }
+            }
+            catch (Exception)
+            {
+                success = true;
+            }
+
+            // Assert.
+            Assert.True(success, "Не обработана ситуация добавления дубля свойства в представление");
+        }
+
+        /// <summary>
+        /// Проверяется обработка ситуации при добавлении повторяющегося свойства в представление методом <see cref="View.AddProperties(string[])"/>.
+        /// </summary>
+        public void TestAddPropertiesToView()
+        {
+            // Arrange.
+            View view = InformationTestClass.Views.InformationTestClassE;
+            Assert.True(view.CheckPropname(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty)));
+            bool success = false;
+            int propCount = view.Properties.Length;
+
+            // Act.
+            try
+            {
+                view.AddProperties(new[] { Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty) });
+
+                if (propCount == view.Properties.Length)
+                {
+                    success = true;
+                }
+            }
+            catch (Exception)
+            {
+                success = true;
+            }
+
+            // Assert.
+            Assert.True(success, "Не обработана ситуация добавления дубля свойства в представление");
+        }
+
         private View tuneStaticView(string viewName, Type type, View view)
         {
             view.RemoveProperty(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty));
             return view;
         }
-}
+    }
 }
