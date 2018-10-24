@@ -1,7 +1,9 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Business
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Threading;
     using System.Threading.Tasks;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
@@ -141,20 +143,18 @@
         [Fact]
         public void AgregatorPropertyAddToViewTest()
         {
-            Exception exception = null;
-            foreach (IDataService ds in DataServices)
+            foreach (IDataService dataService in DataServices)
             {
+                var ds = (SQLDataService)dataService;
+
                 if (ds is OracleDataService)
                 {
                     // TODO: Fix multithreading support for OracleDataService and Long names.
                     continue;
                 }
 
-                ExternalLangDef langdef = ExternalLangDef.LanguageDef;
-                langdef.DataService = ds;
-
-                (ds as SQLDataService).OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
-                (ds as SQLDataService).OnGenerateSQLSelect += ThreadTesting_OnGenerateSQLSelect;
+                ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
+                ds.OnGenerateSQLSelect += ThreadTesting_OnGenerateSQLSelect;
                 output.WriteLine($"start {ds.GetType().Name}");
 
                 Порода порода = new Порода() { Название = "Беспородная" };
@@ -162,63 +162,76 @@
                 кошка.Лапа.Add(new Лапа() { Номер = 1 });
                 ds.UpdateObject(кошка);
 
-                for (int i = 0; i < 2; i++)
+                MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
+                multiThreadingTestTool.StartThreads(150, ds);
+
+                var exception = multiThreadingTestTool.GetExceptions();
+
+                if (exception != null)
                 {
-                    output.WriteLine($"start iteration {i}");
-                    System.Threading.ThreadPool.SetMinThreads(150, 1);
-
-                    int index = 0;
-
-                    var loop = new int[150];
-                    Parallel.ForEach(
-                        loop,
-                        item =>
-                        {
-                            if (exception == null)
-                            {
-                                try
-                                {
-                                    int taskIndex = index++;
-                                    output.WriteLine($"start task {taskIndex}");
-                                    // Arrange.
-                                    Information.ClearCacheGetView();
-
-                                    LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.k_КошкаE);
-                                    lcs.ReturnTop = 1;
-                                    lcs.LimitFunction = langdef.GetFunction(langdef.funcLike, new VariableDef(langdef.StringType, Information.ExtractPropertyName<Кошка>(к => к.Кличка)), nameof(AgregatorPropertyAddToViewTest));
-
-                                    // Act & Assert.
-                                    DataObject[] dObjs = ds.LoadObjects(lcs);
-                                    output.WriteLine($"end task {taskIndex}");
-                                }
-                                catch (Exception ex)
-                                {
-                                    exception = ex;
-                                }
-                            }
-                        });
-
-                    System.Threading.ThreadPool.SetMinThreads(1, 1);
-
-                    if (exception != null)
+                    foreach (var item in exception.InnerExceptions)
                     {
-                        throw exception;
+                        output.WriteLine(item.Value.ToString());
                     }
 
-                    // Сбрасываем кеш для следующей попытки.
-                    Information.ClearCacheGetView();
-
-                    output.WriteLine($"end iteration {i}");
+                    throw exception.InnerException;
                 }
-                                
+
+                ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
+
                 кошка.SetStatus(ObjectStatus.Deleted);
                 порода.SetStatus(ObjectStatus.Deleted);
                 DataObject[] dataObjsForDel = new DataObject[] { кошка, порода };
                 ds.UpdateObjects(ref dataObjsForDel);
-
             }
         }
 
+        /// <summary>
+        /// Метод для многопоточного исполнения в <see cref="AgregatorPropertyAddToViewTest"/>.
+        /// </summary>
+        /// <param name="sender">Словарь со значениями параметров для исполнения метода.</param>
+        public void MultiThreadMethod(object sender)
+        {
+            var parametersDictionary = sender as Dictionary<string, object>;
+            IDataService ds = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as SQLDataService;
+            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+
+            ExternalLangDef langdef = ExternalLangDef.LanguageDef;
+            langdef.DataService = ds;
+
+            // Use a custom number of iterations: less time and false positives or more time and a guaranteed result.
+            for (int i = 0; i < 5; i++)
+            {
+                if (!(bool)parametersDictionary[MultiThreadingTestTool.ParamNameWorking])
+                {
+                    return;
+                }
+
+                try
+                {
+                    // Arrange.
+                    LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.k_КошкаE);
+                    lcs.ReturnTop = 1;
+                    lcs.LimitFunction = langdef.GetFunction(langdef.funcLike, new VariableDef(langdef.StringType, Information.ExtractPropertyName<Кошка>(к => к.Кличка)), nameof(AgregatorPropertyAddToViewTest));
+
+                    // Act & Assert.
+                    DataObject[] dObjs = ds.LoadObjects(lcs);
+                    Information.ClearCacheGetView();
+                }
+                catch (Exception exception)
+                {
+                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Обработчик события генерации SQL-запроса с отловом неправильно сформированного представления.
+        /// </summary>
+        /// <param name="sender">Инициатор события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ThreadTesting_OnGenerateSQLSelect(object sender, GenerateSQLSelectQueryEventArgs e)
         {
             View view = e.CustomizationStruct.View;
