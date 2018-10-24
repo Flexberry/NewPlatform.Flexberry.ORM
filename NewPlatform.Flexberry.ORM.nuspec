@@ -2,19 +2,21 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.1.1-beta01</version>
+    <version>4.1.1-beta02</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
     <licenseUrl>http://flexberry.ru/License-FlexberryOrm-Runtime</licenseUrl>
     <projectUrl>http://flexberry.net/FlexberryORM</projectUrl>
-    <iconUrl>http://flexberry.net/portals/_default/skins/flexerry/images/logo_last.png</iconUrl>
+    <iconUrl>https://flexberry.net/img/logo-color.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-Changed
-1. PostgresDataService generates SQL table aliases less than 63 bytes.
-</releaseNotes>
+      Changed
+      1. PostgresDataService generates SQL table aliases less than 63 bytes.
+      Fixed
+      1. Fix support multithreading in View.AddProperty method.
+    </releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
