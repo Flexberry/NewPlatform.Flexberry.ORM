@@ -739,6 +739,7 @@
         private bool generatedByType = false;
         private View.ReadType readType;
         private Collections.NameObjectCollection masterTypeFilters;
+        private const string lockObject = "ViewLockObjectString";
 
         /// <summary>
         /// Создание копии представления
@@ -1300,98 +1301,101 @@
         }
 
         /// <summary>
-        /// Добавить свойство
+        /// Добавить свойство в представление.
         /// </summary>
-        /// <param name="propName"></param>
-        /// <param name="propCaption"></param>
-        /// <param name="visible"></param>
-        /// <param name="propPath"></param>
+        /// <param name="propName">Название свойства.</param>
+        /// <param name="propCaption">Заголовок свойства.</param>
+        /// <param name="visible">Видимость свойства.</param>
+        /// <param name="propPath">Путь свойства на форме.</param>
         public void AddProperty(string propName, string propCaption, bool visible, string propPath)
         {
-            // проверим может оно уже есть
-            if (properties == null)
+            lock (lockObject)
             {
-                properties = new PropertyInView[0];
-            }
-
-            for (int i = 0; i < properties.Length; i++)
-            {
-                if (properties[i].Name == propName)
+                // проверим может оно уже есть
+                if (properties == null)
                 {
-                    return;
-                }
-            }
-
-            // увеличим количество свойств
-            ArrayList propss = new ArrayList();
-            PropertyInView[] piv = properties;
-            properties = new PropertyInView[piv.Length + 1];
-            piv.CopyTo(properties, 0);
-            int propIndex = piv.Length;
-
-            if (propCaption == string.Empty)
-            {
-                if (!propName.EndsWith("*"))
-                {
-                    propCaption = propName;  // 'Information.GetPropertyCaption(DefineClassType,propName);
-                }
-            }
-
-            if (propName.EndsWith("*"))
-            {
-                if (propCaption.EndsWith("*"))
-                {
-                    propCaption = propCaption.Substring(0, propCaption.Length - 1);
+                    properties = new PropertyInView[0];
                 }
 
-                // смотрим ктоже ето
-                string pref = string.Empty;
-                if (propName.LastIndexOf(".") >= 0)
+                for (int i = 0; i < properties.Length; i++)
                 {
-                    pref = propName.Substring(0, propName.LastIndexOf("."));
-                }
-
-                System.Type cType = DefineClassType;
-                string[] path = pref.Split('.');
-                if (pref != string.Empty)
-                {
-                    for (int pathind = 0; pathind < path.Length; pathind++)
+                    if (properties[i].Name == propName)
                     {
-                        cType = Information.GetPropertyType(cType, path[pathind]);
-                    }
-
-                    pref = pref + ".";
-
-                    // if (propCaption=="") propCaption = pref;
-                }
-
-                string[] allprops = Information.GetAllPropertyNames(cType);
-                for (int propsind = 0; propsind < allprops.Length; propsind++)
-                {
-                    if (!Information.GetPropertyType(cType, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
-                    {
-                        // добавляем атрибут
-                        if (propsind != 0)
-                        {
-                            // 1. увеличим массив
-                            piv = properties;
-                            properties = new PropertyInView[piv.Length + 1];
-                            piv.CopyTo(properties, 0);
-                        }
-
-                        if (propCaption == string.Empty && pref == string.Empty)
-                        {
-
-                            // properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
-                            //                      else
-                            properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
-                        }
+                        return;
                     }
                 }
-            }
-            else
-            {
-                properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath);
+
+                // увеличим количество свойств
+                ArrayList propss = new ArrayList();
+                PropertyInView[] piv = properties;
+                properties = new PropertyInView[piv.Length + 1];
+                piv.CopyTo(properties, 0);
+                int propIndex = piv.Length;
+
+                if (propCaption == string.Empty)
+                {
+                    if (!propName.EndsWith("*"))
+                    {
+                        propCaption = propName;  // 'Information.GetPropertyCaption(DefineClassType,propName);
+                    }
+                }
+
+                if (propName.EndsWith("*"))
+                {
+                    if (propCaption.EndsWith("*"))
+                    {
+                        propCaption = propCaption.Substring(0, propCaption.Length - 1);
+                    }
+
+                    // смотрим ктоже ето
+                    string pref = string.Empty;
+                    if (propName.LastIndexOf(".") >= 0)
+                    {
+                        pref = propName.Substring(0, propName.LastIndexOf("."));
+                    }
+
+                    System.Type cType = DefineClassType;
+                    string[] path = pref.Split('.');
+                    if (pref != string.Empty)
+                    {
+                        for (int pathind = 0; pathind < path.Length; pathind++)
+                        {
+                            cType = Information.GetPropertyType(cType, path[pathind]);
+                        }
+
+                        pref = pref + ".";
+
+                        // if (propCaption=="") propCaption = pref;
+                    }
+
+                    string[] allprops = Information.GetAllPropertyNames(cType);
+                    for (int propsind = 0; propsind < allprops.Length; propsind++)
+                    {
+                        if (!Information.GetPropertyType(cType, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
+                        {
+                            // добавляем атрибут
+                            if (propsind != 0)
+                            {
+                                // 1. увеличим массив
+                                piv = properties;
+                                properties = new PropertyInView[piv.Length + 1];
+                                piv.CopyTo(properties, 0);
+                            }
+
+                            if (propCaption == string.Empty && pref == string.Empty)
+                            {
+
+                                // properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
+                                //                      else
+                                properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath);
+                }
             }
         }
 
