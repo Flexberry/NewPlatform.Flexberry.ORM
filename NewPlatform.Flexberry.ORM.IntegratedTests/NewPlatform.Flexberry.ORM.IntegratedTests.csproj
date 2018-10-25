@@ -334,6 +334,10 @@
       <Project>{70d27598-b67e-41e6-8a1a-06dad5336c05}</Project>
       <Name>NewPlatform.Flexberry.ORM.Tests.BusinessServers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Tests\NewPlatform.Flexberry.ORM.Tests.csproj">
+      <Project>{86840178-3314-43f3-b686-f5bf54a9dca8}</Project>
+      <Name>NewPlatform.Flexberry.ORM.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UnityFactory\UnityFactory.csproj">
       <Project>{ba7026d6-5a82-4e03-a26a-5e780b7ad64e}</Project>
       <Name>UnityFactory</Name>

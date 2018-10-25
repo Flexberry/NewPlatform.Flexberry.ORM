@@ -5,19 +5,17 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
+    using ICSSoft.Services;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.Security;
-    using ICSSoft.Services;
-    using Unity;
-#if NETFX_45
     using Microsoft.Spatial;
-    using System.IO;
-#endif
+    using Unity;
 
     #region class Information
 
@@ -673,6 +671,14 @@
             return type.BaseType == null
                        ? null
                        : GetView(viewName, type.BaseType);
+        }
+
+        /// <summary>
+        /// Clear cache for <see cref="GetView(string, Type)"/> method.
+        /// </summary>
+        public static void ClearCacheGetView()
+        {
+            cacheGetView.Clear();
         }
 
         /// <summary>
