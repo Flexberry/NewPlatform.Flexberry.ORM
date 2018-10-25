@@ -168,14 +168,15 @@
         {
             // Arrange.
             View view = InformationTestClass.Views.InformationTestClassE;
-            Assert.True(view.CheckPropname(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty)));
+            string propName = Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty);
+            Assert.True(view.CheckPropname(propName));
             bool success = false;
             int propCount = view.Properties.Length;
 
             // Act.
             try
             {
-                view.AddProperty(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty));
+                view.AddProperty(propName);
 
                 if (propCount == view.Properties.Length)
                 {
@@ -198,14 +199,15 @@
         {
             // Arrange.
             View view = InformationTestClass.Views.InformationTestClassE;
-            Assert.True(view.CheckPropname(Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty)));
+            string propName = Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty);
+            Assert.True(view.CheckPropname(propName));
             bool success = false;
             int propCount = view.Properties.Length;
 
             // Act.
             try
             {
-                view.AddProperties(new[] { Information.ExtractPropertyPath<InformationTestClass>(i => i.PublicStringProperty) });
+                view.AddProperties(new[] { propName });
 
                 if (propCount == view.Properties.Length)
                 {

@@ -731,6 +731,7 @@
     [Serializable]
     public sealed class View : ISerializable
     {
+        private static object lockObject = new object();
         private System.Type defineClass;
         private string viewName;
         private PropertyInView[] properties;
@@ -739,7 +740,6 @@
         private bool generatedByType = false;
         private View.ReadType readType;
         private Collections.NameObjectCollection masterTypeFilters;
-        private const string lockObject = "ViewLockObjectString";
 
         /// <summary>
         /// Создание копии представления
@@ -1311,7 +1311,7 @@
         {
             lock (lockObject)
             {
-                // проверим может оно уже есть
+                // Проверим может оно уже есть.
                 if (properties == null)
                 {
                     properties = new PropertyInView[0];
@@ -1325,8 +1325,7 @@
                     }
                 }
 
-                // увеличим количество свойств
-                ArrayList propss = new ArrayList();
+                // Увеличим количество свойств.
                 PropertyInView[] piv = properties;
                 properties = new PropertyInView[piv.Length + 1];
                 piv.CopyTo(properties, 0);
@@ -1336,7 +1335,7 @@
                 {
                     if (!propName.EndsWith("*"))
                     {
-                        propCaption = propName;  // 'Information.GetPropertyCaption(DefineClassType,propName);
+                        propCaption = propName;
                     }
                 }
 
@@ -1347,36 +1346,34 @@
                         propCaption = propCaption.Substring(0, propCaption.Length - 1);
                     }
 
-                    // смотрим ктоже ето
+                    // Смотрим кто же это.
                     string pref = string.Empty;
                     if (propName.LastIndexOf(".") >= 0)
                     {
                         pref = propName.Substring(0, propName.LastIndexOf("."));
                     }
 
-                    System.Type cType = DefineClassType;
+                    Type type = DefineClassType;
                     string[] path = pref.Split('.');
                     if (pref != string.Empty)
                     {
                         for (int pathind = 0; pathind < path.Length; pathind++)
                         {
-                            cType = Information.GetPropertyType(cType, path[pathind]);
+                            type = Information.GetPropertyType(type, path[pathind]);
                         }
 
                         pref = pref + ".";
-
-                        // if (propCaption=="") propCaption = pref;
                     }
 
-                    string[] allprops = Information.GetAllPropertyNames(cType);
+                    string[] allprops = Information.GetAllPropertyNames(type);
                     for (int propsind = 0; propsind < allprops.Length; propsind++)
                     {
-                        if (!Information.GetPropertyType(cType, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
+                        if (!Information.GetPropertyType(type, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
                         {
-                            // добавляем атрибут
+                            // Добавляем атрибут.
                             if (propsind != 0)
                             {
-                                // 1. увеличим массив
+                                // Увеличим массив.
                                 piv = properties;
                                 properties = new PropertyInView[piv.Length + 1];
                                 piv.CopyTo(properties, 0);
@@ -1384,9 +1381,6 @@
 
                             if (propCaption == string.Empty && pref == string.Empty)
                             {
-
-                                // properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
-                                //                      else
                                 properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
                             }
                         }
