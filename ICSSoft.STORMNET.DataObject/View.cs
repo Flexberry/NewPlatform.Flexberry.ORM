@@ -656,6 +656,7 @@
     [Serializable]
     public sealed class View : ISerializable
     {
+        private static object lockObject = new object();
         private System.Type defineClass;
         private string viewName;
         private PropertyInView[] properties;
@@ -664,7 +665,6 @@
         private bool generatedByType = false;
         private View.ReadType readType;
         private Collections.NameObjectCollection masterTypeFilters;
-        private const string lockObject = "ViewLockObjectString";
 
         /// <summary>
         /// Создание копии представления
