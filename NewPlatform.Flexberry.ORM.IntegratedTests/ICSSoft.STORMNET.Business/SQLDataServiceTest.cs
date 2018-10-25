@@ -479,13 +479,11 @@
                 aggregatorForUpdateActual.SetStatus(ObjectStatus.Deleted);
                 ds.UpdateObject(aggregatorForUpdateActual);
 
-
                 var aggregatorForUpdateDeleted = ds.Query<Кошка>(Кошка.Views.КошкаE).FirstOrDefault(x => x.__PrimaryKey == кошка.__PrimaryKey);
                 var detailDeleted = ds.Query<Перелом>(Перелом.Views.ПереломE).FirstOrDefault(x => x.__PrimaryKey == перелом.__PrimaryKey);
 
                 Assert.Null(aggregatorForUpdateDeleted);
                 Assert.Null(detailDeleted);
-
             }
         }
 
@@ -493,7 +491,7 @@
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
-        [Fact(Skip = "141391")]
+        [Fact]
         public void AggregatorWithLinkToDetailTest0()
         {
             foreach (IDataService ds in DataServices)
@@ -589,7 +587,7 @@
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
-        [Fact(Skip = "141391")]
+        [Fact]
         public void AggregatorWithLinkToDetailTest2()
         {
             foreach (IDataService ds in DataServices)

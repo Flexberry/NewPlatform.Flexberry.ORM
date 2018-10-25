@@ -55,6 +55,7 @@
             var DeleteQueries = new StringCollection();
             var UpdateQueries = new StringCollection();
             var UpdateFirstQueries = new StringCollection();
+            var UpdateLastQueries = new StringCollection();
             var InsertQueries = new StringCollection();
 
             var DeleteTables = new StringCollection();
@@ -67,7 +68,7 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
 
             GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
 
@@ -141,7 +142,7 @@
 
                         var ops = (OperationType)TableOperations[table];
 
-                        if ((ops & OperationType.Delete) != OperationType.Delete)
+                        if ((ops & OperationType.Delete) != OperationType.Delete && UpdateLastQueries.Count == 0)
                         {
                             // Смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
@@ -201,7 +202,7 @@
                             {
                                 var ops = (OperationType)TableOperations[table];
 
-                                if (ops == OperationType.Update)
+                                if (ops == OperationType.Update && UpdateLastQueries.Count == 0)
                                 {
                                     if (
                                         (ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
@@ -262,6 +263,14 @@
                         }
 
                         if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
+                    }
+
+                    foreach (string table in QueryOrder)
+                    {
+                        if ((ex = RunCommands(UpdateLastQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
                         {
                             throw ex;
                         }
