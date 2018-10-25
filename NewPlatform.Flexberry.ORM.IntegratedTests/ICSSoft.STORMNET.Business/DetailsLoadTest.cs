@@ -1,26 +1,33 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Business
 {
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Threading;
+    using System.Threading.Tasks;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
-    using Xunit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.UserDataTypes;
+    using ICSSoft.STORMNET.Windows.Forms;
     using NewPlatform.Flexberry.ORM.Tests;
-    using System.Configuration;
+    using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Проверка логики зачитки детейлов.
     /// </summary>
-    
     public class DetailsLoadTest : BaseIntegratedTest
     {
-        public DetailsLoadTest()
+        private ITestOutputHelper output;
+
+        public DetailsLoadTest(ITestOutputHelper output)
             : base("DetLoad")
         {
+            this.output = output;
         }
 
         private Random _random = new Random();
-
-        #region Проверка на адекватное количество загруженных свойств после догрузки
 
         /// <summary>
         /// Проверим сначала собственные свойства.
@@ -30,7 +37,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
                 // Чтобы медведь в БД точно был, создадим его.
                 var createdBear = new Медведь();
@@ -54,7 +61,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
                 // Чтобы медведь в БД точно был, создадим его.
                 var createdBear = new Медведь();
@@ -83,15 +90,14 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
                 var view = Медведь.Views.LoadTestView;
 
-                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof (Медведь), view);
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
                 lcs.ColumnsSort = new[]
                 {
-                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey),
-                        _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc)
+                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc)
                 };
 
                 lcs.InitDataCopy = true;
@@ -104,7 +110,7 @@
 
                 Assert.True(dataObjects.Length > 0);
 
-                var медведь = (Медведь) dataObjects[0];
+                var медведь = (Медведь)dataObjects[0];
                 if (медведь.Берлога.Count == 0)
                 {
                     медведь.Берлога.Add(new Берлога
@@ -129,8 +135,118 @@
                 Assert.Equal(s, медведь.Берлога[0].Наименование);
                 Assert.Equal(1, медведь.Берлога[0].GetAlteredPropertyNames(true).Length);
             }
+        }
 
-            #endregion
+        /// <summary>
+        /// Метод для проверки логики добавления свойства агрегатора в представление детейла.
+        /// </summary>
+        [Fact]
+        public void AgregatorPropertyAddToViewTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var ds = (SQLDataService)dataService;
+
+                if (ds is OracleDataService)
+                {
+                    // TODO: Fix multithreading support for OracleDataService and Long names.
+                    continue;
+                }
+
+                ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
+                ds.OnGenerateSQLSelect += ThreadTesting_OnGenerateSQLSelect;
+                output.WriteLine($"start {ds.GetType().Name}");
+
+                Порода порода = new Порода() { Название = "Беспородная" };
+                Кошка кошка = new Кошка() { Кличка = nameof(AgregatorPropertyAddToViewTest), Порода = порода, ДатаРождения = NullableDateTime.Now, Тип = ТипКошки.Дикая };
+                кошка.Лапа.Add(new Лапа() { Номер = 1 });
+                ds.UpdateObject(кошка);
+
+                MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
+                multiThreadingTestTool.StartThreads(150, ds);
+
+                var exception = multiThreadingTestTool.GetExceptions();
+
+                if (exception != null)
+                {
+                    foreach (var item in exception.InnerExceptions)
+                    {
+                        output.WriteLine(item.Value.ToString());
+                    }
+
+                    throw exception.InnerException;
+                }
+
+                ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
+
+                кошка.SetStatus(ObjectStatus.Deleted);
+                порода.SetStatus(ObjectStatus.Deleted);
+                DataObject[] dataObjsForDel = new DataObject[] { кошка, порода };
+                ds.UpdateObjects(ref dataObjsForDel);
+            }
+        }
+
+        /// <summary>
+        /// Метод для многопоточного исполнения в <see cref="AgregatorPropertyAddToViewTest"/>.
+        /// </summary>
+        /// <param name="sender">Словарь со значениями параметров для исполнения метода.</param>
+        public void MultiThreadMethod(object sender)
+        {
+            var parametersDictionary = sender as Dictionary<string, object>;
+            IDataService ds = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as SQLDataService;
+            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+
+            ExternalLangDef langdef = ExternalLangDef.LanguageDef;
+            langdef.DataService = ds;
+
+            // Use a custom number of iterations: less time and false positives or more time and a guaranteed result.
+            for (int i = 0; i < 5; i++)
+            {
+                if (!(bool)parametersDictionary[MultiThreadingTestTool.ParamNameWorking])
+                {
+                    return;
+                }
+
+                try
+                {
+                    // Arrange.
+                    LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.k_КошкаE);
+                    lcs.ReturnTop = 1;
+                    lcs.LimitFunction = langdef.GetFunction(langdef.funcLike, new VariableDef(langdef.StringType, Information.ExtractPropertyName<Кошка>(к => к.Кличка)), nameof(AgregatorPropertyAddToViewTest));
+
+                    // Act & Assert.
+                    DataObject[] dObjs = ds.LoadObjects(lcs);
+                    Information.ClearCacheGetView();
+                }
+                catch (Exception exception)
+                {
+                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Обработчик события генерации SQL-запроса с отловом неправильно сформированного представления.
+        /// </summary>
+        /// <param name="sender">Инициатор события.</param>
+        /// <param name="e">Аргументы события.</param>
+        private void ThreadTesting_OnGenerateSQLSelect(object sender, GenerateSQLSelectQueryEventArgs e)
+        {
+            View view = e.CustomizationStruct.View;
+            for (int i = 0; i < view.Properties.Length; i++)
+            {
+                PropertyInView property = view.Properties[i];
+                for (int j = i + 1; j < view.Properties.Length; j++)
+                {
+                    PropertyInView nextProperty = view.Properties[j];
+                    if (property.Name == nextProperty.Name)
+                    {
+                        throw new Exception($"Свойство {property.Name} встречается несколько раз (OnGenerateSQLSelect).");
+                    }
+                }
+            }
         }
     }
 }
