@@ -5829,6 +5829,14 @@
                         }
                     }
 
+                    foreach (string table in queryOrder)
+                    {
+                        if ((ex = RunCommands(updateFirstQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
+                    }
+
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
