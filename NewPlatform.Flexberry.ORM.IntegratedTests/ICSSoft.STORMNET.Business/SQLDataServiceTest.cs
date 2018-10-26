@@ -472,6 +472,7 @@
                 кошка.Лапа.Add(лапа);
                 лапа.Перелом.Add(перелом);
                 ds.UpdateObject(кошка);
+
                 // Act & Assert.
                 var aggregatorForUpdateActual =
                                     ds.Query<Кошка>(Кошка.Views.КошкаE)
@@ -496,6 +497,7 @@
         {
             foreach (IDataService ds in DataServices)
             {
+                // Arrange.
                 var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
                 var detail = new DetailUpdateObjectTest { DetailName = "detailName" };
                 var master = new MasterUpdateObjectTest { MasterName = "masterName", Detail = detail };
@@ -507,6 +509,7 @@
                 detail.Master = master;
                 ds.UpdateObject(aggregator);
 
+                // Act & Assert.
                 var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
@@ -541,11 +544,12 @@
         {
             foreach (IDataService ds in DataServices)
             {
+                // Arrange.
                 var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
                 var detail = new DetailUpdateObjectTest { DetailName = "detailName" };
+                ds.UpdateObject(aggregator);
 
                 // Act & Assert.
-                ds.UpdateObject(aggregator);
                 aggregator = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
@@ -592,10 +596,11 @@
         {
             foreach (IDataService ds in DataServices)
             {
+                // Arrange.
                 var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
+                ds.UpdateObject(aggregator);
 
                 // Act & Assert.
-                ds.UpdateObject(aggregator);
                 aggregator = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
