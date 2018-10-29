@@ -1054,6 +1054,25 @@
                 Assert.Equal(expectedResult, actualResult);
             }
         }
+
+        /// <summary>
+        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
+        /// </summary>
+        [Fact]
+        public void InheritedMasterClassTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var master = new InheritedMasterClass { StringMasterProperty = "prop", IntMasterProperty = 666 };
+                master.DetailClass.Add(new DetailClass { Detailproperty = "detail" });
+
+                // Act.
+                dataService.UpdateObject(master);
+
+                // Assert.
+                Assert.Equal(1, master.DetailClass.Count);
+            }
+        }
     }
 }
-

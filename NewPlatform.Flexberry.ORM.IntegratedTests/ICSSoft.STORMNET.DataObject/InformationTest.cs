@@ -12,13 +12,12 @@
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Юнит-тесты для класса Informations.
     /// </summary>
-
     public class InformationTest
     {
         /// <summary>
@@ -27,9 +26,8 @@
         private readonly List<string> _log = new List<string>();
 
         /// <summary>
-        /// Тест метода <see cref="GetView()"/>, позволяющего получить представление по его имени и классу объекта данных.   
+        /// Тест метода <see cref="GetView()"/>, позволяющего получить представление по его имени и классу объекта данных.
         /// </summary>
-        
         [Fact]
         public void GetViewTest()
         {
@@ -82,7 +80,6 @@
         /// Проверка, что по лямбда-выражению класс Information может адекватно вернуть строковое представление имени поля.
         /// Например, есть InformationTestClass со свойством stringPropertyForInformationTestClass. По InformationTestClass.stringPropertyForInformationTestClass хотелось бы получить строку вида "InformationTestClass.stringPropertyForInformationTestClass".
         /// </summary>
-        
         [Fact]
         public void TestExtractPropertyPath()
         {
@@ -105,7 +102,6 @@
         /// Проверка, что по лямбда-выражению класс Information может адекватно вернуть строковое представление неполного имени поля.
         /// Например, есть InformationTestClass со свойством stringPropertyForInformationTestClass. По InformationTestClass.stringPropertyForInformationTestClass хотелось бы получить строку вида "stringPropertyForInformationTestClass".
         /// </summary>
-        
         [Fact]
         public void TestExtractPropertyName()
         {
@@ -122,9 +118,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="AllView()"/>, получающего список имён общих представлений для для указанного класса объекта данных.        
+        /// Тест метода <see cref="AllView()"/>, получающего список имён общих представлений для для указанного класса объекта данных.
         /// </summary>
-        
         [Fact]
         public void AllViewTest()
         {
@@ -137,9 +132,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyCaption()"/>, возвращающего загаловок свойства.      
+        /// Тест метода <see cref="GetPropertyCaption()"/>, возвращающего загаловок свойства.
         /// </summary>
-        
         [Fact]
         public void GetPropertyCaptionTest()
         {
@@ -168,9 +162,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyStrLen()"/>, получающего для указанного .Net-свойства атрибут StrLen.       
+        /// Тест метода <see cref="GetPropertyStrLen()"/>, получающего для указанного .Net-свойства атрибут StrLen.
         /// </summary>
-        
         [Fact]
         public void GetPropertyStrLenTest()
         {
@@ -199,9 +192,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="CheckNotNullAttributes()"/>, проверяющего, нет ли непустых значений в NotNull .Net-свойствах.      
+        /// Тест метода <see cref="CheckNotNullAttributes()"/>, проверяющего, нет ли непустых значений в NotNull .Net-свойствах.
         /// </summary>
-        
         [Fact]
         public void CheckNotNullAttributesTest()
         {
@@ -221,9 +213,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyDefineClassType()"/>, возвращающего тип в котором определено свойство.       
+        /// Тест метода <see cref="GetPropertyDefineClassType()"/>, возвращающего тип в котором определено свойство.
         /// </summary>
-        
         [Fact]
         public void GetPropertyDefineClassTypeTest()
         {
@@ -256,9 +247,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetCompatibleTypesForTypeConvertion()"/>, определяющего куда можно мконвертировать тип.       
+        /// Тест метода <see cref="GetCompatibleTypesForTypeConvertion()"/>, определяющего куда можно мконвертировать тип.
         /// </summary>
-        
         [Fact]
         public void GetCompatibleTypesForTypeConvertionTest()
         {
@@ -277,9 +267,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetAssemblyStorageName()"/>, получающего имя хранения для сборки, заданное атрибутом .       
+        /// Тест метода <see cref="GetAssemblyStorageName()"/>, получающего имя хранения для сборки, заданное атрибутом .
         /// </summary>
-        
         [Fact]
         public void GetAssemblyStorageNameTest()
         {
@@ -298,9 +287,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="CheckPropertyExist()"/>, проверяющего наличие такого свойства в указанном типе.       
+        /// Тест метода <see cref="CheckPropertyExist()"/>, проверяющего наличие такого свойства в указанном типе.
         /// </summary>
-        
         [Fact]
         public void CheckPropertyExistTest()
         {
@@ -313,9 +301,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetNotStorablePropertyNames()"/>, возвращающего имена .Net-свойств для .Net-типа класса объекта данных, которые не хранятся .       
+        /// Тест метода <see cref="GetNotStorablePropertyNames()"/>, возвращающего имена .Net-свойств для .Net-типа класса объекта данных, которые не хранятся .
         /// </summary>
-        
         [Fact]
         public void GetNotStorablePropertyNamesTest()
         {
@@ -334,9 +321,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="CanWriteProperty()"/>, определяющего можно ли писать в это свойство.      
+        /// Тест метода <see cref="CanWriteProperty()"/>, определяющего можно ли писать в это свойство.
         /// </summary>
-        
         [Fact]
         public void CanWritePropertyTest()
         {
@@ -370,9 +356,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="CanReadProperty()"/>, определяющего можно ли читать из этого свойства.      
+        /// Тест метода <see cref="CanReadProperty()"/>, определяющего можно ли читать из этого свойства.
         /// </summary>
-        
         [Fact]
         public void CanReadPropertyTest()
         {
@@ -398,9 +383,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyNamesByType()"/>, возвращающего список свойств указанного шаблонного типа для .Net-класса объекта данных.      
+        /// Тест метода <see cref="GetPropertyNamesByType()"/>, возвращающего список свойств указанного шаблонного типа для .Net-класса объекта данных.
         /// </summary>
-        
         [Fact]
         public void GetPropertyNamesByTypeTest()
         {
@@ -421,9 +405,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetClassCaptionProperty()"/>, возвращающего свойство - заголовок, установленное атрибутом <see cref="InstanceCaptionPropertyAttribute"/>.       
+        /// Тест метода <see cref="GetClassCaptionProperty()"/>, возвращающего свойство - заголовок, установленное атрибутом <see cref="InstanceCaptionPropertyAttribute"/>.
         /// </summary>
-        
         [Fact]
         public void GetClassCaptionPropertyTest()
         {
@@ -449,7 +432,6 @@
         /// <summary>
         /// Тест метода <see cref="IsEmptyPropertyValue()"/>, определяющего является ли значение пустым (null).
         /// </summary>
-        
         [Fact]
         public void IsEmptyPropertyValueTest()
         {
@@ -488,7 +470,6 @@
         /// <summary>
         /// Тест метода <see cref="GetStorageTypeForType()"/>, возвращающего тип хранения для заданного типа.
         /// </summary>
-        
         [Fact(Skip = "разобраться что это за тест такой")]
         public void GetStorageTypeForTypeTest()
         {
@@ -500,9 +481,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="IsEmptyEnumValue()"/>, определяющего является ли значение перечислимого типа пустым (null).       
+        /// Тест метода <see cref="IsEmptyEnumValue()"/>, определяющего является ли значение перечислимого типа пустым (null).
         /// </summary>
-        
         [Fact]
         public void IsEmptyEnumValueTest()
         {
@@ -520,9 +500,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyDataFormat()"/>, получающего формат представления данных в свойстве.       
+        /// Тест метода <see cref="GetPropertyDataFormat()"/>, получающего формат представления данных в свойстве.
         /// </summary>
-        
         [Fact]
         public void GetPropertyDataFormatTest()
         {
@@ -545,9 +524,8 @@
 
         /// <summary>
         /// Тест метода <see cref="GetAlteredPropertyNamesWithNotStored()"/>, сравнивающего два объекта данных
-        /// и возвращающего список различающихся .Net-свойств. (NotStored-атрибуты не игнорируются и тоже проверяются вместе с остальными).      
+        /// и возвращающего список различающихся .Net-свойств. (NotStored-атрибуты не игнорируются и тоже проверяются вместе с остальными).
         /// </summary>
-        
         [Fact]
         public void GetAlteredPropertyNamesWithNotStoredTest()
         {
@@ -620,9 +598,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetClassImageProperty()"/>, возвращающего свойство-картинку, установленное атрибутом <see cref="ClassImagePropertyAttribute"/>.      
+        /// Тест метода <see cref="GetClassImageProperty()"/>, возвращающего свойство-картинку, установленное атрибутом <see cref="ClassImagePropertyAttribute"/>.
         /// </summary>
-        
         [Fact]
         public void GetClassImagePropertyTest()
         {
@@ -636,9 +613,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="RetrieveLinkerTimestamp()"/>, получающего дату компиляции текущей сборки.       
+        /// Тест метода <see cref="RetrieveLinkerTimestamp()"/>, получающего дату компиляции текущей сборки.
         /// </summary>
-        
         [Fact]
         public void RetrieveLinkerTimestampTest()
         {
@@ -648,9 +624,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyStorageType()"/>, возвращающего тип хранения для заданного свойства.      
+        /// Тест метода <see cref="GetPropertyStorageType()"/>, возвращающего тип хранения для заданного свойства.
         /// </summary>
-        
         [Fact]
         public void GetPropertyStorageTypeTest()
         {
@@ -666,7 +641,6 @@
         /// <summary>
         /// Тест метода <see cref="AllViews()"/>, получающий список имён общих представлений для указанных классов.
         /// </summary>
-        
         [Fact]
         public void AllViewsTest()
         {
@@ -702,7 +676,6 @@
         /// Тест выпадения исключения ArgumentNullException в методе  GetView()
         /// при попытке получения представления по пустому имени.
         /// </summary>
-        
         [Fact]
         public void GetViewNullExTest()
         {
@@ -717,7 +690,6 @@
         /// Тест выпадения исключения ArgumentNullException в методе  GetView()
         /// при попыткеполучения представления для пустого типа данных.
         /// </summary>
-        
         [Fact]
         public void GetViewNullExTest1()
         {
@@ -729,9 +701,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetKeyGenerator()"/>,  получающий тип генератора ключей.       
+        /// Тест метода <see cref="GetKeyGenerator()"/>,  получающий тип генератора ключей.
         /// </summary>
-        
         [Fact]
         public void GetKeyGeneratorTypeTest()
         {
@@ -744,9 +715,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetTypeStorageName()"/>, получающего имя хранилища для типа.      
+        /// Тест метода <see cref="GetTypeStorageName()"/>, получающего имя хранилища для типа.
         /// </summary>
-        
         [Fact]
         public void GetTypeStorageNameTest()
         {
@@ -759,9 +729,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="CheckViewForClasses()"/>,  проверяющего, доступно ли указанное по имени представление во всех перечисленных классах.       
+        /// Тест метода <see cref="CheckViewForClasses()"/>,  проверяющего, доступно ли указанное по имени представление во всех перечисленных классах.
         /// </summary>
-        
         [Fact]
         public void CheckViewForClassesTest()
         {
@@ -807,9 +776,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetCompatibleTypesForProperty()"/>, возвращающего типы, совместимые с данным свойством(по TypeUsage).       
+        /// Тест метода <see cref="GetCompatibleTypesForProperty()"/>, возвращающего типы, совместимые с данным свойством(по TypeUsage).
         /// </summary>
-        
         [Fact]
         public void GetCompatibleTypesForPropertyTest()
         {
@@ -840,7 +808,6 @@
         /// Тест выпадения исключения CantFindPropertyException в классе GetPropertyCaption
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyCaptionExceptionTest()
         {
@@ -853,9 +820,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyStorageName()"/>, получающего имя хранения .Net-свойства, установленное атрибутом <see cref="PropertyStorageAttribute"/>.       
+        /// Тест метода <see cref="GetPropertyStorageName()"/>, получающего имя хранения .Net-свойства, установленное атрибутом <see cref="PropertyStorageAttribute"/>.
         /// </summary>
-        
         [Fact]
         public void GetPropertyStorageNameTest()
         {
@@ -878,7 +844,6 @@
         /// Тест выпадения исключения CantFindPropertyException в методе GetPropertyStorageNamе()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyStorageNameExceptionTest()
         {
@@ -891,9 +856,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyNotNull()"/>, проверчющего, установлен ли для указанного .Net-свойства атрибут <see cref="NotNullAttribute"/>.       
+        /// Тест метода <see cref="GetPropertyNotNull()"/>, проверчющего, установлен ли для указанного .Net-свойства атрибут <see cref="NotNullAttribute"/>.
         /// </summary>
-        
         [Fact]
         public void GetPropertyNotNullTest()
         {
@@ -909,7 +873,6 @@
         /// Тест выпадения исключения CantFindPropertyException в методе GetPropertyNotNull()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyNotNullExceptionTest()
         {
@@ -925,7 +888,6 @@
         /// Тест выпадения исключения CantFindPropertyException в методе GetPropertyStrLen()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyStrLenExceptionTest()
         {
@@ -941,7 +903,6 @@
         /// Тест выпадения исключения CantFindPropertyException в методе GetPropertyDefineClassType()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyDefineClassTypeExceptionTest()
         {
@@ -957,7 +918,6 @@
         /// Тест выпадения исключения CantFindPropertyException в методе GetPropertyType()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyTypeExceptionTest()
         {
@@ -973,7 +933,6 @@
         /// Тест выпадения исключения NoSuchPropertyException в методе IsStoredProperty()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void IsStoredPropertyExceptionTest()
         {
@@ -988,7 +947,6 @@
         /// <summary>
         /// Тест метода <see cref="IsStoredProperty()"/>, проверяющего, является ли поле хранимым.
         /// </summary>
-        
         [Fact]
         public void IsStoredPropertyTest()
         {
@@ -1010,7 +968,6 @@
         /// Тест выпадения исключения CantFindPropertyExceptionв методе GetPropertyDataFormat()
         /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
         /// </summary>
-        
         [Fact]
         public void GetPropertyDataFormatExceptionTest()
         {
@@ -1024,9 +981,8 @@
 
         /// <summary>
         /// Тест метода <see cref="GetAlteredProperyNames()"/>, cравнивающего два объекта данных и возвращающего список различающихся .Net-свойств.
-        ///  (Объект или свойство с атрибутом NotStored проверяться не будет).       
+        ///  (Объект или свойство с атрибутом NotStored проверяться не будет).
         /// </summary>
-        
         [Fact]
         public void GetAlteredProperyNamesTest()
         {
@@ -1038,7 +994,7 @@
             // Ожидаемый результат: пустое множество.
             Assert.True(EquivalenceMethods.EqualStringArrays(expected, actual));
 
-            // Входные параметры: null, null, сравнение по детейлам есть.         
+            // Входные параметры: null, null, сравнение по детейлам есть.
             var actual1 = Information.GetAlteredPropertyNames(null, null, true);
 
             // Ожидаемый результат: пустое множество.
@@ -1047,7 +1003,7 @@
 
             string[] expected2 = obj.GetInitializedProperties(true).ToArray();
 
-            // Входные параметры: null, объект данных типа MasterClass, сравнение по детейлам есть.  
+            // Входные параметры: null, объект данных типа MasterClass, сравнение по детейлам есть.
             var actual2 = Information.GetAlteredPropertyNames(null, new MasterClass(), true);
 
             // Ожидаемый результат: множество, состоящее из имен полей класса MasterClass "StringMasterProperty", "DetailClass", "__PrimaryKey".
@@ -1066,7 +1022,7 @@
             // Ожидаемый результат: множество, состоящее из имени поля "__PrimaryKey" класса MasterClass.
             Assert.True(EquivalenceMethods.EqualStringArrays(expected4, actual4));
 
-            // Входные параметры: объект данных типа MasterClass, объект данных типа MasterClass, сравнения по детейлам нет. 
+            // Входные параметры: объект данных типа MasterClass, объект данных типа MasterClass, сравнения по детейлам нет.
             var actual5 = Information.GetAlteredPropertyNames(new MasterClass(), new MasterClass(), false);
 
             // Ожидаемый результат: множество, состоящее из имени поля "__PrimaryKey" класса MasterClass.
@@ -1077,7 +1033,6 @@
         /// Тест выпадения системного исключения в методе CheckPropertyExist()
         /// при пустом типе объекта даных, существование свойства которого проверяется данным методом.
         /// </summary>
-        
         [Fact]
         public void CheckPropertyExistExceptionTest()
         {
@@ -1089,9 +1044,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="CheckUsingType()"/>, выполняющего проверку на совместимость объекта данных в  методе, или свойстве, откуда вызвано.       
+        /// Тест метода <see cref="CheckUsingType()"/>, выполняющего проверку на совместимость объекта данных в  методе, или свойстве, откуда вызвано.
         /// </summary>
-        
         [Fact]
         public void CheckUsingTypeTest()
         {
@@ -1110,7 +1064,6 @@
         /// при значении входных параметров : тип объекта данных=typeof(InformationTestClass)
         /// и преобразуемое значение - число.
         /// </summary>
-        
         [Fact]
         public void TranslateValueToPrimaryKeyTypeExceptionTest()
         {
@@ -1127,7 +1080,6 @@
         /// при значени входных параметров: тип объекта данных=typeof(InformationTestClass)
         /// и преобразуемое значение - строка, формат котрой не соответствует формату первичного ключа.
         /// </summary>
-        
         [Fact]
         public void TranslateValueToPrimaryKeyTypeFormatExceptionTest()
         {
@@ -1139,9 +1091,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetMastersForDataObjectByView()"/>, возвращающего все мастеровые объекты данных для указанного объекта данных.      
+        /// Тест метода <see cref="GetMastersForDataObjectByView()"/>, возвращающего все мастеровые объекты данных для указанного объекта данных.
         /// </summary>
-        
         [Fact]
         public void GetMastersForDataObjectByViewTest()
         {
@@ -1169,7 +1120,6 @@
         /// Тест для метода <see cref="ExtractPropertyInfo()"/>, извлекающего свойство по типу.
         /// Ловим исключение, послав null заместо лямбды.
         /// </summary>
-        
         [Fact]
         public void ExtractPropertyInfoTest0()
         {
@@ -1183,7 +1133,6 @@
         /// <summary>
         /// Тест для метода <see cref="ExtractPropertyInfo()"/>, извлекающего свойство по типу.
         /// </summary>
-        
         [Fact]
         public void ExtractPropertyInfoTest1()
         {
@@ -1196,7 +1145,6 @@
         /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
         /// Ловим исключение, послав не Свойство (не Property), а просто поле.
         /// </summary>
-        
         [Fact(Skip = "разобраться нужно ли это проверять")]
         public void ExtractPropertyInfoTest2()
         {
@@ -1204,6 +1152,7 @@
             {
             });
             Assert.IsType(typeof(ArgumentException), exception);
+
             // TODO: разобраться нужно ли это проверять.
             // Information.ExtractPropertyInfo<InformationTestClass2>(c => c.NotProperty);
         }
@@ -1212,7 +1161,6 @@
         /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
         /// Ловим исключение, послав статическое свойство.
         /// </summary>
-        
         [Fact(Skip = "разобраться нужно ли это проверять")]
         public void ExtractPropertyNameTest0()
         {
@@ -1220,6 +1168,7 @@
             {
             });
             Assert.IsType(typeof(ArgumentException), exception);
+
             // TODO: разобраться нужно ли это проверять.
             // Information.ExtractPropertyName<InformationTestClass2>(c => InformationTestClass2.StaticProperty);
         }
@@ -1228,7 +1177,6 @@
         /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
         /// Ловим исключение, послав null заместо лямбды.
         /// </summary>
-        
         [Fact]
         public void ExtractPropertyNameTest1()
         {
@@ -1244,7 +1192,6 @@
         /// Входные параметры: Тип класса: InformationTestClass, лямбда выражение: () =&gt; obj.stringPropertyForInformationTestClass.
         /// Ожидаемое значение: "stringPropertyForInformationTestClass".
         /// </summary>
-        
         [Fact]
         public void ExtractPropertyNameTest2()
         {
@@ -1260,7 +1207,6 @@
         /// <summary>
         /// Тест на выпадения исключения ArgumentException в методе ExtractPropertyName() при некоектном значении лямбда-выражения.
         /// </summary>
-        
         [Fact]
         public void ExtractPropertyNameTest3()
         {
@@ -1272,20 +1218,19 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropValueByName()"/>, получающего значение свойства объекта данных по имени этого свойства.        
+        /// Тест метода <see cref="GetPropValueByName()"/>, получающего значение свойства объекта данных по имени этого свойства.
         /// </summary>
-        
         [Fact]
         public void GetPropValueByNameTest()
         {
-            // Входные параметры: объект даных: null, имя свойства: "StringMasterProperty". 
+            // Входные параметры: объект даных: null, имя свойства: "StringMasterProperty".
             var actual = Information.GetPropValueByName(
                 null, Information.ExtractPropertyName<MasterClass>(c => c.StringMasterProperty));
 
             // Первый Assert вызывается для того, чтобы покрыть тестом основной функционал метода. Ожидаемое значение: null.
             Assert.Equal(null, actual);
 
-            // Входные параметры: объект даных: null, имя свойства: "MasterClass.StringMasterProperty". 
+            // Входные параметры: объект даных: null, имя свойства: "MasterClass.StringMasterProperty".
             var actual1 = Information.GetPropValueByName(
                 null, Information.ExtractPropertyPath<MasterClass>(c => c.StringMasterProperty));
 
@@ -1293,7 +1238,7 @@
             Assert.Equal(null, actual1);
             var obj = new ClassWithCaptions();
 
-            // Входные параметры: объект даных класса ClassWithCaptions, имя свойства: "InformationTestClass4.MasterOfInformationTestClass3.InformationTestClass2.InformationTestClass.stringPropertyForInformationTestClass". 
+            // Входные параметры: объект даных класса ClassWithCaptions, имя свойства: "InformationTestClass4.MasterOfInformationTestClass3.InformationTestClass2.InformationTestClass.stringPropertyForInformationTestClass".
             var actual2 = Information.GetPropValueByName(
                 obj, Information.ExtractPropertyPath<ClassWithCaptions>(c => c.InformationTestClass4.MasterOfInformationTestClass3.InformationTestClass2.InformationTestClass.StringPropertyForInformationTestClass));
 
@@ -1302,13 +1247,12 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="SetPropValueByName(DataObject obj, string propName, object PropValue)"/>, устанавливающего значение строкового свойства с отсечением пробелов.       
+        /// Тест метода <see cref="SetPropValueByName(DataObject obj, string propName, object PropValue)"/>, устанавливающего значение строкового свойства с отсечением пробелов.
         /// </summary>
-        
         [Fact]
         public void SetPropValueByNameTrimStringTest()
         {
-            // Arrange. 
+            // Arrange.
             var obj = new InformationTestClass();
 
             // Act.
@@ -1321,10 +1265,9 @@
          }
 
         /// <summary>
-        /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue) 
-        /// при несоответствии типов записываемого значения и свойства объекта, в который производится запись. 
+        /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
+        /// при несоответствии типов записываемого значения и свойства объекта, в который производится запись.
         /// </summary>
-        
         [Fact]
         public void SetPropValueByNameExceptionTest1()
         {
@@ -1340,7 +1283,6 @@
         /// <summary>
         /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue).
         /// </summary>
-        
         [Fact]
         public void SetPropValueByNameExceptionTest2()
         {
@@ -1355,9 +1297,8 @@
 
         /// <summary>
         /// Тест выпадения системного исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
-        /// при значении параметра DataObject равным null. 
+        /// при значении параметра DataObject равным null.
         /// </summary>
-        
         [Fact]
         public void SetPropValueByNameExceptionTest()
         {
@@ -1370,9 +1311,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyType()"/>, получающего .Net-тип свойства класса объекта данных по имени этого свойства.       
+        /// Тест метода <see cref="GetPropertyType()"/>, получающего .Net-тип свойства класса объекта данных по имени этого свойства.
         /// </summary>
-        
         [Fact]
         public void GetPropertyTypeTest()
         {
@@ -1397,7 +1337,6 @@
         /// Тест выпадения исключения NullReferenceException в методе GetStorageStructForView()
         /// в том случае, если некоторые входные параметры равны null.
         /// </summary>
-        
         [Fact]
         public void GetStorageStructForViewNullReferenceExceptionTest()
         {
@@ -1411,9 +1350,8 @@
 
         /// <summary>
         /// Тест выпадения исключения ClassIsNotSubclassOfOtherException в методе GetStorageStructForView()
-        /// в том случае, если класс объекта данных, передаваемый, как параметр type не является подклассом класса, которому принадлежит представление.  
+        /// в том случае, если класс объекта данных, передаваемый, как параметр type не является подклассом класса, которому принадлежит представление.
         /// </summary>
-        
         [Fact]
         public void GetStorageStructForViewClassIsNotSubclassOfOtherExceptionTest()
         {
@@ -1433,7 +1371,6 @@
         /// Тест выпадения исключения DifferentDataObjectTypesException в методе GetAlteredProperyNames()
         /// при различии типов сравниваемых объектов данных.
         /// </summary>
-        
         [Fact]
         public void GetAlteredProperyNamesDifferentDataObjectTypesExceptionTest()
         {
@@ -1448,7 +1385,6 @@
         /// Тест выпадения исключения DifferentDataObjectTypesException в методе GetAlteredPropertyNamesWithNotStored()
         /// при различии типов сравниваемых объектов данных.
         /// </summary>
-        
         [Fact]
         public void GetAlteredPropertyNamesWithNotStoredDifferentDataObjectTypesExceptionTest()
         {
@@ -1460,9 +1396,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="ContainsAlteredProps()"/>, сравнивающего два объекта данных и возвращающего true - если объекты различаются.        
+        /// Тест метода <see cref="ContainsAlteredProps()"/>, сравнивающего два объекта данных и возвращающего true - если объекты различаются.
         /// </summary>
-        
         [Fact]
         public void ContainsAlteredPropsTest()
         {
@@ -1519,7 +1454,6 @@
         /// Тест выпадения исключения DifferentDataObjectTypesException в методе ContainsAlteredProps()
         /// при различии типов сравниваемых объектов данных.
         /// </summary>
-        
         [Fact]
         public void ContainsAlteredPropsDifferentDataObjectTypesExceptionTest()
         {
@@ -1531,9 +1465,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="TrimmedStringStorage()"/>, определяющего обрезать ли строки для данного свойства.        
+        /// Тест метода <see cref="TrimmedStringStorage()"/>, определяющего обрезать ли строки для данного свойства.
         /// </summary>
-        
         [Fact]
         public void TrimmedStringStorageTest()
         {
@@ -1546,9 +1479,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetItemType()"/>, возвращающего тип элемента DetailArray.       
+        /// Тест метода <see cref="GetItemType()"/>, возвращающего тип элемента DetailArray.
         /// </summary>
-        
         [Fact]
         public void GetItemTypeTest()
         {
@@ -1580,9 +1512,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetCompatibleTypesForDetailProperty()"/>,  возвращающего типы, совместимые с детейловым свойством(по TypeUsage).        
+        /// Тест метода <see cref="GetCompatibleTypesForDetailProperty()"/>,  возвращающего типы, совместимые с детейловым свойством(по TypeUsage).
         /// </summary>
-        
         [Fact]
         public void GetCompatibleTypesForDetailPropertyTest()
         {
@@ -1596,9 +1527,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyDisableAutoViewing()"/>, определяющего является ли свойство автоматически включаемым в представления.       
+        /// Тест метода <see cref="GetPropertyDisableAutoViewing()"/>, определяющего является ли свойство автоматически включаемым в представления.
         /// </summary>
-        
         [Fact]
         public void GetPropertyDisableAutoViewingTest()
         {
@@ -1611,9 +1541,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetAllTypesFromView()"/>, возвращаюшего список типов из представления.   
+        /// Тест метода <see cref="GetAllTypesFromView()"/>, возвращаюшего список типов из представления.
         /// </summary>
-        
         [Fact]
         public void GetAllTypesFromViewTest()
         {
@@ -1635,7 +1564,6 @@
         /// <summary>
         /// Тест метода <see cref="IsStoredType()"/>, проверяющего хранимый ли Class.
         /// </summary>
-        
         [Fact]
         public void IsStoredTypeTest()
         {
@@ -1648,7 +1576,6 @@
         /// Тест метода <see cref="Information.GetAllTypesFromView(ExtendedView)"/>, возвращаюшего список типов элементов представления,
         /// если ExtendedView формируется некорректно.
         /// </summary>
-        
         [Fact]
         public void GetAllTypesFromExtendedViewTest0()
         {
@@ -1660,9 +1587,8 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="Information.GetAllTypesFromView(ExtendedView)"/>, возвращаюшего список типов элементов представления.       
+        /// Тест метода <see cref="Information.GetAllTypesFromView(ExtendedView)"/>, возвращаюшего список типов элементов представления.
         /// </summary>
-        
         [Fact]
         public void GetAllTypesFromExtendedViewTest()
         {
@@ -1684,10 +1610,9 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="Information.GetAllTypesFromView(ExtendedView)"/>, возвращаюшего список типов элементов представления.     
-        /// Передаём список свойств, отличный от списка свойств представления.  
+        /// Тест метода <see cref="Information.GetAllTypesFromView(ExtendedView)"/>, возвращаюшего список типов элементов представления.
+        /// Передаём список свойств, отличный от списка свойств представления.
         /// </summary>
-        
         [Fact]
         public void GetAllTypesFromExtendedViewTest2()
         {
@@ -1709,7 +1634,6 @@
         /// <summary>
         /// Тест метода <see cref="GetClassCaption()"/>, возвращающего заголовок для класса.
         /// </summary>
-        
         [Fact]
         public void GetClassCaptionTest()
         {
@@ -1732,7 +1656,6 @@
         /// <summary>
         /// Тест метода <see cref="GetExpressionForProperty()"/>, возвращающего выражения, указанные атрибутами <see cref="DataServiceExpressionAttribute"/> для свойства.
         /// </summary>
-        
         [Fact]
         public void GetExpressionForPropertyTest()
         {
@@ -1754,6 +1677,20 @@
         }
 
         /// <summary>
+        /// Тест метода <see cref="Information.CheckCompatibleStorageTypes"/>, проверяющий на совместимость хралищ у двух типов данных.
+        /// </summary>
+        [Fact]
+        public void CheckCompatibleStorageTypesTest()
+        {
+            // Совместимые типы.
+            Assert.True(Information.CheckCompatibleStorageTypes(typeof(MasterClass), typeof(InheritedMasterClass)));
+            Assert.True(Information.CheckCompatibleStorageTypes(typeof(MasterClass), typeof(MasterClass)));
+
+            // Несовместимые типы.
+            Assert.True(!Information.CheckCompatibleStorageTypes(typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+        }
+
+        /// <summary>
         /// Специальный класс для теста, имеющий пустое значение.
         /// </summary>
         public class SpecialEmptyValueForTest : ISpecialEmptyValue
@@ -1766,7 +1703,7 @@
             /// </param>
             /// <returns>
             /// Оно пустое. <see cref="bool"/>.
-            /// </returns>      
+            /// </returns>
             [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1630:DocumentationTextMustContainWhitespace", Justification = "Reviewed. Suppression is OK here.")]
             public bool IsEmptyValue(object value)
             {

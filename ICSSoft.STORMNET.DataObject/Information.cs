@@ -4674,6 +4674,23 @@
             // return "("+result+")";
             return (string[])sc.ToArray(typeof(string));
         }
+
+        /// <summary>
+        /// Проверить совместимость хранилищ указанных типов.
+        /// </summary>
+        /// <param name="type1">Тип 1.</param>
+        /// <param name="type2">Тип 2.</param>
+        /// <returns>Возвращает <c>true</c>, если совместимы.</returns>
+        public static bool CheckCompatibleStorageTypes(Type type1, Type type2)
+        {
+            if (type1 == null || type2 == null)
+            {
+                return false;
+            }
+
+            return type1 == type2
+                   || GetClassStorageName(type1) == GetClassStorageName(type2);
+        }
     }
     #endregion
 }

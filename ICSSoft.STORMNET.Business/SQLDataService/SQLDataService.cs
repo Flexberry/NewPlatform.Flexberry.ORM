@@ -3860,7 +3860,7 @@
                                 realpropname = PutIdentifierIntoBrackets(propstor + "_m" + i.ToString());
                             }
 
-                            if (propValType != mastertypes[i])
+                            if (!Information.CheckCompatibleStorageTypes(propValType, mastertypes[i]))
                             {
                                 propsWithValues.Add(realpropname, ConvertValueToQueryValueString(null));
                             }
