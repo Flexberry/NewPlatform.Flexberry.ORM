@@ -146,6 +146,7 @@
     <Compile Include="Common\CommonTest.cs" />
     <Compile Include="Common\ForeachWithMethodTest.cs" />
     <Compile Include="Common\TypeFullNameTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectExtensionTests.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DetailArray.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\EquivalenceMethods.cs" />
