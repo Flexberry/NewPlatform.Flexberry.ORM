@@ -102,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\PublishNameAttribute.cs" />
+    <Compile Include="Delegates\CheckCompatiblePropertyStorageTypesDelegate.cs" />
+    <Compile Include="Delegates\TuneStaticViewDelegate.cs" />
     <Compile Include="EnumCaption.cs" />
     <Compile Include="Attributes\IsHTMLAttribute.cs" />
     <Compile Include="ControlProviderAttribute.cs" />
@@ -161,7 +163,6 @@
     <Compile Include="Security\tTypeAccess.cs" />
     <Compile Include="Security\UnauthorizedAccessException.cs" />
     <Compile Include="Security\UpdateResult.cs" />
-    <Compile Include="TuneStaticViewDelegate.cs" />
     <Compile Include="TypeKeyPair.cs" />
     <Compile Include="TypeKeyPairEqualityComparer.cs" />
     <Compile Include="TypePropertyAtrValue.cs">

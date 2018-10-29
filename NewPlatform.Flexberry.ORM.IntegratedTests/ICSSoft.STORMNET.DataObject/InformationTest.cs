@@ -8,6 +8,7 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Threading;
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.KeyGen;
@@ -1677,17 +1678,62 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="Information.CheckCompatibleStorageTypes"/>, проверяющий на совместимость хралищ у двух типов данных.
+        /// Тест метода <see cref="Information.CheckCompatiblePropertyStorageTypes"/>, проверяющий на совместимость хралищ у двух типов данных.
         /// </summary>
         [Fact]
-        public void CheckCompatibleStorageTypesTest()
+        public void CheckCompatiblePropertyStorageTypesTest1()
         {
-            // Совместимые типы.
-            Assert.True(Information.CheckCompatibleStorageTypes(typeof(MasterClass), typeof(InheritedMasterClass)));
-            Assert.True(Information.CheckCompatibleStorageTypes(typeof(MasterClass), typeof(MasterClass)));
+            // Arrange.
+            var dobj = new DetailClass();
+            string propName = nameof(DetailClass.MasterClass);
 
-            // Несовместимые типы.
-            Assert.True(!Information.CheckCompatibleStorageTypes(typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            // Assert.
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(MasterClass), typeof(MasterClass)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(InheritedMasterClass), typeof(MasterClass)));
+        }
+
+        /// <summary>
+        /// Тест метода <see cref="Information.CheckCompatiblePropertyStorageTypes"/>, проверяющий на несовместимость хралищ у двух типов данных.
+        /// </summary>
+        [Fact]
+        public void CheckCompatiblePropertyStorageTypesTest2()
+        {
+            // Arrange.
+            var dobj = new DetailUpdateObjectTest();
+            string propName = nameof(DetailUpdateObjectTest.AggregatorUpdateObjectTest);
+
+            // Assert.
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(AggregatorUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            Assert.True(!Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+        }
+
+        /// <summary>
+        /// Тест метода <see cref="Information.CheckCompatiblePropertyStorageTypes"/>, проверяющий на совместимость хралищ у двух типов данных.
+        /// </summary>
+        [Fact]
+        public void CheckCompatiblePropertyStorageTypesTest3()
+        {
+            // Arrange.
+            var dobj = new DetailUpdateObjectTest();
+            string propName = nameof(DetailUpdateObjectTest.AggregatorUpdateObjectTest);
+            Information.CheckCompatiblePropertyStorageTypesDelegate = CheckCompatiblePropertyStorageTypes;
+
+            // Assert.
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(AggregatorUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+
+            Information.CheckCompatiblePropertyStorageTypesDelegate = null;
+        }
+
+        private bool CheckCompatiblePropertyStorageTypes(DataObject dobj, string propName, Type propValType, Type allowedType)
+        {
+            // Укажем, что несовместимые типы совместимы.
+            if (propValType == typeof(MasterUpdateObjectTest))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

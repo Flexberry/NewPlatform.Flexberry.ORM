@@ -1595,6 +1595,11 @@
             PublicStringProperty.
             </summary>
         </member>
+        <member name="T:NewPlatform.Flexberry.ORM.Tests.InheritedMasterClass">
+            <summary>
+            InheritedMasterClass.
+            </summary>
+        </member>
         <member name="T:NewPlatform.Flexberry.ORM.Tests.MasterClass">
             <summary>
             MasterClass.

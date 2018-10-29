@@ -3,3 +3,6 @@
 **/obj/
 **/.vs/
 *.coverage
+
+#Ignore files built by Visual Studio
+*.user

@@ -4676,20 +4676,28 @@
         }
 
         /// <summary>
-        /// Проверить совместимость хранилищ указанных типов.
+        /// Делегат для проверки совместимости хранилищ свойств у указанных типов.
         /// </summary>
-        /// <param name="type1">Тип 1.</param>
-        /// <param name="type2">Тип 2.</param>
+        public static CheckCompatiblePropertyStorageTypesDelegate CheckCompatiblePropertyStorageTypesDelegate { get; set; }
+
+        /// <summary>
+        /// Проверить совместимость хранилищ свойств у указанных типов.
+        /// </summary>
+        /// <param name="dobj">Проверяемый объект данных.</param>
+        /// <param name="propName">Проверяемое свойство.</param>
+        /// <param name="propValType">Тип значения, присвоенного свойству.</param>
+        /// <param name="allowedType">Тип, являющийся допустимым для свойства.</param>
         /// <returns>Возвращает <c>true</c>, если совместимы.</returns>
-        public static bool CheckCompatibleStorageTypes(Type type1, Type type2)
+        public static bool CheckCompatiblePropertyStorageTypes(DataObject dobj, string propName, Type propValType, Type allowedType)
         {
-            if (type1 == null || type2 == null)
+            if (propValType == null || allowedType == null)
             {
                 return false;
             }
 
-            return type1 == type2
-                   || GetClassStorageName(type1) == GetClassStorageName(type2);
+            return propValType == allowedType
+                   || GetClassStorageName(propValType) == GetClassStorageName(allowedType)
+                   || CheckCompatiblePropertyStorageTypesDelegate?.Invoke(dobj, propName, propValType, allowedType) == true;
         }
     }
     #endregion
