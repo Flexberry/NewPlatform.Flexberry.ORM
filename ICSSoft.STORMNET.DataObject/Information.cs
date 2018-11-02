@@ -2298,6 +2298,17 @@
             }
         }
 
+        /// <summary>
+        /// Clear cache for <see cref="GetClassStorageName(Type)"/> method.
+        /// </summary>
+        public static void ClearGetClassStorageName()
+        {
+            lock (cacheClassStorageName)
+            {
+                cacheClassStorageName = new TypeAtrValueCollection();
+            }
+        }
+
         static private TypeAtrValueCollection cacheAutoAlteredClass = new TypeAtrValueCollection();
 
         /// <summary>
@@ -4683,12 +4694,12 @@
         /// <summary>
         /// Проверить совместимость хранилищ свойств у указанных типов.
         /// </summary>
-        /// <param name="dobj">Проверяемый объект данных.</param>
+        /// <param name="dobjType">Тип проверяемого объекта данных.</param>
         /// <param name="propName">Проверяемое свойство.</param>
         /// <param name="propValType">Тип значения, присвоенного свойству.</param>
         /// <param name="allowedType">Тип, являющийся допустимым для свойства.</param>
         /// <returns>Возвращает <c>true</c>, если совместимы.</returns>
-        public static bool CheckCompatiblePropertyStorageTypes(DataObject dobj, string propName, Type propValType, Type allowedType)
+        public static bool CheckCompatiblePropertyStorageTypes(Type dobjType, string propName, Type propValType, Type allowedType)
         {
             if (propValType == null || allowedType == null)
             {
@@ -4697,7 +4708,7 @@
 
             return propValType == allowedType
                    || GetClassStorageName(propValType) == GetClassStorageName(allowedType)
-                   || CheckCompatiblePropertyStorageTypesDelegate?.Invoke(dobj, propName, propValType, allowedType) == true;
+                   || CheckCompatiblePropertyStorageTypesDelegate?.Invoke(dobjType, propName, propValType, allowedType) == true;
         }
     }
     #endregion

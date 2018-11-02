@@ -1684,12 +1684,12 @@
         public void CheckCompatiblePropertyStorageTypesTest1()
         {
             // Arrange.
-            var dobj = new DetailClass();
+            var dobjType = typeof(DetailClass);
             string propName = nameof(DetailClass.MasterClass);
 
             // Assert.
-            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(MasterClass), typeof(MasterClass)));
-            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(InheritedMasterClass), typeof(MasterClass)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobjType, propName, typeof(MasterClass), typeof(MasterClass)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobjType, propName, typeof(InheritedMasterClass), typeof(MasterClass)));
         }
 
         /// <summary>
@@ -1699,12 +1699,12 @@
         public void CheckCompatiblePropertyStorageTypesTest2()
         {
             // Arrange.
-            var dobj = new DetailUpdateObjectTest();
+            var dobjType = typeof(DetailUpdateObjectTest);
             string propName = nameof(DetailUpdateObjectTest.AggregatorUpdateObjectTest);
 
             // Assert.
-            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(AggregatorUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
-            Assert.True(!Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobjType, propName, typeof(AggregatorUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            Assert.True(!Information.CheckCompatiblePropertyStorageTypes(dobjType, propName, typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
         }
 
         /// <summary>
@@ -1714,18 +1714,18 @@
         public void CheckCompatiblePropertyStorageTypesTest3()
         {
             // Arrange.
-            var dobj = new DetailUpdateObjectTest();
+            var dobjType = typeof(DetailUpdateObjectTest);
             string propName = nameof(DetailUpdateObjectTest.AggregatorUpdateObjectTest);
             Information.CheckCompatiblePropertyStorageTypesDelegate = CheckCompatiblePropertyStorageTypes;
 
             // Assert.
-            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(AggregatorUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
-            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobj, propName, typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobjType, propName, typeof(AggregatorUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
+            Assert.True(Information.CheckCompatiblePropertyStorageTypes(dobjType, propName, typeof(MasterUpdateObjectTest), typeof(AggregatorUpdateObjectTest)));
 
             Information.CheckCompatiblePropertyStorageTypesDelegate = null;
         }
 
-        private bool CheckCompatiblePropertyStorageTypes(DataObject dobj, string propName, Type propValType, Type allowedType)
+        private bool CheckCompatiblePropertyStorageTypes(Type dobjType, string propName, Type propValType, Type allowedType)
         {
             // Укажем, что несовместимые типы совместимы.
             if (propValType == typeof(MasterUpdateObjectTest))

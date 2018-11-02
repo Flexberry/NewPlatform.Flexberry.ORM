@@ -1056,7 +1056,7 @@
         }
 
         /// <summary>
-        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
+        /// Тест для проверки наследуемых классов с одним хранилищем на уровне БД.
         /// </summary>
         [Fact]
         public void InheritedMasterClassTest()
