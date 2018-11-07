@@ -113,6 +113,7 @@
     <Compile Include="InformationTestClass4.cs" />
     <Compile Include="InformationTestClass6.cs" />
     <Compile Include="InformationTestClassChild.cs" />
+    <Compile Include="InheritedMasterClass.cs" />
     <Compile Include="MasterClass.cs" />
     <Compile Include="MasterUpdateObjectTest.cs" />
     <Compile Include="NotStoredClass.cs" />

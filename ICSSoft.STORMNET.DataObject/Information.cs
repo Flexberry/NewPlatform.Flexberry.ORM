@@ -2298,6 +2298,17 @@
             }
         }
 
+        /// <summary>
+        /// Clear cache for <see cref="GetClassStorageName(Type)"/> method.
+        /// </summary>
+        public static void ClearGetClassStorageName()
+        {
+            lock (cacheClassStorageName)
+            {
+                cacheClassStorageName = new TypeAtrValueCollection();
+            }
+        }
+
         static private TypeAtrValueCollection cacheAutoAlteredClass = new TypeAtrValueCollection();
 
         /// <summary>
@@ -4673,6 +4684,31 @@
 
             // return "("+result+")";
             return (string[])sc.ToArray(typeof(string));
+        }
+
+        /// <summary>
+        /// Делегат для проверки совместимости хранилищ свойств у указанных типов.
+        /// </summary>
+        public static CheckCompatiblePropertyStorageTypesDelegate CheckCompatiblePropertyStorageTypesDelegate { get; set; }
+
+        /// <summary>
+        /// Проверить совместимость хранилищ свойств у указанных типов.
+        /// </summary>
+        /// <param name="dobjType">Тип проверяемого объекта данных.</param>
+        /// <param name="propName">Проверяемое свойство.</param>
+        /// <param name="propValType">Тип значения, присвоенного свойству.</param>
+        /// <param name="allowedType">Тип, являющийся допустимым для свойства.</param>
+        /// <returns>Возвращает <c>true</c>, если совместимы.</returns>
+        public static bool CheckCompatiblePropertyStorageTypes(Type dobjType, string propName, Type propValType, Type allowedType)
+        {
+            if (propValType == null || allowedType == null)
+            {
+                return false;
+            }
+
+            return propValType == allowedType
+                   || GetClassStorageName(propValType) == GetClassStorageName(allowedType)
+                   || CheckCompatiblePropertyStorageTypesDelegate?.Invoke(dobjType, propName, propValType, allowedType) == true;
         }
     }
     #endregion
