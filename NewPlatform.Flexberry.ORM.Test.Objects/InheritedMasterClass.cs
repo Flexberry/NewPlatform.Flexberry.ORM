@@ -13,8 +13,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System;
     using System.Xml;
     using ICSSoft.STORMNET;
-
-
+    
+    
     // *** Start programmer edit section *** (Using statements)
 
     // *** End programmer edit section *** (Using statements)
@@ -29,11 +29,12 @@ namespace NewPlatform.Flexberry.ORM.Tests
     [ClassStorage("MasterClass")]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
-    public class InheritedMasterClass : MasterClass
+    public class InheritedMasterClass : NewPlatform.Flexberry.ORM.Tests.MasterClass
     {
-
+        
         // *** Start programmer edit section *** (InheritedMasterClass CustomMembers)
 
         // *** End programmer edit section *** (InheritedMasterClass CustomMembers)
+
     }
 }

@@ -110,8 +110,10 @@ namespace NewPlatform.Flexberry.ORM.Tests
         // *** End programmer edit section *** (DetailClass.MasterClass CustomAttributes)
         [Agregator()]
         [NotNull()]
-        [PropertyStorage(new string[] {
-                "MasterClass"})]
+        [PropertyStorage("MasterClass")]
+        [TypeUsage(new string[] {
+                "NewPlatform.Flexberry.ORM.Tests.InheritedMasterClass",
+                "NewPlatform.Flexberry.ORM.Tests.MasterClass"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.MasterClass MasterClass
         {
             get

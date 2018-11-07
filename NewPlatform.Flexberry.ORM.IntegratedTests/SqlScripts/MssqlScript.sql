@@ -1,4 +1,4 @@
-п»ї
+
 
 
 
@@ -17,30 +17,30 @@ CREATE TABLE [InformationTestClass] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РўРёРїР›Р°РїС‹] (
+CREATE TABLE [ТипЛапы] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°Р·РІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Название] VARCHAR(255)  NULL,
 
-	 [РђРєС‚СѓР°Р»СЊРЅРѕ] BIT  NULL,
+	 [Актуально] BIT  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РРґРµСЏ] (
+CREATE TABLE [Идея] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р—Р°РіРѕР»РѕРІРѕРє] VARCHAR(255)  NULL,
+	 [Заголовок] VARCHAR(255)  NULL,
 
-	 [РћРїРёСЃР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Описание] VARCHAR(255)  NULL,
 
-	 [РЎСѓРјРјР°Р‘Р°Р»Р»РѕРІ] FLOAT  NULL,
+	 [СуммаБаллов] FLOAT  NULL,
 
-	 [РљРѕРЅРєСѓСЂСЃ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Конкурс_m0] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РђРІС‚РѕСЂ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Автор_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -120,11 +120,11 @@ CREATE TABLE [TestClassA] (
 
 	 [Value] INT  NULL,
 
-	 [РњР°СЃС‚РµСЂ_m0] UNIQUEIDENTIFIER  NULL,
+	 [Мастер_m0] UNIQUEIDENTIFIER  NULL,
 
-	 [РњР°СЃС‚РµСЂ_m1] UNIQUEIDENTIFIER  NULL,
+	 [Мастер_m1] UNIQUEIDENTIFIER  NULL,
 
-	 [РњР°СЃС‚РµСЂ_m2] UNIQUEIDENTIFIER  NULL,
+	 [Мастер_m2] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -151,115 +151,115 @@ CREATE TABLE [AggregatorUpdateObjectTest] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р›Р°РїР°] (
+CREATE TABLE [Лапа] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р¦РІРµС‚] VARCHAR(255)  NULL,
+	 [Цвет] VARCHAR(255)  NULL,
 
-	 [Р Р°Р·РјРµСЂ] INT  NULL,
+	 [Размер] INT  NULL,
 
-	 [Р”Р°С‚Р°Р РѕР¶РґРµРЅРёСЏ] DATETIME  NULL,
+	 [ДатаРождения] DATETIME  NULL,
 
-	 [Р‘С‹Р»РёР›РёРџРµСЂРµР»РѕРјС‹] BIT  NULL,
+	 [БылиЛиПереломы] BIT  NULL,
 
-	 [РЎС‚РѕСЂРѕРЅР°] VARCHAR(11)  NULL,
+	 [Сторона] VARCHAR(11)  NULL,
 
-	 [РќРѕРјРµСЂ] INT  NULL,
+	 [Номер] INT  NULL,
 
-	 [Р Р°Р·РјРµСЂDouble] FLOAT  NULL,
+	 [РазмерDouble] FLOAT  NULL,
 
-	 [Р Р°Р·РјРµСЂFloat] REAL  NULL,
+	 [РазмерFloat] REAL  NULL,
 
-	 [Р Р°Р·РјРµСЂNullableInt] INT  NULL,
+	 [РазмерNullableInt] INT  NULL,
 
-	 [Р Р°Р·РјРµСЂDecimal] DECIMAL(18,4)  NULL,
+	 [РазмерDecimal] DECIMAL(18,4)  NULL,
 
-	 [Р Р°Р·РјРµСЂNullableDecimal] DECIMAL(18,4)  NULL,
+	 [РазмерNullableDecimal] DECIMAL(18,4)  NULL,
 
-	 [Р Р°Р·РјРµСЂNullableChar] TINYINT  NULL,
+	 [РазмерNullableChar] TINYINT  NULL,
 
-	 [РўРёРїР›Р°РїС‹_m0] UNIQUEIDENTIFIER  NULL,
+	 [ТипЛапы_m0] UNIQUEIDENTIFIER  NULL,
 
-	 [РљРѕС€РєР°_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Кошка_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°] (
+CREATE TABLE [ИФХозДоговора] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќРѕРјРµСЂРР¤РҐРѕР·Р”РѕРіРѕРІ] INT  NULL,
+	 [НомерИФХозДогов] INT  NULL,
 
-	 [РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ] UNIQUEIDENTIFIER  NOT NULL,
+	 [ИсточникФинан] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [ХозДоговор_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РљРѕС‚РµРЅРѕРє] (
+CREATE TABLE [Котенок] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РљР»РёС‡РєР°РљРѕС‚РµРЅРєР°] VARCHAR(255)  NULL,
+	 [КличкаКотенка] VARCHAR(255)  NULL,
 
-	 [Р“Р»СѓРїРѕСЃС‚СЊ] INT  NULL,
+	 [Глупость] INT  NULL,
 
-	 [РљРѕС€РєР°] UNIQUEIDENTIFIER  NOT NULL,
+	 [Кошка] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ] (
+CREATE TABLE [ЗначениеКритер] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р—РЅР°С‡РµРЅРёРµ] VARCHAR(255)  NULL,
+	 [Значение] VARCHAR(255)  NULL,
 
-	 [РЎСЂРµРґРћС†РµРЅРєР°Р­РєСЃРї] FLOAT  NULL,
+	 [СредОценкаЭксп] FLOAT  NULL,
 
-	 [РљСЂРёС‚РµСЂРёР№_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Критерий_m0] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РРґРµСЏ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Идея_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ] (
+CREATE TABLE [ДокККонкурсу] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р¤Р°Р№Р»] NVARCHAR(MAX)  NULL,
+	 [Файл] NVARCHAR(MAX)  NULL,
 
-	 [РљРѕРЅРєСѓСЂСЃ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Конкурс_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р›РёС‡РЅРѕСЃС‚СЊ] (
+CREATE TABLE [Личность] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р¤РРћ] VARCHAR(255)  NULL,
+	 [ФИО] VARCHAR(255)  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р›РµСЃ] (
+CREATE TABLE [Лес] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°Р·РІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Название] VARCHAR(255)  NULL,
 
-	 [РџР»РѕС‰Р°РґСЊ] INT  NULL,
+	 [Площадь] INT  NULL,
 
-	 [Р—Р°РїРѕРІРµРґРЅРёРє] BIT  NULL,
+	 [Заповедник] BIT  NULL,
 
-	 [Р”Р°С‚Р°РџРѕСЃР»РћСЃРјРѕС‚СЂ] DATETIME  NULL,
+	 [ДатаПослОсмотр] DATETIME  NULL,
 
-	 [РЎС‚СЂР°РЅР°] UNIQUEIDENTIFIER  NULL,
+	 [Страна] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -335,22 +335,22 @@ CREATE TABLE [SomeMasterClass] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РџРѕСЂРѕРґР°] (
+CREATE TABLE [Порода] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°Р·РІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Название] VARCHAR(255)  NULL,
 
-	 [РљР»СЋС‡] uniqueidentifier  NULL,
+	 [Ключ] uniqueidentifier  NULL,
 
-	 [РўРёРїРџРѕСЂРѕРґС‹] UNIQUEIDENTIFIER  NULL,
+	 [ТипПороды] UNIQUEIDENTIFIER  NULL,
 
-	 [РРµСЂР°СЂС…РёСЏ] UNIQUEIDENTIFIER  NULL,
+	 [Иерархия] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РњР°СЃС‚РµСЂРњ] (
+CREATE TABLE [МастерМ] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
@@ -361,22 +361,22 @@ CREATE TABLE [РњР°СЃС‚РµСЂРњ] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р‘Р»РѕС…Р°] (
+CREATE TABLE [Блоха] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РљР»РёС‡РєР°] VARCHAR(255)  NULL,
+	 [Кличка] VARCHAR(255)  NULL,
 
-	 [РњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ] UNIQUEIDENTIFIER  NULL,
+	 [МедведьОбитания] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РЎС‚СЂР°РЅР°] (
+CREATE TABLE [Страна] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°Р·РІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Название] VARCHAR(255)  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -396,26 +396,28 @@ CREATE TABLE [DetailClass] (
 
 	 [Detailproperty] VARCHAR(255)  NULL,
 
-	 [MasterClass] UNIQUEIDENTIFIER  NOT NULL,
+	 [MasterClass_m0] UNIQUEIDENTIFIER  NULL,
+
+	 [MasterClass_m1] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РљСЂРµРґРёС‚] (
+CREATE TABLE [Кредит] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р”Р°С‚Р°Р’С‹РґР°С‡Рё] DATETIME  NULL,
+	 [ДатаВыдачи] DATETIME  NULL,
 
-	 [РЎСѓРјРјР°РљСЂРµРґРёС‚Р°] FLOAT  NULL,
+	 [СуммаКредита] FLOAT  NULL,
 
-	 [РЎСЂРѕРєРљСЂРµРґРёС‚Р°] INT  NULL,
+	 [СрокКредита] INT  NULL,
 
-	 [Р’РёРґРљСЂРµРґРёС‚Р°] VARCHAR(15)  NULL,
+	 [ВидКредита] VARCHAR(15)  NULL,
 
-	 [РљР»РёРµРЅС‚] UNIQUEIDENTIFIER  NULL,
+	 [Клиент] UNIQUEIDENTIFIER  NULL,
 
-	 [РРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ] UNIQUEIDENTIFIER  NULL,
+	 [ИнспекторПоКред] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -433,13 +435,13 @@ CREATE TABLE [MasterUpdateObjectTest] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РўРёРїРџРѕСЂРѕРґС‹] (
+CREATE TABLE [ТипПороды] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°Р·РІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Название] VARCHAR(255)  NULL,
 
-	 [Р”Р°С‚Р°Р РµРіРёСЃС‚СЂР°С†РёРё] DATETIME  NULL,
+	 [ДатаРегистрации] DATETIME  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -515,27 +517,27 @@ CREATE TABLE [AuditClassWithoutSettings] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РљРѕС€РєР°] (
+CREATE TABLE [Кошка] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РљР»РёС‡РєР°] VARCHAR(255)  NULL,
+	 [Кличка] VARCHAR(255)  NULL,
 
-	 [Р”Р°С‚Р°Р РѕР¶РґРµРЅРёСЏ] DATETIME  NOT NULL,
+	 [ДатаРождения] DATETIME  NOT NULL,
 
-	 [РўРёРї] VARCHAR(8)  NOT NULL,
+	 [Тип] VARCHAR(8)  NOT NULL,
 
-	 [РџРѕСЂРѕРґР°РЎС‚СЂРѕРєРѕР№] VARCHAR(255)  NULL,
+	 [ПородаСтрокой] VARCHAR(255)  NULL,
 
-	 [РђРіСЂРµСЃСЃРёРІРЅР°СЏ] BIT  NULL,
+	 [Агрессивная] BIT  NULL,
 
-	 [РљРѕР»РІРѕРЈСЃРѕРІРЎР»РµРІР°] INT  NULL,
+	 [КолвоУсовСлева] INT  NULL,
 
-	 [РљРѕР»РІРѕРЈСЃРѕРІРЎРїСЂР°РІР°] INT  NULL,
+	 [КолвоУсовСправа] INT  NULL,
 
-	 [РљР»СЋС‡] uniqueidentifier  NULL,
+	 [Ключ] uniqueidentifier  NULL,
 
-	 [РџРѕСЂРѕРґР°] UNIQUEIDENTIFIER  NOT NULL,
+	 [Порода] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -635,52 +637,52 @@ CREATE TABLE [ForKeyStorageTest] (
 	 PRIMARY KEY ([StorageForKey]))
 
 
-CREATE TABLE [Р’С‹РїР»Р°С‚С‹] (
+CREATE TABLE [Выплаты] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р”Р°С‚Р°Р’С‹РїР»Р°С‚С‹] DATETIME  NULL,
+	 [ДатаВыплаты] DATETIME  NULL,
 
-	 [РЎСѓРјРјР°Р’С‹РїР»Р°С‚С‹] FLOAT  NULL,
+	 [СуммаВыплаты] FLOAT  NULL,
 
-	 [РљСЂРµРґРёС‚1] UNIQUEIDENTIFIER  NOT NULL,
+	 [Кредит1] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅСЃ] (
+CREATE TABLE [ИсточникФинанс] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќРѕРјРСЃС‚РѕС‡РЅРёРєР°Р¤РёРЅ] INT  NULL,
+	 [НомИсточникаФин] INT  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі] (
+CREATE TABLE [УчастникХозДог] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќРѕРјРЈС‡Р°СЃС‚РЅРҐРѕР·Р”РѕРі] INT  NULL,
+	 [НомУчастнХозДог] INT  NULL,
 
-	 [РЎС‚Р°С‚СѓСЃ] VARCHAR(12)  NULL,
+	 [Статус] VARCHAR(12)  NULL,
 
-	 [Р›РёС‡РЅРѕСЃС‚СЊ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Личность_m0] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [ХозДоговор_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РџРµСЂРµР»РѕРј] (
+CREATE TABLE [Перелом] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р”Р°С‚Р°] DATETIME  NULL,
+	 [Дата] DATETIME  NULL,
 
-	 [РўРёРї] VARCHAR(8)  NULL,
+	 [Тип] VARCHAR(8)  NULL,
 
-	 [Р›Р°РїР°_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Лапа_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -698,42 +700,42 @@ CREATE TABLE [Human2] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] (
+CREATE TABLE [ОценкаЭксперта] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р—РЅР°С‡РµРЅРёРµРћС†РµРЅРєРё] FLOAT  NULL,
+	 [ЗначениеОценки] FLOAT  NULL,
 
-	 [РљРѕРјРјРµРЅС‚Р°СЂРёР№] VARCHAR(255)  NULL,
+	 [Комментарий] VARCHAR(255)  NULL,
 
-	 [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ] UNIQUEIDENTIFIER  NOT NULL,
+	 [ЗначениеКритер] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р­РєСЃРїРµСЂС‚_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Эксперт_m0] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РРґРµСЏ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Идея_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РњРµРґРІРµРґСЊ] (
+CREATE TABLE [Медведь] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РџРѕСЂСЏРґРєРѕРІС‹Р№РќРѕРјРµСЂ] INT  NULL,
+	 [ПорядковыйНомер] INT  NULL,
 
-	 [Р’РµСЃ] INT  NULL,
+	 [Вес] INT  NULL,
 
-	 [Р¦РІРµС‚Р“Р»Р°Р·] VARCHAR(255)  NULL,
+	 [ЦветГлаз] VARCHAR(255)  NULL,
 
-	 [РџРѕР»] VARCHAR(7)  NULL,
+	 [Пол] VARCHAR(7)  NULL,
 
-	 [Р”Р°С‚Р°Р РѕР¶РґРµРЅРёСЏ] DATETIME  NULL,
+	 [ДатаРождения] DATETIME  NULL,
 
-	 [РњР°РјР°] UNIQUEIDENTIFIER  NULL,
+	 [Мама] UNIQUEIDENTIFIER  NULL,
 
-	 [РџР°РїР°] UNIQUEIDENTIFIER  NULL,
+	 [Папа] UNIQUEIDENTIFIER  NULL,
 
-	 [Р›РµСЃРћР±РёС‚Р°РЅРёСЏ] UNIQUEIDENTIFIER  NULL,
+	 [ЛесОбитания] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -749,19 +751,19 @@ CREATE TABLE [InformationTestClass6] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р‘РµСЂР»РѕРіР°] (
+CREATE TABLE [Берлога] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°РёРјРµРЅРѕРІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Наименование] VARCHAR(255)  NULL,
 
-	 [РљРѕРјС„РѕСЂС‚РЅРѕСЃС‚СЊ] INT  NULL,
+	 [Комфортность] INT  NULL,
 
-	 [Р—Р°Р±СЂРѕС€РµРЅР°] BIT  NULL,
+	 [Заброшена] BIT  NULL,
 
-	 [Р›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ] UNIQUEIDENTIFIER  NULL,
+	 [ЛесРасположения] UNIQUEIDENTIFIER  NULL,
 
-	 [РњРµРґРІРµРґСЊ] UNIQUEIDENTIFIER  NOT NULL,
+	 [Медведь] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -779,13 +781,13 @@ CREATE TABLE [AuditMasterMasterObject] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РљР»РёРµРЅС‚] (
+CREATE TABLE [Клиент] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р¤РРћ] VARCHAR(255)  NULL,
+	 [ФИО] VARCHAR(255)  NULL,
 
-	 [РџСЂРѕРїРёСЃРєР°] VARCHAR(255)  NULL,
+	 [Прописка] VARCHAR(255)  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -803,7 +805,7 @@ CREATE TABLE [Apparatus2] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РќР°СЃР»РµРґРЅРёРєРњ2] (
+CREATE TABLE [НаследникМ2] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
@@ -814,22 +816,22 @@ CREATE TABLE [РќР°СЃР»РµРґРЅРёРєРњ2] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ] (
+CREATE TABLE [Пользователь] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р›РѕРіРёРЅ] VARCHAR(255)  NULL,
+	 [Логин] VARCHAR(255)  NULL,
 
-	 [Р¤РРћ] VARCHAR(255)  NULL,
+	 [ФИО] VARCHAR(255)  NULL,
 
 	 [EMail] VARCHAR(255)  NULL,
 
-	 [Р”Р°С‚Р°Р РµРіРёСЃС‚СЂР°С†РёРё] DATETIME  NULL,
+	 [ДатаРегистрации] DATETIME  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РќР°СЃР»РµРґРЅРёРєРњ1] (
+CREATE TABLE [НаследникМ1] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
@@ -954,19 +956,19 @@ CREATE TABLE [Plant2] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё] (
+CREATE TABLE [КритерийОценки] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РџРѕСЂСЏРґРєРѕРІС‹Р№РќРѕРјРµСЂ] INT  NULL,
+	 [ПорядковыйНомер] INT  NULL,
 
-	 [РћРїРёСЃР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Описание] VARCHAR(255)  NULL,
 
-	 [Р’РµСЃ] FLOAT  NULL,
+	 [Вес] FLOAT  NULL,
 
-	 [РћР±СЏР·Р°С‚РµР»СЊРЅС‹Р№] BIT  NULL,
+	 [Обязательный] BIT  NULL,
 
-	 [РљРѕРЅРєСѓСЂСЃ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Конкурс_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1017,34 +1019,34 @@ CREATE TABLE [Adress2] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РРЅСЃРїРџРѕРљСЂРµРґРёС‚Сѓ] (
+CREATE TABLE [ИнспПоКредиту] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р¤РРћ] VARCHAR(255)  NULL,
+	 [ФИО] VARCHAR(255)  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РљРѕРЅРєСѓСЂСЃ] (
+CREATE TABLE [Конкурс] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќР°Р·РІР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Название] VARCHAR(255)  NULL,
 
-	 [РћРїРёСЃР°РЅРёРµ] VARCHAR(255)  NULL,
+	 [Описание] VARCHAR(255)  NULL,
 
-	 [Р”Р°С‚Р°РќР°С‡Р°Р»Р°] DATETIME  NULL,
+	 [ДатаНачала] DATETIME  NULL,
 
-	 [Р”Р°С‚Р°РћРєРѕРЅС‡Р°РЅРёСЏ] DATETIME  NULL,
+	 [ДатаОкончания] DATETIME  NULL,
 
-	 [РќР°С‡Р°Р»РѕРћС†РµРЅРєРё] DATETIME  NULL,
+	 [НачалоОценки] DATETIME  NULL,
 
-	 [РћРєРѕРЅС‡Р°РЅРёРµРћС†РµРЅРєРё] DATETIME  NULL,
+	 [ОкончаниеОценки] DATETIME  NULL,
 
-	 [РЎРѕСЃС‚РѕСЏС‚РёРµ] VARCHAR(16)  NULL,
+	 [Состоятие] VARCHAR(16)  NULL,
 
-	 [РћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Организатор_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1132,11 +1134,11 @@ CREATE TABLE [SimpleDataObject] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [РҐРѕР·Р”РѕРіРѕРІРѕСЂ] (
+CREATE TABLE [ХозДоговор] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РќРѕРјРҐРѕР·Р”РѕРіРѕРІРѕСЂР°] INT  NULL,
+	 [НомХозДоговора] INT  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1198,15 +1200,15 @@ CREATE TABLE [Region] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Р¤Р°Р№Р»РРґРµРё] (
+CREATE TABLE [ФайлИдеи] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [Р¤Р°Р№Р»] NVARCHAR(MAX)  NULL,
+	 [Файл] NVARCHAR(MAX)  NULL,
 
-	 [Р’Р»Р°РґРµР»РµС†_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Владелец_m0] UNIQUEIDENTIFIER  NOT NULL,
 
-	 [РРґРµСЏ_m0] UNIQUEIDENTIFIER  NOT NULL,
+	 [Идея_m0] UNIQUEIDENTIFIER  NOT NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1532,11 +1534,11 @@ CREATE TABLE [STORMAuField] (
 
 
 
- ALTER TABLE [РРґРµСЏ] ADD CONSTRAINT [РРґРµСЏ_FРљРѕРЅРєСѓСЂСЃ_0] FOREIGN KEY ([РљРѕРЅРєСѓСЂСЃ_m0]) REFERENCES [РљРѕРЅРєСѓСЂСЃ]
-CREATE INDEX РРґРµСЏ_IРљРѕРЅРєСѓСЂСЃ_m0 on [РРґРµСЏ] ([РљРѕРЅРєСѓСЂСЃ_m0])
+ ALTER TABLE [Идея] ADD CONSTRAINT [Идея_FКонкурс_0] FOREIGN KEY ([Конкурс_m0]) REFERENCES [Конкурс]
+CREATE INDEX Идея_IКонкурс_m0 on [Идея] ([Конкурс_m0])
 
- ALTER TABLE [РРґРµСЏ] ADD CONSTRAINT [РРґРµСЏ_FРџРѕР»СЊР·РѕРІР°С‚РµР»СЊ_0] FOREIGN KEY ([РђРІС‚РѕСЂ_m0]) REFERENCES [РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ]
-CREATE INDEX РРґРµСЏ_IРђРІС‚РѕСЂ_m0 on [РРґРµСЏ] ([РђРІС‚РѕСЂ_m0])
+ ALTER TABLE [Идея] ADD CONSTRAINT [Идея_FПользователь_0] FOREIGN KEY ([Автор_m0]) REFERENCES [Пользователь]
+CREATE INDEX Идея_IАвтор_m0 on [Идея] ([Автор_m0])
 
  ALTER TABLE [AuditMasterObject] ADD CONSTRAINT [AuditMasterObject_FAuditMasterMasterObject_0] FOREIGN KEY ([MasterObject]) REFERENCES [AuditMasterMasterObject]
 CREATE INDEX AuditMasterObject_IMasterObject on [AuditMasterObject] ([MasterObject])
@@ -1547,14 +1549,14 @@ CREATE INDEX InformationTestClass2_IInformationTestClass_m0 on [InformationTestC
  ALTER TABLE [InformationTestClass2] ADD CONSTRAINT [InformationTestClass2_FInformationTestClassChild_0] FOREIGN KEY ([InformationTestClass_m1]) REFERENCES [InformationTestClassChild]
 CREATE INDEX InformationTestClass2_IInformationTestClass_m1 on [InformationTestClass2] ([InformationTestClass_m1])
 
- ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FРњР°СЃС‚РµСЂРњ_0] FOREIGN KEY ([РњР°СЃС‚РµСЂ_m0]) REFERENCES [РњР°СЃС‚РµСЂРњ]
-CREATE INDEX TestClassA_IРњР°СЃС‚РµСЂ_m0 on [TestClassA] ([РњР°СЃС‚РµСЂ_m0])
+ ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FМастерМ_0] FOREIGN KEY ([Мастер_m0]) REFERENCES [МастерМ]
+CREATE INDEX TestClassA_IМастер_m0 on [TestClassA] ([Мастер_m0])
 
- ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FРќР°СЃР»РµРґРЅРёРєРњ1_0] FOREIGN KEY ([РњР°СЃС‚РµСЂ_m1]) REFERENCES [РќР°СЃР»РµРґРЅРёРєРњ1]
-CREATE INDEX TestClassA_IРњР°СЃС‚РµСЂ_m1 on [TestClassA] ([РњР°СЃС‚РµСЂ_m1])
+ ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FНаследникМ1_0] FOREIGN KEY ([Мастер_m1]) REFERENCES [НаследникМ1]
+CREATE INDEX TestClassA_IМастер_m1 on [TestClassA] ([Мастер_m1])
 
- ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FРќР°СЃР»РµРґРЅРёРєРњ2_0] FOREIGN KEY ([РњР°СЃС‚РµСЂ_m2]) REFERENCES [РќР°СЃР»РµРґРЅРёРєРњ2]
-CREATE INDEX TestClassA_IРњР°СЃС‚РµСЂ_m2 on [TestClassA] ([РњР°СЃС‚РµСЂ_m2])
+ ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FНаследникМ2_0] FOREIGN KEY ([Мастер_m2]) REFERENCES [НаследникМ2]
+CREATE INDEX TestClassA_IМастер_m2 on [TestClassA] ([Мастер_m2])
 
  ALTER TABLE [clb] ADD CONSTRAINT [clb_Fcla_0] FOREIGN KEY ([ref2]) REFERENCES [cla]
 CREATE INDEX clb_Iref2 on [clb] ([ref2])
@@ -1565,32 +1567,32 @@ CREATE INDEX clb_Iref1 on [clb] ([ref1])
  ALTER TABLE [AggregatorUpdateObjectTest] ADD CONSTRAINT [AggregatorUpdateObjectTest_FDetailUpdateObjectTest_0] FOREIGN KEY ([Detail]) REFERENCES [DetailUpdateObjectTest]
 CREATE INDEX AggregatorUpdateObjectTest_IDetail on [AggregatorUpdateObjectTest] ([Detail])
 
- ALTER TABLE [Р›Р°РїР°] ADD CONSTRAINT [Р›Р°РїР°_FРўРёРїР›Р°РїС‹_0] FOREIGN KEY ([РўРёРїР›Р°РїС‹_m0]) REFERENCES [РўРёРїР›Р°РїС‹]
-CREATE INDEX Р›Р°РїР°_IРўРёРїР›Р°РїС‹_m0 on [Р›Р°РїР°] ([РўРёРїР›Р°РїС‹_m0])
+ ALTER TABLE [Лапа] ADD CONSTRAINT [Лапа_FТипЛапы_0] FOREIGN KEY ([ТипЛапы_m0]) REFERENCES [ТипЛапы]
+CREATE INDEX Лапа_IТипЛапы_m0 on [Лапа] ([ТипЛапы_m0])
 
- ALTER TABLE [Р›Р°РїР°] ADD CONSTRAINT [Р›Р°РїР°_FРљРѕС€РєР°_0] FOREIGN KEY ([РљРѕС€РєР°_m0]) REFERENCES [РљРѕС€РєР°]
-CREATE INDEX Р›Р°РїР°_IРљРѕС€РєР°_m0 on [Р›Р°РїР°] ([РљРѕС€РєР°_m0])
+ ALTER TABLE [Лапа] ADD CONSTRAINT [Лапа_FКошка_0] FOREIGN KEY ([Кошка_m0]) REFERENCES [Кошка]
+CREATE INDEX Лапа_IКошка_m0 on [Лапа] ([Кошка_m0])
 
- ALTER TABLE [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°] ADD CONSTRAINT [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°_FРСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅСЃ_0] FOREIGN KEY ([РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ]) REFERENCES [РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅСЃ]
-CREATE INDEX РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°_IРСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ on [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°] ([РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ])
+ ALTER TABLE [ИФХозДоговора] ADD CONSTRAINT [ИФХозДоговора_FИсточникФинанс_0] FOREIGN KEY ([ИсточникФинан]) REFERENCES [ИсточникФинанс]
+CREATE INDEX ИФХозДоговора_IИсточникФинан on [ИФХозДоговора] ([ИсточникФинан])
 
- ALTER TABLE [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°] ADD CONSTRAINT [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°_FРҐРѕР·Р”РѕРіРѕРІРѕСЂ_0] FOREIGN KEY ([РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0]) REFERENCES [РҐРѕР·Р”РѕРіРѕРІРѕСЂ]
-CREATE INDEX РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°_IРҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0 on [РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР°] ([РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0])
+ ALTER TABLE [ИФХозДоговора] ADD CONSTRAINT [ИФХозДоговора_FХозДоговор_0] FOREIGN KEY ([ХозДоговор_m0]) REFERENCES [ХозДоговор]
+CREATE INDEX ИФХозДоговора_IХозДоговор_m0 on [ИФХозДоговора] ([ХозДоговор_m0])
 
- ALTER TABLE [РљРѕС‚РµРЅРѕРє] ADD CONSTRAINT [РљРѕС‚РµРЅРѕРє_FРљРѕС€РєР°_0] FOREIGN KEY ([РљРѕС€РєР°]) REFERENCES [РљРѕС€РєР°]
-CREATE INDEX РљРѕС‚РµРЅРѕРє_IРљРѕС€РєР° on [РљРѕС‚РµРЅРѕРє] ([РљРѕС€РєР°])
+ ALTER TABLE [Котенок] ADD CONSTRAINT [Котенок_FКошка_0] FOREIGN KEY ([Кошка]) REFERENCES [Кошка]
+CREATE INDEX Котенок_IКошка on [Котенок] ([Кошка])
 
- ALTER TABLE [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ] ADD CONSTRAINT [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ_FРљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё_0] FOREIGN KEY ([РљСЂРёС‚РµСЂРёР№_m0]) REFERENCES [РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё]
-CREATE INDEX Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ_IРљСЂРёС‚РµСЂРёР№_m0 on [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ] ([РљСЂРёС‚РµСЂРёР№_m0])
+ ALTER TABLE [ЗначениеКритер] ADD CONSTRAINT [ЗначениеКритер_FКритерийОценки_0] FOREIGN KEY ([Критерий_m0]) REFERENCES [КритерийОценки]
+CREATE INDEX ЗначениеКритер_IКритерий_m0 on [ЗначениеКритер] ([Критерий_m0])
 
- ALTER TABLE [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ] ADD CONSTRAINT [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ_FРРґРµСЏ_0] FOREIGN KEY ([РРґРµСЏ_m0]) REFERENCES [РРґРµСЏ]
-CREATE INDEX Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ_IРРґРµСЏ_m0 on [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ] ([РРґРµСЏ_m0])
+ ALTER TABLE [ЗначениеКритер] ADD CONSTRAINT [ЗначениеКритер_FИдея_0] FOREIGN KEY ([Идея_m0]) REFERENCES [Идея]
+CREATE INDEX ЗначениеКритер_IИдея_m0 on [ЗначениеКритер] ([Идея_m0])
 
- ALTER TABLE [Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ] ADD CONSTRAINT [Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ_FРљРѕРЅРєСѓСЂСЃ_0] FOREIGN KEY ([РљРѕРЅРєСѓСЂСЃ_m0]) REFERENCES [РљРѕРЅРєСѓСЂСЃ]
-CREATE INDEX Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ_IРљРѕРЅРєСѓСЂСЃ_m0 on [Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ] ([РљРѕРЅРєСѓСЂСЃ_m0])
+ ALTER TABLE [ДокККонкурсу] ADD CONSTRAINT [ДокККонкурсу_FКонкурс_0] FOREIGN KEY ([Конкурс_m0]) REFERENCES [Конкурс]
+CREATE INDEX ДокККонкурсу_IКонкурс_m0 on [ДокККонкурсу] ([Конкурс_m0])
 
- ALTER TABLE [Р›РµСЃ] ADD CONSTRAINT [Р›РµСЃ_FРЎС‚СЂР°РЅР°_0] FOREIGN KEY ([РЎС‚СЂР°РЅР°]) REFERENCES [РЎС‚СЂР°РЅР°]
-CREATE INDEX Р›РµСЃ_IРЎС‚СЂР°РЅР° on [Р›РµСЃ] ([РЎС‚СЂР°РЅР°])
+ ALTER TABLE [Лес] ADD CONSTRAINT [Лес_FСтрана_0] FOREIGN KEY ([Страна]) REFERENCES [Страна]
+CREATE INDEX Лес_IСтрана on [Лес] ([Страна])
 
  ALTER TABLE [FullTypesDetail1] ADD CONSTRAINT [FullTypesDetail1_FFullTypesMainAgregator_0] FOREIGN KEY ([FullTypesMainAgregator_m0]) REFERENCES [FullTypesMainAgregator]
 CREATE INDEX FullTypesDetail1_IFullTypesMainAgregator_m0 on [FullTypesDetail1] ([FullTypesMainAgregator_m0])
@@ -1601,23 +1603,26 @@ CREATE INDEX DetailUpdateObjectTest_IMaster on [DetailUpdateObjectTest] ([Master
  ALTER TABLE [DetailUpdateObjectTest] ADD CONSTRAINT [DetailUpdateObjectTest_FAggregatorUpdateObjectTest_0] FOREIGN KEY ([AggregatorUpdateObjectTest]) REFERENCES [AggregatorUpdateObjectTest]
 CREATE INDEX DetailUpdateObjectTest_IAggregatorUpdateObjectTest on [DetailUpdateObjectTest] ([AggregatorUpdateObjectTest])
 
- ALTER TABLE [РџРѕСЂРѕРґР°] ADD CONSTRAINT [РџРѕСЂРѕРґР°_FРўРёРїРџРѕСЂРѕРґС‹_0] FOREIGN KEY ([РўРёРїРџРѕСЂРѕРґС‹]) REFERENCES [РўРёРїРџРѕСЂРѕРґС‹]
-CREATE INDEX РџРѕСЂРѕРґР°_IРўРёРїРџРѕСЂРѕРґС‹ on [РџРѕСЂРѕРґР°] ([РўРёРїРџРѕСЂРѕРґС‹])
+ ALTER TABLE [Порода] ADD CONSTRAINT [Порода_FТипПороды_0] FOREIGN KEY ([ТипПороды]) REFERENCES [ТипПороды]
+CREATE INDEX Порода_IТипПороды on [Порода] ([ТипПороды])
 
- ALTER TABLE [РџРѕСЂРѕРґР°] ADD CONSTRAINT [РџРѕСЂРѕРґР°_FРџРѕСЂРѕРґР°_0] FOREIGN KEY ([РРµСЂР°СЂС…РёСЏ]) REFERENCES [РџРѕСЂРѕРґР°]
-CREATE INDEX РџРѕСЂРѕРґР°_IРРµСЂР°СЂС…РёСЏ on [РџРѕСЂРѕРґР°] ([РРµСЂР°СЂС…РёСЏ])
+ ALTER TABLE [Порода] ADD CONSTRAINT [Порода_FПорода_0] FOREIGN KEY ([Иерархия]) REFERENCES [Порода]
+CREATE INDEX Порода_IИерархия on [Порода] ([Иерархия])
 
- ALTER TABLE [Р‘Р»РѕС…Р°] ADD CONSTRAINT [Р‘Р»РѕС…Р°_FРњРµРґРІРµРґСЊ_0] FOREIGN KEY ([РњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ]) REFERENCES [РњРµРґРІРµРґСЊ]
-CREATE INDEX Р‘Р»РѕС…Р°_IРњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ on [Р‘Р»РѕС…Р°] ([РњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ])
+ ALTER TABLE [Блоха] ADD CONSTRAINT [Блоха_FМедведь_0] FOREIGN KEY ([МедведьОбитания]) REFERENCES [Медведь]
+CREATE INDEX Блоха_IМедведьОбитания on [Блоха] ([МедведьОбитания])
 
- ALTER TABLE [DetailClass] ADD CONSTRAINT [DetailClass_FMasterClass_0] FOREIGN KEY ([MasterClass]) REFERENCES [MasterClass]
-CREATE INDEX DetailClass_IMasterClass on [DetailClass] ([MasterClass])
+ ALTER TABLE [DetailClass] ADD CONSTRAINT [DetailClass_FMasterClass_0] FOREIGN KEY ([MasterClass_m0]) REFERENCES [MasterClass]
+CREATE INDEX DetailClass_IMasterClass_m0 on [DetailClass] ([MasterClass_m0])
 
- ALTER TABLE [РљСЂРµРґРёС‚] ADD CONSTRAINT [РљСЂРµРґРёС‚_FРљР»РёРµРЅС‚_0] FOREIGN KEY ([РљР»РёРµРЅС‚]) REFERENCES [РљР»РёРµРЅС‚]
-CREATE INDEX РљСЂРµРґРёС‚_IРљР»РёРµРЅС‚ on [РљСЂРµРґРёС‚] ([РљР»РёРµРЅС‚])
+ ALTER TABLE [DetailClass] ADD CONSTRAINT [DetailClass_FMasterClass_1] FOREIGN KEY ([MasterClass_m1]) REFERENCES [MasterClass]
+CREATE INDEX DetailClass_IMasterClass_m1 on [DetailClass] ([MasterClass_m1])
 
- ALTER TABLE [РљСЂРµРґРёС‚] ADD CONSTRAINT [РљСЂРµРґРёС‚_FРРЅСЃРїРџРѕРљСЂРµРґРёС‚Сѓ_0] FOREIGN KEY ([РРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ]) REFERENCES [РРЅСЃРїРџРѕРљСЂРµРґРёС‚Сѓ]
-CREATE INDEX РљСЂРµРґРёС‚_IРРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ on [РљСЂРµРґРёС‚] ([РРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ])
+ ALTER TABLE [Кредит] ADD CONSTRAINT [Кредит_FКлиент_0] FOREIGN KEY ([Клиент]) REFERENCES [Клиент]
+CREATE INDEX Кредит_IКлиент on [Кредит] ([Клиент])
+
+ ALTER TABLE [Кредит] ADD CONSTRAINT [Кредит_FИнспПоКредиту_0] FOREIGN KEY ([ИнспекторПоКред]) REFERENCES [ИнспПоКредиту]
+CREATE INDEX Кредит_IИнспекторПоКред on [Кредит] ([ИнспекторПоКред])
 
  ALTER TABLE [MasterUpdateObjectTest] ADD CONSTRAINT [MasterUpdateObjectTest_FDetailUpdateObjectTest_0] FOREIGN KEY ([Detail]) REFERENCES [DetailUpdateObjectTest]
 CREATE INDEX MasterUpdateObjectTest_IDetail on [MasterUpdateObjectTest] ([Detail])
@@ -1634,8 +1639,8 @@ CREATE INDEX CombinedTypesUsageProviderTest_IDataObjectForTest_m0 on [CombinedTy
  ALTER TABLE [CombinedTypesUsageProviderTest] ADD CONSTRAINT [CombinedTypesUsageProviderTest_FTypeUsageProviderTestClass_0] FOREIGN KEY ([TypeUsageProviderTestClass]) REFERENCES [TypeUsageProviderTestClass]
 CREATE INDEX CombinedTypesUsageProviderTest_ITypeUsageProviderTestClass on [CombinedTypesUsageProviderTest] ([TypeUsageProviderTestClass])
 
- ALTER TABLE [РљРѕС€РєР°] ADD CONSTRAINT [РљРѕС€РєР°_FРџРѕСЂРѕРґР°_0] FOREIGN KEY ([РџРѕСЂРѕРґР°]) REFERENCES [РџРѕСЂРѕРґР°]
-CREATE INDEX РљРѕС€РєР°_IРџРѕСЂРѕРґР° on [РљРѕС€РєР°] ([РџРѕСЂРѕРґР°])
+ ALTER TABLE [Кошка] ADD CONSTRAINT [Кошка_FПорода_0] FOREIGN KEY ([Порода]) REFERENCES [Порода]
+CREATE INDEX Кошка_IПорода on [Кошка] ([Порода])
 
  ALTER TABLE [SomeDetailClass] ADD CONSTRAINT [SomeDetailClass_FSomeMasterClass_0] FOREIGN KEY ([ClassA]) REFERENCES [SomeMasterClass]
 CREATE INDEX SomeDetailClass_IClassA on [SomeDetailClass] ([ClassA])
@@ -1655,17 +1660,17 @@ CREATE INDEX Salad2_IIngridient1_m0 on [Salad2] ([Ingridient1_m0])
  ALTER TABLE [Salad2] ADD CONSTRAINT [Salad2_FPlant2_1] FOREIGN KEY ([Ingridient1_m1]) REFERENCES [Plant2]
 CREATE INDEX Salad2_IIngridient1_m1 on [Salad2] ([Ingridient1_m1])
 
- ALTER TABLE [Р’С‹РїР»Р°С‚С‹] ADD CONSTRAINT [Р’С‹РїР»Р°С‚С‹_FРљСЂРµРґРёС‚_0] FOREIGN KEY ([РљСЂРµРґРёС‚1]) REFERENCES [РљСЂРµРґРёС‚]
-CREATE INDEX Р’С‹РїР»Р°С‚С‹_IРљСЂРµРґРёС‚1 on [Р’С‹РїР»Р°С‚С‹] ([РљСЂРµРґРёС‚1])
+ ALTER TABLE [Выплаты] ADD CONSTRAINT [Выплаты_FКредит_0] FOREIGN KEY ([Кредит1]) REFERENCES [Кредит]
+CREATE INDEX Выплаты_IКредит1 on [Выплаты] ([Кредит1])
 
- ALTER TABLE [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі] ADD CONSTRAINT [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі_FР›РёС‡РЅРѕСЃС‚СЊ_0] FOREIGN KEY ([Р›РёС‡РЅРѕСЃС‚СЊ_m0]) REFERENCES [Р›РёС‡РЅРѕСЃС‚СЊ]
-CREATE INDEX РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі_IР›РёС‡РЅРѕСЃС‚СЊ_m0 on [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі] ([Р›РёС‡РЅРѕСЃС‚СЊ_m0])
+ ALTER TABLE [УчастникХозДог] ADD CONSTRAINT [УчастникХозДог_FЛичность_0] FOREIGN KEY ([Личность_m0]) REFERENCES [Личность]
+CREATE INDEX УчастникХозДог_IЛичность_m0 on [УчастникХозДог] ([Личность_m0])
 
- ALTER TABLE [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі] ADD CONSTRAINT [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі_FРҐРѕР·Р”РѕРіРѕРІРѕСЂ_0] FOREIGN KEY ([РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0]) REFERENCES [РҐРѕР·Р”РѕРіРѕРІРѕСЂ]
-CREATE INDEX РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі_IРҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0 on [РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі] ([РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0])
+ ALTER TABLE [УчастникХозДог] ADD CONSTRAINT [УчастникХозДог_FХозДоговор_0] FOREIGN KEY ([ХозДоговор_m0]) REFERENCES [ХозДоговор]
+CREATE INDEX УчастникХозДог_IХозДоговор_m0 on [УчастникХозДог] ([ХозДоговор_m0])
 
- ALTER TABLE [РџРµСЂРµР»РѕРј] ADD CONSTRAINT [РџРµСЂРµР»РѕРј_FР›Р°РїР°_0] FOREIGN KEY ([Р›Р°РїР°_m0]) REFERENCES [Р›Р°РїР°]
-CREATE INDEX РџРµСЂРµР»РѕРј_IР›Р°РїР°_m0 on [РџРµСЂРµР»РѕРј] ([Р›Р°РїР°_m0])
+ ALTER TABLE [Перелом] ADD CONSTRAINT [Перелом_FЛапа_0] FOREIGN KEY ([Лапа_m0]) REFERENCES [Лапа]
+CREATE INDEX Перелом_IЛапа_m0 on [Перелом] ([Лапа_m0])
 
  ALTER TABLE [Human2] ADD CONSTRAINT [Human2_FCountry2_0] FOREIGN KEY ([TodayHome_m0]) REFERENCES [Country2]
 CREATE INDEX Human2_ITodayHome_m0 on [Human2] ([TodayHome_m0])
@@ -1673,32 +1678,32 @@ CREATE INDEX Human2_ITodayHome_m0 on [Human2] ([TodayHome_m0])
  ALTER TABLE [Human2] ADD CONSTRAINT [Human2_FTerritory2_0] FOREIGN KEY ([TodayHome_m1]) REFERENCES [Territory2]
 CREATE INDEX Human2_ITodayHome_m1 on [Human2] ([TodayHome_m1])
 
- ALTER TABLE [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] ADD CONSTRAINT [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°_FР—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ_0] FOREIGN KEY ([Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ]) REFERENCES [Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ]
-CREATE INDEX РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°_IР—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ on [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] ([Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ])
+ ALTER TABLE [ОценкаЭксперта] ADD CONSTRAINT [ОценкаЭксперта_FЗначениеКритер_0] FOREIGN KEY ([ЗначениеКритер]) REFERENCES [ЗначениеКритер]
+CREATE INDEX ОценкаЭксперта_IЗначениеКритер on [ОценкаЭксперта] ([ЗначениеКритер])
 
- ALTER TABLE [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] ADD CONSTRAINT [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°_FРџРѕР»СЊР·РѕРІР°С‚РµР»СЊ_0] FOREIGN KEY ([Р­РєСЃРїРµСЂС‚_m0]) REFERENCES [РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ]
-CREATE INDEX РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°_IР­РєСЃРїРµСЂС‚_m0 on [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] ([Р­РєСЃРїРµСЂС‚_m0])
+ ALTER TABLE [ОценкаЭксперта] ADD CONSTRAINT [ОценкаЭксперта_FПользователь_0] FOREIGN KEY ([Эксперт_m0]) REFERENCES [Пользователь]
+CREATE INDEX ОценкаЭксперта_IЭксперт_m0 on [ОценкаЭксперта] ([Эксперт_m0])
 
- ALTER TABLE [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] ADD CONSTRAINT [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°_FРРґРµСЏ_0] FOREIGN KEY ([РРґРµСЏ_m0]) REFERENCES [РРґРµСЏ]
-CREATE INDEX РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°_IРРґРµСЏ_m0 on [РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р°] ([РРґРµСЏ_m0])
+ ALTER TABLE [ОценкаЭксперта] ADD CONSTRAINT [ОценкаЭксперта_FИдея_0] FOREIGN KEY ([Идея_m0]) REFERENCES [Идея]
+CREATE INDEX ОценкаЭксперта_IИдея_m0 on [ОценкаЭксперта] ([Идея_m0])
 
- ALTER TABLE [РњРµРґРІРµРґСЊ] ADD CONSTRAINT [РњРµРґРІРµРґСЊ_FРњРµРґРІРµРґСЊ_0] FOREIGN KEY ([РњР°РјР°]) REFERENCES [РњРµРґРІРµРґСЊ]
-CREATE INDEX РњРµРґРІРµРґСЊ_IРњР°РјР° on [РњРµРґРІРµРґСЊ] ([РњР°РјР°])
+ ALTER TABLE [Медведь] ADD CONSTRAINT [Медведь_FМедведь_0] FOREIGN KEY ([Мама]) REFERENCES [Медведь]
+CREATE INDEX Медведь_IМама on [Медведь] ([Мама])
 
- ALTER TABLE [РњРµРґРІРµРґСЊ] ADD CONSTRAINT [РњРµРґРІРµРґСЊ_FРњРµРґРІРµРґСЊ_1] FOREIGN KEY ([РџР°РїР°]) REFERENCES [РњРµРґРІРµРґСЊ]
-CREATE INDEX РњРµРґРІРµРґСЊ_IРџР°РїР° on [РњРµРґРІРµРґСЊ] ([РџР°РїР°])
+ ALTER TABLE [Медведь] ADD CONSTRAINT [Медведь_FМедведь_1] FOREIGN KEY ([Папа]) REFERENCES [Медведь]
+CREATE INDEX Медведь_IПапа on [Медведь] ([Папа])
 
- ALTER TABLE [РњРµРґРІРµРґСЊ] ADD CONSTRAINT [РњРµРґРІРµРґСЊ_FР›РµСЃ_0] FOREIGN KEY ([Р›РµСЃРћР±РёС‚Р°РЅРёСЏ]) REFERENCES [Р›РµСЃ]
-CREATE INDEX РњРµРґРІРµРґСЊ_IР›РµСЃРћР±РёС‚Р°РЅРёСЏ on [РњРµРґРІРµРґСЊ] ([Р›РµСЃРћР±РёС‚Р°РЅРёСЏ])
+ ALTER TABLE [Медведь] ADD CONSTRAINT [Медведь_FЛес_0] FOREIGN KEY ([ЛесОбитания]) REFERENCES [Лес]
+CREATE INDEX Медведь_IЛесОбитания on [Медведь] ([ЛесОбитания])
 
  ALTER TABLE [InformationTestClass6] ADD CONSTRAINT [InformationTestClass6_FClassWithCaptions_0] FOREIGN KEY ([ExampleOfClassWithCaptions]) REFERENCES [ClassWithCaptions]
 CREATE INDEX InformationTestClass6_IExampleOfClassWithCaptions on [InformationTestClass6] ([ExampleOfClassWithCaptions])
 
- ALTER TABLE [Р‘РµСЂР»РѕРіР°] ADD CONSTRAINT [Р‘РµСЂР»РѕРіР°_FР›РµСЃ_0] FOREIGN KEY ([Р›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ]) REFERENCES [Р›РµСЃ]
-CREATE INDEX Р‘РµСЂР»РѕРіР°_IР›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ on [Р‘РµСЂР»РѕРіР°] ([Р›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ])
+ ALTER TABLE [Берлога] ADD CONSTRAINT [Берлога_FЛес_0] FOREIGN KEY ([ЛесРасположения]) REFERENCES [Лес]
+CREATE INDEX Берлога_IЛесРасположения on [Берлога] ([ЛесРасположения])
 
- ALTER TABLE [Р‘РµСЂР»РѕРіР°] ADD CONSTRAINT [Р‘РµСЂР»РѕРіР°_FРњРµРґРІРµРґСЊ_0] FOREIGN KEY ([РњРµРґРІРµРґСЊ]) REFERENCES [РњРµРґРІРµРґСЊ]
-CREATE INDEX Р‘РµСЂР»РѕРіР°_IРњРµРґРІРµРґСЊ on [Р‘РµСЂР»РѕРіР°] ([РњРµРґРІРµРґСЊ])
+ ALTER TABLE [Берлога] ADD CONSTRAINT [Берлога_FМедведь_0] FOREIGN KEY ([Медведь]) REFERENCES [Медведь]
+CREATE INDEX Берлога_IМедведь on [Берлога] ([Медведь])
 
  ALTER TABLE [Apparatus2] ADD CONSTRAINT [Apparatus2_FCountry2_0] FOREIGN KEY ([Maker_m0]) REFERENCES [Country2]
 CREATE INDEX Apparatus2_IMaker_m0 on [Apparatus2] ([Maker_m0])
@@ -1712,8 +1717,8 @@ CREATE INDEX Dish2_IMainIngridient_m0 on [Dish2] ([MainIngridient_m0])
  ALTER TABLE [Dish2] ADD CONSTRAINT [Dish2_FPlant2_0] FOREIGN KEY ([MainIngridient_m1]) REFERENCES [Plant2]
 CREATE INDEX Dish2_IMainIngridient_m1 on [Dish2] ([MainIngridient_m1])
 
- ALTER TABLE [РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё] ADD CONSTRAINT [РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё_FРљРѕРЅРєСѓСЂСЃ_0] FOREIGN KEY ([РљРѕРЅРєСѓСЂСЃ_m0]) REFERENCES [РљРѕРЅРєСѓСЂСЃ]
-CREATE INDEX РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё_IРљРѕРЅРєСѓСЂСЃ_m0 on [РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё] ([РљРѕРЅРєСѓСЂСЃ_m0])
+ ALTER TABLE [КритерийОценки] ADD CONSTRAINT [КритерийОценки_FКонкурс_0] FOREIGN KEY ([Конкурс_m0]) REFERENCES [Конкурс]
+CREATE INDEX КритерийОценки_IКонкурс_m0 on [КритерийОценки] ([Конкурс_m0])
 
  ALTER TABLE [InformationTestClass4] ADD CONSTRAINT [InformationTestClass4_FInformationTestClass3_0] FOREIGN KEY ([MasterOfInformationTestClass3]) REFERENCES [InformationTestClass3]
 CREATE INDEX InformationTestClass4_IMasterOfInformationTestClass3 on [InformationTestClass4] ([MasterOfInformationTestClass3])
@@ -1724,8 +1729,8 @@ CREATE INDEX ClassWithCaptions_IInformationTestClass4 on [ClassWithCaptions] ([I
  ALTER TABLE [Adress2] ADD CONSTRAINT [Adress2_FCountry2_0] FOREIGN KEY ([Country_m0]) REFERENCES [Country2]
 CREATE INDEX Adress2_ICountry_m0 on [Adress2] ([Country_m0])
 
- ALTER TABLE [РљРѕРЅРєСѓСЂСЃ] ADD CONSTRAINT [РљРѕРЅРєСѓСЂСЃ_FРџРѕР»СЊР·РѕРІР°С‚РµР»СЊ_0] FOREIGN KEY ([РћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0]) REFERENCES [РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ]
-CREATE INDEX РљРѕРЅРєСѓСЂСЃ_IРћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0 on [РљРѕРЅРєСѓСЂСЃ] ([РћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0])
+ ALTER TABLE [Конкурс] ADD CONSTRAINT [Конкурс_FПользователь_0] FOREIGN KEY ([Организатор_m0]) REFERENCES [Пользователь]
+CREATE INDEX Конкурс_IОрганизатор_m0 on [Конкурс] ([Организатор_m0])
 
  ALTER TABLE [TypeUsageProviderTestClassChil] ADD CONSTRAINT [TypeUsageProviderTestClassChil_FDataObjectForTest_0] FOREIGN KEY ([DataObjectForTest_m0]) REFERENCES [DataObjectForTest]
 CREATE INDEX TypeUsageProviderTestClassChil_IDataObjectForTest_m0 on [TypeUsageProviderTestClassChil] ([DataObjectForTest_m0])
@@ -1763,11 +1768,11 @@ CREATE INDEX AuditAgregatorObject_IMasterObject on [AuditAgregatorObject] ([Mast
  ALTER TABLE [Region] ADD CONSTRAINT [Region_FCountry2_0] FOREIGN KEY ([Country2_m0]) REFERENCES [Country2]
 CREATE INDEX Region_ICountry2_m0 on [Region] ([Country2_m0])
 
- ALTER TABLE [Р¤Р°Р№Р»РРґРµРё] ADD CONSTRAINT [Р¤Р°Р№Р»РРґРµРё_FРџРѕР»СЊР·РѕРІР°С‚РµР»СЊ_0] FOREIGN KEY ([Р’Р»Р°РґРµР»РµС†_m0]) REFERENCES [РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ]
-CREATE INDEX Р¤Р°Р№Р»РРґРµРё_IР’Р»Р°РґРµР»РµС†_m0 on [Р¤Р°Р№Р»РРґРµРё] ([Р’Р»Р°РґРµР»РµС†_m0])
+ ALTER TABLE [ФайлИдеи] ADD CONSTRAINT [ФайлИдеи_FПользователь_0] FOREIGN KEY ([Владелец_m0]) REFERENCES [Пользователь]
+CREATE INDEX ФайлИдеи_IВладелец_m0 on [ФайлИдеи] ([Владелец_m0])
 
- ALTER TABLE [Р¤Р°Р№Р»РРґРµРё] ADD CONSTRAINT [Р¤Р°Р№Р»РРґРµРё_FРРґРµСЏ_0] FOREIGN KEY ([РРґРµСЏ_m0]) REFERENCES [РРґРµСЏ]
-CREATE INDEX Р¤Р°Р№Р»РРґРµРё_IРРґРµСЏ_m0 on [Р¤Р°Р№Р»РРґРµРё] ([РРґРµСЏ_m0])
+ ALTER TABLE [ФайлИдеи] ADD CONSTRAINT [ФайлИдеи_FИдея_0] FOREIGN KEY ([Идея_m0]) REFERENCES [Идея]
+CREATE INDEX ФайлИдеи_IИдея_m0 on [ФайлИдеи] ([Идея_m0])
 
  ALTER TABLE [InformationTestClass3] ADD CONSTRAINT [InformationTestClass3_FInformationTestClass2_0] FOREIGN KEY ([InformationTestClass2]) REFERENCES [InformationTestClass2]
 CREATE INDEX InformationTestClass3_IInformationTestClass2 on [InformationTestClass3] ([InformationTestClass2])
