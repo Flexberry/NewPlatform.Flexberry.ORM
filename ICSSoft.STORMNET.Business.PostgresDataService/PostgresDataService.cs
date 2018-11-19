@@ -587,36 +587,39 @@
         /// <returns>Converted value.</returns>
         public override string ConvertSimpleValueToQueryValueString(object value)
         {
-            if (value is bool)
+            if (value != null)
             {
-                return (bool)value ? "'1'" : "'0'";
-            }
+                if (value is bool)
+                {
+                    return (bool)value ? "'1'" : "'0'";
+                }
 
-            if (value is DateTime)
-            {
-                var dt = (DateTime)value;
-                return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
-            }
+                if (value is DateTime)
+                {
+                    var dt = (DateTime)value;
+                    return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
+                }
 
-            if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
-            {
-                return $"date '{value.ToString()}'";
-            }
+                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                {
+                    return $"date '{value.ToString()}'";
+                }
 
-            if (value is string)
-            {
-                var res = base.ConvertSimpleValueToQueryValueString(value);
-                return res;
-            }
+                if (value is string)
+                {
+                    var res = base.ConvertSimpleValueToQueryValueString(value);
+                    return res;
+                }
 
-            if (value is char)
-            {
-                return Convert.ToInt32((char)value).ToString(CultureInfo.InvariantCulture);
-            }
+                if (value is char)
+                {
+                    return Convert.ToInt32((char)value).ToString(CultureInfo.InvariantCulture);
+                }
 
-            if (value is byte[])
-            {
-                return string.Format("decode('{0}', 'base64')", Convert.ToBase64String((byte[])value));
+                if (value is byte[])
+                {
+                    return string.Format("decode('{0}', 'base64')", Convert.ToBase64String((byte[])value));
+                }
             }
 
             return base.ConvertSimpleValueToQueryValueString(value);
