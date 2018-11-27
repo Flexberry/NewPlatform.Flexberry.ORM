@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.FunctionalLanguage.SQLWhere
 {
     using System;
+    using ICSSoft.STORMNET.Business;
 
     /// <summary>
     /// делегат для конвертации значений на FunctionalLanguage в значения на SQL
@@ -386,7 +387,7 @@
         /// <param name="dataService"></param>
         /// <returns></returns>
         public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
+            delegatePutIdentifierToBrackets convertIdentifier, IDataService dataService = null)
         {
             if (value is Function)
             {
@@ -434,7 +435,7 @@
         /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
+        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, IDataService dataService = null)
         {
             if (value.Parameters.Count == 2)
             {
@@ -660,7 +661,7 @@
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         protected string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
+            delegatePutIdentifierToBrackets convertIdentifier, IDataService dataService = null)
         {
             string retStr;
             if (CaseInsensitive && (value is VariableDef && ((VariableDef)value).Type.StringedView == "String"))
@@ -690,7 +691,7 @@
         public static string ToSQLString(Function function,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
-            Business.IDataService dataService = null)
+            IDataService dataService = null)
         {
             return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
         }
