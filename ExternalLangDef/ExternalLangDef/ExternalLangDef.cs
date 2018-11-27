@@ -1036,7 +1036,7 @@
             return string.Format("({0} {1} )", res, wrapper);
         }
 
-        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
+        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
         {
             if (value.FunctionDef.StringedView == "NOTISNULL")
             {
@@ -1153,7 +1153,7 @@
 
             if (value.FunctionDef.StringedView == funcExist)
             {
-                return GetConditionForExist(value, convertValue, convertIdentifier);
+                return GetConditionForExist(value, convertValue, convertIdentifier, dataService);
             }
 
             if (value.FunctionDef.StringedView == funcSumWithLimit
@@ -1358,7 +1358,7 @@
             }
 #endif
 
-            return base.SQLTranslFunction(value, convertValue, convertIdentifier);
+            return base.SQLTranslFunction(value, convertValue, convertIdentifier, dataService);
         }
 
         // Заслуженный химик

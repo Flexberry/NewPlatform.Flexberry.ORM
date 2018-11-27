@@ -15,7 +15,7 @@
         public const string ExistViewName = "__ExistView__";
 
         private string GetConditionForExist(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier)
+                                                   delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
         {
             if (!(DataService is SQLDataService))
             {
@@ -31,7 +31,7 @@
             string agregatorAlias = "STORMGENERATEDQUERY";
 
             // генерируем подзапрос для exists
-            string selectForCondition = GetSelectForDetailVariableDef(dvd, null);
+            string selectForCondition = GetSelectForDetailVariableDef(dvd, null, dataService);
             selectForCondition = selectForCondition.Replace(convertIdentifier(agregatorAlias),
                                                             convertIdentifier(detailAlias));
 
@@ -106,8 +106,9 @@
         /// <param name="additionalProperties">
         /// Свойства, которые необходимо добавить в представление при вычитки детейлов.
         /// </param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns>Сформированный запрос по представлению детейла.</returns>
-        private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties)
+        private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties, Business.IDataService dataService = null)
         {
             var lcs = new LoadingCustomizationStruct(null)
             {
@@ -129,7 +130,8 @@
                 }
             }
 
-            string query = ((SQLDataService)DataService).GenerateSQLSelect(lcs, false);
+            var currentDataService = (dataService != null) ? dataService : DataService;
+            string query = ((SQLDataService)currentDataService).GenerateSQLSelect(lcs, false);
             return query;
         }
     }

@@ -78,6 +78,9 @@
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSSoft.STORMNET.Business">
+      <HintPath>..\..\..\CASEBERRY\Flexberry LogService\Objects\packages\NewPlatform.Flexberry.ORM.4.2.0-alpha03\lib\net45\ICSSoft.STORMNET.Business.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

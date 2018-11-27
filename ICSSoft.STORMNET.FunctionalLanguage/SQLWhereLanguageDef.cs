@@ -383,13 +383,14 @@
         /// <param name="value"></param>
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
+        /// <param name="dataService"></param>
         /// <returns></returns>
         public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
         {
             if (value is Function)
             {
-                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier);
+                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier, dataService);
             }
 
             if (value is VariableDef)
@@ -431,8 +432,9 @@
         /// <param name="value">функция</param>
         /// <param name="convertValue">конвертилка выражений</param>
         /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
+        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
         {
             if (value.Parameters.Count == 2)
             {
@@ -552,7 +554,7 @@
 
                         if (pars[i] == string.Empty)
                         {
-                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, dataService);
                         }
 
                         #region Обработка ситуации, когда операндом у функции "=" или "<>" идут функции.
@@ -655,24 +657,25 @@
         /// <param name="value">Function.Parameters[i]</param>
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         protected string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
         {
             string retStr;
             if (CaseInsensitive && (value is VariableDef && ((VariableDef)value).Type.StringedView == "String"))
             {
-                retStr = "UPPER( " + SQLTranslSwitch(value, convertValue, convertIdentifier) + " )";
+                retStr = "UPPER( " + SQLTranslSwitch(value, convertValue, convertIdentifier, dataService) + " )";
                 return retStr;
             }
 
             if (CaseInsensitive && value is string)
             {
-                retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier);
+                retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier, dataService);
                 return retStr;
             }
 
-            retStr = SQLTranslSwitch(value, convertValue, convertIdentifier);
+            retStr = SQLTranslSwitch(value, convertValue, convertIdentifier, dataService);
             return retStr;
         }
 
@@ -682,12 +685,14 @@
         /// <param name="function">Функция</param>
         /// <param name="convertValue">делегат для преобразования констант</param>
         /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         public static string ToSQLString(Function function,
             delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier,
+            Business.IDataService dataService = null)
         {
-            return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier);
+            return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
         }
 
         /// <summary>
