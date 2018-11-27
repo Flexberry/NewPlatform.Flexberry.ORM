@@ -1036,7 +1036,7 @@
             return string.Format("({0} {1} )", res, wrapper);
         }
 
-        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
+        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, System.ComponentModel.Component dataService = null)
         {
             if (value.FunctionDef.StringedView == "NOTISNULL")
             {
@@ -1153,7 +1153,7 @@
 
             if (value.FunctionDef.StringedView == funcExist)
             {
-                return GetConditionForExist(value, convertValue, convertIdentifier, dataService);
+                return GetConditionForExist(value, convertValue, convertIdentifier, (Business.IDataService)dataService);
             }
 
             if (value.FunctionDef.StringedView == funcSumWithLimit
