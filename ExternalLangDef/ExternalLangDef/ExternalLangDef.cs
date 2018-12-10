@@ -1153,7 +1153,7 @@
 
             if (value.FunctionDef.StringedView == funcExist)
             {
-                return GetConditionForExist(value, convertValue, convertIdentifier, (Business.IDataService)dataService);
+                return GetConditionForExist(value, convertValue, convertIdentifier, dataService as Business.IDataService);
             }
 
             if (value.FunctionDef.StringedView == funcSumWithLimit

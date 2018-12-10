@@ -30,7 +30,7 @@
         /// <summary>
         /// Имя типа IDataService.
         /// </summary>
-        private const string iDataServiceTypeName = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
+        private const string TypeNameForIDataService = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
 
         /// <summary>
         /// Конструктор по-умолчанию (CaseInsensitive берётся из конфига с флагом CaseInsensitive).
@@ -393,7 +393,7 @@
         public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
-            if (dataService != null && !Type.GetType(iDataServiceTypeName).IsAssignableFrom(dataService.GetType()))
+            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
             {
                 throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
             }
@@ -702,7 +702,7 @@
             delegatePutIdentifierToBrackets convertIdentifier,
             object dataService = null)
         {
-            if (dataService != null && !Type.GetType(iDataServiceTypeName).IsAssignableFrom(dataService.GetType()))
+            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
             {
                 throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
             }
