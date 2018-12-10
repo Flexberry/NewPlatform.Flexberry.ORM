@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.2.0-beta07</version>
+    <version>4.2.0-beta08</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -34,7 +34,7 @@
       <group targetFramework=".NETFramework4.5">
         <dependency id="NewPlatform.Flexberry.LogService" version="1.1.0" />
         <dependency id="Npgsql" version="3.0.8" />
-        <dependency id="Remotion.Linq" version="1.13.183.0" />
+        <dependency id="Remotion.Linq" version="1.15.2.0" />
         <dependency id="SharpZipLib" version="0.86.0" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
         <dependency id="Unity.Abstractions" version="3.3.0" />
