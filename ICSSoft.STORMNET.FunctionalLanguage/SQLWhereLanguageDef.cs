@@ -28,6 +28,11 @@
         public const string StormMainObjectKey = "STORMMainObjectKey";
 
         /// <summary>
+        /// Имя типа IDataService.
+        /// </summary>
+        private const string iDataServiceTypeName = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
+
+        /// <summary>
         /// Конструктор по-умолчанию (CaseInsensitive берётся из конфига с флагом CaseInsensitive).
         /// </summary>
         public SQLWhereLanguageDef()
@@ -386,8 +391,13 @@
         /// <param name="dataService"></param>
         /// <returns></returns>
         public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier, System.ComponentModel.Component dataService = null)
+            delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
+            if (dataService != null && !Type.GetType(iDataServiceTypeName).IsAssignableFrom(dataService.GetType()))
+            {
+                throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
+            }
+
             if (value is Function)
             {
                 return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier, dataService);
@@ -434,7 +444,7 @@
         /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, System.ComponentModel.Component dataService = null)
+        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
             if (value.Parameters.Count == 2)
             {
@@ -660,7 +670,7 @@
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         protected string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier, System.ComponentModel.Component dataService = null)
+            delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
             string retStr;
             if (CaseInsensitive && (value is VariableDef && ((VariableDef)value).Type.StringedView == "String"))
@@ -690,8 +700,13 @@
         public static string ToSQLString(Function function,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
-            System.ComponentModel.Component dataService = null)
+            object dataService = null)
         {
+            if (dataService != null && !Type.GetType(iDataServiceTypeName).IsAssignableFrom(dataService.GetType()))
+            {
+                throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
+            }
+
             return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
         }
 

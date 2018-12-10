@@ -1036,7 +1036,7 @@
             return string.Format("({0} {1} )", res, wrapper);
         }
 
-        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, System.ComponentModel.Component dataService = null)
+        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
             if (value.FunctionDef.StringedView == "NOTISNULL")
             {
