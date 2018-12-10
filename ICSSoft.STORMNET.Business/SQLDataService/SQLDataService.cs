@@ -1293,19 +1293,10 @@
                     {
                         if (!Information.IsStoredProperty(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name))
                         {
-                            string[] arr1 = Information.AllViews(dataObjectView.DefineClassType);
-                            for (int ii = 0; ii < arr1.Length; ii++)
+                            string expression = Information.GetPropertyExpression(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name, this.GetType());
+                            if (!string.IsNullOrEmpty(expression))
                             {
-                                View v1 = Information.GetView(arr1[ii], dataObjectView.DefineClassType);
-                                if (v1.CheckPropname(dataObjectView.Properties[i].Name))
-                                {
-                                    for (int j = 0; j < v1.Properties.Length; j++)
-                                    {
-                                        dataObjectView.AddProperty(v1.Properties[j].Name, v1.Properties[j].Name, dataObjectView.Properties[i].Name.Equals(v1.Properties[j].Name), string.Empty);
-                                    }
-
-                                    break;
-                                }
+                                dataObjectView.AddProperties(Information.GetPropertiesInExpression(expression, string.Empty));
                             }
                         }
                     }
