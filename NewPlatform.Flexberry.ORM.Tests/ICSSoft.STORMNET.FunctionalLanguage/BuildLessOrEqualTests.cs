@@ -1,229 +1,210 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using IIS.University.Tools;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class BuildLessOrEqualTests : BaseFunctionTest
     {
         #region LessOrEqual
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest11()
         {
-            FunctionBuilder.BuildLessOrEqual(NullString, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(NullString, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest12()
         {
-            FunctionBuilder.BuildLessOrEqual(PropertyName, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(PropertyName, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest13()
         {
             FunctionBuilder.BuildLessOrEqual(PropertyName, 1);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest21()
         {
-            FunctionBuilder.BuildLessOrEqual(NullString, NullObjectType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(NullString, NullObjectType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest22()
         {
-            FunctionBuilder.BuildLessOrEqual(PropertyName, NullObjectType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(PropertyName, NullObjectType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest23()
         {
-            FunctionBuilder.BuildLessOrEqual(PropertyName, LangDef.NumericType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(PropertyName, LangDef.NumericType, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest24()
         {
             FunctionBuilder.BuildLessOrEqual(PropertyName, LangDef.NumericType, 1);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest31()
         {
-            FunctionBuilder.BuildLessOrEqual(NullVarDef, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(NullVarDef, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest32()
         {
-            FunctionBuilder.BuildLessOrEqual(NumericVarDef, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(NumericVarDef, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest33()
         {
             FunctionBuilder.BuildLessOrEqual(NumericVarDef, 1);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest41()
         {
-            FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [Fact]
         public void BuildLessOrEqualTest42()
         {
-            FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, "asd");
+            Assert.Throws<FormatException>(() => FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, "asd"));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest43()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, IntGenVarDef, Int1),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, Int1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest44()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, DateGenVarDef, DateTime1),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.BirthDate, DateTime1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest45()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, StringGenVarDef, String1),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Name, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest52()
         {
-            FunctionBuilder.BuildLessOrEqual(NullVarDef, StringGenVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(NullVarDef, StringGenVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest53()
         {
-            FunctionBuilder.BuildLessOrEqual(StringGenVarDef, NullVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(StringGenVarDef, NullVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildLessOrEqualTest54()
         {
-            FunctionBuilder.BuildLessOrEqual(IntGenVarDef, DateGenVarDef);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildLessOrEqual(IntGenVarDef, DateGenVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildLessOrEqualTest55()
         {
-            FunctionBuilder.BuildLessOrEqual(StringGenVarDef, IntGenVarDef);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildLessOrEqual(StringGenVarDef, IntGenVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildLessOrEqualTest56()
         {
-            FunctionBuilder.BuildLessOrEqual(StringGenVarDef, IntGenVarDef);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildLessOrEqual(StringGenVarDef, IntGenVarDef));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest57()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, StringGenVarDef, StringGenVarDef1),
                 FunctionBuilder.BuildLessOrEqual(StringGenVarDef, StringGenVarDef1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest61()
         {
-            FunctionBuilder.BuildLessOrEqual(NullLambda, x => x.Hierarchy);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(NullLambda, x => x.Hierarchy));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLessOrEqualTest62()
         {
-            FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Hierarchy, NullLambda);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLessOrEqual(x => x.Hierarchy, NullLambda));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildLessOrEqualTest63()
         {
-            FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, x => x.BirthDate);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, x => x.BirthDate));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildLessOrEqualTest64()
         {
-            FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Name, x => x.Height);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Name, x => x.Height));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest71()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, StringGenVarDef, StringGenVarDef1),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Name, x => x.NickName));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest72()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, IntGenVarDef, IntGenVarDef1),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Height, x => x.Weight));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest73()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, DateGenVarDef, DateGenVarDef1),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.BirthDate, x => x.DeathDate));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest74()
         {
 
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, StringGenVarDef, StringGenVarDef2),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Name, x => x.Hierarchy.Name));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLessOrEqualTest75()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLEQ, StringGenVarDef, StringGenVarDef),
                 FunctionBuilder.BuildLessOrEqual<TestDataObject>(x => x.Name, x => x.Name));
         }

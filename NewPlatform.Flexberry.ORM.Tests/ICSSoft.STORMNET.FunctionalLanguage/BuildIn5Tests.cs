@@ -1,67 +1,63 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    [TestClass]
+    using Xunit;
+
     public class BuildIn5Tests : BaseFunctionTest
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest500()
         {
-            FunctionBuilder.BuildIn(NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest501()
         {
-            FunctionBuilder.BuildIn(NullVarDef, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(NullVarDef, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest502()
         {
-            FunctionBuilder.BuildIn(GuidVarDef, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(GuidVarDef, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest503()
         {
-            FunctionBuilder.BuildIn(NullLambda, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(NullLambda, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest504()
         {
-            FunctionBuilder.BuildIn<TestDataObject>(x => x.Height, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn<TestDataObject>(x => x.Height, NullFunction));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest510()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcIN, PrimaryKeyVarDef, FuncSQL),
                 FunctionBuilder.BuildIn(FuncSQL));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest511()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcIN, GuidVarDef, FuncSQL),
                 FunctionBuilder.BuildIn(GuidVarDef, FuncSQL));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest512()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcIN, IntGenVarDef, FuncSQL),
                 FunctionBuilder.BuildIn<TestDataObject>(x => x.Height, FuncSQL));
         }

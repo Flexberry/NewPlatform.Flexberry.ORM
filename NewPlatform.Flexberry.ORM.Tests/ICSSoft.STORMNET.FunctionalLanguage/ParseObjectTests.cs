@@ -1,16 +1,14 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.UserDataTypes;
 
-    using IIS.University.Tools;
+    using Xunit;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class ParseObjectTests : BaseTest
     {
         private const bool Bool1 = true;
@@ -93,202 +91,202 @@
 
         private static readonly Type EnumType = typeof(tDayOfWeek);
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest00()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(BoolType, BoolList));
+            Assert.NotNull(FunctionHelper.ParseObject(BoolType, BoolList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest01()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(BoolType, BoolList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(BoolType, BoolList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest02()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(BoolType, BoolList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(BoolType, BoolList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest03()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(IntType, IntList));
+            Assert.NotNull(FunctionHelper.ParseObject(IntType, IntList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest04()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(IntType, IntList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(IntType, IntList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest05()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(IntType, IntList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(IntType, IntList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest06()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NumericType, DecimalList));
+            Assert.NotNull(FunctionHelper.ParseObject(NumericType, DecimalList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest07()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NumericType, DecimalList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(NumericType, DecimalList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest08()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NumericType, DecimalList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(NumericType, DecimalList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest09()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(StringType, StringList));
+            Assert.NotNull(FunctionHelper.ParseObject(StringType, StringList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest10()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(StringType, StringList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(StringType, StringList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest11()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(StringType, StringList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(StringType, StringList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest12()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(DateTimeType, DateTimeList));
+            Assert.NotNull(FunctionHelper.ParseObject(DateTimeType, DateTimeList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest13()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(DateTimeType, DateTimeList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(DateTimeType, DateTimeList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest14()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(DateTimeType, DateTimeList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(DateTimeType, DateTimeList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest15()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableDateTimeType, NullableDateTimeList));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableDateTimeType, NullableDateTimeList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest16()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableDateTimeType, NullableDateTimeList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableDateTimeType, NullableDateTimeList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest17()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableDateTimeType, NullableDateTimeList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableDateTimeType, NullableDateTimeList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest18()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableIntType, NullableIntList));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableIntType, NullableIntList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest19()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableIntType, NullableIntList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableIntType, NullableIntList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest20()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableIntType, NullableIntList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableIntType, NullableIntList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest21()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableDecimalType, NullableDecimalList));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableDecimalType, NullableDecimalList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest22()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableDecimalType, NullableDecimalList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableDecimalType, NullableDecimalList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest23()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(NullableDecimalType, NullableDecimalList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(NullableDecimalType, NullableDecimalList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest24()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(EnumType, EnumList));
+            Assert.NotNull(FunctionHelper.ParseObject(EnumType, EnumList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest25()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(EnumType, EnumList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(EnumType, EnumList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest26()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(EnumType, EnumList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(EnumType, EnumList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest27()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(nIntType, nIntList));
+            Assert.NotNull(FunctionHelper.ParseObject(nIntType, nIntList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest28()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(nIntType, nIntList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(nIntType, nIntList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest29()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(nIntType, nIntList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(nIntType, nIntList.Where(x => true)));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest30()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList));
+            Assert.NotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest31()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList.ToArray()));
+            Assert.NotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseObjectTest32()
         {
-            Assert.IsNotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList.Where(x => true)));
+            Assert.NotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList.Where(x => true)));
         }
     }
 }

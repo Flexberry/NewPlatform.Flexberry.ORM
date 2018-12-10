@@ -1,4 +1,4 @@
-﻿namespace IIS.University.PKHelper.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -7,13 +7,8 @@
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.KeyGen;
 
-    using IIS.University.Tools;
+    using Xunit;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    using TestObjects.DataObject;
-
-    [TestClass]
     public class PKHelperTests
     {
         private static readonly KeyGuid kg1 = KeyGuid.NewGuid();
@@ -38,48 +33,48 @@
 
         #region EQPK
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеПустыхОбъектов()
         {
-            Assert.IsFalse(PKHelper.EQPK(null, null), "Пустые объекты сравнены неверно.");
+            Assert.True(!PKHelper.EQPK(null, null), "Пустые объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеПустогоОбъектаИБезКлюча()
         {
-            Assert.IsFalse(PKHelper.EQPK(null, new object()), "Пустой объект и объект без ключа сравнены неверно.");
+            Assert.True(!PKHelper.EQPK(null, new object()), "Пустой объект и объект без ключа сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеОбъектовБезКлючей()
         {
-            Assert.IsFalse(PKHelper.EQPK(new object(), new object()), "Объекты без ключей сравнены неверно.");
+            Assert.True(!PKHelper.EQPK(new object(), new object()), "Объекты без ключей сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеПустогоОбъектаИСКлючом()
         {
-            Assert.IsFalse(PKHelper.EQPK(null, doft0), "Пустой объект и объект с ключом сравнены неверно.");
+            Assert.True(!PKHelper.EQPK(null, doft0), "Пустой объект и объект с ключом сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеОбъектовСКлючомИБезКлючом()
         {
-            Assert.IsFalse(PKHelper.EQPK(new object(), doft0), "Объект с ключом и объект без ключа сравнены неверно.");
+            Assert.True(!PKHelper.EQPK(new object(), doft0), "Объект с ключом и объект без ключа сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеОбъектовСОдинаковымиGuid()
         {
             var obj2 = PKHelper.CreateDataObject<DataObjectForTest>(doft0);
-            Assert.IsTrue(PKHelper.EQPK(doft0, obj2), "Объекты с одинаковыми Guid сравнены неверно.");
+            Assert.True(PKHelper.EQPK(doft0, obj2), "Объекты с одинаковыми Guid сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQPKСравнениеОбъектовСРазнымиGuid()
         {
-            Assert.IsFalse(
-                PKHelper.EQPK(doft1, doft2),
+            Assert.True(
+                !PKHelper.EQPK(doft1, doft2),
                 "Объекты с разными Guid сравнены неверно.");
         }
 
@@ -87,26 +82,26 @@
 
         #region GetKeyByObject
 
-        [TestMethod]
+        [Fact]
         public void GetKeyByObjectСравнениеKeyGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(kg1, PKHelper.GetKeyByObject(kg1)),
                 "Возвращенный KeyGuid не равен исходному.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeyByObjectСравнениеGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(g1, PKHelper.GetKeyByObject(g1)),
                 "Возвращенный KeyGuid не равен исходному Guid.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeyByObjectСравнениеString()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(str1, PKHelper.GetKeyByObject(str1)),
                 "Возвращенный KeyGuid не равен исходному string.");
         }
@@ -115,43 +110,43 @@
 
         #region GetGuidByObject
 
-        [TestMethod]
+        [Fact]
         public void GetGuidByObjectNull()
         {
-            Assert.AreEqual(null, PKHelper.GetGuidByObject(null));
+            Assert.Equal(null, PKHelper.GetGuidByObject(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetGuidByObjectСравнениеKeyGuid()
         {
             var obj = PKHelper.CreateDataObject<DataObjectForTest>(kg1);
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(kg1, PKHelper.GetGuidByObject(obj)),
                 "Возвращенный Guid не равен исходному.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetGuidByObjectСравнениеNullableGuid()
         {
             var obj = PKHelper.CreateDataObject<DataObjectForTest>(ng1);
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(ng1, PKHelper.GetGuidByObject(obj)),
                 "Возвращенный Guid не равен исходному.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetGuidByObjectСравнениеGuid()
         {
             var obj = PKHelper.CreateDataObject<DataObjectForTest>(g1);
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(g1, PKHelper.GetGuidByObject(obj)),
                 "Возвращенный Guid не равен исходному.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetGuidByObjectСравнениеString()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQPK(str1, PKHelper.GetKeyByObject(str1)),
                 "Возвращенный Guid не равен исходному string.");
         }
@@ -160,43 +155,43 @@
 
         #region EQDataObject
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectСравнениеПустыхОбъектов()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQDataObject(null, null, true),
                 "Пустые объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectСравнениеПустогоИНепустогоОбъектов()
         {
-            Assert.IsFalse(
+            Assert.True(!
                 PKHelper.EQDataObject(null, doft0, true),
                 "Пустой и непустой объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectСравнениеНепустыхОбъектовБезТипа()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQDataObject(doft0, doft0, false),
                 "Непустые объекты сравнены без учёта типа неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectСравнениеНепустыхОбъектов()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQDataObject(doft0, doft0, true),
                 "Непустые объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectСравнениеНепустыхОбъектовРазныхТипов()
         {
             var obj1 = PKHelper.CreateDataObject<ClassWithCaptions>(kg1);
-            Assert.IsFalse(
+            Assert.True(!
                 PKHelper.EQDataObject(doft1, obj1, true),
                 "Непустые объекты разных типов сравнены неверно.");
         }
@@ -205,34 +200,34 @@
 
         #region EQDataObject T
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectTСравнениеПустыхОбъектов()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQDataObject<DataObject>(null, null),
                 "Пустые объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectTСравнениеПустогоИНепустогоОбъектов()
         {
-            Assert.IsFalse(
+            Assert.True(!
                 PKHelper.EQDataObject(null, doft0),
                 "Пустой и непустой объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectTСравнениеПустогоИНепустогоОбъектов1()
         {
-            Assert.IsFalse(
+            Assert.True(!
                 PKHelper.EQDataObject(doft0, null),
                 "Пустой и непустой объекты сравнены неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQDataObjectTСравнениеНепустыхОбъектов()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQDataObject(doft0, doft0),
                 "Непустые объекты сравнены неверно.");
         }
@@ -241,114 +236,114 @@
 
         #region PKIn
 
-        [TestMethod]
+        [Fact]
         public void PKInDataObject()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<DataObjectForTest> { null, null, null, doft1 }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<Guid> { new Guid(), new Guid(), new Guid(), kg1.Guid }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInKeyGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<KeyGuid> { null, null, null, kg1 }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInString()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<string> { null, "", "123", kg1.ToString() }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInObjectFull()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<object> { kg1.ToString(), kg1, kg1.Guid, doft1 }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInObjectDataObject()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<object> { null, null, null, doft1 }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInObjectGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<object> { null, null, kg1.Guid, null }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInObjectKeyGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<object> { null, kg1, null, null }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInObjectString()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, new List<object> { kg1.ToString(), null, null, null }),
                 "Ключ существует среди перечисления.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInParamsFull()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, kg1.ToString(), kg1, kg1.Guid, doft1),
                 "Ключ существует среди параметров.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInParamsDataObject()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, null, null, null, doft1),
                 "Ключ существует среди параметров.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInParamsGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, null, null, kg1.Guid, null),
                 "Ключ существует среди параметров.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInParamsKeyGuid()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, null, kg1, null, null),
                 "Ключ существует среди параметров.");
         }
 
-        [TestMethod]
+        [Fact]
         public void PKInParamsString()
         {
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.PKIn(kg1, kg1.ToString(), null, null, null),
                 "Ключ существует среди параметров.");
         }
@@ -357,12 +352,12 @@
 
         #region EQParentPK
 
-        [TestMethod]
+        [Fact]
         public void EQParentPKНепустойОбъектЛинкНаСебя()
         {
             var obj = PKHelper.CreateDataObject<DataObjectWithKeyGuid>(kg2);
             obj.LinkToMaster1 = kg1;
-            Assert.IsTrue(
+            Assert.True(
                 PKHelper.EQParentPK(
                     obj,
                     kg1,
@@ -370,10 +365,10 @@
                 "Сравнение ключа и родителя произведено неверно.");
         }
 
-        [TestMethod]
+        [Fact]
         public void EQParentPKПустойОбъект()
         {
-            Assert.IsFalse(
+            Assert.True(!
                 PKHelper.EQParentPK(
                     null,
                     kg1,
@@ -385,23 +380,23 @@
 
         #region GetKeysString
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringПустойСписок()
         {
-            Assert.IsTrue(
+            Assert.True(
                 string.IsNullOrEmpty(PKHelper.GetKeysString(new List<DataObjectForTest>())),
                 "Метод вернул не пустую строку.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringСписокИзОдногоЭлемента()
         {
             var list = new List<DataObjectForTest> { doft1 };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringСписокИзНесколькихЭлементов()
         {
             var list = new List<DataObjectForTest>
@@ -411,59 +406,59 @@
                 doft2
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringСписокИзНекорректныхЭлементов()
         {
             var list = new List<string> { "123", "321", "sssssss" };
-            Assert.IsTrue(
+            Assert.True(
                 string.IsNullOrEmpty(PKHelper.GetKeysString(list)),
                 "Метод вернул не пустую строку.");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringParamsFull()
         {
             var list = new List<object> { g1, kg2, doft1, str1 };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(g1, kg2, doft1, str1));
+            Assert.Equal(res, PKHelper.GetKeysString(g1, kg2, doft1, str1));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringParamsDataObject()
         {
             var list = new List<DataObjectForTest> { doft1, doft2 };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(doft1, doft2));
+            Assert.Equal(res, PKHelper.GetKeysString(doft1, doft2));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringParamsGuid()
         {
             var list = new List<Guid> { g1, g2 };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(g1, g2));
+            Assert.Equal(res, PKHelper.GetKeysString(g1, g2));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringParamsKeyGuid()
         {
             var list = new List<KeyGuid> { kg1, kg2 };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(kg1, kg2));
+            Assert.Equal(res, PKHelper.GetKeysString(kg1, kg2));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringParamsString()
         {
             var list = new List<string> { str1, str2 };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(str1, str2));
+            Assert.Equal(res, PKHelper.GetKeysString(str1, str2));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringIEnumerableFull()
         {
             var list = new List<object>
@@ -474,10 +469,10 @@
                 str1
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringIEnumerableDataObject()
         {
             var list = new List<DataObjectForTest>
@@ -486,10 +481,10 @@
                 doft2
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringIEnumerableGuid()
         {
             var list = new List<Guid>
@@ -498,10 +493,10 @@
                 g2
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringIEnumerableKeyGuid()
         {
             var list = new List<KeyGuid>
@@ -510,10 +505,10 @@
                 kg2
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysStringIEnumerableString()
         {
             var list = new List<string>
@@ -522,103 +517,102 @@
                 str2
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
-            Assert.AreEqual(res, PKHelper.GetKeysString(list));
+            Assert.Equal(res, PKHelper.GetKeysString(list));
         }
 
         #endregion GetKeysString
 
         #region CreateDataObject
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectСравнениеТипаОбъекта()
         {
-            Assert.IsTrue(doft1 is DataObjectForTest, "Метод вернул объект неверного типа.");
+            Assert.True(doft1 is DataObjectForTest, "Метод вернул объект неверного типа.");
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectСравнениеКлючей()
         {
-            Assert.IsTrue(PKHelper.EQPK(kg1, doft1), "Метод вернул объект с неверным ключом.");
+            Assert.True(PKHelper.EQPK(kg1, doft1), "Метод вернул объект с неверным ключом.");
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void CreateDataObjectСравнениеException()
         {
-            PKHelper.CreateDataObject<DataObjectForTest>("123");
+            Assert.Throws<ArgumentException>(() => PKHelper.CreateDataObject<DataObjectForTest>("123"));
         }
 
         #endregion CreateDataObject
 
         #region GetKeys
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsNull()
         {
-            Assert.AreEqual(PKHelper.GetKeys(null, null, null, null).Length, 0);
+            Assert.Equal(PKHelper.GetKeys(null, null, null, null).Length, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsNullKeyGuid()
         {
-            Assert.AreEqual(PKHelper.GetKeys(kg1, null, null, null).Length, 1);
+            Assert.Equal(PKHelper.GetKeys(kg1, null, null, null).Length, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsNullGuid()
         {
-            Assert.AreEqual(PKHelper.GetKeys(null, g1, null, null).Length, 1);
+            Assert.Equal(PKHelper.GetKeys(null, g1, null, null).Length, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsNullString()
         {
-            Assert.AreEqual(PKHelper.GetKeys(null, null, str1, null).Length, 1);
+            Assert.Equal(PKHelper.GetKeys(null, null, str1, null).Length, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsNullDataObject()
         {
-            Assert.AreEqual(PKHelper.GetKeys(null, null, null, doft0).Length, 1);
+            Assert.Equal(PKHelper.GetKeys(null, null, null, doft0).Length, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsIncorrectString()
         {
-            Assert.AreEqual(PKHelper.GetKeys("sssssssss", "123", str1, null).Length, 1);
+            Assert.Equal(PKHelper.GetKeys("sssssssss", "123", str1, null).Length, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsMixed()
         {
-            Assert.AreEqual(PKHelper.GetKeys(kg1, g1, str1, doft0).Length, 4);
+            Assert.Equal(PKHelper.GetKeys(kg1, g1, str1, doft0).Length, 4);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsKeyGuid()
         {
-            Assert.AreEqual(PKHelper.GetKeys(kg1, kg2).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(kg1, kg2).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsGuid()
         {
-            Assert.AreEqual(PKHelper.GetKeys(g1, g2).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(g1, g2).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsString()
         {
-            Assert.AreEqual(PKHelper.GetKeys(str1, str2).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(str1, str2).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleParamsDataObject()
         {
-            Assert.AreEqual(PKHelper.GetKeys(doft1, doft2).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(doft1, doft2).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleIEnumerableGuid()
         {
             var list = new List<Guid>
@@ -626,10 +620,10 @@
                 g1,
                 g2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleIEnumerableKeyGuid()
         {
             var list = new List<KeyGuid>
@@ -637,10 +631,10 @@
                 kg1,
                 kg2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleIEnumerableString()
         {
             var list = new List<string>
@@ -648,10 +642,10 @@
                 str1,
                 str2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleIEnumerableDataObject()
         {
             var list = new List<DataObjectForTest>
@@ -659,10 +653,10 @@
                 doft1,
                 doft2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysSimpleIEnumerableObject()
         {
             var list = new List<object>
@@ -672,10 +666,10 @@
                 doft0,
                 str1
             };
-            Assert.AreEqual(PKHelper.GetKeys(list).Length, 4);
+            Assert.Equal(PKHelper.GetKeys(list).Length, 4);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysParamsIEnumerableGuid()
         {
             var list = new List<Guid>
@@ -683,10 +677,10 @@
                 g1,
                 g2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list, list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list, list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysParamsIEnumerableKeyGuid()
         {
             var list = new List<KeyGuid>
@@ -694,10 +688,10 @@
                 kg1,
                 kg2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list, list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list, list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysParamsIEnumerableString()
         {
             var list = new List<string>
@@ -705,10 +699,10 @@
                 str1,
                 str2
             };
-            Assert.AreEqual(PKHelper.GetKeys(list, list).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(list, list).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysParamsIEnumerableObject()
         {
             var list = new List<object>
@@ -718,10 +712,10 @@
                 doft0,
                 str1
             };
-            Assert.AreEqual(PKHelper.GetKeys(list, list).Length, 4);
+            Assert.Equal(PKHelper.GetKeys(list, list).Length, 4);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysParamsIEnumerableMixed()
         {
             var listg = new List<Guid>
@@ -746,10 +740,10 @@
                 doft0,
                 str1
             };
-            Assert.AreEqual(PKHelper.GetKeys(list, listg, listkg, liststr).Length, 7);
+            Assert.Equal(PKHelper.GetKeys(list, listg, listkg, liststr).Length, 7);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableGuid()
         {
             var list = new List<Guid>
@@ -763,10 +757,10 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(listlist).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableKeyGuid()
         {
             var list = new List<KeyGuid>
@@ -780,10 +774,10 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(listlist).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableString()
         {
             var list = new List<string>
@@ -797,10 +791,10 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist).Length, 2);
+            Assert.Equal(PKHelper.GetKeys(listlist).Length, 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableObject()
         {
             var list = new List<object>
@@ -816,10 +810,10 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist).Length, 4);
+            Assert.Equal(PKHelper.GetKeys(listlist).Length, 4);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableMixed()
         {
             var listg = new List<Guid>
@@ -867,10 +861,10 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr).Length, 7);
+            Assert.Equal(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr).Length, 7);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableMixedWithSimple()
         {
             var listg = new List<Guid>
@@ -918,10 +912,10 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr, kg1, g1, str1, doft0).Length, 7);
+            Assert.Equal(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr, kg1, g1, str1, doft0).Length, 7);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetKeysIEnumerableIEnumerableMixedWithIEnumerable()
         {
             var listg = new List<Guid>
@@ -969,47 +963,47 @@
                 list,
                 list
             };
-            Assert.AreEqual(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr, list, listg, listkg, liststr).Length, 7);
+            Assert.Equal(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr, list, listg, listkg, liststr).Length, 7);
         }
 
         #endregion GetKeys
 
         #region CreateObjectsByKey
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectsСравнениеКоличества00()
         {
-            Assert.AreEqual(0, PKHelper.CreateObjectsByKey<DataObjectForTest>("123").Length);
+            Assert.Equal(0, PKHelper.CreateObjectsByKey<DataObjectForTest>("123").Length);
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectsСравнениеКоличества01()
         {
-            Assert.AreEqual(1, PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1).Length);
+            Assert.Equal(1, PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1).Length);
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectsСравнениеКоличества02()
         {
-            Assert.AreEqual(2, PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1, kg2).Length);
+            Assert.Equal(2, PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1, kg2).Length);
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectsСравнениеКоличества03()
         {
-            Assert.AreEqual(1, PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1, kg1).Length);
+            Assert.Equal(1, PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1, kg1).Length);
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectsСравнениеТипа00()
         {
-            Assert.AreEqual(typeof(DataObjectForTest), PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1).First().GetType());
+            Assert.Equal(typeof(DataObjectForTest), PKHelper.CreateObjectsByKey<DataObjectForTest>(kg1).First().GetType());
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateDataObjectsСравнениеТипа01()
         {
-            Assert.AreEqual(typeof(DataObjectWithKeyGuid), PKHelper.CreateObjectsByKey<DataObjectWithKeyGuid>(kg1).First().GetType());
+            Assert.Equal(typeof(DataObjectWithKeyGuid), PKHelper.CreateObjectsByKey<DataObjectWithKeyGuid>(kg1).First().GetType());
         }
 
         #endregion CreateObjectsByKey

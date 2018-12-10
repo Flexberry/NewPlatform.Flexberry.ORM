@@ -1,29 +1,28 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using IIS.University.Tools;
+    using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class BuildNotEqualsTests : BaseFunctionTest
     {
         private const string GuidString = "EFB82498-1935-41F0-B8CB-129372B4430E";
 
         #region Equals
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest11()
         {
-            FunctionBuilder.BuildNotEquals(NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest12()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     PrimaryKeyVarDef,
@@ -31,10 +30,10 @@
                 FunctionBuilder.BuildNotEquals(GuidString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest13()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     PrimaryKeyVarDef,
@@ -42,10 +41,10 @@
                 FunctionBuilder.BuildNotEquals(Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest14()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     PrimaryKeyVarDef,
@@ -53,10 +52,10 @@
                 FunctionBuilder.BuildNotEquals(KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest15()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     PrimaryKeyVarDef,
@@ -64,32 +63,30 @@
                 FunctionBuilder.BuildNotEquals(TestDataObject1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildNotEqualsTest16()
         {
-            FunctionBuilder.BuildNotEquals(1);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildNotEquals(1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest21()
         {
-            FunctionBuilder.BuildNotEquals(NullString, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullString, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest22()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, GuidVarDef),
                 FunctionBuilder.BuildNotEquals(PropertyName, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest23()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     GuidVarDef,
@@ -97,10 +94,10 @@
                 FunctionBuilder.BuildNotEquals(PropertyName, GuidString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest24()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     GuidVarDef,
@@ -108,10 +105,10 @@
                 FunctionBuilder.BuildNotEquals(PropertyName, Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest25()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     GuidVarDef,
@@ -119,10 +116,10 @@
                 FunctionBuilder.BuildNotEquals(PropertyName, KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest26()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(
                     LangDef.funcNEQ,
                     GuidVarDef,
@@ -130,340 +127,326 @@
                 FunctionBuilder.BuildNotEquals(PropertyName, TestDataObject1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest27()
         {
             // TODO: Enum
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, StringVarDef, 1),
                 FunctionBuilder.BuildNotEquals(PropertyName, 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest28()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, NumericVarDef, 1),
                 FunctionBuilder.BuildNotEquals(PropertyName, 1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest31()
         {
-            FunctionBuilder.BuildNotEquals(NullString, NullObjectType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullString, NullObjectType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest32()
         {
-            FunctionBuilder.BuildNotEquals(PropertyName, NullObjectType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(PropertyName, NullObjectType, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest33()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, GuidVarDef),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.GuidType, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest34()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(GuidString)),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.GuidType, GuidString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest35()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(Guid1)),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.GuidType, Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest36()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(KeyGuid1)),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.GuidType, KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest37()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(TestDataObject1)),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.GuidType, TestDataObject1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest38()
         {
             // TODO: Enum
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, NumericVarDef, 1),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.NumericType, 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest39()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, NumericVarDef, 1),
                 FunctionBuilder.BuildNotEquals(PropertyName, LangDef.NumericType, 1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest41()
         {
-            FunctionBuilder.BuildNotEquals(NullVarDef, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullVarDef, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest42()
         {
-            FunctionBuilder.BuildNotEquals(NullVarDef, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullVarDef, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest43()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, GuidVarDef),
                 FunctionBuilder.BuildNotEquals(GuidVarDef, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest44()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(GuidString)),
                 FunctionBuilder.BuildNotEquals(GuidVarDef, GuidString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest45()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(Guid1)),
                 FunctionBuilder.BuildNotEquals(GuidVarDef, Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest46()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(KeyGuid1)),
                 FunctionBuilder.BuildNotEquals(GuidVarDef, KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest47()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, PKHelper.GetKeyByObject(TestDataObject1)),
                 FunctionBuilder.BuildNotEquals(GuidVarDef, TestDataObject1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest48()
         {
             FunctionBuilder.BuildNotEquals(StringVarDef, "");
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest49()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, NumericVarDef, 1),
                 FunctionBuilder.BuildNotEquals(NumericVarDef, 1));
         }
-        
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+
+        [Fact]
         public void BuildNotEqualsTest51()
         {
-            FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Hierarchy, "asd");
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Hierarchy, "asd"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [Fact]
         public void BuildNotEqualsTest52()
         {
-            FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, "asd");
+            Assert.Throws<FormatException>(() => FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, "asd"));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest53()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, GuidGenVarDef),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Hierarchy, NullTestDataObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest54()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidGenVarDef, PKHelper.GetKeyByObject(KeyGuid1)),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Hierarchy, KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest55()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, StringGenVarDef, String1),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Name, String1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest56()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, DateGenVarDef, DateTime1),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.BirthDate, DateTime1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest57()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, IntGenVarDef, Int1),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, Int1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest61()
         {
-            FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Hierarchy, NullLambda);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(x => x.Hierarchy, NullLambda));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildNotEqualsTest62()
         {
-            FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, x => x.BirthDate);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, x => x.BirthDate));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildNotEqualsTest63()
         {
-            FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Name, x => x.Height);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Name, x => x.Height));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest64()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, StringGenVarDef, StringGenVarDef1),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Name, x => x.NickName));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest65()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, IntGenVarDef, IntGenVarDef1),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, x => x.Weight));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest66()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, DateGenVarDef, DateGenVarDef1),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.BirthDate, x => x.DeathDate));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest67()
         {
-            Assert.AreEqual(
-                LangDef.GetFunction(LangDef.funcNEQ, StringGenVarDef, StringGenVarDef2), 
+            Assert.Equal(
+                LangDef.GetFunction(LangDef.funcNEQ, StringGenVarDef, StringGenVarDef2),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Name, x => x.Hierarchy.Name));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest68()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, StringGenVarDef, StringGenVarDef),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Name, x => x.Name));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest69()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, StringGenVarDef, String1),
                 FunctionBuilder.BuildNotEquals<IName>(x => x.Name, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest70()
         {
-            FunctionBuilder.BuildNotEquals(NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest71()
         {
-            FunctionBuilder.BuildNotEquals(NullVarDef, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullVarDef, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest72()
         {
-            FunctionBuilder.BuildNotEquals(GuidVarDef, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(GuidVarDef, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest73()
         {
-            FunctionBuilder.BuildNotEquals(NullLambda, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals(NullLambda, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotEqualsTest74()
         {
-            FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, NullFunction));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest80()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, PrimaryKeyVarDef, FuncSQL),
                 FunctionBuilder.BuildNotEquals(FuncSQL));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest81()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, GuidVarDef, FuncSQL),
                 FunctionBuilder.BuildNotEquals(GuidVarDef, FuncSQL));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotEqualsTest82()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNEQ, IntGenVarDef, FuncSQL),
                 FunctionBuilder.BuildNotEquals<TestDataObject>(x => x.Height, FuncSQL));
         }

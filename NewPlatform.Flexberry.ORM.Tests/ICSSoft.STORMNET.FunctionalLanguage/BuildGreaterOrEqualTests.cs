@@ -1,229 +1,209 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using IIS.University.Tools;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class BuildGreaterOrEqualTests : BaseFunctionTest
     {
         #region GreaterOrEqual
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest11()
         {
-            FunctionBuilder.BuildGreaterOrEqual(NullString, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(NullString, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest12()
         {
-            FunctionBuilder.BuildGreaterOrEqual(PropertyName, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(PropertyName, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest13()
         {
             FunctionBuilder.BuildGreaterOrEqual(PropertyName, 1);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest21()
         {
-            FunctionBuilder.BuildGreaterOrEqual(NullString, NullObjectType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(NullString, NullObjectType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest22()
         {
-            FunctionBuilder.BuildGreaterOrEqual(PropertyName, NullObjectType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(PropertyName, NullObjectType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest23()
         {
-            FunctionBuilder.BuildGreaterOrEqual(PropertyName, LangDef.NumericType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(PropertyName, LangDef.NumericType, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest24()
         {
             FunctionBuilder.BuildGreaterOrEqual(PropertyName, LangDef.NumericType, 1);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest31()
         {
-            FunctionBuilder.BuildGreaterOrEqual(NullVarDef, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(NullVarDef, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest32()
         {
-            FunctionBuilder.BuildGreaterOrEqual(NumericVarDef, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(NumericVarDef, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest33()
         {
             FunctionBuilder.BuildGreaterOrEqual(NumericVarDef, 1);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest41()
         {
-            FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [Fact]
         public void BuildGreaterOrEqualTest42()
         {
-            FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, "asd");
+            Assert.Throws<FormatException>(() => FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, "asd"));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest43()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, IntGenVarDef, Int1),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, Int1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest44()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, DateGenVarDef, DateTime1),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.BirthDate, DateTime1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest45()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, StringGenVarDef, String1),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Name, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest52()
         {
-            FunctionBuilder.BuildGreaterOrEqual(NullVarDef, StringGenVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(NullVarDef, StringGenVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest53()
         {
-            FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, NullVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, NullVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildGreaterOrEqualTest54()
         {
-            FunctionBuilder.BuildGreaterOrEqual(IntGenVarDef, DateGenVarDef);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildGreaterOrEqual(IntGenVarDef, DateGenVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildGreaterOrEqualTest55()
         {
-            FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, IntGenVarDef);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, IntGenVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildGreaterOrEqualTest56()
         {
-            FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, IntGenVarDef);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, IntGenVarDef));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest57()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, StringGenVarDef, StringGenVarDef1),
                 FunctionBuilder.BuildGreaterOrEqual(StringGenVarDef, StringGenVarDef1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest61()
         {
-            FunctionBuilder.BuildGreaterOrEqual(NullLambda, x => x.Hierarchy);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(NullLambda, x => x.Hierarchy));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGreaterOrEqualTest62()
         {
-            FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Hierarchy, NullLambda);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildGreaterOrEqual(x => x.Hierarchy, NullLambda));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildGreaterOrEqualTest63()
         {
-            FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, x => x.BirthDate);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, x => x.BirthDate));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void BuildGreaterOrEqualTest64()
         {
-            FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Name, x => x.Height);
+            Assert.Throws<ArgumentException>(() => FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Name, x => x.Height));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest71()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, StringGenVarDef, StringGenVarDef1),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Name, x => x.NickName));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest72()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, IntGenVarDef, IntGenVarDef1),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Height, x => x.Weight));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest73()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, DateGenVarDef, DateGenVarDef1),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.BirthDate, x => x.DeathDate));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest74()
         {
-
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, StringGenVarDef, StringGenVarDef2),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Name, x => x.Hierarchy.Name));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGreaterOrEqualTest75()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcGEQ, StringGenVarDef, StringGenVarDef),
                 FunctionBuilder.BuildGreaterOrEqual<TestDataObject>(x => x.Name, x => x.Name));
         }

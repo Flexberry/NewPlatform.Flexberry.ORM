@@ -1,283 +1,281 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
+    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.KeyGen;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class BuildIn4Tests : BaseFunctionTest
     {
-        [TestMethod]
+        [Fact]
         public void BuildInTest400()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn());
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest401()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest402()
         {
-            FunctionBuilder.BuildIn(NullObjects);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(NullObjects));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest406()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest413()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(1, 2));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest414()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(1, 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest415()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn((IEnumerable<Guid>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest416()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn((IEnumerable<KeyGuid>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest417()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn((IEnumerable<TestDataObject>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest418()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn((IEnumerable<int>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest419()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(Enumerable.Empty<Guid>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest420()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(Enumerable.Empty<KeyGuid>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest421()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(Enumerable.Empty<TestDataObject>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest422()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(Enumerable.Empty<int>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest426()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(new List<int> { 1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest433()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(new List<int> { 1, 2 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest434()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(new List<int> { 1, 1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest403()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(Guid1), FunctionBuilder.BuildIn(Guid1)); // eq
+            Assert.Equal(FunctionBuilder.BuildEquals(Guid1), FunctionBuilder.BuildIn(Guid1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest404()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(KeyGuid1), FunctionBuilder.BuildIn(KeyGuid1)); // eq
+            Assert.Equal(FunctionBuilder.BuildEquals(KeyGuid1), FunctionBuilder.BuildIn(KeyGuid1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest405()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(TestDataObject1),
                 FunctionBuilder.BuildIn(TestDataObject1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest407()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, Guid1, Guid2),
                 FunctionBuilder.BuildIn(Guid1, Guid2)); // in
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest408()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(Guid1), FunctionBuilder.BuildIn(Guid1, Guid1)); // eq
+            Assert.Equal(FunctionBuilder.BuildEquals(Guid1), FunctionBuilder.BuildIn(Guid1, Guid1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest409()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, KeyGuid1, KeyGuid2),
                 FunctionBuilder.BuildIn(KeyGuid1, KeyGuid2)); // in
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest410()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(KeyGuid1), FunctionBuilder.BuildIn(KeyGuid1, KeyGuid1)); // eq
+            Assert.Equal(FunctionBuilder.BuildEquals(KeyGuid1), FunctionBuilder.BuildIn(KeyGuid1, KeyGuid1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest411()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, TestDataObject1, TestDataObject2),
                 FunctionBuilder.BuildIn(TestDataObject1, TestDataObject2)); // in
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest412()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(TestDataObject1),
                 FunctionBuilder.BuildIn(TestDataObject1, TestDataObject1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest423()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(Guid1), FunctionBuilder.BuildIn(new List<Guid> { Guid1 }));
-            // eq
+            Assert.Equal(FunctionBuilder.BuildEquals(Guid1), FunctionBuilder.BuildIn(new List<Guid> { Guid1 })); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest424()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(KeyGuid1),
                 FunctionBuilder.BuildIn(new List<KeyGuid> { KeyGuid1 })); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest425()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(TestDataObject1),
                 FunctionBuilder.BuildIn(new List<TestDataObject> { TestDataObject1 })); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest427()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, Guid1, Guid2),
                 FunctionBuilder.BuildIn(new List<Guid> { Guid1, Guid2 })); // in
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest428()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(Guid1),
                 FunctionBuilder.BuildIn(new List<Guid> { Guid1, Guid1 })); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest429()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, KeyGuid1, KeyGuid2),
                 FunctionBuilder.BuildIn(new List<KeyGuid> { KeyGuid1, KeyGuid2 })); // in
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest430()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(KeyGuid1),
                 FunctionBuilder.BuildIn(new List<KeyGuid> { KeyGuid1, KeyGuid1 })); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest431()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, TestDataObject1, TestDataObject2),
                 FunctionBuilder.BuildIn(new List<TestDataObject> { TestDataObject1, TestDataObject2 })); // in
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest432()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(TestDataObject1),
                 FunctionBuilder.BuildIn(new List<TestDataObject> { TestDataObject1, TestDataObject1 })); // eq
         }

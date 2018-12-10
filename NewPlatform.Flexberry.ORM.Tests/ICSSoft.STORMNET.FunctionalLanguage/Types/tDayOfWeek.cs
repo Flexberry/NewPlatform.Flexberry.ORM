@@ -1,4 +1,4 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using ICSSoft.STORMNET;
 

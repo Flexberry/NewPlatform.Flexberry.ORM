@@ -1,10 +1,9 @@
-﻿namespace IIS.University.Tools
+﻿namespace ICSSoft.STORMNET
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Convertors;
     using ICSSoft.STORMNET.KeyGen;
 

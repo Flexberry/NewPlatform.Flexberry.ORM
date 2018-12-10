@@ -1,308 +1,304 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.KeyGen;
 
-    using IIS.University.Tools;
+    using Xunit;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class BuildIn1Tests : BaseFunctionTest
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest100()
         {
-            FunctionBuilder.BuildIn(NullVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(NullVarDef));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest101()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, NullObject));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildInTest102()
         {
-            FunctionBuilder.BuildIn(GuidVarDef, NullObjects);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIn(GuidVarDef, NullObjects));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest103()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest104()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, Guid1), FunctionBuilder.BuildIn(GuidVarDef, Guid1));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, Guid1), FunctionBuilder.BuildIn(GuidVarDef, Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest105()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1), FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1), FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest106()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1),
                 FunctionBuilder.BuildIn(GuidVarDef, TestDataObject1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest107()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(NumericVarDef, 1), FunctionBuilder.BuildIn(NumericVarDef, 1));
+            Assert.Equal(FunctionBuilder.BuildEquals(NumericVarDef, 1), FunctionBuilder.BuildIn(NumericVarDef, 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest108()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.Build(LangDef.funcIN, GuidVarDef, Guid1, Guid2),
                 FunctionBuilder.BuildIn(GuidVarDef, Guid1, Guid2));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest109()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, Guid1), FunctionBuilder.BuildIn(GuidVarDef, Guid1, Guid1));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, Guid1), FunctionBuilder.BuildIn(GuidVarDef, Guid1, Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest110()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, Guid1), FunctionBuilder.BuildIn(GuidVarDef, Guid1, NullObject));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, Guid1), FunctionBuilder.BuildIn(GuidVarDef, Guid1, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest111()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.Build(LangDef.funcIN, GuidVarDef, KeyGuid1, KeyGuid2),
                 FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1, KeyGuid2));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest112()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1), FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1, KeyGuid1));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1), FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1, KeyGuid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest113()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1), FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1, NullObject));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1), FunctionBuilder.BuildIn(GuidVarDef, KeyGuid1, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest114()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.Build(LangDef.funcIN, GuidVarDef, TestDataObject1, TestDataObject2),
                 FunctionBuilder.BuildIn(GuidVarDef, TestDataObject1, TestDataObject2));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest115()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1), FunctionBuilder.BuildIn(GuidVarDef, TestDataObject1, TestDataObject1));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1), FunctionBuilder.BuildIn(GuidVarDef, TestDataObject1, TestDataObject1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest116()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1), FunctionBuilder.BuildIn(GuidVarDef, TestDataObject1, NullObject));
+            Assert.Equal(FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1), FunctionBuilder.BuildIn(GuidVarDef, TestDataObject1, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest117()
         {
-            Assert.AreEqual(FunctionBuilder.Build(LangDef.funcIN, NumericVarDef, 1, 2), FunctionBuilder.BuildIn(NumericVarDef, 1, 2));
+            Assert.Equal(FunctionBuilder.Build(LangDef.funcIN, NumericVarDef, 1, 2), FunctionBuilder.BuildIn(NumericVarDef, 1, 2));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest118()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(NumericVarDef, 1), FunctionBuilder.BuildIn(NumericVarDef, 1, 1));
+            Assert.Equal(FunctionBuilder.BuildEquals(NumericVarDef, 1), FunctionBuilder.BuildIn(NumericVarDef, 1, 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest119()
         {
-            Assert.AreEqual(FunctionBuilder.BuildEquals(NumericVarDef, 1), FunctionBuilder.BuildIn(NumericVarDef, 1, NullObject));
+            Assert.Equal(FunctionBuilder.BuildEquals(NumericVarDef, 1), FunctionBuilder.BuildIn(NumericVarDef, 1, NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest120()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<Guid>)null));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<Guid>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest121()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<KeyGuid>)null));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<KeyGuid>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest122()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<TestDataObject>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest123()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<int>)null));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, (IEnumerable<int>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest124()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<Guid>()));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<Guid>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest125()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<KeyGuid>()));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<KeyGuid>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest126()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncFalse,
                 FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<TestDataObject>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest127()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<int>()));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(GuidVarDef, Enumerable.Empty<int>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest128()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, Guid1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<Guid> { Guid1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest129()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<KeyGuid> { KeyGuid1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest130()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<TestDataObject> { TestDataObject1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest131()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(NumericVarDef, 1),
                 FunctionBuilder.BuildIn(NumericVarDef, new List<int> { 1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest132()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.Build(LangDef.funcIN, GuidVarDef, Guid1, Guid2),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<Guid> { Guid1, Guid2 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest133()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, Guid1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<Guid> { Guid1, Guid1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest134()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.Build(LangDef.funcIN, GuidVarDef, KeyGuid1, KeyGuid2),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<KeyGuid> { KeyGuid1, KeyGuid2 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest135()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<KeyGuid> { KeyGuid1, KeyGuid1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest136()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, KeyGuid1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<KeyGuid> { KeyGuid1, null }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest137()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.Build(LangDef.funcIN, GuidVarDef, TestDataObject1, TestDataObject2),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<TestDataObject> { TestDataObject1, TestDataObject2 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest138()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<TestDataObject> { TestDataObject1, TestDataObject1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest139()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(GuidVarDef, TestDataObject1),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<TestDataObject> { TestDataObject1, null }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest140()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildIn(GuidVarDef, 1, 2),
                 FunctionBuilder.BuildIn(GuidVarDef, new List<int> { 1, 2 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest141()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildEquals(NumericVarDef, 1),
                 FunctionBuilder.BuildIn(NumericVarDef, new List<int> { 1, 1 }));
         }

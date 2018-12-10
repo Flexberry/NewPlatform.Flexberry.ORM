@@ -1,4 +1,4 @@
-﻿namespace IIS.University.Tools
+﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     using System;
     using System.Collections;
@@ -9,7 +9,6 @@
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.FileType;
-    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;

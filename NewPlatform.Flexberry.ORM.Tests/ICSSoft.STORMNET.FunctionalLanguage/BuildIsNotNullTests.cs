@@ -1,66 +1,63 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using IIS.University.Tools;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class BuildIsNotNullTests : BaseFunctionTest
     {
         #region NotIsNull
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotIsNullTest11()
         {
-            FunctionBuilder.BuildIsNotNull(NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIsNotNull(NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotIsNullTest12()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, StringVarDef),
                 FunctionBuilder.BuildIsNotNull(PropertyName));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotIsNullTest21()
         {
-            FunctionBuilder.BuildIsNotNull(NullVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildIsNotNull(NullVarDef));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotIsNullTest22()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, StringVarDef),
                 FunctionBuilder.BuildIsNotNull(StringVarDef));
         }
-        
-        [TestMethod]
+
+        [Fact]
         public void BuildNotIsNullTest31()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, IntGenVarDef),
                 FunctionBuilder.BuildIsNotNull<TestDataObject>(x => x.Height));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuilddNotIsNullTest32()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, DateGenVarDef),
                 FunctionBuilder.BuildIsNotNull<TestDataObject>(x => x.BirthDate));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuilddNotIsNullTest33()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcNotIsNull, StringGenVarDef),
                 FunctionBuilder.BuildIsNotNull<TestDataObject>(x => x.Name));
         }

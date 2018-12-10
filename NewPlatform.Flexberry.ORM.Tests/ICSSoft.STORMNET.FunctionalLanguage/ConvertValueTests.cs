@@ -1,4 +1,4 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -8,9 +8,8 @@
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class ConvertValueTests : BaseTest
     {
         private static readonly ObjectType DataObjectType = LangDef.DataObjectType;
@@ -53,557 +52,512 @@
 
         private const object NullObject = null;
 
-        [TestMethod]
-        public void ValidateValueTest01()
+        [Fact]
+        public void ConvertValueTest01()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestGuidString),
                 FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestGuidString));
         }
 
-        [TestMethod]
-        public void ValidateValueTest02()
+        [Fact]
+        public void ConvertValueTest02()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestGuid),
                 FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestGuid));
         }
 
-        [TestMethod]
-        public void ValidateValueTest03()
+        [Fact]
+        public void ConvertValueTest03()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestKeyGuid),
                 FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestKeyGuid));
         }
 
-        [TestMethod]
-        public void ValidateValueTest04()
+        [Fact]
+        public void ConvertValueTest04()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestTestDataObject),
                 FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestTestDataObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest05()
+        [Fact]
+        public void ConvertValueTest05()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestBool);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestBool));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest06()
+        [Fact]
+        public void ConvertValueTest06()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestInt);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestInt));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest07()
+        [Fact]
+        public void ConvertValueTest07()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestDecimal);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestDecimal));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest08()
+        [Fact]
+        public void ConvertValueTest08()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestString);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest09()
+        [Fact]
+        public void ConvertValueTest09()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestDateTime);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestDateTime));
         }
 
-        [TestMethod]
-        public void ValidateValueTest11()
+        [Fact]
+        public void ConvertValueTest11()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestGuidString),
                 FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestGuidString));
         }
 
-        [TestMethod]
-        public void ValidateValueTest12()
+        [Fact]
+        public void ConvertValueTest12()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestGuid),
                 FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestGuid));
         }
 
-        [TestMethod]
-        public void ValidateValueTest13()
+        [Fact]
+        public void ConvertValueTest13()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestKeyGuid),
                 FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestKeyGuid));
         }
 
-        [TestMethod]
-        public void ValidateValueTest14()
+        [Fact]
+        public void ConvertValueTest14()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 PKHelper.GetKeyByObject(TestTestDataObject),
                 FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestTestDataObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest15()
+        [Fact]
+        public void ConvertValueTest15()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestBool);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestBool));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest16()
+        [Fact]
+        public void ConvertValueTest16()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestInt);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestInt));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest17()
+        [Fact]
+        public void ConvertValueTest17()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestString);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest18()
+        [Fact]
+        public void ConvertValueTest18()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestDateTime);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestDateTime));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest19()
+        [Fact]
+        public void ConvertValueTest19()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestDayOfWeek);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestDayOfWeek));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void ValidateValueTest21()
+        [Fact]
+        public void ConvertValueTest21()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestGuidString);
+            Assert.Throws<FormatException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestGuidString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest22()
+        [Fact]
+        public void ConvertValueTest22()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestGuid);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestGuid));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest23()
+        [Fact]
+        public void ConvertValueTest23()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestKeyGuid);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestKeyGuid));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest24()
+        [Fact]
+        public void ConvertValueTest24()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestTestDataObject);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestTestDataObject));
         }
 
-        [TestMethod]
-        public void ValidateValueTest25()
+        [Fact]
+        public void ConvertValueTest25()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestBool,
                 FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestBool));
         }
 
-        [TestMethod]
-        public void ValidateValueTest26()
+        [Fact]
+        public void ConvertValueTest26()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 true,
                 FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestInt));
         }
 
-        [TestMethod]
-        public void ValidateValueTest27()
+        [Fact]
+        public void ConvertValueTest27()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 true,
                 FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestDecimal));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void ValidateValueTest28()
+        [Fact]
+        public void ConvertValueTest28()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestString);
+            Assert.Throws<FormatException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest29()
+        [Fact]
+        public void ConvertValueTest29()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestDateTime);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestDateTime));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void ValidateValueTest31()
+        [Fact]
+        public void ConvertValueTest31()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestGuidString);
+            Assert.Throws<FormatException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestGuidString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest32()
+        [Fact]
+        public void ConvertValueTest32()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestGuid);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestGuid));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest33()
+        [Fact]
+        public void ConvertValueTest33()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestKeyGuid);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestKeyGuid));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest34()
+        [Fact]
+        public void ConvertValueTest34()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestTestDataObject);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestTestDataObject));
         }
 
-        [TestMethod]
-        public void ValidateValueTest35()
+        [Fact]
+        public void ConvertValueTest35()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 1m,
                 FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestBool));
         }
 
-        [TestMethod]
-        public void ValidateValueTest36()
+        [Fact]
+        public void ConvertValueTest36()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestInt,
                 FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestInt));
         }
 
-        [TestMethod]
-        public void ValidateValueTest37()
+        [Fact]
+        public void ConvertValueTest37()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestDecimal,
                 FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestDecimal));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void ValidateValueTest38()
+        [Fact]
+        public void ConvertValueTest38()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestString);
+            Assert.Throws<FormatException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest39()
+        [Fact]
+        public void ConvertValueTest39()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestDateTime);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestDateTime));
         }
 
-        [TestMethod]
-        public void ValidateValueTest41()
+        [Fact]
+        public void ConvertValueTest41()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestGuidString,
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestGuidString));
         }
 
-        [TestMethod]
-        public void ValidateValueTest42()
+        [Fact]
+        public void ConvertValueTest42()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestGuid.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestGuid));
         }
 
-        [TestMethod]
-        public void ValidateValueTest43()
+        [Fact]
+        public void ConvertValueTest43()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestKeyGuid.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestKeyGuid));
         }
 
-        [TestMethod]
-        public void ValidateValueTest44()
+        [Fact]
+        public void ConvertValueTest44()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestTestDataObject.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestTestDataObject));
         }
 
-        [TestMethod]
-        public void ValidateValueTest45()
+        [Fact]
+        public void ConvertValueTest45()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestBool.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestBool));
         }
 
-        [TestMethod]
-        public void ValidateValueTest46()
+        [Fact]
+        public void ConvertValueTest46()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestInt.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestInt));
         }
 
-        [TestMethod]
-        public void ValidateValueTest47()
+        [Fact]
+        public void ConvertValueTest47()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestDecimal.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestDecimal));
         }
 
-        [TestMethod]
-        public void ValidateValueTest48()
+        [Fact]
+        public void ConvertValueTest48()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestString,
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestString));
         }
 
-        [TestMethod]
-        public void ValidateValueTest49()
+        [Fact]
+        public void ConvertValueTest49()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestDateTime.ToString(),
                 FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestDateTime));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void ValidateValueTest51()
+        [Fact]
+        public void ConvertValueTest51()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestGuidString);
+            Assert.Throws<FormatException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestGuidString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest52()
+        [Fact]
+        public void ConvertValueTest52()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestGuid);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestGuid));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest53()
+        [Fact]
+        public void ConvertValueTest53()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestKeyGuid);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestKeyGuid));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest54()
+        [Fact]
+        public void ConvertValueTest54()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestTestDataObject);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestTestDataObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest55()
+        [Fact]
+        public void ConvertValueTest55()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestBool);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestBool));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest56()
+        [Fact]
+        public void ConvertValueTest56()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestInt);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestInt));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest57()
+        [Fact]
+        public void ConvertValueTest57()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestDecimal);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestDecimal));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void ValidateValueTest58()
+        [Fact]
+        public void ConvertValueTest58()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestString);
+            Assert.Throws<FormatException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestString));
         }
 
-        [TestMethod]
-        public void ValidateValueTest59()
+        [Fact]
+        public void ConvertValueTest59()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestDateTime,
                 FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestDateTime));
         }
 
-        [TestMethod]
-        public void ValidateValueTest71()
+        [Fact]
+        public void ConvertValueTest71()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestNullableInt,
                 FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestNullableInt));
         }
 
-        [TestMethod]
-        public void ValidateValueTest72()
+        [Fact]
+        public void ConvertValueTest72()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestNullableDecimal,
                 FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestNullableDecimal));
         }
 
-        [TestMethod]
-        public void ValidateValueTest73()
+        [Fact]
+        public void ConvertValueTest73()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 TestNullableDateTime,
                 FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestNullableDateTime));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest81()
+        [Fact]
+        public void ConvertValueTest81()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, new List<DataObject>());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, new List<DataObject>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest82()
+        [Fact]
+        public void ConvertValueTest82()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, new List<Guid>());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, new List<Guid>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest83()
+        [Fact]
+        public void ConvertValueTest83()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, new List<bool>());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, new List<bool>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest84()
+        [Fact]
+        public void ConvertValueTest84()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, new List<int>());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, new List<int>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest85()
+        [Fact]
+        public void ConvertValueTest85()
         {
-            FunctionHelper.ConvertValue(StringType.NetCompatibilityType, new List<string>());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(StringType.NetCompatibilityType, new List<string>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest86()
+        [Fact]
+        public void ConvertValueTest86()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, new List<DateTime>());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, new List<DateTime>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ValidateValueTest91()
+        [Fact]
+        public void ConvertValueTest91()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ValidateValueTest92()
+        [Fact]
+        public void ConvertValueTest92()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ValidateValueTest93()
+        [Fact]
+        public void ConvertValueTest93()
         {
-            FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ValidateValueTest94()
+        [Fact]
+        public void ConvertValueTest94()
         {
-            FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ValidateValueTest95()
+        [Fact]
+        public void ConvertValueTest95()
         {
-            FunctionHelper.ConvertValue(StringType.NetCompatibilityType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ConvertValue(StringType.NetCompatibilityType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ValidateValueTest96()
+        [Fact]
+        public void ConvertValueTest96()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest101()
+        [Fact]
+        public void ConvertValueTest101()
         {
-            FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestDayOfWeek);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(DataObjectType.NetCompatibilityType, TestDayOfWeek));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ValidateValueTest102()
+        [Fact]
+        public void ConvertValueTest102()
         {
-            FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestDayOfWeek);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ConvertValue(GuidType.NetCompatibilityType, TestDayOfWeek));
         }
 
-        [TestMethod]
-        public void ValidateValueTest103()
+        [Fact]
+        public void ConvertValueTest103()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 true,
                 FunctionHelper.ConvertValue(BoolType.NetCompatibilityType, TestDayOfWeek));
         }
 
-        [TestMethod]
-        public void ValidateValueTest104()
+        [Fact]
+        public void ConvertValueTest104()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 1m,
                 FunctionHelper.ConvertValue(NumericType.NetCompatibilityType, TestDayOfWeek));
         }
 
-        [TestMethod]
-        public void ValidateValueTest105()
+        [Fact]
+        public void ConvertValueTest105()
         {
             FunctionHelper.ConvertValue(StringType.NetCompatibilityType, TestDayOfWeek);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
-        public void ValidateValueTest106()
+        [Fact]
+        public void ConvertValueTest106()
         {
-            FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestDayOfWeek);
+            Assert.Throws<InvalidCastException>(() => FunctionHelper.ConvertValue(DateTimeType.NetCompatibilityType, TestDayOfWeek));
         }
     }
 }

@@ -1,15 +1,13 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
+    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;
 
-    using IIS.University.Tools;
+    using Xunit;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class IsKeyTypeTests : BaseTest
     {
         private static readonly Type DataObjectType = LangDef.DataObjectType.NetCompatibilityType;
@@ -38,106 +36,106 @@
 
         private static readonly Type EnumType = typeof(tDayOfWeek);
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest00()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(KeyGuidType),
                 true);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest01()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(DataObjectType),
                 true);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest02()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(GuidType),
                 true);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest03()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(NGuidType),
                 true);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest04()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(BoolType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest05()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(NumericType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest06()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(StringType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest07()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(DateTimeType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest08()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(IntType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest09()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(NullableIntType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest10()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(NullableDecimalType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest11()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(NullableDateTimeType),
                 false);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsKeyTypeTest12()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionHelper.IsKeyType(EnumType),
                 false);
         }

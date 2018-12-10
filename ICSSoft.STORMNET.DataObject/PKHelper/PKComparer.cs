@@ -1,8 +1,6 @@
-﻿namespace IIS.University.Tools
+﻿namespace ICSSoft.STORMNET
 {
     using System.Collections.Generic;
-
-    using ICSSoft.STORMNET;
 
     /// <summary>
     ///     Вспомогательный класс для сравнения объектов.
@@ -12,11 +10,13 @@
     public class PKComparer<T> : IEqualityComparer<T>
         where T : DataObject
     {
+        /// <inheritdoc />
         public bool Equals(T x, T y)
         {
             return PKHelper.EQDataObject(x, y);
         }
 
+        /// <inheritdoc />
         public int GetHashCode(T obj)
         {
             return PKHelper.GetKeyByObject(obj).ToString().ToLower().GetHashCode();

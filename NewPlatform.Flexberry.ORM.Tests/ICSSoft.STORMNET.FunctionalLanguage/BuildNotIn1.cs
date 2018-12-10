@@ -1,170 +1,162 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Collections.Generic;
 
     using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class BuildNotIn1 : BaseFunctionTest
     {
         protected static readonly Function FuncNotFalse = FunctionBuilder.BuildNot(FunctionBuilder.BuildFalse());
 
         private static readonly ObjectType DataObjectType = LangDef.DataObjectType;
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest100()
         {
-            FunctionBuilder.BuildNotIn(NullVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(NullVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest102()
         {
-            FunctionBuilder.BuildNotIn(GuidVarDef, NullObjects);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(GuidVarDef, NullObjects));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest103()
         {
-            Assert.AreEqual(FuncNotFalse, FunctionBuilder.BuildNotIn(GuidVarDef));
+            Assert.Equal(FuncNotFalse, FunctionBuilder.BuildNotIn(GuidVarDef));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest104()
         {
-            Assert.AreEqual(
-                FunctionBuilder.BuildNot(FunctionBuilder.BuildEquals(GuidVarDef, Guid1)), 
+            Assert.Equal(
+                FunctionBuilder.BuildNot(FunctionBuilder.BuildEquals(GuidVarDef, Guid1)),
                 FunctionBuilder.BuildNotIn(GuidVarDef, Guid1));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest201()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncNotFalse,
                 FunctionBuilder.BuildNotIn(NullLambda));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest202()
         {
-            FunctionBuilder.BuildNotIn<TestDataObject>(x => x.Height, NullObjects);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn<TestDataObject>(x => x.Height, NullObjects));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest203()
         {
-            Assert.AreEqual(
-                FunctionBuilder.BuildNot(FunctionBuilder.BuildEquals(Guid1)), 
+            Assert.Equal(
+                FunctionBuilder.BuildNot(FunctionBuilder.BuildEquals(Guid1)),
                 FunctionBuilder.BuildNotIn(NullLambda, Guid1)); // eq
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest235()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildNot(FunctionBuilder.BuildEquals<TestDataObject>(x => x.Height, 1)),
                 FunctionBuilder.BuildNotIn<TestDataObject>(x => x.Height, new List<int> { 1 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest300()
         {
-            Assert.AreEqual(FuncNotFalse, 
+            Assert.Equal(
+                FuncNotFalse,
                 FunctionBuilder.BuildNotIn(PropertyName, DataObjectType));
         }
-        [TestMethod]
+
+        [Fact]
         public void BuildNotInTest400()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncNotFalse,
                 FunctionBuilder.BuildNotIn());
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest401()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FuncNotFalse,
                 FunctionBuilder.BuildNotIn(NullObject));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest402()
         {
-            FunctionBuilder.BuildNotIn(NullObjects);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(NullObjects));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest403()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildNot(FunctionBuilder.BuildEquals(Guid1)),
                 FunctionBuilder.BuildNotIn(Guid1)); // eq
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest500()
         {
-            FunctionBuilder.BuildNotIn(NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest501()
         {
-            FunctionBuilder.BuildNotIn(NullVarDef, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(NullVarDef, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest502()
         {
-            FunctionBuilder.BuildNotIn(GuidVarDef, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(GuidVarDef, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest503()
         {
-            FunctionBuilder.BuildNotIn(NullLambda, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn(NullLambda, NullFunction));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotInTest504()
         {
-            FunctionBuilder.BuildNotIn<TestDataObject>(x => x.Height, NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNotIn<TestDataObject>(x => x.Height, NullFunction));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest510()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildNot(LangDef.GetFunction(LangDef.funcIN, PrimaryKeyVarDef, FuncSQL)),
                 FunctionBuilder.BuildNotIn(FuncSQL));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest511()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildNot(LangDef.GetFunction(LangDef.funcIN, GuidVarDef, FuncSQL)),
                 FunctionBuilder.BuildNotIn(GuidVarDef, FuncSQL));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotInTest512()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 FunctionBuilder.BuildNot(LangDef.GetFunction(LangDef.funcIN, IntGenVarDef, FuncSQL)),
                 FunctionBuilder.BuildNotIn<TestDataObject>(x => x.Height, FuncSQL));
         }

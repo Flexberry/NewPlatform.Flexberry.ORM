@@ -1,98 +1,91 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    [TestClass]
+    using Xunit;
+
     public class BuildLikeTests : BaseFunctionTest
     {
         #region common
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLikeTest1()
         {
-            FunctionBuilder.BuildLike(NullString, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLike(NullString, NullString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildLikeTest2()
         {
-            FunctionBuilder.BuildLike(PropertyName, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLike(PropertyName, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildLikeTest3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringVarDef, String1),
                 FunctionBuilder.BuildLike(PropertyName, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildStartsWith1()
         {
-            FunctionBuilder.BuildStartsWith(NullString, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildStartsWith(NullString, NullString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildStartsWith2()
         {
-            FunctionBuilder.BuildStartsWith(PropertyName, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildStartsWith(PropertyName, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildStartsWith3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringVarDef, $"{String1}%"),
                 FunctionBuilder.BuildStartsWith(PropertyName, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildEndsWith1()
         {
-            FunctionBuilder.BuildEndsWith(NullString, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildEndsWith(NullString, NullString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildEndsWith2()
         {
-            FunctionBuilder.BuildEndsWith(PropertyName, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildEndsWith(PropertyName, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildEndsWith3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringVarDef, $"%{String1}"),
                 FunctionBuilder.BuildEndsWith(PropertyName, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildContains1()
         {
-            FunctionBuilder.BuildContains(NullString, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildContains(NullString, NullString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildContains2()
         {
-            FunctionBuilder.BuildContains(PropertyName, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildContains(PropertyName, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildContains3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringVarDef, $"%{String1}%"),
                 FunctionBuilder.BuildContains(PropertyName, String1));
         }
@@ -101,86 +94,82 @@
 
         #region generic
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGenLikeTest1()
         {
-            FunctionBuilder.BuildLike<TestDataObject>(x => x.Name, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildLike<TestDataObject>(x => x.Name, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenLikeTest2()
         {
             FunctionBuilder.BuildLike<TestDataObject>(x => x.BirthDate, String1);
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenLikeTest3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringGenVarDef, $"{String1}"),
                 FunctionBuilder.BuildLike<TestDataObject>(x => x.Name, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGenStartsWithTest1()
         {
-            FunctionBuilder.BuildStartsWith<TestDataObject>(x => x.Name, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildStartsWith<TestDataObject>(x => x.Name, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenStartsWithTest2()
         {
             FunctionBuilder.BuildStartsWith<TestDataObject>(x => x.BirthDate, String1);
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenStartsWithTest3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringGenVarDef, $"{String1}%"),
                 FunctionBuilder.BuildStartsWith<TestDataObject>(x => x.Name, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGenEndsWithTest1()
         {
-            FunctionBuilder.BuildEndsWith<TestDataObject>(x => x.Name, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildEndsWith<TestDataObject>(x => x.Name, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenEndsWithTest2()
         {
             FunctionBuilder.BuildEndsWith<TestDataObject>(x => x.BirthDate, String1);
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenEndsWithTest3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringGenVarDef, $"%{String1}"),
                 FunctionBuilder.BuildEndsWith<TestDataObject>(x => x.Name, String1));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildGenContainsTest1()
         {
-            FunctionBuilder.BuildContains<TestDataObject>(x => x.Name, NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildContains<TestDataObject>(x => x.Name, NullString));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenContainsTest2()
         {
             FunctionBuilder.BuildContains<TestDataObject>(x => x.BirthDate, String1);
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildGenContainsTest3()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcLike, StringGenVarDef, $"%{String1}%"),
                 FunctionBuilder.BuildContains<TestDataObject>(x => x.Name, String1));
         }

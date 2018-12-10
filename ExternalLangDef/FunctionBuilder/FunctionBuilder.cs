@@ -1,4 +1,4 @@
-﻿namespace IIS.University.Tools
+﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,6 @@
     using System.Linq.Expressions;
 
     using ICSSoft.STORMNET;
-    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Windows.Forms;
 

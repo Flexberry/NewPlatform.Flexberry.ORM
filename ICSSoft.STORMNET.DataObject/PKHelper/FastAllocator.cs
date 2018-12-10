@@ -1,4 +1,4 @@
-﻿namespace IIS.University.Tools
+﻿namespace ICSSoft.STORMNET
 {
     using System;
     using System.Reflection.Emit;
@@ -7,7 +7,8 @@
     /// Static generic fast allocator.
     /// </summary>
     /// <typeparam name="T">The type of the return value of the allocation method.</typeparam>
-    public static class FastAllocator<T> where T : new()
+    public static class FastAllocator<T>
+        where T : new()
     {
         public static Func<T> Creator;
 

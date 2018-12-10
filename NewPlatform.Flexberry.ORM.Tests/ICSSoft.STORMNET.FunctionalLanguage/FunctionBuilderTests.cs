@@ -1,51 +1,49 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
-    using IIS.University.Tools;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class FunctionBuilderTests : BaseFunctionTest
     {
-        [TestMethod]
+        [Fact]
         public void BuildTrueTest()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcEQ, 1, 1),
                 FunctionBuilder.BuildTrue());
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildFalseTest()
         {
-            Assert.AreEqual(
-                LangDef.GetFunction(LangDef.funcEQ, 1, 0), 
+            Assert.Equal(
+                LangDef.GetFunction(LangDef.funcEQ, 1, 0),
                 FunctionBuilder.BuildFalse());
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildSQLTest()
         {
-            Assert.AreEqual(
-                LangDef.GetFunction(LangDef.funcSQL, "sql"), 
+            Assert.Equal(
+                LangDef.GetFunction(LangDef.funcSQL, "sql"),
                 FunctionBuilder.BuildSQL("sql"));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildNotTest()
         {
-            Assert.AreEqual(
-                LangDef.GetFunction(LangDef.funcNOT, FuncTrue), 
+            Assert.Equal(
+                LangDef.GetFunction(LangDef.funcNOT, FuncTrue),
                 FunctionBuilder.BuildNot(FuncTrue));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void BuildNotTest1()
         {
-            FunctionBuilder.BuildNot(NullFunction);
+            Assert.Throws<ArgumentNullException>(() => FunctionBuilder.BuildNot(NullFunction));
         }
     }
 }

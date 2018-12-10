@@ -1,20 +1,17 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using IIS.University.Tools;
+    using Xunit;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class BuildIn3Tests : BaseFunctionTest
     {
         private static readonly ObjectType DataObjectType = LangDef.DataObjectType;
 
-        [TestMethod]
+        [Fact]
         public void BuildInTest300()
         {
-            Assert.AreEqual(FuncFalse, FunctionBuilder.BuildIn(PropertyName, DataObjectType));
+            Assert.Equal(FuncFalse, FunctionBuilder.BuildIn(PropertyName, DataObjectType));
         }
     }
 }

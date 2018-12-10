@@ -1,219 +1,219 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.FileType;
+    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class GetObjectTypeTests : BaseTest
     {
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest00()
         {
-            Assert.AreEqual(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DataObject)).NetCompatibilityType);
+            Assert.Equal(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DataObject)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest01()
         {
-            Assert.AreEqual(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(TestDataObject)).NetCompatibilityType);
+            Assert.Equal(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(TestDataObject)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest02()
         {
-            Assert.AreEqual(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(Guid)).NetCompatibilityType);
+            Assert.Equal(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(Guid)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest03()
         {
-            Assert.AreEqual(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(Guid?)).NetCompatibilityType);
+            Assert.Equal(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(Guid?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest04()
         {
-            Assert.AreEqual(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(KeyGuid)).NetCompatibilityType);
+            Assert.Equal(LangDef.GuidType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(KeyGuid)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest10()
         {
-            Assert.AreEqual(LangDef.BoolType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(bool)).NetCompatibilityType);
+            Assert.Equal(LangDef.BoolType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(bool)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest11()
         {
-            Assert.AreEqual(LangDef.BoolType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(bool?)).NetCompatibilityType);
+            Assert.Equal(LangDef.BoolType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(bool?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest20()
         {
-            Assert.AreEqual(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(string)).NetCompatibilityType);
+            Assert.Equal(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(string)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest21()
         {
-            Assert.AreEqual(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(tDayOfWeek)).NetCompatibilityType);
+            Assert.Equal(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(tDayOfWeek)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest23()
         {
-            Assert.AreEqual(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(WebFile)).NetCompatibilityType);
+            Assert.Equal(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(WebFile)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest24()
         {
-            Assert.AreEqual(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(File)).NetCompatibilityType);
+            Assert.Equal(LangDef.StringType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(File)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest30()
         {
-            Assert.AreEqual(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DateTime)).NetCompatibilityType);
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DateTime)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest31()
         {
-            Assert.AreEqual(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DateTime?)).NetCompatibilityType);
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DateTime?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest32()
         {
-            Assert.AreEqual(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableDateTime)).NetCompatibilityType);
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableDateTime)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest40()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(short)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(short)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest41()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(short?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(short?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest42()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(int)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(int)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest43()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(int?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(int?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest44()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(long)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(long)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest45()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(long?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(long?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest46()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ushort)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ushort)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest47()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ushort?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ushort?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest48()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(uint)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(uint)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest49()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(uint?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(uint?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest50()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ulong)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ulong)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest51()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ulong?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(ulong?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest52()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(decimal)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(decimal)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest53()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(decimal?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(decimal?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest54()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(float)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(float)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest55()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(float?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(float?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest56()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(double)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(double)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest57()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(double?)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(double?)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest58()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableInt)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableInt)).NetCompatibilityType);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetObjectTypeTest59()
         {
-            Assert.AreEqual(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableDecimal)).NetCompatibilityType);
+            Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableDecimal)).NetCompatibilityType);
         }
     }
 }

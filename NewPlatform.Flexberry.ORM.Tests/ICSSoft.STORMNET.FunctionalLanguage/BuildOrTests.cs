@@ -1,77 +1,74 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using IIS.University.Tools;
+    using Xunit;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class BuildOrTests : BaseFunctionTest
     {
         #region Or
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest11()
         {
-            Assert.AreEqual(NullFunction, FunctionBuilder.BuildOr());
+            Assert.Equal(NullFunction, FunctionBuilder.BuildOr());
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest12()
         {
-            Assert.AreEqual(NullFunction, FunctionBuilder.BuildOr(NullFunction));
+            Assert.Equal(NullFunction, FunctionBuilder.BuildOr(NullFunction));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest13()
         {
-            Assert.AreEqual(FuncTrue, FunctionBuilder.BuildOr(FuncTrue));
+            Assert.Equal(FuncTrue, FunctionBuilder.BuildOr(FuncTrue));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest14()
         {
-            Assert.AreEqual(FuncTrue, FunctionBuilder.BuildOr(FuncTrue, NullFunction));
+            Assert.Equal(FuncTrue, FunctionBuilder.BuildOr(FuncTrue, NullFunction));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest15()
         {
-            Assert.AreEqual(LangDef.GetFunction(LangDef.funcOR, FuncTrue, FuncFalse), FunctionBuilder.BuildOr(FuncTrue, FuncFalse));
+            Assert.Equal(LangDef.GetFunction(LangDef.funcOR, FuncTrue, FuncFalse), FunctionBuilder.BuildOr(FuncTrue, FuncFalse));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest21()
         {
-            Assert.AreEqual(NullFunction, FunctionBuilder.BuildOr((IEnumerable<Function>)null));
+            Assert.Equal(NullFunction, FunctionBuilder.BuildOr((IEnumerable<Function>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest22()
         {
-            Assert.AreEqual(NullFunction, FunctionBuilder.BuildOr(Enumerable.Empty<Function>()));
+            Assert.Equal(NullFunction, FunctionBuilder.BuildOr(Enumerable.Empty<Function>()));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest23()
         {
-            Assert.AreEqual(FuncTrue, FunctionBuilder.BuildOr(new List<Function> { FuncTrue }));
+            Assert.Equal(FuncTrue, FunctionBuilder.BuildOr(new List<Function> { FuncTrue }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest24()
         {
-            Assert.AreEqual(FuncTrue, FunctionBuilder.BuildOr(new List<Function> { FuncTrue, NullFunction }));
+            Assert.Equal(FuncTrue, FunctionBuilder.BuildOr(new List<Function> { FuncTrue, NullFunction }));
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildOrTest25()
         {
-            Assert.AreEqual(
+            Assert.Equal(
                 LangDef.GetFunction(LangDef.funcOR, FuncTrue, FuncFalse),
                 FunctionBuilder.BuildOr(new List<Function> { FuncTrue, FuncFalse }));
         }

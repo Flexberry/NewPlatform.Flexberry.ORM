@@ -1,4 +1,4 @@
-﻿namespace IIS.University.Tools.Tests
+﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
 
@@ -7,9 +7,8 @@
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Windows.Forms;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class ValidateTests : BaseFunctionTest
     {
         private static readonly ObjectType ObjectType = LangDef.NumericType;
@@ -22,47 +21,43 @@
 
         #region ValidateVariableDef
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateVariableDefTest01()
         {
-            FunctionHelper.ValidateVariableDef(NullVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateVariableDef(NullVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateVariableDefTest02()
         {
-            FunctionHelper.ValidateVariableDef(VarDef0);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateVariableDef(VarDef0));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateVariableDefTest03()
         {
-            FunctionHelper.ValidateVariableDef(new VariableDef { StringedView = "PropertyName" });
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateVariableDef(new VariableDef { StringedView = "PropertyName" }));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateVariableDefTest04()
         {
-            FunctionHelper.ValidateVariableDef(new VariableDef { Type = ObjectType });
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateVariableDef(new VariableDef { Type = ObjectType }));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateVariableDefTest05()
         {
             FunctionHelper.ValidateVariableDef(new VariableDef { StringedView = "PropertyName", Type = ObjectType });
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateVariableDefTest06()
         {
             FunctionHelper.ValidateVariableDef(VarDef1);
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateVariableDefTest07()
         {
             FunctionHelper.ValidateVariableDef(VarDef2);
@@ -72,48 +67,43 @@
 
         #region ValidateDetailVariableDef
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateDetailVariableDefTest01()
         {
-            FunctionHelper.ValidateDetailVariableDef(NullDetailVarDef);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateDetailVariableDef(NullDetailVarDef));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateDetailVariableDefTest02()
         {
-            FunctionHelper.ValidateDetailVariableDef(new DetailVariableDef());
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateDetailVariableDef(new DetailVariableDef()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateDetailVariableDefTest03()
         {
-            FunctionHelper.ValidateDetailVariableDef(new DetailVariableDef { Type = LangDef.DetailsType });
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateDetailVariableDef(new DetailVariableDef { Type = LangDef.DetailsType }));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateDetailVariableDefTest04()
         {
-            FunctionHelper.ValidateDetailVariableDef(new DetailVariableDef { Type = LangDef.DetailsType, View = TestDataObject.Views.E });
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateDetailVariableDef(new DetailVariableDef { Type = LangDef.DetailsType, View = TestDataObject.Views.E }));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateDetailVariableDefTest05()
         {
-            FunctionHelper.ValidateDetailVariableDef(
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateDetailVariableDef(
                 new DetailVariableDef
                 {
                     Type = LangDef.DetailsType,
                     View = TestDataObject.Views.E,
                     ConnectMasterPorp = Information.ExtractPropertyName<TestDataObject>(x => x.Hierarchy)
-                });
+                }));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateDetailVariableDefTest06()
         {
             FunctionHelper.ValidateDetailVariableDef(
@@ -130,14 +120,13 @@
 
         #region ValidateExpression
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateExpressionTest01()
         {
-            FunctionHelper.ValidateExpression(NullLambda);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateExpression(NullLambda));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateExpressionTest02()
         {
             FunctionHelper.ValidateExpression<TestDataObject>(x => x.Height);
@@ -147,28 +136,25 @@
 
         #region ValidatePropertyName
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidatePropertyNameTest01()
         {
-            FunctionHelper.ValidatePropertyName(NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidatePropertyName(NullString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidatePropertyNameTest02()
         {
-            FunctionHelper.ValidatePropertyName("   ");
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidatePropertyName("   "));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidatePropertyNameTest03()
         {
-            FunctionHelper.ValidatePropertyName("");
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidatePropertyName(""));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidatePropertyNameTest04()
         {
             FunctionHelper.ValidatePropertyName(PropertyName);
@@ -178,42 +164,37 @@
 
         #region ValidateFunctionString
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateFunctionStringTest01()
         {
-            FunctionHelper.ValidateFunctionString(NullString);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateFunctionString(NullString));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateFunctionStringTest02()
         {
-            FunctionHelper.ValidateFunctionString("   ");
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateFunctionString("   "));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateFunctionStringTest03()
         {
-            FunctionHelper.ValidateFunctionString("");
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateFunctionString(""));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateFunctionStringTest04()
         {
-            FunctionHelper.ValidateFunctionString(LangDef.funcL);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateFunctionString(LangDef.funcL));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void ValidateFunctionStringTest05()
         {
-            FunctionHelper.ValidateFunctionString(LangDef.funcL, LangDef.funcLEQ);
+            Assert.Throws<ArgumentException>(() => FunctionHelper.ValidateFunctionString(LangDef.funcL, LangDef.funcLEQ));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateFunctionStringTest06()
         {
             FunctionHelper.ValidateFunctionString(LangDef.funcL, LangDef.funcL);
@@ -223,14 +204,13 @@
 
         #region ValidateValue
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateValueTest01()
         {
-            FunctionHelper.ValidateValue(NullObject);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateValue(NullObject));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateValueTest02()
         {
             FunctionHelper.ValidateValue(1);
@@ -240,14 +220,13 @@
 
         #region ValidateObjectType
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ValidateObjectTypeTest01()
         {
-            FunctionHelper.ValidateObjType(NullObjectType);
+            Assert.Throws<ArgumentNullException>(() => FunctionHelper.ValidateObjType(NullObjectType));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateObjectTypeTest02()
         {
             FunctionHelper.ValidateObjType(ObjectType);
