@@ -91,6 +91,8 @@
     <Compile Include="ExternalLangDef\IViewGenerator.cs" />
     <Compile Include="ExternalLangDef\TypeResolveDelegate.cs" />
     <Compile Include="ExternalLangDef\ViewPropertyAppender.cs" />
+    <Compile Include="FunctionBuilder\FunctionBuilder.cs" />
+    <Compile Include="FunctionBuilder\FunctionHelper.cs" />
     <Compile Include="Interfaces\EventArgs\CancelEventArgs.cs" />
     <Compile Include="Interfaces\EventArgs\CloseEventArgs.cs" />
     <Compile Include="Interfaces\EventArgs\ContActionEventArgs.cs" />
