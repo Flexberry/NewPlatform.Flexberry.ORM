@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.2.0-beta08</version>
+    <version>4.2.0-beta09</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -27,6 +27,7 @@
       13. Added delegate to check compatible property storage types.
       14. Fix empty file saving in PostgresDataService.
       15. Added PersistUtcDates property to AuditService.
+      16. Add PKHelper and FunctionBuilder utilities.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
