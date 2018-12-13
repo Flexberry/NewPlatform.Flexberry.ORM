@@ -13,8 +13,8 @@
         /// Создание исключения, сообщающего, что в функции ограничения некорректное количество параметров.
         /// </summary>
         /// <param name="functionName">Имя функции, для которой задано некорректное количество параметров.</param>
-        public InvalidParameterCountValidationException(string functionName) :
-            base(string.Format(ResourceData.InvalidParameterCountValidationExceptionMessage, functionName))
+        public InvalidParameterCountValidationException(string functionName)
+            : base(string.Format(ResourceData.InvalidParameterCountValidationExceptionMessage, functionName))
         {
         }
     }

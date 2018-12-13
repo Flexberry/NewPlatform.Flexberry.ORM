@@ -1,4 +1,4 @@
-﻿namespace ICSSoft.STORMNET.Business.OracleDataService.Tests
+﻿namespace ICSSoft.STORMNET.Business.OracleDataServiceTests
 {
     using System.Data;
 
@@ -9,7 +9,6 @@
     /// <summary>
     /// Класс для проверки работы <see cref="OracleDataService"/>.
     /// </summary>
-    
     public class OracleDataServiceTest
     {
         /// <summary>

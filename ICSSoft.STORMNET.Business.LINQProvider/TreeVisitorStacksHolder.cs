@@ -21,7 +21,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
 
         public void PushFunction(Function function)
         {
-            _paramsStack.Push((object) function);
+            _paramsStack.Push((object)function);
         }
 
         public void PushParam(object param)
@@ -38,7 +38,6 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             }
             catch (Exception e)
             {
-                
                 throw new Exception("Стек параметров неожиданно оказался пуст при обходе выражения");
             }
 
@@ -47,6 +46,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             {
                 throw new Exception("В этом месте ожидается параметр типа Function");
             }
+
             return f;
         }
 

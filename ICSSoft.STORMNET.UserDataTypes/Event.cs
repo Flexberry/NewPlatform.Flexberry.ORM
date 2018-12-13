@@ -46,19 +46,46 @@ namespace ICSSoft.STORMNET.UserDataTypes
         /// Категория события (info / warning / error / проч)
         /// </summary>
         public string Category { get; set; }
-        
+
         public static explicit operator string(Event value)
         {
             // Лучше будет использовать Json, но нет возможности
             var xml = new XElement("event");
 
-            if (value.Name != null) xml.Add(new XAttribute("type", value.Name));
-            if (value.Description != null) xml.Add(new XAttribute("description", value.Description));
-            if (value.Author != null) xml.Add(new XAttribute("author", value.Author));
-            if (value.Place != null) xml.Add(new XAttribute("place", value.Place));
-            if (value.Category != null) xml.Add(new XAttribute("category", value.Category));
-            if (value.StartTime != DateTime.MinValue) xml.Add(new XAttribute("start", value.StartTime));
-            if (value.FinishTime != null) xml.Add(new XAttribute("finish", value.FinishTime));
+            if (value.Name != null)
+            {
+                xml.Add(new XAttribute("type", value.Name));
+            }
+
+            if (value.Description != null)
+            {
+                xml.Add(new XAttribute("description", value.Description));
+            }
+
+            if (value.Author != null)
+            {
+                xml.Add(new XAttribute("author", value.Author));
+            }
+
+            if (value.Place != null)
+            {
+                xml.Add(new XAttribute("place", value.Place));
+            }
+
+            if (value.Category != null)
+            {
+                xml.Add(new XAttribute("category", value.Category));
+            }
+
+            if (value.StartTime != DateTime.MinValue)
+            {
+                xml.Add(new XAttribute("start", value.StartTime));
+            }
+
+            if (value.FinishTime != null)
+            {
+                xml.Add(new XAttribute("finish", value.FinishTime));
+            }
 
             return xml.ToString();
         }
@@ -66,11 +93,16 @@ namespace ICSSoft.STORMNET.UserDataTypes
         public static explicit operator Event(string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return null;
+            }
 
             // Лучше будет использовать Json, но нет возможности
             var xml = XElement.Parse(value);
-            if (xml == null) throw new ArgumentException("Ошибка при десериализации");
+            if (xml == null)
+            {
+                throw new ArgumentException("Ошибка при десериализации");
+            }
 
             var eventValue = new Event();
 
@@ -84,7 +116,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             eventValue.StartTime = attr != null ? DateTime.Parse(attr.Value) : DateTime.MinValue;
 
             attr = xml.Attribute("finish");
-            eventValue.FinishTime = attr != null ? new NullableDateTime {Value = DateTime.Parse(attr.Value)} : null;
+            eventValue.FinishTime = attr != null ? new NullableDateTime { Value = DateTime.Parse(attr.Value) } : null;
 
             attr = xml.Attribute("author");
             eventValue.Author = attr != null ? attr.Value : null;

@@ -16,7 +16,6 @@
     /// <typeparam name="TP"> Тип детейла. </typeparam>
     public class PseudoDetail<T, TP>
     { // Большое число конструкторов обусловлено тем, что в Linq-выражении сложности с использованием конструкторов со значением по умолчанию.
-
         /// <summary>
         /// Представление псевдодетейла.
         /// </summary>
@@ -128,7 +127,6 @@
             : this(view, GetMasterLinkNameForRealDetail(), string.Empty, null)
         {
         }
-
 
         /// <summary>
         /// Конструктор сущности, представляющей в Linq-выражении псевдодетейл.

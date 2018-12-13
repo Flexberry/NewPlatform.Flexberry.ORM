@@ -8,7 +8,6 @@
     [EventArgCatcherType("ICSSoft.STORMNET.UI.NewEventArgsCatcher, ICSSoft.STORMNET.UI, Version=1.0.0.1, Culture=neutral, PublicKeyToken=21ce651d390c1fa0")]
     public class NewEventArgs : ICSSoft.STORMNET.UI.ContActionEventArgs
     {
-
         private Type ftype;
 
         private object ftag;
@@ -47,12 +46,13 @@
                 Type result = this.ftype;
                 return result;
             }
+
             set
             {
                 this.ftype = value;
             }
         }
-        
+
         /// <summary>
         /// тег
         /// </summary>
@@ -62,12 +62,12 @@
             {
                 return ftag;
             }
+
             set
             {
                 ftag = value;
             }
         }
-
     }
 
     /// <summary>

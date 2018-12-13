@@ -11,7 +11,7 @@
     using ICSSoft.STORMNET.Windows.Forms;
 
     /// <summary>
-    /// Класс для расширения представления свойствами, используемыми в ограничении, но отсутствующими в указанном представлении. 
+    /// Класс для расширения представления свойствами, используемыми в ограничении, но отсутствующими в указанном представлении.
     /// </summary>
     public static class ViewPropertyAppender
     {
@@ -20,7 +20,7 @@
         /// На настоящий момент данная структура не используется, поскольку не стоит задачи расширения представления детейлами.
         /// </summary>
         public class DetailVariableDefContainer
-        { 
+        {
             /// <summary>
             /// Описание связи с детейлом/псевдодетейлом.
             /// </summary>
@@ -63,7 +63,7 @@
             var detailList = new List<DetailVariableDefContainer>();
             FindPropertiesUsedInFunction(function, variableList, detailList);
             EnrichDetailViewList(detailList, dataService);
-        } 
+        }
 
         /// <summary>
         /// В представления переданных структур, соответствующих детейлам, добавляются недостающие свойства, если это необходимо.
@@ -123,14 +123,16 @@
         public static void FindPropertiesUsedInFunction(Function function, List<string> variableList, List<DetailVariableDefContainer> detailList)
         {
             if (function == null)
+            {
                 return;
+            }
 
             DetailVariableDefContainer currentDetailContainer = null;
 
             foreach (var parameter in function.Parameters)
             {
                 if (parameter is DetailVariableDef)
-                {   //это детейл
+                { // это детейл
                     var detailVariableDef = parameter as DetailVariableDef;
                     currentDetailContainer =
                         detailList.FirstOrDefault(
@@ -141,14 +143,16 @@
                     }
                 }
                 else if (parameter is VariableDef)
-                {   //это имя свойства
+                { // это имя свойства
                     var variableDef = parameter as VariableDef;
-                    if (!variableList.Contains(variableDef.StringedView) 
+                    if (!variableList.Contains(variableDef.StringedView)
                         && variableDef.StringedView != SQLWhereLanguageDef.StormMainObjectKey)
+                    {
                         variableList.Add(variableDef.StringedView);
+                    }
                 }
                 else if (parameter is Function)
-                {   //спускаемся вниз
+                { // спускаемся вниз
                     if (currentDetailContainer == null)
                     {
                         FindPropertiesUsedInFunction(parameter as Function, variableList, detailList);
@@ -190,7 +194,7 @@
                 var expression = expressions.ToDictionary()
                     .FirstOrDefault(i => dataServiceType == i.Key || dataServiceType.IsSubclassOf(i.Key));
 
-                if (!default(KeyValuePair<Type, Object>).Equals(expression))
+                if (!default(KeyValuePair<Type, object>).Equals(expression))
                 {
                     var propertiesUsedInExpression = Information.GetPropertiesInExpression((string)expression.Value, string.Empty);
                     var filteredPropertiesUsedInExpression = propertiesUsedInExpression.Distinct().Select(p => string.IsNullOrEmpty(prefix) ? p : string.Format("{0}.{1}", prefix, p));
@@ -202,7 +206,7 @@
         }
 
         /// <summary>
-        /// Создание представление с добавление свойств из ограничения, которые используются в ограничении, но отсутствуют в указанном в качестве параметра ограничении. При поиске отсутствующих в представлении свойств учитываются также и выражения для вычислимых свойств.   
+        /// Создание представление с добавление свойств из ограничения, которые используются в ограничении, но отсутствуют в указанном в качестве параметра ограничении. При поиске отсутствующих в представлении свойств учитываются также и выражения для вычислимых свойств.
         /// </summary>
         /// <param name="view">Представление, но основе которого создается новое представление, возвращаемое в качестве результата метода.</param>
         /// <param name="function">Функция, среди параметров которой происходит поиск неиспользуемых в представлении свойств.</param>
@@ -211,10 +215,14 @@
         public static View GetViewWithPropertiesUsedInFunction(View view, Function function, IDataService dataService)
         {
             if (view == null)
+            {
                 throw new ArgumentNullException("view");
+            }
 
             if (function == null)
+            {
                 throw new ArgumentNullException("function");
+            }
 
             SQLWhereLanguageDef langdef = ExternalLangDef.LanguageDef;
 
@@ -227,8 +235,8 @@
             var detailList = new List<DetailVariableDef>();
 
             // ToDo: Для расширения представлений детейлов необходимо раскомментировать следую строку.  На данный момент этот вызов приводит к появлению пустых свойств в представлении детейла. Явление, видимо, как-то связанное с клонированием представлений (см. №30700.).
-            //var detailList = enrichedView.Details.Select(detailInView => new DetailVariableDef(langdef.GetObjectType(detailInView.Name), detailInView.Name, detailInView.View, string.Empty, null)).ToList();
-            
+            // var detailList = enrichedView.Details.Select(detailInView => new DetailVariableDef(langdef.GetObjectType(detailInView.Name), detailInView.Name, detailInView.View, string.Empty, null)).ToList();
+
             FindPropertiesUsedInFunction(
                 function, variableList, DetailVariableDefContainer.CreateDetailVariableDefContainersList(detailList));
 
@@ -236,25 +244,31 @@
             foreach (var property in variableList)
             {
                 if (!enrichedView.CheckPropname(property))
+                {
                     enrichedView.AddProperty(property, property, false, string.Empty);
+                }
 
                 // Проверим нет ли у свойства выражения для вычисления.
-                var propertiesUsedInExpression = GetPropertiesUsedInExpression
-                    (property, enrichedView.DefineClassType, dataService);
+                var propertiesUsedInExpression = GetPropertiesUsedInExpression(
+                    property, enrichedView.DefineClassType, dataService);
 
                 foreach (var propertyUsedInExpression in propertiesUsedInExpression)
-                    if (!enrichedView.CheckPropname(propertyUsedInExpression) 
-                        && !string.Equals(propertyUsedInExpression,SQLWhereLanguageDef.StormMainObjectKey, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!enrichedView.CheckPropname(propertyUsedInExpression)
+                        && !string.Equals(propertyUsedInExpression, SQLWhereLanguageDef.StormMainObjectKey, StringComparison.OrdinalIgnoreCase))
+                    {
                         enrichedView.AddProperty(propertyUsedInExpression, propertyUsedInExpression, false, string.Empty);
+                    }
+                }
             }
 
-            //Добавление описания детейлов: раскоментировать при ненеобходимости.
-            //Пока в добавлении детейлов нет необходимости. 
-            //foreach (var detail in detailList)
-            //{
+            // Добавление описания детейлов: раскоментировать при ненеобходимости.
+            // Пока в добавлении детейлов нет необходимости.
+            // foreach (var detail in detailList)
+            // {
             //    if (enrichedView.Details.Count(dvd => dvd.Name == detail.StringedView) == 0)
             //        enrichedView.AddDetailInView(detail.StringedView, detail.View, true);
-            //}
+            // }
 
             return enrichedView;
         }

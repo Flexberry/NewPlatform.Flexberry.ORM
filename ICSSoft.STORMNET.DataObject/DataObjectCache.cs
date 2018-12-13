@@ -76,7 +76,10 @@
             lock (_objectCaches)
             {
                 if (NoCaches)
+                {
                     clipParentCache = true;
+                }
+
                 if (clipParentCache)
                 {
                     _objectCaches.Add(new Dictionary<TypeKeyPair, WeakReference>(new TypeKeyPairEqualityComparer()));
@@ -84,7 +87,9 @@
                     _lastCacheIndex++;
                 }
                 else
+                {
                     _objectCachesUseCounter[_lastCacheIndex] = ((int)_objectCachesUseCounter[_lastCacheIndex]) + 1;
+                }
             }
         }
 
@@ -153,7 +158,10 @@
 
             DataObject dobj = null;
             if (!NoCaches)
+            {
                 dobj = PrvGetLivingDataObject(typeofdataobject, key);
+            }
+
             if (dobj == null)
             {
                 dobj = (DataObject)Creator.CreateObject(typeofdataobject);
@@ -172,7 +180,6 @@
 
             return dobj;
         }
-
 
         /// <summary>
         /// Добавить объект в кеш.
@@ -254,14 +261,19 @@
 
                 TypeKeyPair pairkey = new TypeKeyPair(typeofdataobject, key);
                 if (_lastCacheIndex == -1)
+                {
                     return;
+                }
+
                 Dictionary<TypeKeyPair, WeakReference> sl = (Dictionary<TypeKeyPair, WeakReference>)_objectCaches[_lastCacheIndex];
 
                 if (sl.ContainsKey(pairkey))
                 {
                     WeakReference wr = sl[pairkey];
                     if (!wr.IsAlive)
+                    {
                         sl.Remove(pairkey);
+                    }
                 }
             }
         }
@@ -275,7 +287,9 @@
         private void AddLivingDataObject(DataObject dataobject)
         {
             if (NoCaches)
+            {
                 throw new DOCacheNotFoundException();
+            }
 
             WeakReference wr = new WeakReference(dataobject);
             TypeKeyPair tkp = new TypeKeyPair(dataobject.GetType(), dataobject.__PrimaryKey);
@@ -321,7 +335,10 @@
             key = Information.TranslateValueToPrimaryKeyType(typeofdataobject, key);
             DataObject result;
             if (NoCaches)
+            {
                 return null;
+            }
+
             WeakReference wr = null;
             try
             {

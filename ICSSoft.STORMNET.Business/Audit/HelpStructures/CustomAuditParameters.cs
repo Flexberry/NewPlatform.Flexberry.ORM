@@ -105,7 +105,7 @@
                            ? auditObjectTypeOrDescription
                            : "CustomUserType";
             }
-            
+
             set
             {
                 auditObjectTypeOrDescription = string.IsNullOrEmpty(value) ? value : value.Trim();
@@ -187,7 +187,7 @@
         private bool _useDefaultWriteMode = true;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool UseDefaultWriteMode
         {

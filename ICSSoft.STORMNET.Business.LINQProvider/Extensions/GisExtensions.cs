@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+
     /// <summary>
     /// Методы расширения Gis для LINQProvider.
     /// </summary>
@@ -25,6 +26,18 @@
         }
 
         /// <summary>
+        /// Тестирует пересечение двух объектов Geometry.
+        /// Метод может использоваться только в запросе к LINQProvider. В остальных случаях всегда будет возвращать false.
+        /// </summary>
+        /// <param name="geo1">Объект 1 Geometry.</param>
+        /// <param name="geo2">Объект 2 Geometry.</param>
+        /// <returns>Если существует пересечение двух объектов, то возвращает true, иначе false.</returns>
+        public static bool GeomIntersects(this Geometry geo1, Geometry geo2)
+        {
+            return false;
+        }
+
+        /// <summary>
         /// Создаёт объект Geography.
         /// </summary>
         /// <param name="wkt">Строка в формате WKT или EWKT.</param>
@@ -33,6 +46,17 @@
         {
             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
             return wktFormatter.Read<Geography>(new StringReader(wkt));
+        }
+
+        /// <summary>
+        /// Создаёт объект Geometry.
+        /// </summary>
+        /// <param name="wkt">Строка в формате WKT или EWKT.</param>
+        /// <returns>Объект Geometry.</returns>
+        public static Geometry CreateGeometry(this string wkt)
+        {
+            WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
+            return wktFormatter.Read<Geometry>(new StringReader(wkt));
         }
 
         /// <summary>
@@ -49,13 +73,36 @@
         }
 
         /// <summary>
+        /// Получает строку в формате EWKT из объекта Geometry.
+        /// </summary>
+        /// <param name="geo">Объект Geometry.</param>
+        /// <returns>Cтрока в формате EWKT.</returns>
+        public static string GetEWKT(this Geometry geo)
+        {
+            WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
+            StringWriter wr = new StringWriter();
+            wktFormatter.Write(geo, wr);
+            return wr.ToString();
+        }
+
+        /// <summary>
         /// Получает строку в формате WKT из объекта Geography.
         /// </summary>
         /// <param name="geo">Объект Geography.</param>
         /// <returns>Cтрока в формате WKT.</returns>
         public static string GetWKT(this Geography geo)
         {
-            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", "");
+            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", string.Empty);
+        }
+
+        /// <summary>
+        /// Получает строку в формате WKT из объекта Geometry.
+        /// </summary>
+        /// <param name="geo">Объект Geometry.</param>
+        /// <returns>Cтрока в формате WKT.</returns>
+        public static string GetWKT(this Geometry geo)
+        {
+            return geo.GetEWKT().Replace($"SRID={geo.CoordinateSystem.Id};", string.Empty);
         }
 
         /// <summary>
@@ -68,6 +115,15 @@
             return geo.CoordinateSystem.Id;
         }
 
+        /// <summary>
+        /// Получает SRID из объекта Geometry.
+        /// </summary>
+        /// <param name="geo">Объект Geometry.</param>
+        /// <returns>Cтрока SRID.</returns>
+        public static string GetSRID(this Geometry geo)
+        {
+            return geo.CoordinateSystem.Id;
+        }
     }
 #endif
 }

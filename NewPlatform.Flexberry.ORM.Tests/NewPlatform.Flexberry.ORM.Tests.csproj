@@ -31,37 +31,25 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Tests.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Net45|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Net45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release-Net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.022\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
@@ -70,6 +58,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.3.3.0\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.2.2.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Configuration.5.2.2\lib\net45\Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -106,14 +100,50 @@
     <Compile Include="ICSSoft.STORMNET.Business\EnrichViewWithPropertiesUsedInFunctionTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\InterfaceTests.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\KeyGuidTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\PKHelper\PKComparerTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\PKHelper\PKHelperTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\ViewTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BaseFunctionTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BaseTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildAndTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildBetweenTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildCompareTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildEqualsTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildExistsTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildGreaterOrEqualTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildGreaterTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIn1Tests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIn2Tests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIn3Tests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIn4Tests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIn5Tests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIsNotNullTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildIsNullTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildLessOrEqualTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildLessTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildLikeTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildNotEqualsTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildNotIn1.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildOrTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\BuildTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\ConvertValueTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\FunctionBuilderTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\GetObjectTypeTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\IsKeyTypeTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\ParseObjectTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\IName.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\tDayOfWeek.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\TestDataObject.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\TestDataObjectDetail.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\ValidateTests.cs" />
+    <Compile Include="MultiThreadingTestTool.cs" />
     <Compile Include="NewPlatform.Flexberry.ORM.Validation\TestDataObjectValidator.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.MSSQLDataService\MSSQLDataServiceTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.OracleDataService\OracleDataServiceTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\SQLDataServiceTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectCacheTest.cs" />
-    <Compile Include="ICSSoft.STORMNET.DataObject\TestDataObject.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\EnumCaptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityFactory\UnitFactoryTest.cs" />
@@ -210,9 +240,12 @@
     <Folder Include="ICSSoft.STORMNET.Business.PostgresDataService\" />
     <Folder Include="ICSSoft.STORMNET.Collections\" />
     <Folder Include="ICSSoft.STORMNET.Drawing\" />
-    <Folder Include="ICSSoft.STORMNET.FunctionalLanguage\" />
     <Folder Include="ICSSoft.STORMNET.Tools\" />
     <Folder Include="ICSSoft.STORMNET.UserDataTypes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

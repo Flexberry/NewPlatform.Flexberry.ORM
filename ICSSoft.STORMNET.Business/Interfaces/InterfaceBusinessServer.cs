@@ -26,7 +26,7 @@
             Type realMasterObjectType = masterObject.GetType();
             string masterObjectAssemblyLocation = realMasterObjectType.Assembly.Location;
             string directoryPath;
-            if (!string.IsNullOrEmpty(masterObjectAssemblyLocation) 
+            if (!string.IsNullOrEmpty(masterObjectAssemblyLocation)
                 && !string.IsNullOrEmpty(directoryPath = Path.GetDirectoryName(masterObjectAssemblyLocation))
                 && Directory.Exists(directoryPath))
             {
@@ -136,7 +136,7 @@
             List<DataObject> referenceObjectListCopy = referenceObjectList.ToList();
 
             foreach (DataObject dataObject in referenceObjectListCopy)
-            { 
+            {
                 // Зануляем ссылки.
                 Type dataObjectType = dataObject.GetType();
                 ReferencePropertyInfo referencePropertyInfo =

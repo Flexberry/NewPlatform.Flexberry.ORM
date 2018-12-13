@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.Services
 {
-    using Microsoft.Practices.Unity;
+    using Unity;
+    using Unity.Lifetime;
 
     /// <summary>
     /// Сервис для получения текущего пользователя.
@@ -13,7 +14,7 @@
         private static IUnityContainer _container;
 
         /// <summary>
-        /// Пользователь по умолчанию, используемый в случае, если тип пользователя 
+        /// Пользователь по умолчанию, используемый в случае, если тип пользователя
         /// не зарегистрирован в конфигурации unity, либо его не удалось разрешить.
         /// </summary>
         private static IUser _defaultUser;

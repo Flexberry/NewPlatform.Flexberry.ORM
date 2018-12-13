@@ -37,7 +37,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="guid"></param>
         public KeyGuid(string guid)
@@ -46,7 +46,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="guid"></param>
         public KeyGuid(byte[] guid)
@@ -71,9 +71,9 @@
 
         public static bool operator <(KeyGuid x, KeyGuid y)
         {
-            if((object) x == null)
+            if((object)x == null)
             {
-                return (object) y != null;
+                return (object)y != null;
             }
 
             return x.CompareTo(y) < 0;
@@ -103,7 +103,7 @@
         {
             if ((object)x == null)
             {
-                return (object) y == null;
+                return (object)y == null;
             }
 
             return x.CompareTo(y) >= 0;
@@ -138,10 +138,13 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [DataMember]
-        public Guid Guid { get { return guid; } set { guid = value; } }
+        public Guid Guid
+        {
+            get { return guid; } set { guid = value; }
+        }
 
         #region IComparable
 
@@ -162,7 +165,7 @@
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -258,7 +261,10 @@
         public override bool Equals(object obj)
         {
             if (obj is KeyGuid)
+            {
                 return (obj as KeyGuid).Guid.Equals(Guid);
+            }
+
             return false;
         }
 
@@ -272,6 +278,7 @@
         }
 
         #region operators == и !=
+
         /// <summary>
         /// ==
         /// </summary>
@@ -284,10 +291,12 @@
             {
                 return true;
             }
-            if (((object)x != null && (object)y != null))
+
+            if ((object)x != null && (object)y != null)
             {
                 return x.Equals(y);
             }
+
             return false;
         }
 
@@ -301,7 +310,7 @@
         {
             return !(x == y);
         }
-        
+
         #endregion
     }
 }

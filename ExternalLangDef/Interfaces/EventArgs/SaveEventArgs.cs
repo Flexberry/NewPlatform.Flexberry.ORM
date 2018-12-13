@@ -13,7 +13,7 @@
         /// </summary>
         /// <param name="propertyname">имя свойства объекта данных при частичном редактировании объекта</param>
         /// <param name="dataobject">редактируемый объект данных</param>
-        /// <param name="contpath">путь на форме-инициаторе</param>       
+        /// <param name="contpath">путь на форме-инициаторе</param>
         public SaveEventArgs(string propertyname, DataObject dataobject, string contpath)
             : base(propertyname, dataobject, contpath)
         {

@@ -116,8 +116,8 @@
             {
                 if (NeedSerialization)
                 { // Подготовка к предстоящей сериализации (если взаимодействие не через wcf, то не нужно)
-                    _serializedOldOperatedObject = value == null 
-                        ? string.Empty 
+                    _serializedOldOperatedObject = value == null
+                        ? string.Empty
                         : Tools.ToolXML.DataObject2XMLDocument(ref value).InnerXml;
                 }
 

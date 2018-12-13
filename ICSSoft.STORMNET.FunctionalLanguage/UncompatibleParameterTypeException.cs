@@ -11,6 +11,7 @@
         /// Номер параметра
         /// </summary>
         public int ParameterNum;
+
         internal UncompatibleParameterTypeException(int parNum)
         {
             ParameterNum = parNum;

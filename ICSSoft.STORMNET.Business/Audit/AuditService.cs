@@ -38,8 +38,10 @@
         /// </summary>
         /// <param name="appSetting">Настройки аудита приложения.</param>
         /// <param name="audit">Элемент, реализующий логику аудита.</param>
-        public static void InitAuditService(AuditAppSetting appSetting, IAudit audit)
+        /// <param name="service">Сервис аудита, который будет установлен как текущий.</param>
+        public static void InitAuditService(AuditAppSetting appSetting, IAudit audit, IAuditService service)
         {
+            _currentAuditService = service;
             Current.AppSetting = appSetting;
             Current.Audit = audit;
             Current.ApplicationMode = HttpContext.Current != null ? AppMode.Web : AppMode.Win;
@@ -163,6 +165,11 @@
         public AuditAppSetting AppSetting { get; set; }
 
         /// <summary>
+        /// Flag indicates that storage contains UTC audit dates. If <c>true</c> then UTC dates else local timezone dates. Default is <c>false</c>.
+        /// </summary>
+        public bool PersistUtcDates { get; set; }
+
+        /// <summary>
         /// Элемент, реализующий логику аудита.
         /// </summary>
         public IAudit Audit
@@ -199,9 +206,9 @@
         /// (при работе <see cref="AuditService"/> иногда необходимо дочитать объект или получить сохранённую копию,
         /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
         /// По умолчанию - <c>null</c>.
-        ///</param>
+        /// </param>
         /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
-        public AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
+        public virtual AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
             DataObject operationedObject,
             IDataService dataService,
             bool throwExceptions = true,
@@ -610,7 +617,7 @@
                     // Настройки вообще есть и аудит для приложения включён.
                     var auditRatifyParameters = new RatificationAuditParameters(
                         executionVariant,
-                        DateTime.Now,
+                        PersistUtcDates ? DateTime.UtcNow : DateTime.Now,
                         auditOperationInfoList,
                         AppSetting.DefaultWriteMode,
                         ApplicationMode,
@@ -921,7 +928,7 @@
         /// <returns>Returns time when auditable operation occurred (<see cref="DateTime.Now"/> by default).</returns>
         protected virtual DateTime GetAuditOperationTime(DataObject operatedObject)
         {
-            return DateTime.Now;
+            return PersistUtcDates ? DateTime.UtcNow : DateTime.Now;
         }
 
         /// <summary>
@@ -971,7 +978,7 @@
             {
                 var auditDsSettingList = (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
                     where
-                        String.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
+                        string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
                         && auditDsSetting.DataServiceType == dataServiceType
                         && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
                     select auditDsSetting.ConnStringName).ToList();
@@ -996,7 +1003,7 @@
             if (dataObjectWithAuditFields != null)
             {
                 // Добавляем поля, кто же создал объект. //TODO: определить эту запись в правильное место.
-                dataObjectWithAuditFields.CreateTime = DateTime.Now;
+                dataObjectWithAuditFields.CreateTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Creator = GetCurrentUserInfo(ApplicationMode, true);
             }
         }
@@ -1012,7 +1019,7 @@
             {
                 // Добавляем поля, кто же изменил объект. //TODO: определить эту запись в правильное место.
                 operationedObject.AddLoadedProperties(new List<string> { "EditTime", "Editor" });
-                dataObjectWithAuditFields.EditTime = DateTime.Now;
+                dataObjectWithAuditFields.EditTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Editor = GetCurrentUserInfo(ApplicationMode, true);
             }
         }

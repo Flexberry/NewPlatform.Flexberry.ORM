@@ -16,7 +16,7 @@
         /// Язык задания ограничений.
         /// </summary>
         private static readonly ExternalLangDef _languageDef = ExternalLangDef.LanguageDef;
-        
+
         /// <summary>
         /// Проверка, удовлетворяет ли объект данных заданному ограничению.
         /// </summary>
@@ -28,10 +28,14 @@
         public static bool CheckObject(DataObject objectToCheck, Function limitFunction)
         {
             if (objectToCheck == null)
+            {
                 throw new ArgumentNullException("objectToCheck");
+            }
 
             if (limitFunction == null)
+            {
                 throw new ArgumentNullException("limitFunction");
+            }
 
             return ProcessFunction(limitFunction, objectToCheck, new Dictionary<string, object>());
         }
@@ -51,7 +55,7 @@
                 bool processedResult = ProcessFunction((Function)value, target, involved);
                 return processedResult;
             }
-            
+
             if (value is VariableDef)
             {
                 object ret = ProcessVariableDef((VariableDef)value, target, ref involved);
@@ -109,10 +113,12 @@
         private static object ProcessVariableDef(VariableDef variableDef, DataObject target, ref Dictionary<string, object> involved)
         {
             if (variableDef.Type.StringedView == "Details")
+            {
                 throw new NotSupportedException();
+            }
 
             string propertyPath = variableDef.StringedView;
-            
+
             if (involved.ContainsKey(propertyPath))
             {
                 return involved[propertyPath];
@@ -167,7 +173,9 @@
         private static bool ProcessOrAnd(Function limitFunction, DataObject target, Dictionary<string, object> involved, string operationOrAnd)
         {
             if (limitFunction.Parameters.Count < 1)
+            {
                 throw new InvalidParameterCountValidationException(operationOrAnd);
+            }
 
             var result = operationOrAnd == _languageDef.funcAND;
             for (int i = 0; i < limitFunction.Parameters.Count; i++)
@@ -180,15 +188,23 @@
 
                 var logicResult = (bool)work;
                 if (operationOrAnd == _languageDef.funcOR)
+                {
                     result = result || logicResult;
+                }
                 else if (operationOrAnd == _languageDef.funcAND)
+                {
                     result = result && logicResult;
+                }
 
                 if (result && operationOrAnd == _languageDef.funcOR)
+                {
                     return true;
+                }
 
                 if (!result && operationOrAnd == _languageDef.funcAND)
+                {
                     return false;
+                }
             }
 
             return result;
@@ -205,7 +221,9 @@
         private static bool ProcessCompare(Function limitFunction, DataObject target, Dictionary<string, object> involved, string operationCompare)
         {
             if (limitFunction.Parameters.Count != 2)
+            {
                 throw new InvalidParameterCountValidationException(operationCompare);
+            }
 
             object leftResult = Expression(limitFunction.Parameters[0], target, involved);
             object rightResult = Expression(limitFunction.Parameters[1], target, involved);
@@ -324,8 +342,8 @@
                 throw new NotSupportedException();
             }
 
-            String leftString = leftResult.ToString();
-            String rightString = rightResult.ToString();
+            string leftString = leftResult.ToString();
+            string rightString = rightResult.ToString();
 
             if (operationCompare == _languageDef.funcEQ)
             {
@@ -370,7 +388,7 @@
         private static bool IsNumeric(object o)
         {
             decimal tmp;
-            return Decimal.TryParse(o.ToString(), out tmp);
+            return decimal.TryParse(o.ToString(), out tmp);
         }
 
         /// <summary>
@@ -415,15 +433,14 @@
         }
 
         /// <summary>
-        /// Преобразует строковое представление объекта в <see cref="Decimal"/>.
+        /// Преобразует строковое представление объекта в <see cref="decimal"/>.
         /// </summary>
         /// <param name="o">Преобразуемое значение.</param>
         /// <returns>Преобразованное значение.</returns>
         private static decimal ToDecimal(object o)
         {
-            return Decimal.Parse(o.ToString());
+            return decimal.Parse(o.ToString());
         }
-
 
         /// <summary>
         /// Преобразует строковое представление объекта в <see cref="DateTime"/>.

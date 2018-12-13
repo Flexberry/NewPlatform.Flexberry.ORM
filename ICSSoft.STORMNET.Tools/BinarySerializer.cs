@@ -13,7 +13,7 @@
         /// Десереализация объекта сереализованного ранее в бинарный формат.
         /// </summary>
         /// <typeparam name="TData">
-        /// Тип с атрибутом <see cref="SerializableAttribute"/>. 
+        /// Тип с атрибутом <see cref="SerializableAttribute"/>.
         /// Типы всех сереализуемых полей и свойств класса должны также иметь этот атрибут.
         /// </typeparam>
         /// <param name="serializedObject">
@@ -30,7 +30,7 @@
         /// Сереализация объекта в бинарный формат.
         /// </summary>
         /// <typeparam name="TData">
-        /// Тип с атрибутом <see cref="SerializableAttribute"/>. 
+        /// Тип с атрибутом <see cref="SerializableAttribute"/>.
         /// Типы всех сереализуемых полей и свойств класса должны также иметь этот атрибут.
         /// </typeparam>
         /// <param name="object">
@@ -46,7 +46,7 @@
         /// Десереализация объекта сереализованного ранее в бинарный формат.
         /// </summary>
         /// <typeparam name="TData">
-        /// Тип с атрибутом <see cref="SerializableAttribute"/>. 
+        /// Тип с атрибутом <see cref="SerializableAttribute"/>.
         /// Типы всех сереализуемых полей и свойств класса должны также иметь этот атрибут.
         /// </typeparam>
         /// <param name="serializedObject">
@@ -67,7 +67,7 @@
         /// Сереализация объекта в бинарный формат.
         /// </summary>
         /// <typeparam name="TData">
-        /// Тип с атрибутом <see cref="SerializableAttribute"/>. 
+        /// Тип с атрибутом <see cref="SerializableAttribute"/>.
         /// Типы всех сереализуемых полей и свойств класса должны также иметь этот атрибут.
         /// </typeparam>
         /// <param name="object">

@@ -10,8 +10,8 @@ namespace ICSSoft.STORMNET.KeyGen
     /// </summary>
     public class KeyGenerator
     {
-        //TODO: Проверить скорость работы, если заменить на Dictionary<Type, BaseKeyGenerator>
-        //private static ICSSoft.STORMNET.Collections.TypeBaseCollection cacheGenerators = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+        // TODO: Проверить скорость работы, если заменить на Dictionary<Type, BaseKeyGenerator>
+        // private static ICSSoft.STORMNET.Collections.TypeBaseCollection cacheGenerators = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
         private static Dictionary<Type, BaseKeyGenerator> cacheGenerators = new Dictionary<Type, BaseKeyGenerator>();
 
         private static Dictionary<Type, Type> _cacheKeys = new Dictionary<Type, Type>();
@@ -63,13 +63,17 @@ namespace ICSSoft.STORMNET.KeyGen
         {
             BaseKeyGenerator genrtor;
             if (cacheGenerators.ContainsKey(dataobjecttype))
+            {
                 genrtor = cacheGenerators[dataobjecttype];
+            }
             else
             {
                 lock (m_ObjNull)
                 {
                     if (cacheGenerators.ContainsKey(dataobjecttype))
+                    {
                         genrtor = cacheGenerators[dataobjecttype];
+                    }
                     else
                     {
                         Type keygentype = Information.GetKeyGeneratorType(dataobjecttype);
@@ -82,7 +86,6 @@ namespace ICSSoft.STORMNET.KeyGen
             return genrtor;
         }
 
-
         /// <summary>
         /// Сгенерировать ключ и установить его в объект данных
         /// </summary>
@@ -93,6 +96,7 @@ namespace ICSSoft.STORMNET.KeyGen
                 dataobject.__PrimaryKey = GenerateUnique(dataobject.GetType(), sds);
                 dataobject.PrimaryKeyIsUnique = true;
             }
+
             return dataobject.__PrimaryKey;
         }
 

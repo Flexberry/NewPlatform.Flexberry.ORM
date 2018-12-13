@@ -13,7 +13,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     [NotStored]
     public class ObjectType : ViewedObject
     {
-        //private CheckConstDelegate fieldCheckConst;
+        // private CheckConstDelegate fieldCheckConst;
         private Type fieldNetCompatibilityType;
         private bool fieldEditableInTextBox = true;
 
@@ -25,8 +25,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="objImagedView"></param>
         /// <param name="netCompatibilityType"></param>
         public ObjectType(string objStringedView, string objCaption, Type netCompatibilityType)
-            :
-            base(objStringedView, objCaption) { fieldNetCompatibilityType = netCompatibilityType; }
+            : base(objStringedView, objCaption)
+        {
+            fieldNetCompatibilityType = netCompatibilityType;
+        }
 
         /// <summary>
         /// конструктор
@@ -37,23 +39,39 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <param name="netCompatibilityType"></param>
         /// <param name="EditableInTextBox"></param>
         public ObjectType(string objStringedView, string objCaption, Type netCompatibilityType, bool EditableInTextBox)
-            :
-            base(objStringedView, objCaption) { fieldNetCompatibilityType = netCompatibilityType; fieldEditableInTextBox = EditableInTextBox; }
+            : base(objStringedView, objCaption)
+        {
+            fieldNetCompatibilityType = netCompatibilityType;
+            fieldEditableInTextBox = EditableInTextBox;
+        }
+
         /// <summary>
         /// .NET тип для этого типа
         /// </summary>
-        public virtual System.Type NetCompatibilityType { get { return fieldNetCompatibilityType; } }
+        public virtual System.Type NetCompatibilityType
+        {
+            get { return fieldNetCompatibilityType; }
+        }
+
         /// <summary>
         /// Можно ли его поредактировать в текстбоксе
         /// </summary>
-        public bool EditableInTextBox { get { return fieldEditableInTextBox; } }
+        public bool EditableInTextBox
+        {
+            get { return fieldEditableInTextBox; }
+        }
 
         private FunctionalLanguageDef fieldLanguage;
+
         /// <summary>
         /// Язык, в рамках которого определён этот тип
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
-        public virtual FunctionalLanguageDef Language { get { return fieldLanguage; } set { fieldLanguage = value; } }
+        public virtual FunctionalLanguageDef Language
+        {
+            get { return fieldLanguage; } set { fieldLanguage = value; }
+        }
+
         /// <summary>
         /// Совместим с...
         /// </summary>
@@ -62,12 +80,16 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         public virtual bool CompatWith(ObjectType type)
         {
             if (this == type)
+            {
                 return true;
-            //CompatibilityTypeTest tst = new CompatibilityTypeTest();
+            }
+
+            // CompatibilityTypeTest tst = new CompatibilityTypeTest();
 
             bool retBool = CompatibilityTypeTest.Check(NetCompatibilityType, type.NetCompatibilityType) != TypesCompatibilities.No;
             return retBool;
         }
+
         /// <summary>
         /// Получить только совпадающие типы
         /// </summary>
@@ -76,10 +98,13 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         public virtual bool CompatWithEqual(ObjectType type)
         {
             if (this == type)
+            {
                 return true;
-            //CompatibilityTypeTest tst = new CompatibilityTypeTest();
+            }
 
-            //bool retBool = CompatibilityTypeTest.Check(NetCompatibilityType, type.NetCompatibilityType) == TypesCompatibilities.Equal;
+            // CompatibilityTypeTest tst = new CompatibilityTypeTest();
+
+            // bool retBool = CompatibilityTypeTest.Check(NetCompatibilityType, type.NetCompatibilityType) == TypesCompatibilities.Equal;
             bool retBool = NetCompatibilityType == type.NetCompatibilityType;
 
             if(!retBool && type.NetCompatibilityType.IsGenericType && type.NetCompatibilityType.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -89,10 +114,12 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 
             return retBool;
         }
+
         /// <summary>
         /// упрощение значения
         /// </summary>
         public SimplificationDelegate SimplificationValue;
+
         /// <summary>
         /// разупрощение значения
         /// </summary>
@@ -116,6 +143,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     return value;
                 }
             }
+
             return value;
         }
 
@@ -130,14 +158,15 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             {
                 return UnSimplificationValue(value);
             }
+
             return value;
         }
     }
+
     /// <summary>
     /// упрощение
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     public delegate object SimplificationDelegate(object value);
-
 }

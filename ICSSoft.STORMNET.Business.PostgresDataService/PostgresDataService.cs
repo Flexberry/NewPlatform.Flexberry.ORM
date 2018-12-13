@@ -1,22 +1,20 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Security;
-
-    using Npgsql;
     using FunctionalLanguage;
     using FunctionalLanguage.SQLWhere;
-    using Windows.Forms;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Security;
+    using Npgsql;
     using Services;
-    using System.Collections;
+    using Windows.Forms;
     using static Windows.Forms.ExternalLangDef;
-    using System.Linq;
 
     /// <summary>
     /// DataService for PostgreSQL.
@@ -33,8 +31,9 @@
         /// <summary>
         /// Псевдонимы типов в Postgres. Первый элемент в каждом массиве - это тип, остальные псевдонимы.
         /// </summary>
-        static private string[][] typesAliases =
-            new[]{
+        private static string[][] typesAliases =
+            new[]
+            {
                 new[] { "bigint", "int8" },
                 new[] { "bigserial", "serial8" },
                 new[] { "bit varying", "varbit" },
@@ -160,11 +159,6 @@
         private readonly Dictionary<string, string> dictionaryShortNames = new Dictionary<string, string>();
 
         /// <summary>
-        /// Индексы для генерации коротких имён. Используется для отладочного алгоритма, реализованного в методе GenerateShortName_OnlyForDebugEnvironment.
-        /// </summary>
-        private readonly Dictionary<string, int> indexesShortNames = new Dictionary<string, int>();
-
-        /// <summary>
         /// The is generate sql select.
         /// </summary>
         private bool isGenerateSqlSelect;
@@ -211,7 +205,7 @@
         /// <param name="type1">Имя типа 1.</param>
         /// <param name="type2">Имя типа 2.</param>
         /// <returns>Если имена эквивалентны, то возвращает true.</returns>
-        static public bool IsTypesEquals(string type1, string type2)
+        public static bool IsTypesEquals(string type1, string type2)
         {
             var types = new string[] { type1, type2 };
             for (int i = 0; i < types.Length; i++)
@@ -219,19 +213,18 @@
                 string type = Regex.Replace(types[i], @"\s+", " ").ToLower();
                 if (type.Contains("without time zone"))
                 {
-                    type = type.Replace("without time zone", "");
+                    type = type.Replace("without time zone", string.Empty);
                 }
 
                 if (type.Contains("with time zone"))
                 {
-                    type = type.Replace("with time zone", "");
+                    type = type.Replace("with time zone", string.Empty);
                     if (type.Contains("timestamp"))
                     {
                         if (!type.Contains("timestamptz"))
                         {
-                            type = type.Replace("timestamp", "timestamptz"); 
+                            type = type.Replace("timestamp", "timestamptz");
                         }
-
                     }
                     else
                     {
@@ -256,7 +249,7 @@
                 string tail = string.Empty;
                 if (tokens.Length == 3)
                 {
-                    tail = $"({tokens[1].Replace(" ", "")}){tokens[2]}";
+                    tail = $"({tokens[1].Replace(" ", string.Empty)}){tokens[2]}";
                 }
 
                 types[i] = tokens[0];
@@ -346,7 +339,7 @@
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
 
                 return string.Format("DATE_PART('days', DATE_TRUNC('month', to_date('01.{0}.{1}','dd.mm.yyyy')) + '1 MONTH'::INTERVAL - DATE_TRUNC('month', to_date('01.{0}.{1}','dd.mm.yyyy')) )",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
@@ -356,7 +349,6 @@
             {
                 return string.Format("date_trunc('day',{0})",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
-
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
@@ -423,7 +415,10 @@
                 var al = new ArrayList();
                 var par = langDef.TransformObject(value.Parameters[1], dvd.StringedView, al);
                 foreach (string s in al)
+                {
                     lcs.View.AddProperty(s);
+                }
+
                 var Slct = GenerateSQLSelect(lcs, false).Replace("STORMGENERATEDQUERY", "SGQ" + Guid.NewGuid().ToString().Replace("-", string.Empty));
                 var CountIdentifier = convertIdentifier("g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
@@ -438,12 +433,17 @@
                     convertIdentifier(dvd.ConnectMasterPorp),
                     convertIdentifier(Information.GetClassStorageName(dvd.View.DefineClassType)),
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
-                    //convertIdentifier(dvd.OwnerConnectProp),
+
+                    // convertIdentifier(dvd.OwnerConnectProp),
                     Slct,
-                    //ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
+
+                    // ВНИМАНИЕ ЗДЕСЬ ТРЕБУЕТСЯ ИЗМЕНИТь ISNULL на вычислитель в определенном DATASERVICE
                     "COALESCE(" + sumExpression + ",0)", value.FunctionDef.StringedView);
                 for (int k = 0; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += "))";
 
                 langDef.retVars = prevRetVars;
@@ -474,7 +474,10 @@
                     convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[0]),
                     Slct);
                 for (int k = 1; k < dvd.OwnerConnectProp.Length; k++)
+                {
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "." + convertIdentifier(dvd.OwnerConnectProp[k]);
+                }
+
                 res += ")),0))";
 
                 langDef.retVars = prevRetVars;
@@ -505,7 +508,6 @@
                     "Функция {0} не реализована для Postgres", value.FunctionDef.StringedView));
         }
 
-
         /// <summary>
         /// Get connection by Npgsql.
         /// </summary>
@@ -524,8 +526,11 @@
         {
             string postgresIdentifier = PrepareIdentifier(identifier);
 
-            if (!this.isGenerateSqlSelect)
+            // Multithreading app with single DS may be failed.
+            if (!isGenerateSqlSelect)
+            {
                 return postgresIdentifier;
+            }
 
             if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
             {
@@ -538,10 +543,12 @@
             }
             else
             {
-                if (dictionaryShortNames[postgresIdentifier] != null)
+                if (dictionaryShortNames[postgresIdentifier] == null)
                 {
-                    postgresIdentifier = dictionaryShortNames[postgresIdentifier];
+                    dictionaryShortNames[postgresIdentifier] = GenerateShortName(postgresIdentifier);
                 }
+
+                postgresIdentifier = dictionaryShortNames[postgresIdentifier];
             }
 
             return postgresIdentifier;
@@ -555,9 +562,21 @@
         /// <returns>Converted value.</returns>
         public override string GetConvertToTypeExpression(Type valType, string value)
         {
-            if (valType == typeof(Guid)) return "cast('" + value + "' as uuid)";
-            if (valType == typeof(decimal)) return "cast(" + value + " as numeric)";
-            if (valType == typeof(DateTime)) return "cast(" + value + " as timestamp)";
+            if (valType == typeof(Guid))
+            {
+                return "cast('" + value + "' as uuid)";
+            }
+
+            if (valType == typeof(decimal))
+            {
+                return "cast(" + value + " as numeric)";
+            }
+
+            if (valType == typeof(DateTime))
+            {
+                return "cast(" + value + " as timestamp)";
+            }
+
             return string.Empty;
         }
 
@@ -568,36 +587,39 @@
         /// <returns>Converted value.</returns>
         public override string ConvertSimpleValueToQueryValueString(object value)
         {
-            if (value is bool)
+            if (value != null)
             {
-                return (bool)value ? "'1'" : "'0'";
-            }
+                if (value is bool)
+                {
+                    return (bool)value ? "'1'" : "'0'";
+                }
 
-            if (value is DateTime)
-            {
-                var dt = (DateTime)value;
-                return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
-            }
+                if (value is DateTime)
+                {
+                    var dt = (DateTime)value;
+                    return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
+                }
 
-            if (value.GetType().FullName== "Microsoft.OData.Edm.Library.Date")
-            {
-                return $"date '{value.ToString()}'";
-            }
+                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                {
+                    return $"date '{value.ToString()}'";
+                }
 
-            if (value is string)
-            {
-                var res = base.ConvertSimpleValueToQueryValueString(value);
-                return res;
-            }
+                if (value is string)
+                {
+                    var res = base.ConvertSimpleValueToQueryValueString(value);
+                    return res;
+                }
 
-            if (value is char)
-            {
-                return Convert.ToInt32((char)value).ToString(CultureInfo.InvariantCulture);
-            }
+                if (value is char)
+                {
+                    return Convert.ToInt32((char)value).ToString(CultureInfo.InvariantCulture);
+                }
 
-            if (value is byte[])
-            {
-                return string.Format("decode('{0}', 'base64')", Convert.ToBase64String((byte[])value));
+                if (value is byte[])
+                {
+                    return string.Format("decode('{0}', 'base64')", Convert.ToBase64String((byte[])value));
+                }
             }
 
             return base.ConvertSimpleValueToQueryValueString(value);
@@ -634,14 +656,17 @@
         }
 
         /// <summary>
-        /// Метод переопределён, чтобы заменить длиные псевдонимы на короткие. 
+        /// Метод переопределён, чтобы заменить длиные псевдонимы на короткие.
         /// </summary>
         /// <param name="identifiers">The identifiers.</param>
         /// <returns>If null expression.</returns>
         public override string GetIfNullExpression(params string[] identifiers)
         {
             string result = ReplaceLongAlias(identifiers[identifiers.Length - 1]);
-            for (int i = identifiers.Length - 2; i >= 0; i--) result = string.Concat("COALESCE(", ReplaceLongAlias(identifiers[i]), ", ", result, ")");
+            for (int i = identifiers.Length - 2; i >= 0; i--)
+            {
+                result = string.Concat("COALESCE(", ReplaceLongAlias(identifiers[i]), ", ", result, ")");
+            }
 
             return result;
         }
@@ -656,11 +681,17 @@
         {
             int top = customizationStruct.ReturnTop;
 
-            if (top > 0) customizationStruct.ReturnTop = 0;
+            if (top > 0)
+            {
+                customizationStruct.ReturnTop = 0;
+            }
 
             string sql = base.GenerateSQLSelect(customizationStruct, optimized);
 
-            if (top > 0 && customizationStruct.RowNumber == null) sql += " LIMIT " + top;
+            if (top > 0 && customizationStruct.RowNumber == null)
+            {
+                sql += " LIMIT " + top;
+            }
 
             return sql;
         }
@@ -693,11 +724,8 @@
             StorageStructForView storageStruct,
             bool addNotMainKeys,
             bool addMasterFieldsCustomizer,
-            // ReSharper disable once InconsistentNaming
             string AddingAdvansedField,
-            // ReSharper disable once InconsistentNaming
             int AddingKeysCount,
-            // ReSharper disable once InconsistentNaming
             bool SelectTypesIds)
         {
             StorageStructForView.PropSource source = storageStruct.sources;
@@ -740,7 +768,10 @@
                     }
                     else
                     {
-                        for (int j = 0; j < prop.storage.Length; j++) GenerateShortName(prop.source.Name + j);
+                        for (int j = 0; j < prop.storage.Length; j++)
+                        {
+                            GenerateShortName(prop.source.Name + j);
+                        }
                     }
                 }
             }
@@ -768,10 +799,13 @@
         /// </returns>
         public override string GenerateSQLSelect(
             LoadingCustomizationStruct customizationStruct,
+
             // ReSharper disable once InconsistentNaming
             bool ForReadValues,
+
             // ReSharper disable once InconsistentNaming
             out StorageStructForView[] StorageStruct,
+
             // ReSharper disable once InconsistentNaming
             bool Optimized)
         {
@@ -781,9 +815,8 @@
                 if (countGenerateSqlSelect == 0)
                 {
                     isGenerateSqlSelect = true;
-                    dictionaryShortNames.Clear();
-                    indexesShortNames.Clear();
                 }
+
                 countGenerateSqlSelect++;
                 //// Закомментировать следующую строку, если будет возникать NeedRestartGenerateSqlSelectExcepton и выяснить почему это происходит. По идее никогда не должен происходить.
                 res = base.GenerateSQLSelect(customizationStruct, ForReadValues, out StorageStruct, Optimized);
@@ -805,14 +838,17 @@
                     break;
                 }*/
                 countGenerateSqlSelect--;
-                if (countGenerateSqlSelect == 0) isGenerateSqlSelect = false;
+                if (countGenerateSqlSelect == 0)
+                {
+                    isGenerateSqlSelect = false;
+                }
+
                 return res;
             }
         }
 
         /// <inheritdoc cref="SQLDataService"/>
-        public override void GenerateSQLRowNumber(LoadingCustomizationStruct customizationStruct, ref string resQuery,
-            string orderByExpr)
+        public override void GenerateSQLRowNumber(LoadingCustomizationStruct customizationStruct, ref string resQuery, string orderByExpr)
         {
             string nl = Environment.NewLine;
             if (customizationStruct.RowNumber != null)
@@ -829,16 +865,23 @@
                 {
                     resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
                 }
+
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)
+                {
                     customizationStruct.RowNumber.StartRow = 1;
+                }
+
                 if (customizationStruct.RowNumber.StartRow > 0)
                 {
                     offset = customizationStruct.RowNumber.StartRow - 1;
                     if (customizationStruct.RowNumber.EndRow >= customizationStruct.RowNumber.StartRow)
+                    {
                         limit = customizationStruct.RowNumber.EndRow - customizationStruct.RowNumber.StartRow + 1;
+                    }
                 }
+
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExpr + nl +
                     "OFFSET " + offset.ToString() + " LIMIT " + limit.ToString();
             }
@@ -868,13 +911,16 @@
             if (countGenerateSqlSelect == 0)
             {
                 isGenerateSqlSelect = true;
-                dictionaryShortNames.Clear();
-                indexesShortNames.Clear();
             }
+
             countGenerateSqlSelect++;
             IDictionary<int, string> ret = GetObjectIndexesWithPksImplementation(lcs, limitFunction, maxResults);
             countGenerateSqlSelect--;
-            if (countGenerateSqlSelect == 0) isGenerateSqlSelect = false;
+            if (countGenerateSqlSelect == 0)
+            {
+                isGenerateSqlSelect = false;
+            }
+
             return ret;
         }
 
@@ -886,10 +932,14 @@
             string nl = Environment.NewLine;
             var ret = new Dictionary<int, string>();
             if (lcs == null || limitFunction == null)
+            {
                 return ret;
+            }
 
             if (maxResults.HasValue && maxResults < 0)
+            {
                 throw new ArgumentOutOfRangeException("maxResults", "Максимальное число возвращаемых результатов не может быть отрицательным.");
+            }
 
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
@@ -914,14 +964,19 @@
                 int posOffset = innerQuery.LastIndexOf("OFFSET ");
                 offset = innerQuery.Substring(posOffset);
                 innerQuery = innerQuery.Substring(0, posOffset);
-                //+ nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
+
+                // + nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
             }
+
             // надо добавить RowNumber
             // top int.MaxValue
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
-            string orderByExpr = string.Empty;//, nl = Environment.NewLine;
+            string orderByExpr = string.Empty; // , nl = Environment.NewLine;
             if (orderByIndex > -1)
+            {
                 orderByExpr = innerQuery.Substring(orderByIndex);
+            }
+
             int fromInd = innerQuery.ToLower().IndexOf("from");
 
             if (!string.IsNullOrEmpty(orderByExpr))
@@ -936,7 +991,7 @@
 
             if (lcs.RowNumber != null)
             {
-                innerQuery+= nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
+                innerQuery += nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
             }
 
             string query = string.Format(
@@ -947,7 +1002,8 @@
             maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
             orderByExpr,
             PutIdentifierIntoBrackets("STORMMainObjectKey"));
-            //if (offset != null)
+
+            // if (offset != null)
             //    query += nl + offset;
             object state = null;
             object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
@@ -1010,58 +1066,6 @@
             return postgresIdentifier;
         }
 
-        /*
-        /// <summary>The generate short name.</summary>
-        /// <param name="postgresIdentifier">The postgres identifier. </param>
-        /// <returns>The <see cref="string"/>.</returns>
-        private string GenerateShortName(string postgresIdentifier)
-        {
-            return GenerateShortName_OnlyForDebugEnvironment(postgresIdentifier);
-        }
-
-        /// <summary>
-        /// Отладочный алгоритм генерации коротких имён. Только для тестирования в отладочной среде, потому что могут быть коллизии с именами таблиц и столбцов.
-        /// </summary>
-        /// <param name="postgresIdentifier">The postgres identifier. </param>
-        /// <returns>The <see cref="string"/>.</returns>
-        private string GenerateShortName_OnlyForDebugEnvironment(string postgresIdentifier)
-        {
-            if (Encoding.UTF8.GetByteCount(postgresIdentifier) > MaxNameLength)
-            {
-                if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
-                {
-                    dictionaryShortNames[postgresIdentifier] = null;
-                }
-
-                if (dictionaryShortNames[postgresIdentifier] == null)
-                {
-                    int len = postgresIdentifier.Length - 1;
-                    while (Encoding.UTF8.GetByteCount(postgresIdentifier.Substring(0, len)) > MaxNameLength)
-                    {
-                        len--;
-                    }
-
-                    var shortName = postgresIdentifier.Substring(0, len);
-                    if (!indexesShortNames.ContainsKey(shortName))
-                    {
-                        indexesShortNames[shortName] = 0;
-                    }
-
-                    var indexStr = indexesShortNames[shortName].ToString(CultureInfo.InvariantCulture);
-                    string resultString = shortName.Substring(0, shortName.Length - indexStr.Length) + indexStr;
-                    indexesShortNames[shortName]++;
-                    dictionaryShortNames[postgresIdentifier] = resultString;
-                    postgresIdentifier = resultString;
-                }
-                else
-                {
-                    postgresIdentifier = dictionaryShortNames[postgresIdentifier];
-                }
-            }
-
-            return postgresIdentifier;
-        }*/
-
         /// <summary>
         /// Алгоритм генерации коротких имён. Не возникает коллизий с именами таблиц и столбцов, т.к. в коротких именах используется GUID.
         /// </summary>
@@ -1085,7 +1089,6 @@
                     string guid = Guid.NewGuid().ToString("N");
                     if (guid.Length >= MaxNameLength)
                     {
-                        // ReSharper disable once NotResolvedInText
                         throw new ArgumentOutOfRangeException("guid.Length >= MaxNameLength");
                     }
 
@@ -1101,7 +1104,7 @@
                         byteCount -= Encoding.UTF8.GetByteCount(postgresIdentifier[len - 1].ToString(CultureInfo.InvariantCulture));
                     }
 
-                    var shortName = postgresIdentifier.Substring(0, len) + guid;
+                    string shortName = postgresIdentifier.Substring(0, len) + guid;
                     dictionaryShortNames[postgresIdentifier] = shortName;
                     postgresIdentifier = shortName;
                 }
@@ -1115,10 +1118,10 @@
         }
 
         /// <summary>
-        /// Этот Exception необходим для прерывания обработки в методе GenerateSQLSelect в случае, 
-        /// если в процессе выполнения метода GetIfNullExpression было обнаружено, 
+        /// Этот Exception необходим для прерывания обработки в методе GenerateSQLSelect в случае,
+        /// если в процессе выполнения метода GetIfNullExpression было обнаружено,
         /// что обрабатываемые там идентификаторы превышают допустимую длину и не имеют короткого имени.
-        /// Для исправления этой ситуации необходимо заново запустить обработку GenerateSQLSelect с 
+        /// Для исправления этой ситуации необходимо заново запустить обработку GenerateSQLSelect с
         /// сохранением коротких имён, созданных в предыдущей итерации GenerateSQLSelect.
         /// По идее никогда не должен происходить.
         /// </summary>

@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class LcsQueryProvider<T, Q> : QueryProvider 
+    public class LcsQueryProvider<T, Q> : QueryProvider
         where T : DataObject where Q : IQueryModelVisitor
     {
         private IDataService _ds;
@@ -16,7 +16,7 @@
         protected View View;
 
         private IEnumerable<View> _resolvingViews;
-        
+
         public LcsQueryProvider(IDataService ds, View view, IEnumerable<View> resolvingViews)
         {
             _ds = ds;
@@ -41,8 +41,10 @@
                     {
                         DataObject[] objects = _ds.LoadObjects(lcs);
                         if (!objects.Any())
+                        {
                             throw new InvalidOperationException("Sequence contains no matching element");
-                        
+                        }
+
                         return _ds.LoadObjects(lcs)[0];
                     }
 
@@ -81,7 +83,9 @@
         {
             // Представление динамическое.
             if (View == null)
+            {
                 return LinqToLcs.GetLcs<T, Q>(expression);
+            }
 
             // Представление задано.
             var lcs = LinqToLcs.GetLcs<Q>(expression, View, _resolvingViews);

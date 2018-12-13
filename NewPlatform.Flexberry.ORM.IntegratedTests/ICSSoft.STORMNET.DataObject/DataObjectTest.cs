@@ -13,33 +13,6 @@
     public class DataObjectTest
     {
         /// <summary>
-        /// Тест Linq-расширения метода IsAlteredProperty.
-        /// </summary>
-        [Fact]
-        
-        public void IsAlteredPropertyGenericTest()
-        {
-            var client = new Клиент();
-
-            // Мы только создали объект, все свойства Altered.
-            Assert.True(client.IsAlteredProperty(x => x.Прописка));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода IsAlteredProperty.
-        /// </summary>
-        [Fact]
-        
-        public void IsAlteredPropertyGenericTest2()
-        {
-            var client = new Клиент();
-            client.SetExistObjectPrimaryKey(Guid.NewGuid());
-            client.InitDataCopy();
-
-            Assert.False(client.IsAlteredProperty(x => x.Прописка));
-        }
-
-        /// <summary>
         /// Тест метода <see cref="GetAlteredPropertyNames()"/>, который возвращает список свойств (атрибутов, мастеров, детейлов),
         /// чьи значения изменились по сравнению с внутренней копией.
         /// </summary>

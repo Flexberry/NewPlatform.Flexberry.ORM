@@ -26,7 +26,7 @@
         private EnumCaption()
         {
         }
-        
+
         /// <summary>
         /// Получить заголовок по значению перечислимого типа из CaptionAttribute.
         /// </summary>
@@ -42,7 +42,10 @@
             lock (captions)
             {
                 if (captions.ContainsKey(value))
+                {
                     return (string)captions[value];
+                }
+
                 string res;
                 Type enumType = value.GetType();
                 if (enumType.IsEnum)
@@ -76,7 +79,11 @@
         {
             lock (values)
             {
-                if (caption == null) caption = string.Empty;
+                if (caption == null)
+                {
+                    caption = string.Empty;
+                }
+
                 caption = caption.Trim();
                 string valueKey = enumType.FullName + "%" + caption;
                 if (values.ContainsKey(valueKey))

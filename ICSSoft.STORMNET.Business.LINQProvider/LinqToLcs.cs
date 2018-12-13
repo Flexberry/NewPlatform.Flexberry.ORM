@@ -63,7 +63,7 @@
         {
             return GetLcs<Q>(queryExpression, typeof(T));
         }
-        
+
         /// <summary>
         /// Получить <see cref="LoadingCustomizationStruct"/> для указанного linq-выражения с динамически созданным представлением.
         /// </summary>
@@ -85,7 +85,7 @@
                 DefineClassType = type,
                 Name = string.Format("DynamicViewFor{0}", type.FullName)
             };
-            
+
             return GetQueryModelVisitor<Q>(true, view, null).GenerateLcs(queryModel);
         }
 

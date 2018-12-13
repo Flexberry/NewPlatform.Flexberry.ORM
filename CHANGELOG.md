@@ -3,11 +3,49 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
 
 ### Fixed
 
+### Security
+
+
+## [5.0.0] - 2018-12-13
+
+### Added
+
+- Simply (Update/Insert style) order for write audit operation.
+- Interface `IODataExportService`.
+- `Geometry` type support.
+- `CheckLoadedProperty` generic extension methods.
+- Delegate to check compatible property storage types.
+- `PersistUtcDates` property to `AuditService`.
+- `PKHelper` and `FunctionBuilder` utilities.
+
 ### Changed
+
+- **[BREAKINGCHANGE]** Upgrade `Unity` to 5.x version.
+- Upgrade `Npgsql` to 3.x version.
+
+### Removed
+
+- **[BREAKINGCHANGE]** Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
+
+### Fixed
+
+- Fix for Init Custom AuditService.
+- Fix DataService init.
+- Fix PostgresDataService wrong access to short names dictionary in multithreading app.
+- Fix support multithreading in View.AddProperty method.
+- Fix error for inherited aggregator type with same storage.
+- Fix empty file saving in `PostgresDataService`.
 
 ## [4.1.0] - 2018-02-27
 ### Added
@@ -29,3 +67,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 1. Remove implicit dependency from `ICSSoft.STORMNET.RightManager`. Now implementation of `ISecurityManager` specified via Unity is used instead.
 2. Optimized requests to Postgres if LCS has a populated `RowNumber` property.
+
+## [4.1.1-alpha01] - 2018-03-05
+### Added
+Add simply(Update/Insert style) order for write audit operation.
+
+### Fixed
+Fix for Init Custom AuditService.
+
+## [4.2.0-alpha01] - 2018-05-03
+### Changed
+Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.

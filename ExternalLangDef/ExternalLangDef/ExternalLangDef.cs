@@ -11,6 +11,7 @@
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 #if NETFX_45
     using Microsoft.Spatial;
+
 #endif
     public partial class ExternalLangDef : SQLWhereLanguageDef
     {
@@ -45,7 +46,6 @@
             }
         }
 
-
         /// <summary>
         /// сервис данных для построения подзапросов
         /// </summary>
@@ -68,83 +68,153 @@
                     return m_objDataService;
                 }
             }
+
             set
             {
                 m_objDataService = value;
             }
         }
 
+        public string paramTrue
+        {
+            get { return "True"; }
+        }
 
-        public string paramTrue { get { return "True"; } }
-        public string paramTODAY { get { return "TODAY"; } }
+        public string paramTODAY
+        {
+            get { return "TODAY"; }
+        }
 
-        public string paramYearDIFF { get { return "YearDIFF"; } }
-        public string paramMonthDIFF { get { return "MonthDIFF"; } }
-        public string paramWeekDIFF { get { return "WeekDIFF"; } }
-        public string paramQuarterDIFF { get { return "quarterDIFF"; } }
-        public string paramDayDIFF { get { return "DayDIFF"; } }
+        public string paramYearDIFF
+        {
+            get { return "YearDIFF"; }
+        }
+
+        public string paramMonthDIFF
+        {
+            get { return "MonthDIFF"; }
+        }
+
+        public string paramWeekDIFF
+        {
+            get { return "WeekDIFF"; }
+        }
+
+        public string paramQuarterDIFF
+        {
+            get { return "quarterDIFF"; }
+        }
+
+        public string paramDayDIFF
+        {
+            get { return "DayDIFF"; }
+        }
 
 #if NETFX_45
-        ///<summary>
+        /// <summary>
         /// Функция, возвращает истину, если гео-данные пересекаются.
-        ///</summary>
-        public string funcGeoIntersects { get { return "GeoIntersects"; } }
+        /// </summary>
+        public string funcGeoIntersects
+        {
+            get { return "GeoIntersects"; }
+        }
+
+        /// <summary>
+        /// Функция, возвращает истину, если гео-данные пересекаются.
+        /// </summary>
+        public string funcGeomIntersects
+        {
+            get { return "GeomIntersects"; }
+        }
 #endif
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая год от DateTime
-        ///</summary>
-        public string funcYearPart { get { return "YearPart"; } }
+        /// </summary>
+        public string funcYearPart
+        {
+            get { return "YearPart"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая месяц(число) от DateTime
-        ///</summary>
-        public string funcMonthPart { get { return "MonthPart"; } }
+        /// </summary>
+        public string funcMonthPart
+        {
+            get { return "MonthPart"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая день от DateTime
-        ///</summary>
-        public string funcDayPart { get { return "DayPart"; } }
+        /// </summary>
+        public string funcDayPart
+        {
+            get { return "DayPart"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая часы от DateTime
-        ///</summary>
-        public string funcHHPart { get { return "hhPart"; } }
+        /// </summary>
+        public string funcHHPart
+        {
+            get { return "hhPart"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая минуты от DateTime
-        ///</summary>
-        public string funcMIPart { get { return "miPart"; } }
+        /// </summary>
+        public string funcMIPart
+        {
+            get { return "miPart"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, вычисляющая разность дат. Возвращает число, которое зависит от единицы измерения разности.
-        ///</summary>
-        public string funcDATEDIFF { get { return "DATEDIFF"; } }
+        /// </summary>
+        public string funcDATEDIFF
+        {
+            get { return "DATEDIFF"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая только дату от DateTime
-        ///</summary>
-        public string funcOnlyDate { get { return "OnlyDate"; } }
+        /// </summary>
+        public string funcOnlyDate
+        {
+            get { return "OnlyDate"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая день недели числом (1 = Понедельник, ..., 7 = Воскресенье)
-        ///</summary>
-        public string funcDayOfWeek { get { return "DayOfWeek"; } }
+        /// </summary>
+        public string funcDayOfWeek
+        {
+            get { return "DayOfWeek"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая день недели числом (0 = Воскресенье, 1 = Понедельник, ...)
-        ///</summary>
-        public string funcDayOfWeekZeroBased { get { return "DayOfWeekZeroBased"; } }
+        /// </summary>
+        public string funcDayOfWeekZeroBased
+        {
+            get { return "DayOfWeekZeroBased"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая имя текущего пользователя (FriendlyName)
-        ///</summary>
-        public string funcCurrentUser { get { return "CurrentUser"; } }
+        /// </summary>
+        public string funcCurrentUser
+        {
+            get { return "CurrentUser"; }
+        }
 
-        ///<summary>
+        /// <summary>
         /// Функция, возвращающая только время в формате чч:мм:сс от DateTime
-        ///</summary>
-        public string funcOnlyTime { get { return "OnlyTime"; } }
+        /// </summary>
+        public string funcOnlyTime
+        {
+            get { return "OnlyTime"; }
+        }
 
         /// <summary>
         /// Полный аналог SQL функции dateadd
@@ -157,91 +227,142 @@
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Импликация (Если-то)
-        ///</summary>
-        public string funcImplication { get { return "Implication"; } }
-
-        /// <summary>
-        /// Существуют только такие {}, что {}.	Вернет True, если все объекты удовлетворяют условию, в противном случае - False. Условие - только одна функция.
         /// </summary>
-        public string funcExistExact { get { return "ExistExact"; } }
+        public string funcImplication
+        {
+            get { return "Implication"; }
+        }
 
         /// <summary>
-        /// Существуют все только такие {}, что {} И {} И {} ...	Вернет True, если все объекты удовлетворяют условию, в противном случае - False. В качестве условия могут выступать множество функций, которые автоматически соединятся конъюнкцией. Внимание! Допустимых видов функций только две: "=" (funcEQ) и "СРЕДИ ЗНАЧЕНИЙ()" (FuncIN).
+        /// Существуют только такие {}, что {}. Вернет True, если все объекты удовлетворяют условию, в противном случае - False. Условие - только одна функция.
         /// </summary>
-        public string funcExistAllExact { get { return "ExistAllExact"; } }
+        public string funcExistExact
+        {
+            get { return "ExistExact"; }
+        }
 
         /// <summary>
-        /// Существуют такие {}, что {}	Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. Условие - только одна функция.
+        /// Существуют все только такие {}, что {} И {} И {} ...    Вернет True, если все объекты удовлетворяют условию, в противном случае - False. В качестве условия могут выступать множество функций, которые автоматически соединятся конъюнкцией. Внимание! Допустимых видов функций только две: "=" (funcEQ) и "СРЕДИ ЗНАЧЕНИЙ()" (FuncIN).
         /// </summary>
-        public string funcExist { get { return "Exist"; } }
+        public string funcExistAllExact
+        {
+            get { return "ExistAllExact"; }
+        }
 
         /// <summary>
-        /// Существуют такие {} и такие {}, что {}	Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. Условие - только одна функция.
+        /// Существуют такие {}, что {} Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. Условие - только одна функция.
+        /// </summary>
+        public string funcExist
+        {
+            get { return "Exist"; }
+        }
+
+        /// <summary>
+        /// Существуют такие {} и такие {}, что {}  Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. Условие - только одна функция.
         /// Необходимо для сравнения свойств двух детейлов разных композиционных связей.
         /// </summary>
-        public string funcExistDetails { get { return "ExistDetails"; } }
+        public string funcExistDetails
+        {
+            get { return "ExistDetails"; }
+        }
 
         /// <summary>
-        /// Существуют все такие {}, что {} И {} И {} ...	Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. В качестве условия могут выступать множество функций, которые автоматически соединятся конъюнкцией. Внимание! Допустимых видов функций только две: "=" (funcEQ) и "СРЕДИ ЗНАЧЕНИЙ()" (FuncIN).
+        /// Существуют все такие {}, что {} И {} И {} ...   Вернет True, если найдется хотя бы один объект, удовлетворяющий условию, в противном случае - False. В качестве условия могут выступать множество функций, которые автоматически соединятся конъюнкцией. Внимание! Допустимых видов функций только две: "=" (funcEQ) и "СРЕДИ ЗНАЧЕНИЙ()" (FuncIN).
         /// </summary>
-        public string funcExistAll { get { return "ExistAll"; } }
+        public string funcExistAll
+        {
+            get { return "ExistAll"; }
+        }
 
         /// <summary>
         /// Максимальное значение в детейле с ограничением
         /// </summary>
-        public string funcMaxWithLimit { get { return "MAXWithLimit"; } }
+        public string funcMaxWithLimit
+        {
+            get { return "MAXWithLimit"; }
+        }
 
         /// <summary>
         /// Минимальное значение в детейле с ограничением
         /// </summary>
-        public string funcMinWithLimit { get { return "MINWithLimit"; } }
+        public string funcMinWithLimit
+        {
+            get { return "MINWithLimit"; }
+        }
 
         /// <summary>
         /// Среднее значение в детейле с ограничением
         /// </summary>
-        public string funcAvgWithLimit { get { return "AVGWithLimit"; } }
+        public string funcAvgWithLimit
+        {
+            get { return "AVGWithLimit"; }
+        }
 
         /// <summary>
         /// Сумма значений в детейле с ограничением
         /// </summary>
-        public string funcSumWithLimit { get { return "SUMWithLimit"; } }
+        public string funcSumWithLimit
+        {
+            get { return "SUMWithLimit"; }
+        }
 
         /// <summary>
         /// Количество значений в детейле с ограничением
         /// </summary>
-        public string funcCountWithLimit { get { return "CountWithLimit"; } }
+        public string funcCountWithLimit
+        {
+            get { return "CountWithLimit"; }
+        }
 
         /// <summary>
         /// Количество
         /// </summary>
-        public string funcCount { get { return "Count"; } }
+        public string funcCount
+        {
+            get { return "Count"; }
+        }
 
         /// <summary>
         /// Не пусто
         /// </summary>
-        public string funcNotIsNull { get { return "NOTISNULL"; } }
+        public string funcNotIsNull
+        {
+            get { return "NOTISNULL"; }
+        }
 
         /// <summary>
         /// Количество дней в месяце
         /// </summary>
-        public string funcDaysInMonth { get { return "DaysInMonth"; } }
+        public string funcDaysInMonth
+        {
+            get { return "DaysInMonth"; }
+        }
 
         /// <summary>
         /// Привести строку к верхнему регистру
         /// </summary>
-        public string funcToUpper { get { return "ToUpper"; } }
+        public string funcToUpper
+        {
+            get { return "ToUpper"; }
+        }
 
         /// <summary>
         /// Привести строку к нижнему регистру
         /// </summary>
-        public string funcToLower { get { return "ToLower"; } }
+        public string funcToLower
+        {
+            get { return "ToLower"; }
+        }
 
         /// <summary>
         /// Привести значение к строке
         /// </summary>
-        public string funcToChar { get { return "ToChar"; } }
+        public string funcToChar
+        {
+            get { return "ToChar"; }
+        }
 
         #region Расширение ограничения
 
@@ -380,6 +501,7 @@
             {
                 result += "." + hierarchicalMasterName;
             }
+
             return result;
         }
         #endregion
@@ -422,13 +544,15 @@
                     throw;
                 }
             }
-            
+
             var dobj = (DataObject)Activator.CreateInstance(type);
             dobj.SetExistObjectPrimaryKey(obj[1]);
             var v = new View { DefineClassType = dobj.GetType() };
             var props = (string[])obj[2];
             foreach (var prop in props)
+            {
                 v.AddProperty(prop);
+            }
 
             DataService.LoadObject(v, dobj);
 
@@ -437,24 +561,47 @@
 
 #if NETFX_45
         private ObjectType fieldGeography = new ObjectType("Geography", "Гео-данные", typeof(Geography));
-        public ObjectType GeographyType { get { return fieldGeography; } }
+
+        public ObjectType GeographyType
+        {
+            get { return fieldGeography; }
+        }
+
+        private ObjectType fieldGeometry = new ObjectType("Geometry", "Гео-данные", typeof(Geometry));
+
+        public ObjectType GeometryType
+        {
+            get { return fieldGeometry; }
+        }
 #endif
 
         private ObjectType fieldDetails = new ObjectType("Details", "Зависимые объекты", typeof(DetailArray));
-        public ObjectType DetailsType { get { return fieldDetails; } }
+
+        public ObjectType DetailsType
+        {
+            get { return fieldDetails; }
+        }
 
         private ObjectType fieldDataObjectType = new ObjectType("DataObject", "Сущность", typeof(DataObject), false);
-        public ObjectType DataObjectType { get { return fieldDataObjectType; } }
 
+        public ObjectType DataObjectType
+        {
+            get { return fieldDataObjectType; }
+        }
 
         private ObjectType fieldDatePartType = new ObjectType("datepart", "Часть даты", typeof(DatePart), false);
-        public ObjectType DatePartType { get { return fieldDatePartType; } }
 
+        public ObjectType DatePartType
+        {
+            get { return fieldDatePartType; }
+        }
 
         public override ObjectType GetObjectTypeForNetType(Type type)
         {
             if (type.IsSubclassOf(typeof(DetailArray)))
+            {
                 return DetailsType;
+            }
 
             return type.IsSubclassOf(typeof(DataObject)) ? DataObjectType : base.GetObjectTypeForNetType(type);
         }
@@ -803,19 +950,30 @@
                     new FunctionParameterDef(NumericType))
 #if NETFX_45
                     , new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
-                    new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType))
+                    new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
+                    new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
+                    new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType))
 #endif
                 );
 
             base.InitializeDefs();
         }
 
-        public override int MaxFuncID { get { return base.MaxFuncID + 35; } }
+        public override int MaxFuncID
+        {
+            get { return base.MaxFuncID + 35; }
+        }
+
         private System.Collections.Specialized.StringCollection ChFuncNames = null;
+
         public override string[] GetExistingVariableNames(ICSSoft.STORMNET.FunctionalLanguage.Function f)
         {
             var al = new ArrayList();
-            if (retVars != null) al.AddRange(retVars);
+            if (retVars != null)
+            {
+                al.AddRange(retVars);
+            }
+
             if (ChFuncNames == null)
             {
                 ChFuncNames = new System.Collections.Specialized.StringCollection();
@@ -831,7 +989,9 @@
             {
                 var r1 = base.GetExistingVariableNames(f);
                 if (r1 != null)
+                {
                     al.AddRange(r1);
+                }
             }
 
             return (string[])al.ToArray(typeof(string));
@@ -852,6 +1012,7 @@
         public string[] retVars = null;
 
         public delegate string delegateUserSQLTranslFunction(ICSSoft.STORMNET.FunctionalLanguage.Function value, ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString convertValue, ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets convertIdentifier);
+
         public delegateUserSQLTranslFunction UserSQLTranslFunction;
 
         /// <summary>
@@ -863,16 +1024,16 @@
         /// <returns></returns>
         private static string WrapNull(object param, string translSwitch, string wrapper)
         {
-            String res = translSwitch;
+            string res = translSwitch;
 
             if ((param is Function) &&
                 ((Function)param).FunctionDef.ReturnType.NetCompatibilityType ==
                 LanguageDef.BoolType.NetCompatibilityType)
             {
-                res = String.Format("(case when {0} then 1 else 0 end)", translSwitch);
+                res = string.Format("(case when {0} then 1 else 0 end)", translSwitch);
             }
 
-            return String.Format("({0} {1} )", res, wrapper);
+            return string.Format("({0} {1} )", res, wrapper);
         }
 
         protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
@@ -882,23 +1043,23 @@
                 string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier);
                 return WrapNull(value.Parameters[0], translSwitch, "IS NOT NULL");
             }
-            
+
             if (value.FunctionDef.StringedView == "ISNULL")
             {
                 string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier);
                 return WrapNull(value.Parameters[0], translSwitch, "IS NULL");
             }
-            
+
             if (value.FunctionDef.StringedView == "True")
             {
                 return "(1=1)";
             }
-            
+
             if (value.FunctionDef.StringedView == "TODAY")
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "YearDIFF" || value.FunctionDef.StringedView == "quarterDIFF"
                      || value.FunctionDef.StringedView == "MonthDIFF" || value.FunctionDef.StringedView == "WeekDIFF"
                      || value.FunctionDef.StringedView == "DayDIFF" || value.FunctionDef.StringedView == "hhDIFF"
@@ -906,94 +1067,95 @@
             {
                 return value.FunctionDef.StringedView.Substring(0, value.FunctionDef.StringedView.Length - 4);
             }
-            
+
             if (value.FunctionDef.StringedView == "YearPart" || value.FunctionDef.StringedView == "MonthPart"
                      || value.FunctionDef.StringedView == "DayPart")
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "hhPart" || value.FunctionDef.StringedView == "miPart")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcDayOfWeekZeroBased)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcDaysInMonth)
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
-                //здесь требуется преобразование из DATASERVICE
+                // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcImplication)
             {
                 // не А
                 var f1 = GetFunction(funcNOT, value.Parameters[0]);
+
                 // не А или В
                 var fres = GetFunction(funcOR, f1, value.Parameters[1]);
                 return base.SQLTranslFunction(fres, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "DATEDIFF")
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcExistExact)
             {
                 return GetConditionForExistExact(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcExistDetails)
             {
                 return GetConditionForExistDetails(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcExistAll)
             {
                 return GetConditionForExistAll(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcExistAllExact)
             {
                 return GetConditionForExistAllExact(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcExist)
             {
                 return GetConditionForExist(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcSumWithLimit
                      || value.FunctionDef.StringedView == funcAvgWithLimit
                      || value.FunctionDef.StringedView == funcMaxWithLimit
@@ -1053,7 +1215,7 @@
                 if ((parBoolVariableDef != null)
                     && (parBoolVariableDef.Type.NetCompatibilityType == BoolType.NetCompatibilityType))
                 {
-                    sumExpression = String.Format("CONVERT(INT,{0})", sumExpression);
+                    sumExpression = string.Format("CONVERT(INT,{0})", sumExpression);
                 }
 
                 string res = string.Empty;
@@ -1074,25 +1236,26 @@
                     res += "," + convertIdentifier("STORMGENERATEDQUERY") + "."
                            + convertIdentifier(dvd.OwnerConnectProp[k]);
                 }
+
                 res += "))";
 
                 retVars = prevRetVars;
                 return res;
             }
-            
+
             if (value.FunctionDef.StringedView == funcCountWithLimit
                      || value.FunctionDef.StringedView == "Count")
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "SUM" || value.FunctionDef.StringedView == "AVG"
                      || value.FunctionDef.StringedView == "MAX"
                      || value.FunctionDef.StringedView == "MIN")
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == "OR")
             {
                 bool DetFuncs = true;
@@ -1101,10 +1264,10 @@
                     if (obj is FunctionalLanguage.Function)
                     {
                         FunctionalLanguage.Function fnc = obj as FunctionalLanguage.Function;
-                        DetFuncs = (fnc.FunctionDef.StringedView == "Exist"
+                        DetFuncs = fnc.FunctionDef.StringedView == "Exist"
                                     || fnc.FunctionDef.StringedView == "ExistExact"
                                     || fnc.FunctionDef.StringedView == "ExistAll"
-                                    || fnc.FunctionDef.StringedView == "ExistAllExact");
+                                    || fnc.FunctionDef.StringedView == "ExistAllExact";
                         if (!DetFuncs)
                         {
                             break;
@@ -1117,9 +1280,10 @@
                     }
                 }
 
-                //Братчиков 24.10.2008
+                // Братчиков 24.10.2008
                 DetFuncs = false;
-                //Братчиков 24.10.2008
+
+                // Братчиков 24.10.2008
 
                 if (!DetFuncs)
                 {
@@ -1127,7 +1291,7 @@
                 }
                 else
                 {
-                    //Удаляет первый и последний символ
+                    // Удаляет первый и последний символ
                     string[] strs = new string[value.Parameters.Count];
                     string p = string.Empty;
                     for (int i = 0; i < strs.Length; i++)
@@ -1142,10 +1306,12 @@
                             p = s.Substring(0, s.IndexOf("in (") + 4);
                             s = s.Substring(s.IndexOf("in (") + 5 - 1);
 
-                            //s = s.Substring(0,s.Length-1);
+                            // s = s.Substring(0,s.Length-1);
                         }
+
                         strs[i] = s;
                     }
+
                     p = "( " + p + string.Join(" OR ", strs) + " )";
                     return p;
                 }
@@ -1168,25 +1334,25 @@
 
                 return ret;
             }
-            
+
             if (value.FunctionDef.StringedView == funcToUpper
                      || value.FunctionDef.StringedView == funcToLower)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcDateAdd)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-            
+
             if (value.FunctionDef.StringedView == funcToChar)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
 #if NETFX_45
-            if (value.FunctionDef.StringedView == funcGeoIntersects)
+            if (value.FunctionDef.StringedView == funcGeoIntersects || value.FunctionDef.StringedView == funcGeomIntersects)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
@@ -1195,7 +1361,7 @@
             return base.SQLTranslFunction(value, convertValue, convertIdentifier);
         }
 
-        //Заслуженный химик
+        // Заслуженный химик
 
         public FunctionalLanguage.Function TransformVariables(FunctionalLanguage.Function f, string killalias, ArrayList vars)
         {
@@ -1208,7 +1374,9 @@
             for (int i = 0; i < objj.Length; i++)
             {
                 if (f.Parameters[i] == null)
+                {
                     objj[i] = null;
+                }
                 else if (f.Parameters[i].GetType() == typeof(VariableDef))
                 {
                     var vd = (VariableDef)f.Parameters[i];
@@ -1229,7 +1397,10 @@
                     if (vd.StringedView.StartsWith(killalias + ".") && !alien)
                     {
                         if (vars != null)
+                        {
                             vars.Add(vd.StringedView.Substring(killalias.Length + 1));
+                        }
+
                         objj[i] = new VariableDef(vd.Type,
                                                                      vd.StringedView.Substring(killalias.Length + 1),
                                                                      vd.Caption);
@@ -1237,7 +1408,10 @@
                     else
                     {
                         if (vars != null)
+                        {
                             vars.Add(vd.StringedView);
+                        }
+
                         objj[i] = vd;
                     }
                 }
@@ -1248,35 +1422,46 @@
                 else
                 {
                     if (f.Parameters[i] is DetailVariableDef)
+                    {
                         otherDvds.Add((f.Parameters[i] as DetailVariableDef).StringedView);
+                    }
+
                     objj[i] = f.Parameters[i];
                 }
             }
+
             return new ICSSoft.STORMNET.FunctionalLanguage.Function(f.FunctionDef, objj);
         }
 
         public object TransformObject(object o, string killalias, ArrayList vars)
         {
             if (o is FunctionalLanguage.Function)
+            {
                 return TransformVariables(o as FunctionalLanguage.Function, killalias, vars);
+            }
             else if (o.GetType() == typeof(FunctionalLanguage.VariableDef))
             {
                 var vd = (FunctionalLanguage.VariableDef)o;
                 if (vd.StringedView.StartsWith(killalias + "."))
                 {
                     if (vars != null)
+                    {
                         vars.Add(vd.StringedView.Substring(killalias.Length + 1));
+                    }
+
                     return new FunctionalLanguage.VariableDef(vd.Type, vd.StringedView.Substring(killalias.Length + 1), vd.Caption);
                 }
 
                 if (vars != null)
+                {
                     vars.Add(vd.StringedView);
+                }
+
                 return o;
             }
 
-            return o; 
+            return o;
         }
-
     }
 }
 

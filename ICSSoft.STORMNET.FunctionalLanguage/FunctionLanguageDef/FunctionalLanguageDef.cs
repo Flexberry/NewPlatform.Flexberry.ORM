@@ -7,7 +7,7 @@
 
     /// <summary>
     /// Определение языка ограничений для конструирования ограничивающих функций
-    /// </summary> 
+    /// </summary>
     [NotStored]
     public abstract class FunctionalLanguageDef : DataObject
     {
@@ -28,7 +28,10 @@
         /// <summary>
         /// Индекс последней функции в списке
         /// </summary>
-        public virtual int MaxFuncID { get { return 0; } }
+        public virtual int MaxFuncID
+        {
+            get { return 0; }
+        }
 
         /// <summary>
         /// Получить определение функции
@@ -40,7 +43,9 @@
             foreach (FunctionDef fd in Functions)
             {
                 if (fd.ID == id)
+                {
                     return fd;
+                }
             }
 
             throw new Exception("Неизвестный идентификатор сериализованной функции." +
@@ -57,7 +62,9 @@
             foreach (FunctionDef fd in Functions)
             {
                 if (fd.StringedView == stringedView)
+                {
                     return fd;
+                }
             }
 
             throw new Exception("Неизвестное строковое представление сериализованной функции." +
@@ -74,7 +81,9 @@
             foreach (ObjectType ot in Types)
             {
                 if (ot.StringedView == typeName)
+                {
                     return ot;
+                }
             }
 
             return null;
@@ -112,11 +121,12 @@
                     pars.Add(fpd.Type.ValueToSimpleValue(par));
                 }
             }
+
             return new object[] { f.FunctionDef.ID, pars, types };
         }
 
         /// <summary>
-        /// Восстановление функции из простой структуры 
+        /// Восстановление функции из простой структуры
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -146,6 +156,7 @@
                 else
                 {
                     string stype = (string)type;
+
                     // by fat
                     // это из за того, что раньше адв лимит лежал отдельно, а сейчас в уи
                     // для поддержки ранее созданных фильтров. Криво конечно, но что поделаешь...
@@ -155,7 +166,7 @@
                     try
                     {
                         tp = Tools.AssemblyLoader.GetTypeWithAssemblyName(stype);
-                        
+
                         // Обеспечение обратной совместимости: в старых версиях в первую очередь сборку необходимо искать в другом месте.
                         Type oldType = TryGetOldType(stype, false);
                         if (oldType != null)
@@ -192,6 +203,7 @@
                     f.Parameters.Add(vd);
                 }
             }
+
             return f;
         }
 
@@ -224,7 +236,7 @@
 
             return null;
         }
-        
+
         /// <summary>
         /// Тип функции для возврата значения
         /// </summary>
@@ -233,22 +245,34 @@
         /// <summary>
         /// Типы (Детейл)
         /// </summary>
-        public DetailArrayOfObjectType Types { get { return _fieldTypes; } set { _fieldTypes = value; } }
+        public DetailArrayOfObjectType Types
+        {
+            get { return _fieldTypes; } set { _fieldTypes = value; }
+        }
 
         /// <summary>
         /// Переменные (Детейл)
         /// </summary>
-        public DetailArrayOfVariableDef Variables { get { return _fieldVariables; } set { _fieldVariables = value; } }
-        
+        public DetailArrayOfVariableDef Variables
+        {
+            get { return _fieldVariables; } set { _fieldVariables = value; }
+        }
+
         /// <summary>
         /// Функции (Детейл)
         /// </summary>
-        public DetailArrayOfFunctionDef Functions { get { return _fieldFunctions; } set { _fieldFunctions = value; } }
-        
+        public DetailArrayOfFunctionDef Functions
+        {
+            get { return _fieldFunctions; } set { _fieldFunctions = value; }
+        }
+
         /// <summary>
         /// Тип функции для возврата значения
         /// </summary>
-        public ObjectType UpFunctionType { get { return fieldUpFunctionType; } }
+        public ObjectType UpFunctionType
+        {
+            get { return fieldUpFunctionType; }
+        }
 
         /// <summary>
         /// Получатель ObjectType по .NET-типу (для DataObject возвращается тип первичного ключа)
@@ -258,11 +282,21 @@
         public virtual ObjectType GetObjectTypeForNetType(Type type)
         {
             foreach (ObjectType t in Types)
+            {
                 if (t.NetCompatibilityType == type)
+                {
                     return t;
+                }
+            }
+
             foreach (ObjectType t in Types)
+            {
                 if (CompatibilityTypeTest.Check(type, t.NetCompatibilityType) != TypesCompatibilities.No)
+                {
                     return t;
+                }
+            }
+
             return null;
         }
 
@@ -288,9 +322,11 @@
         public class NotFoundFunctionBySignatureException : Exception
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
-            public NotFoundFunctionBySignatureException() { }
+            public NotFoundFunctionBySignatureException()
+            {
+            }
         }
 
         /// <summary>
@@ -299,9 +335,11 @@
         public class NotFoundFunctionParametersException : Exception
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
-            public NotFoundFunctionParametersException() { }
+            public NotFoundFunctionParametersException()
+            {
+            }
         }
 
         /// <summary>
@@ -318,14 +356,15 @@
         {
             lock (m_objNull)
             {
-                //1. ищем все функции для данной Function String
+                // 1. ищем все функции для данной Function String
                 if (FunctionsByStringedViewList.Count == 0)
                 {
                     foreach (FunctionDef f in _fieldFunctions)
                     {
                         if (!FunctionsByStringedViewList.ContainsKey(f.StringedView))
+                        {
                             FunctionsByStringedViewList.Add(f.StringedView, new ArrayList());
-                        ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
+                        } ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
                     }
                 }
             }
@@ -344,7 +383,9 @@
             InitFunctionsByStringedViewList();
 
             if (!FunctionsByStringedViewList.ContainsKey(functionString))
+            {
                 throw new NotFoundFunctionBySignatureException();
+            }
 
             if ((functionString == "=" || functionString == "<>") && parameters.Count() == 2)
             { // В этом месте нет возможности получить доступ к привычным константам ExternalLangDef
@@ -399,6 +440,7 @@
                 keySB.Append(partype.ToString());
                 keySB.Append(";");
             }
+
             string key = keySB.ToString();
             if (FunctionsByParametersTypes.ContainsKey(key))
             {
@@ -444,7 +486,8 @@
         /// <param name="masterObj"></param>
         public DetailArrayOfVariableDef(FunctionalLanguageDef masterObj)
             : base(typeof(VariableDef), masterObj)
-        { }
+        {
+        }
 
         /// <summary>
         /// return (VariableDef)ItemByIndex(index);
@@ -468,7 +511,8 @@
         /// <param name="masterObj"></param>
         public DetailArrayOfFunctionDef(FunctionalLanguageDef masterObj)
             : base(typeof(FunctionDef), masterObj)
-        { }
+        {
+        }
 
         /// <summary>
         /// return (FunctionDef)ItemByIndex(index);
@@ -492,7 +536,9 @@
         /// <param name="masterObj"></param>
         public DetailArrayOfObjectType(FunctionalLanguageDef masterObj)
             : base(typeof(ObjectType), masterObj)
-        { }
+        {
+        }
+
         /// <summary>
         ///  return (ObjectType)ItemByIndex(index);
         /// </summary>
@@ -503,6 +549,4 @@
             get { return (ObjectType)ItemByIndex(index); }
         }
     }
-
-
 }

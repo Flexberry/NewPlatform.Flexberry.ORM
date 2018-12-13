@@ -25,7 +25,7 @@
             LogService.LogError(errorHeader, exception);
             if (throwExceptions)
             {
-                throw exception is AuditException 
+                throw exception is AuditException
                     ? exception
                     : new AuditException(exception);
             }

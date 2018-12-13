@@ -2,8 +2,9 @@
 {
     using System.Configuration;
 
-    using Microsoft.Practices.Unity;
     using Microsoft.Practices.Unity.Configuration;
+
+    using Unity;
 
     /// <summary>
     /// Helper class for creating and using Unity containers.
@@ -47,7 +48,10 @@
         {
             var container = new UnityContainer();
             if (_section == null)
+            {
                 _section = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
+            }
+
             _section?.Configure(container);
             return container;
         }

@@ -7,7 +7,7 @@ namespace ICSSoft.STORMNET.Tools
 {
     /// <summary>
     /// Класс для отправки писем с вложением. Поддерживается функция открытия почтового клиента.
-    /// Основано на http://www.codeproject.com/KB/IP/SendFileToNET.aspx 
+    /// Основано на http://www.codeproject.com/KB/IP/SendFileToNET.aspx
     /// </summary>
     public class MAPIWrapper
     {
@@ -40,7 +40,6 @@ namespace ICSSoft.STORMNET.Tools
         {
             return SendMail(strSubject, strBody, MAPI_LOGON_UI);
         }
-
 
         [DllImport("MAPI32.DLL")]
         static extern int MAPISendMail(IntPtr sess, IntPtr hwnd,
@@ -81,7 +80,9 @@ namespace ICSSoft.STORMNET.Tools
         {
             recipCount = 0;
             if (m_recipients.Count == 0)
+            {
                 return IntPtr.Zero;
+            }
 
             int size = Marshal.SizeOf(typeof(MapiRecipDesc));
             IntPtr intPtr = Marshal.AllocHGlobal(m_recipients.Count * size);
@@ -101,11 +102,15 @@ namespace ICSSoft.STORMNET.Tools
         {
             fileCount = 0;
             if (m_attachments == null)
+            {
                 return IntPtr.Zero;
+            }
 
             if ((m_attachments.Count <= 0) || (m_attachments.Count >
                 maxAttachments))
+            {
                 return IntPtr.Zero;
+            }
 
             int size = Marshal.SizeOf(typeof(MapiFileDesc));
             IntPtr intPtr = Marshal.AllocHGlobal(m_attachments.Count * size);
@@ -140,6 +145,7 @@ namespace ICSSoft.STORMNET.Tools
                         typeof(MapiRecipDesc));
                     ptr += size;
                 }
+
                 Marshal.FreeHGlobal(msg.recips);
             }
 
@@ -154,6 +160,7 @@ namespace ICSSoft.STORMNET.Tools
                         typeof(MapiFileDesc));
                     ptr += size;
                 }
+
                 Marshal.FreeHGlobal(msg.files);
             }
 
@@ -165,32 +172,36 @@ namespace ICSSoft.STORMNET.Tools
         public string GetLastError()
         {
             if (m_lastError <= 26)
+            {
                 return errors[m_lastError];
+            }
+
             return "MAPI error [" + m_lastError.ToString() + "]";
         }
 
-        readonly string[] errors = new string[] {
-        "OK [0]", "User abort [1]", "General MAPI failure [2]", 
-                "MAPI login failure [3]", "Disk full [4]", 
-                "Insufficient memory [5]", "Access denied [6]", 
-                "-unknown- [7]", "Too many sessions [8]", 
-                "Too many files were specified [9]", 
-                "Too many recipients were specified [10]", 
+        readonly string[] errors = new string[]
+        {
+        "OK [0]", "User abort [1]", "General MAPI failure [2]",
+                "MAPI login failure [3]", "Disk full [4]",
+                "Insufficient memory [5]", "Access denied [6]",
+                "-unknown- [7]", "Too many sessions [8]",
+                "Too many files were specified [9]",
+                "Too many recipients were specified [10]",
                 "A specified attachment was not found [11]",
-        "Attachment open failure [12]", 
-                "Attachment write failure [13]", "Unknown recipient [14]", 
-                "Bad recipient type [15]", "No messages [16]", 
-                "Invalid message [17]", "Text too large [18]", 
-                "Invalid session [19]", "Type not supported [20]", 
-                "A recipient was specified ambiguously [21]", 
+        "Attachment open failure [12]",
+                "Attachment write failure [13]", "Unknown recipient [14]",
+                "Bad recipient type [15]", "No messages [16]",
+                "Invalid message [17]", "Text too large [18]",
+                "Invalid session [19]", "Type not supported [20]",
+                "A recipient was specified ambiguously [21]",
                 "Message in use [22]", "Network failure [23]",
-        "Invalid edit fields [24]", "Invalid recipients [25]", 
-                "Not supported [26]" 
+        "Invalid edit fields [24]", "Invalid recipients [25]",
+                "Not supported [26]"
         };
-
 
         List<MapiRecipDesc> m_recipients = new
             List<MapiRecipDesc>();
+
         List<string> m_attachments = new List<string>();
         int m_lastError = 0;
 
@@ -198,7 +209,11 @@ namespace ICSSoft.STORMNET.Tools
         const int MAPI_DIALOG = 0x00000008;
         const int maxAttachments = 20;
 
-        enum HowTo { MAPI_ORIG = 0, MAPI_TO, MAPI_CC, MAPI_BCC };
+        enum HowTo
+        {
+            MAPI_ORIG = 0, MAPI_TO, MAPI_CC, MAPI_BCC
+        }
+;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]

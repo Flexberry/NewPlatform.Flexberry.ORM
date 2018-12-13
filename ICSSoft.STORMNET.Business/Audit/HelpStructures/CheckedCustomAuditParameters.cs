@@ -29,7 +29,7 @@
                 if (_auditObjectPrimaryKey == null && NeedSerialization && !string.IsNullOrEmpty(_auditObjectPrimaryKeyAsString))
                 { // Чтобы вычитать адекватно объект при десериализации (если взаимодействие не через wcf, то не нужно)
                     Type identificatorType;
-                    if (string.IsNullOrEmpty(_typeOfAuditObjectPrimaryKey) 
+                    if (string.IsNullOrEmpty(_typeOfAuditObjectPrimaryKey)
                         || (identificatorType = Type.GetType(_typeOfAuditObjectPrimaryKey)) == null)
                     {
                         throw new ArgumentNullException(

@@ -13,8 +13,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System;
     using System.Xml;
     using ICSSoft.STORMNET;
-
-
+    
+    
     // *** Start programmer edit section *** (Using statements)
     public class GUIDToStringGenerator : ICSSoft.STORMNET.KeyGen.GUIDGenerator
     {
@@ -78,7 +78,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     {
         
         private string fStorageForKey;
-
+        
         // *** Start programmer edit section *** (ForKeyStorageTest CustomMembers)
         /// <summary>
         /// Gets or sets __PrimaryKey.
@@ -101,7 +101,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
 
         // *** End programmer edit section *** (ForKeyStorageTest CustomMembers)
 
-
+        
         /// <summary>
         /// StorageForKey.
         /// </summary>
