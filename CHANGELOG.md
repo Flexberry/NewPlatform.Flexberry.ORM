@@ -3,14 +3,49 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
 ### Added
-1. Add simply(Update/Insert style) order for write audit operation.
-2. Add interface IODataExportService.
+
+### Changed
+
+### Deprecated
+
+### Removed
 
 ### Fixed
-1. Fix DataService init.
+
+### Security
+
+
+## [5.0.0] - 2018-12-13
+
+### Added
+
+- Simply (Update/Insert style) order for write audit operation.
+- Interface `IODataExportService`.
+- `Geometry` type support.
+- `CheckLoadedProperty` generic extension methods.
+- Delegate to check compatible property storage types.
+- `PersistUtcDates` property to `AuditService`.
+- `PKHelper` and `FunctionBuilder` utilities.
+
 ### Changed
-Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
+
+- **[BREAKINGCHANGE]** Upgrade `Unity` to 5.x version.
+- Upgrade `Npgsql` to 3.x version.
+
+### Removed
+
+- **[BREAKINGCHANGE]** Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
+
+### Fixed
+
+- Fix for Init Custom AuditService.
+- Fix DataService init.
+- Fix PostgresDataService wrong access to short names dictionary in multithreading app.
+- Fix support multithreading in View.AddProperty method.
+- Fix error for inherited aggregator type with same storage.
+- Fix empty file saving in `PostgresDataService`.
 
 ## [4.1.0] - 2018-02-27
 ### Added
