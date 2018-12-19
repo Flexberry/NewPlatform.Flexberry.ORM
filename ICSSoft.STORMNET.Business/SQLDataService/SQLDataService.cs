@@ -5831,7 +5831,7 @@
 
                     foreach (string table in queryOrder)
                     {
-                        if ((ex = RunCommands(updateFirstQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        if ((ex = RunCommands(updateLastQueries, updateTables, table, command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
