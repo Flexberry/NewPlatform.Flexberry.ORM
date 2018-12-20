@@ -2,6 +2,28 @@
 
 
 
+CREATE TABLE ComputedDetail (
+
+ primaryKey UUID NOT NULL,
+
+ DetailField1 VARCHAR(255) NULL,
+
+ DetailField2 VARCHAR(255) NULL,
+
+ ComputedMaster UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+CREATE TABLE ComputedMaster (
+
+ primaryKey UUID NOT NULL,
+
+ MasterField1 VARCHAR(255) NULL,
+
+ MasterField2 VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
 CREATE TABLE InformationTestClass (
 
  primaryKey UUID NOT NULL,
@@ -1480,7 +1502,9 @@ CREATE TABLE STORMAuField (
  PRIMARY KEY (primaryKey));
 
 
-
+ 
+ ALTER TABLE ComputedDetail ADD CONSTRAINT FKb57d99ccca0a47448e8bf2359454621e FOREIGN KEY (ComputedMaster) REFERENCES ComputedMaster; 
+CREATE INDEX Index188556444b3d406f8d85c59d249b52b3 on ComputedDetail (ComputedMaster); 
 
  ALTER TABLE Идея ADD CONSTRAINT FKe6cffefaff994a689944703b5b32be4f FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
 CREATE INDEX Indexcd5b48e689484e6ab4343ebdb4c85e3f on Идея (Конкурс_m0); 

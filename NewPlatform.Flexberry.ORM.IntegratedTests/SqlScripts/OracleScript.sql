@@ -2,6 +2,32 @@
 
 
 
+CREATE TABLE "ComputedDetail"
+(
+
+	"primaryKey" RAW(16) NOT NULL,
+
+	"DetailField1" NVARCHAR2(255) NULL,
+
+	"DetailField2" NVARCHAR2(255) NULL,
+
+	"ComputedMaster" RAW(16) NOT NULL,
+
+	 PRIMARY KEY ("primaryKey")
+) ;
+
+CREATE TABLE "ComputedMaster"
+(
+
+	"primaryKey" RAW(16) NOT NULL,
+
+	"MasterField1" NVARCHAR2(255) NULL,
+
+	"MasterField2" NVARCHAR2(255) NULL,
+
+	 PRIMARY KEY ("primaryKey")
+) ;
+
 CREATE TABLE "InformationTestClass"
 (
 
@@ -1728,6 +1754,9 @@ CREATE TABLE "STORMAuField"
 ) ;
 
 
+
+ALTER TABLE "ComputedDetail"
+	ADD CONSTRAINT "ComputedDetail_FComputedM_7642" FOREIGN KEY ("ComputedMaster") REFERENCES "ComputedMaster" ("primaryKey");
 
 ALTER TABLE "Идея"
 	ADD CONSTRAINT "Идея_FКонкурс_0" FOREIGN KEY ("Конкурс_m0") REFERENCES "Конкурс" ("primaryKey");

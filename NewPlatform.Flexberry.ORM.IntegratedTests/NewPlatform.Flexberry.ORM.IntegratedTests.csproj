@@ -136,6 +136,7 @@
     <Compile Include="BaseIntegratedTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\ConfigHelperTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\ConfigResolverTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\DataServiceExpressionTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\DetailsLoadTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\LoadObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\SecondLoadObjectTest.cs" />

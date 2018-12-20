@@ -2,6 +2,28 @@
 
 
 
+CREATE TABLE [ComputedMaster] (
+
+	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
+
+	 [MasterField1] VARCHAR(255)  NULL,
+
+	 [MasterField2] VARCHAR(255)  NULL,
+
+	 PRIMARY KEY ([primaryKey]))
+
+CREATE TABLE [ComputedDetail] (
+
+	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
+
+	 [DetailField1] VARCHAR(255)  NULL,
+
+	 [DetailField2] VARCHAR(255)  NULL,
+
+	 [ComputedMaster] UNIQUEIDENTIFIER  NOT NULL,
+
+	 PRIMARY KEY ([primaryKey]))
+
 CREATE TABLE [InformationTestClass] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -1533,6 +1555,8 @@ CREATE TABLE [STORMAuField] (
 
 
 
+ ALTER TABLE [ComputedDetail] ADD CONSTRAINT [ComputedDetail_FComputedMaster_0] FOREIGN KEY ([ComputedMaster]) REFERENCES [ComputedMaster]
+CREATE INDEX ComputedDetail_IComputedMaster on [ComputedDetail] ([ComputedMaster])
 
  ALTER TABLE [Идея] ADD CONSTRAINT [Идея_FКонкурс_0] FOREIGN KEY ([Конкурс_m0]) REFERENCES [Конкурс]
 CREATE INDEX Идея_IКонкурс_m0 on [Идея] ([Конкурс_m0])

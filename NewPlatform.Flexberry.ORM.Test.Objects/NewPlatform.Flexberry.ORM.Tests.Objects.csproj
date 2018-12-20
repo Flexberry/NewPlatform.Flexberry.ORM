@@ -91,6 +91,8 @@
     <Compile Include="AuditMasterMasterObject.cs" />
     <Compile Include="AuditMasterObject.cs" />
     <Compile Include="CaseSensitiveEnum.cs" />
+    <Compile Include="ComputedDetail.cs" />
+    <Compile Include="ComputedMaster.cs" />
     <Compile Include="DataObjectWithKeyGuid.cs" />
     <Compile Include="Cabbage2.cs" />
     <Compile Include="CabbagePart2.cs" />
