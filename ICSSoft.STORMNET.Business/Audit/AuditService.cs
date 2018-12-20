@@ -165,6 +165,11 @@
         public AuditAppSetting AppSetting { get; set; }
 
         /// <summary>
+        /// Flag indicates that storage contains UTC audit dates. If <c>true</c> then UTC dates else local timezone dates. Default is <c>false</c>.
+        /// </summary>
+        public bool PersistUtcDates { get; set; }
+
+        /// <summary>
         /// Элемент, реализующий логику аудита.
         /// </summary>
         public IAudit Audit
@@ -612,7 +617,7 @@
                     // Настройки вообще есть и аудит для приложения включён.
                     var auditRatifyParameters = new RatificationAuditParameters(
                         executionVariant,
-                        DateTime.Now,
+                        PersistUtcDates ? DateTime.UtcNow : DateTime.Now,
                         auditOperationInfoList,
                         AppSetting.DefaultWriteMode,
                         ApplicationMode,
@@ -923,7 +928,7 @@
         /// <returns>Returns time when auditable operation occurred (<see cref="DateTime.Now"/> by default).</returns>
         protected virtual DateTime GetAuditOperationTime(DataObject operatedObject)
         {
-            return DateTime.Now;
+            return PersistUtcDates ? DateTime.UtcNow : DateTime.Now;
         }
 
         /// <summary>
@@ -998,7 +1003,7 @@
             if (dataObjectWithAuditFields != null)
             {
                 // Добавляем поля, кто же создал объект. //TODO: определить эту запись в правильное место.
-                dataObjectWithAuditFields.CreateTime = DateTime.Now;
+                dataObjectWithAuditFields.CreateTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Creator = GetCurrentUserInfo(ApplicationMode, true);
             }
         }
@@ -1014,7 +1019,7 @@
             {
                 // Добавляем поля, кто же изменил объект. //TODO: определить эту запись в правильное место.
                 operationedObject.AddLoadedProperties(new List<string> { "EditTime", "Editor" });
-                dataObjectWithAuditFields.EditTime = DateTime.Now;
+                dataObjectWithAuditFields.EditTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Editor = GetCurrentUserInfo(ApplicationMode, true);
             }
         }

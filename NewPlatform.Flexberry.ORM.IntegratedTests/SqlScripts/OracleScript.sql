@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -449,7 +449,9 @@ CREATE TABLE "DetailClass"
 
 	"Detailproperty" NVARCHAR2(255) NULL,
 
-	"MasterClass" RAW(16) NOT NULL,
+	"MasterClass_m0" RAW(16) NULL,
+
+	"MasterClass_m1" RAW(16) NULL,
 
 	 PRIMARY KEY ("primaryKey")
 ) ;
@@ -1858,9 +1860,14 @@ ALTER TABLE "Блоха"
 CREATE INDEX "Блоха_IМедвед_6073" on "Блоха" ("МедведьОбитания");
 
 ALTER TABLE "DetailClass"
-	ADD CONSTRAINT "DetailClass_FMasterClass_0" FOREIGN KEY ("MasterClass") REFERENCES "MasterClass" ("primaryKey");
+	ADD CONSTRAINT "DetailClass_FMasterClass_0" FOREIGN KEY ("MasterClass_m0") REFERENCES "MasterClass" ("primaryKey");
 
-CREATE INDEX "DetailClass_IMasterClass" on "DetailClass" ("MasterClass");
+CREATE INDEX "DetailClass_IMasterClass_m0" on "DetailClass" ("MasterClass_m0");
+
+ALTER TABLE "DetailClass"
+	ADD CONSTRAINT "DetailClass_FMasterClass_1" FOREIGN KEY ("MasterClass_m1") REFERENCES "MasterClass" ("primaryKey");
+
+CREATE INDEX "DetailClass_IMasterClass_m1" on "DetailClass" ("MasterClass_m1");
 
 ALTER TABLE "Кредит"
 	ADD CONSTRAINT "Кредит_FКлиент_0" FOREIGN KEY ("Клиент") REFERENCES "Клиент" ("primaryKey");

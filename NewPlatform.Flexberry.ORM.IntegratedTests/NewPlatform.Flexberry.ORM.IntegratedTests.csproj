@@ -94,8 +94,8 @@
       <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.022\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Remotion.Linq">
-      <HintPath>..\packages\Remotion.Linq.1.13.183.0\lib\net35\Remotion.Linq.dll</HintPath>
+    <Reference Include="Remotion.Linq, Version=1.15.2.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.1.15.2.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -146,6 +146,7 @@
     <Compile Include="Common\CommonTest.cs" />
     <Compile Include="Common\ForeachWithMethodTest.cs" />
     <Compile Include="Common\TypeFullNameTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectExtensionTests.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DetailArray.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\EquivalenceMethods.cs" />

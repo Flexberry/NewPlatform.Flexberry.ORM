@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>4.2.0-beta03</version>
+    <version>5.0.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,24 +12,37 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-      1. Fix for Init Custom AuditService.
-      2. Add simply(Update/Insert style) order for write audit operation.
-      3. Add interface IODataExportService.
-      4. Upgrade Npgsql to 3.x version.
-      5. Upgrade Unity to 5.x version.
-      6. [BREAKINGCHANGE] Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
-      7. Fix DataService init.
-      8. Add Geometry type support.
-      9. Fix PostgresDataService wrong access to short names dictionary in multithreading app.
-      10. Fix support multithreading in View.AddProperty method.
-    </releaseNotes>
+Added
+1. Simply (Update/Insert style) order for write audit operation.
+2. Interface IODataExportService.
+3. Geometry type support.
+4. CheckLoadedProperty generic extension methods.
+5. Delegate to check compatible property storage types.
+6. PersistUtcDates property to AuditService.
+7. PKHelper and FunctionBuilder utilities.
+
+Changed
+1. [BREAKINGCHANGE] Upgrade Unity to 5.x version.
+2. Upgrade Npgsql to 3.x version.
+
+Removed
+1. [BREAKINGCHANGE] Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
+
+Fixed
+1. Fix for Init Custom AuditService.
+2. Fix DataService init.
+3. Fix PostgresDataService wrong access to short names dictionary in multithreading app.
+4. Fix support multithreading in View.AddProperty method.
+5. Fix error for inherited aggregator type with same storage.
+6. Fix empty file saving in PostgresDataService.
+</releaseNotes>
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
         <dependency id="NewPlatform.Flexberry.LogService" version="1.1.0" />
         <dependency id="Npgsql" version="3.0.8" />
-        <dependency id="Remotion.Linq" version="1.13.183.0" />
+        <dependency id="Remotion.Linq" version="1.15.2.0" />
         <dependency id="SharpZipLib" version="0.86.0" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
         <dependency id="Unity.Abstractions" version="3.3.0" />

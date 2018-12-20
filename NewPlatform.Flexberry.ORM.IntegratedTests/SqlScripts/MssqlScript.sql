@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -396,7 +396,9 @@ CREATE TABLE [DetailClass] (
 
 	 [Detailproperty] VARCHAR(255)  NULL,
 
-	 [MasterClass] UNIQUEIDENTIFIER  NOT NULL,
+	 [MasterClass_m0] UNIQUEIDENTIFIER  NULL,
+
+	 [MasterClass_m1] UNIQUEIDENTIFIER  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1610,8 +1612,11 @@ CREATE INDEX Порода_IИерархия on [Порода] ([Иерархия
  ALTER TABLE [Блоха] ADD CONSTRAINT [Блоха_FМедведь_0] FOREIGN KEY ([МедведьОбитания]) REFERENCES [Медведь]
 CREATE INDEX Блоха_IМедведьОбитания on [Блоха] ([МедведьОбитания])
 
- ALTER TABLE [DetailClass] ADD CONSTRAINT [DetailClass_FMasterClass_0] FOREIGN KEY ([MasterClass]) REFERENCES [MasterClass]
-CREATE INDEX DetailClass_IMasterClass on [DetailClass] ([MasterClass])
+ ALTER TABLE [DetailClass] ADD CONSTRAINT [DetailClass_FMasterClass_0] FOREIGN KEY ([MasterClass_m0]) REFERENCES [MasterClass]
+CREATE INDEX DetailClass_IMasterClass_m0 on [DetailClass] ([MasterClass_m0])
+
+ ALTER TABLE [DetailClass] ADD CONSTRAINT [DetailClass_FMasterClass_1] FOREIGN KEY ([MasterClass_m1]) REFERENCES [MasterClass]
+CREATE INDEX DetailClass_IMasterClass_m1 on [DetailClass] ([MasterClass_m1])
 
  ALTER TABLE [Кредит] ADD CONSTRAINT [Кредит_FКлиент_0] FOREIGN KEY ([Клиент]) REFERENCES [Клиент]
 CREATE INDEX Кредит_IКлиент on [Кредит] ([Клиент])

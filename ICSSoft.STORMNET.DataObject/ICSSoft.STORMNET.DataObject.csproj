@@ -102,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\PublishNameAttribute.cs" />
+    <Compile Include="Delegates\CheckCompatiblePropertyStorageTypesDelegate.cs" />
+    <Compile Include="Delegates\TuneStaticViewDelegate.cs" />
     <Compile Include="EnumCaption.cs" />
     <Compile Include="Attributes\IsHTMLAttribute.cs" />
     <Compile Include="ControlProviderAttribute.cs" />
@@ -120,6 +122,9 @@
     <Compile Include="KeyGen\SystemGuidGenerator.cs" />
     <Compile Include="MasterPropertyPath.cs" />
     <Compile Include="ObjectCreator.cs" />
+    <Compile Include="PKHelper\FastAllocator.cs" />
+    <Compile Include="PKHelper\PKComparer.cs" />
+    <Compile Include="PKHelper\PKHelper.cs" />
     <Compile Include="PseudoDetailInExtendedView.cs" />
     <Compile Include="Security\AccessAndRole.cs" />
     <Compile Include="Security\AccessType.cs">
@@ -161,7 +166,6 @@
     <Compile Include="Security\tTypeAccess.cs" />
     <Compile Include="Security\UnauthorizedAccessException.cs" />
     <Compile Include="Security\UpdateResult.cs" />
-    <Compile Include="TuneStaticViewDelegate.cs" />
     <Compile Include="TypeKeyPair.cs" />
     <Compile Include="TypeKeyPairEqualityComparer.cs" />
     <Compile Include="TypePropertyAtrValue.cs">

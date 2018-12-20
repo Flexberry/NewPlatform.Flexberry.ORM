@@ -7,7 +7,7 @@
     /// Тесты для класса <see cref="DataObject"/>.
     /// </summary>
     
-    public class TestDataObject
+    public class DataObjectTest
     {
         /// <summary>
         /// Тест метода <see cref="DataObject.ToStringForAudit"/>.
