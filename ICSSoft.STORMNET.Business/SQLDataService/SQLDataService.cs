@@ -4824,14 +4824,20 @@
                             var propsCollections = createdList[createdObject];
                             var propValue = this.GetType().Name != "PostgresDataService" ? "\"" + prop + "\"" : prop;
 
-                            var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                            alteredCollection.Add(propValue, propsCollections.Get(propValue));
+                            // Добавляем свойство в запрос на изменение объекта.
+                            if (alteredList.ContainsKey(createdObject))
+                            {
+                                alteredList[createdObject].Add(propValue, propsCollections.Get(propValue));
+                            }
+                            else
+                            {
+                                var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                alteredCollection.Add(propValue, propsCollections.Get(propValue));
+                                alteredList.Add(createdObject, alteredCollection);
+                            }
 
                             // Удаляем из списка свойств на изменение в запросе на создание объекта.
                             propsCollections.Remove(propValue);
-
-                            // Добавляем свойство в запрос на изменение объекта.
-                            alteredList.Add(createdObject, alteredCollection);
                         }
                     }
                     else
