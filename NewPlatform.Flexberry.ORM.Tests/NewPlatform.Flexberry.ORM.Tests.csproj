@@ -131,6 +131,7 @@
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\GetObjectTypeTests.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\IsKeyTypeTests.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\ParseObjectTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\TestSQLWhereLanguageDef.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\IName.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\tDayOfWeek.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Types\TestDataObject.cs" />
@@ -273,7 +274,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
