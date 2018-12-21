@@ -33,3 +33,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+[assembly: InternalsVisibleTo("NewPlatform.Flexberry.ORM.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100bf3863e3a32932b0551ca696e8e68ae58fab64d7a0a8ef1f5a89275d5c4841aafc9078a61c47eaaac4ddc5183e92bcd4249ca9b2766622b17634292596c1dd605d744423c4bc8c8926d3936a95f29b63f1d09323584d9405ed296a89f4fb47c24ce2367245d28b705964e2b56fdb235acf1574b5797d2aaa21259ff43d0396b2")]

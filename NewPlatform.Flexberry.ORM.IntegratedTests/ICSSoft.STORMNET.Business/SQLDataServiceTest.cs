@@ -472,6 +472,7 @@
                 кошка.Лапа.Add(лапа);
                 лапа.Перелом.Add(перелом);
                 ds.UpdateObject(кошка);
+
                 // Act & Assert.
                 var aggregatorForUpdateActual =
                                     ds.Query<Кошка>(Кошка.Views.КошкаE)
@@ -479,13 +480,11 @@
                 aggregatorForUpdateActual.SetStatus(ObjectStatus.Deleted);
                 ds.UpdateObject(aggregatorForUpdateActual);
 
-
                 var aggregatorForUpdateDeleted = ds.Query<Кошка>(Кошка.Views.КошкаE).FirstOrDefault(x => x.__PrimaryKey == кошка.__PrimaryKey);
                 var detailDeleted = ds.Query<Перелом>(Перелом.Views.ПереломE).FirstOrDefault(x => x.__PrimaryKey == перелом.__PrimaryKey);
 
                 Assert.Null(aggregatorForUpdateDeleted);
                 Assert.Null(detailDeleted);
-
             }
         }
 
@@ -493,11 +492,12 @@
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
-        [Fact(Skip = "141391")]
+        [Fact]
         public void AggregatorWithLinkToDetailTest0()
         {
             foreach (IDataService ds in DataServices)
             {
+                // Arrange.
                 var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
                 var detail = new DetailUpdateObjectTest { DetailName = "detailName" };
                 var master = new MasterUpdateObjectTest { MasterName = "masterName", Detail = detail };
@@ -509,6 +509,7 @@
                 detail.Master = master;
                 ds.UpdateObject(aggregator);
 
+                // Act & Assert.
                 var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
@@ -543,11 +544,12 @@
         {
             foreach (IDataService ds in DataServices)
             {
+                // Arrange.
                 var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
                 var detail = new DetailUpdateObjectTest { DetailName = "detailName" };
+                ds.UpdateObject(aggregator);
 
                 // Act & Assert.
-                ds.UpdateObject(aggregator);
                 aggregator = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
@@ -589,15 +591,16 @@
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
-        [Fact(Skip = "141391")]
+        [Fact]
         public void AggregatorWithLinkToDetailTest2()
         {
             foreach (IDataService ds in DataServices)
             {
+                // Arrange.
                 var aggregator = new AggregatorUpdateObjectTest { AggregatorName = "aggregatorName" };
+                ds.UpdateObject(aggregator);
 
                 // Act & Assert.
-                ds.UpdateObject(aggregator);
                 aggregator = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
