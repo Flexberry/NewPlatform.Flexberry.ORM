@@ -11,6 +11,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_t
     [ "GetLcsTest9", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a0309c62210f4577c8b5939d5f9337a43", null ],
     [ "GetLcsTestAny", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a46d53c00dbfa2278e98ae34ae3e588c5", null ],
     [ "GetLcsTestCount", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a6dca6b717edd51eeaec65d83667e978d", null ],
+    [ "GetLcsTestFilterNullableTypes", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a9757df45fcfc3398ff240c7cfab4bb9e", null ],
     [ "GetLcsTestInList", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a8ab4e61910d9de30fba521493ab5111c", null ],
     [ "GetLcsTestInListWithMethodCall", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a0e1b68adeb0d93a9472e195b62254998", null ],
     [ "GetLcsTestInNewArrayInitialization", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a7fac84a0cd55f623da36265b829d20d8", null ],
@@ -19,7 +20,9 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_t
     [ "GetLcsTestPrimaryKey", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a5fc626072e09b8c86e02dee1f37bc1c1", null ],
     [ "GetLcsTestSelf", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a22fa387987e0b9f96033802ef0e2f74f", null ],
     [ "GetLcsTestSelfInvert", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a63dd9b54c4c1063ce29dd3f2483c60e0", null ],
+    [ "GetLcsTestSortByUserNullableTypes", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a4d1e169633d899486ac88eb66ea6b12b", null ],
     [ "GetLcsTestSortMasterField", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a7e46566b313012c670197c47bdd8befe", null ],
+    [ "GetLcsTestSortWithConvertExpression", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a585142cbeddf2a0acee42631fdb12b42", null ],
     [ "TestQueryCompilation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#afb9a060e883822cb2855f174a7e97e45", null ],
     [ "TestQueryCompilation2", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#ae6f6cbac82f2ff8494226b6f4769065a", null ],
     [ "TestQueryCompilation3", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a756ea42736b7469e17bd273f6d2f6ae9", null ]

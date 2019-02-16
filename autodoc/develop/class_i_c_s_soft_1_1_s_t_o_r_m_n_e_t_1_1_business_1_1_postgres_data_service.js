@@ -5,6 +5,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service 
     [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#aa8c8ce58dc5f89c400226b69b9d38855", null ],
     [ "ConvertSimpleValueToQueryValueString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a5f1feb1a0fdec7057c195f892f33f5cc", null ],
     [ "FunctionToSql", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#aa61d4ff58ace3a7f998bad2484193df0", null ],
+    [ "GenerateSQLRowNumber", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1937ed98fd0581ee872451e8fd941824", null ],
     [ "GenerateSQLSelect", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a31d335608d20ab76df97a36daecceef8", null ],
     [ "GenerateSQLSelect", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#ac76d865736613c7258e221ef1d89a3dd", null ],
     [ "GenerateSQLSelectByStorageStruct", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a93f644b307cca2d402ad8e0e1a881f77", null ],

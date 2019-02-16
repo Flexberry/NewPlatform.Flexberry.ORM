@@ -1,9 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test =
-[
-    [ "OrderedCls", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls" ],
-    [ "OrderedClsComparer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer" ],
-    [ "OrderedClsComparerG", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g" ],
-    [ "TestMethod1", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test.html#a287403caa63d26a83e4fed0a6fef88b2", null ],
-    [ "TestMethod2", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test.html#a56620d8a954b8759b0126d6a49ef74e1", null ],
-    [ "TestMethod3", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test.html#ad4467f865fe9c3c48504a3763984b4ee", null ]
-];

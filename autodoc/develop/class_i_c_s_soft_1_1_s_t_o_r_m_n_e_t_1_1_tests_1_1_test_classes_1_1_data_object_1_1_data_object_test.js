@@ -26,8 +26,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_obj
     [ "InsertArgumentOutOfRangeExceptionTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#a6637af752bb5df2471ed6447eedaa770", null ],
     [ "InsertNullReferenceExceptionTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#ab58783e4c10e93932accd9bd90902d7d", null ],
     [ "InsertTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#adbd607e443adce31a842d7df48a094b5", null ],
-    [ "IsAlteredPropertyGenericTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#aee22e267ca1e327629bb024bba4825c6", null ],
-    [ "IsAlteredPropertyGenericTest2", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#ac64f4fb0ed028001554dca45a951c5c1", null ],
     [ "IsAlteredPropertyTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#a3fc6c3ed4c018264641ea83826197c5c", null ],
     [ "IsReadOnlyTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#a7c235507c5ee75e2d597c208e4dc0914", null ],
     [ "LockObjectTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#a215d6d33693df2b3a86810b9c4d09be7", null ],

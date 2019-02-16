@@ -1,5 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_busieb2c4aded9a4a8f8fdd38c72fc4a4d57 =
-[
-    [ "TestContainsExpressionWithObjectParameter", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_busieb2c4aded9a4a8f8fdd38c72fc4a4d57.html#ac322c776a290135bf5fb6d317b574134", null ],
-    [ "TestEqualsExpressionWithObjectParameter", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_busieb2c4aded9a4a8f8fdd38c72fc4a4d57.html#a3d410d7b7c53814dff3897a2f183ef68", null ]
-];

@@ -2,7 +2,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decima
 [
     [ "NullableDecimal", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a86a6e6006bd169454761bea443c3da3c", null ],
     [ "Compare", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#aaf8c908c2de30aacda53774e720d22f0", null ],
-    [ "Compare", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a7cdf2a77e10cea7ecf690702906a5572", null ],
+    [ "Compare", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#ac9342bf5de5ba1ceb5899a1a2ec5e07d", null ],
     [ "CompareTo", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a8d5990236af265c0d4d0de6cac522d5a", null ],
     [ "Equals", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a74a42dc612ccefbef17eb43464d2b827", null ],
     [ "GetSchema", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#aa657550fa748348e3e2cdaaffb081bc2", null ],
@@ -25,5 +25,5 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decima
     [ "ToUInt32", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a7776c150f8a75267bfa0241c817d66f1", null ],
     [ "ToUInt64", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a3b5b8f4fd47b711b45b3d5b3b47bfb43", null ],
     [ "WriteXml", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#aa59ed7ece54385684019d86b7bcaed18", null ],
-    [ "Value", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#ae43c8f056362f8ed234a1a194a091ffd", null ]
+    [ "Value", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a6c09170a96c0c58e3e3121e315c9b892", null ]
 ];

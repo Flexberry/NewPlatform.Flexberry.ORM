@@ -1,9 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test =
-[
-    [ "TestDoubleAdd", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html#aa23cfaf5f5b54a87ce4b20b18aa9aba2", null ],
-    [ "TestInvisibleView", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html#af1181016bdd69f65f869cdebc370e826", null ],
-    [ "TestInvisibleViewMaster", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html#a04262b8f78f37df34b2b02d45f8cac69", null ],
-    [ "TestInvisibleViewMasterOnAddProperty", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html#aa1e3f80ddad0520b5c9a388dc9d8b7e3", null ],
-    [ "TestInvisibleViewOnAddProperty", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html#a0b302234a7dde778c7364f34e3e596b9", null ],
-    [ "TestViewSubstraction", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html#aff508dad0dbac1aadce605065f5fb65a", null ]
-];

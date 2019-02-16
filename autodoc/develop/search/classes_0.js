@@ -35,7 +35,6 @@ var searchData=
   ['auditservicewithdisabledaudittest',['AuditServiceWithDisabledAuditTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_disabled_audit_test.html',1,'ICSSoft::STORMNET::Business::Audit::IntegratedTests']]],
   ['auditservicewithenabledaudittest',['AuditServiceWithEnabledAuditTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_enabled_audit_test.html',1,'ICSSoft::STORMNET::Business::Audit::IntegratedTests']]],
   ['auditsettings',['AuditSettings',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_settings_1_1_audit_settings.html',1,'NewPlatform::Flexberry::ORM::Tests::AuditClassWithSettings']]],
-  ['auditsettings',['AuditSettings',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_disabled_audit_1_1_audit_settings.html',1,'NewPlatform::Flexberry::ORM::Tests::AuditClassWithDisabledAudit']]],
   ['autoalteredattribute',['AutoAlteredAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_auto_altered_attribute.html',1,'ICSSoft::STORMNET']]],
   ['autostoremasterdisabled',['AutoStoreMasterDisabled',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_auto_store_master_disabled.html',1,'ICSSoft::STORMNET']]]
 ];

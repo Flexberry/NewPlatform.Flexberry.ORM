@@ -7,7 +7,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang
     [ "GetExistingVariableNames", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a6696dd6925c1a89019ee2aa5b562f3ea", null ],
     [ "GetObjectTypeForNetType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a04f65e0dc3f92fec5050c06e58ac7cc0", null ],
     [ "InitializeDefs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a282ff51c4e80ab9700eab9e2eea213a7", null ],
-    [ "SQLTranslFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a999adcd426c6ca11fc4fba8465162186", null ],
+    [ "SQLTranslFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#acd65a2697e23efd36379316c1e48dbef", null ],
     [ "TransformObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a027f873694131dc702036a0bf59f7d31", null ],
     [ "TransformVariables", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a4016e0de0c4d90250569ddca3501fec0", null ],
     [ "TransformVariables", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a04a0d2c6515469bc9c30803cd97b2d12", null ],

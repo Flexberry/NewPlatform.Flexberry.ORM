@@ -16,7 +16,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_servic
     [ "RatifyAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3a41802f5d29d2ee9928a2625428a928", null ],
     [ "RatifyAuditOperationWithAutoFields", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a9a2dd0951182582e5b4621623e1bc499", null ],
     [ "WriteCommonAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a8cd6a95d8d34694dbee673f2a8275e97", null ],
-    [ "WriteCommonAuditOperationWithAutoFields", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ab1b9ce85ad01d9380365bae9c25e7457", null ],
+    [ "WriteCommonAuditOperationWithAutoFields", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#acc6086a746848c9c3253c0fb12faef52", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5db63bb397e72a3b4e88480cfc159092", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#affd9f97d773fc2342dc52781f51401bf", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a555811716e481b7adb8f66ac4347399d", null ],
@@ -26,5 +26,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_servic
     [ "AppSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5bd2ef836436bd5db477d62048a49eb0", null ],
     [ "Audit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a4888ae347e1151a2a1ca06a8e59d5215", null ],
     [ "AuditConnectionStringName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3051e3e6df1829e3779e13e7a668cb1e", null ],
+    [ "PersistUtcDates", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a68d16f4dfa5de27b86bce4d6c2ac939a", null ],
     [ "ShowPrimaryKey", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a6c5ec1793b221ed76ce1a2d554a4e094", null ]
 ];

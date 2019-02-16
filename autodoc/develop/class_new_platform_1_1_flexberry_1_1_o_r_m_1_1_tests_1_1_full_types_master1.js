@@ -20,5 +20,6 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1 
     [ "PoleNullFloat", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#a503e8de3a10204d65e2b019d99888469", null ],
     [ "PoleNullGuid", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#ab16676adca6c825e8c50b43a68e4ad62", null ],
     [ "PoleNullInt", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#a0028aa3408b8316abff27a8787ad40a2", null ],
-    [ "PoleString", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#a35cffb5acd7b4409487758e4add216b9", null ]
+    [ "PoleString", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#a35cffb5acd7b4409487758e4add216b9", null ],
+    [ "PoleUInt", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#aea2ebefe7d85cd66214880a7b4d158b6", null ]
 ];

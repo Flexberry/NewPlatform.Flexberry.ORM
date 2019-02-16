@@ -13,6 +13,7 @@ var searchData=
   ['functionallanguagedef',['FunctionalLanguageDef',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_functional_language_def.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],
   ['functionallanguagedeftest',['FunctionalLanguageDefTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_functional_language_def_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::FunctionalLanguage']]],
   ['functionallanguagetest',['FunctionalLanguageTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_functional_language_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::FunctionalLanguage']]],
+  ['functionbuildertests',['FunctionBuilderTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_function_builder_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['functiondef',['FunctionDef',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_def.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],
   ['functionforcontrols',['FunctionForControls',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],
   ['functionparameterdef',['FunctionParameterDef',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_parameter_def.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],

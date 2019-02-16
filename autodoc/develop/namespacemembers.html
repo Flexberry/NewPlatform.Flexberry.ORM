@@ -3,24 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.10"/>
-<title>Flexberry ORM 4.0.0: Члены пространств имен</title>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Flexberry ORM 5.1.0-beta02: Члены пространств имен</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript">
   $(document).ready(initResizable);
   $(window).load(resizeHeight);
 </script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
-  $(document).ready(function() { init_search(); });
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -31,8 +29,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 4.0.0
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Flexberry ORM 5.1.0-beta02
    </div>
   </td>
  </tr>
@@ -40,7 +38,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.10 -->
+<!-- Создано системой Doxygen 1.8.6 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </script>
@@ -78,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
       <li class="current"><a href="namespacemembers.html"><span>Указатель</span></a></li>
       <li><a href="namespacemembers_func.html"><span>Функции</span></a></li>
       <li><a href="namespacemembers_enum.html"><span>Перечисления</span></a></li>
+      <li><a href="namespacemembers_eval.html"><span>Элементы&#160;перечислений</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
@@ -87,19 +86,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
       <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
       <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_l"><span>l</span></a></li>
       <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
+      <li><a href="#index_q"><span>q</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
       <li><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_v"><span>v</span></a></li>
+      <li><a href="#index_w"><span>w</span></a></li>
+      <li><a href="#index_y"><span>y</span></a></li>
+      <li><a href="#index_А"><span>0x0410</span></a></li>
       <li><a href="#index_В"><span>0x0412</span></a></li>
+      <li><a href="#index_Д"><span>0x0414</span></a></li>
+      <li><a href="#index_Ж"><span>0x0416</span></a></li>
+      <li><a href="#index_З"><span>0x0417</span></a></li>
+      <li><a href="#index_И"><span>0x0418</span></a></li>
+      <li><a href="#index_Л"><span>0x041b</span></a></li>
+      <li><a href="#index_М"><span>0x041c</span></a></li>
+      <li><a href="#index_Н"><span>0x041d</span></a></li>
+      <li><a href="#index_О"><span>0x041e</span></a></li>
       <li><a href="#index_П"><span>0x041f</span></a></li>
+      <li><a href="#index_Р"><span>0x0420</span></a></li>
       <li><a href="#index_С"><span>0x0421</span></a></li>
-      <li class="current"><a href="#index_Т"><span>0x0422</span></a></li>
+      <li><a href="#index_Т"><span>0x0422</span></a></li>
+      <li class="current"><a href="#index_У"><span>0x0423</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -122,7 +139,7 @@ $(document).ready(function(){initNavTree('namespacemembers.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Пространства имен</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Свойства</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>События</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -136,223 +153,546 @@ $(document).ready(function(){initNavTree('namespacemembers.html','');});
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
 <li>AccessType
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a7807035f2a54d211d8a5c4b709c1c552">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a7807035f2a54d211d8a5c4b709c1c552">ICSSoft::STORMNET</a>
 </li>
 <li>AfterGenerateSQLSelectQueryEventHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#af6c6495380896e62ee7b6d00fce27dda">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#af6c6495380896e62ee7b6d00fce27dda">ICSSoft::STORMNET::Business</a>
 </li>
 <li>AfterUpdateObjectsEventHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#aa9f493a8356f3654ae52027dea231252">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#aa9f493a8356f3654ae52027dea231252">ICSSoft::STORMNET::Business</a>
+</li>
+<li>All
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3ab1c94ca2fbc3e78fc30069c8d0f01680">ICSSoft::STORMNET::Business</a>
+</li>
+<li>Altered
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632baf6cd77e9510ef55513122c031391b82d">ICSSoft::STORMNET</a>
+</li>
+<li>Any
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3aed36a1ef76a59ee3f15180e0441188ad">ICSSoft::STORMNET::Business</a>
 </li>
 <li>AppMode
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46a">ICSSoft.STORMNET.Business.Audit</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46a">ICSSoft::STORMNET::Business::Audit</a>
+</li>
+<li>Asc
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4ae8338cca05b6a68b1b516f4f0d6b0a0f">ICSSoft::STORMNET::Business</a>
+</li>
+<li>Asynchronous
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#ae425e67753af7f3268466f69b7c55aa4a288aae25bc408055f50c21c991903a44">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Attribute1
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2bf50b619e1a7b045fb9ea70d921d1b8ad36a7f5c4027b24e9ea6662935b438b8">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Attribute2
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2bf50b619e1a7b045fb9ea70d921d1b8a8ed40572b8b10864de8e2446fe072e07">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Attribute3
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2bf50b619e1a7b045fb9ea70d921d1b8a4cb160c17052fb5ca322b44a10913918">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
+<li>base
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a7807035f2a54d211d8a5c4b709c1c552a593616de15330c0fb2d55e55410bf994">ICSSoft::STORMNET</a>
+</li>
 <li>BeforeCloseEventHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#af99c7fefd99a377d676f09d592bcae6a">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#af99c7fefd99a377d676f09d592bcae6a">ICSSoft::STORMNET::UI</a>
 </li>
 <li>BeforeUpdateObjectsEventHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#af098082a5d9281b3c166c643cac195ec">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#af098082a5d9281b3c166c643cac195ec">ICSSoft::STORMNET::Business</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
 <li>CancelEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a39cc1d1a501257eea22174b3333fdebb">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a39cc1d1a501257eea22174b3333fdebb">ICSSoft::STORMNET::UI</a>
+</li>
+<li>CaseInsensitive
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaa6bd9264ca00b6021a8d75a68895c1ba1">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>CaseINSENSITIVEVAL
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaacd89915cb673f55450de9e8d27e6b88b">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>CASEINSENSITIVEVAL
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaa50c95c38d039fed0d0e5d499f2f1aef0">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>CaseSensitiveEnum
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caa">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caa">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>ChangeCustomizationStringDelegate()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a98869243493c64034fa10104ab76b470">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a98869243493c64034fa10104ab76b470">ICSSoft::STORMNET::Business</a>
 </li>
 <li>ChangeViewForTypeDelegate()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#afeb634f6cfd9dd3d9c525fb60d62fa2f">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#afeb634f6cfd9dd3d9c525fb60d62fa2f">ICSSoft::STORMNET::Business</a>
+</li>
+<li>CheckCompatiblePropertyStorageTypesDelegate()
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a8b8e2e7e99dd960ba3ea0f2a0ba1330e">ICSSoft::STORMNET</a>
 </li>
 <li>CheckConstDelegate()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#af9c79354134ccaf78cebf3f60dea90d5">ICSSoft.STORMNET.FunctionalLanguage</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#af9c79354134ccaf78cebf3f60dea90d5">ICSSoft::STORMNET::FunctionalLanguage</a>
 </li>
 <li>CloseEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#aab238e8122fd11ad6b3ff40a812c47d0">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#aab238e8122fd11ad6b3ff40a812c47d0">ICSSoft::STORMNET::UI</a>
+</li>
+<li>Combo
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a56ce8e7a592f5a69dfbc406680c2d7d8ad8929068f239cc2984d214ec4717cc5f">ICSSoft::STORMNET</a>
+</li>
+<li>Convertable
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a490415d4b9b9dd4c739fd26df0f1f768a6bbedda5a0feaa06e35b8afc872b695e">ICSSoft::STORMNET::FunctionalLanguage</a>
+</li>
+<li>Count
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3ae93f994f01c537c4e2f7d8528c3eb5e9">ICSSoft::STORMNET::Business</a>
+</li>
+<li>Created
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632ba0eceeb45861f9585dd7a97a3e36f85c6">ICSSoft::STORMNET</a>
+</li>
+<li>Custom
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a56ce8e7a592f5a69dfbc406680c2d7d8a90589c47f06eb971d548591f23c285af">ICSSoft::STORMNET</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
 <li>DataServiceObjectEvents
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745">ICSSoft::STORMNET::Business</a>
 </li>
 <li>delegateConvertValueToQueryValueString()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where.html#af2d65fa1f77d41942ad2df9036c53564">ICSSoft.STORMNET.FunctionalLanguage.SQLWhere</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where.html#af2d65fa1f77d41942ad2df9036c53564">ICSSoft::STORMNET::FunctionalLanguage::SQLWhere</a>
 </li>
 <li>delegatePutIdentifierToBrackets()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where.html#a3c73d43f8e7296ed54739d8ef7283ba1">ICSSoft.STORMNET.FunctionalLanguage.SQLWhere</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where.html#a3c73d43f8e7296ed54739d8ef7283ba1">ICSSoft::STORMNET::FunctionalLanguage::SQLWhere</a>
+</li>
+<li>DELETE
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014a32f68a60cef40faedbc6af20298c1a1e">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Delete
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94af2a6c498fb90ee345d997f888fce3b18">ICSSoft::STORMNET::Security</a>
+</li>
+<li>Deleted
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632ba5fe6005bf6e415c950c011fb65f12b8f">ICSSoft::STORMNET</a>
 </li>
 <li>DeleteEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#ac95e5c1e744ef2a26d3afa22f76aad61">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#ac95e5c1e744ef2a26d3afa22f76aad61">ICSSoft::STORMNET::UI</a>
+</li>
+<li>Desc
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4a5fc8b9a31666e95fddf7fdc19ba6070c">ICSSoft::STORMNET::Business</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
 <li>EditEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#aca0087dd19d8334655b1489dd106cd6e">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#aca0087dd19d8334655b1489dd106cd6e">ICSSoft::STORMNET::UI</a>
 </li>
 <li>EditorStoppedEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#afc72ea9eae8bdfc17cd411aaca093831">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#afc72ea9eae8bdfc17cd411aaca093831">ICSSoft::STORMNET::UI</a>
+</li>
+<li>Equal
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a490415d4b9b9dd4c739fd26df0f1f768af5f286e73bda105e538310b3190f75c5">ICSSoft::STORMNET::FunctionalLanguage</a>
+</li>
+<li>EXECUTE
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014a5d76688e2261e6805ee36ad961b3fa7a">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Execute
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94a40cd014b7b6251e3a22e6a45a73a64e1">ICSSoft::STORMNET::Security</a>
+</li>
+<li>Executed
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a4df6b466e19a95c26d1af50642aa1c13a37ae3959ff931a36a5157d1d971d964c">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>Failed
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a4df6b466e19a95c26d1af50642aa1c13ad7c8c85bf79bbe1b7188497c32c3b0ca">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Full
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94abbd47109890259c0127154db1af26c75">ICSSoft::STORMNET::Security</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
 <li>GetHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#af44e9ccf957db7a6132a0844447d1ebe">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#af44e9ccf957db7a6132a0844447d1ebe">ICSSoft::STORMNET</a>
 </li>
 <li>GetPresentationValueDelegate()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#af0a71a4dec7ccc9da763887994cf076b">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#af0a71a4dec7ccc9da763887994cf076b">ICSSoft::STORMNET</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>HierarchicalStorage
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a6777f5318e4032f2091be8cca300ea87a5819cd8f658ff9628a05722f8f23face">ICSSoft::STORMNET::Business</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>InitiatorStoppedEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a7a3ca85fad18963f17c87ce4f4d536e9">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a7a3ca85fad18963f17c87ce4f4d536e9">ICSSoft::STORMNET::UI</a>
+</li>
+<li>INSERT
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014a61ee777e7f71dc466c3b2c685d8d313b">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Insert
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94aa458be0f08b7e4ff3c0f633c100176c0">ICSSoft::STORMNET::Security</a>
 </li>
 <li>InstantiateObjectHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a0711c887b956829780376b060f980076">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a0711c887b956829780376b060f980076">ICSSoft::STORMNET</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
 <li>LcsReturnType
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3">ICSSoft::STORMNET::Business</a>
+</li>
+<li>LightLoaded
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa876c30988afeecc9d0ef6ca702c60e4b">ICSSoft::STORMNET</a>
+</li>
+<li>Loaded
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa7381d487d18845b379422325c0a768d6">ICSSoft::STORMNET</a>
 </li>
 <li>LoadingState
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16f">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16f">ICSSoft::STORMNET</a>
 </li>
 <li>LookupTypeEnum
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a56ce8e7a592f5a69dfbc406680c2d7d8">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a56ce8e7a592f5a69dfbc406680c2d7d8">ICSSoft::STORMNET</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
 <li>NewEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a740704585653249e9a4c4415f44f441b">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a740704585653249e9a4c4415f44f441b">ICSSoft::STORMNET::UI</a>
+</li>
+<li>No
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a490415d4b9b9dd4c739fd26df0f1f768abafd7322c6e97d25b6299b5d6fe8920b">ICSSoft::STORMNET::FunctionalLanguage</a>
+</li>
+<li>None
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4a6adf97f83acf6453d4a6a4b1070f3754">ICSSoft::STORMNET::Business</a>
+</li>
+<li>none
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a7807035f2a54d211d8a5c4b709c1c552a334c4a4c42fdb79d7ebc3e73b517e6f8">ICSSoft::STORMNET</a>
+</li>
+<li>NotLoaded
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a05094873b40e71326defdcdde29ec16fa5111e24c1ecc6266ce0de4b4dc42033b">ICSSoft::STORMNET</a>
+</li>
+<li>NumberCaption
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2bf50b619e1a7b045fb9ea70d921d1b8">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>NumberedYear
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0c">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0c">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
+<li>Object
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3a497031794414a552435f90151ac3b54b">ICSSoft::STORMNET::Business</a>
+</li>
+<li>ObjectRequired
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3a31e0a3c3058cd5b914ee7f5371928633">ICSSoft::STORMNET::Business</a>
+</li>
+<li>Objects
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3ac8308b1eba7ba926a61b8fd802194386">ICSSoft::STORMNET::Business</a>
+</li>
 <li>ObjectStatus
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632b">ICSSoft::STORMNET</a>
+</li>
+<li>OnAllEvents
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745a737d5dc063aaa256db754261fb6fd3fc">ICSSoft::STORMNET::Business</a>
+</li>
+<li>OnAnyEvent
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745af9ca7c66965aedde4b95039b8319a26a">ICSSoft::STORMNET::Business</a>
 </li>
 <li>OnCreateCommandEventHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a2a7d614226cd0bc44c6843f39fda7bc3">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a2a7d614226cd0bc44c6843f39fda7bc3">ICSSoft::STORMNET::Business</a>
+</li>
+<li>OnDeleteFromStorage
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745aea69fc0348cd14f6a74bddc6882e0951">ICSSoft::STORMNET::Business</a>
 </li>
 <li>OnGenerateSQLSelectEventHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#aa60a188b111bf199eb53bbc60acf5db5">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#aa60a188b111bf199eb53bbc60acf5db5">ICSSoft::STORMNET::Business</a>
+</li>
+<li>OnInsertToStorage
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745a04ab6e294cbec2fabb1beb1f340bea7a">ICSSoft::STORMNET::Business</a>
+</li>
+<li>OnUpdateInStorage
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a7783d678f43b46dd95c0bf9d97806745a9dbb2d8f77d50eef5e2d8e789bb25161">ICSSoft::STORMNET::Business</a>
 </li>
 <li>OperationResult
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19">ICSSoft.STORMNET.Security</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19">ICSSoft::STORMNET::Security</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
 <li>PoleEnum
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#ae2600e7c9aba61f001fb8335f4c5b5bb">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#ae2600e7c9aba61f001fb8335f4c5b5bb">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Print
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94a13dba24862cf9128167a59100e154c8d">ICSSoft::STORMNET::Security</a>
 </li>
 <li>PrintInitiatorStoppedEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a9436e8e796e913bb02392b4902640e46">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a9436e8e796e913bb02392b4902640e46">ICSSoft::STORMNET::UI</a>
 </li>
 <li>PrintPreviewEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a432c45a055a71bb16346bfbf68e88a0d">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a432c45a055a71bb16346bfbf68e88a0d">ICSSoft::STORMNET::UI</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_q"></a>- q -</h3><ul>
+<li>Quick
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a56ce8e7a592f5a69dfbc406680c2d7d8a809b7a805a28884b364837536cdc38b7">ICSSoft::STORMNET</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>Read
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94a7a1a5f3e79fdc91edf2f5ead9d66abb4">ICSSoft::STORMNET::Security</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>SaveEventArgsHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#acd2873ecc47b8ec273e4418fd8aa6ad8">ICSSoft.STORMNET.UI</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#acd2873ecc47b8ec273e4418fd8aa6ad8">ICSSoft::STORMNET::UI</a>
+</li>
+<li>SELECT
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014a63225f19fccb18e7c709f1fa11bc738e">ICSSoft::STORMNET::Business::Audit::Objects</a>
 </li>
 <li>SetHandler()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#ac2e74c8cae1db17cf05508ae1ff9c9e6">ICSSoft.STORMNET</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#ac2e74c8cae1db17cf05508ae1ff9c9e6">ICSSoft::STORMNET</a>
+</li>
+<li>SimpleStorage
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a6777f5318e4032f2091be8cca300ea87ae91c1f09553c8de766a97801e765496e">ICSSoft::STORMNET::Business</a>
 </li>
 <li>SimplificationDelegate()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#ac2e36328f91c7013539a67d833185d82">ICSSoft.STORMNET.FunctionalLanguage</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#ac2e36328f91c7013539a67d833185d82">ICSSoft::STORMNET::FunctionalLanguage</a>
 </li>
 <li>SortOrder
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4">ICSSoft::STORMNET::Business</a>
+</li>
+<li>Standard
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a56ce8e7a592f5a69dfbc406680c2d7d8aeb6d8ae6f20283755b339c0dc273988b">ICSSoft::STORMNET</a>
 </li>
 <li>StorageTypeEnum
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a6777f5318e4032f2091be8cca300ea87">ICSSoft.STORMNET.Business</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a6777f5318e4032f2091be8cca300ea87">ICSSoft::STORMNET::Business</a>
 </li>
 <li>SwappedEnum
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a153cc164c819b1c58f606df24dce580a">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a153cc164c819b1c58f606df24dce580a">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>SwappedVal
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a153cc164c819b1c58f606df24dce580aadc12d3e58c346b990370ef552d8f577a">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Synchronous
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#ae425e67753af7f3268466f69b7c55aa4a2fe4167817733fec8e6ba1afddf78f1b">ICSSoft::STORMNET::Business::Audit::Objects</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>tExecutionVariant
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a4df6b466e19a95c26d1af50642aa1c13">ICSSoft.STORMNET.Business.Audit.Objects</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a4df6b466e19a95c26d1af50642aa1c13">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>this
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a7807035f2a54d211d8a5c4b709c1c552a9e925e9341b490bfd3b4c4ca3b0c1ef2">ICSSoft::STORMNET</a>
+</li>
+<li>this_and_base
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a7807035f2a54d211d8a5c4b709c1c552a6f0bc908ddef79524387eef229d6354d">ICSSoft::STORMNET</a>
 </li>
 <li>tTypeAccess
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94">ICSSoft.STORMNET.Security</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94">ICSSoft::STORMNET::Security</a>
 </li>
 <li>tTypeOfAuditOperation
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014">ICSSoft.STORMNET.Business.Audit.Objects</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>TuneStaticViewDelegate()
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#a36e9a85b644cd6a97efd320dfd7a7956">ICSSoft::STORMNET</a>
 </li>
 <li>tWriteMode
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#ae425e67753af7f3268466f69b7c55aa4">ICSSoft.STORMNET.Business.Audit.Objects</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#ae425e67753af7f3268466f69b7c55aa4">ICSSoft::STORMNET::Business::Audit::Objects</a>
 </li>
 <li>TypeResolveDelegate()
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a58a38236390de02089a722de914f7677">ICSSoft.STORMNET.FunctionalLanguage</a>
-, <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms.html#a190a52427df653078efdeb801cdab53f">ICSSoft.STORMNET.Windows.Forms</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a58a38236390de02089a722de914f7677">ICSSoft::STORMNET::FunctionalLanguage</a>
+, <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms.html#a190a52427df653078efdeb801cdab53f">ICSSoft::STORMNET::Windows::Forms</a>
 </li>
 <li>TypesCompatibilities
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a490415d4b9b9dd4c739fd26df0f1f768">ICSSoft.STORMNET.FunctionalLanguage</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language.html#a490415d4b9b9dd4c739fd26df0f1f768">ICSSoft::STORMNET::FunctionalLanguage</a>
 </li>
 <li>tСтатусИсполнителяХозДоговора
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a3aa925a60954f3586fe5669cf7d6595b">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a3aa925a60954f3586fe5669cf7d6595b">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>UnAltered
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html#adfe44682826359ca3df127975ada632baf4182ded074fbd283d41e9491796ece9">ICSSoft::STORMNET</a>
+</li>
+<li>Unexecuted
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a4df6b466e19a95c26d1af50642aa1c13a5356d7a96a1e3fada8df41fc0895daeb">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Unknown
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a4df6b466e19a95c26d1af50642aa1c13a88183b946cc5f0e8c96b2e66e1c74a7e">ICSSoft::STORMNET::Business::Audit::Objects</a>
+, <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aa88183b946cc5f0e8c96b2e66e1c74a7e">ICSSoft::STORMNET::Business::Audit</a>
+</li>
+<li>UPDATE
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects.html#a80b3e34c23b26c5c42e0bbb858a2e014a15a8022d0ed9cd9c2a2e756822703eb4">ICSSoft::STORMNET::Business::Audit::Objects</a>
+</li>
+<li>Update
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#ae802661bff41080d0f9c0947a83e4e94a06933067aafd48425d67bcb01bba5cb6">ICSSoft::STORMNET::Security</a>
+</li>
 <li>UpdateResult
-: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a7faf11b931ec34ae591c9064ffdc68a5">ICSSoft.STORMNET.Security</a>
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a7faf11b931ec34ae591c9064ffdc68a5">ICSSoft::STORMNET::Security</a>
 </li>
 </ul>
 
 
-<h3><a class="anchor" id="index_0x0412"></a>- В -</h3><ul>
+<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>Val
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a153cc164c819b1c58f606df24dce580aa5988c20a047cfe063999787584b0aca7">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
+<li>Web
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aac6e190b284633c48e39e55049da3cce8">ICSSoft::STORMNET::Business::Audit</a>
+</li>
+<li>Win
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aa119eac47719cc9be7b99124712e229da">ICSSoft::STORMNET::Business::Audit</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_y"></a>- y -</h3><ul>
+<li>Year2011
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca61dda183ffde2f19c5d0b810cc53202a">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Year2012
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca274c9b86a8d324d7d77f2a4a65549d7e">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Year2013
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca3f069524b6cf93b1e8db302f0cb4f3f0">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Year2014
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca32f4a06637b9e5d2f9796a1c3c99c19e">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Year9998
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaa4e8dffed4b7651ef882b57830ee67d72">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Year9999
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaa2847c519bf036740f9ac0339a0141e92">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_0x0410"></a>- А -</h3><ul>
+<li>Автокредит
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a645b15cb4fb027b0a0a7dd9c1e9bb0efa2a06efcb9889db6b5fe396ffb1191be8">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>ВДоступеОтказать
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a438023c89ab897dd5d86c26140effeee">ICSSoft::STORMNET::Security</a>
+</li>
 <li>ВидКредита
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a645b15cb4fb027b0a0a7dd9c1e9bb0ef">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a645b15cb4fb027b0a0a7dd9c1e9bb0ef">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Дикая
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a46f5a9227dd6eb9429b7062b26ed566ca2acfbada84c2f9416353dcea1fcfe990">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Домашняя
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a46f5a9227dd6eb9429b7062b26ed566cab38f695ca33df12ad79b6e270ed37fcb">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Женский
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#af0cb9a66aa499f00c59b7c6c321be0abafc504fb141a11554573b1777c1a72515">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Закрытый
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2632435673bd3a128c91f53a354e6560a0317d4178ef6c44809287e96e09193aa">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Ипотека
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a645b15cb4fb027b0a0a7dd9c1e9bb0efae8459d346aeef091b97615a3cf919ffd">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Левая
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#aeeebc4f99e012fc2ad08d71cb7ee3fecaa0a56da31f446385d1b5d55aa33b374d">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>ЛогинЗанят
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19ab44b3509c9ea246fa6ba0f5e07529988">ICSSoft::STORMNET::Security</a>
+</li>
+<li>ЛогинЗапрещён
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a7faf11b931ec34ae591c9064ffdc68a5a7164f7ba1da54b75797cebf834aa1266">ICSSoft::STORMNET::Security</a>
+</li>
+<li>ЛогинСвободен
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a55ec815083e2cb00f0f8ebb884e35d38">ICSSoft::STORMNET::Security</a>
+</li>
+<li>Мужской
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#af0cb9a66aa499f00c59b7c6c321be0aba9c61d8fee6eb55b45e5536b73898afb2">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>НеПонятно
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#af0cb9a66aa499f00c59b7c6c321be0aba610bc914e58f216cab89b881f6daeb18">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>НеправильныйПароль
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a4b10ab867961254c7dd98f32e417383b">ICSSoft::STORMNET::Security</a>
+</li>
+<li>НетЗначения
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#aeeebc4f99e012fc2ad08d71cb7ee3feca10a99be4479f3672b3939e0e3f5c16ad">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Никто
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a3aa925a60954f3586fe5669cf7d6595baba1935fc3c2baf2f23e384e26dd6de90">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Открытый
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2632435673bd3a128c91f53a354e6560aaeb92e723fd41f6f208dad5658f0c79a">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>ОшибкаВыполнения
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a7faf11b931ec34ae591c9064ffdc68a5a543f79066b6ad5710c893bead6632f2f">ICSSoft::STORMNET::Security</a>
+</li>
+<li>ОшибкаВыполненияОперации
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19ad3bebe75aec4db1af612ce719cc32eb3">ICSSoft::STORMNET::Security</a>
+</li>
+<li>ОшибочныеАргументы
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a300553c3fc08f677ac4d1cac329ed787">ICSSoft::STORMNET::Security</a>
 </li>
 <li>Пол
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#af0cb9a66aa499f00c59b7c6c321be0ab">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#af0cb9a66aa499f00c59b7c6c321be0ab">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>ПользовательНеНайден
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a36351599dc092f6dc0b344b5743e509d">ICSSoft::STORMNET::Security</a>
+</li>
+<li>ПользовательОбновлён
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a7faf11b931ec34ae591c9064ffdc68a5a08b1be109d9974b95c001e2f2f6add92">ICSSoft::STORMNET::Security</a>
+</li>
+<li>ПользовательСоздан
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a7faf11b931ec34ae591c9064ffdc68a5ab015fba37aed69df170e817dbfc43795">ICSSoft::STORMNET::Security</a>
+</li>
+<li>Потребительский
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a645b15cb4fb027b0a0a7dd9c1e9bb0efa9dbf150518614397c1bcca2b38cd570a">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Правая
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#aeeebc4f99e012fc2ad08d71cb7ee3feca3d2e0108ef38017f124324e2c3ef9f4e">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Руководитель
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a3aa925a60954f3586fe5669cf7d6595baf1c7b1095c02c4e49dac8c29cba40f51">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>Состояние
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a6db7b3b1f8c37df306e029560a2c7ccd">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a6db7b3b1f8c37df306e029560a2c7ccd">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>Сторона
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#aeeebc4f99e012fc2ad08d71cb7ee3fec">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#aeeebc4f99e012fc2ad08d71cb7ee3fec">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>ТипКошки
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a46f5a9227dd6eb9429b7062b26ed566c">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a46f5a9227dd6eb9429b7062b26ed566c">NewPlatform::Flexberry::ORM::Tests</a>
 </li>
 <li>ТипПерелома
-: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2632435673bd3a128c91f53a354e6560">NewPlatform.Flexberry.ORM.Tests</a>
+: <a class="el" href="namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a2632435673bd3a128c91f53a354e6560">NewPlatform::Flexberry::ORM::Tests</a>
+</li>
+<li>Успешно
+: <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a0954b11aa8da64cb36a7b74cffad3eb2">ICSSoft::STORMNET::Security</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -360,9 +700,9 @@ $(document).ready(function(){initNavTree('namespacemembers.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Документация по Flexberry ORM 4.0.0. Последние изменения: Чт 13 Июл 2017 10:46:18. Создано системой
+    <li class="footer">Документация по Flexberry ORM 5.1.0-beta02. Последние изменения: Сб 16 Фев 2019 06:47:18. Создано системой
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>
 </div>
 </body>

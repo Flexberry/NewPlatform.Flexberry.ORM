@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g =
+[
+    [ "Compare", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g.html#a0439d3e77d5c49a3d134575b87c5ec5f", null ]
+];

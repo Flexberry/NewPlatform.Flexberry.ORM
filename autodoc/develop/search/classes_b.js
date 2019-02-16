@@ -16,5 +16,6 @@ var searchData=
   ['methodsignatureexception',['MethodSignatureException',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_exceptions_1_1_method_signature_exception.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Exceptions']]],
   ['mssqldataservice',['MSSQLDataService',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_m_s_s_q_l_data_service.html',1,'ICSSoft::STORMNET::Business']]],
   ['mssqldataservicetest',['MSSQLDataServiceTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_m_s_s_q_l_data_service_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
+  ['multithreadingtesttool',['MultiThreadingTestTool',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['myclass',['MyClass',['../class_i_i_s_1_1_test_classes_for_postgres_1_1_my_class.html',1,'IIS::TestClassesForPostgres']]]
 ];

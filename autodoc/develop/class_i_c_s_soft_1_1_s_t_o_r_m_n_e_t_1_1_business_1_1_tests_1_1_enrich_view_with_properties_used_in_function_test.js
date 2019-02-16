@@ -1,8 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test =
-[
-    [ "AddPropertyByLimitFunctionWithExpression", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html#a1f1d98cdc95d5126ac3bcff53904dcfa", null ],
-    [ "DetailInFunctionTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html#a4b1152addbd09fba7156316f0ca459d7", null ],
-    [ "EnrichDetailViewTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html#a6634d98f80a0dc4b865f789121a5c720", null ],
-    [ "NullFunctionTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html#a7a06b8d81431e730cdd397da662c1f3a", null ],
-    [ "SimpleDoubledPropertyTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html#aff6c6dd453dca9ec373b65cc558816be", null ]
-];

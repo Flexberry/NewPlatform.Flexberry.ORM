@@ -1,3 +1,60 @@
+var NAVTREE =
+[
+  [ "Flexberry ORM 5.1.0-beta02", "index.html", [
+    [ "Пространства имен", null, [
+      [ "Пространства имен", "namespaces.html", "namespaces" ],
+      [ "Члены пространств имен", "namespacemembers.html", [
+        [ "Указатель", "namespacemembers.html", null ],
+        [ "Функции", "namespacemembers_func.html", null ],
+        [ "Перечисления", "namespacemembers_enum.html", null ],
+        [ "Элементы перечислений", "namespacemembers_eval.html", null ]
+      ] ]
+    ] ],
+    [ "Классы", null, [
+      [ "Классы", "annotated.html", "annotated" ],
+      [ "Алфавитный указатель классов", "classes.html", null ],
+      [ "Иерархия классов", "hierarchy.html", "hierarchy" ],
+      [ "Члены классов", "functions.html", [
+        [ "Указатель", "functions.html", "functions_dup" ],
+        [ "Функции", "functions_func.html", "functions_func" ],
+        [ "Переменные", "functions_vars.html", null ],
+        [ "Перечисления", "functions_enum.html", null ],
+        [ "Элементы перечислений", "functions_eval.html", null ],
+        [ "Свойства", "functions_prop.html", "functions_prop" ],
+        [ "События", "functions_evnt.html", null ]
+      ] ]
+    ] ]
+  ] ]
+];
+
+var NAVTREEINDEX =
+[
+"annotated.html",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aa7b567882c1a42983f4e09b352048a12",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html#a7fac84a0cd55f623da36265b829d20d8",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_loading_customization_struct.html#a3f536809714863d28b600f8200aeee6b",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_source.html#aa79497cfa8072d5ac8413c1d1f759c57",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#acc85dca307caeac559db3538ad39cb0b",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#adac5568b7fa5590d061d34a8d1640d25",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_session_not_found_exception.html#ad0c709ff649788e47e8983ba1a128b5d",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_tools_1_1_tool_x_m_l_test.html#a4bd60d2851860f1076ecfde030ee1c6d",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#aa657550fa748348e3e2cdaaffb081bc2",
+"class_i_i_s_1_1_test_classes_for_postgres_1_1_class__float.html#a72836a31618a93fa2007bbef10fbf559",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_apparatus2.html",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_equals_tests.html#ab822be66916ea024f4238606d9c78ee1",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_less_or_equal_tests.html#a95600e58f35add7a46e6f0d5e5f0309e",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_combined_types_usage_provider_test_class.html",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_enum_caption_test.html#af3c7b3acf278ea4ce80242e93ad1f4ef",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#a00eaff9b4c7eef936965fdaeccfb2651",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0.html#a086fc7bc7c1c956085244cf8de29fc34",
+"functions_evnt.html",
+"interface_new_platform_1_1_flexberry_1_1_i_header_caption.html#a1919a81719752f7b44481af35b3f968d"
+];
+
+var SYNCONMSG = 'нажмите на выключить для синхронизации панелей';
+var SYNCOFFMSG = 'нажмите на включить для синхронизации панелей';
+var SYNCONMSG = 'click to disable panel synchronisation';
+var SYNCOFFMSG = 'click to enable panel synchronisation';
 var navTreeSubIndices = new Array();
 
 function getData(varName)
@@ -18,21 +75,6 @@ function stripPath2(uri)
   var s = uri.substring(i+1);
   var m = uri.substring(0,i+1).match(/\/d\w\/d\w\w\/$/);
   return m ? uri.substring(i-6) : s;
-}
-
-function hashValue()
-{
-  return $(location).attr('hash').substring(1).replace(/[^\w\-]/g,'');
-}
-
-function hashUrl()
-{
-  return '#'+hashValue();
-}
-
-function pathName()
-{
-  return $(location).attr('pathname').replace(/[^-A-Za-z0-9+&@#/%?=~_|!:,.;\(\)]/g, '');
 }
 
 function localStorageSupported()
@@ -57,7 +99,7 @@ function deleteLink()
 {
   if (localStorageSupported()) {
     window.localStorage.setItem('navpath','');
-  }
+  } 
 }
 
 function cachedLink()
@@ -105,7 +147,7 @@ function createIndent(o,domNode,node,level)
     node.expandToggle.onclick = function() {
       if (node.expanded) {
         $(node.getChildrenUL()).slideUp("fast");
-        node.plus_img.src = node.relpath+"arrowright.png";
+        node.plus_img.src = node.relpath+"ftv2pnode.png";
         node.expanded = false;
       } else {
         expandNode(o, node, false, false);
@@ -113,7 +155,7 @@ function createIndent(o,domNode,node,level)
     }
     node.expandToggle.appendChild(imgNode);
     domNode.appendChild(node.expandToggle);
-    imgNode.src = node.relpath+"arrowright.png";
+    imgNode.src = node.relpath+"ftv2pnode.png";
   } else {
     var span = document.createElement("span");
     span.style.display = 'inline-block';
@@ -129,13 +171,11 @@ var animationInProgress = false;
 function gotoAnchor(anchor,aname,updateLocation)
 {
   var pos, docContent = $('#doc-content');
-  var ancParent = $(anchor.parent());
-  if (ancParent.hasClass('memItemLeft') ||
-      ancParent.hasClass('fieldname') ||
-      ancParent.hasClass('fieldtype') ||
-      ancParent.is(':header'))
+  if (anchor.parent().attr('class')=='memItemLeft' ||
+      anchor.parent().attr('class')=='fieldtype' ||
+      anchor.parent().is(':header')) 
   {
-    pos = ancParent.position().top;
+    pos = anchor.parent().position().top;
   } else if (anchor.position()) {
     pos = anchor.position().top;
   }
@@ -193,7 +233,7 @@ function newNode(o, po, text, link, childrenData, lastNode)
     a.className = stripPath(link.replace('#',':'));
     if (link.indexOf('#')!=-1) {
       var aname = '#'+link.split('#')[1];
-      var srcPage = stripPath(pathName());
+      var srcPage = stripPath($(location).attr('pathname'));
       var targetPage = stripPath(link.split('#')[0]);
       a.href = srcPage!=targetPage ? url : "javascript:void(0)"; 
       a.onclick = function(){
@@ -269,9 +309,9 @@ function expandNode(o, node, imm, showRoot)
         $(node.getChildrenUL()).slideDown("fast");
       }
       if (node.isLast) {
-        node.plus_img.src = node.relpath+"arrowdown.png";
+        node.plus_img.src = node.relpath+"ftv2mlastnode.png";
       } else {
-        node.plus_img.src = node.relpath+"arrowdown.png";
+        node.plus_img.src = node.relpath+"ftv2mnode.png";
       }
       node.expanded = true;
     }
@@ -287,13 +327,14 @@ function glowEffect(n,duration)
 
 function highlightAnchor()
 {
-  var aname = hashUrl();
+  var aname = $(location).attr('hash');
   var anchor = $(aname);
   if (anchor.parent().attr('class')=='memItemLeft'){
-    var rows = $('.memberdecls tr[class$="'+hashValue()+'"]');
+    var rows = $('.memberdecls tr[class$="'+
+               window.location.hash.substring(1)+'"]');
     glowEffect(rows.children(),300); // member without details
-  } else if (anchor.parent().attr('class')=='fieldname'){
-    glowEffect(anchor.parent().parent(),1000); // enum value
+  } else if (anchor.parents().slice(2).prop('tagName')=='TR') {
+    glowEffect(anchor.parents('div.memitem'),1000); // enum value
   } else if (anchor.parent().attr('class')=='fieldtype'){
     glowEffect(anchor.parent().parent(),1000); // struct field
   } else if (anchor.parent().is(":header")) {
@@ -308,7 +349,7 @@ function selectAndHighlight(hash,n)
 {
   var a;
   if (hash) {
-    var link=stripPath(pathName())+':'+hash.substring(1);
+    var link=stripPath($(location).attr('pathname'))+':'+hash.substring(1);
     a=$('.item a[class$="'+link+'"]');
   }
   if (a && a.length) {
@@ -341,7 +382,11 @@ function showNode(o, node, index, hash)
         getNode(o, node);
       }
       $(node.getChildrenUL()).css({'display':'block'});
-      node.plus_img.src = node.relpath+"arrowdown.png";
+      if (node.isLast) {
+        node.plus_img.src = node.relpath+"ftv2mlastnode.png";
+      } else {
+        node.plus_img.src = node.relpath+"ftv2mnode.png";
+      }
       node.expanded = true;
       var n = node.children[o.breadcrumbs[index]];
       if (index+1<o.breadcrumbs.length) {
@@ -415,13 +460,14 @@ function navTo(o,root,hash,relpath)
   if (link) {
     var parts = link.split('#');
     root = parts[0];
-    if (parts.length>1) hash = '#'+parts[1].replace(/[^\w\-]/g,'');
+    if (parts.length>1) hash = '#'+parts[1];
     else hash='';
   }
   if (hash.match(/^#l\d+$/)) {
     var anchor=$('a[name='+hash.substring(1)+']');
     glowEffect(anchor.parent(),1000); // line number
     hash=''; // strip line number anchors
+    //root=root.replace(/_source\./,'.'); // source link to doc link
   }
   var url=root+hash;
   var i=-1;
@@ -455,7 +501,7 @@ function toggleSyncButton(relpath)
   if (navSync.hasClass('sync')) {
     navSync.removeClass('sync');
     showSyncOff(navSync,relpath);
-    storeLink(stripPath2(pathName())+hashUrl());
+    storeLink(stripPath2($(location).attr('pathname'))+$(location).attr('hash'));
   } else {
     navSync.addClass('sync');
     showSyncOn(navSync,relpath);
@@ -479,7 +525,7 @@ function initNavTree(toroot,relpath)
   o.node.expanded = false;
   o.node.isLast = true;
   o.node.plus_img = document.createElement("img");
-  o.node.plus_img.src = relpath+"arrowright.png";
+  o.node.plus_img.src = relpath+"ftv2pnode.png";
   o.node.plus_img.width = 16;
   o.node.plus_img.height = 22;
 
@@ -495,7 +541,7 @@ function initNavTree(toroot,relpath)
   }
 
   $(window).load(function(){
-    navTo(o,toroot,hashUrl(),relpath);
+    navTo(o,toroot,window.location.hash,relpath);
     showRoot();
   });
 
@@ -503,20 +549,21 @@ function initNavTree(toroot,relpath)
      if (window.location.hash && window.location.hash.length>1){
        var a;
        if ($(location).attr('hash')){
-         var clslink=stripPath(pathName())+':'+hashValue();
-         a=$('.item a[class$="'+clslink.replace(/</g,'\\3c ')+'"]');
+         var clslink=stripPath($(location).attr('pathname'))+':'+
+                               $(location).attr('hash').substring(1);
+         a=$('.item a[class$="'+clslink+'"]');
        }
        if (a==null || !$(a).parent().parent().hasClass('selected')){
          $('.item').removeClass('selected');
          $('.item').removeAttr('id');
        }
-       var link=stripPath2(pathName());
-       navTo(o,link,hashUrl(),relpath);
+       var link=stripPath2($(location).attr('pathname'));
+       navTo(o,link,$(location).attr('hash'),relpath);
      } else if (!animationInProgress) {
        $('#doc-content').scrollTop(0);
        $('.item').removeClass('selected');
        $('.item').removeAttr('id');
-       navTo(o,toroot,hashUrl(),relpath);
+       navTo(o,toroot,window.location.hash,relpath);
      }
   })
 }

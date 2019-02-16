@@ -1,0 +1,6 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_linq_operations =
+[
+    [ "TestLinqOperations", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_linq_operations.html#a59ff78f05a96866a94212c7ac93ef28e", null ],
+    [ "TestWorkLcsWithReturnTop", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_linq_operations.html#a366831c27016df69dea695b0fdc2d320", null ],
+    [ "TestWorkLinqWithTake", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_linq_operations.html#a4b0feabc43cdd291297cbeb7600279ff", null ]
+];

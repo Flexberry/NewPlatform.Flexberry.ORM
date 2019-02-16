@@ -1,5 +1,6 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_business_1_1_update_complex_object_struct_test =
 [
     [ "UpdateComplexObjectStructTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_business_1_1_update_complex_object_struct_test.html#aca9c148a8f86058d39a35920f2464ba4", null ],
+    [ "UpdateMasterPropertyTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_business_1_1_update_complex_object_struct_test.html#a171e23596b0100406e0d8aecebc87031", null ],
     [ "UpdateOtherAgregatorInstanceTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_business_1_1_update_complex_object_struct_test.html#a425018e41296eb15728727cea915d05a", null ]
 ];

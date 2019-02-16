@@ -59,7 +59,6 @@ var hierarchy =
       ] ]
     ] ],
     [ "ICSSoft.STORMNET.Business.Audit.Tests.AuditServiceTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_tests_1_1_audit_service_test.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.AuditClassWithDisabledAudit.AuditSettings", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_disabled_audit_1_1_audit_settings.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.AuditClassWithSettings.AuditSettings", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_settings_1_1_audit_settings.html", null ],
     [ "ICSSoft.STORMNET.KeyGen.BaseKeyGenerator", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_base_key_generator.html", [
       [ "ICSSoft.STORMNET.Business.StringKeyGen", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_string_key_gen.html", null ],
@@ -68,13 +67,45 @@ var hierarchy =
       ] ],
       [ "NewPlatform.Flexberry.Orm.KeyGen.SystemGuidGenerator", "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html", null ]
     ] ],
+    [ "NewPlatform.Flexberry.ORM.Tests.BaseTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html", [
+      [ "NewPlatform.Flexberry.ORM.Tests.BaseFunctionTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_function_test.html", [
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildAndTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildBetweenTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_between_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildCompareTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_compare_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildEqualsTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_equals_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildExistsTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_exists_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildGreaterOrEqualTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_greater_or_equal_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildGreaterTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_greater_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIn1Tests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIn2Tests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in2_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIn3Tests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in3_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIn4Tests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIn5Tests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in5_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIsNotNullTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_is_not_null_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildIsNullTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_is_null_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildLessOrEqualTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_less_or_equal_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildLessTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_less_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildLikeTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildNotEqualsTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildNotIn1", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildOrTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_or_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.BuildTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.FunctionBuilderTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_function_builder_tests.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.ValidateTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_validate_tests.html", null ]
+      ] ],
+      [ "NewPlatform.Flexberry.ORM.Tests.ConvertValueTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.GetObjectTypeTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_get_object_type_tests.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.IsKeyTypeTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_is_key_type_tests.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.ParseObjectTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html", null ]
+    ] ],
     [ "ICSSoft.STORMNET.Tools.BinarySerializer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_binary_serializer.html", null ],
     [ "ICSSoft.STORMNET.UserDataTypes.Blob", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_blob.html", null ],
     [ "ICSSoft.STORMNET.Business.BusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server.html", [
       [ "ICSSoft.STORMNET.Business.Interfaces.InterfaceBusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.UpdateObjectTestBS", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_update_object_test_b_s.html", null ],
       [ "NewPlatform.Flexberry.ORM.Tests.БерлогаБС", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE5c961e42dd9254db5600da0ddcd38cd9.html", null ]
     ] ],
-    [ "ICSSoft.STORMNET.Business.Tests.BusinessServerOrderTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.BusinessServerOrderTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test.html", null ],
     [ "ICSSoft.STORMNET.Business.BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", null ],
     [ "ICSSoft.STORMNET.Business.BusinessTaskMonitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor.html", null ],
     [ "ICSSoft.STORMNET.Tools.CaptionTool", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_caption_tool.html", null ],
@@ -97,6 +128,8 @@ var hierarchy =
       [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
       [ "ICSSoft.STORMNET.Business.XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", null ]
     ] ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ConfigHelperTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_config_helper_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ConfigResolverTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_config_resolver_test.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.UserDataTypes.ContactTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_contact_test.html", null ],
     [ "CurrentUserService.Tests.CurrentUserServiceTest", "class_current_user_service_1_1_tests_1_1_current_user_service_test.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.CustomAuditField", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_custom_audit_field.html", null ],
@@ -200,7 +233,9 @@ var hierarchy =
       [ "NewPlatform.Flexberry.ORM.Tests.InformationTestClass3", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class3.html", null ],
       [ "NewPlatform.Flexberry.ORM.Tests.InformationTestClass4", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class4.html", null ],
       [ "NewPlatform.Flexberry.ORM.Tests.InformationTestClass6", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class6.html", null ],
-      [ "NewPlatform.Flexberry.ORM.Tests.MasterClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.MasterClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class.html", [
+        [ "NewPlatform.Flexberry.ORM.Tests.InheritedMasterClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_inherited_master_class.html", null ]
+      ] ],
       [ "NewPlatform.Flexberry.ORM.Tests.MasterUpdateObjectTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_update_object_test.html", null ],
       [ "NewPlatform.Flexberry.ORM.Tests.NotStoredClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_not_stored_class.html", null ],
       [ "NewPlatform.Flexberry.ORM.Tests.NullFileField", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_null_file_field.html", null ],
@@ -219,6 +254,8 @@ var hierarchy =
         [ "NewPlatform.Flexberry.ORM.Tests.Country2", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_country2.html", null ]
       ] ],
       [ "NewPlatform.Flexberry.ORM.Tests.TestClassA", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_class_a.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.TestDataObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.TestDataObjectDetail", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_detail.html", null ],
       [ "NewPlatform.Flexberry.ORM.Tests.TypeNameUsageProviderTestClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_type_name_usage_provider_test_class.html", [
         [ "NewPlatform.Flexberry.ORM.Tests.CombinedTypesUsageProviderTestClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_combined_types_usage_provider_test_class.html", null ]
       ] ],
@@ -261,29 +298,25 @@ var hierarchy =
     ] ],
     [ "ICSSoft.STORMNET.DataObjectCache", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.DataObjectCacheTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_cache_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.DataObjectTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_test.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.DataObject.DataObjectTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html", null ],
     [ "ICSSoft.STORMNET.Business.DataServiceProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_provider.html", null ],
-    [ "ICSSoft.STORMNET.Business.Tests.DataServiceProviderTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_data_service_provider_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.DataServiceProviderTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_service_provider_test.html", null ],
     [ "ICSSoft.STORMNET.Business.DataServiceUsingTypeCustomizer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer.html", null ],
     [ "ICSSoft.STORMNET.Business.DataServiceWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper.html", null ],
     [ "ICSSoft.STORMNET.Windows.Forms.DatePart", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_date_part.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.DataObject.DetailArray", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_detail_array.html", null ],
     [ "AdvLimit.ExternalLangDef.ViewPropertyAppender.DetailVariableDefContainer", "class_adv_limit_1_1_external_lang_def_1_1_view_property_appender_1_1_detail_variable_def_container.html", null ],
     [ "ICSSoft.STORMNET.DynamicMethodCompiler", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_dynamic_method_compiler.html", null ],
-    [ "ICSSoft.STORMNET.Business.Tests.EnrichViewWithPropertiesUsedInFunctionTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.EnrichViewWithPropertiesUsedInFunctionTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html", null ],
     [ "ICSSoft.STORMNET.EnumCaption", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.EnumCaptionTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_enum_caption_test.html", null ],
-    [ "EqualityComparer", null, [
+    [ "EqualityComparer< TypeKeyPair >", null, [
       [ "ICSSoft.STORMNET.TypeKeyPairEqualityComparer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_type_key_pair_equality_comparer.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.DataObject.EquivalenceMethods", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_equivalence_methods.html", null ],
     [ "ICSSoft.STORMNET.UserDataTypes.Event", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_event.html", null ],
-    [ "EventArgs", null, [
-      [ "ICSSoft.STORMNET.Business.CreateCommandEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_create_command_event_args.html", null ],
-      [ "ICSSoft.STORMNET.Business.DataObjectsEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_objects_event_args.html", null ],
-      [ "ICSSoft.STORMNET.Business.GenerateSQLSelectQueryEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args.html", null ],
-      [ "ICSSoft.STORMNET.ItemsAddedEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_items_added_event_args.html", null ]
-    ] ],
     [ "EventArgs", null, [
       [ "ICSSoft.STORMNET.UI.CloseEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_close_event_args.html", null ],
       [ "ICSSoft.STORMNET.UI.ContActionEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_cont_action_event_args.html", [
@@ -301,6 +334,12 @@ var hierarchy =
       [ "ICSSoft.STORMNET.UI.InitiatorStoppedEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_initiator_stopped_event_args.html", null ],
       [ "ICSSoft.STORMNET.UI.PrintInitiatorStoppedEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_print_initiator_stopped_event_args.html", null ],
       [ "ICSSoft.STORMNET.UI.PrintPreviewEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_print_preview_event_args.html", null ]
+    ] ],
+    [ "EventArgs", null, [
+      [ "ICSSoft.STORMNET.Business.CreateCommandEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_create_command_event_args.html", null ],
+      [ "ICSSoft.STORMNET.Business.DataObjectsEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_objects_event_args.html", null ],
+      [ "ICSSoft.STORMNET.Business.GenerateSQLSelectQueryEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args.html", null ],
+      [ "ICSSoft.STORMNET.ItemsAddedEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_items_added_event_args.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.UserDataTypes.EventTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_event_test.html", null ],
     [ "Exception", null, [
@@ -354,6 +393,7 @@ var hierarchy =
       [ "ICSSoft.STORMNET.FunctionalLanguage.UncompatibleParameterTypeException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_uncompatible_parameter_type_exception.html", null ],
       [ "ICSSoft.STORMNET.SessionNotFoundException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_session_not_found_exception.html", null ],
       [ "ICSSoft.STORMNET.UnauthorizedAccessException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_unauthorized_access_exception.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.MultiThreadingTestTool.ExceptionInThreads", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool_1_1_exception_in_threads.html", null ],
       [ "NewPlatform.Flexberry.ORM.Validation.Exceptions.ValidationException", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_validation_exception.html", [
         [ "NewPlatform.Flexberry.ORM.Validation.Exceptions.InvalidParameterCountValidationException", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_invalid_parameter_count_validation_exception.html", null ],
         [ "NewPlatform.Flexberry.ORM.Validation.Exceptions.InvalidParameterTypeValidationException", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_invalid_parameter_type_validation_exception.html", null ],
@@ -411,8 +451,13 @@ var hierarchy =
       [ "ICSSoft.STORMNET.UserDataTypes.NullableDecimal", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html", null ]
     ] ],
     [ "IComparer", null, [
-      [ "ICSSoft.STORMNET.Business.Tests.BusinessServerOrderTest.OrderedClsComparer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer.html", null ],
-      [ "ICSSoft.STORMNET.Business.Tests.BusinessServerOrderTest.OrderedClsComparerG", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g.html", null ]
+      [ "NewPlatform.Flexberry.ORM.Tests.BusinessServerOrderTest.OrderedClsComparer", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer.html", null ]
+    ] ],
+    [ "IComparer< OrderedCls >", null, [
+      [ "NewPlatform.Flexberry.ORM.Tests.BusinessServerOrderTest.OrderedClsComparerG", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls_comparer_g.html", null ]
+    ] ],
+    [ "ICSSoft.STORMNET.Business.IConfigResolver", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_config_resolver.html", [
+      [ "ICSSoft.STORMNET.Business.ConfigResolver", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.IContainsAcceptablePossibleValues", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_contains_acceptable_possible_values.html", null ],
     [ "IConvertible", null, [
@@ -437,6 +482,7 @@ var hierarchy =
         [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.LinqToLcsIntOrStringTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_int_or_string_test.html", null ],
         [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.LinqToLcsTypeTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_type_test.html", null ],
         [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.TestDynamicView", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_dynamic_view.html", null ],
+        [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.TestLinqOperations", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_linq_operations.html", null ],
         [ "ICSSoft.STORMNET.Tests.TestClasses.Business.PrimaryKeyStorageTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_business_1_1_primary_key_storage_test.html", null ],
         [ "ICSSoft.STORMNET.Tests.TestClasses.Business.UpdateComplexObjectStructTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_business_1_1_update_complex_object_struct_test.html", null ],
         [ "NewPlatform.Flexberry.ORM.IntegratedTests.Business.DataServiceSpeedTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_data_service_speed_test.html", null ],
@@ -472,6 +518,7 @@ var hierarchy =
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailUpdateObjectTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_detail_update_object_test.html", null ],
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfFullTypesDetail1", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_full_types_detail1.html", null ],
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfFullTypesDetail2", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_full_types_detail2.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfMasterUpdateObjectTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_master_update_object_test.html", null ],
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfRegion", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_region.html", null ],
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfБерлога", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_x91_xD0_xB5_xD1_x805207f5f6d1c3435b3dce9952d182aa1c.html", null ],
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfВыплаты", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_x92_xD1_x8B_xD0_xBF47ea5f35fcf1643caee40add6dae8568.html", null ],
@@ -486,7 +533,10 @@ var hierarchy =
         [ "NewPlatform.Flexberry.ORM.Tests.DetailArrayOfФайлИдеи", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_xA4_xD0_xB0_xD0_xB986c279be84604bc2b7a91238ea5a01d0.html", null ]
       ] ]
     ] ],
-    [ "IEquatable", null, [
+    [ "IEqualityComparer< T >", null, [
+      [ "ICSSoft.STORMNET.PKComparer< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_p_k_comparer_3_01_t_01_4.html", null ]
+    ] ],
+    [ "IEquatable< Function >", null, [
       [ "ICSSoft.STORMNET.FunctionalLanguage.Function", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Exceptions.IErrorMessage", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_i_error_message.html", null ],
@@ -494,7 +544,7 @@ var hierarchy =
       [ "NewPlatform.Flexberry.ExportParams", "class_new_platform_1_1_flexberry_1_1_export_params.html", null ]
     ] ],
     [ "NewPlatform.Flexberry.IExportService", "interface_new_platform_1_1_flexberry_1_1_i_export_service.html", null ],
-    [ "IExpressionTransformer", null, [
+    [ "IExpressionTransformer< Expression >", null, [
       [ "ICSSoft.STORMNET.Business.LINQProvider.DateTimeEarlyExpressionTransformer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_date_time_early_expression_transformer.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.IExpressionTreeVisitor", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_i_expression_tree_visitor.html", [
@@ -510,13 +560,18 @@ var hierarchy =
       [ "NewPlatform.Flexberry.HeaderCaption", "class_new_platform_1_1_flexberry_1_1_header_caption.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.UserDataTypes.ImageTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_image_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.IName", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_name.html", [
+      [ "NewPlatform.Flexberry.ORM.Tests.TestDataObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html", null ],
+      [ "NewPlatform.Flexberry.ORM.Tests.TestDataObjectDetail", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_detail.html", null ]
+    ] ],
     [ "ICSSoft.STORMNET.Information", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.DataObject.InformationTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_information_test.html", null ],
     [ "ICSSoft.STORMNET.Convertors.InOperatorsConverter", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_convertors_1_1_in_operators_converter.html", null ],
-    [ "ICSSoft.STORMNET.Business.Tests.InterfaceTests", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_interface_tests.html", null ],
-    [ "IOrderedQueryable", null, [
-      [ "ICSSoft.STORMNET.Business.LINQProvider.Query< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_query.html", [
-        [ "ICSSoft.STORMNET.Business.LINQProvider.LcsQuery< T, Q >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query.html", null ]
+    [ "NewPlatform.Flexberry.ORM.Tests.InterfaceTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_interface_tests.html", null ],
+    [ "NewPlatform.Flexberry.IODataExportService", "interface_new_platform_1_1_flexberry_1_1_i_o_data_export_service.html", null ],
+    [ "IOrderedQueryable< T >", null, [
+      [ "ICSSoft.STORMNET.Business.LINQProvider.Query< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_query_3_01_t_01_4.html", [
+        [ "ICSSoft.STORMNET.Business.LINQProvider.LcsQuery< T, Q >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query_3_01_t_00_01_q_01_4.html", null ]
       ] ]
     ] ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.IQueryModelVisitor", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_i_query_model_visitor.html", [
@@ -524,9 +579,9 @@ var hierarchy =
     ] ],
     [ "IQueryProvider", null, [
       [ "ICSSoft.STORMNET.Business.LINQProvider.QueryProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_query_provider.html", [
-        [ "ICSSoft.STORMNET.Business.LINQProvider.LcsQueryProvider< T, Q >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query_provider.html", null ]
+        [ "ICSSoft.STORMNET.Business.LINQProvider.LcsQueryProvider< T, Q >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query_provider_3_01_t_00_01_q_01_4.html", null ]
       ] ],
-      [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.TestLcsQueryProvider< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_lcs_query_provider.html", null ]
+      [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.TestLcsQueryProvider< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_lcs_query_provider_3_01_t_01_4.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_i_references_cascade_delete.html", [
       [ "NewPlatform.Flexberry.ORM.Tests.Territory2", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_territory2.html", null ]
@@ -607,6 +662,7 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Tools.MAPIWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html", null ],
     [ "ICSSoft.STORMNET.MasterPropertyPath", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_master_property_path.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.MSSQLDataServiceTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_m_s_s_q_l_data_service_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.MultiThreadingTestTool", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html", null ],
     [ "NameObjectCollectionBase", null, [
       [ "ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html", null ],
       [ "ICSSoft.STORMNET.Collections.NameObjectCollection", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html", null ]
@@ -617,16 +673,19 @@ var hierarchy =
     [ "ICSSoft.STORMNET.ObjectCreator", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_object_creator.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.DataObject.ObjectCreatorTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_object_creator_test.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage.ObjectTypeTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_object_type_test.html", null ],
-    [ "Tests.OracleDataServiceTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service_1_1_tests_1_1_oracle_data_service_test.html", null ],
-    [ "ICSSoft.STORMNET.Business.Tests.BusinessServerOrderTest.OrderedCls", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls.html", null ],
+    [ "ICSSoft.STORMNET.Business.OracleDataServiceTests.OracleDataServiceTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service_tests_1_1_oracle_data_service_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.BusinessServerOrderTest.OrderedCls", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test_1_1_ordered_cls.html", null ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.ParamSet", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_param_set.html", null ],
     [ "ICSSoft.STORMNET.UserDataTypes.PartliedDate", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_partlied_date.html", null ],
     [ "ICSSoft.STORMNET.UserDataTypes.PartliedDateTransformer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_partlied_date_transformer.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.PKComparerTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_comparer_test.html", null ],
+    [ "ICSSoft.STORMNET.PKHelper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_p_k_helper.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.PKHelperTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html", null ],
     [ "PropertyDescriptor", null, [
       [ "ICSSoft.STORMNET.Design.DinamicPropertyDescriptor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_design_1_1_dinamic_property_descriptor.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.PropertyUsingTypes", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_property_using_types.html", null ],
-    [ "ICSSoft.STORMNET.Business.LINQProvider.PseudoDetail< T, TP >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail.html", null ],
+    [ "ICSSoft.STORMNET.Business.LINQProvider.PseudoDetail< T, TP >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail_3_01_t_00_01_t_p_01_4.html", null ],
     [ "QueryModelVisitorBase", null, [
       [ "ICSSoft.STORMNET.Business.LINQProvider.LcsGeneratorQueryModelVisitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_generator_query_model_visitor.html", null ]
     ] ],
@@ -638,12 +697,12 @@ var hierarchy =
     [ "SerializationBinder", null, [
       [ "ICSSoft.STORMNET.Tools.AllowAllAssemblyVersionsDeserializationBinder", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_allow_all_assembly_versions_deserialization_binder.html", null ]
     ] ],
-    [ "ICSSoft.STORMNET.Business.Tests.SQLDataServiceTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_tests_1_1_s_q_l_data_service_test.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.TestDataObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.SQLDataServiceTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_s_q_l_data_service_test.html", null ],
     [ "NewPlatform.Flexberry.ORM.Validation.TestDataObjectValidator", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_test_data_object_validator.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ICSSoft.STORMNET.Business.LINQProvider.TestLinqProvider", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_busieb2c4aded9a4a8f8fdd38c72fc4a4d57.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.TestLinqProvider", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_linq_provider.html", null ],
     [ "NewPlatform.Flexberry.ORM.IntegratedTests.LINQProvider.TestLinqProviderLogicForOData", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_test_linq_provider_logic_for_o_data.html", null ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.Tests.TestRegexToSql", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_regex_to_sql.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.TestSQLWhereLanguageDef", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_s_q_l_where_language_def.html", null ],
     [ "ThrowingExpressionTreeVisitor", null, [
       [ "ICSSoft.STORMNET.Business.LINQProvider.LcsGeneratorExpressionTreeVisitorBase", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_generator_expression_tree_visitor_base.html", null ]
     ] ],
@@ -664,64 +723,66 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Business.Utils", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils.html", null ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.UtilsDetail", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_detail.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage.VariableDefTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_variable_def_test.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Apparatus2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_apparatus2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.DateField.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_date_field_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Медведь.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesDetail1.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1_1_1_views.html", null ],
-    [ "IIS.TestClassesForPostgres.ДочернийКлассДлинноеИмя.Views", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xD7ef5c4744abf816fe39256358d4d6d9d.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Котенок.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x82_xD0_xB5_xD0_xBD_xD0_xBE_xD0_xBA_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.DetailUpdateObjectTest.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_update_object_test_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Human2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_human2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Кредит.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Soup2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_soup2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Конкурс.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD0_xBD_xD0_xBA_xD1_x83_xD1_x80_xD1_x81_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Идея.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xB4_xD0_xB5_xD1_x8F_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Выплаты.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x92_xD1_x8B_xD0_xBF_xD0_xBB_xD0_xB0_xD1_x82_xD1_x8B_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ИФХозДоговора.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB7b86d8b6bbf108146c154c9f9e3dd9bb8.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ФайлИдеи.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA4_xD0_xB0_xD0_xB9_xD0_xBB_xD0_x98e2cd3f49e1933efc49e8b2715985d95e.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Cabbage2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Territory2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_territory2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ИнспекторПоКредиту.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xBD_xD1_x81_xD0_xBF_xD0_xB52cd6d0f588331bc27e9a455d7f8b602c.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.CabbageSalad.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage_salad_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ОценкаЭксперта.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA670967ed72484cb9ca9cb330c5117c21.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ТипПороды.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9F_xD0_xBE67554442d14ada590369cb3f35f48fc0.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Salad2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_salad2_1_1_views.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.CabbagePart2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage_part2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.УчастникХозДоговора.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA3_xD1_x87_xD0_xB0_xD1_x81_xD1_x82c589eb6268ac4fff36e92b7fd5a2c775.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.MasterClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Dish2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_dish2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Порода.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD1_x80_xD0_xBE_xD0_xB4_xD0_xB0_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.КритерийОценки.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB8_xD1_x82_xD0_xB57fb640bb588637967cbbf4fd26348887.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Кошка.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ДокументацияККонкурсу.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ИсточникФинансирования.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x82_xD0_xBE_xD1_x872830694dbccfa3bcde4eee364346b940.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Лес.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB5_xD1_x81_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Пользователь.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71731e8cf31e1409b200f50ff4584f097.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.SomeDetailClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_some_detail_class_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Adress2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_adress2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ЗначениеКритерия.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x97_xD0_xBD_xD0_xB0_xD1_x87_xD0_xB584675b5fa81c4c22ffefd7fcea21fd08.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.SomeMasterClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_some_master_class_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ТипЛапы.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Личность.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Страна.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.InformationTestClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Region.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_region_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Перелом.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xB5_xD1_x80_xD0_xB5_xD0_xBB_xD0_xBE_xD0_xBC_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Plant2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_plant2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Place2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_place2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Country2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_country2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Лапа.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesDetail2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail2_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesMainAgregator.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Human2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_human2_1_1_views.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.AggregatorUpdateObjectTest.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesMaster1.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.SomeMasterClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_some_master_class_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Конкурс.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD0_xBD_xD0_xBA_xD1_x83_xD1_x80_xD1_x81_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Перелом.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xB5_xD1_x80_xD0_xB5_xD0_xBB_xD0_xBE_xD0_xBC_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ИФХозДоговора.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB7b86d8b6bbf108146c154c9f9e3dd9bb8.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Кошка.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Лес.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB5_xD1_x81_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Apparatus2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_apparatus2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.УчастникХозДоговора.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA3_xD1_x87_xD0_xB0_xD1_x81_xD1_x82c589eb6268ac4fff36e92b7fd5a2c775.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ТипПороды.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9F_xD0_xBE67554442d14ada590369cb3f35f48fc0.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ТипЛапы.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Медведь.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.DetailClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_class_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.MasterUpdateObjectTest.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_update_object_test_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.MasterClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Лапа.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Личность.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ДокументацияККонкурсу.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.КритерийОценки.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB8_xD1_x82_xD0_xB57fb640bb588637967cbbf4fd26348887.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.SomeDetailClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_some_detail_class_1_1_views.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.AuditClassWithSettings.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_class_with_settings_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ХозДоговор.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA5_xD0_xBE_xD0_xB7_xD0_x94_xD0_xBE625725454b84540bcceba42c0ceabfd2.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.Берлога.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.InformationTestClass.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_information_test_class_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.TestDataObjectDetail.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_detail_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ИсточникФинансирования.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x82_xD0_xBE_xD1_x872830694dbccfa3bcde4eee364346b940.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Soup2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_soup2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Salad2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_salad2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Порода.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD1_x80_xD0_xBE_xD0_xB4_xD0_xB0_1_1_views.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.Клиент.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBB_xD0_xB8_xD0_xB5_xD0_xBD_xD1_x82_1_1_views.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.ICSSoft.STORMNET.DataObject.ViewTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_1_1_view_test.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Страна.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ЗначениеКритерия.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x97_xD0_xBD_xD0_xB0_xD1_x87_xD0_xB584675b5fa81c4c22ffefd7fcea21fd08.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.DateField.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_date_field_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Берлога.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesMaster1.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ФайлИдеи.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA4_xD0_xB0_xD0_xB9_xD0_xBB_xD0_x98e2cd3f49e1933efc49e8b2715985d95e.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Выплаты.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x92_xD1_x8B_xD0_xBF_xD0_xBB_xD0_xB0_xD1_x82_xD1_x8B_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesMainAgregator.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator_1_1_views.html", null ],
+    [ "IIS.TestClassesForPostgres.ДочернийКлассДлинноеИмя.Views", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xD7ef5c4744abf816fe39256358d4d6d9d.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Кредит.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesDetail2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ИнспекторПоКредиту.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xBD_xD1_x81_xD0_xBF_xD0_xB52cd6d0f588331bc27e9a455d7f8b602c.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Dish2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_dish2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Territory2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_territory2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Plant2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_plant2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.FullTypesDetail1.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.TestDataObject.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Идея.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xB4_xD0_xB5_xD1_x8F_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.MasterUpdateObjectTest.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_update_object_test_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Country2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_country2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Котенок.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x82_xD0_xB5_xD0_xBD_xD0_xBE_xD0_xBA_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ОценкаЭксперта.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA670967ed72484cb9ca9cb330c5117c21.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Place2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_place2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Region.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_region_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Adress2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_adress2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.CabbageSalad.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage_salad_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Cabbage2.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_cabbage2_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.Пользователь.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71731e8cf31e1409b200f50ff4584f097.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ХозДоговор.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA5_xD0_xBE_xD0_xB7_xD0_x94_xD0_xBE625725454b84540bcceba42c0ceabfd2.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.DetailUpdateObjectTest.Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_update_object_test_1_1_views.html", null ],
+    [ "NewPlatform.Flexberry.ORM.Tests.ViewTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_view_test.html", null ],
     [ "ICSSoft.STORMNET.UserDataTypes.WebFile", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_web_file.html", null ],
     [ "ICSSoft.STORMNET.Tools.XMLManager", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_x_m_l_manager.html", null ],
     [ "ICSSoft.STORMNET.Tools.XmlTools", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_xml_tools.html", null ]

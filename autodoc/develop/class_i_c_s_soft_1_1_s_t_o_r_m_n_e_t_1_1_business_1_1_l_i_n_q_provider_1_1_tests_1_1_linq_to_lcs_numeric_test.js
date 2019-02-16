@@ -16,5 +16,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_t
     [ "GetLcsTestNullableIntWithNull3", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_numeric_test.html#aa931ba76aa917cf8251560c530d8aeb8", null ],
     [ "GetLcsTestNullableIntWithValue", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_numeric_test.html#a1afc95a1d4ed6a7e74134128b961355d", null ],
     [ "GetLcsTestSub", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_numeric_test.html#aaeb9000714450aef34596a1f261a45ef", null ],
-    [ "GetLcsTestSumm", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_numeric_test.html#a8e9fb924e9cd739f17b9e3c52e2a994c", null ]
+    [ "GetLcsTestSumm", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_numeric_test.html#a8e9fb924e9cd739f17b9e3c52e2a994c", null ],
+    [ "GetLcsTestUInt", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_numeric_test.html#afde4bd189b6a4d157b45962455965d4b", null ]
 ];

@@ -1,7 +1,7 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int =
 [
     [ "NullableInt", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a90761fac71a49d729b384b5a9650a7c3", null ],
-    [ "Compare", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a8108d51cc078ff68171fe4304459716c", null ],
+    [ "Compare", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a2aa3bedf54dc1442c16f3bfd53f7dbd1", null ],
     [ "CompareTo", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a681c6e185b5f19623cf7becb87588ee1", null ],
     [ "Equals", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a63b588b1d2f554d8554e460037105491", null ],
     [ "GetSchema", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#aa6b518342f654ec40f6ce4131914f500", null ],

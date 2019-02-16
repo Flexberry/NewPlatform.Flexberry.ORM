@@ -3,24 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.10"/>
-<title>Flexberry ORM 4.0.0: Члены классов - Функции</title>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Flexberry ORM 5.1.0-beta02: Члены классов - Функции</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript">
   $(document).ready(initResizable);
   $(window).load(resizeHeight);
 </script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
-  $(document).ready(function() { init_search(); });
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -31,8 +29,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 4.0.0
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Flexberry ORM 5.1.0-beta02
    </div>
   </td>
  </tr>
@@ -40,7 +38,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.10 -->
+<!-- Создано системой Doxygen 1.8.6 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </script>
@@ -81,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
       <li class="current"><a href="functions_func.html"><span>Функции</span></a></li>
       <li><a href="functions_vars.html"><span>Переменные</span></a></li>
       <li><a href="functions_enum.html"><span>Перечисления</span></a></li>
+      <li><a href="functions_eval.html"><span>Элементы&#160;перечислений</span></a></li>
       <li><a href="functions_prop.html"><span>Свойства</span></a></li>
       <li><a href="functions_evnt.html"><span>События</span></a></li>
     </ul>
@@ -131,7 +130,7 @@ $(document).ready(function(){initNavTree('functions_func_i.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Пространства имен</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Свойства</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>События</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -168,14 +167,17 @@ $(document).ready(function(){initNavTree('functions_func_i.html','');});
 <li>InheritanceTest()
 : <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html#a69a91038cd8fe616ad8928ad457e2f52">NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest</a>
 </li>
+<li>InheritedMasterClassTest()
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a2f1581b369929020bd3b50243b1b6d90">NewPlatform.Flexberry.ORM.IntegratedTests.Business.SQLDataServiceTest</a>
+</li>
 <li>Init()
 : <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_loading_customization_struct.html#a07c8cfd6178a444c972c47029736287d">ICSSoft.STORMNET.Business.LoadingCustomizationStruct</a>
 </li>
 <li>InitAuditService()
-: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5652a396b8c04fa4ddab2eeb84eb0ca9">ICSSoft.STORMNET.Business.Audit.AuditService</a>
+: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a36a7295a96e67615e1479aaa17157067">ICSSoft.STORMNET.Business.Audit.AuditService</a>
 </li>
 <li>InitDataCopy()
-: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0522a50f805c194914c2faea5307ed72">ICSSoft.STORMNET.DataObject</a>
+: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a84cba47908a041d135be8950ca68478d">ICSSoft.STORMNET.DataObject</a>
 </li>
 <li>InitDataCopyTest()
 : <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#a103a11c8a54193b98b696b9e3cd921a2">ICSSoft.STORMNET.Tests.TestClasses.DataObject.DataObjectTest</a>
@@ -217,11 +219,26 @@ $(document).ready(function(){initNavTree('functions_func_i.html','');});
 <li>InvalidParameterTypeValidationException()
 : <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_invalid_parameter_type_validation_exception.html#acc5dfa7c039dd2fe7d6f56c545fa04dd">NewPlatform.Flexberry.ORM.Validation.Exceptions.InvalidParameterTypeValidationException</a>
 </li>
-<li>IsAlteredPropertyGenericTest()
-: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#aee22e267ca1e327629bb024bba4825c6">ICSSoft.STORMNET.Tests.TestClasses.DataObject.DataObjectTest</a>
+<li>IsAlteredPropertiesGenericTest1()
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html#afbce9a883d6b9a04a2db9bb780be1bfe">NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests</a>
+</li>
+<li>IsAlteredPropertiesGenericTest2()
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html#a44a1a0d123d6aa9e5b7088f80c37e248">NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests</a>
+</li>
+<li>IsAlteredPropertiesGenericTest3()
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html#a42e2b1128a429e7f581a36991d077570">NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests</a>
+</li>
+<li>IsAlteredPropertiesGenericTest4()
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html#ae71494d40e3d2e19dde42289aba2741a">NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests</a>
+</li>
+<li>IsAlteredProperty()
+: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#ad6fbdd6817cc028924ffe9c93700fa2d">ICSSoft.STORMNET.DataObject</a>
+</li>
+<li>IsAlteredPropertyGenericTest1()
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html#a74fdf7cabbb0eccca75e8c5c2fb8dded">NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests</a>
 </li>
 <li>IsAlteredPropertyGenericTest2()
-: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#ac64f4fb0ed028001554dca45a951c5c1">ICSSoft.STORMNET.Tests.TestClasses.DataObject.DataObjectTest</a>
+: <a class="el" href="class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html#a86e238ac9a40cb6188c2f87fd1e9c6b2">NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests</a>
 </li>
 <li>IsAlteredPropertyTest()
 : <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#a3fc6c3ed4c018264641ea83826197c5c">ICSSoft.STORMNET.Tests.TestClasses.DataObject.DataObjectTest</a>
@@ -279,6 +296,9 @@ $(document).ready(function(){initNavTree('functions_func_i.html','');});
 : <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#acf55b1f734b9ad7fe7c1129168ead76a">ICSSoft.STORMNET.Business.Audit.AuditService</a>
 , <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a78b2a62d6caeadad4ea4aef6f0c19a0f">ICSSoft.STORMNET.Business.Audit.IAuditService</a>
 </li>
+<li>IsTypesEquals()
+: <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1551d001b9079bfbff8f341862f07e37">ICSSoft.STORMNET.Business.PostgresDataService</a>
+</li>
 <li>ItemByIndex()
 : <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_array.html#a1aee32b288b876c754f820509e2d2a64">ICSSoft.STORMNET.DetailArray</a>
 </li>
@@ -288,9 +308,9 @@ $(document).ready(function(){initNavTree('functions_func_i.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Документация по Flexberry ORM 4.0.0. Последние изменения: Чт 13 Июл 2017 10:46:19. Создано системой
+    <li class="footer">Документация по Flexberry ORM 5.1.0-beta02. Последние изменения: Сб 16 Фев 2019 06:47:19. Создано системой
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>
 </div>
 </body>
