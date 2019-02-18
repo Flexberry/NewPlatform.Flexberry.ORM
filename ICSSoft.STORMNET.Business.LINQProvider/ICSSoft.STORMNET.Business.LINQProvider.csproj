@@ -72,9 +72,6 @@
       <HintPath>..\packages\Microsoft.Spatial.6.15.0\lib\portable-net45+win+wpa81\Microsoft.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Remotion.Linq, Version=1.15.2.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Remotion.Linq.1.15.2.0\lib\net45\Remotion.Linq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -138,6 +135,10 @@
     <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
       <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
       <Name>ICSSoft.STORMNET.UserDataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Remotion.Linq\Linq.Core.csproj">
+      <Project>{028e7899-0d5f-49c8-9eb6-8b051e02f1e0}</Project>
+      <Name>Linq.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

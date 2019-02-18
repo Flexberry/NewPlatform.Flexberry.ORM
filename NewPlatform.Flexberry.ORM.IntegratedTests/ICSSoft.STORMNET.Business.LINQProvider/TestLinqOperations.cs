@@ -29,6 +29,52 @@
             this.output = output;
         }
 
+
+        /// <summary>
+        /// Тест работы ограничения, когда someString целое число преобразованное в строку,
+        /// когда искомое значение находится в поле PoleInt.
+        /// </summary>
+        [Fact]
+        public void _SELECT_TestSomeStringValueIntToStringPoleInt()
+        {
+
+            // Arrange.
+            int intValue = 1;
+            var someString = intValue.ToString();
+            foreach (IDataService dataService in DataServices)
+            {
+                CreateTestData(dataService);
+                var ds = (SQLDataService)dataService;
+
+                var requestsQuery = from x in ds.Query<Кошка>(Кошка.Views.КошкаE, new[] { Лапа.Views.ЛапаShort })
+                                    where !x.Агрессивная &&
+                                      x.Лапа.Cast<Лапа>().Any(s => s.Размер == 2)
+                                    select x;
+                var requests = requestsQuery.Take(1).ToList();
+
+                /*
+                var fullTypesMaster = new FullTypesMaster1() { PoleInt = intValue };
+                var updateObjectsArray = new DataObject[] { fullTypesMaster };
+                ds.UpdateObjects(ref updateObjectsArray);
+                var view = FullTypesMaster1.Views.FullMasterView;
+                var query = ((SQLDataService)dataService)
+                            .Query<FullTypesMaster1>(view)
+                            .Where(x => x.PoleString == someString || x.PoleInt.ToString() == someString).Select(x => new a() { a1 = x.PoleInt });
+                var result = query.ToList();*/
+                // Act.
+                //var result = query.ToList().Select(x => new a() { a1 = x.PoleInt });
+
+                // Assert.
+                //Assert.NotNull(result);
+                //Assert.Equal(fullTypesMaster.__PrimaryKey, result.__PrimaryKey);
+            }
+        }
+
+        class a
+        {
+            public int a1;
+        }
+
         /// <summary>
         /// Работа LINQProvider'а с Take() в нескольких потоках.
         /// </summary>
