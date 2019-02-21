@@ -64,7 +64,7 @@
 ## Документация
 
 Документация разработчика размещается в разделе `Flexberry ORM` на сайте [https://flexberry.github.io](https://flexberry.github.io/ru/fo_landing_page.html).
-Автогенерируемая документация по API размещается в ветке `gh-pages` и доступна пользователям по адресу: [TODO: autodoc URL]()
+Автогенерируемая документация по API размещается в ветке `gh-pages` и доступна пользователям по адресу: https://flexberry.github.io/NewPlatform.Flexberry.ORM/autodoc/develop/
 
 ## Сообщество
 
