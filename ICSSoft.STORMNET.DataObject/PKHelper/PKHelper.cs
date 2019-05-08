@@ -211,6 +211,10 @@
                 {
                     res.AddRange(guids.Select(x => GetKeyByObject(x)));
                 }
+                else if (val is IEnumerable<Guid?> nGuids)
+                {
+                    res.AddRange(nGuids.Select(x => GetKeyByObject(x)));
+                }
                 else if (val is IEnumerable<object> objs)
                 {
                     res.AddRange(objs.SelectMany(x => GetKeys(x)));
