@@ -828,6 +828,8 @@ CREATE TABLE "Медведь"
 
 	"ЛесОбитания" RAW(16) NULL,
 
+	"Друг_m0" RAW(16) NULL,
+
 	 PRIMARY KEY ("primaryKey")
 ) ;
 
@@ -1998,6 +2000,11 @@ ALTER TABLE "Медведь"
 	ADD CONSTRAINT "Медведь_FЛес_0" FOREIGN KEY ("ЛесОбитания") REFERENCES "Лес" ("primaryKey");
 
 CREATE INDEX "Медведь_IЛесО_5757" on "Медведь" ("ЛесОбитания");
+
+ALTER TABLE "Медведь"
+	ADD CONSTRAINT "Медведь_FМедв_4336" FOREIGN KEY ("Друг_m0") REFERENCES "Медведь" ("primaryKey");
+
+CREATE INDEX "Медведь_IДруг_m0" on "Медведь" ("Друг_m0");
 
 ALTER TABLE "InformationTestClass6"
 	ADD CONSTRAINT "InformationTestClass6_FCl_6040" FOREIGN KEY ("ExampleOfClassWithCaptions") REFERENCES "ClassWithCaptions" ("primaryKey");

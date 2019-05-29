@@ -737,6 +737,8 @@ CREATE TABLE Медведь (
 
  ЛесОбитания UUID NULL,
 
+ Друг_m0 UUID NULL,
+
  PRIMARY KEY (primaryKey));
 
 
@@ -1643,6 +1645,9 @@ CREATE INDEX Indexc09b3a2494754457b4aad7ef8605f268 on Медведь (Папа);
 
  ALTER TABLE Медведь ADD CONSTRAINT FK8839c25316ee48d9b73dcc58d86be324 FOREIGN KEY (ЛесОбитания) REFERENCES Лес; 
 CREATE INDEX Index8b9b044c169a45b8b0c50cc2fb49779c on Медведь (ЛесОбитания); 
+
+ ALTER TABLE Медведь ADD CONSTRAINT FK6ca3ed95cce940e88c663b9ad5023c2b FOREIGN KEY (Друг_m0) REFERENCES Медведь; 
+CREATE INDEX Indexf2cf5c78b4eb4cfd80716bd6b6e478a2 on Медведь (Друг_m0); 
 
  ALTER TABLE InformationTestClass6 ADD CONSTRAINT FK6be00e929f744bf0bb43362efc22bdb1 FOREIGN KEY (ExampleOfClassWithCaptions) REFERENCES ClassWithCaptions; 
 CREATE INDEX Index5cda375109764b5fa00b1886d0b9304c on InformationTestClass6 (ExampleOfClassWithCaptions); 
