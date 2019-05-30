@@ -19,5 +19,6 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business
     [ "GetObjectIndexesWithPksTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a7f111ef480a0db6a071b52ae103e4c53", null ],
     [ "InheritedMasterClassTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a2f1581b369929020bd3b50243b1b6d90", null ],
     [ "PortionReadingTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a371feff1cd867caab8f2c519748e0c54", null ],
+    [ "TestCreateDependentObjectsWithoutPropertyStorage", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a1cd100368669d5fe806b6b1564a0e334", null ],
     [ "TestDynamicMethodCompiler", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#aa8b45ae3686c51c73bb1e52f6e601ae2", null ]
 ];

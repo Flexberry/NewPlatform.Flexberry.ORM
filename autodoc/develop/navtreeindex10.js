@@ -149,6 +149,7 @@ var NAVTREEINDEX10 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#afd377110b928fdf58776add7f6b4446c":[1,0,4,0,1,1,0,2,11],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html":[1,0,4,0,1,1,0,3],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a088a5053919e156289374897e3e76611":[1,0,4,0,1,1,0,3,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a1cd100368669d5fe806b6b1564a0e334":[1,0,4,0,1,1,0,3,19],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a221f12ac296988fe879bb8d2c0258dde":[1,0,4,0,1,1,0,3,7],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a2f1581b369929020bd3b50243b1b6d90":[1,0,4,0,1,1,0,3,17],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a371feff1cd867caab8f2c519748e0c54":[1,0,4,0,1,1,0,3,18],
@@ -162,7 +163,7 @@ var NAVTREEINDEX10 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a942770092574fe24ae321dd2420d2125":[1,0,4,0,1,1,0,3,6],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#a9d6e387cab12205d8bf0936c9f8c53b1":[1,0,4,0,1,1,0,3,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#aa85c562eddb5beec9a007a32cb774722":[1,0,4,0,1,1,0,3,13],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#aa8b45ae3686c51c73bb1e52f6e601ae2":[1,0,4,0,1,1,0,3,19],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#aa8b45ae3686c51c73bb1e52f6e601ae2":[1,0,4,0,1,1,0,3,20],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#aca427098634c5a7437716de237a54e40":[1,0,4,0,1,1,0,3,5],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#ad5c291ac59721fc6d8432fbec91723c6":[1,0,4,0,1,1,0,3,11],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_test.html#ae61713c0c6039907717e5db82eda13d7":[1,0,4,0,1,1,0,3,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX10 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test.html#a224425d88e0eb751e19f784102f9fbbf":[1,0,4,0,1,3,4,4],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test.html#a4b84e91b55ba446300a016dc182c0160":[1,0,4,0,1,3,4,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test.html#a6bf8a42d83298febbddc13b9bba3d4c6":[1,0,4,0,1,3,4,3],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test.html#adf5b2a54b3b38d035bb08f1a2adf245b":[1,0,4,0,1,3,4,2],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test_1_1_views.html":[1,0,4,0,1,3,4,0]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_aggregator_update_object_test.html#adf5b2a54b3b38d035bb08f1a2adf245b":[1,0,4,0,1,3,4,2]
 };
