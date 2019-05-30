@@ -1077,5 +1077,29 @@
                 Assert.Equal(1, master.DetailClass.Count);
             }
         }
+
+        /// <summary>
+        /// Создание объекта с мастером для которого не указан атрибут <see cref="PropertyStorageAttribute"/>.
+        /// </summary>
+        [Fact]
+        public void TestCreateDependentObjectsWithoutPropertyStorage()
+        {
+            // Assert.
+            Assert.Equal(nameof(Медведь.Друг), Information.GetPropertyStorageName(typeof(Медведь), nameof(Медведь.Друг)));
+
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var одинокийМедведь = new Медведь();
+                DataObject[] objects = new[]
+                {
+                    new Медведь() { Друг = одинокийМедведь },
+                    одинокийМедведь,
+                };
+
+                // Act.
+                dataService.UpdateObjects(ref objects, true);
+            }
+        }
     }
 }

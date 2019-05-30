@@ -98,6 +98,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Лес fЛесОбитания;
         
+        private NewPlatform.Flexberry.ORM.Tests.Медведь fДруг;
+        
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfБерлога fБерлога;
         
         // *** Start programmer edit section *** (Медведь CustomMembers)
@@ -407,6 +409,37 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (Медведь.ЛесОбитания Set end)
 
                 // *** End programmer edit section *** (Медведь.ЛесОбитания Set end)
+            }
+        }
+
+        /// <summary>
+        /// Медведь.
+        /// </summary>
+        // *** Start programmer edit section *** (Медведь.Друг CustomAttributes)
+
+        // *** End programmer edit section *** (Медведь.Друг CustomAttributes)
+        public virtual NewPlatform.Flexberry.ORM.Tests.Медведь Друг
+        {
+            get
+            {
+                // *** Start programmer edit section *** (Медведь.Друг Get start)
+
+                // *** End programmer edit section *** (Медведь.Друг Get start)
+                NewPlatform.Flexberry.ORM.Tests.Медведь result = this.fДруг;
+                // *** Start programmer edit section *** (Медведь.Друг Get end)
+
+                // *** End programmer edit section *** (Медведь.Друг Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (Медведь.Друг Set start)
+
+                // *** End programmer edit section *** (Медведь.Друг Set start)
+                this.fДруг = value;
+                // *** Start programmer edit section *** (Медведь.Друг Set end)
+
+                // *** End programmer edit section *** (Медведь.Друг Set end)
             }
         }
         

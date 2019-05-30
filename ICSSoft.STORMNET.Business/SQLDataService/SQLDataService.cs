@@ -4811,26 +4811,36 @@
                         dependencies.Remove(dependencie);
                         var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
 
+                        Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
+                        string[] propertyStorageNames = new string[types.Length];
+                        string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
+                        for (int i = 0; i < types.Length; i++)
+                        {
+                            string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
+                            propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
+                        }
+
                         // Изменяем значения в объектах, для устранения цикла.
                         foreach (var createdObject in createdObjects)
                         {
-                            var propsCollections = createdList[createdObject];
-                            var propValue = this.GetType().Name != "PostgresDataService" ? "\"" + prop + "\"" : prop;
-
-                            // Добавляем свойство в запрос на изменение объекта.
-                            if (alteredList.ContainsKey(createdObject))
+                            Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
+                            foreach (var propertyStorageName in propertyStorageNames)
                             {
-                                alteredList[createdObject].Add(propValue, propsCollections.Get(propValue));
-                            }
-                            else
-                            {
-                                var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                alteredCollection.Add(propValue, propsCollections.Get(propValue));
-                                alteredList.Add(createdObject, alteredCollection);
-                            }
+                                // Добавляем свойство в запрос на изменение объекта.
+                                if (alteredList.ContainsKey(createdObject))
+                                {
+                                    alteredList[createdObject].Add(propertyStorageName, propsCollection.Get(propertyStorageName));
+                                }
+                                else
+                                {
+                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                    alteredCollection.Add(propertyStorageName, propsCollection.Get(propertyStorageName));
+                                    alteredList.Add(createdObject, alteredCollection);
+                                }
 
-                            // Удаляем из списка свойств на изменение в запросе на создание объекта.
-                            propsCollections.Remove(propValue);
+                                // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                                propsCollection.Remove(propertyStorageName);
+                            }
                         }
                     }
                     else
