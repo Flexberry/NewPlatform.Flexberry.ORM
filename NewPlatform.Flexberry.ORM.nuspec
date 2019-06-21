@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>NewPlatform.Flexberry.ORM</id>
+    <id>NewPlatform.Flexberry.ORM-Debug</id>
     <version>5.1.0-beta02</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
@@ -48,7 +48,7 @@ Fixed
         <dependency id="Unity.Abstractions" version="3.3.0" />
         <dependency id="Unity.Configuration" version="5.2.2" />
         <dependency id="Unity.Container" version="5.8.6" />
-        <dependency id="Microsoft.Spatial" version="6.15.0" />
+        <dependency id="Microsoft.Spatial-Debug" version="6.15.0" />
       </group>
     </dependencies>
   </metadata>
