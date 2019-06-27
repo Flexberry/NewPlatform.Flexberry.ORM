@@ -483,7 +483,7 @@
                     // Настройки вообще есть и аудит для приложения и для класса включён.
                     var objectStatus = operationedObject.GetStatus(false);
 
-                    LogService.LogInfoFormat("AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}", operationedObject, objectStatus, operationedObject.__PrimaryKey);
+                    //LogService.LogInfoFormat("AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}", operationedObject, objectStatus, operationedObject.__PrimaryKey);
 
                     // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
                     string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
@@ -653,11 +653,11 @@
 
             commonAuditParameters.WriteMode = currentWriteMode;
 
-            LogService.LogInfoFormat(
-                    "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
-                    commonAuditParameters.OperatedObject.__PrimaryKey,
-                    commonAuditParameters.OperatedObject,
-                    currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            //LogService.LogInfoFormat(
+            //        "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
+            //        commonAuditParameters.OperatedObject.__PrimaryKey,
+            //        commonAuditParameters.OperatedObject,
+            //        currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -706,11 +706,11 @@
         {
             var currentWriteMode = checkedCustomAuditParameters.WriteMode;
 
-            LogService.LogInfoFormat(
-                    "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
-                    checkedCustomAuditParameters.AuditObjectPrimaryKey,
-                    checkedCustomAuditParameters.AuditObjectTypeOrDescription,
-                    currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            //LogService.LogInfoFormat(
+            //        "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
+            //        checkedCustomAuditParameters.AuditObjectPrimaryKey,
+            //        checkedCustomAuditParameters.AuditObjectTypeOrDescription,
+            //        currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -752,11 +752,11 @@
         /// <param name="checkClassAuditSettings">Следует ли проверять настройки аудита в классах.</param>
         protected virtual void CheckAndSendToAudit(RatificationAuditParameters ratificationAuditParameters, bool checkClassAuditSettings)
         {
-            LogService.LogInfoFormat(
-                    "AuditService, CheckAndSendToAudit: {0} отправляется {1} со статусом {2}",
-                    string.Join(", ", ratificationAuditParameters.AuditOperationInfoList.Select(x => x.ToString()).ToArray()),
-                    AppSetting.DefaultWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно",
-                    ratificationAuditParameters.ExecutionResult);
+            //LogService.LogInfoFormat(
+            //        "AuditService, CheckAndSendToAudit: {0} отправляется {1} со статусом {2}",
+            //        string.Join(", ", ratificationAuditParameters.AuditOperationInfoList.Select(x => x.ToString()).ToArray()),
+            //        AppSetting.DefaultWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно",
+            //        ratificationAuditParameters.ExecutionResult);
 
             if (AppSetting.DefaultWriteMode == tWriteMode.Asynchronous)
             {

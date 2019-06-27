@@ -10,8 +10,4 @@
     <DocumentationFile>bin\Debug\netcoreapp2.0\ICSSoft.STORMNET.Collections.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NewPlatform.Flexberry.LogService.CORE\LogService\LogService.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -163,31 +163,40 @@
         /// </returns>
         public DataObject CreateDataObject(Type typeofdataobject, object key)
         {
-           
-                key = Information.TranslateValueToPrimaryKeyType(typeofdataobject, key);
+            key = Information.TranslateValueToPrimaryKeyType(typeofdataobject, key);
 
-                DataObject dobj = null;
+            DataObject dobj = null;
+            if (!NoCaches)
+                dobj = PrvGetLivingDataObject(typeofdataobject, key);
+            if (dobj == null)
+            {
+                dobj = (DataObject)Creator.CreateObject(typeofdataobject);
+                dobj.__PrimaryKey = key;
                 if (!NoCaches)
-                    dobj = PrvGetLivingDataObject(typeofdataobject, key);
-                if (dobj == null)
                 {
-                    dobj = (DataObject)Creator.CreateObject(typeofdataobject);
-                    dobj.__PrimaryKey = key;
-                    if (!NoCaches)
+                    lock (_objectCaches)
                     {
-                        lock (_objectCaches)
+                        if (PrvGetLivingDataObject(typeofdataobject, key) == null)
                         {
-                            if (PrvGetLivingDataObject(typeofdataobject, key) == null)
-                            {
-                                AddLivingDataObject(dobj);
-                            }
+                            AddLivingDataObject(dobj);
                         }
                     }
                 }
+            }
 
-                return dobj;
+            return dobj;
         }
 
+        /// <summary>
+        /// Получить "живой" внутри приложения объект данных по указанию
+        /// типа объекта данных и первичного ключа.
+        /// Возвращается <c>null</c>, если объект не найден или он уже "умер".
+        /// </summary>
+        /// <typeparam name="T">Тип объекта данных</typeparam>
+        /// <param name="key">Ключ объекта данных</param>
+        /// <returns>Объект данных</returns>
+        public T CreateDataObject<T>(object key) where T : DataObject, new()
+            => CreateDataObject(typeof(T), key) as T;
 
         /// <summary>
         /// Добавить объект в кеш.
@@ -296,7 +305,7 @@
             TypeKeyPair tkp = new TypeKeyPair(dataobject.GetType(), dataobject.__PrimaryKey);
             if (_lastCacheIndex > _objectCaches.Count - 1)
             {
-                LogService.LogDebug(_lastCacheIndex + ":" + _objectCaches.Count);
+                //LogService.LogDebug(_lastCacheIndex + ":" + _objectCaches.Count);
             }
 
             Dictionary<TypeKeyPair, WeakReference> sl = (Dictionary<TypeKeyPair, WeakReference>)_objectCaches[_lastCacheIndex];
@@ -349,7 +358,7 @@
             }
             catch (Exception ex)
             {
-                LogService.LogDebug(ex);
+                //LogService.LogDebug(ex);
             }
 
             if (wr != null)
@@ -357,6 +366,7 @@
                 if (wr.IsAlive)
                 {
                     result = (DataObject)wr.Target;
+                    ObjectStatus os = result.GetStatus();
                 }
                 else
                 {

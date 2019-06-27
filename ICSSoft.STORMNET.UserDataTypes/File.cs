@@ -9,13 +9,15 @@ namespace ICSSoft.STORMNET.FileType
 {
     using System;
     using System.IO;
-
-#if DNX4
     using ICSharpCode.SharpZipLib.Core;
     using ICSharpCode.SharpZipLib.Zip;
-#endif
+
+    //#if DNX4
+    //using ICSharpCode.SharpZipLib.Core;
+    //using ICSharpCode.SharpZipLib.Zip;
+    //#endif
     using ICSSoft.STORMNET.Windows.Forms.Binders;
-#if DNX4
+    //#if DNX4
     /// <summary>
     /// Тип данных File
     /// </summary>
@@ -267,7 +269,7 @@ namespace ICSSoft.STORMNET.FileType
             }
             else
             {
-                throw new Exception ("Ошибка работы с файлом.");
+                throw new Exception("Ошибка работы с файлом.");
             }
             zipStream.Close();
             memoryStream.Close();
@@ -292,12 +294,12 @@ namespace ICSSoft.STORMNET.FileType
 
                 fsSource.Read(readed, 0, length);
 
-                _zippedValue=Convert.ToBase64String(readed);
+                _zippedValue = Convert.ToBase64String(readed);
             }
         }
-        
-    #region IConvertible members
-        
+
+        #region IConvertible members
+
         public TypeCode GetTypeCode()
         {
             return 0;
@@ -382,8 +384,8 @@ namespace ICSSoft.STORMNET.FileType
         {
             return 0;
         }
-        
-    #endregion
+
+        #endregion
 
         public override string ToString()
         {
@@ -409,6 +411,7 @@ namespace ICSSoft.STORMNET.FileType
 
             return -1;
         }
-#endif
+        //#endif
 
+    }
 }

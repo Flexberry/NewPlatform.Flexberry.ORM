@@ -366,6 +366,15 @@
             Business.StorageStructForView[] StorageStruct,
             ICSSoft.STORMNET.Business.SQLDataService DataService)
         {
+            try
+            {
+                string dataServiceRes = DataService.FunctionToSql(this, value, convertValue, convertIdentifier, ref OTBSubqueries, StorageStruct);
+                if (!string.IsNullOrEmpty(dataServiceRes))
+                    return dataServiceRes;
+            }
+            catch { }
+            
+
             if (value.Parameters.Count == 2)
             {
                 if (value.FunctionDef.StringedView == "=" &&
@@ -566,7 +575,7 @@
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
         /// <returns></returns>
-        protected string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
+        public string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier, ref List<string> OTBSubqueries, Business.StorageStructForView[] storageStruct, Business.SQLDataService DataService)
         {
             string retStr;
@@ -706,7 +715,7 @@
                     // /
                     new FunctionDef(17, fieldNumericType, "/", "/", "({0} / {1})", (x) => ObjectToDecimal(x[0]) / ObjectToDecimal(x[1]), new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     //LIKE
-                    new FunctionDef(18, fieldBoolType, "LIKE", "ПО МАСКЕ", "({0} УДОВЛ.МАСКЕ {1})",(x)=>Like(ObjectToString(x[0]),ObjectToString(x[1])),  new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
+                    new FunctionDef(18, fieldBoolType, "LIKE", "ПО МАСКЕ", "({0} УДОВЛ.МАСКЕ {1})",(x)=>(x[0]==null)?false:Like(ObjectToString(x[0]),ObjectToString(x[1])),  new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),
                     //<
                     new FunctionDef(19, fieldBoolType, "<", "<", "({0} < {1})", (x) => ObjectToDecimal(x[0]) < ObjectToDecimal(x[1]),  new FunctionParameterDef(fieldNumericType), new FunctionParameterDef(fieldNumericType)),
                     new FunctionDef(20, fieldBoolType, "<", "<", "({0} < {1})", (x) => ObjectToString(x[0]).CompareTo(ObjectToString(x[1]))<0, new FunctionParameterDef(fieldStringType), new FunctionParameterDef(fieldStringType)),

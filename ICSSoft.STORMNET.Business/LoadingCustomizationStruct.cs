@@ -49,6 +49,40 @@
             }
         }
 
+        public List<string> RankPropertyName { get; set; }
+
+        public List<string> PartitionPropertyName { get; set; }
+
+
+        public LoadingCustomizationStruct Clone()
+        {
+            LoadingCustomizationStruct res = new LoadingCustomizationStruct();
+
+            if (this.AdvancedColumns != null)
+                res.AdvancedColumns = this.AdvancedColumns.ToArray();
+            if (this.AssemblyQualifiedTypeNames!=null)
+                res.AssemblyQualifiedTypeNames = this.AssemblyQualifiedTypeNames.ToArray();
+            if (this.ColumnsOrder!=null)
+                res.ColumnsOrder = this.ColumnsOrder.ToArray();
+            if (this.ColumnsSort!=null)
+                res.ColumnsSort = this.ColumnsSort.ToArray();
+            res.Distinct = this.Distinct;
+            res.InitDataCopy = this.InitDataCopy;
+            if (this.LimitFunction!=null)
+                res.LimitFunction = this.LimitFunction.Clone();
+            res.LoadingBufferSize = this.LoadingBufferSize;
+            if (this.LoadingTypes!=null)
+                res.LoadingTypes = this.LoadingTypes.ToArray();
+            res.ReturnTop = this.ReturnTop;
+            res.ReturnType = this.ReturnType;
+            res.RowNumber = this.RowNumber;
+            if (this.View!=null)
+            res.View = this.View.Clone();
+
+            return res;
+        }
+
+
 
         private bool fieldDistinct = false;
         public bool Distinct {get {return fieldDistinct;}set {fieldDistinct = value;}}
@@ -534,7 +568,9 @@
             this.Distinct = other.Distinct;
             this.InitDataCopy = other.InitDataCopy;
             this.ReturnTop = other.ReturnTop;
-            this.RowNumber =(other.RowNumber==null)?null:new RowNumberDef(other.RowNumber.StartRow, other.RowNumber.EndRow, other.RowNumber.RankPropertyName);
+            this.RankPropertyName = other.RankPropertyName;
+            this.PartitionPropertyName = other.PartitionPropertyName;
+            this.RowNumber =(other.RowNumber==null)?null:new RowNumberDef(other.RowNumber.StartRow, other.RowNumber.EndRow);
         }
 
         static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType,string View)

@@ -98,6 +98,7 @@
             set
             {
                 BaseSet(name, value);
+                if (!keys.Contains(name)) keys.Add(name);
             }
         }
 

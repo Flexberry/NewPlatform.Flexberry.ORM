@@ -247,8 +247,9 @@
             }
             catch (Exception ex)
             {
-                if (LogService.Log.IsWarnEnabled)
-                    LogService.Log.Warn("Ошибка при поиске имени для ярлыка.", ex);
+
+                //if (LogService.Log.IsWarnEnabled)
+                //    LogService.Log.Warn("Ошибка при поиске имени для ярлыка.", ex);
             }
             #endregion
 
@@ -1494,7 +1495,7 @@
 
             Dictionary<string, object> AlteredValues = new Dictionary<string, object>();
             //сохраним предыдущие значения (установив временно их копии)
-            if (exceptAlteredProperies)
+            if (exceptAlteredProperies && this.dataCopy!=null)
             {
                 foreach (string s in this.GetAlteredPropertyNames(false))
                 {
@@ -1774,8 +1775,8 @@
         public override string ToString()
         {
             System.Type curType = this.GetType();
-            string[] propNames = Information.GetAllPropertyNames(curType);
-            return ToStringAllData(propNames, true, true);
+            List<string> propNames = Information.GetAllPropertyNames(curType).ToList();
+            return ToStringAllData(propNames.ToArray(), true, true);
         }
 
         /// <summary>
@@ -1999,8 +2000,8 @@
             }
             catch (Exception ex)
             {
-                if (LogService.Log.IsWarnEnabled)
-                    LogService.Log.Warn("Ошибка в методе IsEnumValueEmpty.", ex);
+                //if (LogService.Log.IsWarnEnabled)
+                //    LogService.Log.Warn("Ошибка в методе IsEnumValueEmpty.", ex);
                 return false;
             }
         }
@@ -2241,7 +2242,6 @@
             }
         }
 
-
         /// <summary>
         /// Переупорядочить объекты данных в соответствии с автонумерацией
         /// </summary>
@@ -2467,6 +2467,8 @@
         /// </summary>
         public void AddObject(DataObject dataobject)
         {
+            if (objects.Contains(dataobject)) return;
+
             if (dataobject == null) throw new ArgumentNullException(nameof(dataobject));
             
             if (dataobject.__PrimaryKey == null)

@@ -710,12 +710,12 @@
         [NonSerialized]
         private System.Type defineClass;
         private string viewName;
-        private PropertyInView[] properties;
-        private DetailInView[] details;
-        private MasterInView[] masters;
+        private PropertyInView[] properties=new PropertyInView[0];
+        private DetailInView[] details=new DetailInView[0];
+        private MasterInView[] masters=new MasterInView[0];
         private bool generatedByType = false;
         private View.ReadType readType;
-        private Dictionary<string,List<Type>> masterTypeFilters;
+        private Dictionary<string, List<Type>> masterTypeFilters;
 
         /// <summary>
         /// Создание копии представления
@@ -793,6 +793,13 @@
             details = new DetailInView[0];
             masters = new MasterInView[0];
         }
+
+        public View(Type dataObjectType, IEnumerable<string> props)
+        {
+            DefineClassType = dataObjectType;
+            AddProperties(props.ToArray());
+        }
+
 
         /// <summary>
         /// 
@@ -1091,23 +1098,26 @@
         /// <param name="propName"></param>
         public void RemoveProperty(string propName)
         {
-            if (properties == null)
-                properties = new PropertyInView[0];
-            if (properties.Length == 0) return;
-            bool propfound = false;
-            for (int i = 0; i < properties.Length; i++)
-                if (properties[i].Name == propName)
-                    propfound = true;
-                else if (propfound)
-                    properties[i - 1] = properties[i];
-            if (propfound)
+            lock (this) // (Колчанов 20181024) // Есть подозрение, что этот метод потоконебезопасен
             {
-                PropertyInView[] newprops = new PropertyInView[properties.Length - 1];
-                for (int i = 0; i < newprops.Length; i++)
-                    newprops[i] = properties[i];
-                properties = newprops;
-            }
+                if (properties == null)
+                    properties = new PropertyInView[0];
+                if (properties.Length == 0) return;
+                bool propfound = false;
+                for (int i = 0; i < properties.Length; i++)
+                    if (properties[i].Name == propName)
+                        propfound = true;
+                    else if (propfound)
+                        properties[i - 1] = properties[i];
+                if (propfound)
+                {
+                    PropertyInView[] newprops = new PropertyInView[properties.Length - 1];
+                    for (int i = 0; i < newprops.Length; i++)
+                        newprops[i] = properties[i];
+                    properties = newprops;
+                }
 
+            }
         }
 
         /// <summary>
@@ -1221,66 +1231,69 @@
         /// <param name="propPath"></param>
         public void AddProperty(string propName, string propCaption, bool visible, string propPath, int order, string format)
         {
-            //проверим может оно уже есть
-            if (properties == null)
-                properties = new PropertyInView[0];
-            for (int i = 0; i < properties.Length; i++)
-                if (properties[i].Name == propName)
-                    return;
-            //увеличим количество свойств
-            ArrayList propss = new ArrayList();
-            PropertyInView[] piv = properties;
-            properties = new PropertyInView[piv.Length + 1];
-            piv.CopyTo(properties, 0);
-            int propIndex = piv.Length;
+            lock (this) // (Колчанов 20181024) // Есть подозрение, что этот метод потоконебезопасен
+            {
 
-            if (propCaption == string.Empty)
-            {
-                if (!propName.EndsWith("*"))
-                    propCaption = propName;  //'Information.GetPropertyCaption(DefineClassType,propName);
-            }
-            if (propName.EndsWith("*"))
-            {
-                if (propCaption.EndsWith("*"))
-                    propCaption = propCaption.Substring(0, propCaption.Length - 1);
-                //смотрим ктоже ето
-                string pref = string.Empty;
-                if (propName.LastIndexOf(".") >= 0)
-                    pref = propName.Substring(0, propName.LastIndexOf("."));
-                System.Type cType = DefineClassType;
-                string[] path = pref.Split('.');
-                if (pref != string.Empty)
+                //проверим может оно уже есть
+                if (properties == null)
+                    properties = new PropertyInView[0];
+                for (int i = 0; i < properties.Length; i++)
+                    if (properties[i].Name == propName)
+                        return;
+                //увеличим количество свойств
+                ArrayList propss = new ArrayList();
+                PropertyInView[] piv = properties;
+                properties = new PropertyInView[piv.Length + 1];
+                piv.CopyTo(properties, 0);
+                int propIndex = piv.Length;
+
+                if (propCaption == string.Empty)
                 {
-                    for (int pathind = 0; pathind < path.Length; pathind++)
-                        cType = Information.GetPropertyType(cType, path[pathind]);
-                    pref = pref + ".";
-                    //					if (propCaption=="") propCaption = pref;
+                    if (!propName.EndsWith("*"))
+                        propCaption = propName;  //'Information.GetPropertyCaption(DefineClassType,propName);
                 }
-                string[] allprops = Information.GetAllPropertyNames(cType);
-                for (int propsind = 0; propsind < allprops.Length; propsind++)
+                if (propName.EndsWith("*"))
                 {
-                    if (!Information.GetPropertyType(cType, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
+                    if (propCaption.EndsWith("*"))
+                        propCaption = propCaption.Substring(0, propCaption.Length - 1);
+                    //смотрим ктоже ето
+                    string pref = string.Empty;
+                    if (propName.LastIndexOf(".") >= 0)
+                        pref = propName.Substring(0, propName.LastIndexOf("."));
+                    System.Type cType = DefineClassType;
+                    string[] path = pref.Split('.');
+                    if (pref != string.Empty)
                     {
-                        //добавляем атрибут
-                        if (propsind != 0)
+                        for (int pathind = 0; pathind < path.Length; pathind++)
+                            cType = Information.GetPropertyType(cType, path[pathind]);
+                        pref = pref + ".";
+                        //					if (propCaption=="") propCaption = pref;
+                    }
+                    string[] allprops = Information.GetAllPropertyNames(cType);
+                    for (int propsind = 0; propsind < allprops.Length; propsind++)
+                    {
+                        if (!Information.GetPropertyType(cType, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
                         {
-                            //1. увеличим массив
-                            piv = properties;
-                            properties = new PropertyInView[piv.Length + 1];
-                            piv.CopyTo(properties, 0);
+                            //добавляем атрибут
+                            if (propsind != 0)
+                            {
+                                //1. увеличим массив
+                                piv = properties;
+                                properties = new PropertyInView[piv.Length + 1];
+                                piv.CopyTo(properties, 0);
+                            }
+                            if (propCaption == string.Empty && pref == string.Empty)
+                                //							properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
+                                //						else
+                                properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath, order, format);
                         }
-                        if (propCaption == string.Empty && pref == string.Empty)
-                            //							properties[propIndex++] = new PropertyInView(pref+allprops[propsind],Information.GetPropertyCaption(DefineClassType,allprops[propsind]),visible,propPath);
-                            //						else
-                            properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath, order, format);
                     }
                 }
+                else
+                {
+                    properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath, order, format);
+                }
             }
-            else
-            {
-                properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath, order, format);
-            }
-
         }
 
         private string lightTrim(string s)
@@ -2035,6 +2048,7 @@
                 ?? GetProperty(propertyName).Caption
                 ?? Information.GetPropertyCaption(DefineClassType, propertyName);
         }
+
     }
     #endregion
 }

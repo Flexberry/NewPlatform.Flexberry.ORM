@@ -35,14 +35,14 @@
                 {
                     Assembly assembly = null;
 
-                    try
-                    {
+                    //try
+                    //{
                         assembly = Assembly.LoadFile(assemblyFileInfo.FullName);
-                    }
-                    catch (Exception ex)
-                    {
-                        LogService.LogError($"При попытке загрузить сборку \"{assemblyFileInfo.FullName}\" произошла ошибка.", ex);
-                    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    //LogService.LogError($"При попытке загрузить сборку \"{assemblyFileInfo.FullName}\" произошла ошибка.", ex);
+                    //}
 
                     if (assembly != null)
                     {

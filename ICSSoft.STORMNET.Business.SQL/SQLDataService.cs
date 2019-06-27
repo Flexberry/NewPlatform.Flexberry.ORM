@@ -260,7 +260,7 @@
             ApplyReadPermissions(customizationStruct, SecurityManager);
             string query = "";
             string internalQuery = "";
-            if (customizationStruct.RowNumber?.RankPropertyName != null)
+            if (customizationStruct.RankPropertyName?.Count>0)
             {
                 query = $"MAX({PutIdentifierIntoBrackets("RowNumber")})";
                 internalQuery = GenerateSQLSelect(customizationStruct, false);
@@ -320,7 +320,7 @@
             else
             {
                 // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
-                LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
+                //LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
             }
         }
 
@@ -659,7 +659,7 @@
                 else
                 {
                     // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
-                    LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
+                    //LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
                 }
                 StringCollection orderedProperties;
                 string query = GenerateSQLSelect(lcs, false, out storageStruct, false, out orderedProperties);
@@ -699,17 +699,17 @@
         /// Загрузка одного объекта данных
         /// </summary>
         /// <param name="dataObjectView">представление</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить</param>`    
         /// <param name="ClearDataObject">очищать ли объект</param>
         /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
-            ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
+        virtual public void LoadObject(View dataObjectView, DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
         {
-            if (dataObjectView == null)
-            {
-                throw new ArgumentNullException("dataObjectView", "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
-            }
+            if (dataObjectView == null) throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
+            if (dobject == null) throw new ArgumentNullException(nameof(dobject));
+
+            if (DataObjectCache == null)
+                DataObjectCache = new DataObjectCache();
+
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
                 string cs = ChangeCustomizationString(new Type[] { dobject.GetType() });
@@ -765,7 +765,7 @@
                 else
                 {
                     //TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
-                    LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
+                    //LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
                 }
 
                 // Применим полномочия на строки: КОНЕЦ.
@@ -1249,6 +1249,7 @@
 
                 for (int i = 0; i < dataObjectType.Length; i++)
                 {
+
                     StorageStruct[i] = STORMDO.Information.GetStorageStructForView(dataObjectView, dataObjectType[i], StorageType, new ICSSoft.STORMNET.Information.GetPropertiesInExpressionDelegate(GetPropertiesInExpression), GetType());
                     if (StorageStruct[i] != null)
                     {
@@ -1380,6 +1381,8 @@
                     if (customizationStruct.ReturnTop > 0)
                         Query += "TOP " + customizationStruct.ReturnTop.ToString() + " ";
                 }
+                //Dictionary<string, string> propInSelect = new Dictionary<string, string>();
+
                 for (int i = 0; i < props.Count; i++)
                 {
                     if (mustNewgenerate)
@@ -1421,7 +1424,7 @@
                                     if (StorageStruct[0].props[j].Expression != null)
                                     {
 
-                                        altnameprop[j] = TranslateExpression(StorageStruct[0].props[j].Expression, string.Empty,
+                                        altnameprop[j] = TranslateExpression(StorageStruct[0].props[j].Expression, StorageStruct[0].sources.storage[j].ownerType, string.Empty,
                                             PutIdentifierIntoBrackets(StorageStruct[0].props[j].source.Name + "0") + ".", out PointExist, out ExpressionIdetifiers);
                                     }
                                     selectF = altnameprop[j] + " as " + props[i];
@@ -1429,11 +1432,18 @@
                                 }
                             }
                         }
-                        if (selectF != string.Empty) Query += ((i > 0) ? "," : string.Empty) + nl + selectF;
+                        if (selectF != string.Empty)
+                        {
+                            Query += ((i > 0) ? "," : string.Empty) + nl + selectF;
+                            //if (!propInSelect.ContainsKey(props[i]))
+                            //    propInSelect.Add(props[i], selectF);
+                        }
                     }
                     else
                     {
                         resQuery += ((i > 0) ? "," : string.Empty) + nl + props[i];
+                        //if (!propInSelect.ContainsKey(props[i]))
+                        //    propInSelect.Add(props[i], props[i]);
                     }
                 }
 
@@ -1568,17 +1578,21 @@
                     {
                         int fromInd = resQuery.IndexOf("FROM (");
                         string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
-                        if (!string.IsNullOrEmpty(customizationStruct.RowNumber.RankPropertyName))
+                        if (customizationStruct.RankPropertyName?.Count>0)
                         {
-                            resQuery = resQuery.Insert(fromInd, "," + nl + $"DENSE_RANK() over (ORDER BY { PutIdentifierIntoBrackets(customizationStruct.RowNumber.RankPropertyName)} ) as \"RowNumber\"" + nl);
+                            resQuery = resQuery.Insert(fromInd, "," + nl + $"DENSE_RANK() over (ORDER BY {string.Join(',', customizationStruct.RankPropertyName.Select(x=> PutIdentifierIntoBrackets(x)))} ) as \"RowNumber\"" + nl);
                         }
-                        else if (!string.IsNullOrEmpty(orderByExpr))
+                        else if (!string.IsNullOrEmpty(orderByExpr) || customizationStruct.PartitionPropertyName?.Count > 0)
                         {
-                            resQuery = resQuery.Replace(orderByExpr, string.Empty);
                             string orderByExprForRowNum = orderByExpr;
-                            if (customizationStruct.RowNumber.PartitionPropertyName?.Count>0)
-                                orderByExprForRowNum = $"partition by {string.Join(',', customizationStruct.RowNumber.PartitionPropertyName.Select(x=> PutIdentifierIntoBrackets(x)).ToArray())} {orderByExpr}";
-
+                            if (!string.IsNullOrEmpty(orderByExpr))
+                                resQuery = resQuery.Replace(orderByExpr, string.Empty);
+                            if (customizationStruct.PartitionPropertyName?.Count > 0)
+                            {
+                                if (string.IsNullOrEmpty(orderByExpr))
+                                    orderByExpr = "ORDER BY STORMMainObjectKey";
+                                orderByExprForRowNum = $"partition by {string.Join(',', customizationStruct.PartitionPropertyName.Select(x => PutIdentifierIntoBrackets(x)))} {orderByExpr}";
+                            }
                             resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExprForRowNum + ") as \"RowNumber\"" + nl);
                         }
                         else
@@ -1622,6 +1636,8 @@
                 customizationStruct.View = prevV;
             }
         }
+
+        
 
         private void LoggingSQL(string custStruct,string query)
         {
@@ -2493,7 +2509,7 @@
         /// <param name="expression"></param>
         /// <param name="namespacewithpoint"></param>
         /// <returns></returns>
-        virtual public string TranslateExpression(string expression, string namespacewithpoint, string exteranlnamewithpoint, out bool PointExistInSourceIdentifier, out List<string> ExpressionIdentifiers)
+        virtual public string TranslateExpression(string expression, Type ownertype, string namespacewithpoint, string exteranlnamewithpoint, out bool PointExistInSourceIdentifier, out List<string> ExpressionIdentifiers)
         {
             ExpressionIdentifiers = new List<string>();
             if (string.IsNullOrEmpty(expression))
@@ -2531,8 +2547,9 @@
                             PointExistInSourceIdentifier = true;
                         if (namespacewithpoint != string.Empty)
                         {
-                            result += exteranlnamewithpoint + PutIdentifierIntoBrackets(namespacewithpoint + expressarr[nextIndex]);
-                            ExpressionIdentifiers.Add(expressarr[nextIndex]);
+                            string exptIdent = (ownertype != null) ? Information.GetPropertyStorageName(ownertype, expressarr[nextIndex]) : expressarr[nextIndex];
+                            result += exteranlnamewithpoint + PutIdentifierIntoBrackets(namespacewithpoint + exptIdent);
+                            ExpressionIdentifiers.Add(exptIdent);
                         }
 
                         string st1 = exteranlnamewithpoint.Trim('.', '"');
@@ -2546,13 +2563,16 @@
                                 st3 = expressarr[nextIndex].Substring(expressarr[nextIndex].LastIndexOf(".") + 1);
                                 st2 = expressarr[nextIndex].Substring(0, expressarr[nextIndex].LastIndexOf(".")).Replace(".", string.Empty);
                             }
-                            result += PutIdentifierIntoBrackets(st1 + st2 + "0") + "." + PutIdentifierIntoBrackets(st3);
-                            ExpressionIdentifiers.Add(st3);
+                            string exptIdent = (ownertype != null) ? Information.GetPropertyStorageName(ownertype, expressarr[i]) : st3;
+
+                            result += PutIdentifierIntoBrackets(st1 + st2 + "0") + "." + PutIdentifierIntoBrackets(exptIdent);
+                            ExpressionIdentifiers.Add(exptIdent);
                         }
                         else if (namespacewithpoint == string.Empty)
                         {
-                            result += exteranlnamewithpoint + PutIdentifierIntoBrackets(expressarr[nextIndex]);
-                            ExpressionIdentifiers.Add(expressarr[nextIndex]);
+                            string exptIdent = (ownertype != null) ? Information.GetPropertyStorageName(ownertype, expressarr[nextIndex]) : expressarr[nextIndex];
+                            result += exteranlnamewithpoint + PutIdentifierIntoBrackets(exptIdent);
+                            ExpressionIdentifiers.Add(exptIdent);
                         }
                         nextIndex += 2;
                     }
@@ -2682,7 +2702,7 @@
                 else
                 {
                     string express = prop.Expression;
-                    if (!string.IsNullOrEmpty(express))
+                    if (true || !string.IsNullOrEmpty(express))
                     {
                         string deniedAccessValue = string.Empty;
                         string translatedExpression;
@@ -2705,12 +2725,15 @@
 
                             string[] expressions = new string[prop.Expressions.Length];
                             for (int j = 0; j < prop.Expressions.Length; j++)
-                                expressions[j] = TranslateExpression(prop.Expressions[j][0],
+                            {
+                                Type t = prop.source.storage[j].ownerType;
+                                expressions[j] = TranslateExpression(prop.Expressions[j][0],t,
                                     "",
                                     PutIdentifierIntoBrackets(prop.source.Name + j.ToString()) + ".",
                                     out pointExist, out ExpressionIdentifiers);
+                            }
 
-                            translatedExpression =GetIfNullExpression(expressions) + " as " + brackedIdent;
+                            translatedExpression =GetIfNullExpression(expressions.Select(x=>string.IsNullOrEmpty(x)?"null":x).ToArray()) + " as " + brackedIdent;
 
 
 
@@ -3081,7 +3104,7 @@
                 {
                     List<string> ExpressionIdentifiers = new List<string>();
                     bool PointExist = false;
-                    rexst = TranslateExpression(StorageStruct[0].props[i].Expression, string.Empty,
+                    rexst = TranslateExpression(StorageStruct[0].props[i].Expression, StorageStruct[0].sources.storage[0].ownerType, string.Empty,
                         PutIdentifierIntoBrackets(StorageStruct[0].props[i].source.Name + "0") + ".", out PointExist, out ExpressionIdentifiers);
                 }
                 else { }
@@ -4028,6 +4051,7 @@
                 tableOperations,
                 queryOrder,
                 checkLoadedProps,
+                false,
                 processingObjects,
                 dataObjectCache,
                 null,
@@ -4352,10 +4376,10 @@
             foreach (string s in props)
             {
                 Type propType = Information.GetPropertyType(currentType, s);
-               // bool propNotNull = Information.GetPropertyNotNull(currentType, s);
+                DependenciedPropsForType[currentType].Add(s);
+                // bool propNotNull = Information.GetPropertyNotNull(currentType, s);
                 if (propType.IsSubclassOf(typeof(DetailArray)))
                 {
-                    DependenciedPropsForType[currentType].Add(s);
                     // Обрабатываем детейлы.
                     Type[] types = Information.GetCompatibleTypesForDetailProperty(currentType, s);
                     foreach (Type t in types)
@@ -4377,7 +4401,6 @@
                     if (detailProp == null ||
                         (currentObject != null && Information.GetPropValueByName(currentObject, s) != null))
                     {
-                        DependenciedPropsForType[currentType].Add(s);
                         // Обрабатываем мастера.
                         //                       AddDependencies(currentType, propType, dependencies);
 
@@ -4497,6 +4520,7 @@
             SortedList tableOperations,
             StringCollection queryOrder,
             bool checkLoadedProps,
+            bool OnlyThatObjects,
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
@@ -4538,8 +4562,9 @@
                 }
 
                 //ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues;
-                DataObject[] detailsObjects;
-                DataObject[] mastersObjects;
+                DataObject[] detailsObjects = new DataObject[0];
+                DataObject[] mastersObjects = new DataObject[0]; 
+                if (!OnlyThatObjects)
                 GetAlteredObjects(
                     processingObject,
                     false,
@@ -4574,7 +4599,7 @@
                 STORMDO.ObjectStatus curObjectStatus = (i < dobjects.Length) ? processingObject.GetStatus() : processingObject.GetStatus(false);
                 Type typeOfProcessingObject = processingObject.GetType();
                 BusinessServer[] bss = BusinessServerProvider.GetBusinessServer(typeOfProcessingObject, curObjectStatus,DataServiceForBusinessServices==null?this:DataServiceForBusinessServices);
-                if (bss != null && bss.Length > 0)
+                if (!OnlyThatObjects && bss != null && bss.Length > 0)
                 {
                     foreach (BusinessServer bs in bss)
                     {
@@ -4638,43 +4663,75 @@
                                 deleteTables,
                                 tableOperations);
 
-                            ////сбрасываем необязательных мастеров
-                            //Type objectType = processingObject.GetType();
-                            //List<string> propsForClearing = Information.GetStorablePropertyNames(objectType).
-                            //        Where(x => Information.GetPropertyType(objectType,x).IsSubclassOf(typeof(DataObject))).
-                            //        Where(x=> !Information.GetPropertyNotNull(objectType, x)).ToList();
-                            //if (propsForClearing.Count > 0)
-                            //{
-                            //    string TableName = Information.GetClassStorageName(objectType);
-                            //    string updatequery = $"UPDATE {PutIdentifierIntoBrackets(TableName)} SET " + nl;
-                            //    string updatevalues = "";
-                            //    foreach (string prop in propsForClearing)
-                            //    {
-                            //        System.Type[] mastertypes = TypeUsage.GetUsageTypes(objectType, prop);
-                            //        for (int k = 0; k < mastertypes.Count(); k++)
-                            //        {
-                            //            string propstor = STORMDO.Information.GetPropertyStorageName(objectType, prop);
-                            //            string realpropname;
-                            //            if (propstor == string.Empty)
-                            //                realpropname = PutIdentifierIntoBrackets(STORMDO.Information.GetPropertyStorageName(objectType, prop, i));
-                            //            else
-                            //                realpropname = PutIdentifierIntoBrackets(propstor + "_m" + k.ToString());
-                            //            updatevalues += (string.IsNullOrEmpty(updatevalues) ? "" : nlk) + realpropname + " = NULL";
-                            //        }
-                            //    }
+                            //сбрасываем необязательных мастеров
+                            Type objectType = processingObject.GetType();
+                            List<string> propsForClearing = Information.GetStorablePropertyNames(objectType).
+                                    Where(x => Information.GetPropertyType(objectType, x).IsSubclassOf(typeof(DataObject))).
+                                    Where(x => !Information.GetPropertyNotNull(objectType, x)).ToList();
+                            if (propsForClearing.Count > 0)
+                            {
+                                ObjectCreator objectCreator = new ObjectCreator();
 
-                            //    List<string> tmp = new List<string>();
-                            //    updatequery += updatevalues + nl + " WHERE ";
-                            //    FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                            //    var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                            //        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(typeOfProcessingObject).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
-                            //    FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
-                            //    if (updaterobject != null) func = updaterobject.Function;
+                                DataObject tmpObj =(DataObject) objectCreator.CreateObject(objectType);
+                                tmpObj.SetExistObjectPrimaryKey(processingObject.__PrimaryKey);
 
-                            //    updatequery += LimitFunction2SQLWhere(func, ref tmp, null);
-                            //    AddOpertaionOnTable(updateTables, tableOperations, TableName, OperationType.Update);
-                            //    updateQueries.Add(updatequery);
-                            //}
+                                int prpCount = 0;
+                                foreach (string prop in propsForClearing)
+                                {
+                                    DataObject mObj = (DataObject)Information.GetPropValueByName(processingObject, prop);
+                                    if (mObj != null)
+                                    {
+                                        DataObject tmpMObj = (DataObject)objectCreator.CreateObject(mObj.GetType());
+                                        tmpMObj.SetExistObjectPrimaryKey(mObj.__PrimaryKey);
+
+                                        Information.SetPropValueByName(tmpObj.GetDataCopy(), prop, tmpMObj);
+                                        tmpObj.AddLoadedProperties(prop);
+                                        prpCount++;
+                                    }
+                                }
+
+                                if (prpCount > 0)
+                                {
+                                    StringCollection updtCollection = new StringCollection();
+                                    StringCollection tblCollection = new StringCollection();
+
+                                    GenerateQueriesForUpdateObjects(new StringCollection(), new StringCollection(), updtCollection, tblCollection, new StringCollection(),
+                                        new StringCollection(), new SortedList(), new StringCollection(), true, true, new ArrayList(), new DataObjectCache(), new List<DataObject>(), tmpObj);
+
+                                    //    string TableName = Information.GetClassStorageName(objectType);
+                                    //string updatequery = $"UPDATE {PutIdentifierIntoBrackets(TableName)} SET " + nl;
+                                    //string updatevalues = "";
+                                    //foreach (string prop in propsForClearing)
+                                    //{
+                                    //    System.Type[] mastertypes = TypeUsage.GetUsageTypes(objectType, prop);
+                                    //    for (int k = 0; k < mastertypes.Count(); k++)
+                                    //    {
+                                    //        string propstor = STORMDO.Information.GetPropertyStorageName(objectType, prop);
+                                    //        string realpropname;
+                                    //        if (propstor == string.Empty)
+                                    //            realpropname = PutIdentifierIntoBrackets(STORMDO.Information.GetPropertyStorageName(objectType, prop, i));
+                                    //        else
+                                    //            realpropname = PutIdentifierIntoBrackets(propstor + "_m" + k.ToString());
+                                    //        updatevalues += (string.IsNullOrEmpty(updatevalues) ? "" : nlk) + realpropname + " = NULL";
+                                    //    }
+                                    //}
+
+                                    //List<string> tmp = new List<string>();
+                                    //updatequery += updatevalues + nl + " WHERE ";
+                                    //FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+                                    //var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
+                                    //    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(typeOfProcessingObject).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
+                                    //FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
+                                    //if (updaterobject != null) func = updaterobject.Function;
+
+                                    //updatequery += LimitFunction2SQLWhere(func, ref tmp, null);
+                                    string TableName = tblCollection[0];
+                                    string updatequery = updtCollection[0];
+
+                                    AddOpertaionOnTable(updateTables, tableOperations, TableName, OperationType.Update);
+                                    updateQueries.Add(updatequery);
+                                }
+                            }
 
                             STORMDO.DataObject[] subobjects;
                             STORMDO.DataObject[] smastersObj;
@@ -4688,7 +4745,6 @@
                                     processingObjects.Add(subobject);
                                     AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
                                 }
-
                             }
 
                             string thisTable = Information.GetClassStorageName(processingObject.GetType());
@@ -5273,7 +5329,7 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true,false, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
 

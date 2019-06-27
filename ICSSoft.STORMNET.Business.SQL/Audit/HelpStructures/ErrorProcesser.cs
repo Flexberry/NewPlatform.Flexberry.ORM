@@ -22,7 +22,7 @@
         /// <param name="throwExceptions"> Следует ли пробрасывать исключение далее. </param>
         public static void ProcessAuditError(Exception exception, string errorHeader, bool throwExceptions)
         {
-            LogService.LogError(errorHeader, exception);
+            //LogService.LogError(errorHeader, exception);
             if (throwExceptions)
             {
                 throw exception is AuditException 
@@ -37,7 +37,7 @@
         /// <param name="exception">Исключение, информация о котором будет записана в лог + проброшена далее так, как требует wcf.</param>
         public static void ProcessWinServiceError(Exception exception)
         {
-            LogService.LogError(WinServiceErrorMessageStart, exception);
+            //LogService.LogError(WinServiceErrorMessageStart, exception);
             throw new Exception(string.Format( // На стороне клиента будет вызвано FaultException
                                     "{2}\"{1}\" (подробная информация записана в лог).{0}",
                                     Environment.NewLine,

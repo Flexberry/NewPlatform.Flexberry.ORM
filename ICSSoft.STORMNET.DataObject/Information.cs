@@ -11,7 +11,7 @@
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Collections.Concurrent;
+
 
     using ICSSoft.STORMNET.Exceptions;
 
@@ -359,46 +359,49 @@
         }
 
 
-        //private static Dictionary<long, SetHandler> cacheSetPropValueByName = new Dictionary<long, SetHandler>();
-        private static ConcurrentDictionary<long, SetInfo> cacheSetPropValueByName = new ConcurrentDictionary<long, SetInfo>();
+        private static Dictionary<long, SetInfo> cacheSetPropValueByName = new Dictionary<long, SetInfo>();
+       // private static ConcurrentDictionary<long, SetInfo> cacheSetPropValueByName = new ConcurrentDictionary<long, SetInfo>();
    
         static private SetInfo InitSetInfo( Type objType, string propName, bool Clear)
         {
-            long key = objType.GetHashCode() * 10000000000 + propName.GetHashCode();
-            if (cacheSetPropValueByName.ContainsKey(key) && Clear) cacheSetPropValueByName.TryRemove(key, out _);
-            int pointIndex = propName.IndexOf(".");
-            if (pointIndex >= 0)
+            lock (cacheSetPropValueByName)
             {
-                string masterName = propName.Substring(0, pointIndex);
-                string masterPropName = propName.Substring(pointIndex + 1);
-                PropertyInfo propertyInfo = objType.GetProperty(masterPropName);
-                SetInfo masterSetInfo = InitSetInfo(propertyInfo.PropertyType, masterPropName, Clear);
-                SetInfo setInfo = new SetInfo()
+                long key = objType.GetHashCode() * 10000000000 + propName.GetHashCode();
+                if (cacheSetPropValueByName.ContainsKey(key) && Clear) cacheSetPropValueByName.Remove(key);
+                int pointIndex = propName.IndexOf(".");
+                if (pointIndex >= 0)
                 {
-                    IsDynamic = masterSetInfo.IsDynamic,
-                    MasterName = masterName,
-                    PropName = masterPropName,
-                    SetHandler = null,
-                    PropInfo = null
-                };
-                if (cacheSetPropValueByName.TryAdd(key, setInfo))
-                    return setInfo;
+                    string masterName = propName.Substring(0, pointIndex);
+                    string masterPropName = propName.Substring(pointIndex + 1);
+                    PropertyInfo propertyInfo = objType.GetProperty(masterPropName);
+                    SetInfo masterSetInfo = InitSetInfo(propertyInfo.PropertyType, masterPropName, Clear);
+                    SetInfo setInfo = new SetInfo()
+                    {
+                        IsDynamic = masterSetInfo.IsDynamic,
+                        MasterName = masterName,
+                        PropName = masterPropName,
+                        SetHandler = null,
+                        PropInfo = null
+                    };
+                    if (cacheSetPropValueByName.TryAdd(key, setInfo))
+                        return setInfo;
+                    else
+                        return cacheSetPropValueByName[key];
+                }
                 else
-                    return cacheSetPropValueByName[key];
-            }
-            else
-            {
-                SetInfo setInfo = new SetInfo();
-                PropertyInfo propInfo = objType.GetProperty(propName);
-                setInfo.IsDynamic = propName == null;
-                setInfo.PropInfo = propInfo;
-                setInfo.PropName = propName;
-                if (propInfo != null && propInfo.CanWrite)
-                    setInfo.SetHandler = DynamicMethodCompiler.CreateSetHandler(objType, propInfo);
-                if (cacheSetPropValueByName.TryAdd(key, setInfo))
-                    return setInfo;
-                else
-                   return cacheSetPropValueByName[key];
+                {
+                    SetInfo setInfo = new SetInfo();
+                    PropertyInfo propInfo = objType.GetProperty(propName);
+                    setInfo.IsDynamic = propName == null;
+                    setInfo.PropInfo = propInfo;
+                    setInfo.PropName = propName;
+                    if (propInfo != null && propInfo.CanWrite)
+                        setInfo.SetHandler = DynamicMethodCompiler.CreateSetHandler(objType, propInfo);
+                    if (cacheSetPropValueByName.TryAdd(key, setInfo))
+                        return setInfo;
+                    else
+                        return cacheSetPropValueByName[key];
+                }
             }
         }
 
@@ -410,6 +413,7 @@
                 if (!cacheSetPropValueByName.ContainsKey(key))
                     InitSetInfo(objType, propName,false);
                 setInfo = cacheSetPropValueByName[key];
+
                 if (setInfo.PropInfo != null && setInfo.SetHandler == null)
                     InitSetInfo(objType, propName,true);
             return cacheSetPropValueByName[key];
@@ -472,7 +476,7 @@
                         }
 
                         if (propType.IsEnum && PropValue == null)
-                            PropValue = EnumCaption.GetValueFor(null, propType);
+                            PropValue = propType.GetEnumValues().GetValue(0);
 
                         if (PropValue != null)
                         {
@@ -1127,14 +1131,28 @@
                         resstr = GetPrimaryKeyStorageName(type);
                     else
                     {
-                        PropertyInfo pi = type.GetProperty(property);
-                        if (pi == null)
-                            throw new CantFindPropertyException(property, type);
-                        object[] typeAttributes = pi.GetCustomAttributes(typeof(PropertyStorageAttribute), true);
-                        if (typeAttributes.Length == 0)
-                            resstr = property;
+                        if (property.Contains("."))
+                        {
+                            int propindex = property.IndexOf('.');
+                            string master = property.Substring(0, propindex);
+                            string prop = property.Substring(propindex+1);
+                            PropertyInfo pi = type.GetProperty(master);
+                            if (pi == null)
+                                throw new CantFindPropertyException(master, type);
+                            else
+                                resstr = GetPropertyStorageName(pi.PropertyType, prop);
+                        }
                         else
-                            resstr = ((PropertyStorageAttribute)typeAttributes[0]).Name;
+                        {
+                            PropertyInfo pi = type.GetProperty(property);
+                            if (pi == null)
+                                throw new CantFindPropertyException(property, type);
+                            object[] typeAttributes = pi.GetCustomAttributes(typeof(PropertyStorageAttribute), true);
+                            if (typeAttributes.Length == 0)
+                                resstr = property;
+                            else
+                                resstr = ((PropertyStorageAttribute)typeAttributes[0]).Name;
+                        }
                     }
                     cacheGetPropertyStorageName[type, property] = resstr;
                     return resstr;
@@ -3229,7 +3247,7 @@
             List<Assembly> assembliesL = new List<Assembly>();
             if (assemblies == null) assembliesL.Add(BaseClass.Assembly); else assembliesL.AddRange(assemblies);
             foreach (Assembly asm in assembliesL)
-                resList.AddRange(asm.GetTypes().Where(x => x.IsSubclassOf(BaseClass) && IsStoredType(x)));
+                resList.AddRange(asm.GetTypes().Where(x => x.IsSubclassOf(BaseClass) && (ReturnNotStored || IsStoredType(x))));
             return resList.ToArray();
         }
 
@@ -3555,8 +3573,8 @@
             }
             catch (Exception ex)
             {
-                if (LogService.Log.IsWarnEnabled)
-                    LogService.Log.Warn("Ошибка в методе IsEmptyEnumValue.", ex);
+                //if (LogService.Log.IsWarnEnabled)
+                //    LogService.Log.Warn("Ошибка в методе IsEmptyEnumValue.", ex);
                 return false;
             }
         }

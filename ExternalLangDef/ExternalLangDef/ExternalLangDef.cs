@@ -717,7 +717,7 @@
                     "<>",
                     "<>",
                     "({0}<>{1})",
-                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 20}"),
+                                        (x) => throw new NotImplementedException($"{this.GetType().Name} {base.MaxFuncID + 30}"),
 
                     new FunctionParameterDef(fieldDataObjectType),
                     new FunctionParameterDef(fieldDataObjectType)),
@@ -772,7 +772,7 @@
                     "НЕ ЗАПОЛНЕНО",
                     "({0} не заполнено)", (x) => x[0] == null,
                     new FunctionParameterDef(DataObjectType)),
-                new FunctionDef(base.MaxFuncID + 24, BoolType, "True", "Истина", "(Истина)"),
+                new FunctionDef(base.MaxFuncID + 24, BoolType, "True", "Истина", "(Истина)",(x)=>true),
                 new FunctionDef(
                     base.MaxFuncID + 45,
                     NumericType,

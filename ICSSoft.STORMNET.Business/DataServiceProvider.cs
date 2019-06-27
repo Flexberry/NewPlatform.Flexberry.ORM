@@ -123,13 +123,13 @@
                         catch (Exception ex)
                         {
                             string message = "Data service get method failed.";
-                            LogService.LogError(message, ex);
+                            //LogService.LogError(message, ex);
                             throw new Exception(message, ex);
                         }
                     }
 
                     string mess = "Type not found: " + typeName;
-                    LogService.LogError(mess);
+                    //LogService.LogError(mess);
                     throw new Exception(mess);
                 }
 

@@ -335,7 +335,7 @@
                         else
                             testDos[index].Clear();
                         /*Utils.*/
-                         FillRowSetToDataObject(testDos[index], keysarr, storageStructForView, customizationStruct, typesByKeys, advancedColumns, dataObjectCache, securityManager);
+                         FillRowSetToDataObject(testDos[index], keysarr, storageStructForView, customizationStruct, typesByKeys, advancedColumns, dataObjectCache, securityManager,true);
                         int count = nspsAtThisIndex.Count;
                         for (int j = 0; j < count; j++)
                         {
@@ -431,8 +431,8 @@
                                 }
                                 catch (Exception ex)
                                 {
-                                    if (LogService.Log.IsWarnEnabled)
-                                        LogService.Log.Warn("STORMNET ProcessingRowset2StringedView " + keysarr[nJ], ex);
+                                    //if (LogService.Log.IsWarnEnabled)
+                                    //    LogService.Log.Warn("STORMNET ProcessingRowset2StringedView " + keysarr[nJ], ex);
                                     //System.Diagnostics.EventLog.WriteEntry("STORMNET", keysarrAtJ.ToString(), System.Diagnostics.EventLogEntryType.Error);
                                     throw ex;
                                 }
@@ -592,8 +592,13 @@
                                         masterobj.InitDataCopy(DataObjectCache);
                                         masterobj.AddLoadedProperties("__PrimaryKey");
                                     }
-
-                                    Information.SetPropValueByName(dataObject, subSource.ObjectLink, masterobj);
+                                    if (!dataObject.CheckLoadedProperty(subSource.ObjectLink))
+                                    {
+                                        Information.SetPropValueByName(dataObject, subSource.ObjectLink, masterobj);
+                                        DataObject copyDO = dataObject.GetDataCopy();
+                                        if (copyDO != null ) // && !dataObject.CheckLoadedProperty(subSource.ObjectLink))
+                                            Information.SetPropValueByName(copyDO, subSource.ObjectLink, masterobj);
+                                    }
                                     sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
                                     dataObject.AddLoadedProperties(subSource.ObjectLink);
                                 }
@@ -686,6 +691,17 @@
                             curDetView.AddProperty(agrname, string.Empty, false, string.Empty);
 
                             curDetView.MasterTypeFilters.Add(agrname, new Type[] { dotype }.ToList());
+
+                            string[] detNames = Information.GetStorablePropertyNames(curdettype).Where(x => 
+                            Information.IsStoredProperty(curdettype, x) && Information.GetPropertyType(curdettype,x).IsSubclassOf(typeof(DataObject))
+                            ).ToArray();
+                            //нужно добавить дочитывание мастеров
+                            foreach (string s in detNames)
+                            {
+                                if (s != agrname)
+                                        curDetView.AddProperty(s, string.Empty, false, string.Empty);
+                            }
+
                             resview.Add(curDetView);
                         }
 

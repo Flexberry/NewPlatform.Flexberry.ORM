@@ -38,7 +38,6 @@
         {
             info.AddValue("StartRow", _startRow);
             info.AddValue("EndRow", _endRow);
-            info.AddValue(nameof(RankPropertyName), RankPropertyName);
         }
 
 
@@ -52,9 +51,7 @@
         {
         }
 
-        public string RankPropertyName { get; set; }
 
-        public List<string> PartitionPropertyName { get; set; }
 
 
         /// <summary>
@@ -62,11 +59,10 @@
         /// </summary>
         /// <param name="StartRow">Загрузим с объекта (включительно)</param>
         /// <param name="EndRow">Загрузим до объекта (включительно)</param>
-        public RowNumberDef(int StartRow, int EndRow, string rankPropertyName=null)
+        public RowNumberDef(int StartRow, int EndRow)
         {
             _startRow = StartRow;
             _endRow = EndRow;
-            RankPropertyName = rankPropertyName;
         }
 
         /// <summary>
@@ -78,7 +74,6 @@
         {
             _startRow = info.GetInt32("StartRow");
             _endRow = info.GetInt32("EndRow");
-            RankPropertyName = info.GetString(nameof(RankPropertyName));
         }
 
         public override bool Equals(object obj)
@@ -113,7 +108,7 @@
                 return true;
             }
 
-            return other._startRow == _startRow && other._endRow == _endRow && other.RankPropertyName == RankPropertyName;
+            return other._startRow == _startRow && other._endRow == _endRow;
         }
 
         public override int GetHashCode()

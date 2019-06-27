@@ -26,7 +26,8 @@
         /// <param name="advCols">Дополнительные колонки.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        public static void FillRowSetToDataObject(DataObject dobject, object[] values, StorageStructForView storageStruct, LoadingCustomizationStruct customizationStruct, System.Collections.SortedList typesByKeys, AdvancedColumn[] advCols, DataObjectCache dataObjectCache, ISecurityManager securityManager)
+        public static void FillRowSetToDataObject(DataObject dobject, object[] values, StorageStructForView storageStruct, LoadingCustomizationStruct customizationStruct, System.Collections.SortedList typesByKeys, AdvancedColumn[] advCols, DataObjectCache dataObjectCache, ISecurityManager securityManager,
+            bool clearDataObject)
         {
             Type dobjectType = dobject.GetType();
 
@@ -117,8 +118,8 @@
                             object tmp0 = tmp[0];
                             if (value != null)
                             {
-                                if (Information.GetPropValueByName((DataObject)tmp0, prop.simpleName) == null)
-                                {
+                                //if (Information.GetPropValueByName((DataObject)tmp0, prop.simpleName) == null)
+                                //{
                                     DataObject no = dataObjectCache.CreateDataObject(prop.MastersTypes[tmp1][k], value);
                                     if (no.GetStatus(false) == ObjectStatus.Created)
                                     {
@@ -129,12 +130,12 @@
 
                                     value = no;
                                     properiesValues.Add(new[] { prop.simpleName, value, tmp0 });
-                                }
-                                else
-                                {
-                                    // changed by fat
-                                    properiesValues.Add(new[] { prop.simpleName, Information.GetPropValueByName((DataObject)tmp0, prop.simpleName), tmp0 });
-                                }
+                                //}
+                                //else
+                                //{
+                                //    // changed by fat
+                                //    properiesValues.Add(new[] { prop.simpleName, Information.GetPropValueByName((DataObject)tmp0, prop.simpleName), tmp0 });
+                                //}
                             }
                             else
                                 properiesValues.Add(new[] { prop.simpleName, null, tmp0 });
@@ -216,7 +217,7 @@
                 if (customizationStruct.InitDataCopy)
                 {
                     ObjectStatus prevObjectStatus = curobj.GetStatus(false);
-                    curobj.InitDataCopy(null, prevCurObjPropertiesValues.Count>0);
+                    curobj.InitDataCopy(null, !clearDataObject);
                     if (prevObjectStatus == ObjectStatus.Deleted)
                         curobj.SetStatus(ObjectStatus.Deleted);
                     else

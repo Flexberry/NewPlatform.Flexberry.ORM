@@ -85,7 +85,7 @@
 
                 var auditOperationInfoList = new List<AuditAdditionalInfo>();
                 var extraProcessingList = new List<DataObject>();
-                GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+                GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true,false, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
 
                 GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
 

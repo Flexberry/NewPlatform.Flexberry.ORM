@@ -80,7 +80,7 @@ namespace ICSSoft.STORMNET.Business.SQL
         {
             var res = new DataObject[value.Length];
             ProcessingRowsetDataRef(
-                value, dataObjectType, StorageStruct, customizationStruct, res, dataService, TypesByKeys, true, DataObjectCache, securityManager, connection, transaction);
+                value, dataObjectType, StorageStruct, customizationStruct, res, dataService, TypesByKeys, false, DataObjectCache, securityManager, connection, transaction);
             return res;
         }
 
@@ -134,7 +134,7 @@ namespace ICSSoft.STORMNET.Business.SQL
                 WasReadingTypes[index] = true;
                 if (res[i] == null)
                     res[i] = dataObjectCache.CreateDataObject(dataObjectType[index], value[i][keyIndex]);
-                ICSSoft.STORMNET.Business.Utils.FillRowSetToDataObject(res[i], value[i], storageStruct[index], customizationStruct, typesByKeys, customizationStruct.AdvancedColumns, dataObjectCache, securityManager);
+                ICSSoft.STORMNET.Business.Utils.FillRowSetToDataObject(res[i], value[i], storageStruct[index], customizationStruct, typesByKeys, customizationStruct.AdvancedColumns, dataObjectCache, securityManager, сlearDataObjects);
                 keys[i] = res[i].__PrimaryKey;
             }
             //#if NETFX_35
@@ -449,29 +449,30 @@ namespace ICSSoft.STORMNET.Business.SQL
                         }
                     }
                 }
-            }
-
-            if (customizationStruct.InitDataCopy)
-            {
-                //#if NETFX_35 
-                foreach (DataObject dobj in res)
-                //#else
-                //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
-                //#endif
+                if (customizationStruct.InitDataCopy)
                 {
-                    ObjectStatus prevStatus = dobj.GetStatus(false);
-                    dobj.InitDataCopy(dataObjectCache, !сlearDataObjects);
-                    if  (prevStatus== ObjectStatus.Deleted)
-                        dobj.SetStatus(ObjectStatus.Deleted);
-                    else
-                        dobj.SetStatus(ObjectStatus.UnAltered);
-                }
-                //#if NETFX_35 
-                //#else
-                //    );
-                //#endif
+                    //#if NETFX_35 
+                    foreach (DataObject dobj in res)
+                    //#else
+                    //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
+                    //#endif
+                    {
+                        ObjectStatus prevStatus = dobj.GetStatus(false);
+                        dobj.InitDataCopy(dataObjectCache, !сlearDataObjects);
+                        if (prevStatus == ObjectStatus.Deleted)
+                            dobj.SetStatus(ObjectStatus.Deleted);
+                        else
+                            dobj.SetStatus(ObjectStatus.UnAltered);
+                    }
+                    //#if NETFX_35 
+                    //#else
+                    //    );
+                    //#endif
 
+                }
             }
+
+            
         }
     }
 }

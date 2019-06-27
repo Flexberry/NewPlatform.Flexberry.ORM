@@ -59,7 +59,7 @@ namespace ICSSoft.STORMNET.Tools
                 0);
             if (m_lastError > 1)
             {
-                LogService.LogError("MAPISendMail failed! " + GetLastError());
+                //LogService.LogError("MAPISendMail failed! " + GetLastError());
             }
 
             Cleanup(ref msg);

@@ -98,7 +98,7 @@
                "NATURAL",
                "NOT",
                "NOTNULL",
-               "NULL",
+               /*"NULL",*/
                "OFFSET",
                "ON",
                "ONLY",
@@ -222,6 +222,17 @@
             {
                 return "current_timestamp";
             }
+            if (value.FunctionDef.StringedView == sqlLangDef.funcLike)
+            {
+                string par1 = string.Empty, par2 = string.Empty;
+
+                par1 = langDef.AddUpper(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this);
+                par2 = langDef.AddUpper(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this);
+
+                if (value.Parameters[1] != null && value.Parameters[1].GetType() == typeof(string))
+                    par2 = par2.Replace( langDef.UserLikeAnyStringSymbol, langDef.QueryLikeAnyStringSymbol).Replace(langDef.UserLikeAnyCharacterSymbol, langDef.QueryLikeAnyCharacterSymbol);
+                return string.Format("( {0} ilike {1} )", par1, par2);
+            }
 
             if (
                 value.FunctionDef.StringedView == "YearPart" ||
@@ -278,6 +289,13 @@
             {
                 return string.Format("(to_timestamp(0)+({0} - {0}::date))",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery,storageStruct, this));
+            }
+            if (value.FunctionDef.StringedView == "DateAdd")
+            {
+                return string.Format("{2} + {1} * INTERVAL '1 {0}'",
+                       langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, ref OTBSubquery, storageStruct, this));
             }
 
             if (value.FunctionDef.StringedView == "DATEDIFF")
@@ -442,12 +460,14 @@
                 dictionaryShortNames[postgresIdentifier] = null;
             }
 
+            
             if (postgresIdentifier.IndexOf(".", StringComparison.Ordinal) != -1)
             {
                 postgresIdentifier = "\"" + GenerateShortName(postgresIdentifier) + "\"";
             }
             else
             {
+            
                 if (dictionaryShortNames[postgresIdentifier] != null)
                 {
                     postgresIdentifier = dictionaryShortNames[postgresIdentifier];
@@ -759,11 +779,13 @@
         /// The <see cref="string"/>.
         /// </returns>
         private string ReplaceLongAlias(string identifier)
-        {
-            if (identifier.IndexOf("COALESCE", StringComparison.Ordinal) != -1)
+        {           
+            if (identifier.IndexOf("COALESCE", StringComparison.OrdinalIgnoreCase) != -1)
             {
                 return identifier;
             }
+
+            identifier = identifier.Trim('(', ')');
 
             string postgresIdentifier = PrepareIdentifier(identifier);
             int p = postgresIdentifier.IndexOf(".", StringComparison.Ordinal);
