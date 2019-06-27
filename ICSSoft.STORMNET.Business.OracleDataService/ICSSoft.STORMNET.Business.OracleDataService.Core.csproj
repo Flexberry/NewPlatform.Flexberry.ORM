@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.ODataService.Core\NewPlatform.Flexberry.ORM.ODataService.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ExternalLangDef">
+      <HintPath>..\..\..\KSA_E5MES\development\dependencies\FlexberryORM_CORE2\ExternalLangDef.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSSoft.STORMNET.Business">
+      <HintPath>..\..\..\KSA_E5MES\development\dependencies\FlexberryORM_CORE2\ICSSoft.STORMNET.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSSoft.STORMNET.Business.SQLDataService">
+      <HintPath>..\..\..\KSA_E5MES\development\dependencies\FlexberryORM_CORE2\ICSSoft.STORMNET.Business.SQLDataService.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSSoft.STORMNET.DataObject">
+      <HintPath>..\..\..\KSA_E5MES\development\dependencies\FlexberryORM_CORE2\ICSSoft.STORMNET.DataObject.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSSoft.STORMNET.FunctionalLanguage">
+      <HintPath>..\..\..\KSA_E5MES\development\dependencies\FlexberryORM_CORE2\ICSSoft.STORMNET.FunctionalLanguage.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

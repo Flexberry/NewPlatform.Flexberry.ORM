@@ -1,5 +1,6 @@
 ﻿namespace ICSSoft.Services
 {
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Net;
     using System.Web;
@@ -111,11 +112,10 @@
             //var identity = user.Identity;
             //if (!identity.IsAuthenticated)
             //{
-            //    return null;
+                return null;
             //}
 
             //return identity.Name;
-            return "";
         }
     }
 }
