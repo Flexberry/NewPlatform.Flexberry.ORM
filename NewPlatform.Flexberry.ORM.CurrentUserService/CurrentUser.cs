@@ -8,11 +8,6 @@
     public class CurrentUser : CurrentUserService.IUser
     {
         /// <summary>
-        /// Текущий web-пользователь.
-        /// </summary>
-        private CurrentUserService.IUser _webHttpUser;
-
-        /// <summary>
         /// Текущий windows-пользователь.
         /// </summary>
         private CurrentUserService.IUser _winUser;
@@ -53,11 +48,6 @@
         /// </returns>
         private CurrentUserService.IUser GetUser()
         {
-            if (HttpContext.Current != null)
-            {
-                return _webHttpUser ?? (_webHttpUser = new CurrentWebHttpUser());
-            }
-
             return _winUser ?? (_winUser = new CurrentWindowsUser());
         }
     }

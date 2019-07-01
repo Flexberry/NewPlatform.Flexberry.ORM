@@ -9,13 +9,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+- `CurrentUserService` support only windows users.
+- `DataServiceProvider.IsWebApp` now always return `false`.
 
 ### Deprecated
 
 ### Removed
 
 - `Information.GetPropertyDataFormat` method.
-- `DirectoryServicesTools` class.
+- `CurrentWebHttpUser` class.
+- `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
+- `RemoteAuditController` class.
 
 ### Fixed
 
