@@ -7,10 +7,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
+- `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+- `CurrentUserService` support only windows users.
+- `DataServiceProvider.IsWebApp` now always return `false`.
+- `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
+- `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
 
 ### Deprecated
 
 ### Removed
+- `Information.GetPropertyDataFormat` method.
+- `CurrentWebHttpUser` class.
+- `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
+- `RemoteAuditController` class.
+- `CurrentUserFromLockService` class.
+- `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
+- `DirectoryServicesTools` class.
 
 ### Fixed
 

@@ -3,8 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Specialized;
-    using System.DirectoryServices;
-    using System.Web;
 
     using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
@@ -111,34 +109,6 @@
         public static void ClearAllUserLocks()
         {
             ClearAllUserLocks(DataServiceProvider.DataService);
-        }
-
-        /// <summary>
-        /// The get user name.
-        /// </summary>
-        /// <returns>
-        /// The get user name.
-        /// </returns>
-        [Obsolete("Use ICSSoft.Services.CurrentUserService.CurrentUser.FriendlyName instead")]
-        public static string GetUserName()
-        {
-            return OldGetUserName();
-
-            // return Services.CurrentUserService.CurrentUser.FriendlyName;
-        }
-
-        /// <summary>
-        /// The set user name.
-        /// </summary>
-        /// <param name="newusername">
-        /// The newusername.
-        /// </param>
-        [Obsolete("Use ICSSoft.Services.CurrentUserService.CurrentUser.FriendlyName instead")]
-        public static void SetUserName(string newusername)
-        {
-            OldSetUserName(newusername);
-
-            // Services.CurrentUserService.CurrentUser.FriendlyName = newusername;
         }
 
         /// <summary>
@@ -561,6 +531,17 @@
         #region Methods
 
         /// <summary>
+        /// The get user name.
+        /// </summary>
+        /// <returns>
+        /// The get user name.
+        /// </returns>
+        private static string GetUserName()
+        {
+            return Services.CurrentUserService.CurrentUser.Login;
+        }
+
+        /// <summary>
         /// The create view for check locks.
         /// </summary>
         /// <param name="type">
@@ -586,51 +567,6 @@
             {
                 LightingView(div.View);
             }
-        }
-
-        /// <summary>
-        /// The old get user name.
-        /// </summary>
-        /// <returns>
-        /// The old get user name.
-        /// </returns>
-        private static string OldGetUserName()
-        {
-            if (HttpContext.Current != null)
-            {
-                return HttpContext.Current.User.Identity.Name;
-            }
-
-            if (username == string.Empty)
-            {
-                try
-                {
-                    var ds = new DirectorySearcher(
-                        "(&(objectClass=user)(sAMAccountName= " + Environment.UserName + "))", new[] { "cn" })
-                        {
-                           CacheResults = true
-                        };
-                    SearchResult sr = ds.FindOne();
-                    username = sr.Properties["cn"][0].ToString();
-                }
-                catch
-                {
-                    username = Environment.UserName;
-                }
-            }
-
-            return username;
-        }
-
-        /// <summary>
-        /// The old set user name.
-        /// </summary>
-        /// <param name="newusername">
-        /// The newusername.
-        /// </param>
-        private static void OldSetUserName(string newusername)
-        {
-            username = newusername;
         }
 
         /// <summary>

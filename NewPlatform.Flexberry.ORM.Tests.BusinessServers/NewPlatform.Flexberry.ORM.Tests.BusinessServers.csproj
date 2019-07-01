@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NewPlatform.Flexberry.ORM.Tests</RootNamespace>
     <AssemblyName>Flexberry.ORM.Tests.BusinessServers</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -57,35 +57,35 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">
-      <Project>{64e6f763-3ed4-479d-a767-ad9f475aa8e1}</Project>
+      <Project>{35ff051a-5274-463f-944a-75087a4bbde1}</Project>
       <Name>ICSSoft.STORMNET.Business.MSSQLDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj">
-      <Project>{5e29de24-8237-428e-bf7c-b5cfed45860a}</Project>
+      <Project>{a5da6e3a-2c5b-4f6d-a98e-7ba6e8389477}</Project>
       <Name>ICSSoft.STORMNET.Business.OracleDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj">
-      <Project>{e9f19c18-6a48-4354-a4fb-1b610243592f}</Project>
+      <Project>{493af44a-47de-4118-8bc6-5fb8cd9dc548}</Project>
       <Name>ICSSoft.STORMNET.Business.PostgresDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
-      <Project>{70245187-e302-4fa1-9725-0553c3b68be5}</Project>
+      <Project>{a91adc6e-6331-462c-8492-b96bdce22942}</Project>
       <Name>ICSSoft.STORMNET.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
+      <Project>{b440d002-b8d5-4695-b948-16829f52796c}</Project>
       <Name>ICSSoft.STORMNET.Collections</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
-      <Project>{3d5d3908-bcb7-4f22-a5b0-bd626d67d1ae}</Project>
+      <Project>{9f023a10-0417-4d54-b1ed-f5bdcc69bec2}</Project>
       <Name>ICSSoft.STORMNET.DataObject</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
-      <Project>{d58c2e43-59ef-4d6f-b006-1a7bb6508689}</Project>
+      <Project>{a9d017fb-3863-406c-a2e9-12f3c347c82d}</Project>
       <Name>ICSSoft.STORMNET.Tools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
-      <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
+      <Project>{1d800834-34ad-4750-88c1-a23d9ec1e615}</Project>
       <Name>ICSSoft.STORMNET.UserDataTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj">
@@ -97,8 +97,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
