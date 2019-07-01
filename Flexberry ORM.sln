@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{70245187-E302-4FA1-9725-0553C3B68BE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{64E6F763-3ED4-479D-A767-AD9F475AA8E1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{6222D225-707C-41E9-A494-8A849CFFFBBA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.DataObject", "ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj", "{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.FunctionalLanguage", "ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj", "{329C3DA0-05F7-45C4-B081-9DAF7B78733F}"
 EndProject
@@ -53,8 +49,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrentUserService", "CurrentUserService\CurrentUserService.csproj", "{DBFB4362-4180-4687-B092-A43D269FDD93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityFactory", "UnityFactory\UnityFactory.csproj", "{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests", "NewPlatform.Flexberry.ORM.Tests\NewPlatform.Flexberry.ORM.Tests.csproj", "{86840178-3314-43F3-B686-F5BF54A9DCA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.IntegratedTests", "NewPlatform.Flexberry.ORM.IntegratedTests\NewPlatform.Flexberry.ORM.IntegratedTests.csproj", "{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}"
@@ -70,6 +64,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source"
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{B440D002-B8D5-4695-B948-16829F52796C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.DataObject", "ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj", "{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.UnityFactory", "NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj", "{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,14 +84,6 @@ Global
 		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -148,10 +140,6 @@ Global
 		{DBFB4362-4180-4687-B092-A43D269FDD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBFB4362-4180-4687-B092-A43D269FDD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBFB4362-4180-4687-B092-A43D269FDD93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86840178-3314-43F3-B686-F5BF54A9DCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86840178-3314-43F3-B686-F5BF54A9DCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86840178-3314-43F3-B686-F5BF54A9DCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -160,6 +148,18 @@ Global
 		{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

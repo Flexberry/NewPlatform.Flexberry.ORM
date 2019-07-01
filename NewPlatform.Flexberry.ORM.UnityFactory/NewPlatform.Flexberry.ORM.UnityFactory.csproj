@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unity.Abstractions" Version="5.11.1" />
+    <PackageReference Include="Unity.Configuration" Version="5.11.1" />
+    <PackageReference Include="Unity.Container" Version="5.11.1" />
+  </ItemGroup>
+
+</Project>

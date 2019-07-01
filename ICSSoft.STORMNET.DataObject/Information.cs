@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -328,7 +327,6 @@
                                             setHandler(obj, dtVal1);
                                             return;
                                         }
-#if NETFX_45
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -344,7 +342,6 @@
                                             setHandler(obj, geo);
                                             return;
                                         }
-#endif
 
                                         if (propType.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[] { typeof(string), typeof(System.IFormatProvider) }, null) != null)
                                         {
@@ -2538,7 +2535,6 @@
                                     }
                                 }
                             }
-#if NETFX_45
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2547,7 +2543,6 @@
                             {
                                 UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
-#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2665,7 +2660,6 @@
                         }
                     }
                 }
-#if NETFX_45
                 else if (val1 is Geography && val2 is Geography)
                 {
                     UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2674,7 +2668,6 @@
                 {
                     UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                 }
-#endif
                 else if (val1 is IComparableType)
                 {
                     UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2801,7 +2794,6 @@
                                     }
                                 }
                             }
-#if NETFX_45
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2810,7 +2802,6 @@
                             {
                                 UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
-#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -4159,43 +4150,6 @@
         }
 
         static private TypePropertyAtrValueCollection cacheGetPropertyDataFormat = new TypePropertyAtrValueCollection();
-
-        /// <summary>
-        /// Получить формат представления данных в свойстве
-        /// </summary>
-        /// <param name="type">Тип объекта</param>
-        /// <param name="property">Свойство, для которого ищется формат</param>
-        /// <returns>Формат данных</returns>
-        static public string GetPropertyDataFormat(Type type, string property)
-        {
-            lock (cacheGetPropertyDataFormat)
-            {
-                string res;
-                var pointIndex = property.IndexOf(".");
-                if (pointIndex >= 0)
-                {
-                    string masterName = property.Substring(0, pointIndex);
-                    string masterPropName = property.Substring(pointIndex + 1);
-                    res = GetPropertyDataFormat(GetPropertyType(type, masterName), masterPropName);
-                }
-                else
-                {
-                    var pi = type.GetProperty(property);
-                    if (pi == null)
-                    {
-                        throw new CantFindPropertyException(property, type);
-                    }
-
-                    var typeAttributes = pi.GetCustomAttributes(typeof(DisplayFormatAttribute), true);
-
-                    res = typeAttributes.Length == 0
-                              ? string.Empty
-                              : ((DisplayFormatAttribute)typeAttributes[0]).DataFormatString;
-                }
-
-                return res;
-            }
-        }
 
         # region PropertySupport
 
