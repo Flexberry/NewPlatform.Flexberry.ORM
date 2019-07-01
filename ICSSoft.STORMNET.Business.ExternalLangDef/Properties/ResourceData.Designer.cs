@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewPlatform.Flexberry.ORM.Test.Properties {
+namespace ExternalLangDef.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace NewPlatform.Flexberry.ORM.Test.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class ResourceData {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal ResourceData() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NewPlatform.Flexberry.ORM.Test.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewPlatform.Flexberry.ORM.Test.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExternalLangDef.Properties.ResourceData", typeof(ResourceData).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,33 @@ namespace NewPlatform.Flexberry.ORM.Test.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong argument count at function {0}..
+        /// </summary>
+        internal static string InvalidParameterCountValidationExceptionMessage {
+            get {
+                return ResourceManager.GetString("InvalidParameterCountValidationExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong argument type at function {0} (expected {1})..
+        /// </summary>
+        internal static string InvalidParameterTypeValidationExceptionMessage {
+            get {
+                return ResourceManager.GetString("InvalidParameterTypeValidationExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not loaded property {0} used at limit function..
+        /// </summary>
+        internal static string UsedNotLoadedPropertyValidationExceptionMessage {
+            get {
+                return ResourceManager.GetString("UsedNotLoadedPropertyValidationExceptionMessage", resourceCulture);
             }
         }
     }

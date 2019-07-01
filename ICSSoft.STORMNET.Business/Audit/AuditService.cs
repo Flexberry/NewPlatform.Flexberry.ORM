@@ -43,7 +43,7 @@
             _currentAuditService = service;
             Current.AppSetting = appSetting;
             Current.Audit = audit;
-            Current.ApplicationMode = HttpContext.Current != null ? AppMode.Web : AppMode.Win;
+            Current.ApplicationMode = AppMode.Win;
             Current.ShowPrimaryKey = false;
         }
 
@@ -65,11 +65,6 @@
         /// Контроллер для организации асинхронной записи аудита.
         /// </summary>
         private readonly AsyncAuditController _asyncAuditController = new AsyncAuditController();
-
-        /// <summary>
-        /// Контроллер для организации удалённой записи аудита.
-        /// </summary>
-        private readonly RemoteAuditController _remoteAuditController = new RemoteAuditController();
 
         /// <summary>
         /// Режим, в котором работает приложение: win или web.
@@ -734,7 +729,7 @@
 
             if (IsAuditRemote)
             {
-                auditOperationId = _remoteAuditController.WriteAuditOperation(commonAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -787,7 +782,7 @@
 
             if (IsAuditRemote)
             {
-                auditOperationId = _remoteAuditController.WriteAuditOperation(checkedCustomAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -829,7 +824,7 @@
 
             if (IsAuditRemote)
             {
-                _remoteAuditController.RatifyAuditOperation(ratificationAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -1519,16 +1514,6 @@
                 LogService.LogError("AuditService, GetCurrentUserInfo: Произошла ошибка при работе с CurrentUserService", ex);
             }
 
-            // Потом, если web, по старинке через HttpContext.Current.User.Identity.
-            if (curMode == AppMode.Web
-                    && HttpContext.Current != null
-                    && HttpContext.Current.User != null
-                    && HttpContext.Current.User.Identity != null
-                    && !string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
-            {
-                return HttpContext.Current.User.Identity.Name;
-            }
-
             // TODO: подумать, что стоит делать.
             throw new DataNotFoundAuditException("не удалось определить текущего пользователя");
         }
@@ -1544,8 +1529,6 @@
             switch (curMode)
             {
                 case AppMode.Web:
-                    return $"IP: {HttpContext.Current.Request.UserHostAddress}; DNS: {HttpContext.Current.Request.UserHostName}";
-
                 case AppMode.Win:
                     return $"Имя компьютера: {Environment.MachineName}; Домен: {Environment.UserDomainName}; Пользователь: {Environment.UserName}";
             }
