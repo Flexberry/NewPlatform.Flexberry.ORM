@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -4168,45 +4167,6 @@
             }
 
             return result;
-        }
-
-        static private TypePropertyAtrValueCollection cacheGetPropertyDataFormat = new TypePropertyAtrValueCollection();
-
-        /// <summary>
-        /// Получить формат представления данных в свойстве
-        /// </summary>
-        /// <param name="type">Тип объекта</param>
-        /// <param name="property">Свойство, для которого ищется формат</param>
-        /// <returns>Формат данных</returns>
-        static public string GetPropertyDataFormat(Type type, string property)
-        {
-            lock (cacheGetPropertyDataFormat)
-            {
-                string res;
-                var pointIndex = property.IndexOf(".");
-                if (pointIndex >= 0)
-                {
-                    string masterName = property.Substring(0, pointIndex);
-                    string masterPropName = property.Substring(pointIndex + 1);
-                    res = GetPropertyDataFormat(GetPropertyType(type, masterName), masterPropName);
-                }
-                else
-                {
-                    var pi = type.GetProperty(property);
-                    if (pi == null)
-                    {
-                        throw new CantFindPropertyException(property, type);
-                    }
-
-                    var typeAttributes = pi.GetCustomAttributes(typeof(DisplayFormatAttribute), true);
-
-                    res = typeAttributes.Length == 0
-                              ? string.Empty
-                              : ((DisplayFormatAttribute)typeAttributes[0]).DataFormatString;
-                }
-
-                return res;
-            }
         }
 
         # region PropertySupport

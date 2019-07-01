@@ -9,7 +9,6 @@
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters;
     using System.Runtime.Serialization.Formatters.Binary;
-    using System.Runtime.Serialization.Formatters.Soap;
     using System.Text.RegularExpressions;
     using System.Xml;
 
@@ -296,7 +295,7 @@
                 }
             }
 
-            xmlEl.SetAttribute("DynamicProperties", dataObject.DynamicProperties.Count > 0 ? ObjectToString(dataObject.DynamicProperties) : string.Empty);
+            xmlEl.SetAttribute("DynamicProperties", dataObject.DynamicProperties.Count > 0 ? ToolBinarySerializer.ObjectToString(dataObject.DynamicProperties) : string.Empty);
 
             if (setObjectLoadingStateLoaded)
             {
@@ -307,43 +306,6 @@
             {
                 dataObject.SetStatus(ObjectStatus.Created);
             }
-        }
-
-        /// <summary>
-        /// Сериализация объекта при помощи SoapFormatter
-        /// </summary>
-        /// <param name="o">Объект для сериализации</param>
-        /// <returns>Сериализованный объект</returns>
-        public static string ObjectToString(object o)
-        {
-            MemoryStream str = new MemoryStream();
-            SoapFormatter formatter = new SoapFormatter();
-
-            // formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
-            formatter.Serialize(str, o);
-            str.Flush();
-            str.Seek(0, SeekOrigin.Begin);
-            StreamReader strreader = new StreamReader(str);
-            return strreader.ReadToEnd();
-        }
-
-        /// <summary>
-        /// Десериализация объекта при помощи SoapFormatter
-        /// </summary>
-        /// <param name="s">Сериализованный объект</param>
-        /// <returns>Востановленный объект</returns>
-        public static object ObjectFromString(string s)
-        {
-            MemoryStream str = new MemoryStream();
-            StreamWriter strwriter = new StreamWriter(str);
-            strwriter.WriteLine(s);
-            strwriter.Flush();
-            str.Seek(0, SeekOrigin.Begin);
-            SoapFormatter formatter = new SoapFormatter();
-            formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
-            object objectFromString = null;
-            objectFromString = formatter.Deserialize(str);
-            return objectFromString;
         }
 
         /// <summary>
@@ -424,7 +386,7 @@
                     }
                     else
                     {
-                        dataObject.DynamicProperties = (NameObjectCollection)ObjectFromString(dpstr);
+                        dataObject.DynamicProperties = (NameObjectCollection)ToolBinarySerializer.ObjectFromString(dpstr);
                     }
                 }
             }

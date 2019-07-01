@@ -5,6 +5,33 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+
+### Changed
+- `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+- `CurrentUserService` support only windows users.
+- `DataServiceProvider.IsWebApp` now always return `false`.
+- `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
+- `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
+
+### Deprecated
+
+### Removed
+- `Information.GetPropertyDataFormat` method.
+- `CurrentWebHttpUser` class.
+- `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
+- `RemoteAuditController` class.
+- `CurrentUserFromLockService` class.
+- `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
+- `DirectoryServicesTools` class.
+
+### Fixed
+
+### Security
+
+
+## [5.1.0] - 2020-07-??
+
+### Added
 - `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
 - `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
 - Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.

@@ -587,7 +587,7 @@
         /// <param name="DataServiceType">тип датасервиса</param>
         /// <param name="StorageExpression">запрос-формула</param>
         public DataServiceExpressionAttribute(string DataServiceType, string StorageExpression)
-            : this(Type.GetType(DataServiceType, true, true), StorageExpression)
+            : this(Type.GetType(DataServiceType, false, true), StorageExpression)
         {
         }
 

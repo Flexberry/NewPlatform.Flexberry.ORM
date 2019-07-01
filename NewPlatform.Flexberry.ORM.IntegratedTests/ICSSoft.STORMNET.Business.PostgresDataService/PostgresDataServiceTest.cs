@@ -20,7 +20,6 @@
     /// <summary>
     /// Юнит-тесты для PostgresDataService.
     /// </summary>
-    
     public class PostgresDataServiceTest : BaseIntegratedTest
     {
         /// <summary>
@@ -28,7 +27,6 @@
         /// </summary>
         protected PostgresDataService DataService;
 
-        
         public PostgresDataServiceTest() : base("test")
         {
             foreach (var ds in DataServices)
@@ -53,6 +51,7 @@
                 return Resources.PostgresDataServiceTestScript;
             }
         }
+
         protected override string OracleScript
         {
             get
