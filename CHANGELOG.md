@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
 - `CurrentUserService` support only windows users.
 - `DataServiceProvider.IsWebApp` now always return `false`.
+- `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
+- `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
 
 ### Deprecated
 

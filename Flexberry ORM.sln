@@ -3,14 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{64E6F763-3ED4-479D-A767-AD9F475AA8E1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.UserDataTypes", "ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj", "{52E5BA46-979D-4C9D-8704-183A9CA0EB40}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalLangDef", "ExternalLangDef\ExternalLangDef.csproj", "{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.DRDataService", "ICSSoft.STORMNET.Business.DRDataService\ICSSoft.STORMNET.Business.DRDataService.csproj", "{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{DD7C77E8-BBB6-462F-9604-AD08C8F85772}"
@@ -34,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2
 	ProjectSection(SolutionItems) = preProject
 		Flexberry ORM Projects Dependencies.dgml = Flexberry ORM Projects Dependencies.dgml
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangesToSqlBTMonitor", "ChangesToSqlBTMonitor\ChangesToSqlBTMonitor.csproj", "{20AB00BA-286C-44D3-B7D9-EBA2246CF615}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
 EndProject
@@ -70,28 +60,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Functional
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{A91ADC6E-6331-462C-8492-B96BDCE22942}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.ExternalLangDef", "ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj", "{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.UserDataTypes", "ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj", "{1D800834-34AD-4750-88C1-A23D9EC1E615}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{35FF051A-5274-463F-944A-75087A4BBDE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -112,10 +92,6 @@ Global
 		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -160,6 +136,18 @@ Global
 		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.UnityFactory.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
