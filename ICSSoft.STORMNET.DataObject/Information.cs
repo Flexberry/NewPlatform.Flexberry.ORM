@@ -4149,8 +4149,6 @@
             return result;
         }
 
-        static private TypePropertyAtrValueCollection cacheGetPropertyDataFormat = new TypePropertyAtrValueCollection();
-
         # region PropertySupport
 
         /// <summary>

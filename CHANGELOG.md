@@ -8,9 +8,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+
 ### Deprecated
 
 ### Removed
+
+- `Information.GetPropertyDataFormat` method.
+- `DirectoryServicesTools` class.
 
 ### Fixed
 
