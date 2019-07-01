@@ -3,16 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{DD7C77E8-BBB6-462F-9604-AD08C8F85772}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.ODBCDataService", "ICSSoft.STORMNET.Business.ODBCDataService\ICSSoft.STORMNET.Business.ODBCDataService.csproj", "{68344B38-6E12-4905-8C04-7574594E5180}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.OracleDataService", "ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj", "{5E29DE24-8237-428E-BF7C-B5CFED45860A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.PostgresDataService", "ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj", "{E9F19C18-6A48-4354-A4FB-1B610243592F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet Package Properties", "NuGet Package Properties", "{8B2EC67F-05B1-4C15-8CAE-C0D58F75CE4C}"
 	ProjectSection(SolutionItems) = preProject
 		config.install.xdt = config.install.xdt
@@ -66,32 +56,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.UserDataTy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{35FF051A-5274-463F-944A-75087A4BBDE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.OracleDataService", "ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj", "{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.PostgresDataService", "ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj", "{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -148,6 +126,22 @@ Global
 		{35FF051A-5274-463F-944A-75087A4BBDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35FF051A-5274-463F-944A-75087A4BBDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35FF051A-5274-463F-944A-75087A4BBDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
-﻿#if DNX4
-using System;
+﻿using System;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 
@@ -64,4 +63,3 @@ namespace ICSSoft.STORMNET.Tools
         }
     }
 }
-#endif

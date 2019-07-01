@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProjectGuid>{3839079F-72FF-4038-82EB-BD49712418F4}</ProjectGuid>
@@ -42,23 +42,23 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net45\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>NewPlatform.Flexberry.ORM.Test%28Objects%29.xml</DocumentationFile>
+    <DocumentationFile>NewPlatform.Flexberry.ORM.Test.Objects.xml</DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <DebugType>full</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release-Net45\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>NewPlatform.Flexberry.ORM.Test%28Objects%29.xml</DocumentationFile>
+    <DocumentationFile>NewPlatform.Flexberry.ORM.Test.Objects.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -68,16 +68,34 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Oracle.ManagedDataAccess">
-      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.022\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Remotion.Linq, Version=1.15.2.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Remotion.Linq.1.15.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    <Reference Include="NewPlatform.Flexberry.LogService, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fd6943b998f5450d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewPlatform.Flexberry.LogService.2.0.0-alpha01\lib\netstandard2.0\NewPlatform.Flexberry.LogService.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>System.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.5.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -230,48 +248,72 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">
-      <Project>{64e6f763-3ed4-479d-a767-ad9f475aa8e1}</Project>
-      <Name>ICSSoft.STORMNET.Business.MSSQLDataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj">
-      <Project>{5e29de24-8237-428e-bf7c-b5cfed45860a}</Project>
-      <Name>ICSSoft.STORMNET.Business.OracleDataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj">
-      <Project>{e9f19c18-6a48-4354-a4fb-1b610243592f}</Project>
-      <Name>ICSSoft.STORMNET.Business.PostgresDataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
-      <Project>{70245187-e302-4fa1-9725-0553c3b68be5}</Project>
-      <Name>ICSSoft.STORMNET.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
-      <Name>ICSSoft.STORMNET.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
-      <Project>{3d5d3908-bcb7-4f22-a5b0-bd626d67d1ae}</Project>
-      <Name>ICSSoft.STORMNET.DataObject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
-      <Project>{d58c2e43-59ef-4d6f-b006-1a7bb6508689}</Project>
-      <Name>ICSSoft.STORMNET.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
-      <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
-      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj">
+      <Project>{dad11cd8-79f3-4e21-8f82-cdcb9104bd3b}</Project>
+      <Name>ICSSoft.STORMNET.Business.ExternalLangDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj">
+      <Project>{8fb2b7bc-75c9-4d72-b9b8-a91e98424730}</Project>
+      <Name>ICSSoft.STORMNET.Business.LINQProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj">
+      <Project>{293f43b5-7a8d-4846-b2ad-52b30bafefa3}</Project>
+      <Name>ICSSoft.STORMNET.Business.LockService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">
+      <Project>{35ff051a-5274-463f-944a-75087a4bbde1}</Project>
+      <Name>ICSSoft.STORMNET.Business.MSSQLDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj">
+      <Project>{a5da6e3a-2c5b-4f6d-a98e-7ba6e8389477}</Project>
+      <Name>ICSSoft.STORMNET.Business.OracleDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj">
+      <Project>{493af44a-47de-4118-8bc6-5fb8cd9dc548}</Project>
+      <Name>ICSSoft.STORMNET.Business.PostgresDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
+      <Project>{a91adc6e-6331-462c-8492-b96bdce22942}</Project>
+      <Name>ICSSoft.STORMNET.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
+      <Project>{b440d002-b8d5-4695-b948-16829f52796c}</Project>
+      <Name>ICSSoft.STORMNET.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
+      <Project>{9f023a10-0417-4d54-b1ed-f5bdcc69bec2}</Project>
+      <Name>ICSSoft.STORMNET.DataObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj">
+      <Project>{c18ddb59-34fa-4128-adcb-f49eba345b1e}</Project>
+      <Name>ICSSoft.STORMNET.FunctionalLanguage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
+      <Project>{a9d017fb-3863-406c-a2e9-12f3c347c82d}</Project>
+      <Name>ICSSoft.STORMNET.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
+      <Project>{1d800834-34ad-4750-88c1-a23d9ec1e615}</Project>
+      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj">
+      <Project>{0a997af0-27ed-469f-b19e-b41d9b3eee26}</Project>
+      <Name>NewPlatform.Flexberry.ORM.CurrentUserService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj">
+      <Project>{e0621fc6-cfd1-43d0-9e25-6217d82c77e6}</Project>
+      <Name>NewPlatform.Flexberry.ORM.UnityFactory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

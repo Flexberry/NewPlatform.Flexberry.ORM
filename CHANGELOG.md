@@ -22,6 +22,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `CurrentWebHttpUser` class.
 - `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
 - `RemoteAuditController` class.
+- `CurrentUserFromLockService` class.
+- `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
 
 ### Fixed
 

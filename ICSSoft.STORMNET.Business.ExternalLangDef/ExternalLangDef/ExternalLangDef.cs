@@ -9,10 +9,8 @@
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-#if NETFX_45
     using Microsoft.Spatial;
 
-#endif
     public partial class ExternalLangDef : SQLWhereLanguageDef
     {
         /// <summary>
@@ -110,7 +108,6 @@
             get { return "DayDIFF"; }
         }
 
-#if NETFX_45
         /// <summary>
         /// Функция, возвращает истину, если гео-данные пересекаются.
         /// </summary>
@@ -126,7 +123,6 @@
         {
             get { return "GeomIntersects"; }
         }
-#endif
 
         /// <summary>
         /// Функция, возвращающая год от DateTime
@@ -559,7 +555,6 @@
             return dobj;
         }
 
-#if NETFX_45
         private ObjectType fieldGeography = new ObjectType("Geography", "Гео-данные", typeof(Geography));
 
         public ObjectType GeographyType
@@ -573,7 +568,6 @@
         {
             get { return fieldGeometry; }
         }
-#endif
 
         private ObjectType fieldDetails = new ObjectType("Details", "Зависимые объекты", typeof(DetailArray));
 
@@ -948,12 +942,10 @@
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(NumericType))
-#if NETFX_45
                     , new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
                     new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
                     new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
                     new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType))
-#endif
                 );
 
             base.InitializeDefs();
@@ -1351,12 +1343,10 @@
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
 
-#if NETFX_45
             if (value.FunctionDef.StringedView == funcGeoIntersects || value.FunctionDef.StringedView == funcGeomIntersects)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier);
             }
-#endif
 
             return base.SQLTranslFunction(value, convertValue, convertIdentifier, dataService);
         }
