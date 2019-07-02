@@ -52,15 +52,50 @@
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.6.0.30605, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.6.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="NewPlatform.Flexberry.LogService, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fd6943b998f5450d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewPlatform.Flexberry.LogService.2.0.0-alpha01\lib\netstandard2.0\NewPlatform.Flexberry.LogService.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=2.0.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.Core.2.19.3\lib\netstandard2.0\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.5.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.5.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.6.1\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Abstractions.5.11.1\lib\net46\Unity.Abstractions.dll</HintPath>
@@ -94,8 +129,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="CurrentUserService\CurrentUserServiceTest.cs" />
-    <Compile Include="CurrentUserService\ExtensionsTest.cs" />
+    <Compile Include="NewPlatform.Flexberry.ORM.CurrentUserService\CurrentUserServiceTest.cs" />
+    <Compile Include="NewPlatform.Flexberry.ORM.CurrentUserService\ExtensionsTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditClassSettingsLoaderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceTest.IsTypeAuditable.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqProvider.cs" />
@@ -151,7 +186,7 @@
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\EnumCaptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnityFactory\UnitFactoryTest.cs" />
+    <Compile Include="NewPlatform.Flexberry.ORM.UnityFactory\UnitFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj">
@@ -225,14 +260,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ChangesToSqlBTMonitor\" />
-    <Folder Include="ICSSoft.STORMNET.BF\" />
-    <Folder Include="ICSSoft.STORMNET.Business.DRDataService\" />
     <Folder Include="ICSSoft.STORMNET.Business.LockService\" />
-    <Folder Include="ICSSoft.STORMNET.Business.ODBCDataService\" />
     <Folder Include="ICSSoft.STORMNET.Business.PostgresDataService\" />
     <Folder Include="ICSSoft.STORMNET.Collections\" />
-    <Folder Include="ICSSoft.STORMNET.Drawing\" />
     <Folder Include="ICSSoft.STORMNET.Tools\" />
     <Folder Include="ICSSoft.STORMNET.UserDataTypes\" />
   </ItemGroup>

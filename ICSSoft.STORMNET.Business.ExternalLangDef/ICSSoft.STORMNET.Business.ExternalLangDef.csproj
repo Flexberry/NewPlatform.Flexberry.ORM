@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>ExternalLangDef.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>ExternalLangDef</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,21 @@
     <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
     <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\ResourceData.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceData.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\ResourceData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

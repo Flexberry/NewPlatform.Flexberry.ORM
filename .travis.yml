@@ -1,15 +1,19 @@
 language: csharp
 solution: Flexberry ORM.sln
-install:
-  - nuget restore "Flexberry ORM.sln"
-  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory testrunner
 addons:
   apt:
     packages:
       - doxygen
+before_install:
+  - docker --version
+  - docker pull flexberry/ember-flexberry-stand-backend:latest
+  - docker pull flexberry/ember-flexberry-stand-postgres:latest
+  - curl -O https://raw.githubusercontent.com/Flexberry/FlexberryEmberTestStand.ODataBackend/master/Docker/ember-flexberry-stand-postgres.yml
+  - docker swarm init
+  - docker stack deploy -c ember-flexberry-stand-postgres.yml EmberFlexberryStand
 script:
   - msbuild /p:Configuration=Debug "Flexberry ORM.sln"
-  - mono ./testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug-Net45/NewPlatform.Flexberry.ORM.Tests.dll
+  - mono ./packages/xunit.runner.console.2.4.1/tools/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/NewPlatform.Flexberry.ORM.Tests.dll
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false"
     && (test $TRAVIS_BRANCH == "master" || test $TRAVIS_BRANCH == "develop")

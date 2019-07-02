@@ -1,7 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Validation.Exceptions
 {
+    using ExternalLangDef.Properties;
     using System;
-    using NewPlatform.Flexberry.ORM.ExternalLanguageDefinition.Properties;
 
     /// <summary>
     /// Исключение, сообщающее, что в функции ограничения используется незагруженное свойство.
