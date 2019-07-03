@@ -6,13 +6,4 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Collections.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Work.NET\GitHub\NewPlatform.Flexberry.ORM\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Work.NET\GitHub\NewPlatform.Flexberry.ORM\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.xml</DocumentationFile>
-  </PropertyGroup>
-
 </Project>
