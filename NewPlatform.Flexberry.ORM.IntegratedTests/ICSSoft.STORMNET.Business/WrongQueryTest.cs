@@ -17,7 +17,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Проверка логики зачитки детейлов.
+    /// Тест для проверки ошибки на генерацию невалидного SQL.
     /// </summary>
     public class WrongQueryTest : BaseIntegratedTest
     {
@@ -31,138 +31,9 @@
 
         private Random _random = new Random();
 
+       
         /// <summary>
-        /// Проверим сначала собственные свойства.
-        /// </summary>
-        //[Fact]
-        //public void LoadTest1()
-        //{
-        //    foreach (IDataService dataService in DataServices)
-        //    {
-        //        var ds = (SQLDataService)dataService;
-
-        //        // Чтобы объекты в БД точно были, создадим их.
-        //        var createdCat = new Кошка();
-        //        ds.UpdateObject(createdCat);
-
-        //        var createdPaw = new Лапа();
-        //        ds.UpdateObject(createdPaw);
-
-        //        // Теперь грузим их из БД.
-        //        var кошка = new Кошка();
-        //        кошка.SetExistObjectPrimaryKey(createdCat.__PrimaryKey);
-        //        ds.LoadObject(кошка, false, false);
-
-        //        var лапа = new Лапа();
-        //        лапа.SetExistObjectPrimaryKey(createdPaw.__PrimaryKey);
-        //        ds.LoadObject(лапа, false, false);
-
-        //        Assert.NotNull(кошка);
-        //        Assert.NotNull(лапа);
-        //        //Assert.Equal(0, кошка.Берлога.Count);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Проверим сначала собственные свойства.
-        ///// </summary>
-        //[Fact]
-        //public void LoadTest2()
-        //{
-        //    foreach (IDataService dataService in DataServices)
-        //    {
-        //        var ds = (SQLDataService)dataService;
-
-        //        // Чтобы медведь в БД точно был, создадим его.
-        //        var createdCat = new Кошка();
-        //        ds.UpdateObject(createdCat);
-
-        //        var createdPaw = new Лапа();
-        //        ds.UpdateObject(createdPaw);
-
-        //        // Теперь грузим его из БД.
-        //        Кошка кошка = new Кошка();
-        //        кошка.SetExistObjectPrimaryKey(createdCat.__PrimaryKey);
-        //        кошка.Порода = new Порода
-        //        {
-        //            Название = "Новая"
-        //        };
-
-        //        ds.LoadObject(кошка, false, false);
-        //        Лапа лапа = new Лапа();
-        //        лапа.SetExistObjectPrimaryKey(createdCat.__PrimaryKey);
-        //        лапа.ТипЛапы = new ТипЛапы
-        //        {
-        //            Название = "НоваяЛапа"
-        //        };
-
-        //        ds.LoadObject(кошка, false, false);
-        //        ds.LoadObject(лапа, false, false);
-
-        //        Assert.NotNull(кошка.Порода);
-        //        Assert.NotNull(лапа.ТипЛапы);
-        //        //Assert.Equal(1, кошка.Берлога.Count);
-        //    }
-        //}
-
-        /// <summary>
-        /// Проверка загрузки объектов из базы данных.
-        /// </summary>
-        //[Fact]
-        //public void LoadTest3()
-        //{
-        //    foreach (IDataService dataService in DataServices)
-        //    {
-        //        var ds = (SQLDataService)dataService;
-
-        //        var viewКошка = Кошка.Views.КошкаE;
-        //        var viewЛапа = Лапа.Views.ЛапаFull;
-
-        //        LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), viewКошка);
-        //        lcs.ColumnsSort = new[]
-        //        {
-        //            new ColumnsSortDef(Information.ExtractPropertyPath<Кошка>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc)
-        //        };
-
-        //        lcs.InitDataCopy = true;
-
-        //        // Чтобы медведь в БД точно был, создадим его.
-        //        var createdCat = new Кошка();
-        //        ds.UpdateObject(createdCat);
-
-        //        var dataObjects = ds.LoadObjects(lcs);
-
-        //        Assert.True(dataObjects.Length > 0);
-
-        //        var кошка = (Кошка)dataObjects[0];
-        //        if (кошка.Порода == null)
-        //        {
-        //            кошка.Порода = new Порода
-        //            {
-        //                Название = "Новая"
-        //            };
-        //            ds.UpdateObject(кошка);
-        //        }
-
-        //        var alteredPropertyNames = кошка.GetAlteredPropertyNames();
-        //        var loadedProperties = кошка.GetLoadedProperties();
-
-        //        Assert.NotNull(alteredPropertyNames);
-        //        Assert.Equal(0, alteredPropertyNames.Length);
-        //        Assert.NotNull(loadedProperties);
-        //        Assert.Equal(4, loadedProperties.Length);
-
-        //        //string s = "Подосиновая";
-        //        //кошка.Берлога[0].Наименование = s;
-        //        //ds.LoadObject(кошка, false, false);
-
-        //        //Assert.Equal(s, кошка.Берлога[0].Наименование);
-        //        //Assert.Equal(1, кошка.Берлога[0].GetAlteredPropertyNames(true).Length);
-        //    }
-        //}
-
-        /// <summary>
-        /// Метод для проверки логики добавления свойства агрегатора в представление детейла.
+        /// Метод для организации многопоточности.
         /// </summary>
         [Fact]
         public void ThreadsQueryTest()
@@ -179,14 +50,7 @@
 
                 ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
                 ds.OnGenerateSQLSelect += ThreadTesting_OnGenerateSQLSelect;
-                output.WriteLine($"start {ds.GetType().Name}");
-
-                ////Порода порода = new Порода() { Название = "Беспородная" };
-                //Кошка кошка = new Кошка() { Кличка = nameof(AgregatorPropertyAddToViewTest), Порода = new Порода() { Название = "Беспородная" }, ДатаРождения = NullableDateTime.Now, Тип = ТипКошки.Дикая };
-                //Лапа лапа = new Лапа() { Цвет = "red", Номер = 1, ДатаРождения = NullableDateTime.Now, Кошка = кошка };
-                //кошка.Лапа.Add(new Лапа() { Номер = 1 });
-                //ds.UpdateObject(кошка);
-                //ds.UpdateObject(лапа);
+                output.WriteLine($"start {ds.GetType().Name}");               
 
                 MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
                 multiThreadingTestTool.StartThreads(150, ds);
@@ -204,11 +68,6 @@
                 }
 
                 ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
-
-                //кошка.SetStatus(ObjectStatus.Deleted);
-                //лапа.SetStatus(ObjectStatus.Deleted);
-                //DataObject[] dataObjsForDel = new DataObject[] { кошка, лапа };
-                //ds.UpdateObjects(ref dataObjsForDel);
 
                 Thread threadCat = new Thread(CatQueue);
                 Thread threadPaw = new Thread(BearQueue);
@@ -253,8 +112,6 @@
                                 where x.Сторона == statusNeedSigning && x.Кошка.ДатаРождения == NullableDateTime.Now
                                 select x).Skip(0).Take(100).ToList();
             }
-
-            
         }
 
         public void BearQueue()
