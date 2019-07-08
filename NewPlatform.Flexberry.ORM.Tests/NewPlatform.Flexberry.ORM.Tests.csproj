@@ -59,7 +59,7 @@
       <HintPath>..\packages\Microsoft.Spatial.7.6.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
     </Reference>
     <Reference Include="NewPlatform.Flexberry.LogService, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fd6943b998f5450d, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewPlatform.Flexberry.LogService.2.0.0-alpha01\lib\netstandard2.0\NewPlatform.Flexberry.LogService.dll</HintPath>
+      <HintPath>..\packages\NewPlatform.Flexberry.LogService.2.0.0-alpha03\lib\netstandard2.0\NewPlatform.Flexberry.LogService.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=2.0.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.Core.2.19.3\lib\netstandard2.0\Oracle.ManagedDataAccess.dll</HintPath>

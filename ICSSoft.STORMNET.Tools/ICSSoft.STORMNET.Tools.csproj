@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0-alpha01" />
+    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0-alpha03" />
     <PackageReference Include="SharpZipLib" Version="1.1.0" />
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />

@@ -7,9 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet Package Properties", 
 	ProjectSection(SolutionItems) = preProject
 		config.install.xdt = config.install.xdt
 		config.uninstall.xdt = config.uninstall.xdt
-		NewPlatform.Flexberry.CurrentUserService.nuspec = NewPlatform.Flexberry.CurrentUserService.nuspec
 		NewPlatform.Flexberry.ORM.nuspec = NewPlatform.Flexberry.ORM.nuspec
-		NewPlatform.Flexberry.UnityFactory.nuspec = NewPlatform.Flexberry.UnityFactory.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2380577-D80D-43DE-A11C-4BAA1443691B}"
@@ -36,33 +34,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source"
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{B440D002-B8D5-4695-B948-16829F52796C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{B440D002-B8D5-4695-B948-16829F52796C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.DataObject", "ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj", "{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.DataObject", "ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj", "{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.UnityFactory", "NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj", "{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.UnityFactory", "NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj", "{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Tools", "ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj", "{A9D017FB-3863-406C-A2E9-12F3C347C82D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Tools", "ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj", "{A9D017FB-3863-406C-A2E9-12F3C347C82D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.CurrentUserService", "NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj", "{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.CurrentUserService", "NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj", "{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.FunctionalLanguage", "ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj", "{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.FunctionalLanguage", "ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj", "{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{A91ADC6E-6331-462C-8492-B96BDCE22942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{A91ADC6E-6331-462C-8492-B96BDCE22942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.ExternalLangDef", "ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj", "{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.ExternalLangDef", "ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj", "{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.UserDataTypes", "ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj", "{1D800834-34AD-4750-88C1-A23D9EC1E615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.UserDataTypes", "ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj", "{1D800834-34AD-4750-88C1-A23D9EC1E615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{35FF051A-5274-463F-944A-75087A4BBDE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{35FF051A-5274-463F-944A-75087A4BBDE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.OracleDataService", "ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj", "{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.OracleDataService", "ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj", "{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.PostgresDataService", "ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj", "{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.PostgresDataService", "ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj", "{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

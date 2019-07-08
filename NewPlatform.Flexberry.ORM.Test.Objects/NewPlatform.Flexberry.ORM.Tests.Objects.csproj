@@ -72,7 +72,7 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NewPlatform.Flexberry.LogService, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fd6943b998f5450d, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewPlatform.Flexberry.LogService.2.0.0-alpha01\lib\netstandard2.0\NewPlatform.Flexberry.LogService.dll</HintPath>
+      <HintPath>..\packages\NewPlatform.Flexberry.LogService.2.0.0-alpha03\lib\netstandard2.0\NewPlatform.Flexberry.LogService.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>System.dll</HintPath>
