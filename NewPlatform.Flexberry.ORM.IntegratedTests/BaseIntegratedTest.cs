@@ -14,6 +14,8 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
 
     public abstract class BaseIntegratedTest : IDisposable
     {
+        private const string poolingFalseConst = "Pooling=false;";
+
         /// <summary>
         /// The temporary database name prefix.
         /// </summary>
@@ -85,7 +87,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 throw new ArgumentException();
             _tempDbNamePrefix = tempDbNamePrefix;
             _databaseName = _tempDbNamePrefix + "_" + DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + Guid.NewGuid().ToString("N");
-            if (!string.IsNullOrWhiteSpace(PostgresScript) && !string.IsNullOrWhiteSpace(ConnectionStringPostgres))
+            if (!string.IsNullOrWhiteSpace(PostgresScript) && ConnectionStringPostgres != poolingFalseConst)
             {
                 if (!(tempDbNamePrefix.Length <= 12)) // Max length is 63 (-18 -32).
                     throw new ArgumentException();
@@ -107,7 +109,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(MssqlScript) && !string.IsNullOrWhiteSpace(ConnectionStringMssql))
+            if (!string.IsNullOrWhiteSpace(MssqlScript) && ConnectionStringMssql != poolingFalseConst)
             {
                 if (!(tempDbNamePrefix.Length <= 64))// Max is 128.
                     throw new ArgumentException();
@@ -131,7 +133,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(OracleScript) && !string.IsNullOrWhiteSpace(ConnectionStringOracle))
+            if (!string.IsNullOrWhiteSpace(OracleScript) && ConnectionStringOracle != poolingFalseConst)
             {
                 if (!(tempDbNamePrefix.Length <= 8)) // Max length is 30 (-18 -4).
                     throw new ArgumentException();
@@ -290,7 +292,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
             {
                 // ADO.NET doesn't close the connection with pooling. We have to disable it explicitly.
                 // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
-                return $"Pooling=false;{ConfigurationManager.ConnectionStrings["ConnectionStringPostgres"]}";
+                return $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringPostgres"]}";
             }
         }
 
@@ -300,7 +302,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
             {
                 // ADO.NET doesn't close the connection with pooling. We have to disable it explicitly.
                 // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
-                return $"Pooling=false;{ConfigurationManager.ConnectionStrings["ConnectionStringMssql"]}";
+                return $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringMssql"]}";
             }
         }
 
@@ -310,7 +312,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
             {
                 // ADO.NET doesn't close the connection with pooling. We have to disable it explicitly.
                 // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
-                return $"Pooling=false;{ConfigurationManager.ConnectionStrings["ConnectionStringOracle"]}";
+                return $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringOracle"]}";
             }
         }
 
@@ -322,7 +324,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
 
                 // ADO.NET doesn't close the connection with pooling. We have to disable it explicitly.
                 // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
-                return $"Pooling=false;{dataSource};";
+                return $"{poolingFalseConst}{dataSource};";
             }
         }
     }
