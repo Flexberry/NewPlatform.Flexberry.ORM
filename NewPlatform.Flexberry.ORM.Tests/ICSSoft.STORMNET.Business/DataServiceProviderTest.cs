@@ -47,25 +47,5 @@
 
             Assert.Equal(source, decryptedString);
         }
-
-        /// <summary>
-        /// Проверка механизма выдачи новых инстанций сервиса данных.
-        /// </summary>
-        [Fact]
-        public void AlwaysNewDsTest()
-        {
-            DataServiceProvider.AlwaysNewDS = true;
-
-            var ds1 = DataServiceProvider.DataService;
-            var ds2 = DataServiceProvider.DataService;
-
-            DataServiceProvider.AlwaysNewDS = false;
-
-            var ds3 = DataServiceProvider.DataService;
-            var ds4 = DataServiceProvider.DataService;
-
-            Assert.NotSame(ds1, ds2);
-            Assert.Same(ds3, ds4);
-        }
     }
 }
