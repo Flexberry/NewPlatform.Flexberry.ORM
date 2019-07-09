@@ -4,10 +4,8 @@ addons:
   apt:
     packages:
       - doxygen
-before_install:
-  - docker --version
-  - docker pull flexberry/ember-flexberry-stand-postgres:latest
-  - docker run --rm -p 5432:5432 flexberry/ember-flexberry-stand-postgres:latest
+services:
+  - postgresql
 script:
   - msbuild /p:Configuration=Debug "Flexberry ORM.sln"
   - mono ./packages/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/NewPlatform.Flexberry.ORM.Tests.dll
