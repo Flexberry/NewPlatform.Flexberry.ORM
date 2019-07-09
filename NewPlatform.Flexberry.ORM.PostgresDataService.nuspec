@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
+    <version>6.0.0-alpha01</version>
+    <title>Flexberry ORM</title>
+    <authors>New Platform Ltd</authors>
+    <owners>New Platform Ltd</owners>
+    <licenseUrl>http://flexberry.ru/License-FlexberryOrm-Runtime</licenseUrl>
+    <projectUrl>http://flexberry.net/FlexberryORM</projectUrl>
+    <iconUrl>https://flexberry.net/img/logo-color.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Flexberry ORM package.</description>
+    <releaseNotes>
+      Added
+      - PostgresDataService in it's own NuGet package.
+
+      Changed
+      - `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+      - `CurrentUserService` support only windows users.
+      - `DataServiceProvider.IsWebApp` now always return `false`.
+      - `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
+      - `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
+
+      Removed
+      - `Information.GetPropertyDataFormat` method.
+      - `CurrentWebHttpUser` class.
+      - `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
+      - `RemoteAuditController` class.
+      - `CurrentUserFromLockService` class.
+      - `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
+
+      Fixed
+    </releaseNotes>
+    <copyright>Copyright New Platform Ltd 2019</copyright>
+    <tags>Flexberry ORM</tags>
+    <dependencies>
+      <dependency id="NewPlatform.Flexberry.ORM.Abstractions" version="6.0.0-alpha01" />
+      <dependency id="Npgsql" version="4.0.7" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+  </files>
+</package>

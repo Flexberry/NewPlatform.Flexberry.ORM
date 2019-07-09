@@ -7,7 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet Package Properties", 
 	ProjectSection(SolutionItems) = preProject
 		config.install.xdt = config.install.xdt
 		config.uninstall.xdt = config.uninstall.xdt
-		NewPlatform.Flexberry.ORM.nuspec = NewPlatform.Flexberry.ORM.nuspec
+		NewPlatform.Flexberry.ORM.Abstractions.nuspec = NewPlatform.Flexberry.ORM.Abstractions.nuspec
+		NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec = NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec
+		NewPlatform.Flexberry.ORM.OracleDataService.nuspec = NewPlatform.Flexberry.ORM.OracleDataService.nuspec
+		NewPlatform.Flexberry.ORM.PostgresDataService.nuspec = NewPlatform.Flexberry.ORM.PostgresDataService.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2380577-D80D-43DE-A11C-4BAA1443691B}"
