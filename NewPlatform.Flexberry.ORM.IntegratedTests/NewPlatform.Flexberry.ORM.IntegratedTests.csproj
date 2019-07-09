@@ -288,7 +288,6 @@
     <Compile Include="ICSSoft.STORMNET.Tools\TransliterationTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Tools\UtilsTest.cs" />
     <Compile Include="ICSSoft.STORMNET.UserDataTypes\ContactTest.cs" />
-    <Compile Include="ICSSoft.STORMNET.UserDataTypes\EventTest.cs" />
     <Compile Include="ICSSoft.STORMNET.UserDataTypes\GeoDataTest.cs" />
     <Compile Include="ICSSoft.STORMNET.UserDataTypes\ImageTest.cs" />
   </ItemGroup>
