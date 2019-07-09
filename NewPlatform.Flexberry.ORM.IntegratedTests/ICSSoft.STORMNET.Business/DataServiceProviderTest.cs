@@ -7,7 +7,6 @@
     /// <summary>
     /// Тестовый класс для <see cref="DataServiceProvider" />.
     /// </summary>
-    
     public class DataServiceProviderTest
     {
         /// <summary>

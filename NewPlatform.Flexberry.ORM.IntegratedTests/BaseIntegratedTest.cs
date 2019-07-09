@@ -246,6 +246,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                                     command.ExecuteNonQuery();
                             }
                         }
+
                         if (ds is MSSQLDataService)
                         {
                             using (var connection = new SqlConnection(ConnectionStringMssql))
