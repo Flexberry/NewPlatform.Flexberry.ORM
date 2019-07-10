@@ -7,10 +7,18 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>ICSSoft.STORMNET.DataObject.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>ICSSoft.STORMNET.DataObject.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Spatial" Version="7.6.0" />
     <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0-alpha03" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0-preview6.19303.8" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
     <PackageReference Include="Unity.Abstractions" Version="5.11.1" />
   </ItemGroup>
 
