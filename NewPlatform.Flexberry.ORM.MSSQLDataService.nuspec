@@ -16,10 +16,6 @@
       - MSSQLDataService in it's own NuGet package.
       Changed
       - `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
-
-      Removed
-
-      Fixed
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM</tags>
