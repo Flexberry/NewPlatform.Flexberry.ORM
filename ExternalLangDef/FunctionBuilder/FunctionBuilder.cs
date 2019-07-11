@@ -554,6 +554,24 @@
         /// <summary>
         ///     Проверяет строку по шаблону.
         /// </summary>
+        /// <param name="vd">Переменная ограничения.</param>
+        /// <param name="pattern">Шаблон строки.</param>
+        /// <returns>Функция.</returns>
+        public static Function BuildLike(VariableDef vd, string pattern)
+        {
+            FunctionHelper.ValidateVariableDef(vd);
+
+            if (string.IsNullOrWhiteSpace(pattern))
+            {
+                throw new ArgumentNullException(nameof(pattern));
+            }
+
+            return LangDef.GetFunction(LangDef.funcLike, vd, pattern);
+        }
+
+        /// <summary>
+        ///     Проверяет строку по шаблону.
+        /// </summary>
         /// <param name="propertyName">Имя свойства.</param>
         /// <param name="pattern">Шаблон строки.</param>
         /// <exception cref="ArgumentNullException">Шаблон пуст.</exception>
@@ -568,7 +586,7 @@
                 throw new ArgumentNullException(nameof(pattern));
             }
 
-            return LangDef.GetFunction(LangDef.funcLike, new VariableDef(LangDef.StringType, propertyName), pattern);
+            return BuildLike(new VariableDef(LangDef.StringType, propertyName), pattern);
         }
 
         /// <summary>
@@ -591,7 +609,18 @@
                 throw new ArgumentNullException(nameof(pattern));
             }
 
-            return LangDef.GetFunction(LangDef.funcLike, new VariableDef(LangDef.StringType, propName), pattern);
+            return BuildLike(new VariableDef(LangDef.StringType, propName), pattern);
+        }
+
+        /// <summary>
+        ///     Проверяет начало строки по шаблону.
+        /// </summary>
+        /// <param name="vd">Переменная ограничения.</param>
+        /// <param name="pattern">Шаблон строки.</param>
+        /// <returns>Функция.</returns>
+        public static Function BuildStartsWith(VariableDef vd, string pattern)
+        {
+            return BuildLike(vd, string.IsNullOrWhiteSpace(pattern) ? null : $"{pattern}%");
         }
 
         /// <summary>
@@ -621,6 +650,17 @@
         /// <summary>
         ///     Проверяет конец строки по шаблону.
         /// </summary>
+        /// <param name="vd">Переменная ограничения.</param>
+        /// <param name="pattern">Шаблон строки.</param>
+        /// <returns>Функция.</returns>
+        public static Function BuildEndsWith(VariableDef vd, string pattern)
+        {
+            return BuildLike(vd, string.IsNullOrWhiteSpace(pattern) ? null : $"%{pattern}");
+        }
+
+        /// <summary>
+        ///     Проверяет конец строки по шаблону.
+        /// </summary>
         /// <param name="propertyName">Имя свойства.</param>
         /// <param name="pattern">Шаблон строки.</param>
         /// <returns>Функция.</returns>
@@ -640,6 +680,17 @@
         public static Function BuildEndsWith<T>(Expression<Func<T, object>> propExpression, string pattern)
         {
             return BuildLike(propExpression, string.IsNullOrWhiteSpace(pattern) ? null : $"%{pattern}");
+        }
+
+        /// <summary>
+        ///     Проверяет наличие подстроки по шаблону.
+        /// </summary>
+        /// <param name="vd">Переменная ограничения.</param>
+        /// <param name="pattern">Шаблон строки.</param>
+        /// <returns>Функция.</returns>
+        public static Function BuildContains(VariableDef vd, string pattern)
+        {
+            return BuildLike(vd, string.IsNullOrWhiteSpace(pattern) ? null : $"%{pattern}%");
         }
 
         /// <summary>
