@@ -1203,6 +1203,8 @@
             FunctionHelper.ValidateVariableDef(vd);
             FunctionHelper.ValidateValue(values);
 
+            // Т.к. могут быть случаи передачи StormMainObjectKey в values, то поиспользуем отказоустойчивый PKHelper.GetKeys.
+            // FunctionHelper.GetUniqueObjects кинет исключение в подобной ситуации.
             var uniqValues = FunctionHelper.IsKeyType(vd.Type.NetCompatibilityType)
                 ? PKHelper.GetKeys(values)
                 : FunctionHelper.GetUniqueObjects(vd.Type.NetCompatibilityType, values);
