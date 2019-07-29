@@ -25,7 +25,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// AggregatorUpdateObjectTest.
     /// </summary>
     // *** Start programmer edit section *** (AggregatorUpdateObjectTest CustomAttributes)
-
+    [LoadingOrder(new[] { nameof(AggregatorUpdateObjectTest.Masters) })]
     // *** End programmer edit section *** (AggregatorUpdateObjectTest CustomAttributes)
     [BusinessServer("NewPlatform.Flexberry.ORM.Tests.UpdateObjectTestBS, Flexberry.ORM.Tests.BusinessS" +
         "ervers", ICSSoft.STORMNET.Business.DataServiceObjectEvents.OnAllEvents)]

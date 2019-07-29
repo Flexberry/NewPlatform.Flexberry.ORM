@@ -1101,5 +1101,44 @@
                 dataService.UpdateObjects(ref objects, true);
             }
         }
+
+        /// <summary>
+        /// Test to check the immutability of the object after loading.
+        /// </summary>
+        [Fact]
+        public void TestAlteredAfterLoading()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var aggregator = new AggregatorUpdateObjectTest() { AggregatorName = "AlteredAfterLoading" };
+                dataService.UpdateObject(aggregator);
+
+                aggregator.Details.Add(new DetailUpdateObjectTest() { DetailName = "AlteredAfterLoading" });
+                dataService.UpdateObject(aggregator.Details[0]);
+
+                aggregator.Masters.Add(new MasterUpdateObjectTest() { MasterName = "AlteredAfterLoading" });
+                aggregator.Masters[0].Detail = aggregator.Details[0];
+                dataService.UpdateObject(aggregator.Masters[0]);
+
+                var aggregatorView = new View() { DefineClassType = typeof(AggregatorUpdateObjectTest) };
+                aggregatorView.AddProperty(nameof(AggregatorUpdateObjectTest.AggregatorName));
+
+                var masterView = new View() { DefineClassType = typeof(MasterUpdateObjectTest) };
+                masterView.AddProperty(nameof(MasterUpdateObjectTest.Detail));
+
+                var detailView = new View() { DefineClassType = typeof(DetailUpdateObjectTest) };
+                detailView.AddProperty(nameof(DetailUpdateObjectTest.DetailName));
+
+                aggregatorView.AddDetailInView(nameof(AggregatorUpdateObjectTest.Masters), masterView, true);
+                aggregatorView.AddDetailInView(nameof(AggregatorUpdateObjectTest.Details), detailView, true);
+
+                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(AggregatorUpdateObjectTest), aggregatorView);
+                lcs.LimitFunction = FunctionBuilder.BuildEquals(aggregator.__PrimaryKey);
+
+                DataObject[] objects = dataService.LoadObjects(lcs);
+
+                Assert.True(objects.First().GetStatus() != ObjectStatus.Altered);
+            }
+        }
     }
 }
