@@ -34,5 +34,7 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests =
     [ "BuildInTest431", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#a233faaaf4fcac3f0f516fd844de34ca1", null ],
     [ "BuildInTest432", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#afe9ec13fa4b82b3b427a11b728c48372", null ],
     [ "BuildInTest433", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#ab813bc90613ac39200ff4d50c1a06bda", null ],
-    [ "BuildInTest434", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#a2622c9e5b7851687da8b236df6c1a3dd", null ]
+    [ "BuildInTest434", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#a2622c9e5b7851687da8b236df6c1a3dd", null ],
+    [ "BuildInTest435", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#a04043923808ff333b448205395ab40df", null ],
+    [ "BuildInTest436", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in4_tests.html#af07f4638f2a000cf2b5eac5109cb04ba", null ]
 ];

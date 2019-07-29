@@ -32,5 +32,14 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests 
     [ "ParseObjectTest29", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a5fee88c7baed089fd95774a536daffdf", null ],
     [ "ParseObjectTest30", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#af48e2387cd90d5d6d4089afbc34454b1", null ],
     [ "ParseObjectTest31", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#aaefb1799c7453f84def0a7a725b4e770", null ],
-    [ "ParseObjectTest32", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a4ab864d74f5beab5f1366d6263b2f77f", null ]
+    [ "ParseObjectTest32", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a4ab864d74f5beab5f1366d6263b2f77f", null ],
+    [ "ParseObjectTest33", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a42c5b6f9185bb78f6fd6d5bcef5a19f2", null ],
+    [ "ParseObjectTest34", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a01fdd8bda19b2795fb8f9c58b28d5d62", null ],
+    [ "ParseObjectTest35", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a1e6f0c89c7ad774fcdcaaca1ccda42aa", null ],
+    [ "ParseObjectTest36", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a6d669dfc61715a54c5c6a9d43315d995", null ],
+    [ "ParseObjectTest37", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a04e45c43f377cbd04ed5a4380579e37e", null ],
+    [ "ParseObjectTest38", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a2cf83b070591d0b1d217cdff7da6639c", null ],
+    [ "ParseObjectTest39", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#afe2ac8ac2f8773cd815983c61ec87156", null ],
+    [ "ParseObjectTest40", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a9964778b7cf8c88925ba8134ccdd8c00", null ],
+    [ "ParseObjectTest41", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html#a8b853182d9ff4a2b22da87ed76ec1b51", null ]
 ];

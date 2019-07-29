@@ -6,7 +6,7 @@ var searchData=
   ['testdataobjectdetail',['TestDataObjectDetail',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_detail.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['testdataobjectvalidator',['TestDataObjectValidator',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_test_data_object_validator.html',1,'NewPlatform::Flexberry::ORM::Validation']]],
   ['testdynamicview',['TestDynamicView',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_dynamic_view.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
-  ['testlcsqueryprovider_3c_20t_20_3e',['TestLcsQueryProvider&lt; T &gt;',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_lcs_query_provider_3_01_t_01_4.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
+  ['testlcsqueryprovider',['TestLcsQueryProvider',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_lcs_query_provider.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
   ['testlinqoperations',['TestLinqOperations',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_test_linq_operations.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
   ['testlinqprovider',['TestLinqProvider',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_linq_provider.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['testlinqproviderlogicforodata',['TestLinqProviderLogicForOData',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_test_linq_provider_logic_for_o_data.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests::LINQProvider']]],

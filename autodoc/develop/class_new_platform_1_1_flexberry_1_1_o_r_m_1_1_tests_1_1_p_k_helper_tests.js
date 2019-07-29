@@ -50,6 +50,7 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests =
     [ "GetKeysSimpleIEnumerableDataObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#acb3e01646d2713750b0423c92b14d3ed", null ],
     [ "GetKeysSimpleIEnumerableGuid", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#af79b522c81da9fe4830bd50b4fcba19d", null ],
     [ "GetKeysSimpleIEnumerableKeyGuid", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#a86e8ad8fb26740b48079a3863bff3049", null ],
+    [ "GetKeysSimpleIEnumerableNullableGuid", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#a732de657fb38aefb164f683107de7bdd", null ],
     [ "GetKeysSimpleIEnumerableObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#af5917b516f1c24c94c06729dd43b7eb6", null ],
     [ "GetKeysSimpleIEnumerableString", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#acf561e88c3e7abe3ed0559af69f22a95", null ],
     [ "GetKeysSimpleParamsDataObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html#acd0f761b8529ed9de1cea02ea7f77816", null ],

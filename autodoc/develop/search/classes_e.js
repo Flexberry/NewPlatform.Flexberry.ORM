@@ -6,7 +6,7 @@ var searchData=
   ['parseobjecttests',['ParseObjectTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['partlieddate',['PartliedDate',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_partlied_date.html',1,'ICSSoft::STORMNET::UserDataTypes']]],
   ['partlieddatetransformer',['PartliedDateTransformer',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_partlied_date_transformer.html',1,'ICSSoft::STORMNET::UserDataTypes']]],
-  ['pkcomparer_3c_20t_20_3e',['PKComparer&lt; T &gt;',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_p_k_comparer_3_01_t_01_4.html',1,'ICSSoft::STORMNET']]],
+  ['pkcomparer',['PKComparer',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_p_k_comparer.html',1,'ICSSoft::STORMNET']]],
   ['pkcomparertest',['PKComparerTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_comparer_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['pkhelper',['PKHelper',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_p_k_helper.html',1,'ICSSoft::STORMNET']]],
   ['pkhelpertests',['PKHelperTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_p_k_helper_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
@@ -26,7 +26,7 @@ var searchData=
   ['propertyusingtypes',['PropertyUsingTypes',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_property_using_types.html',1,'ICSSoft::STORMNET::Business']]],
   ['propsource',['PropSource',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_source.html',1,'ICSSoft::STORMNET::Business::StorageStructForView']]],
   ['propstorage',['PropStorage',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_storage.html',1,'ICSSoft::STORMNET::Business::StorageStructForView']]],
-  ['pseudodetail_3c_20t_2c_20tp_20_3e',['PseudoDetail&lt; T, TP &gt;',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail_3_01_t_00_01_t_p_01_4.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
+  ['pseudodetail',['PseudoDetail',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['pseudodetailinextendedview',['PseudoDetailInExtendedView',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_pseudo_detail_in_extended_view.html',1,'ICSSoft::STORMNET']]],
   ['publishnameattribute',['PublishNameAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_publish_name_attribute.html',1,'ICSSoft::STORMNET']]]
 ];
