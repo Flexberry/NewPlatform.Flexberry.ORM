@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+- `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
 
 ### Changed
 
