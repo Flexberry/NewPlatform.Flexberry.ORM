@@ -129,6 +129,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ICSSoft.STORMNET.Business\GetTypeTests.cs" />
     <Compile Include="NewPlatform.Flexberry.ORM.CurrentUserService\CurrentUserServiceTest.cs" />
     <Compile Include="NewPlatform.Flexberry.ORM.CurrentUserService\ExtensionsTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditClassSettingsLoaderTest.cs" />
