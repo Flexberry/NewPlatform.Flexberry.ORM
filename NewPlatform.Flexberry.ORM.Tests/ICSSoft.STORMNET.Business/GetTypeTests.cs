@@ -4,14 +4,24 @@
 
     using Xunit;
 
+    /// <summary>
+    /// Класс для тестирования получения типов по его наименованию.
+    /// </summary>
     public class GetTypeTests
     {
-        [Fact]
-        public void GetIDataServiceTypeTest()
+        /// <summary>
+        /// Тест получения типа по его наименованию.
+        /// </summary>
+        /// <param name="typeName">наименование типа.</param>
+        [Theory]
+        [InlineData("ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45")]
+        public void GetTypeTest(string typeName)
         {
-            string typeNameForIDataService = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
-            Type iDataServiceType = Type.GetType(typeNameForIDataService);
-            Assert.NotNull(iDataServiceType);
+            // Act.
+            Type result = Type.GetType(typeName);
+
+            // Assert.
+            Assert.NotNull(result);
         }
     }
 }
