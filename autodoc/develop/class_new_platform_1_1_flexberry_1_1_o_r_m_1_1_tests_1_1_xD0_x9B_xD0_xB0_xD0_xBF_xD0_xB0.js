@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0 =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views" ],
     [ "БылиЛиПереломы", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0.html#a69aaf04c9296541f980c5a237e63e6db", null ],
     [ "ДатаРождения", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0.html#a3a9cc80e3e0c33f31ac0ee72895cd98a", null ],
     [ "Кошка", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0.html#ad01cd87de66bed655a0c1fd3c7385ac5", null ],

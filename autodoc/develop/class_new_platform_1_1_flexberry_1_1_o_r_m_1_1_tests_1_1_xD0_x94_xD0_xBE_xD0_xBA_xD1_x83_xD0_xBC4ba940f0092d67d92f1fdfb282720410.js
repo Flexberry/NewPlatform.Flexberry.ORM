@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBC4ba940f0092d67d92f1fdfb282720410 =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63" ],
     [ "Конкурс", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBC4ba940f0092d67d92f1fdfb282720410.html#aa7a7b71b916ce466593c1366b6b5a8d4", null ],
     [ "Файл", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBC4ba940f0092d67d92f1fdfb282720410.html#ab2ee264574d06747e3e246578da0a252", null ]
 ];

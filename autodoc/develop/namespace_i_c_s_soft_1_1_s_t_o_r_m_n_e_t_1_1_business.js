@@ -8,8 +8,8 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business =
     [ "AdvansedColumn", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column" ],
     [ "BusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server" ],
     [ "BusinessServerAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_attribute.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_attribute" ],
-    [ "BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", null ],
-    [ "BusinessTaskMonitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor.html", null ],
+    [ "BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider" ],
+    [ "BusinessTaskMonitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor" ],
     [ "CantApplyBusinessServerAttributeWithNotBusinessServiceTypeException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_cant_apply_business_server_attribute_with_6207d43f91dd4c894e1d5a3f06125e44.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_cant_apply_business_server_attribute_with_6207d43f91dd4c894e1d5a3f06125e44" ],
     [ "ColumnsSortDef", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_columns_sort_def.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_columns_sort_def" ],
     [ "ConfigResolver", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver" ],
@@ -20,6 +20,7 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business =
     [ "DataServiceWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper" ],
     [ "DRDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_d_r_data_service.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_d_r_data_service" ],
     [ "ExecutingQueryException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception" ],
+    [ "FlexLinqExtensions", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_flex_linq_extensions.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_flex_linq_extensions" ],
     [ "GenerateSQLSelectQueryEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args" ],
     [ "IBusinessTaskMonitor", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_business_task_monitor.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_business_task_monitor" ],
     [ "IConfigResolver", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_config_resolver.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_config_resolver" ],
@@ -41,6 +42,6 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business =
     [ "StorageStructForView", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view" ],
     [ "StringKeyGen", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_string_key_gen.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_string_key_gen" ],
     [ "UpdaterObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object" ],
-    [ "Utils", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils.html", null ],
+    [ "Utils", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils" ],
     [ "XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service" ]
 ];

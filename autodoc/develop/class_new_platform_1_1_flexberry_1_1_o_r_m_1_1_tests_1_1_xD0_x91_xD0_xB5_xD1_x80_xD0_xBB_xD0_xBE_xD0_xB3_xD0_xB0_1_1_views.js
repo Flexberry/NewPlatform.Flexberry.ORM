@@ -1,0 +1,5 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0_1_1_views =
+[
+    [ "LoadTestView", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0_1_1_views.html#aca72cb8cce6f42b52bdc9e937eba0c04", null ],
+    [ "БерлогаE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x91_xD0_xB5_xD1_x80_xD0_xBB_xD0_xBE_xD0_xB3_xD0_xB0_1_1_views.html#aae59b11b19f0d7538680c609b683fd2d", null ]
+];

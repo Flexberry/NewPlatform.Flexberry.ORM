@@ -3,6 +3,7 @@ var searchData=
   ['parametercountexception',['ParameterCountException',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_parameter_count_exception.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],
   ['parameterdef',['ParameterDef',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_parameter_def.html',1,'ICSSoft::STORMNET::Windows::Forms']]],
   ['paramset',['ParamSet',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_param_set.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
+  ['paramsutils',['ParamsUtils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_params_utils.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['parseobjecttests',['ParseObjectTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parse_object_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['partlieddate',['PartliedDate',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_partlied_date.html',1,'ICSSoft::STORMNET::UserDataTypes']]],
   ['partlieddatetransformer',['PartliedDateTransformer',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_partlied_date_transformer.html',1,'ICSSoft::STORMNET::UserDataTypes']]],
@@ -27,6 +28,8 @@ var searchData=
   ['propsource',['PropSource',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_source.html',1,'ICSSoft::STORMNET::Business::StorageStructForView']]],
   ['propstorage',['PropStorage',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_storage.html',1,'ICSSoft::STORMNET::Business::StorageStructForView']]],
   ['pseudodetail',['PseudoDetail',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
+  ['pseudodetailconsts',['PseudoDetailConsts',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail_consts.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
+  ['pseudodetailextension',['PseudoDetailExtension',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail_extension.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['pseudodetailinextendedview',['PseudoDetailInExtendedView',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_pseudo_detail_in_extended_view.html',1,'ICSSoft::STORMNET']]],
   ['publishnameattribute',['PublishNameAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_publish_name_attribute.html',1,'ICSSoft::STORMNET']]]
 ];

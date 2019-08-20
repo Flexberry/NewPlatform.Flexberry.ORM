@@ -1,6 +1,7 @@
 var searchData=
 [
   ['nameobjectcollection',['NameObjectCollection',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a599008d4f587f804d57db59ef3aa3e2e',1,'ICSSoft.STORMNET.Collections.NameObjectCollection.NameObjectCollection()'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a0d46126815154d04125fd8da8a319642',1,'ICSSoft.STORMNET.Collections.NameObjectCollection.NameObjectCollection(SerializationInfo info, StreamingContext context)']]],
+  ['new',['New',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_fast_allocator.html#a637fec630f8409c0eac60188d639d783',1,'ICSSoft::STORMNET::FastAllocator']]],
   ['neweventargs',['NewEventArgs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_new_event_args.html#a7c324d90d9b5a63a947fe3157a2ad4f7',1,'ICSSoft.STORMNET.UI.NewEventArgs.NewEventArgs(Type type, string contpath)'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_new_event_args.html#af298c588f279e0aecafaf8452601ce28',1,'ICSSoft.STORMNET.UI.NewEventArgs.NewEventArgs(Type type, string contpath, object tag)']]],
   ['neweventargshandler',['NewEventArgsHandler',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a740704585653249e9a4c4415f44f441b',1,'ICSSoft::STORMNET::UI']]],
   ['newguid',['NewGuid',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a241f6fd05f4f9e4d928c6e5cdbfe1acf',1,'ICSSoft::STORMNET::KeyGen::KeyGuid']]],

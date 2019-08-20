@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object_1_1_views" ],
     [ "BirthDate", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html#a26d19da9089446c5bc65e0026b99b875", null ],
     [ "DeathDate", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html#abf469526c2dbf8b0891af31b91d741e8", null ],
     [ "Height", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html#a1dfb231b0bdc532435b6270bb70cb309", null ],

@@ -1,0 +1,7 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views =
+[
+    [ "k_ТипЛапыE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views.html#a762ad3c1275a718bf1b2c9a6b16af3cf", null ],
+    [ "k_ТипЛапыL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views.html#a3f08c04226876158c8ef1e42c4d886b8", null ],
+    [ "ТипЛапыE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views.html#a9e8dec6b8557ebdd6503ccc2d1942a89", null ],
+    [ "ТипЛапыL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA2_xD0_xB8_xD0_xBF_xD0_x9B_xD0_xB0_xD0_xBF_xD1_x8B_1_1_views.html#ad07c1e4b84c6328b95e4ab74595d62e5", null ]
+];

@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['year2011',['Year2011',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca61dda183ffde2f19c5d0b810cc53202a',1,'NewPlatform::Flexberry::ORM::Tests']]],
-  ['year2012',['Year2012',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca274c9b86a8d324d7d77f2a4a65549d7e',1,'NewPlatform::Flexberry::ORM::Tests']]],
-  ['year2013',['Year2013',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca3f069524b6cf93b1e8db302f0cb4f3f0',1,'NewPlatform::Flexberry::ORM::Tests']]],
-  ['year2014',['Year2014',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a5034068b0487846ce7a92516f2003d0ca32f4a06637b9e5d2f9796a1c3c99c19e',1,'NewPlatform::Flexberry::ORM::Tests']]],
-  ['year9998',['Year9998',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaa4e8dffed4b7651ef882b57830ee67d72',1,'NewPlatform::Flexberry::ORM::Tests']]],
-  ['year9999',['Year9999',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a923640f9e8dc2d3db5ad7b1e21a68caaa2847c519bf036740f9ac0339a0141e92',1,'NewPlatform::Flexberry::ORM::Tests']]]
+  ['web',['Web',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aac6e190b284633c48e39e55049da3cce8',1,'ICSSoft::STORMNET::Business::Audit']]],
+  ['win',['Win',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aa119eac47719cc9be7b99124712e229da',1,'ICSSoft::STORMNET::Business::Audit']]],
+  ['withrelated',['WithRelated',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html#a6e1218d3c479bac73f0970b787d83bd7a476e0443f795d3960d059988af46cbec',1,'ICSSoft::STORMNET::View']]]
 ];

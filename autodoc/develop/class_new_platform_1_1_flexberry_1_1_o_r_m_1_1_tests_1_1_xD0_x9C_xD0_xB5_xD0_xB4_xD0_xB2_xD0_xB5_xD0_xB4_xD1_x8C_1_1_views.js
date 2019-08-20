@@ -1,0 +1,9 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views =
+[
+    [ "LoadTestView", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html#ad99585174d69ea6e0d24613faaf06140", null ],
+    [ "OrderNumberTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html#a19b9e08d62b7f34268b240d5434bf324", null ],
+    [ "МедведьE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html#a7942dbea4f68c8c8447c67eb29228d64", null ],
+    [ "МедведьL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html#a6fb3d299c716ae6d8ea50125f3401e21", null ],
+    [ "МедведьShort", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html#aab6dd197b04f365aa0289ea166d42166", null ],
+    [ "МедведьСДелейломИВычислимымСвойством", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB5_xD0_xB4_xD1_x8C_1_1_views.html#ae831f7d24a05893f5d914bd57dd2ee9c", null ]
+];

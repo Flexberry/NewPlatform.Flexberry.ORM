@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hierarchicalstorage',['HierarchicalStorage',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a6777f5318e4032f2091be8cca300ea87a5819cd8f658ff9628a05722f8f23face',1,'ICSSoft::STORMNET::Business']]]
+  ['gost',['Gost',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_transliteration.html#aacbd087597f70cc7326c175ddd0811bda29531b875d246284dd84bdb7ade9aea0',1,'ICSSoft::STORMNET::Tools::Transliteration']]]
 ];

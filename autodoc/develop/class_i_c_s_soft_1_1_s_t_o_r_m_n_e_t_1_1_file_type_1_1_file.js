@@ -10,6 +10,8 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file =
     [ "GetTypeCode", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#abcbe171a2218f86acda3a2575a6d7dec", null ],
     [ "GetUnzippedFile", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#a7b7460efc8bcf50cfda83f8689ae21e3", null ],
     [ "InitializeByState", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#a4e2de2107c0675bf9603c208a0861ec0", null ],
+    [ "operator File", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#ad3248ee2e4c907dbd0325f07a093bb49", null ],
+    [ "operator string", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#ac5b89ba9713d8652a3bfb812a79dc7b1", null ],
     [ "SetZippedValue", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#a9e04abba4a02f16aaec5cbd5c1a3a5eb", null ],
     [ "ToBoolean", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#a56ccfa6a0ef3ce3ab289153cefe6a4b7", null ],
     [ "ToByte", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_file_type_1_1_file.html#ad46777950a9195d2a138b71e8c608cf0", null ],

@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1 =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1_1_1_views" ],
     [ "PoleBool", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#aea2e04aa319cb3376b9351468be7e6c8", null ],
     [ "PoleChar", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#a76e542c7ffc019aedbd19d3f453e14a4", null ],
     [ "PoleDateTime", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_master1.html#a3de73908ec3f03f3d08d9214eb3c5f23", null ],

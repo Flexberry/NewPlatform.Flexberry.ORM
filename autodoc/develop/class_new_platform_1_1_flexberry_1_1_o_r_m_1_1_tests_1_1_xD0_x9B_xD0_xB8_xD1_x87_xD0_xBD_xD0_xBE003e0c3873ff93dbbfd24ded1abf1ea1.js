@@ -1,0 +1,5 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1 =
+[
+    [ "ЛичностьE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html#a38316aa9aeb1fae2c2b0187b016c7157", null ],
+    [ "ЛичностьL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html#afa5a39d6583a95b3cad08417445d3956", null ]
+];

@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class_1_1_views" ],
     [ "DetailClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class.html#a4f5592f12e6862bfc9aec77b96717f62", null ],
     [ "InformationTestClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class.html#ad67bad12b40426c46dbfc9d896d9fefe", null ],
     [ "InformationTestClass2", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_master_class.html#acfe4601f08b6db5294f70fca55bd8455", null ],

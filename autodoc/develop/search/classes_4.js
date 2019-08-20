@@ -9,6 +9,7 @@ var searchData=
   ['enumcaption',['EnumCaption',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html',1,'ICSSoft::STORMNET']]],
   ['enumcaptiontest',['EnumCaptionTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_enum_caption_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['equivalencemethods',['EquivalenceMethods',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_equivalence_methods.html',1,'ICSSoft::STORMNET::Tests::TestClasses::DataObject']]],
+  ['errorprocesser',['ErrorProcesser',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_error_processer.html',1,'ICSSoft::STORMNET::Business::Audit::HelpStructures']]],
   ['event',['Event',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_event.html',1,'ICSSoft::STORMNET::UserDataTypes']]],
   ['eventargcatchertypeattribute',['EventArgCatcherTypeAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_event_arg_catcher_type_attribute.html',1,'ICSSoft::STORMNET']]],
   ['eventtest',['EventTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_event_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::UserDataTypes']]],

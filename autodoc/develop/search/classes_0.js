@@ -11,6 +11,7 @@ var searchData=
   ['allowallassemblyversionsdeserializationbinder',['AllowAllAssemblyVersionsDeserializationBinder',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_allow_all_assembly_versions_deserialization_binder.html',1,'ICSSoft::STORMNET::Tools']]],
   ['apparatus2',['Apparatus2',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_apparatus2.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['arrayoperations',['ArrayOperations',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_array_operations.html',1,'ICSSoft::STORMNET::Collections']]],
+  ['assemblyloader',['AssemblyLoader',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_assembly_loader.html',1,'ICSSoft::STORMNET::Tools']]],
   ['assemblystorageattribute',['AssemblyStorageAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_assembly_storage_attribute.html',1,'ICSSoft::STORMNET']]],
   ['associateddetailviewattribute',['AssociatedDetailViewAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_associated_detail_view_attribute.html',1,'ICSSoft::STORMNET']]],
   ['asyncauditcontroller',['AsyncAuditController',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_async_audit_controller.html',1,'ICSSoft::STORMNET::Business::Audit']]],

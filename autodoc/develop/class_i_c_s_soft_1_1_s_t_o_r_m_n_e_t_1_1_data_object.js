@@ -50,6 +50,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object =
     [ "ToStringForAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a29b92a3df824f426fff90f5a014a4ff7", null ],
     [ "UnLockObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#acc85dca307caeac559db3538ad39cb0b", null ],
     [ "bInGetInitializedProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a4e3a51f3cdc2593f2a9343ae622e85c7", null ],
+    [ "GetPresentationValueDelegate", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a99b9557cd8562840f008bcb1029758c4", null ],
     [ "IsDataCopy", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a6598b96584bf257b7cdaedb8bf809261", null ],
     [ "PrimaryKeyIsUnique", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#abbc05430915ab8038958d7389c5a6372", null ],
     [ "__PrimaryKey", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html#a0aef4eb9e1dfc6488e26658e66d1690a", null ],

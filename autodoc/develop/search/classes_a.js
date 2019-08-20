@@ -7,6 +7,7 @@ var searchData=
   ['lcsqueryprovider',['LcsQueryProvider',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query_provider.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['linqodataservicetest',['LinqODataServiceTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_o_data_service_test.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests::LINQProvider']]],
   ['linqprovidertest',['LINQProviderTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_l_i_n_q_provider_1_1_l_i_n_q_provider_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::LINQProvider']]],
+  ['linqtolcs',['LinqToLcs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['linqtolcsbooleantest',['LinqToLcsBooleanTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
   ['linqtolcschainwheretest',['LinqToLcsChainWhereTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_chain_where_test.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests::LINQProvider']]],
   ['linqtolcscomplextest',['LinqToLcsComplexTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_complex_test.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],

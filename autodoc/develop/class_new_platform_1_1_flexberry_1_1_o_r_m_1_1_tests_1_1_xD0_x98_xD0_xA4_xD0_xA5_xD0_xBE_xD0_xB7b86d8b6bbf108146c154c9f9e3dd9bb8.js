@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB7b86d8b6bbf108146c154c9f9e3dd9bb8 =
+[
+    [ "ИФХозДоговораE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xA4_xD0_xA5_xD0_xBE_xD0_xB7b86d8b6bbf108146c154c9f9e3dd9bb8.html#a9d782f8e844ea29a45681c51d4b3163a", null ]
+];

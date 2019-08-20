@@ -16,6 +16,7 @@ var searchData=
   ['toolxml',['ToolXML',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_tool_x_m_l.html',1,'ICSSoft::STORMNET::Tools']]],
   ['toolxmltest',['ToolXMLTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_tools_1_1_tool_x_m_l_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::Tools']]],
   ['toolzip',['ToolZIP',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_tool_z_i_p.html',1,'ICSSoft::STORMNET::Tools']]],
+  ['transliteration',['Transliteration',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_transliteration.html',1,'ICSSoft::STORMNET::Tools']]],
   ['transliterationtest',['TransliterationTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_tools_1_1_transliteration_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::Tools']]],
   ['treevisitorstacksholder',['TreeVisitorStacksHolder',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tree_visitor_stacks_holder.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['trimmedstringstorageattribute',['TrimmedStringStorageAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_trimmed_string_storage_attribute.html',1,'ICSSoft::STORMNET']]],

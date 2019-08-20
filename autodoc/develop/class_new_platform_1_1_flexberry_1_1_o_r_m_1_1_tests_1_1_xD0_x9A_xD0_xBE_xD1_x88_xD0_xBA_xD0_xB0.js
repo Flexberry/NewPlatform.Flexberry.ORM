@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0 =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0_1_1_views" ],
     [ "Агрессивная", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0.html#a5fd17ec17d59b6ed47869a5d114decba", null ],
     [ "ДатаРождения", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0.html#a046df87887a8f72579fc6cd0d2826c69", null ],
     [ "Кличка", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD0_xBE_xD1_x88_xD0_xBA_xD0_xB0.html#ab7524428c2bf5ba4756efee887ba279c", null ],

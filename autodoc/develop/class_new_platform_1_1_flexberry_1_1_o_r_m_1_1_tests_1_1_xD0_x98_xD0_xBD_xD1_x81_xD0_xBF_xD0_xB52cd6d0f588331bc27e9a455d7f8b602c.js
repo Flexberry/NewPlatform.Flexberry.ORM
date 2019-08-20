@@ -1,0 +1,5 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xBD_xD1_x81_xD0_xBF_xD0_xB52cd6d0f588331bc27e9a455d7f8b602c =
+[
+    [ "ИнспекторПоКредитуViewE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xBD_xD1_x81_xD0_xBF_xD0_xB52cd6d0f588331bc27e9a455d7f8b602c.html#ab4039fda42d6ab0871ee2a031a63dd88", null ],
+    [ "ИнспекторПоКредитуViewL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD0_xBD_xD1_x81_xD0_xBF_xD0_xB52cd6d0f588331bc27e9a455d7f8b602c.html#a4aeecbec76420dbb55fe583593673e0a", null ]
+];

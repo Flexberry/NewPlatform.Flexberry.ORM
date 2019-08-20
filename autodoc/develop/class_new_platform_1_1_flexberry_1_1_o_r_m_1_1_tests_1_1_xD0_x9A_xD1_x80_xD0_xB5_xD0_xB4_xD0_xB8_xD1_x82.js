@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82 =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views" ],
     [ "ВидКредита", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#aa4c3ab3672234b3187600778def453d3", null ],
     [ "Выплаты", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#a54b98189d75f8591188cc16072be5ca4", null ],
     [ "ДатаВыдачи", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#a33e9fa5b34dc139dd84fd7e09139f20e", null ],

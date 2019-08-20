@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator_1_1_views" ],
     [ "FullTypesDetail1", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator.html#a58e64994984d4815b8f883405f218005", null ],
     [ "FullTypesDetail2", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator.html#a26d3665ebc8d7635a213e4d19364d63c", null ],
     [ "FullTypesMaster1", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_main_agregator.html#ade646dbeabed53234204e1ac5cbe0827", null ],

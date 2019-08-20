@@ -20,5 +20,6 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1 =
     [ "BuildNotInTest504", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html#a2a4d0fed90738fd1a2f752813931aa1b", null ],
     [ "BuildNotInTest510", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html#aa2db354ddbd9fb9008ce909e60b9ba90", null ],
     [ "BuildNotInTest511", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html#a9dae52feeb52f1d660850365f147fb17", null ],
-    [ "BuildNotInTest512", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html#ad237c3b32f7b7fc35736baaad82680d7", null ]
+    [ "BuildNotInTest512", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html#ad237c3b32f7b7fc35736baaad82680d7", null ],
+    [ "FuncNotFalse", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_in1.html#a50cd7ecb07e678c5525738161a5d440d", null ]
 ];

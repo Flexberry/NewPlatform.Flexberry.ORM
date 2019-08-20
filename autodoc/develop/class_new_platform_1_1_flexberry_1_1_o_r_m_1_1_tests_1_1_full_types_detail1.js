@@ -1,6 +1,6 @@
 var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1 =
 [
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1_1_1_views.html", null ],
+    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1_1_1_views.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1_1_1_views" ],
     [ "FullTypesMainAgregator", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a8bb11580d24bbf83d47a8740d0a0bcaf", null ],
     [ "PoleBool", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a53ffb1fa72d675ce65cfebe48909fc69", null ],
     [ "PoleChar", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a8acaf30d1eb2c7a5db70f69352e98c44", null ],

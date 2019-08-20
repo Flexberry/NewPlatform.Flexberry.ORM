@@ -9,5 +9,8 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_tes
     [ "ParamNameExceptions", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ad76a7aa1cbc09a3760d3ff67bf97e00b", null ],
     [ "ParamNameSender", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a0300d619351e32772de9d4d6a5d74145", null ],
     [ "ParamNameWorking", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a935a8ca40c10bddc34cb93604837de4b", null ],
-    [ "WorkerMethod", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ac21cbfb0e125949e507234a97006ed84", null ]
+    [ "WorkerMethod", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ac21cbfb0e125949e507234a97006ed84", null ],
+    [ "Working", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#aa91259a15d0766f2bf8fecabdc7bd97e", null ],
+    [ "WorkingData", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a17b483f84abf5f8dc947e5304af46d51", null ],
+    [ "WorkingSpeed", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a0e337feeaeb7d0de4378774727c70b97", null ]
 ];

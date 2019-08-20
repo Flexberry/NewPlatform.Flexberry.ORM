@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ВДоступеОтказать',['ВДоступеОтказать',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security.html#a82a0dec7ff99b8c16950e6a0e1559d19a438023c89ab897dd5d86c26140effeee',1,'ICSSoft::STORMNET::Security']]]
+  ['Автокредит',['Автокредит',['../namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests.html#a645b15cb4fb027b0a0a7dd9c1e9bb0efa2a06efcb9889db6b5fe396ffb1191be8',1,'NewPlatform::Flexberry::ORM::Tests']]]
 ];

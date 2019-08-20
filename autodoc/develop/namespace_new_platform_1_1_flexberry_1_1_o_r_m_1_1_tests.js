@@ -10,7 +10,7 @@ var namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests =
     [ "AuditMasterMasterObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_master_master_object.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_master_master_object" ],
     [ "AuditMasterObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_master_object.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_audit_master_object" ],
     [ "BaseFunctionTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_function_test.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_function_test" ],
-    [ "BaseTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html", null ],
+    [ "BaseTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test" ],
     [ "BuildAndTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests" ],
     [ "BuildBetweenTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_between_tests.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_between_tests" ],
     [ "BuildCompareTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_compare_tests.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_compare_tests" ],

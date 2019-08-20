@@ -14,6 +14,8 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function =
     [ "GetHashCode", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#a38cd8df179ed4209d65419efafc655f5", null ],
     [ "GetLimitProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#a8d88241bf067109826f3002dd1fe8c20", null ],
     [ "GetObjectData", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#a9a1f1931b94f84ee57db251f8a2803e9", null ],
+    [ "operator!=", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#a7354932c9b4bdd872272c1e5823eeba1", null ],
+    [ "operator==", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#a5a5f0f91018475baddaae4b9607a73a0", null ],
     [ "ToString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#a4eb5229a5feb1fd594d045eaf68c7d06", null ],
     [ "ToUserFriendlyString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#ae37c32784b915d95f040de34572604ff", null ],
     [ "FunctionDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html#ae829b5de49782f8f17aebf0820db327b", null ],

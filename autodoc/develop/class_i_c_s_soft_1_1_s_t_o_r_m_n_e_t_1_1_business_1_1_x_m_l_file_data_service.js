@@ -1,6 +1,7 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service =
 [
     [ "AddDataStructForTable", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a54d4caf3355676aeeb3a737f9bdd4058", null ],
+    [ "ChangeType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a12a383da3590652267444ec8119dbdf7", null ],
     [ "ClearDataSet", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a2204f1638552c26b537ecce412eb7497", null ],
     [ "Clone", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a29398235846d3a27051b4878f8f9ab89", null ],
     [ "CollectUpdateData", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#aad13c597caf7fca19a2719e3faca6f4b", null ],
