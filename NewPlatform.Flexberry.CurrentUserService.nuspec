@@ -13,7 +13,7 @@
     <description>Flexberry ORM CurrentUserService package.</description>
     <releaseNotes>
       Fixed
-      1.  Fix getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer
+      1.  Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM</tags>

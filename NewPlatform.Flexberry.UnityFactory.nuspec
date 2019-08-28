@@ -12,8 +12,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Flexberry ORM UnityFactory package.</description>
     <releaseNotes>
+      1. Upgrade Unity to 5.x version.
+      2. [BREAKINGCHANGE] Minimal NetFX version moved upto 4.5.
       Fixed
-      1.  Fix getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer
+      1. Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM Unity</tags>
