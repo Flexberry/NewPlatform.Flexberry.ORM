@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Parsing nullable guids with PKHelper.GetKeys method.
 - Getting property storage name when resolving circular dependencies.
+- Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer
 
 ### Security
 
