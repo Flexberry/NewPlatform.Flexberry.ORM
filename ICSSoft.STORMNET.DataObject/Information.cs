@@ -2144,7 +2144,7 @@
                     prop.MultipleProp = true;
                 }
 
-                if (Information.GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
+                if (GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
                 {
                     spropname = spropname + ".__PrimaryKey";
                 }
@@ -3505,6 +3505,25 @@
                     }
 
                     return res;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Добавить недостающие свойства в представление из выражений нехранимых свойств.
+        /// </summary>
+        /// <param name="dataObjectView">Представление.</param>
+        /// <param name="dsType">Тип сервиса данных.</param>
+        public static void AppendPropertiesFromNotStored(View dataObjectView, Type dsType)
+        {
+            var notStoredProps = dataObjectView.Properties.Where(p => !IsStoredProperty(dataObjectView.DefineClassType, p.Name));
+            foreach (var notStoredProp in notStoredProps)
+            {
+                string expression = GetPropertyExpression(dataObjectView.DefineClassType, notStoredProp.Name, dsType);
+                if (!string.IsNullOrEmpty(expression))
+                {
+                    var propertiesInExpression = GetPropertiesInExpression(expression, string.Empty);
+                    dataObjectView.AddProperties(propertiesInExpression);
                 }
             }
         }
