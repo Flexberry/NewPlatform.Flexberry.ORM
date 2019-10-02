@@ -25,7 +25,7 @@
                 {
                     if (kvp.Value.Approvement)
                     {
-                        recorder.AppendLine(kvp.Value.Query);
+                        recorder.AppendLine(kvp.Value.Query + ";");
                     }
                 }
 
@@ -34,10 +34,13 @@
         }
 
         /// <summary>
-        /// Все запросы будем писать в массив для того, чтобы подтверждать выполнение (Если что-то упало, то такой запрос нам не нужен).
+        /// Все запросы будем писать в массив для того, чтобы подтверждать выполнение (если что-то упало, то такой запрос нам не нужен).
         /// </summary>
         private static Dictionary<object, QueryWithApprovement> _queries = new Dictionary<object, QueryWithApprovement>();
 
+        /// <summary>
+        /// Очистить внутренний массив запросов.
+        /// </summary>
         public static void Clear()
         {
             lock (_lockConst)
