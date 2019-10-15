@@ -588,6 +588,29 @@
         }
 
         /// <summary>
+        /// Тестовый метод для проверки удаления мастера со сменой ссылок на него у связанных с ним ассоциацией объектов.
+        /// </summary>
+        [Fact]
+        public void DeleteUpdateAssociatedMasterTest()
+        {
+            foreach (var ds in DataServices)
+            {
+                var собачийТипПороды = new ТипПороды() { Название = "Порода собак", ДатаРегистрации = DateTime.Now };
+                var лисьяПорода = new Порода() { Название = "Лисы", ТипПороды = собачийТипПороды };
+                var updateArray = new DataObject[] { лисьяПорода, собачийТипПороды };
+
+                ds.UpdateObjects(ref updateArray);
+
+                var кошачийТипПороды = new ТипПороды() { Название = "Порода кошек", ДатаРегистрации = DateTime.Now };
+                собачийТипПороды.SetStatus(ObjectStatus.Deleted);
+                лисьяПорода.ТипПороды = кошачийТипПороды;
+                updateArray = new DataObject[] { лисьяПорода, собачийТипПороды, кошачийТипПороды };
+
+                ds.UpdateObjects(ref updateArray);
+            }
+        }
+
+        /// <summary>
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>

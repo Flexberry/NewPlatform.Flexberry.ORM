@@ -189,6 +189,53 @@
                     while (go);
 
                     #endregion
+
+                    if (QueryOrder.Count > 0)
+                    {
+                        #region Insert|Delete случай
+
+                        go = true;
+                        do
+                        {
+                            string table = QueryOrder[0];
+                            if (TableOperations.ContainsKey(table))
+                            {
+                                var ops = TableOperations[table];
+
+                                if (ops.ToString() == "Delete, Insert" && UpdateLastQueries.Count == 0)
+                                {
+                                    if (
+                                        (ex = RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException)) == null)
+                                    {
+                                        ops = Minus((OperationType)ops, OperationType.Update);
+                                        TableOperations[table] = ops;
+                                    }
+                                    else
+                                    {
+                                        go = false;
+                                    }
+
+                                    if (go)
+                                    {
+                                        QueryOrder.RemoveAt(0);
+                                        go = QueryOrder.Count > 0;
+                                    }
+                                }
+                                else
+                                {
+                                    go = false;
+                                }
+                            }
+                            else
+                            {
+                                go = false;
+                            }
+                        }
+                        while (go);
+
+                        #endregion
+                    }
+
                     if (QueryOrder.Count > 0)
                     {
                         #region сзади чистые Update
