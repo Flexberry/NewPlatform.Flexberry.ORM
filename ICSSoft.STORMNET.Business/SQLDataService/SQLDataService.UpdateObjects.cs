@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Data;
 
-    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
     using ICSSoft.STORMNET.Security;
@@ -50,7 +49,9 @@
             }
 
             // Перенесли этот метод повыше, потому что строка соединения может быть сменена в бизнес-сервере делегатом смены строки соединения (если что-нибудь почитают).
-            IDbConnection conection = GetConnection();
+            IDbConnection connection = GetConnection();
+            connection.Open();
+            IDbTransaction transaction = CreateTransaction(connection);
 
             var DeleteQueries = new StringCollection();
             var UpdateQueries = new StringCollection();
@@ -68,7 +69,7 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, connection, transaction, objects);
 
             GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
 
@@ -118,17 +119,13 @@
                     AuditOperation(extraProcessingList, auditOperationInfoList); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
                 }
 
-                conection.Open();
-                IDbTransaction trans = null;
-
                 string query = string.Empty;
                 string prevQueries = string.Empty;
                 object subTask = null;
                 try
                 {
-                    trans = CreateTransaction(conection);
-                    IDbCommand command = conection.CreateCommand();
-                    command.Transaction = trans;
+                    IDbCommand command = connection.CreateCommand();
+                    command.Transaction = transaction;
 
                     #region прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -280,34 +277,27 @@
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(trans, this, auditOperationInfoList),
+                            AuditAdditionalInfo.SetNewFieldValuesForList(transaction, this, auditOperationInfoList),
                             this,
                             true);
-                    }
-
-                    if (trans != null)
-                    {
-                        trans.Commit();
                     }
                 }
                 catch (Exception excpt)
                 {
-                    if (trans != null)
-                    {
-                        trans.Rollback();
-                    }
+                    transaction.Rollback();
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
                     }
 
-                    conection.Close();
+                    connection.Close();
                     BusinessTaskMonitor.EndSubTask(subTask);
                     throw new ExecutingQueryException(query, prevQueries, excpt);
                 }
 
-                conection.Close();
+                transaction.Commit();
+                connection.Close();
 
                 var res = new ArrayList();
                 foreach (DataObject changedObject in objects)

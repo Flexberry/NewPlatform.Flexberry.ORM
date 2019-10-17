@@ -4022,9 +4022,6 @@
         /// <param name="mainkey">
         /// Первичный ключ агрегатора детейлов
         /// </param>
-        /// <param name="DeleteOrder">
-        /// The delete order.
-        /// </param>
         /// <param name="updateobjects">
         /// Детейлы, на которые навешены бизнес-сервера
         /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер)
@@ -4038,10 +4035,8 @@
         /// <param name="DataObjectCache">
         /// The data object cache.
         /// </param>
-        /// <param name="processingObjectsKeys">
-        /// Ключи обрабатываемых объектов
-        /// (список содержит первичные ключи объектов, которые уже попали в список на обновление)
-        /// </param>
+        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
+        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
         /// <returns>
         /// Набор объектов, которые необходимо занести в аудит
         /// </returns>
@@ -4052,7 +4047,9 @@
             out DataObject[] updateobjects,
             StringCollection DeleteTables,
             SortedList TableOperations,
-            DataObjectCache DataObjectCache)
+            DataObjectCache DataObjectCache,
+            IDbConnection connection,
+            IDbTransaction transaction)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
@@ -4073,10 +4070,11 @@
 
             if (sq != string.Empty)
             {
+                object state = null;
                 BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
                 if (bs != null && bs.Length > 0)
                 { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                    updateobjects = LoadObjects(cs, DataObjectCache);
+                    updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
                 }
                 else
                 {
@@ -4085,7 +4083,7 @@
                        * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                        * а бизнес-сервера основного объекта уже выполнились.
                        */
-                        DataObject[] detailObjects = LoadObjects(cs);
+                        DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
                         if (detailObjects != null)
                         {
                             foreach (var detailObject in detailObjects)
@@ -4209,6 +4207,8 @@
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
+        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
+        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
         /// <param name="dobjects"> Для чего генерим запросы </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4224,6 +4224,8 @@
             bool checkLoadedProps,
             System.Collections.ArrayList processingObjects,
             DataObjectCache dataObjectCache,
+            IDbConnection connection,
+            IDbTransaction transaction,
             params ICSSoft.STORMNET.DataObject[] dobjects)
         {
             GenerateQueriesForUpdateObjects(
@@ -4240,6 +4242,8 @@
                 checkLoadedProps,
                 processingObjects,
                 dataObjectCache,
+                null,
+                null,
                 null,
                 dobjects);
         }
@@ -4799,9 +4803,11 @@
             string[] props = Information.GetAllPropertyNames(currentType);
 
             // Поиск свойства, в нужном типе.
-            var filterProps = props.Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName);
+            var filterProps = props
+                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
+                .ToList();
 
-            if (filterProps.ToList().Count > 0)
+            if (filterProps.Count > 0)
             {
                 foreach (string prop in filterProps)
                 {
@@ -4877,6 +4883,8 @@
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда
         /// передан не null и текущий сервис аудита включен.</param>
+        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
+        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4893,6 +4901,8 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
+            IDbConnection connection,
+            IDbTransaction transaction,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -5019,7 +5029,7 @@
                             {
                                 DataObject[] detailsObjects;
                                 IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache);
+                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, connection, transaction);
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)
@@ -5650,11 +5660,19 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, connection, transaction, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
 
             OnBeforeUpdateObjects(allQueriedObjects);
+
+            // Сортируем объекты в порядке заданным графом связности.
+            extraProcessingList.Sort((x, y) =>
+            {
+                int indexX = queryOrder.IndexOf(Information.GetClassStorageName(x.GetType()));
+                int indexY = queryOrder.IndexOf(Information.GetClassStorageName(y.GetType()));
+                return indexX.CompareTo(indexY);
+            });
 
             Exception ex = null;
 
@@ -5713,7 +5731,7 @@
 
                         var ops = (OperationType)tableOperations[table];
 
-                        if ((ops & OperationType.Delete) != OperationType.Delete)
+                        if ((ops & OperationType.Delete) != OperationType.Delete && updateLastQueries.Count == 0)
                         {
                             // смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
@@ -5735,10 +5753,7 @@
                             // смотрим есть ли Update
                             if (go && ((ops & OperationType.Update) == OperationType.Update))
                             {
-                                if (
-                                    (ex =
-                                     RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Update);
                                     tableOperations[table] = ops;
@@ -5766,39 +5781,41 @@
                     {
                         // сзади чистые Update
                         go = true;
+                        int queryOrderIndex = queryOrder.Count - 1;
                         do
                         {
-                            string table = queryOrder[queryOrder.Count - 1];
-                            if (!tableOperations.ContainsKey(table))
+                            string table = queryOrder[queryOrderIndex];
+                            if (tableOperations.ContainsKey(table))
                             {
-                                tableOperations.Add(table, OperationType.None);
-                            }
+                                var ops = (OperationType)tableOperations[table];
 
-                            var ops = (OperationType)tableOperations[table];
-                            if (ops == OperationType.Update)
-                            {
-                                if (
-                                    (ex =
-                                     RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if (ops == OperationType.Update && updateLastQueries.Count == 0)
                                 {
-                                    ops = Minus(ops, OperationType.Update);
-                                    tableOperations[table] = ops;
+                                    if (
+                                        (ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
+                                    {
+                                        ops = Minus(ops, OperationType.Update);
+                                        tableOperations[table] = ops;
+                                    }
+                                    else
+                                    {
+                                        go = false;
+                                    }
+
+                                    if (go)
+                                    {
+                                        queryOrderIndex--;
+                                        go = queryOrderIndex >= 0;
+                                    }
                                 }
                                 else
                                 {
                                     go = false;
                                 }
-
-                                if (go)
-                                {
-                                    queryOrder.RemoveAt(queryOrder.Count - 1);
-                                    go = queryOrder.Count > 0;
-                                }
                             }
                             else
                             {
-                                go = false;
+                                queryOrderIndex--;
                             }
                         }
                         while (go);
@@ -5812,15 +5829,14 @@
                         }
                     }
 
-                    for (int i = deleteQueries.Count - 1; i >= 0; i--)
+                    // Удаляем в обратном порядке.
+                    for (int i = queryOrder.Count - 1; i >= 0; i--)
                     {
-                        query = deleteQueries[i];
-                        command.CommandText = query;
-                        CustomizeCommand(command);
-                        subTask = BusinessTaskMonitor.BeginSubTask(query, id);
-                        command.ExecuteNonQuery();
-                        BusinessTaskMonitor.EndSubTask(subTask);
-                        prevQueries += query + "\n \n";
+                        string table = queryOrder[i];
+                        if ((ex = RunCommands(deleteQueries, deleteTables, table, command, id, alwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
                     }
 
                     // а теперь опять с начала
