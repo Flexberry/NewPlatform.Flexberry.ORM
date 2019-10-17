@@ -40,7 +40,10 @@ namespace NewPlatform.Flexberry.ORM.Tests
         public virtual ICSSoft.STORMNET.DataObject[] OnUpdateБерлога(NewPlatform.Flexberry.ORM.Tests.Берлога UpdatedObject)
         {
             // *** Start programmer edit section *** (OnUpdateБерлога)
-            return new ICSSoft.STORMNET.DataObject[0];
+            UpdatedObject.Медведь.ПорядковыйНомер = 66;
+            UpdatedObject.Медведь.ЦветГлаз = "Зелёный";
+
+            return new ICSSoft.STORMNET.DataObject[] { UpdatedObject.Медведь };
             // *** End programmer edit section *** (OnUpdateБерлога)
         }
     }
