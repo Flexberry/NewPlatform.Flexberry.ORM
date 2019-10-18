@@ -16,6 +16,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
+## [5.0.1] - 2019-10-18
+
+### Fixed
+
+1. Fix inconsistent object changes in business server by different array objects order in updateObjects parameter.
 
 ## [5.0.0] - 2018-12-13
 
