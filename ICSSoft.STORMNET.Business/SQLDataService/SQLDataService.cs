@@ -4913,7 +4913,6 @@
             var createdList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
             var alteredList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
             var alteredLastList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
-            var alteredInsertDeleteList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
             var updateList = new Dictionary<DataObject, UpdaterObject>();
 
             List<DataObject> extraUpdateList = new List<DataObject>();
