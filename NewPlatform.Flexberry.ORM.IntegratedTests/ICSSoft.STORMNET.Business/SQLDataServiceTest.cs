@@ -588,6 +588,78 @@
         }
 
         /// <summary>
+        /// Тестовый метод для проверки удаления мастера со сменой ссылок на него у связанных с ним ассоциацией объектов.
+        /// </summary>
+        [Fact]
+        public void DeleteUpdateAssociatedMasterTest()
+        {
+            foreach (var ds in DataServices)
+            {
+                var собачийТипПороды = new ТипПороды() { Название = "Порода собак", ДатаРегистрации = DateTime.Now };
+                var лисьяПорода = new Порода() { Название = "Лисы", ТипПороды = собачийТипПороды };
+                var updateArray = new DataObject[] { лисьяПорода, собачийТипПороды };
+
+                ds.UpdateObjects(ref updateArray);
+
+                var кошачийТипПороды = new ТипПороды() { Название = "Порода кошек", ДатаРегистрации = DateTime.Now };
+                собачийТипПороды.SetStatus(ObjectStatus.Deleted);
+                лисьяПорода.ТипПороды = кошачийТипПороды;
+                updateArray = new DataObject[] { лисьяПорода, собачийТипПороды, кошачийТипПороды };
+
+                ds.UpdateObjects(ref updateArray);
+            }
+        }
+
+        /// <summary>
+        /// Тестовый метод для проверки удаления мастера со сменой ссылок на него у связанных с ним ассоциацией Storage объектов.
+        /// </summary>
+        [Fact]
+        public void DeleteUpdateAssociatedMasterStorageClassTest()
+        {
+            foreach (var ds in DataServices)
+            {
+                var informationTestClass = new InformationTestClass() { StringPropertyForInformationTestClass = "Test3" };
+                var inheritedMasterClass = new InheritedMasterClass() { StringMasterProperty = "Test", InformationTestClass = informationTestClass };
+
+                var updateArray = new DataObject[] { inheritedMasterClass, informationTestClass };
+
+                ds.UpdateObjects(ref updateArray);
+
+                var newInformationTestClass = new InformationTestClass() { StringPropertyForInformationTestClass = "Test33" };
+                informationTestClass.SetStatus(ObjectStatus.Deleted);
+                inheritedMasterClass.InformationTestClass = newInformationTestClass;
+                updateArray = new DataObject[] { inheritedMasterClass, informationTestClass, newInformationTestClass };
+
+                ds.UpdateObjects(ref updateArray);
+            }
+        }
+
+        /// <summary>
+        /// Тестовый метод для проверки удаления Storage мастера со сменой ссылок на него у связанных с ним ассоциацией объектов.
+        /// </summary>
+        [Fact]
+        public void DeleteUpdateAssociatedStorageMasterTest()
+        {
+            foreach (var ds in DataServices)
+            {
+                var источникФинансирования = new ИсточникФинансирования() { НомерИсточникаФинансирования = 100 };
+                var иФХозДоговора = new ИФХозДоговора() { НомерИФХозДоговора = 200, ИсточникФинансирования = источникФинансирования };
+                var xозДоговор = new ХозДоговор() { НомерХозДоговора = 300 };
+                xозДоговор.ИФХозДоговора.Add(иФХозДоговора);
+                var updateArray = new DataObject[] { xозДоговор, иФХозДоговора, источникФинансирования };
+
+                ds.UpdateObjects(ref updateArray);
+
+                var источникФинансирования2 = new ИсточникФинансирования() { НомерИсточникаФинансирования = 400 };
+                источникФинансирования.SetStatus(ObjectStatus.Deleted);
+                иФХозДоговора.ИсточникФинансирования = источникФинансирования2;
+                updateArray = new DataObject[] { иФХозДоговора, источникФинансирования, источникФинансирования2 };
+
+                ds.UpdateObjects(ref updateArray);
+            }
+        }
+
+        /// <summary>
         /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>

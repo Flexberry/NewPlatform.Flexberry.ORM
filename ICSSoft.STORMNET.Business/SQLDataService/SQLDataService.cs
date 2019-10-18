@@ -4209,6 +4209,8 @@
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
+        /// <param name="insertDeleteValue"> Обработка случая когда создается новый мастер и старый удаляется, массив мастеров.</param>
+        /// <param name="updateClassesValue"> Обработка случая когда создается новый мастер и старый удаляется, массив агрегаторов.</param>
         /// <param name="dobjects"> Для чего генерим запросы </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4224,6 +4226,8 @@
             bool checkLoadedProps,
             System.Collections.ArrayList processingObjects,
             DataObjectCache dataObjectCache,
+            StringCollection insertDeleteValue,
+            StringCollection updateClassesValue,
             params ICSSoft.STORMNET.DataObject[] dobjects)
         {
             GenerateQueriesForUpdateObjects(
@@ -4240,6 +4244,8 @@
                 checkLoadedProps,
                 processingObjects,
                 dataObjectCache,
+                insertDeleteValue,
+                updateClassesValue,
                 null,
                 dobjects);
         }
@@ -4875,6 +4881,8 @@
         /// <param name="processingObjects">Текущие обрабатываемые объекты (то есть объекты, которые данный сервис данных планирует подтвердить в БД
         ///  в текущей транзакции). Выходной параметр.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
+        /// <param name="insertDeleteValue">Список типов соответствующих случаю когда создается новый мастер и старый удаляется, массив мастеров.</param>
+        /// <param name="updateClassesValue"> Обработка случая когда создается новый мастер и старый удаляется, массив агрегаторов.</param>
         /// <param name="auditObjects">Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда
         /// передан не null и текущий сервис аудита включен.</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
@@ -4892,6 +4900,8 @@
             bool checkLoadedProps,
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
+            StringCollection insertDeleteValue,
+            StringCollection updateClassesValue,
             List<DataObject> auditObjects,
             params DataObject[] dobjects)
         {
@@ -5168,6 +5178,50 @@
             {
                 // Включем текущий объект в граф зависимостей.
                 GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
+            }
+
+            var processingObjectsIsList = processingObjects.Cast<DataObject>().ToList();
+            var processingObjectsListOnDelete = processingObjectsIsList.Where(t => t.GetStatus() == ObjectStatus.Deleted);
+            var processingObjectsListOnInsert = processingObjectsIsList.Where(t => t.GetStatus() == ObjectStatus.Created);
+            var processingObjectsListOnAltered = processingObjectsIsList.Where(t => t.GetStatus() == ObjectStatus.Altered);
+
+            foreach (DataObject processingObject in processingObjectsListOnAltered)
+            {
+                Type processingObjectType = processingObject.GetType();
+                string[] props = Information.GetAllPropertyNames(processingObjectType);
+
+                foreach (var value in props)
+                {
+                    Type[] propertyTypes = TypeUsage.GetUsageTypes(processingObjectType, value);
+                    foreach (var type in propertyTypes)
+                    {
+                        var objectOnInsert = processingObjectsListOnInsert.FirstOrDefault(t => t.GetType() == type);
+                        var objectOnDelete = processingObjectsListOnDelete.FirstOrDefault(t => t.GetType() == type);
+
+                        if (objectOnInsert != null && objectOnDelete != null)
+                        {
+                            string processingObjectStorageName = Information.GetClassStorageName(processingObjectType);
+                            string processingObjectValue = processingObjectStorageName == string.Empty ? value : processingObjectStorageName;
+
+                            string storageNameClass = Information.GetClassStorageName(objectOnInsert.GetType());
+                            string classValue = storageNameClass == string.Empty ? value : storageNameClass;
+
+                            // Случай когда создается новый мастер и старый удаляется.
+
+                            // Массив имен (или storage) мастера.
+                            if (!insertDeleteValue.Contains(classValue))
+                            {
+                                insertDeleteValue.Add(classValue);
+                            }
+
+                            // Массив имен (или storage) объектов в котором меняяется мастер.
+                            if (!updateClassesValue.Contains(processingObjectValue))
+                            {
+                                updateClassesValue.Add(processingObjectValue);
+                            }
+                        }
+                    }
+                }
             }
 
             // Поиск и разрешение циклов в зависимостях.
@@ -5648,9 +5702,18 @@
 
             var allQueriedObjects = new System.Collections.ArrayList();
 
+            // Случай когда создается новый мастер и старый удаляется.
+            //var InsertDeleteValue = new Dictionary<string, string>();
+
+            // Массив имен (или storage) мастера.
+            var InsertDeleteValue = new StringCollection();
+
+            // Массив имен (или storage) объектов в котором меняяется мастер.
+            var UpdateClassesValue = new StringCollection();
+
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, InsertDeleteValue, UpdateClassesValue, extraProcessingList, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
 

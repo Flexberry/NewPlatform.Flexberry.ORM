@@ -66,9 +66,15 @@
 
             var AllQueriedObjects = new ArrayList();
 
+            // Массив имен (или storage) мастера.
+            var InsertDeleteValue = new StringCollection();
+
+            // Массив имен (или storage) объектов в котором меняяется мастер.
+            var UpdateClassesValue = new StringCollection();
+
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, InsertDeleteValue, UpdateClassesValue, extraProcessingList, objects);
 
             GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
 
@@ -189,6 +195,7 @@
                     while (go);
 
                     #endregion
+
                     if (QueryOrder.Count > 0)
                     {
                         #region сзади чистые Update
@@ -202,7 +209,7 @@
                             {
                                 var ops = (OperationType)TableOperations[table];
 
-                                if (ops == OperationType.Update && UpdateLastQueries.Count == 0)
+                                if (ops == OperationType.Update && UpdateLastQueries.Count == 0 && !UpdateClassesValue.Contains(table))
                                 {
                                     if (
                                         (ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) == null)
@@ -248,7 +255,7 @@
                     for (int i = QueryOrder.Count - 1; i >= 0; i--)
                     {
                         string table = QueryOrder[i];
-                        if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
+                        if (!InsertDeleteValue.Contains(table) && (ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
                         {
                             throw ex;
                         }
@@ -265,6 +272,17 @@
                         if ((ex = RunCommands(UpdateQueries, UpdateTables, table, command, id, AlwaysThrowException)) != null)
                         {
                             throw ex;
+                        }
+                    }
+
+                    if (InsertDeleteValue.Count > 0)
+                    {
+                        foreach (string table in InsertDeleteValue)
+                        {
+                            if ((ex = RunCommands(DeleteQueries, DeleteTables, table, command, id, AlwaysThrowException)) != null)
+                            {
+                                throw ex;
+                            }
                         }
                     }
 
