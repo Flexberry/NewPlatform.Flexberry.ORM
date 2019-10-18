@@ -4796,6 +4796,21 @@
                         }
                     }
                 }
+            }
+
+            for (int i = 0; i < processingObjects.Count; i++)
+            {
+                var processingObject = (DataObject)processingObjects[i];
+
+                UpdaterObject updaterobject = null;
+                if (typeof(UpdaterObject).IsInstanceOfType(processingObject))
+                {
+                    updaterobject = (UpdaterObject)processingObject;
+                    processingObject = updaterobject.TemplateObject;
+                }
+
+                STORMDO.ObjectStatus curObjectStatus = (i < dobjects.Length) ? processingObject.GetStatus() : processingObject.GetStatus(false);
+                Type typeOfProcessingObject = processingObject.GetType();
 
                 switch (curObjectStatus)
                 {
