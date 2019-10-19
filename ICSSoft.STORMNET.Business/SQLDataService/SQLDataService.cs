@@ -2141,21 +2141,22 @@
             }
         }
 
-        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, System.Data.IDbConnection Connection, System.Data.IDbTransaction Transaction)
+        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, IDbConnection Connection, IDbTransaction Transaction)
         {
             object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + Query);
             try
             {
-                System.Data.IDbCommand myCommand = Connection.CreateCommand();
-                myCommand.CommandText = Query;
-                myCommand.Transaction = Transaction;
-                CustomizeCommand(myCommand);
+                using (IDbCommand myCommand = Connection.CreateCommand())
+                {
+                    myCommand.CommandText = Query;
+                    myCommand.Transaction = Transaction;
+                    CustomizeCommand(myCommand);
 
-                // Connection.Open();
-                System.Data.IDataReader myReader = myCommand.ExecuteReader();
-                object[] state = new object[] { Connection, myReader };
-                State = state;
-                return ReadNextByExtConn(ref State, LoadingBufferSize);
+                    // Connection.Open();
+                    IDataReader myReader = myCommand.ExecuteReader();
+                    State = new object[] { Connection, myReader };
+                    return ReadNextByExtConn(ref State, LoadingBufferSize);
+                }
             }
             catch (Exception e)
             {
@@ -2274,7 +2275,6 @@
             }
             else
             {
-                System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
                 myReader.Close();
 
                 // myConnection.Close();
@@ -4035,8 +4035,7 @@
         /// <param name="DataObjectCache">
         /// The data object cache.
         /// </param>
-        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
-        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <returns>
         /// Набор объектов, которые необходимо занести в аудит
         /// </returns>
@@ -4048,8 +4047,7 @@
             StringCollection DeleteTables,
             SortedList TableOperations,
             DataObjectCache DataObjectCache,
-            IDbConnection connection,
-            IDbTransaction transaction)
+            DbTransactionWrapper dbTransactionWrapper)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
@@ -4074,7 +4072,7 @@
                 BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
                 if (bs != null && bs.Length > 0)
                 { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                    updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
+                    updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                 }
                 else
                 {
@@ -4083,7 +4081,7 @@
                        * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                        * а бизнес-сервера основного объекта уже выполнились.
                        */
-                        DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
+                        DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                         if (detailObjects != null)
                         {
                             foreach (var detailObject in detailObjects)
@@ -4207,8 +4205,7 @@
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
-        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
-        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <param name="dobjects"> Для чего генерим запросы </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4224,8 +4221,7 @@
             bool checkLoadedProps,
             System.Collections.ArrayList processingObjects,
             DataObjectCache dataObjectCache,
-            IDbConnection connection,
-            IDbTransaction transaction,
+            DbTransactionWrapper dbTransactionWrapper,
             params ICSSoft.STORMNET.DataObject[] dobjects)
         {
             GenerateQueriesForUpdateObjects(
@@ -4243,8 +4239,7 @@
                 processingObjects,
                 dataObjectCache,
                 null,
-                null,
-                null,
+                dbTransactionWrapper,
                 dobjects);
         }
 
@@ -4883,8 +4878,7 @@
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда
         /// передан не null и текущий сервис аудита включен.</param>
-        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
-        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4901,8 +4895,7 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
-            IDbConnection connection,
-            IDbTransaction transaction,
+            DbTransactionWrapper dbTransactionWrapper,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -5029,7 +5022,7 @@
                             {
                                 DataObject[] detailsObjects;
                                 IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, connection, transaction);
+                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, dbTransactionWrapper);
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)
@@ -5585,7 +5578,7 @@
             return ops & (~value);
         }
 
-        protected virtual System.Data.IDbTransaction CreateTransaction(System.Data.IDbConnection connection)
+        protected virtual IDbTransaction CreateTransaction(IDbConnection connection)
         {
             return connection.BeginTransaction();
         }
@@ -5601,28 +5594,24 @@
         /// </param>
         virtual public void UpdateObjectsOrdered(ref DataObject[] objects, bool alwaysThrowException = true)
         {
-            IDbConnection connection = GetConnection();
-            connection.Open();
-            IDbTransaction transaction = connection.BeginTransaction();
-            var dataObjectCache = new DataObjectCache();
-            try
+            using (var dbTransactionWrapper = new DbTransactionWrapper(this))
             {
-                foreach (DataObject dataObject in objects)
+                var dataObjectCache = new DataObjectCache();
+                try
                 {
-                    DataObject[] dObjs = new[] { dataObject };
-                    UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, connection, transaction);
-                }
+                    foreach (DataObject dataObject in objects)
+                    {
+                        DataObject[] dObjs = new[] { dataObject };
+                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    }
 
-                transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw;
-            }
-            finally
-            {
-                connection.Close();
+                    dbTransactionWrapper.CommitTransaction();
+                }
+                catch (Exception ex)
+                {
+                    dbTransactionWrapper.RollbackTransaction();
+                    throw;
+                }
             }
         }
 
@@ -5644,6 +5633,7 @@
             ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
+            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
             var deleteQueries = new StringCollection();
             var updateQueries = new StringCollection();
             var updateFirstQueries = new StringCollection();
@@ -5660,9 +5650,9 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, connection, transaction, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
-            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
+            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper.Transaction);
 
             OnBeforeUpdateObjects(allQueriedObjects);
 
@@ -5708,7 +5698,7 @@
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
                      * объекты находятся именно в том состоянии, в каком должны были пойти в базу.
                      */
-                    AuditOperation(extraProcessingList, auditOperationInfoList, transaction);
+                    AuditOperation(extraProcessingList, auditOperationInfoList, dbTransactionWrapper.Transaction);
                 }
 
                 string query = string.Empty;
@@ -5716,8 +5706,7 @@
                 object subTask = null;
                 try
                 {
-                    IDbCommand command = connection.CreateCommand();
-                    command.Transaction = transaction;
+                    IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     // прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -5866,7 +5855,7 @@
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(transaction, this, auditOperationInfoList),
+                            AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
                     }
