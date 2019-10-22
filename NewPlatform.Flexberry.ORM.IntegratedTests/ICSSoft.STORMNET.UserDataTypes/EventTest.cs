@@ -7,46 +7,43 @@
     /// <summary>
     /// Класс для тестирования Event.cs.
     /// </summary>
-    
     public class EventTest
     {
         /// <summary>
         /// Проверка явного преобразования Event в string.
         /// </summary>
         [Fact]
-        
         public void EventExplicitEventToStringTest()
         {
             var testEvent = new Event();
-            Assert.Equal((string)testEvent, "<event />");
+            Assert.Equal("<event />", (string)testEvent);
 
             testEvent.Name = "tName";
-            Assert.Equal((string)testEvent, "<event type=\"tName\" />");
+            Assert.Equal("<event type=\"tName\" />", (string)testEvent);
 
             testEvent.Description = "tDescr";
-            Assert.Equal((string)testEvent, "<event type=\"tName\" description=\"tDescr\" />");
+            Assert.Equal("<event type=\"tName\" description=\"tDescr\" />", (string)testEvent);
 
             testEvent.Author = "tAuthor";
-            Assert.Equal((string)testEvent, "<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" />");
+            Assert.Equal("<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" />", (string)testEvent);
 
             testEvent.Place = "tPlace";
-            Assert.Equal((string)testEvent, "<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" />");
+            Assert.Equal("<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" />", (string)testEvent);
 
             testEvent.Category = "tCategory";
-            Assert.Equal((string)testEvent, "<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" />");
+            Assert.Equal("<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" />", (string)testEvent);
 
             testEvent.StartTime = new DateTime(2013, 09, 01);
-            Assert.Equal((string)testEvent, "<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" start=\"2013-09-01T00:00:00\" />");
+            Assert.Equal("<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" start=\"2013-09-01T00:00:00\" />", (string)testEvent);
 
             testEvent.FinishTime = new NullableDateTime { Value = new DateTime(2013, 09, 10) };
-            Assert.Equal((string)testEvent, "<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" start=\"2013-09-01T00:00:00\" finish=\"10.09.2013 0:00:00\" />");
+            Assert.Equal($"<event type=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" start=\"2013-09-01T00:00:00\" finish=\"{testEvent.FinishTime.Value.ToString()}\" />", (string)testEvent);
         }
 
         /// <summary>
         /// Проверка явного преобразования string в Event.
         /// </summary>
         [Fact]
-        
         public void EventExplicitStringToEventTest()
         {
             Assert.Null((Event)String.Empty);
@@ -80,7 +77,7 @@
             Assert.True(ExplicitStringToEventTest(testXml, testEvent));
 
             testEvent.FinishTime = new NullableDateTime { Value = new DateTime(2013, 09, 10) };
-            testXml = "<event name=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" start=\"2013-09-01T00:00:00\" finish=\"10.09.2013 0:00:00\" />";
+            testXml = $"<event name=\"tName\" description=\"tDescr\" author=\"tAuthor\" place=\"tPlace\" category=\"tCategory\" start=\"2013-09-01T00:00:00\" finish=\"{testEvent.FinishTime.Value.ToString()}\" />";
             Assert.True(ExplicitStringToEventTest(testXml, testEvent));
         }
 
