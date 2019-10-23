@@ -1,5 +1,14 @@
 var NAVTREEINDEX2 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a6f0947d1d3082d6ab9123c6161e0125a":[1,0,2,1,0,3,10,4],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a768e9c9523d152cdee442a4a9e729c9a":[1,0,2,1,0,3,10,12],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a9bf04ccb751b578919ecaa8dd8c7f902":[1,0,2,1,0,3,10,3],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#aa05dadfd5b4b71c99883489af0769859":[1,0,2,1,0,3,10,9],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#ab517324b8d7024abadd4e589ddbdfbf5":[1,0,2,1,0,3,10,2],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#ac91e1d323c42fba1958542b69c0af70f":[1,0,2,1,0,3,10,7],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#ae2c7edf42da3ed9ba3a2eea756cb9a38":[1,0,2,1,0,3,10,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#af3885b904615947041bf912d09d1484d":[1,0,2,1,0,3,10,6],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_param_set.html":[1,0,2,1,0,3,11],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_param_set.html#a5625511fc658fdc72746f27bf8916387":[1,0,2,1,0,3,11,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_params_utils.html":[1,0,2,1,0,3,12],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_params_utils.html#a07e2f8fe8ade2427e127a2bfff8459b6":[1,0,2,1,0,3,12,0],
@@ -240,14 +249,5 @@ var NAVTREEINDEX2 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a5acd7a454494cf4e4ce4b685722d3c93":[1,0,2,1,0,3,1,12,10],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a7467226f12a582f1eda011cf70b8fc04":[1,0,2,1,0,3,1,12,9],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a74962d799cf80b4ade125747f7594478":[1,0,2,1,0,3,1,12,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a7499702a066808aed4e02447a2c98027":[1,0,2,1,0,3,1,12,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a81f131340cc6d0e14b4ca2898f821713":[1,0,2,1,0,3,1,12,22],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a8d166e247c88de4bf2618d7be645bd03":[1,0,2,1,0,3,1,12,12],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a94a9a99fed99a3aca1904c9d95bf3e11":[1,0,2,1,0,3,1,12,21],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#aa13e3ca3ce1e63bfecf0a1febdea7760":[1,0,2,1,0,3,1,12,17],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#aa182a1aa650f6a02147ce8eef2da6d7f":[1,0,2,1,0,3,1,12,8],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#ab2849e8ee968de810bcf62958c58dff2":[1,0,2,1,0,3,1,12,19],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#abdcbf75f245fc7da13b8e3d921bb48c2":[1,0,2,1,0,3,1,12,13],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#ac436e5ce8cc27d8d3c23980b36076218":[1,0,2,1,0,3,1,12,11],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#ac486dbb7a601a53e495a4afdad5f38b3":[1,0,2,1,0,3,1,12,18]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a7499702a066808aed4e02447a2c98027":[1,0,2,1,0,3,1,12,2]
 };

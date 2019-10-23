@@ -18,6 +18,7 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business =
     [ "DataServiceProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_provider.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_provider" ],
     [ "DataServiceUsingTypeCustomizer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer" ],
     [ "DataServiceWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper" ],
+    [ "DbTransactionWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper" ],
     [ "DRDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_d_r_data_service.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_d_r_data_service" ],
     [ "ExecutingQueryException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception" ],
     [ "FlexLinqExtensions", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_flex_linq_extensions.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_flex_linq_extensions" ],

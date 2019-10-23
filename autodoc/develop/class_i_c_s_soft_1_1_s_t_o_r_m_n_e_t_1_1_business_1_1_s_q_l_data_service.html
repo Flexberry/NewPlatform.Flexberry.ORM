@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Flexberry ORM 5.1.0-beta06: Класс ICSSoft.STORMNET.Business.SQLDataService</title>
+<title>Flexberry ORM 5.1.0-beta07: Класс ICSSoft.STORMNET.Business.SQLDataService</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 5.1.0-beta06
+   <div id="projectname">Flexberry ORM 5.1.0-beta07
    </div>
   </td>
  </tr>
@@ -236,9 +236,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>GenerateSQLRo
 <tr class="memitem:a1af95f4c6fa5b6064216845acc90785d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">ICSSoft.STORMNET.DataObject</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a1af95f4c6fa5b6064216845acc90785d">LoadObjects</a> (ref object State, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>)</td></tr>
 <tr class="memdesc:a1af95f4c6fa5b6064216845acc90785d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загрузка объектов данных  <a href="#a1af95f4c6fa5b6064216845acc90785d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a1af95f4c6fa5b6064216845acc90785d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3314a73f5bfa01c1566bf7ba76f516cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3314a73f5bfa01c1566bf7ba76f516cd"></a>
-virtual object[][]&#160;</td><td class="memItemRight" valign="bottom"><b>ReadFirstByExtConn</b> (string Query, ref object State, int LoadingBufferSize, System.Data.IDbConnection Connection, System.Data.IDbTransaction Transaction)</td></tr>
-<tr class="separator:a3314a73f5bfa01c1566bf7ba76f516cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9af15d8b15bf24cb9eca025cc50909ff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9af15d8b15bf24cb9eca025cc50909ff"></a>
+virtual object[][]&#160;</td><td class="memItemRight" valign="bottom"><b>ReadFirstByExtConn</b> (string Query, ref object State, int LoadingBufferSize, IDbConnection Connection, IDbTransaction Transaction)</td></tr>
+<tr class="separator:a9af15d8b15bf24cb9eca025cc50909ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b9090eb875be03de2402b943ec6256"><td class="memItemLeft" align="right" valign="top">virtual object[][]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#ad1b9090eb875be03de2402b943ec6256">ReadFirst</a> (string query, ref object state, int loadingBufferSize)</td></tr>
 <tr class="memdesc:ad1b9090eb875be03de2402b943ec6256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычитка первой партии данных.  <a href="#ad1b9090eb875be03de2402b943ec6256">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad1b9090eb875be03de2402b943ec6256"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,12 +334,12 @@ virtual <a class="el" href="struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1
 <tr class="memitem:a23307d7838bea0e9c2683bd7aae7e5ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a23307d7838bea0e9c2683bd7aae7e5ca">UpdateObject</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">ICSSoft.STORMNET.DataObject</a> dobject, bool AlwaysThrowException)</td></tr>
 <tr class="memdesc:a23307d7838bea0e9c2683bd7aae7e5ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновление объекта данных  <a href="#a23307d7838bea0e9c2683bd7aae7e5ca">Подробнее...</a><br /></td></tr>
 <tr class="separator:a23307d7838bea0e9c2683bd7aae7e5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3360c6a2459c2d496ab29756ba9cf62f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a3360c6a2459c2d496ab29756ba9cf62f">GenerateQueriesForUpdateObjects</a> (StringCollection deleteQueries, StringCollection deleteTables, StringCollection updateQueries, StringCollection updateFirstQueries, StringCollection updateLastQueries, StringCollection updateTables, StringCollection insertQueries, StringCollection insertTables, SortedList tableOperations, StringCollection queryOrder, bool checkLoadedProps, System.Collections.ArrayList processingObjects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> dataObjectCache, params <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">ICSSoft.STORMNET.DataObject</a>[] dobjects)</td></tr>
-<tr class="memdesc:a3360c6a2459c2d496ab29756ba9cf62f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Генерация запросов для изменения объектов.  <a href="#a3360c6a2459c2d496ab29756ba9cf62f">Подробнее...</a><br /></td></tr>
-<tr class="separator:a3360c6a2459c2d496ab29756ba9cf62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebe0849a72674a53a4fe29c1c543d4fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aebe0849a72674a53a4fe29c1c543d4fe">GenerateQueriesForUpdateObjects</a> (StringCollection deleteQueries, StringCollection deleteTables, StringCollection updateQueries, StringCollection updateFirstQueries, StringCollection updateLastQueries, StringCollection updateTables, StringCollection insertQueries, StringCollection insertTables, SortedList tableOperations, StringCollection queryOrder, bool checkLoadedProps, ArrayList processingObjects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> dataObjectCache, List&lt; DataObject &gt; auditObjects, params DataObject[] dobjects)</td></tr>
-<tr class="memdesc:aebe0849a72674a53a4fe29c1c543d4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Генерация запросов для изменения объектов (дополнительно возвращается список объектов, для которых необходимо создание записей аудита).  <a href="#aebe0849a72674a53a4fe29c1c543d4fe">Подробнее...</a><br /></td></tr>
-<tr class="separator:aebe0849a72674a53a4fe29c1c543d4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe3ea387ba51f6d575efb31ecb39d2cf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#afe3ea387ba51f6d575efb31ecb39d2cf">GenerateQueriesForUpdateObjects</a> (StringCollection deleteQueries, StringCollection deleteTables, StringCollection updateQueries, StringCollection updateFirstQueries, StringCollection updateLastQueries, StringCollection updateTables, StringCollection insertQueries, StringCollection insertTables, SortedList tableOperations, StringCollection queryOrder, bool checkLoadedProps, System.Collections.ArrayList processingObjects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> dataObjectCache, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html">DbTransactionWrapper</a> dbTransactionWrapper, params <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">ICSSoft.STORMNET.DataObject</a>[] dobjects)</td></tr>
+<tr class="memdesc:afe3ea387ba51f6d575efb31ecb39d2cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Генерация запросов для изменения объектов.  <a href="#afe3ea387ba51f6d575efb31ecb39d2cf">Подробнее...</a><br /></td></tr>
+<tr class="separator:afe3ea387ba51f6d575efb31ecb39d2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4725c4f3a88e0b656a360ec275fc57e5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a4725c4f3a88e0b656a360ec275fc57e5">GenerateQueriesForUpdateObjects</a> (StringCollection deleteQueries, StringCollection deleteTables, StringCollection updateQueries, StringCollection updateFirstQueries, StringCollection updateLastQueries, StringCollection updateTables, StringCollection insertQueries, StringCollection insertTables, SortedList tableOperations, StringCollection queryOrder, bool checkLoadedProps, ArrayList processingObjects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> dataObjectCache, List&lt; DataObject &gt; auditObjects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html">DbTransactionWrapper</a> dbTransactionWrapper, params DataObject[] dobjects)</td></tr>
+<tr class="memdesc:a4725c4f3a88e0b656a360ec275fc57e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Генерация запросов для изменения объектов (дополнительно возвращается список объектов, для которых необходимо создание записей аудита).  <a href="#a4725c4f3a88e0b656a360ec275fc57e5">Подробнее...</a><br /></td></tr>
+<tr class="separator:a4725c4f3a88e0b656a360ec275fc57e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdde88cacd804c3326303fe0dc179abf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#acdde88cacd804c3326303fe0dc179abf">UpdateObjectsOrdered</a> (ref DataObject[] objects, bool alwaysThrowException=true)</td></tr>
 <tr class="memdesc:acdde88cacd804c3326303fe0dc179abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить объекты данных в указанном порядке  <a href="#acdde88cacd804c3326303fe0dc179abf">Подробнее...</a><br /></td></tr>
 <tr class="separator:acdde88cacd804c3326303fe0dc179abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -456,9 +456,9 @@ virtual Exception&#160;</td><td class="memItemRight" valign="bottom"><b>RunComma
 <tr class="memitem:a5b8608d053c42af4b5e10f63eb31ab1a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b8608d053c42af4b5e10f63eb31ab1a"></a>
 <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">OperationType</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Minus</b> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">OperationType</a> ops, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">OperationType</a> value)</td></tr>
 <tr class="separator:a5b8608d053c42af4b5e10f63eb31ab1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf32842b7f7121de3f26ce4f4092d7f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf32842b7f7121de3f26ce4f4092d7f2"></a>
-virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>CreateTransaction</b> (System.Data.IDbConnection connection)</td></tr>
-<tr class="separator:aaf32842b7f7121de3f26ce4f4092d7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab729e055cefa9cf8b7f957dc9b3d6dda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab729e055cefa9cf8b7f957dc9b3d6dda"></a>
+virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>CreateTransaction</b> (IDbConnection connection)</td></tr>
+<tr class="separator:ab729e055cefa9cf8b7f957dc9b3d6dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Свойства</h2></td></tr>
@@ -1152,7 +1152,7 @@ virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bo
 
 </div>
 </div>
-<a class="anchor" id="a3360c6a2459c2d496ab29756ba9cf62f"></a>
+<a class="anchor" id="afe3ea387ba51f6d575efb31ecb39d2cf"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1240,6 +1240,12 @@ virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bo
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html">DbTransactionWrapper</a>&#160;</td>
+          <td class="paramname"><em>dbTransactionWrapper</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">params <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">ICSSoft.STORMNET.DataObject</a>[]&#160;</td>
           <td class="paramname"><em>dobjects</em>&#160;</td>
         </tr>
@@ -1272,6 +1278,7 @@ virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">checkLoadedProps</td><td>Проверять ли загруженность свойств </td></tr>
     <tr><td class="paramname">processingObjects</td><td>The processing Objects. </td></tr>
     <tr><td class="paramname">dataObjectCache</td><td>The Data Object Cache.</td></tr>
+    <tr><td class="paramname">dbTransactionWrapper</td><td>Экземпляр <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html" title="Обёртка над IDbConnection и IDbTransaction. ">DbTransactionWrapper</a>.</td></tr>
     <tr><td class="paramname">dobjects</td><td>Для чего генерим запросы </td></tr>
   </table>
   </dd>
@@ -1279,7 +1286,7 @@ virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bo
 
 </div>
 </div>
-<a class="anchor" id="aebe0849a72674a53a4fe29c1c543d4fe"></a>
+<a class="anchor" id="a4725c4f3a88e0b656a360ec275fc57e5"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1373,6 +1380,12 @@ virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bo
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html">DbTransactionWrapper</a>&#160;</td>
+          <td class="paramname"><em>dbTransactionWrapper</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">params DataObject[]&#160;</td>
           <td class="paramname"><em>dobjects</em>&#160;</td>
         </tr>
@@ -1406,6 +1419,7 @@ virtual System.Data.IDbTransaction&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">processingObjects</td><td>Текущие обрабатываемые объекты (то есть объекты, которые данный сервис данных планирует подтвердить в БД в текущей транзакции). Выходной параметр.</td></tr>
     <tr><td class="paramname">dataObjectCache</td><td>Кэш объектов данных.</td></tr>
     <tr><td class="paramname">auditObjects</td><td>Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда передан не null и текущий сервис аудита включен.</td></tr>
+    <tr><td class="paramname">dbTransactionWrapper</td><td>Экземпляр <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html" title="Обёртка над IDbConnection и IDbTransaction. ">DbTransactionWrapper</a>.</td></tr>
     <tr><td class="paramname">dobjects</td><td>Объекты, для которых генерируются запросы.</td></tr>
   </table>
   </dd>
