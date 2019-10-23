@@ -6,8 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
+- `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
 
 ### Changed
+- ChangesToSqlBTMonitor now split queries by ';'.
+- Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
 
 ### Deprecated
 
@@ -17,7 +20,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Parsing nullable guids with PKHelper.GetKeys method.
 - Getting property storage name when resolving circular dependencies.
-- Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer
+- Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
+- Loading details to delete on deleting aggregator object (using single transaction).
 
 ### Security
 
