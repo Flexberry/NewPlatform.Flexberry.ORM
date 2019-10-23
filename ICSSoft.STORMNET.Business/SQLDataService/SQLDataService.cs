@@ -2141,21 +2141,22 @@
             }
         }
 
-        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, System.Data.IDbConnection Connection, System.Data.IDbTransaction Transaction)
+        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, IDbConnection Connection, IDbTransaction Transaction)
         {
             object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + Query);
             try
             {
-                System.Data.IDbCommand myCommand = Connection.CreateCommand();
-                myCommand.CommandText = Query;
-                myCommand.Transaction = Transaction;
-                CustomizeCommand(myCommand);
+                using (IDbCommand myCommand = Connection.CreateCommand())
+                {
+                    myCommand.CommandText = Query;
+                    myCommand.Transaction = Transaction;
+                    CustomizeCommand(myCommand);
 
-                // Connection.Open();
-                System.Data.IDataReader myReader = myCommand.ExecuteReader();
-                object[] state = new object[] { Connection, myReader };
-                State = state;
-                return ReadNextByExtConn(ref State, LoadingBufferSize);
+                    // Connection.Open();
+                    IDataReader myReader = myCommand.ExecuteReader();
+                    State = new object[] { Connection, myReader };
+                    return ReadNextByExtConn(ref State, LoadingBufferSize);
+                }
             }
             catch (Exception e)
             {
@@ -2274,7 +2275,6 @@
             }
             else
             {
-                System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
                 myReader.Close();
 
                 // myConnection.Close();
@@ -4022,9 +4022,6 @@
         /// <param name="mainkey">
         /// Первичный ключ агрегатора детейлов
         /// </param>
-        /// <param name="DeleteOrder">
-        /// The delete order.
-        /// </param>
         /// <param name="updateobjects">
         /// Детейлы, на которые навешены бизнес-сервера
         /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер)
@@ -4038,10 +4035,7 @@
         /// <param name="DataObjectCache">
         /// The data object cache.
         /// </param>
-        /// <param name="processingObjectsKeys">
-        /// Ключи обрабатываемых объектов
-        /// (список содержит первичные ключи объектов, которые уже попали в список на обновление)
-        /// </param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <returns>
         /// Набор объектов, которые необходимо занести в аудит
         /// </returns>
@@ -4052,7 +4046,8 @@
             out DataObject[] updateobjects,
             StringCollection DeleteTables,
             SortedList TableOperations,
-            DataObjectCache DataObjectCache)
+            DataObjectCache DataObjectCache,
+            DbTransactionWrapper dbTransactionWrapper)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
@@ -4073,10 +4068,11 @@
 
             if (sq != string.Empty)
             {
+                object state = null;
                 BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
                 if (bs != null && bs.Length > 0)
                 { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                    updateobjects = LoadObjects(cs, DataObjectCache);
+                    updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                 }
                 else
                 {
@@ -4085,7 +4081,7 @@
                        * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                        * а бизнес-сервера основного объекта уже выполнились.
                        */
-                        DataObject[] detailObjects = LoadObjects(cs);
+                        DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                         if (detailObjects != null)
                         {
                             foreach (var detailObject in detailObjects)
@@ -4209,6 +4205,7 @@
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <param name="dobjects"> Для чего генерим запросы </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4224,6 +4221,7 @@
             bool checkLoadedProps,
             System.Collections.ArrayList processingObjects,
             DataObjectCache dataObjectCache,
+            DbTransactionWrapper dbTransactionWrapper,
             params ICSSoft.STORMNET.DataObject[] dobjects)
         {
             GenerateQueriesForUpdateObjects(
@@ -4241,6 +4239,7 @@
                 processingObjects,
                 dataObjectCache,
                 null,
+                dbTransactionWrapper,
                 dobjects);
         }
 
@@ -4799,9 +4798,11 @@
             string[] props = Information.GetAllPropertyNames(currentType);
 
             // Поиск свойства, в нужном типе.
-            var filterProps = props.Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName);
+            var filterProps = props
+                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
+                .ToList();
 
-            if (filterProps.ToList().Count > 0)
+            if (filterProps.Count > 0)
             {
                 foreach (string prop in filterProps)
                 {
@@ -4877,6 +4878,7 @@
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда
         /// передан не null и текущий сервис аудита включен.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4893,6 +4895,7 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
+            DbTransactionWrapper dbTransactionWrapper,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -5019,7 +5022,7 @@
                             {
                                 DataObject[] detailsObjects;
                                 IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache);
+                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, dbTransactionWrapper);
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)
@@ -5575,7 +5578,7 @@
             return ops & (~value);
         }
 
-        protected virtual System.Data.IDbTransaction CreateTransaction(System.Data.IDbConnection connection)
+        protected virtual IDbTransaction CreateTransaction(IDbConnection connection)
         {
             return connection.BeginTransaction();
         }
@@ -5591,28 +5594,24 @@
         /// </param>
         virtual public void UpdateObjectsOrdered(ref DataObject[] objects, bool alwaysThrowException = true)
         {
-            IDbConnection connection = GetConnection();
-            connection.Open();
-            IDbTransaction transaction = connection.BeginTransaction();
-            var dataObjectCache = new DataObjectCache();
-            try
+            using (var dbTransactionWrapper = new DbTransactionWrapper(this))
             {
-                foreach (DataObject dataObject in objects)
+                var dataObjectCache = new DataObjectCache();
+                try
                 {
-                    DataObject[] dObjs = new[] { dataObject };
-                    UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, connection, transaction);
-                }
+                    foreach (DataObject dataObject in objects)
+                    {
+                        DataObject[] dObjs = new[] { dataObject };
+                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    }
 
-                transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw;
-            }
-            finally
-            {
-                connection.Close();
+                    dbTransactionWrapper.CommitTransaction();
+                }
+                catch (Exception ex)
+                {
+                    dbTransactionWrapper.RollbackTransaction();
+                    throw;
+                }
             }
         }
 
@@ -5634,6 +5633,7 @@
             ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
+            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
             var deleteQueries = new StringCollection();
             var updateQueries = new StringCollection();
             var updateFirstQueries = new StringCollection();
@@ -5650,11 +5650,19 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
-            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
+            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper.Transaction);
 
             OnBeforeUpdateObjects(allQueriedObjects);
+
+            // Сортируем объекты в порядке заданным графом связности.
+            extraProcessingList.Sort((x, y) =>
+            {
+                int indexX = queryOrder.IndexOf(Information.GetClassStorageName(x.GetType()));
+                int indexY = queryOrder.IndexOf(Information.GetClassStorageName(y.GetType()));
+                return indexX.CompareTo(indexY);
+            });
 
             Exception ex = null;
 
@@ -5690,7 +5698,7 @@
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
                      * объекты находятся именно в том состоянии, в каком должны были пойти в базу.
                      */
-                    AuditOperation(extraProcessingList, auditOperationInfoList, transaction);
+                    AuditOperation(extraProcessingList, auditOperationInfoList, dbTransactionWrapper.Transaction);
                 }
 
                 string query = string.Empty;
@@ -5698,8 +5706,7 @@
                 object subTask = null;
                 try
                 {
-                    IDbCommand command = connection.CreateCommand();
-                    command.Transaction = transaction;
+                    IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     // прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -5713,7 +5720,7 @@
 
                         var ops = (OperationType)tableOperations[table];
 
-                        if ((ops & OperationType.Delete) != OperationType.Delete)
+                        if ((ops & OperationType.Delete) != OperationType.Delete && updateLastQueries.Count == 0)
                         {
                             // смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
@@ -5735,10 +5742,7 @@
                             // смотрим есть ли Update
                             if (go && ((ops & OperationType.Update) == OperationType.Update))
                             {
-                                if (
-                                    (ex =
-                                     RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Update);
                                     tableOperations[table] = ops;
@@ -5766,39 +5770,41 @@
                     {
                         // сзади чистые Update
                         go = true;
+                        int queryOrderIndex = queryOrder.Count - 1;
                         do
                         {
-                            string table = queryOrder[queryOrder.Count - 1];
-                            if (!tableOperations.ContainsKey(table))
+                            string table = queryOrder[queryOrderIndex];
+                            if (tableOperations.ContainsKey(table))
                             {
-                                tableOperations.Add(table, OperationType.None);
-                            }
+                                var ops = (OperationType)tableOperations[table];
 
-                            var ops = (OperationType)tableOperations[table];
-                            if (ops == OperationType.Update)
-                            {
-                                if (
-                                    (ex =
-                                     RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if (ops == OperationType.Update && updateLastQueries.Count == 0)
                                 {
-                                    ops = Minus(ops, OperationType.Update);
-                                    tableOperations[table] = ops;
+                                    if (
+                                        (ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
+                                    {
+                                        ops = Minus(ops, OperationType.Update);
+                                        tableOperations[table] = ops;
+                                    }
+                                    else
+                                    {
+                                        go = false;
+                                    }
+
+                                    if (go)
+                                    {
+                                        queryOrderIndex--;
+                                        go = queryOrderIndex >= 0;
+                                    }
                                 }
                                 else
                                 {
                                     go = false;
                                 }
-
-                                if (go)
-                                {
-                                    queryOrder.RemoveAt(queryOrder.Count - 1);
-                                    go = queryOrder.Count > 0;
-                                }
                             }
                             else
                             {
-                                go = false;
+                                queryOrderIndex--;
                             }
                         }
                         while (go);
@@ -5812,15 +5818,14 @@
                         }
                     }
 
-                    for (int i = deleteQueries.Count - 1; i >= 0; i--)
+                    // Удаляем в обратном порядке.
+                    for (int i = queryOrder.Count - 1; i >= 0; i--)
                     {
-                        query = deleteQueries[i];
-                        command.CommandText = query;
-                        CustomizeCommand(command);
-                        subTask = BusinessTaskMonitor.BeginSubTask(query, id);
-                        command.ExecuteNonQuery();
-                        BusinessTaskMonitor.EndSubTask(subTask);
-                        prevQueries += query + "\n \n";
+                        string table = queryOrder[i];
+                        if ((ex = RunCommands(deleteQueries, deleteTables, table, command, id, alwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
                     }
 
                     // а теперь опять с начала
@@ -5850,7 +5855,7 @@
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(transaction, this, auditOperationInfoList),
+                            AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
                     }

@@ -220,6 +220,7 @@
     <Compile Include="RowNumberDef.cs" />
     <Compile Include="Audit\RemoteAuditController.cs" />
     <Compile Include="SortOrder.cs" />
+    <Compile Include="SQLDataService\DbTransactionWrapper.cs" />
     <Compile Include="SQLDataService\SQLDataService.cs">
       <SubType>Component</SubType>
     </Compile>

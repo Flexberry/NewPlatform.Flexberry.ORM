@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Data;
 
-    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
     using ICSSoft.STORMNET.Security;
@@ -50,7 +49,7 @@
             }
 
             // Перенесли этот метод повыше, потому что строка соединения может быть сменена в бизнес-сервере делегатом смены строки соединения (если что-нибудь почитают).
-            IDbConnection conection = GetConnection();
+            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this);
 
             var DeleteQueries = new StringCollection();
             var UpdateQueries = new StringCollection();
@@ -68,9 +67,9 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
-            GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList);
+            GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList, dbTransactionWrapper.Transaction);
 
             OnBeforeUpdateObjects(AllQueriedObjects);
 
@@ -115,20 +114,15 @@
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
                      * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
                      */
-                    AuditOperation(extraProcessingList, auditOperationInfoList); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
+                    AuditOperation(extraProcessingList, auditOperationInfoList, dbTransactionWrapper.Transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
                 }
-
-                conection.Open();
-                IDbTransaction trans = null;
 
                 string query = string.Empty;
                 string prevQueries = string.Empty;
                 object subTask = null;
                 try
                 {
-                    trans = CreateTransaction(conection);
-                    IDbCommand command = conection.CreateCommand();
-                    command.Transaction = trans;
+                    IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     #region прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -280,34 +274,27 @@
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(trans, this, auditOperationInfoList),
+                            AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
-                    }
-
-                    if (trans != null)
-                    {
-                        trans.Commit();
                     }
                 }
                 catch (Exception excpt)
                 {
-                    if (trans != null)
-                    {
-                        trans.Rollback();
-                    }
+                    dbTransactionWrapper.RollbackTransaction();
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
                     }
 
-                    conection.Close();
+                    dbTransactionWrapper.Dispose();
                     BusinessTaskMonitor.EndSubTask(subTask);
                     throw new ExecutingQueryException(query, prevQueries, excpt);
                 }
 
-                conection.Close();
+                dbTransactionWrapper.CommitTransaction();
+                dbTransactionWrapper.Dispose();
 
                 var res = new ArrayList();
                 foreach (DataObject changedObject in objects)

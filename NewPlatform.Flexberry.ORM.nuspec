@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta06</version>
+    <version>5.1.0-beta07</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -14,14 +14,17 @@
     <releaseNotes>
       Added
       1. `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
+      2. `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
 
       Fixed
       1. Parsing nullable guids with PKHelper.GetKeys method.
       2. Getting property storage name when resolving circular dependencies.
       3. Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
+      4. Loading details to delete on deleting aggregator object (using single transaction).
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.
+      2. Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM</tags>
