@@ -90,12 +90,10 @@
                 ds.UpdateObject(createdPaw);
 
                 // Теперь грузим их из БД.
-                var кошка = new Кошка();
-                PKHelper.CreateDataObject<Кошка>(createdCat);
+                var кошка = PKHelper.CreateDataObject<Кошка>(createdCat);
                 ds.LoadObject(кошка, false, false);
 
-                var лапа = new Лапа();
-                лапа.SetExistObjectPrimaryKey(createdPaw.__PrimaryKey);
+                var лапа = PKHelper.CreateDataObject<Лапа>(createdPaw);
                 ds.LoadObject(лапа, false, false);
 
                 Assert.NotNull(кошка);
@@ -125,8 +123,7 @@
                 ds.UpdateObject(createdBear);
 
                 // Теперь грузим их из БД.
-                var медведь = new Медведь();
-                медведь.SetExistObjectPrimaryKey(createdBear.__PrimaryKey);
+                var медведь = PKHelper.CreateDataObject<Медведь>(createdBear);
                 ds.LoadObject(медведь, false, false);
 
                 Assert.NotNull(медведь);
