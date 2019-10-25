@@ -3,18 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.UserDataTypes;
     using ICSSoft.STORMNET.Windows.Forms;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
-    using Xunit.Abstractions;
-    using ICSSoft.STORMNET.Business.LINQProvider;
-    using System.Linq;
+    using Xunit.Abstractions;    
 
     /// <summary>
     /// Тест для проверки ошибки на генерацию невалидного SQL.
@@ -91,7 +91,7 @@
 
                 // Теперь грузим их из БД.
                 var кошка = new Кошка();
-                кошка.SetExistObjectPrimaryKey(createdCat.__PrimaryKey);
+                PKHelper.CreateDataObject<Кошка>(createdCat);
                 ds.LoadObject(кошка, false, false);
 
                 var лапа = new Лапа();
