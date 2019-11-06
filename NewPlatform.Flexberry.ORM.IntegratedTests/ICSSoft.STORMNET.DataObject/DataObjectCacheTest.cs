@@ -134,7 +134,8 @@
                 берлога1.Наименование = newText;
                 берлога1.Медведь.ПорядковыйНомер = 55;
 
-                ICSSoft.STORMNET.DataObject[] objects2 = { берлога1.Медведь, берлога1 };
+                // ICSSoft.STORMNET.DataObject[] objects2 = { берлога1.Медведь, берлога1 };
+                ICSSoft.STORMNET.DataObject[] objects2 = { берлога1, берлога1.Медведь };
 
                 dataService.UpdateObjects(ref objects2);
 

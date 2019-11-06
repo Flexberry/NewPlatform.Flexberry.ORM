@@ -5109,7 +5109,7 @@
                                 AuditService.AddEditAuditInformation(processingObject);
                             }
 
-                            ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues;
+                            ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValuesAltered;
                             DataObject[] detailsObjects;
                             DataObject[] mastersObjects;
 
@@ -5118,14 +5118,14 @@
                                 GetAlteredPropsWithValues(
                                     processingObject,
                                     false,
-                                    out propsWithValues,
+                                    out propsWithValuesAltered,
                                     out detailsObjects,
                                     out mastersObjects,
                                     false);
                             }
                             else
                             {
-                                GetAlteredPropsWithValues(processingObject, checkLoadedProps, out propsWithValues, out detailsObjects, out mastersObjects, true);
+                                GetAlteredPropsWithValues(processingObject, checkLoadedProps, out propsWithValuesAltered, out detailsObjects, out mastersObjects, true);
                             }
 
                             foreach (DataObject detobj in detailsObjects)
@@ -5156,7 +5156,7 @@
                                 }
                             }
 
-                            alteredList.Add(processingObject, propsWithValues);
+                            alteredList.Add(processingObject, propsWithValuesAltered);
                             updateList.Add(processingObject, updaterobject);
 
                             break;

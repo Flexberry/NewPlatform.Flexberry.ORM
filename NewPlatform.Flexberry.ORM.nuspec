@@ -21,7 +21,7 @@
       3. Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
 
       Changed
-      1. ChangesToSqlBTMonitor now split queries by ';'.
+      1. Add ';' as query delimeter in ChangesToSqlBTMonitor.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM</tags>

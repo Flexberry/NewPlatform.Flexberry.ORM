@@ -126,7 +126,7 @@
                 Assert.NotNull(alteredPropertyNames);
                 Assert.Equal(0, alteredPropertyNames.Length);
                 Assert.NotNull(loadedProperties);
-                Assert.Equal(4, loadedProperties.Length);
+                Assert.Equal(6, loadedProperties.Length);
 
                 string s = "Подосиновая";
                 медведь.Берлога[0].Наименование = s;
