@@ -181,6 +181,60 @@
         }
 
         /// <summary>
+        /// Test for paging with ordering.
+        /// </summary>
+        [Fact]
+        public void TestLoadingObjectByPage()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var ds = (SQLDataService)dataService;
+
+                var ldef = SQLWhereLanguageDef.LanguageDef;
+
+                var forest = new Лес();
+
+                int bearCount = 200;
+                int bearPerPage = 10;
+
+                var updateObjectsArray = new DataObject[bearCount];
+
+                for (int i = 0; i < bearCount; i++)
+                {
+                    var bear = new Медведь() { ЛесОбитания = forest, ПорядковыйНомер = i + 1, ЦветГлаз = (i % 20).ToString() };
+                    updateObjectsArray[i] = bear;
+                }
+
+                ds.UpdateObjects(ref updateObjectsArray);
+
+                var view = Медведь.Views.OrderNumberTest;
+                string sortPropertyName = Information.ExtractPropertyPath<Медведь>(x => x.ЦветГлаз);
+
+                view.AddProperty(sortPropertyName);
+
+                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
+                lcs.ColumnsSort = new[] { new ColumnsSortDef(sortPropertyName, SortOrder.Asc) };
+
+                var result = new List<int>();
+
+                for (int i = 1; i <= bearCount; i += bearPerPage)
+                {
+                    lcs.RowNumber = new RowNumberDef(i, i + bearPerPage - 1);
+                    var pagedBears = ds.LoadObjects(lcs).Cast<Медведь>().ToArray();
+                    result.AddRange(pagedBears.Select(b => b.ПорядковыйНомер));
+                }
+
+                var query = result.GroupBy(x => x)
+                  .Where(g => g.Count() > 1)
+                  .Select(y => new { Element = y.Key, Counter = y.Count() })
+                  .ToList();
+
+                Assert.Equal(0, query.Count);
+            }
+        }
+
+
+        /// <summary>
         /// Тестовый метод для проверки получения индексов объектов данных с первичными ключами
         /// при нулевых (<c>null</c>) аргументах. Не должно быть выброшено исключений и должен 
         /// быть возвращен пустой список результатов.
