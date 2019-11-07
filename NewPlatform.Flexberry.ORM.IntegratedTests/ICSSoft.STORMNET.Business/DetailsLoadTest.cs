@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading;
-    using System.Threading.Tasks;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
@@ -19,8 +17,6 @@
     /// </summary>
     public class DetailsLoadTest : BaseIntegratedTest
     {
-        private ITestOutputHelper output;
-
         public DetailsLoadTest(ITestOutputHelper output)
             : base("DetLoad")
         {
