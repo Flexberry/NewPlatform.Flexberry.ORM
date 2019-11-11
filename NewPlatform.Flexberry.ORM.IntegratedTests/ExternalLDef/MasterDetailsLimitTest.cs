@@ -67,7 +67,7 @@
 
                 dvd.View = viewDetail;
                 ExternalLangDef ldef = ExternalLangDef.LanguageDef;
-                dvd.Type = ldef.GetObjectType("Details");
+                dvd.Type = ldef.DetailsType;
                 lcs.LimitFunction = ldef.GetFunction(ldef.funcExist, dvd, ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, Information.ExtractPropertyPath<Берлога>(б => б.Наименование)), "Берлога 1"));
 
                 // Act.

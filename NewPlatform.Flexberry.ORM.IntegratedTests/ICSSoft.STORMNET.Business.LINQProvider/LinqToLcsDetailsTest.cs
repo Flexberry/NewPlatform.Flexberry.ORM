@@ -121,6 +121,9 @@
             Assert.True(Equals(expected, actual));
         }
 
+        /// <summary>
+        /// Проверка ограничения на детейл мастера.
+        /// </summary>
         [Fact]
         public void GetLcsTestDetailWithCustomOwnerConnectProp()
         {
