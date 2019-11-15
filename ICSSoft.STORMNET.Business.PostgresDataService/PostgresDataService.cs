@@ -877,9 +877,11 @@
                 // It is necessary to add primary key field for maintaining rows order while ordering field contains similar values.
                 if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains("STORMMainObjectKey"))
                     orderByExprForPaging += ", STORMMainObjectKey";
+                else
+                    orderByExprForPaging = $"{nl}ORDER BY STORMMainObjectKey";
 
-                resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExprForPaging + nl +
-                    "OFFSET " + offset.ToString() + " LIMIT " + limit.ToString();
+                resQuery =
+                    $"{селектСамогоВерхнегоУр}{nl} FROM ({nl}{resQuery}) rn{nl}{orderByExprForPaging}{nl} OFFSET {offset} LIMIT {limit}";
             }
         }
 
