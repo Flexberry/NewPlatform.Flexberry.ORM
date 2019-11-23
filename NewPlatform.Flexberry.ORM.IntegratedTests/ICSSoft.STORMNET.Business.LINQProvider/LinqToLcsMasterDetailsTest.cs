@@ -1,5 +1,6 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider
 {
+    using System;
     using System.Linq;
     using System.Linq.Expressions;
     using ICSSoft.STORMNET.Business.LINQProvider.Tests;
@@ -19,6 +20,8 @@
         [Fact]
         public void GetLcsTestAny()
         {
+            object лес1Pk = Guid.NewGuid();
+
             View view = new View();
             view.DefineClassType = typeof(Блоха);
             view.AddProperty(Information.ExtractPropertyPath<Блоха>(б => б.Кличка));
@@ -35,15 +38,19 @@
             viewDetail.DefineClassType = typeof(Берлога);
             viewDetail.AddProperty(Information.ExtractPropertyPath<Берлога>(б => б.Наименование));
             viewDetail.AddProperty(Information.ExtractPropertyPath<Берлога>(б => б.Медведь));
+            viewDetail.AddProperty(Information.ExtractPropertyPath<Берлога>(б => б.ЛесРасположения));
 
             dvd.View = viewDetail;
             ExternalLangDef ldef = ExternalLangDef.LanguageDef;
             dvd.Type = ldef.DetailsType;
-            expected.LimitFunction = ldef.GetFunction(ldef.funcExist, dvd, ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, Information.ExtractPropertyPath<Берлога>(б => б.Наименование)), "Берлога 1"));
+            Function detailsLimitName = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, Information.ExtractPropertyPath<Берлога>(б => б.Наименование)), "Берлога 1");
+            Function detailsLimitForest = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, Information.ExtractPropertyPath<Берлога>(б => б.ЛесРасположения)), лес1Pk);
+            Function detailsLimit = ldef.GetFunction(ldef.funcAND, detailsLimitName, detailsLimitForest);
+            expected.LimitFunction = ldef.GetFunction(ldef.funcExist, dvd, detailsLimit);
 
             var testProvider = new TestLcsQueryProvider<Блоха>();
 
-            new Query<Блоха>(testProvider).Where(б => б.МедведьОбитания.Берлога.Cast<Берлога>().Any(бе => бе.Наименование == "Берлога 1")).ToList();
+            new Query<Блоха>(testProvider).Where(б => б.МедведьОбитания.Берлога.Cast<Берлога>().Any(бе => бе.Наименование == "Берлога 1" && бе.ЛесРасположения.__PrimaryKey == лес1Pk)).ToList();
             Expression queryExpression = testProvider.InnerExpression;
 
             // Act.
