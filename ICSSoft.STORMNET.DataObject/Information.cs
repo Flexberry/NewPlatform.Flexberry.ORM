@@ -3522,7 +3522,11 @@
                 string expression = GetPropertyExpression(dataObjectView.DefineClassType, notStoredProp.Name, dsType);
                 if (!string.IsNullOrEmpty(expression))
                 {
-                    var propertiesInExpression = GetPropertiesInExpression(expression, string.Empty);
+                    int lastDotIndex = notStoredProp.Name.LastIndexOf(".", StringComparison.InvariantCultureIgnoreCase);
+                    string notStoredPropOwner = lastDotIndex != -1
+                        ? notStoredProp.Name.Substring(0, lastDotIndex + 1)
+                        : string.Empty;
+                    var propertiesInExpression = GetPropertiesInExpression(expression, notStoredPropOwner);
                     dataObjectView.AddProperties(propertiesInExpression);
                 }
             }

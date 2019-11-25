@@ -119,10 +119,10 @@
         }
 
         /// <summary>
-        /// Test <see cref="Information.AppendPropertiesFromNotStored" />.
+        /// Test <see cref="Information.AppendPropertiesFromNotStored" /> for master property.
         /// </summary>
         [Fact]
-        public void TestAppendPropertiesFromNotStored()
+        public void TestAppendPropertiesFromNotStoredForMaster()
         {
             // Arrange.
             var view = new View { DefineClassType = typeof(Котенок) };
@@ -136,6 +136,26 @@
 
             // Assert.
             Assert.Equal(3, view.Properties.Length);
+            Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
+        }
+
+        /// <summary>
+        /// Test <see cref="Information.AppendPropertiesFromNotStored" /> for own property.
+        /// </summary>
+        [Fact]
+        public void TestAppendPropertiesFromNotStored()
+        {
+            // Arrange.
+            var view = new View { DefineClassType = typeof(Кошка) };
+            view.AddProperties(
+                Information.ExtractPropertyPath<Кошка>(x => x.КошкаСтрокой));
+            string missingProp = Information.ExtractPropertyPath<Кошка>(x => x.Кличка);
+
+            // Act.
+            Information.AppendPropertiesFromNotStored(view, typeof(SQLDataService));
+
+            // Assert.
+            Assert.Equal(2, view.Properties.Length);
             Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
         }
     }
