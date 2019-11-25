@@ -51,7 +51,8 @@
         {
             var cmd = Connection.CreateCommand();
             cmd.Transaction = Transaction;
-            cmd.CommandText = sql;
+            if (sql != null)
+                cmd.CommandText = sql;
 
             return cmd;
         }
