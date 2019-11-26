@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Getting property storage name when resolving circular dependencies.
 - Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
 - Loading details to delete on deleting aggregator object (using single transaction).
+- Appending view properties from not stored prop expression.
 
 ### Security
 
