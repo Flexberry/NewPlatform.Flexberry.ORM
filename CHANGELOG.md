@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.
 - Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
+- Upgraded Npgsql version to 3.2.6.
 
 ### Deprecated
 
