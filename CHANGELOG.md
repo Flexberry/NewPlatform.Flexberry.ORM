@@ -16,6 +16,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
+## [5.0.1] - 2019-11-27
+
+### Added
+
+- Primary key ordering in case of not setting order by clause in PostgresDataService
+
+### Changed
+
+- Maintaining rows order while ordering field contains similar values in PostgresDataService
+- Excluding RowNumber field from query to Postgres
+- Primary key quotation in order by clause in SQLDataService
 
 ## [5.0.0] - 2018-12-13
 

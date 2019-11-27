@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,31 +12,16 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-Added
-1. Simply (Update/Insert style) order for write audit operation.
-2. Interface IODataExportService.
-3. Geometry type support.
-4. CheckLoadedProperty generic extension methods.
-5. Delegate to check compatible property storage types.
-6. PersistUtcDates property to AuditService.
-7. PKHelper and FunctionBuilder utilities.
+      Added
+      1. Added a primary key ordering in case of not setting order by clause in PostgresDataService
 
-Changed
-1. [BREAKINGCHANGE] Upgrade Unity to 5.x version.
-2. Upgrade Npgsql to 3.x version.
+      Changed
+      1. Maintaining rows order while ordering field contains similar valuesin PostgresDataService
+      2. Excluding RowNumber field from query to Postgres
+      3. Primary key quotation in order by clause in SQLDataService
 
-Removed
-1. [BREAKINGCHANGE] Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
-
-Fixed
-1. Fix for Init Custom AuditService.
-2. Fix DataService init.
-3. Fix PostgresDataService wrong access to short names dictionary in multithreading app.
-4. Fix support multithreading in View.AddProperty method.
-5. Fix error for inherited aggregator type with same storage.
-6. Fix empty file saving in PostgresDataService.
-</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2018</copyright>
+    </releaseNotes>
+    <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
