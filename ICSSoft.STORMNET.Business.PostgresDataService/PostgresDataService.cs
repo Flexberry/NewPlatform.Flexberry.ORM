@@ -856,16 +856,6 @@
                 int fromInd = resQuery.IndexOf("FROM (");
                 string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
 
-                if (!string.IsNullOrEmpty(orderByExpr))
-                {
-                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
-                }
-                else
-                {
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
-                }
-
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)
@@ -882,8 +872,16 @@
                     }
                 }
 
-                resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExpr + nl +
-                    "OFFSET " + offset.ToString() + " LIMIT " + limit.ToString();
+                string orderByExprForPaging = orderByExpr;
+
+                // It is necessary to add primary key field for maintaining rows order while ordering field contains similar values.
+                if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains("STORMMainObjectKey"))
+                    orderByExprForPaging += ", STORMMainObjectKey";
+                else
+                    orderByExprForPaging = $"{nl}ORDER BY STORMMainObjectKey";
+
+                resQuery =
+                    $"{селектСамогоВерхнегоУр}{nl} FROM ({nl}{resQuery}) rn{nl}{orderByExprForPaging}{nl} OFFSET {offset} LIMIT {limit}";
             }
         }
 
