@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Flexberry Rules" Description="Rules for all Flexberry Platform projects." ToolsVersion="14.0">
+<RuleSet Name="Flexberry Rules" Description="Rules for all Flexberry Platform projects." ToolsVersion="16.0">
   <Localization ResourceAssembly="Microsoft.VisualStudio.CodeAnalysis.RuleSets.Strings.dll" ResourceBaseName="Microsoft.VisualStudio.CodeAnalysis.RuleSets.Strings.Localized">
     <Name Resource="MinimumRecommendedRules_Name" />
     <Description Resource="MinimumRecommendedRules_Description" />
@@ -69,6 +69,7 @@
     <Rule Id="CA2242" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1028" Action="Error" />
     <Rule Id="SA1101" Action="None" />
     <Rule Id="SA1201" Action="None" />
     <Rule Id="SA1309" Action="None" />
