@@ -9,3 +9,4 @@
 # image files are treated as binary by default.
 ###############################################################################
 *.bmp  binary
+*.png  binary
