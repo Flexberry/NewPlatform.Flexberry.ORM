@@ -24,7 +24,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="UnityFactory\bin\Release-Net45\ICSSoft.Services.UnityFactory.dll" target="lib\net45\ICSSoft.Services.UnityFactory.dll" />
-    <file src="UnityFactory\bin\Release-Net45\ICSSoft.Services.UnityFactory.xml" target="lib\net45\ICSSoft.Services.UnityFactory.xml" />
+    <file src="UnityFactory\bin\Debug-Net45\ICSSoft.Services.UnityFactory.dll" target="lib\net45\ICSSoft.Services.UnityFactory.dll" />
+    <file src="UnityFactory\bin\Debug-Net45\ICSSoft.Services.UnityFactory.xml" target="lib\net45\ICSSoft.Services.UnityFactory.xml" />
   </files>
 </package>
