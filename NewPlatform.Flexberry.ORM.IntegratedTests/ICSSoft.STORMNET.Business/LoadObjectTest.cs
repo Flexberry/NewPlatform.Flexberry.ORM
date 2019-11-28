@@ -195,7 +195,12 @@
             lcs.ColumnsSort = new[] { new ColumnsSortDef(sortPropertyName, SortOrder.Asc) };
 
             foreach (IDataService dataService in DataServices)
-                Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
+            {
+                if (dataService is OracleDataService)
+                    continue;
+                else
+                    Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
+            }
         }
 
         /// <summary>
