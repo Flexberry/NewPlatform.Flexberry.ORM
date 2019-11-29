@@ -7,13 +7,10 @@
     using ICSSoft.STORMNET.UserDataTypes;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
-    
-    using System.Configuration;
 
     /// <summary>
     /// Проверка цепочного вызова Where при LINQ-запросах к сервису данных.
     /// </summary>
-    
     public class LinqToLcsChainWhereTest : BaseIntegratedTest
     {
         /// <summary>

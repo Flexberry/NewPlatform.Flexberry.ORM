@@ -10,13 +10,12 @@
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    
     public class LoadingCustomizationStructTest
     {
         private STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef _ldef =
             STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+
         [Fact]
-        
         public void LcsSerializationTest()
         {
             // TODO: починить тест

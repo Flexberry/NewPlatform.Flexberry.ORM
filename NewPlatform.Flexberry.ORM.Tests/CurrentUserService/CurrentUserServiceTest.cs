@@ -9,7 +9,6 @@
     /// <summary>
     /// Class of unit test for <see cref="CurrentUserService"/>.
     /// </summary>
-    
     public class CurrentUserServiceTest
     {
         /// <summary>

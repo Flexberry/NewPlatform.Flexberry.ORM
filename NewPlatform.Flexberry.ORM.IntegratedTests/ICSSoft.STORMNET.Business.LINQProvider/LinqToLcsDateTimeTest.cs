@@ -12,7 +12,6 @@
     /// <summary>
     /// Тесты поддержки типа DateTime
     /// </summary>
-    
     public class LinqToLcsTodayTest
     {
         /// <summary>

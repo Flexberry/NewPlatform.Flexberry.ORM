@@ -7,14 +7,12 @@
     /// <summary>
     /// Тестовый класс для TypeUsageProvider.
     /// </summary>
-    
     public class TypeUsageProviderTest
     {
         /// <summary>
         /// Проверка получения используемых типов.
         /// </summary>
         [Fact]
-        
         public void TypeUsageProviderGetUsageTypesTest()
         {
             TypeUsage typeUsage = new TypeUsage();
@@ -32,7 +30,6 @@
         /// Проверка получения используемых типов у DetailArray.
         /// </summary>
         [Fact]
-        
         public void TypeUsageProviderGetUsageTypesTest1()
         {
             TypeUsage typeUsage = new TypeUsage();
@@ -40,7 +37,7 @@
             var dataObject = new TypeUsageProviderTestClass();
 
             var result = typeUsage.GetUsageTypes(
-                dataObject.GetType(), 
+                dataObject.GetType(),
                 Information.ExtractPropertyPath<TypeUsageProviderTestClass>(x => x.CombinedTypesUsageProviderTestClass));
             Assert.Equal("CombinedTypesUsageProviderTestClass", result[0].Name);
             Assert.True(1==result.Length, "Количество используемых типов.");
@@ -50,7 +47,6 @@
         /// Проверка установки и добавления используемых типов.
         /// </summary>
         [Fact]
-        
         public void TypeUsageProviderSetAndAddUseTypesTest()
         {
             TypeUsage typeUsage = new TypeUsage();
@@ -81,7 +77,6 @@
         /// Проверка получения комбинируемых типов.
         /// </summary>
         [Fact]
-        
         public void TypeUsageProviderGetCombinedTypeUsageTest()
         {
             TypeUsage typeUsage = new TypeUsage();
@@ -97,7 +92,6 @@
         /// Проверка получения сложных комбинированных типов.
         /// </summary>
         [Fact]
-        
         public void TypeUsageProviderGetCombinedTypeUsage1Test()
         {
             var typeUsage = new TypeUsage();
@@ -106,14 +100,14 @@
 
             /*
              * У типа CombinedTypesUsageProviderTestClass на свойство TypeUsageProviderTestClass
-             * через TypeUsage завязано 2 типа: 
+             * через TypeUsage завязано 2 типа:
              * "NewPlatform.Flexberry.ORM.Tests.TypeUsageProviderTestClass" и "NewPlatform.Flexberry.ORM.Tests.TypeUsageProviderTestClassChildClass".
              * У каждого типа есть свойство "SomeNotStoredObjectProperty".
-             * У первого типа через TypeUsage на данное свойство повешены типы String и Int32, 
+             * У первого типа через TypeUsage на данное свойство повешены типы String и Int32,
              * у второго - ничего, поэтому берётся исходный тип свойства Object.
              */
             var result = typeUsage.GetCombinedTypeUsage(
-                dataObject.GetType(), 
+                dataObject.GetType(),
                 Information.ExtractPropertyPath<CombinedTypesUsageProviderTestClass>(x => x.TypeUsageProviderTestClass.SomeNotStoredObjectProperty));
 
             Assert.Equal("String", result[0].Name);

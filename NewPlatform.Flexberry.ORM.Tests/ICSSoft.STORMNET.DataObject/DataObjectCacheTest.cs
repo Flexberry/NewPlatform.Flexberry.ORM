@@ -7,7 +7,6 @@
     /// <summary>
     /// Тесты для класса <see cref="DataObjectCache"/>.
     /// </summary>
-    
     public class DataObjectCacheTest
     {
         /// <summary>
@@ -87,7 +86,6 @@
         /// Проверка работы кэша объектов данных
         /// </summary>
         [Fact]
-        
         public void DataObjectCacheCreatingTest()
         {
             cache.StartCaching(false);

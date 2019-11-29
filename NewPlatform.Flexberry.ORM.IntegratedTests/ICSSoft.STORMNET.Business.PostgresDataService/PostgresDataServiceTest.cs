@@ -1,10 +1,6 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 {
     using System;
-    using System.Configuration;
-    using System.IO;
-    using System.Text.RegularExpressions;
-    using System.Xml;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
@@ -20,7 +16,6 @@
     /// <summary>
     /// Юнит-тесты для PostgresDataService.
     /// </summary>
-    
     public class PostgresDataServiceTest : BaseIntegratedTest
     {
         /// <summary>
@@ -28,13 +23,12 @@
         /// </summary>
         protected PostgresDataService DataService;
 
-        
         public PostgresDataServiceTest() : base("test")
         {
             foreach (var ds in DataServices)
             {
-                if(ds is PostgresDataService)
-                    DataService=ds as PostgresDataService;
+                if (ds is PostgresDataService)
+                    DataService = ds as PostgresDataService;
             }
         }
 
@@ -53,6 +47,7 @@
                 return Resources.PostgresDataServiceTestScript;
             }
         }
+
         protected override string OracleScript
         {
             get
@@ -699,9 +694,8 @@
             var мастерКласс02 = new МастерКлассДлинноеИмя { MasterAttr2 = false, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var мастерКласс2 = new МастерКлассДлинноеИмя2 { MasterAttr2 = true, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var класс = new ДочернийКлассДлинноеИмя { MasterClass = мастерКласс01, МастерКлассДлинноеИмя01 = мастерКласс01, МастерКлассДлинноеИмя02 = мастерКласс2, Attr1 = "123", Attr2 = 55, Атрибут3 = true };
-            
+
             ////var класс2 = new ДочернийКлассДлинноеИмя2 { MasterClass = мастерКласс, МастерКлассДлинноеИмя = мастерКласс, МастерКлассДлинноеИмя2 = мастерКласс2, Attr1 = "abc", Attr2 = 55, Атрибут3 = true };
-            
             var objsToUpdate = new DataObject[] { мастерКласс01, класс, мастерКласс02, masterRoot };
             DataService.UpdateObjects(ref objsToUpdate, new DataObjectCache(), true);
 

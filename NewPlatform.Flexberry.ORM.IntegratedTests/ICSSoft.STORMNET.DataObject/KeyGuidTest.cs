@@ -7,14 +7,12 @@
     /// <summary>
     /// Тестовый класс для KeyGuid.
     /// </summary>
-    
     public class KeyGuidTest
     {
         /// <summary>
         /// Проверка оператора "&lt;".
         /// </summary>
         [Fact]
-        
         public void KeyGuidOperatorLessTest()
         {
             KeyGuid xNull = null;
@@ -54,7 +52,6 @@
         /// Проверка оператора "&gt;".
         /// </summary>
         [Fact]
-        
         public void KeyGuidOperatorMoreTest()
         {
             KeyGuid xNull = null;
@@ -93,7 +90,6 @@
         /// Проверка оператора "&lt;=".
         /// </summary>
         [Fact]
-        
         public void KeyGuidOperatorLessAndEqualTest()
         {
             KeyGuid xNull = null;
@@ -132,7 +128,6 @@
         /// Проверка оператора "&gt;=".
         /// </summary>
         [Fact]
-        
         public void KeyGuidOperatorMoreAndEqualTest()
         {
             KeyGuid xNull = null;
@@ -171,7 +166,6 @@
         /// Проверка на гуидность.
         /// </summary>
         [Fact]
-        
         public void KeyGuidIsGuidTest()
         {
             string guid = null;
@@ -259,7 +253,6 @@
         /// Проверка неявного преобразования из Guid в KeyGuid.
         /// </summary>
         [Fact]
-        
         public void KeyGuidImplicitOperatorKeyGuidTest()
         {
             Guid? guid = null;
@@ -276,7 +269,6 @@
         /// Проверка неявного преобразования из KeyGuid в Guid.
         /// </summary>
         [Fact]
-        
         public void KeyGuidImplicitOperatorGuid()
         {
             KeyGuid keyGuid = null;
@@ -293,7 +285,6 @@
         /// Проверка неявного преобразования из bytes[] в KeyGuid.
         /// </summary>
         [Fact]
-        
         public void KeyGuidImplicitOperatorByteArrayTest()
         {
             Guid guid = new Guid("00000000-0000-0000-0000-000000000005");
@@ -307,7 +298,6 @@
         /// Проверка неявного преобразования из KeyGuid в bytes[].
         /// </summary>
         [Fact]
-        
         public void KeyGuidImplicitOperatorByteArray1Test()
         {
             KeyGuid keyGuid = new KeyGuid();
@@ -321,7 +311,6 @@
         /// Проверка оператора "==".
         /// </summary>
         [Fact]
-        
         public void KeyGuidOperatorEqualTest()
         {
             KeyGuid xNull = null;
@@ -354,7 +343,6 @@
         /// Проверка оператора "!=".
         /// </summary>
         [Fact]
-        
         public void KeyGuidOperatorNotEqualTest()
         {
             KeyGuid xNull = null;

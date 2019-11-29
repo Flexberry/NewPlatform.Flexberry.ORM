@@ -14,7 +14,6 @@
     /// Класс для тестирования построения запросов при наличии псевдодетейлов
     /// (то есть когда классы связаны ассоциацией).
     /// </summary>
-    
     public class LinqToLcsWithPseudoDetailsTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;

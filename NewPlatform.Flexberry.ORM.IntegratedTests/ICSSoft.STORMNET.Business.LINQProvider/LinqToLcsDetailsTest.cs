@@ -12,7 +12,6 @@
     /// This is a test class for LinqToLcsTest and is intended
     /// to contain all LinqToLcsTest Unit Tests
     /// </summary>
-    
     public class LinqToLcsDetailsTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;

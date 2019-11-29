@@ -6,10 +6,8 @@
 
     using Xunit;
 
-    
     public class BusinessServerOrderTest
     {
-        
         [Fact]
         public void TestMethod1()
         {
@@ -76,7 +74,6 @@
             }
         }
 
-        
         [Fact]
         public void TestMethod2()
         {
@@ -98,7 +95,6 @@
             }
         }
 
-        
         [Fact]
         public void TestMethod3()
         {

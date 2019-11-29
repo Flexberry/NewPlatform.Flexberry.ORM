@@ -13,14 +13,12 @@
     ///This is a test class for ToolXMLTest and is intended
     ///to contain all ToolXMLTest Unit Tests
     ///</summary>
-    
     public class ToolXMLTest
     {
         /// <summary>
         ///A test for ToolXML Constructor
         ///</summary>
         [Fact]
-        
         public void ToolXMLConstructorTest()
         {
             ToolXML target = new ToolXML();
@@ -28,7 +26,6 @@
         }
 
         [Fact]
-        
         public void DataObjectWithKeyGuid2XMLDocumentTest()
         {
             DataObjectWithKeyGuid dataObjectWithKeyGuid = new DataObjectWithKeyGuid();
@@ -48,7 +45,6 @@
         }
 
         [Fact]
-        
         public void SimpleDataObject2XMLDocumentTest()
         {
             SimpleDataObject simpleDataObject  = new SimpleDataObject();
@@ -84,7 +80,6 @@
         }
 
         [Fact]
-        
         public void DataObjectWithKeyGuid2StringTest()
         {
             DataObjectWithKeyGuid dataObjectWithKeyGuid = new DataObjectWithKeyGuid();
@@ -99,7 +94,6 @@
         }
 
         [Fact]
-        
         public void AssemblyLoadTest()
         {
             string asmName = "ICSSoft.STORMNET.DataObject, Version=1.0.0.1, Culture=neutral";//typeof(DataObject).Assembly.FullName;
@@ -135,7 +129,6 @@
         /// Тестирование сериализации в xml объекта данных вместе с его мастерами (и его десериализации)
         /// </summary>
         [Fact]
-        
         public void DataObjectToXmlWithMastersTest()
         {
             var credit = new Кредит() { ДатаВыдачи = DateTime.Now, СрокКредита = 300, СуммаКредита = 1000 };
@@ -146,7 +139,7 @@
             var planStroke = new Выплаты() { ДатаВыплаты = DateTime.Now, СуммаВыплаты = 100500 };
             credit.Выплаты.Add(planStroke);
             var dataObject = (ICSSoft.STORMNET.DataObject)credit;
-            
+
             try
             {
                 var serializedObj = ToolXML.DataObject2XMLDocument(ref dataObject, true, false, false, true);
@@ -184,7 +177,7 @@
 
         /// <summary>
         /// Тест десериализации наследника класса <see cref="ICSSoft.STORMNET.DataObject"/>
-        /// с полем типа <see cref="ICSSoft.STORMNET.FileType.File"/> 
+        /// с полем типа <see cref="ICSSoft.STORMNET.FileType.File"/>
         /// при значении этого поля - <c>null</c>.
         /// </summary>
         [Fact(Skip = "Раскоментить после исправления ошибки 94794")]
@@ -226,12 +219,12 @@
 
         /// <summary>
         /// Тест десериализации наследника класса <see cref="ICSSoft.STORMNET.DataObject"/>
-        /// с полем типа <see cref="ICSSoft.STORMNET.UserDataTypes.NullableDateTime"/> 
+        /// с полем типа <see cref="ICSSoft.STORMNET.UserDataTypes.NullableDateTime"/>
         /// при значении этого поля - <c>null</c>.
         /// </summary>
         [Fact]
         public void NullableDateTimeSerialization()
-        {           
+        {
             // Arrange.
             STORMNET.DataObject nullDateTime = new Class_NullableDateTime() {Attr = null };
             STORMNET.DataObject deserializedObject = new Class_NullableDateTime();

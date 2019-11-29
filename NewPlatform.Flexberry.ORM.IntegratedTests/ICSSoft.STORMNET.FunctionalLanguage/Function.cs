@@ -11,7 +11,6 @@
     /// <summary>
     /// Класс для тестирования Function.cs.
     /// </summary>
-    
     public class FunctionTest
     {
         private static ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -20,7 +19,6 @@
         /// Проверка преобразования в дружелюбную строку
         /// </summary>
         [Fact]
-        
         public void FunctionSerializeTst1()
         {
             ExternalLangDef eld = ExternalLangDef.LanguageDef;
@@ -35,7 +33,6 @@
         }
 
         [Fact]
-        
         public void FunctionSerializeTst2()
         {
             ExternalLangDef eld = ExternalLangDef.LanguageDef;
@@ -53,7 +50,6 @@
         /// Проверяем переопределённый интерфейс IEquatable.
         /// </summary>
         [Fact]
-        
         public void TestEqualFunctions()
         {
             Function emptyDetailNameFunc = GetSomeDetailFunction(string.Empty, ldef.funcG);
@@ -82,7 +78,6 @@
         /// Тест метода GetLimitProperties.
         /// </summary>
         [Fact]
-        
         public void FunctionGetLimitPropertiesTest()
         {
             var langdef = SQLWhereLanguageDef.LanguageDef;
@@ -102,7 +97,6 @@
         /// Тест метода Equals.
         /// </summary>
         [Fact]
-        
         public void FunctionEqualsTest()
         {
             var langdef = SQLWhereLanguageDef.LanguageDef;
@@ -121,7 +115,6 @@
         /// Тест метода ToString.
         /// </summary>
         [Fact]
-        
         public void FunctionToStringTest()
         {
             var langdef = SQLWhereLanguageDef.LanguageDef;
@@ -138,7 +131,6 @@
         /// Генерация exception в методе Check.
         /// </summary>
         [Fact]
-        
         public void FunctionCheckExceptionTest()
         {
             var exception = Record.Exception(() =>
@@ -156,7 +148,6 @@
         /// Генерация exception в методе Check.
         /// </summary>
         [Fact]
-        
         public void FunctionCheckException1Test()
         {
             var exception = Record.Exception(() =>
@@ -174,7 +165,6 @@
         /// Генерация exception в методе Check.
         /// </summary>
         [Fact]
-        
         public void FunctionCheckException2Test()
         {
             var exception = Record.Exception(() =>
@@ -193,7 +183,6 @@
         /// Генерация exception в методе Check.
         /// </summary>
         [Fact]
-        
         public void FunctionCheckException3Test()
         {
             var exception = Record.Exception(() =>
@@ -213,7 +202,6 @@
         /// Тестирование метода Parse класса FunctionForControls.
         /// </summary>
         [Fact]
-        
         public void FunctionForControlsParseTest()
         {
             var result = FunctionForControls.Parse("<test></test>", new View());
@@ -225,7 +213,6 @@
         /// Тестирование метода Parse класса FunctionForControls.
         /// </summary>
         [Fact]
-        
         public void FunctionForControlsParse1Test()
         {
             var view = new View();
@@ -238,7 +225,6 @@
         /// Тестирование метода Parse класса FunctionForControls.
         /// </summary>
         [Fact]
-        
         public void FunctionForControlsParse2Test()
         {
             var view = new View();
@@ -251,7 +237,6 @@
         /// Тестирование метода ToString класса FunctionForControls.
         /// </summary>
         [Fact]
-        
         public void FunctionForControlsToStringTest()
         {
             var param = new Function(
@@ -272,7 +257,7 @@
                         "userViewFormat"),
                     new object[] { param }));
             var result = functionForControls.ToString();
-            
+
             Assert.NotNull(result);
             Assert.Equal(
                 result, "<Function Name=\"stringView\" ___Name=\"\"><Function Name=\"stringView\" /></Function>");

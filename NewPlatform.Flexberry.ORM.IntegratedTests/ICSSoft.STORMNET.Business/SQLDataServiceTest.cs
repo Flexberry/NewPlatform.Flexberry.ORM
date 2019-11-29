@@ -133,7 +133,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
                 // Arrange.
@@ -142,10 +142,10 @@
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Клиент), Клиент.Views.TestNotStoredGuid);
                 lcs.ReturnTop = 1;
 
-                // Act (выполнение не должно приводить к ошибкам). 
+                // Act (выполнение не должно приводить к ошибкам).
                 DataObject[] result = dataService.LoadObjects(lcs);
 
-                // Assert. 
+                // Assert.
                 Assert.Equal(1, result.Length);
             }
         }
@@ -191,7 +191,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
                 // Arrange.
@@ -347,7 +347,7 @@
         }
 
         /// <summary>
-        /// Тесты на формирование графа зависимостей методом <see cref="SQLDataService.GetDependencies"/>. 
+        /// Тесты на формирование графа зависимостей методом <see cref="SQLDataService.GetDependencies"/>.
         /// </summary>
         [Fact]
         public void GetDependenciesTest()
@@ -359,7 +359,7 @@
 
                 НаследникМ1 testDate = new НаследникМ1();
                 testDate.Name = "test1";
-                             
+
                 TestClassA testDate2 = new TestClassA();
                 testDate2.Мастер = testDate;
                 testDate2.Name = "test2";
@@ -384,7 +384,7 @@
                 var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof (НаследникМ1), view);
                 var lcs2 = LoadingCustomizationStruct.GetSimpleStruct(typeof(TestClassA), view2);
 
-                var resultDate = ds.LoadObjects(lcs).Cast<НаследникМ1>().Select(x => x.Name).ToList();      
+                var resultDate = ds.LoadObjects(lcs).Cast<НаследникМ1>().Select(x => x.Name).ToList();
                 var resultDate2 = ds.LoadObjects(lcs2).Cast<TestClassA>().Select(x => x.Name).ToList();
 
                 // Assert.
@@ -489,7 +489,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
@@ -536,7 +536,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
@@ -588,7 +588,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
@@ -647,7 +647,7 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
                 var masterBreedType = new ТипПороды {Название = "тип породы1", ДатаРегистрации = DateTime.Now};
@@ -738,7 +738,7 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
 
@@ -806,7 +806,7 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
 
@@ -874,7 +874,7 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
 
@@ -951,7 +951,7 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
 

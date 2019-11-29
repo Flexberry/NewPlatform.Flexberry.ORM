@@ -7,14 +7,12 @@
     /// <summary>
     /// Тесты по транслитерации с русского на английский и наоборот.
     /// </summary>
-    
     public class TransliterationTest
     {
         /// <summary>
         /// Тест транслитерации с русского на английский.
         /// </summary>
         [Fact]
-        
         public void TestTransliterateFromRussianToEnglish()
         {
             string rusLetters = "абвгдеёжзиклмнопрстуфхцчшщъыьэюя";
@@ -37,7 +35,6 @@
         /// Тест транслитерации с английского на русский.
         /// </summary>
         [Fact]
-        
         public void TestTransliterateFromEnglishToRussian()
         {
             string engLetters = "abcdefghijklmnopqrstuvwxyz";

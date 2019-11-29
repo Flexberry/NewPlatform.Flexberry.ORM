@@ -6,7 +6,6 @@
     /// <summary>
     /// Тесты для класса <see cref="DataObject"/>.
     /// </summary>
-    
     public class DataObjectTest
     {
         /// <summary>
@@ -66,7 +65,7 @@
             string expectedToString = string.Format("Клиент({0}={1})", propertyCaption, propertyValue);
 
             string resultToString = client.ToStringForAudit(view);
-            
+
             Assert.Equal(expectedToString, resultToString);
         }
     }

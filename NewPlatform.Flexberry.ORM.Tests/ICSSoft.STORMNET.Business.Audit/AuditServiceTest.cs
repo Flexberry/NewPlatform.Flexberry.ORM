@@ -12,7 +12,6 @@
     /// <summary>
     ///     Тесты класса <see cref="AuditService" />.
     /// </summary>
-    
     public partial class AuditServiceTest
     {
         /// <summary>

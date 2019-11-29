@@ -13,7 +13,6 @@
     /// <summary>
     /// Unit test class for <see cref="TypeAuditClassSettingsLoader"/>.
     /// </summary>
-    
     public class AuditClassSettingsLoaderTest
     {
         /// <summary>
@@ -29,7 +28,7 @@
         public void TestHasSettings()
         {
             var settingsLoader = new TypeAuditClassSettingsLoader();
-            
+
             Assert.True(settingsLoader.HasSettings(typeof(AuditClassWithSettings)));
             Assert.False(settingsLoader.HasSettings(typeof(AuditClassWithoutSettings)));
         }
@@ -162,7 +161,7 @@
             Assert.Equal("UpdateAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.UPDATE).Name);
             Assert.Equal("DeleteAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.DELETE).Name);
             //Assert.Equal("ExecuteAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE).Name);
-            
+
             // Test throwing exception whe specified view hasn't been found.
             lock (_lock)
             {
@@ -185,7 +184,7 @@
                 finally
                 {
                     if (oldSelectAuditViewName != null)
-                    { 
+                    {
                         AuditClassWithSettings.AuditSettings.SelectAuditViewName = oldSelectAuditViewName;
                     }
                 }

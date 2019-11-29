@@ -8,14 +8,12 @@
     /// <summary>
     /// Различные тесты на получение заголовков и работу с ними.
     /// </summary>
-    
     public class CaptionToolTests
     {
         /// <summary>
         /// Тестирование получения имени по заголовку.
         /// </summary>
         [Fact]
-        
         public void TestGetNameByCaption()
         {
             Assert.Equal("Абвгдеёжзиклмнопрстуфхцчшщъыьэюя", CaptionTool.TransformCaptionToName("абвгдеёжзиклмнопрстуфхцчшщъыьэюя"));
@@ -42,7 +40,6 @@
         /// Тестирование того, какой заголовок для поля возвращается из представления по имени этого поля.
         /// </summary>
         [Fact]
-        
         public void TestGetAttrCaptionByView()
         {
             Assert.Equal("Ириска", CaptionTool.GetAttrCaptionByView(null, "Ириска"));
@@ -56,7 +53,6 @@
         /// Тестирование отбрасывания невалидных символов из имени.
         /// </summary>
         [Fact]
-        
         public void TestGetValidName()
         {
             Assert.Equal("Азбука", CaptionTool.GetValidName("А з б у к а"));
@@ -71,7 +67,6 @@
         /// Тестирование метода TransformTitle.
         /// </summary>
         [Fact]
-        
         public void CaptionToolTransformTitleTest()
         {
             Assert.Equal(CaptionTool.TransformTitle("Property.Name", false, true), "Name");

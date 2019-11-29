@@ -6,12 +6,10 @@
     using ICSSoft.STORMNET.Business;
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
-    using System.Configuration;
 
     /// <summary>
     /// Тест скорости сервиса данных.
     /// </summary>
-    
     public class DataServiceSpeedTest : BaseIntegratedTest
     {
         /// <summary>

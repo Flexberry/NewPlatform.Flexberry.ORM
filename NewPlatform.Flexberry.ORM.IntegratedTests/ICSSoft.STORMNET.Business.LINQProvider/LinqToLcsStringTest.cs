@@ -10,7 +10,6 @@
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
 
-    
     public class LinqToLcsStringTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;

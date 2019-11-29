@@ -16,7 +16,6 @@
     /// <summary>
     /// Класс для проверки доработок в провайдер, сделанных для взаимодействия с ODataService.
     /// </summary>
-    
     public class TestLinqProviderLogicForOData
     {
         /// <summary>

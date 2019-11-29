@@ -66,7 +66,6 @@
 //        }
 
 //        [Fact]
-//        
 //        public void ObjectToAndFromStringTest()
 //        {
 //            SQLWhereLanguageDef ldef = SQLWhereLanguageDef.LanguageDef;

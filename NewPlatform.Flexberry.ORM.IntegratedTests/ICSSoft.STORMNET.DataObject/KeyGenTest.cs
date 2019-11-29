@@ -7,14 +7,12 @@
     /// <summary>
     /// Тестовый класс для KeyGen.
     /// </summary>
-    
     public class KeyGenTest
     {
         /// <summary>
         /// Проверка генерации ключа.
         /// </summary>
         [Fact]
-        
         public void KeyGenGenerateUniqueTest()
         {
             ICSSoft.STORMNET.DataObject dataObject = new DataObjectForTest();

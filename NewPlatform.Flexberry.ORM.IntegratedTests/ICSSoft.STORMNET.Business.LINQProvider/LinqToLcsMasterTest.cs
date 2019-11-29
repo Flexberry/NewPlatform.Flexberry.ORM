@@ -12,7 +12,6 @@
     /// This is a test class for LinqToLcsTest and is intended
     /// to contain all LinqToLcsTest Unit Tests
     /// </summary>
-    
     public class LinqToLcsMasterTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -47,7 +46,6 @@
                 {
                     Название = "тест"
                 };
-            
 
             var testProvider = new TestLcsQueryProvider<Кошка>();
 
@@ -82,7 +80,6 @@
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
         }
-        
 
         [Fact]
         public void GetLcsMasterOrTest()
@@ -263,16 +260,16 @@
         {
             var breedType = new ТипПороды() { Название = "Чеширский Улыбчивый" };
             var testProvider = new TestLcsQueryProvider<Кошка>();
-            
+
             new Query<Кошка>(testProvider).Where(o => o.Порода.ТипПороды == breedType).ToArray();
             Expression queryExpression = testProvider.InnerExpression;
-            
+
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
                         ldef.GetFunction(
-                            ldef.funcEQ, 
-                            new VariableDef(ldef.DataObjectType, Information.ExtractPropertyPath<Кошка>(x => x.Порода.ТипПороды)), 
+                            ldef.funcEQ,
+                            new VariableDef(ldef.DataObjectType, Information.ExtractPropertyPath<Кошка>(x => x.Порода.ТипПороды)),
                             breedType)
             };
 
@@ -329,7 +326,7 @@
             {
                 LimitFunction =
                         ldef.GetFunction(
-                            ldef.funcLEQ, 
+                            ldef.funcLEQ,
                             ldef.GetFunction(
                                 ldef.funcOnlyDate,
                                 new VariableDef(ldef.DateTimeType, "Порода.ТипПороды.ДатаРегистрации")),

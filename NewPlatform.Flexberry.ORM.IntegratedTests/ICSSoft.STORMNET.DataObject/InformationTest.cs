@@ -1189,7 +1189,7 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="ExtractPropertyName"/>, извлекающего свойства внутри текущего класса. 
+        /// Тест метода <see cref="ExtractPropertyName"/>, извлекающего свойства внутри текущего класса.
         /// Входные параметры: Тип класса: InformationTestClass, лямбда выражение: () =&gt; obj.stringPropertyForInformationTestClass.
         /// Ожидаемое значение: "stringPropertyForInformationTestClass".
         /// </summary>

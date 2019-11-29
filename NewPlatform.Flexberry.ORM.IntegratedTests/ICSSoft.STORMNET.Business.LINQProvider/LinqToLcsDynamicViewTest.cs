@@ -10,7 +10,6 @@
     /// <summary>
     /// В методах этого класса проверяется только формирование представлений, но не выражений
     /// </summary>
-    
     public class LinqToLcsDynamicViewTest
     {
         private static readonly string КличкаName = Information.ExtractPropertyName<Кошка>(x => x.Кличка);
@@ -149,7 +148,7 @@
         }
 
         /// <summary>
-        /// Ограничение на детейлы 
+        /// Ограничение на детейлы
         /// </summary>
         [Fact]
         public void LcsDynamicViewTestForDetail()

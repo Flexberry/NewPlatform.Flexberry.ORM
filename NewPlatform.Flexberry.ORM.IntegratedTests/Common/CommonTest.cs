@@ -7,7 +7,6 @@
 
     using Xunit;
 
-    
     public class CommonTest
     {
         [Fact]

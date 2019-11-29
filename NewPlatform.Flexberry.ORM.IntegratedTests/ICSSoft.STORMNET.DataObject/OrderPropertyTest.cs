@@ -9,12 +9,10 @@
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
-    using System.Configuration;
 
     /// <summary>
     /// Класс, содержащий тестовые методы для проверки корректности работы ORM с атрибутами порядка у детейлов.
     /// </summary>
-    
     public class OrderPropertyTest : BaseIntegratedTest
     {
         /// <summary>

@@ -12,11 +12,9 @@
 
 //    using Xunit;
 
-//    
 //    public class ExistDetailsTest
 //    {
 //        [Fact]
-//        
 //        public void TestMethod1()
 //        {
 //            // тестирование запроса с детейлами с условием сравнения собственных свойств детейлов
@@ -48,7 +46,6 @@
 //        }
 
 //        [Fact]
-//        
 //        public void TestMethod2()
 //        {
 //            // тестирование запроса с детейлами с условием сравнения свойств мастеров детейлов
@@ -80,7 +77,6 @@
 //        }
 
 //        [Fact]
-//        
 //        public void TestMethod3()
 //        {
 //            // тестирование запроса с детейлами с дополнительным условием и внутри выражения
@@ -113,7 +109,6 @@
 //        }
 
 //        [Fact]
-//        
 //        public void TestMethod4()
 //        {
 //            try
@@ -130,7 +125,7 @@
 //                ExternalLangDef langDef = ExternalLangDef.LanguageDef;
 //                langDef.DataService = dataService;
 //                var detail1 = new DetailVariableDef(langDef.GetObjectType("Details"), "ЛицоВЭпизоде", view2, "ЛицоВУгДеле");
-//                var detail2 = new DetailVariableDef(langDef.GetObjectType("Details"), "ЦелиПриездаЛица", view3, "ЛицоВУгДеле");            
+//                var detail2 = new DetailVariableDef(langDef.GetObjectType("Details"), "ЦелиПриездаЛица", view3, "ЛицоВУгДеле");
 //                var func = langDef.GetFunction(langDef.funcExistDetails,
 //                                               detail1, detail2,
 //                                               langDef.GetFunction(langDef.funcGEQ,
@@ -143,7 +138,7 @@
 //                var dos2 = dataService.LoadObjects(lcs);
 //                Assert.True(dos2.Length == 5774 && dos.Length == 23);
 //            }
-//            finally 
+//            finally
 //            {
 //                SQLDataService.ChangeCustomizationString -= ChangeCustomizationString;
 //                DataServiceProvider.DataService = new MSSQLDataService { CustomizationString = DataServiceLoader.BaseCustomizationString };
@@ -180,7 +175,7 @@
 //            var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Преступник), view);
 //            ExternalLangDef langDef = ExternalLangDef.LanguageDef;
 //            view.AddDetailInView("РезультатыСудебнРазбират", viewDetail, true);
-            
+
 //            var detail1 = new DetailVariableDef(langDef.GetObjectType("Details"), "НаказанияПоРешениюСуда", view1, "РезультатСудебнРазбират");
 //            var detail2 = new DetailVariableDef(langDef.GetObjectType("Details"), "КвалификацииЭпизодов", view2, "РезультатСудебнРазбират");
 //            var func = langDef.GetFunction(langDef.funcExistDetails, detail1, detail2,

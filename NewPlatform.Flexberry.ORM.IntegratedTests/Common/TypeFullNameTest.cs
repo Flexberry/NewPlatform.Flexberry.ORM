@@ -4,10 +4,8 @@
 
     using Xunit;
 
-    
     public class TypeFullNameTest
     {
-        
         [Fact]
         public void GetUsableTypeNameTest()
         {

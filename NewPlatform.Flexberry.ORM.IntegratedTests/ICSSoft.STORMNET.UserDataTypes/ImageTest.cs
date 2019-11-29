@@ -6,14 +6,12 @@
     /// <summary>
     /// Проверка класса Image.cs.
     /// </summary>
-    
     public class ImageTest
     {
         /// <summary>
         /// Проверка метода Compare.
         /// </summary>
         [Fact]
-        
         public void ImageCompareTest()
         {
             var image = new Image()
@@ -35,7 +33,6 @@
         /// Проверка явного преобразования Image в string.
         /// </summary>
         [Fact]
-        
         public void ImageExplicitImageToStringTest()
         {
             var testImage = new Image();
@@ -64,7 +61,6 @@
         /// Проверка явного преобразования string в Image.
         /// </summary>
         [Fact]
-        
         public void ImageExplicitStringToImageTest()
         {
             Assert.Null((Image)string.Empty);

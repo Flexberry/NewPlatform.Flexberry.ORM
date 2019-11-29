@@ -14,7 +14,6 @@
     /// <summary>
     /// Проверка методов преобразования LINQ-выражений в LCS-структуры.
     /// </summary>
-    
     public class TestLinqProvider
     {
         /// <summary>

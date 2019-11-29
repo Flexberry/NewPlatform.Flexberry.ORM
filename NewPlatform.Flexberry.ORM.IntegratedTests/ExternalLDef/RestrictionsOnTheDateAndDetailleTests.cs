@@ -1,7 +1,6 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.ExternalLDef
 {
     using System;
-    using System.Configuration;
     using System.Collections.Generic;
     using System.Linq;
     using ICSSoft.STORMNET;
@@ -15,7 +14,6 @@
     /// <summary>
     /// Класс для тестирования функций ограничения на даты и детейлы.
     /// </summary>
-    
     public class RestrictionsOnTheDateAndDetailleTests : BaseIntegratedTest
     {
         /// <summary>
@@ -47,12 +45,12 @@
                 // Arrange.
                 var ds = (SQLDataService) dataService;
 
-                // Контрольные значене.             
+                // Контрольные значене.
                 const int firstMonday = 1;
                 const int secondMonday = 3;
                 var controlValue = new List<int>() {firstMonday, secondMonday};
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Понедельник.
@@ -88,7 +86,7 @@
                 var view = FullTypesMainAgregator.Views.FullView;
                 var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof (FullTypesMainAgregator), view);
 
-                // Функция ограничения.   
+                // Функция ограничения.
                 // Применение функции ограничения.
                 lcs.LimitFunction = _ldef.GetFunction(
                     _ldef.funcEQ,
@@ -133,7 +131,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -222,7 +220,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -311,7 +309,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -400,7 +398,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -489,7 +487,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -576,11 +574,11 @@
                 const int controlInt = 1;
                 const bool controlBool = true;
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
-                
+
                 var testFullTypesMainAgregator = new FullTypesMainAgregator
-                {                   
+                {
                     FullTypesMaster1 = testMasterObject
                 };
 
@@ -597,7 +595,7 @@
                 var view2 = FullTypesDetail1.Views.FullDetailView;
                 var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMainAgregator), view);
 
-                string cmp = Information.ExtractPropertyPath<FullTypesDetail1>(x => x.FullTypesMainAgregator); 
+                string cmp = Information.ExtractPropertyPath<FullTypesDetail1>(x => x.FullTypesMainAgregator);
                 string name = Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.FullTypesDetail1);
 
                 // Описание детейла.
@@ -657,7 +655,7 @@
                 const int controlInt = 1;
                 const bool controlBool = true;
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 var testFullTypesMainAgregator = new FullTypesMainAgregator
@@ -695,7 +693,7 @@
                         new VariableDef(_ldef.BoolType,
                             Information.ExtractPropertyPath<FullTypesDetail1>(x => x.PoleBool)),
                         controlBool));
-                        
+
                 // Act.
                 var dos = ds.LoadObjects(lcs);
 
@@ -734,8 +732,8 @@
 
                 // Контрольные значене.
                 const int controlInt = 1;
-   
-                // Сначала создаём структуру данных, требуемую для теста.     
+
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 var testFullTypesMainAgregator = new FullTypesMainAgregator
@@ -752,7 +750,7 @@
                 // Сохранение данных.
                 ds.UpdateObjects(ref updateObjectsArray);
 
-                // Выбор представления.     
+                // Выбор представления.
                 var view = FullTypesMainAgregator.Views.FullViewWithDetail1;
                 var view2 = FullTypesDetail1.Views.FullDetailView;
                 var view3 = FullTypesDetail2.Views.FullTypesDetail2E;
@@ -800,7 +798,7 @@
         /// Экземпляр ExternalLangDef для тестов.
         /// </summary>
         private readonly ExternalLangDef langDef = ExternalLangDef.LanguageDef;
-        
+
         /// <summary>
         /// Метод для создания тестовых данных.
         /// </summary>
@@ -816,13 +814,13 @@
             {
                 НомерХозДоговора = 3
             };
-            
+
             var detail1 = new DetailArrayOfУчастникХозДоговора(aggregator1)
             {
                 new УчастникХозДоговора() { НомерУчастникаХозДоговора = 3, Личность = new Личность() },
                 new УчастникХозДоговора() { НомерУчастникаХозДоговора = 5, Личность = new Личность() }
             };
-            
+
             var detail2 = new DetailArrayOfИФХозДоговора(aggregator1)
             {
                 new ИФХозДоговора { НомерИФХозДоговора = 3, ИсточникФинансирования = new ИсточникФинансирования() },

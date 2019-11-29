@@ -1,21 +1,20 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.LINQProvider
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.UserDataTypes;
     using NewPlatform.Flexberry.ORM.Tests;
+
     using Xunit;
 
-    using System.Configuration;
-    using System.Linq.Expressions;
-    using System.Collections.Generic;
-    using ICSSoft.STORMNET;
     /// <summary>
     /// Проверка цепочного вызова Where при LINQ-запросах к сервису данных.
     /// </summary>
-
     public class LinqODataServiceTest : BaseIntegratedTest
     {
         /// <summary>
@@ -25,7 +24,6 @@
             : base("LinqODat")
         {
         }
-
 
         [Fact]
         public void TestODataMasterFieldOrderby()
@@ -82,7 +80,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Fact]
         public void TestODataAny()
@@ -116,9 +114,8 @@
             }
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Fact]
         public void TestODataIsOf()
@@ -207,7 +204,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                //TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
                 // Arrange.

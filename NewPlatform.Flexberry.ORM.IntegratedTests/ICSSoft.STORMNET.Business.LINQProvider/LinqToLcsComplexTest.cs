@@ -14,7 +14,6 @@
     /// This is a test class for LinqToLcsTest and is intended
     /// to contain all LinqToLcsTest Unit Tests
     /// </summary>
-    
     public class LinqToLcsComplexTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -197,7 +196,7 @@
                                 new ColumnsSortDef(Information.ExtractPropertyPath<Кошка>(c => c.Порода.Название), SortOrder.Asc)
                             }
             };
-            
+
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Кошка.Views.КошкаE);
             Assert.True(Equals(expected, actual));
 
@@ -374,7 +373,7 @@
         }
 
         /// <summary>
-        /// Тест для преобразования вызова метода Contains у 
+        /// Тест для преобразования вызова метода Contains у
         /// массива в функцию IN
         /// </summary>
         [Fact]

@@ -9,7 +9,6 @@
     /// <summary>
     /// ORM-integrated unit test class for <see cref="AuditService"/> with enabled audit.
     /// </summary>
-    
     public class AuditServiceWithEnabledAuditTest : BaseAuditServiceTest
     {
         /// <summary>

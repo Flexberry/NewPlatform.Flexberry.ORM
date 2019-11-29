@@ -9,13 +9,12 @@
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
 
-    
     public class LinqToLcsNumericTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
         private const int Number1 = 2;
         private const int Number2 = 8;
-        
+
         /// <summary>
         /// Тест арифметических операций
         /// </summary>

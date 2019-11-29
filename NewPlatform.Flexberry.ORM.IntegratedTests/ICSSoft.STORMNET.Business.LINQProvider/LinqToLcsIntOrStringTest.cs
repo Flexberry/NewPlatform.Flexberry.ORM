@@ -1,22 +1,19 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System;
-    using System.Configuration;
     using System.Linq;
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
     using NewPlatform.Flexberry.ORM.IntegratedTests;
-    using System.Reflection;
 
     /// <summary>
     /// Тесты на работу провайдера с ограничением вида:
     /// Where(DataObject.StringField == someString || DataObject.IntField.ToString() == someString).
-    /// В качестве someString по задумке может прийти строка, гуид или целое число. 
+    /// В качестве someString по задумке может прийти строка, гуид или целое число.
     /// Если приходит гуид, этот запрос падает с ошибкой приведения типов, потому, что генерируется запрос вида:
     /// WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78') OR ( "IntField" = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78'))
     /// </summary>
-
     public class LinqToLcsIntOrStringTest: BaseIntegratedTest
     {
         /// <summary>
@@ -118,7 +115,7 @@
                 var view = FullTypesMaster1.Views.FullMasterView;
 
                 // Происходит падение теста так как генерируется запрос вида:
-                // WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78') 
+                // WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78')
                 //      OR ( "IntField" = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78')).
                 var query = ((SQLDataService)dataService)
                             .Query<FullTypesMaster1>(view)
@@ -182,7 +179,7 @@
                 var view = FullTypesMaster1.Views.FullMasterView;
 
                 // Происходит падение теста так как генерируется запрос вида:
-                // WHERE ( ( "PoleString" = N'72fca622-a01e-494c-be1c-0821178594fb') 
+                // WHERE ( ( "PoleString" = N'72fca622-a01e-494c-be1c-0821178594fb')
                 //      OR ( "PoleInt" = N'72fca622-a01e-494c-be1c-0821178594fb')).
                 var query = ((SQLDataService)dataService)
                             .Query<FullTypesMaster1>(view)

@@ -8,7 +8,6 @@
     /// <summary>
     /// Summary description for ForeachWithMethodTest
     /// </summary>
-    
     public class ForeachWithMethodTest
     {
         public ForeachWithMethodTest()
@@ -18,7 +17,6 @@
             //
         }
 
-        
         [Fact]
         public void ForeachWithMethodTesting()
         {
@@ -45,7 +43,6 @@
             return lst.ToArray();
         }
 
-        
         [Fact]
         public void ForeachWithPropertyTesting()
         {
@@ -58,7 +55,6 @@
             Console.WriteLine(str);
         }
 
-        
         [Fact]
         public void ForeachWithPropAndMethodTesting()
         {
@@ -70,7 +66,6 @@
             Console.WriteLine(str);
         }
 
-        
         [Fact]
         public void ForWithPropAndMethodTesting()
         {
@@ -81,7 +76,6 @@
             }
             Console.WriteLine(str);
         }
-
 
         private class ForeachClass1
         {

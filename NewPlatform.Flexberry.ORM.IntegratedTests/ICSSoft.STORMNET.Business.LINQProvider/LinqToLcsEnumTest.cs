@@ -15,7 +15,6 @@
     /// <summary>
     /// Проверка перевода из Linq в LCS.
     /// </summary>
-    
     public class LinqToLcsEnumTest
     {
         /// <summary>

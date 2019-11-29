@@ -20,7 +20,7 @@
         /// </param>
         /// <returns>
         /// True, если списки одинаковые, False -в противном случае.
-        /// </returns>      
+        /// </returns>
         public static bool ListEquals(List<object> target, List<object> source)
         {
             return ListEquals<object>(target, source);
@@ -37,8 +37,8 @@
         /// </param>
         /// <returns>
         /// True, если списки одинаковые, False -в противном случае.
-        /// </returns>      
-        public static bool ListEquals<T>(IEnumerable<T> target, IEnumerable<T> source) 
+        /// </returns>
+        public static bool ListEquals<T>(IEnumerable<T> target, IEnumerable<T> source)
         //public static bool ListEquals<T>(List<T> target, List<T> source)
         {
             if (target == null || source == null)

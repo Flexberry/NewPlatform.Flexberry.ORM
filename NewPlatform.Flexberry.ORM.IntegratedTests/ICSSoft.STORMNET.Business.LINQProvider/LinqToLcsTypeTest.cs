@@ -1,7 +1,6 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System;
-    using System.Configuration;
     using System.Linq;
     using Xunit;
 
@@ -28,7 +27,7 @@
         [Fact]
         public void TestValueGuid()
         {
-            // Arrange.          
+            // Arrange.
             foreach (IDataService dataService in DataServices)
             {
                 if (dataService is OracleDataService && typeof(SQLDataService).Assembly.ImageRuntimeVersion.StartsWith("v2"))
@@ -72,10 +71,10 @@
         [Fact]
         public void TestValueNullableGuidNotNull()
         {
-            // Arrange.            
+            // Arrange.
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                //TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
                     continue;
 
@@ -114,7 +113,7 @@
         [Fact]
         public void TestValueNullableGuidNull()
         {
-            // Arrange.           
+            // Arrange.
             foreach (IDataService dataService in DataServices)
             {
                 if (dataService is OracleDataService && typeof(SQLDataService).Assembly.ImageRuntimeVersion.StartsWith("v2"))

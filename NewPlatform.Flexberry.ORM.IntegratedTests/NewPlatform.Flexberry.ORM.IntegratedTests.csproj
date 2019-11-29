@@ -144,7 +144,6 @@
     <Compile Include="Common\TypeFullNameTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectExtensionTests.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectTest.cs" />
-    <Compile Include="ICSSoft.STORMNET.DataObject\DetailArray.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\EquivalenceMethods.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\InformationTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\KeyGenTest.cs" />
@@ -176,7 +175,6 @@
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsIntOrStringTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LoadCharTest.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\VariableDefTest.cs" />
-    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LINQProviderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsBooleanTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsComplexTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsDateTimeTest.cs" />

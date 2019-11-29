@@ -16,7 +16,6 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
     /// <summary>
     /// Класс для тестирования преобразований из шаблона типа Regex в шаблон типа sql-like и наоборот.
     /// </summary>
-    
     public class TestRegexToSql
     {
         /// <summary>
@@ -189,7 +188,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
                 UtilsLcs.MinimalRegexCheck("^ab.*$c$");
             });
             Assert.IsType(typeof(NotSupportedRegexException), exception);
-        }    
+        }
 
         /// <summary>
         /// Проверяем корректность перевода из regex в sql-like.

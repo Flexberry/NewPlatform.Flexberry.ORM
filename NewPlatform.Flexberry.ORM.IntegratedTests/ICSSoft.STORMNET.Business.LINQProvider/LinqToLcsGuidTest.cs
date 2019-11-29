@@ -11,7 +11,6 @@
     /// <summary>
     /// Тесты на работу провайдера со свойствами типа Guid.
     /// </summary>
-    
     public class LinqToLcsGuidTest
     {
         /// <summary>

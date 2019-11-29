@@ -13,7 +13,6 @@
     /// <summary>
     /// Тесты класса <see cref="DataObjectValidator"/>.
     /// </summary>
-    
     public class TestDataObjectValidator
     {
         // TODO: написать по остальным типам.
