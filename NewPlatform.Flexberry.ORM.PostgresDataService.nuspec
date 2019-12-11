@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>6.0.0-alpha04</version>
+    <version>6.0.0-alpha05</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,7 +13,11 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
       Added
-      - PostgresDataService in it's own NuGet package.
+      1. PostgresDataService in it's own NuGet package.
+      2. Added a primary key ordering in case of not setting order by clause in PostgresDataService
+      Changed
+      1. Maintaining rows order while ordering field contains similar valuesin PostgresDataService
+      2. Primary key quotation in order by clause in SQLDataService
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
     <tags>Flexberry ORM</tags>
