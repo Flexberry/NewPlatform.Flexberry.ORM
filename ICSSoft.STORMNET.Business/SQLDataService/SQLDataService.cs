@@ -1289,17 +1289,7 @@
                 STORMDO.View dataObjectView = customizationStruct.View;
                 if (dataObjectView.Name == string.Empty)
                 {
-                    for (int i = 0; i < dataObjectView.Properties.Length; i++)
-                    {
-                        if (!Information.IsStoredProperty(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name))
-                        {
-                            string expression = Information.GetPropertyExpression(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name, this.GetType());
-                            if (!string.IsNullOrEmpty(expression))
-                            {
-                                dataObjectView.AddProperties(Information.GetPropertiesInExpression(expression, string.Empty));
-                            }
-                        }
-                    }
+                    Information.AppendPropertiesFromNotStored(dataObjectView, this.GetType());
                 }
 
                 STORMFunction LimitFunction = customizationStruct.LimitFunction;

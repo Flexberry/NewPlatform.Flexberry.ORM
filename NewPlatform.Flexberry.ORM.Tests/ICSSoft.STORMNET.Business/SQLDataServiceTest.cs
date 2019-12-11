@@ -1,5 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
+    using System.Linq;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
 
@@ -114,6 +116,47 @@
 
             // Act.
             Assert.Throws<System.InvalidOperationException>(() => ds.LoadObjects(LoadingCustomizationStruct.GetSimpleStruct(typeof(Клиент), dynamicView)));
+        }
+
+        /// <summary>
+        /// Test <see cref="Information.AppendPropertiesFromNotStored" /> for master property.
+        /// </summary>
+        [Fact]
+        public void TestAppendPropertiesFromNotStoredForMaster()
+        {
+            // Arrange.
+            var view = new View { DefineClassType = typeof(Котенок) };
+            view.AddProperties(
+                Information.ExtractPropertyPath<Котенок>(x => x.Кошка),
+                Information.ExtractPropertyPath<Котенок>(x => x.Кошка.КошкаСтрокой));
+            string missingProp = Information.ExtractPropertyPath<Котенок>(x => x.Кошка.Кличка);
+
+            // Act.
+            Information.AppendPropertiesFromNotStored(view, typeof(SQLDataService));
+
+            // Assert.
+            Assert.Equal(3, view.Properties.Length);
+            Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
+        }
+
+        /// <summary>
+        /// Test <see cref="Information.AppendPropertiesFromNotStored" /> for own property.
+        /// </summary>
+        [Fact]
+        public void TestAppendPropertiesFromNotStored()
+        {
+            // Arrange.
+            var view = new View { DefineClassType = typeof(Кошка) };
+            view.AddProperties(
+                Information.ExtractPropertyPath<Кошка>(x => x.КошкаСтрокой));
+            string missingProp = Information.ExtractPropertyPath<Кошка>(x => x.Кличка);
+
+            // Act.
+            Information.AppendPropertiesFromNotStored(view, typeof(SQLDataService));
+
+            // Assert.
+            Assert.Equal(2, view.Properties.Length);
+            Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
         }
     }
 }
