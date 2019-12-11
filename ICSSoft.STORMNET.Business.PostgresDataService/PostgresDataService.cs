@@ -856,6 +856,16 @@
                 int fromInd = resQuery.IndexOf("FROM (");
                 string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
 
+                 if (!string.IsNullOrEmpty(orderByExpr))
+                {
+                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + (orderByExpr.Contains("STORMMainObjectKey") ? string.Empty : ", STORMMainObjectKey") + ") as \"RowNumber\"" + nl);
+                }
+                else
+                {
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
+                }
+
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)

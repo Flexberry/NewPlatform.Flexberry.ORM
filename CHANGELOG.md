@@ -1,4 +1,5 @@
 # Flexberry ORM Changelog
+
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
@@ -16,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
-## [5.0.1] - 2019-11-27
+## [5.0.1] - 2019-12-11
 
 ### Added
 
@@ -25,7 +26,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Maintaining rows order while ordering field contains similar values in PostgresDataService
-- Excluding RowNumber field from query to Postgres
 - Primary key quotation in order by clause in SQLDataService
 
 ## [5.0.0] - 2018-12-13

@@ -17,8 +17,7 @@
 
       Changed
       1. Maintaining rows order while ordering field contains similar valuesin PostgresDataService
-      2. Excluding RowNumber field from query to Postgres
-      3. Primary key quotation in order by clause in SQLDataService
+      2. Primary key quotation in order by clause in SQLDataService
 
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2019</copyright>
