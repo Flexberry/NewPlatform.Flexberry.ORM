@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Flexberry ORM 5.1.0-beta07: Класс ICSSoft.STORMNET.Information</title>
+<title>Flexberry ORM 5.1.0-beta08: Класс ICSSoft.STORMNET.Information</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 5.1.0-beta07
+   <div id="projectname">Flexberry ORM 5.1.0-beta08
    </div>
   </td>
  </tr>
@@ -292,6 +292,9 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 <tr class="memitem:a3bc71ae2c1a656160f47cb2e18cc9326"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html">ICSSoft.STORMNET.Collections.TypeBaseCollection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a3bc71ae2c1a656160f47cb2e18cc9326">GetExpressionForProperty</a> (System.Type type, string propName)</td></tr>
 <tr class="memdesc:a3bc71ae2c1a656160f47cb2e18cc9326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вернуть выражения, указанные атрибутами <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_service_expression_attribute.html" title="Указывает формулу вычисления атрибута - для стрингованных данных (для конкретного типа сервиса данных...">DataServiceExpressionAttribute</a> для свойства.  <a href="#a3bc71ae2c1a656160f47cb2e18cc9326">Подробнее...</a><br /></td></tr>
 <tr class="separator:a3bc71ae2c1a656160f47cb2e18cc9326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1026a397e6c5465df2150cb82c550748"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a1026a397e6c5465df2150cb82c550748">AppendPropertiesFromNotStored</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a> dataObjectView, Type dsType)</td></tr>
+<tr class="memdesc:a1026a397e6c5465df2150cb82c550748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить недостающие свойства в представление из выражений нехранимых свойств.  <a href="#a1026a397e6c5465df2150cb82c550748">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1026a397e6c5465df2150cb82c550748"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d7e6e7da4c23e0c314cc2e090dfdd12"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a7d7e6e7da4c23e0c314cc2e090dfdd12">GetPropertyExpression</a> (Type type, string propertyName, Type dataServiceType)</td></tr>
 <tr class="memdesc:a7d7e6e7da4c23e0c314cc2e090dfdd12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вернуть выражение с учетом DataService. <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_service_expression_attribute.html" title="Указывает формулу вычисления атрибута - для стрингованных данных (для конкретного типа сервиса данных...">DataServiceExpressionAttribute</a> для свойства.  <a href="#a7d7e6e7da4c23e0c314cc2e090dfdd12">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7d7e6e7da4c23e0c314cc2e090dfdd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -448,6 +451,49 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 </div><div class="memdoc">
 
 <p>Получить список имён общих представлений для указанных классов. Речь идёт о ситуации, когда образующие иерархию наследования классы имеют представления, что означает, что имеется множество представлений, общее для некоторого множества классов. Указывая в этот метод это множество классов, Вы и получите имена их общих представлений. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1026a397e6c5465df2150cb82c550748"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ICSSoft.STORMNET.Information.AppendPropertiesFromNotStored </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html">View</a>&#160;</td>
+          <td class="paramname"><em>dataObjectView</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Type&#160;</td>
+          <td class="paramname"><em>dsType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавить недостающие свойства в представление из выражений нехранимых свойств. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataObjectView</td><td>Представление.</td></tr>
+    <tr><td class="paramname">dsType</td><td>Тип сервиса данных.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

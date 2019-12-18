@@ -1,5 +1,6 @@
 var NAVTREEINDEX11 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a6c09170a96c0c58e3e3121e315c9b892":[1,0,2,1,12,6,46],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a6f8288763e68b5be5b34c1736775c22e":[1,0,2,1,12,6,18],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a74a42dc612ccefbef17eb43464d2b827":[1,0,2,1,12,6,4],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#a7776c150f8a75267bfa0241c817d66f1":[1,0,2,1,12,6,41],
@@ -248,6 +249,5 @@ var NAVTREEINDEX11 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def_1_1_date_formats.html#ab803a746dbc6df0cb7331826c2e5cff6":[1,0,2,1,13,0,4,0,2],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def_1_1_date_formats.html#aece3ab51002a73fbc0aae47ac1c80449":[1,0,2,1,13,0,4,0,3],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_parameter_def.html":[1,0,2,1,13,0,6],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_parameter_def.html#a0918bfad74ddc3c79460a516d60f5b7d":[1,0,2,1,13,0,6,4],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_parameter_def.html#a31618119a3ff327f6054f6430dbf89aa":[1,0,2,1,13,0,6,0]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_parameter_def.html#a0918bfad74ddc3c79460a516d60f5b7d":[1,0,2,1,13,0,6,4]
 };

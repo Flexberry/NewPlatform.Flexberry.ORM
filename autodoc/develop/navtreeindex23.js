@@ -1,5 +1,8 @@
 var NAVTREEINDEX23 =
 {
+"struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_in_view.html#aec8e63ed4ebef93cc22b7f03e649d38c":[1,0,2,1,30,10],
+"struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_in_view.html#aef4afd530abb6bd9995600ca33bf0b80":[1,0,2,1,30,4],
+"struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_in_view.html#afd7663c9e23e46ecf2d0b38996fb03f7":[1,0,2,1,30,7],
 "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_master_in_view.html":[1,0,2,1,51],
 "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_master_in_view.html#a297d676d9b9b768f623e2f6083d616a6":[1,0,2,1,51,4],
 "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_master_in_view.html#a50bca78cc09b7ebbd3208f9a48f5a809":[1,0,2,1,51,1],
