@@ -97,6 +97,12 @@
         }
 
         /// <summary>
+        /// An instance of the class responsible for converting values to a string for the SQL query.
+        /// See <see cref="IConverterToQueryValueString"/>.
+        /// </summary>
+        public IConverterToQueryValueString ConverterToQueryValueString { get; set; }
+
+        /// <summary>
         /// Преобразовать значение в SQL строку
         /// </summary>
         /// <param name="function">Функция</param>
@@ -503,6 +509,16 @@
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified converter.
+        /// </summary>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        public SQLDataService(IConverterToQueryValueString converterToQueryValueString)
+            : this()
+        {
+            ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager and audit service.
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
@@ -512,6 +528,18 @@
         {
             _securityManager = securityManager;
             _auditService = auditService;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager, audit service and converter.
+        /// </summary>
+        /// <param name="securityManager">The security manager instance.</param>
+        /// <param name="auditService">The audit service instance.</param>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        public SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString)
+            : this(securityManager, auditService)
+        {
+            ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
         }
 
         private ICSSoft.STORMNET.TypeUsage fldTypeUsage;
@@ -3030,6 +3058,11 @@
             if (value == null)
             {
                 return "NULL";
+            }
+
+            if (ConverterToQueryValueString?.IsSupported(value.GetType()) == true)
+            {
+                return ConverterToQueryValueString.ConvertToQueryValueString(value);
             }
 
             if (value is IConvertibleToQueryValueString)

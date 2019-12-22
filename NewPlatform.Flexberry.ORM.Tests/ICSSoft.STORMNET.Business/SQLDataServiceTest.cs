@@ -180,5 +180,33 @@
             // Assert.
             Assert.Equal(expected, actual);
         }
+
+        /// <summary>
+        /// Test for using <see cref="IConverterToQueryValueString"/> in <see cref="SQLDataService.ConvertSimpleValueToQueryValueString(object)"/>.
+        /// </summary>
+        [Fact]
+        public void TestConverterToQueryValueString()
+        {
+            // Arrange.
+            object supportedValue = new object();
+            string supportedExpected = "IConverterToQueryValueString";
+            int notSupportedValue = 0;
+            string notSupportedExpected = "0";
+
+            var mock = new Mock<IConverterToQueryValueString>();
+            mock.Setup(m => m.IsSupported(typeof(object))).Returns(true);
+            mock.Setup(m => m.IsSupported(typeof(int))).Returns(false);
+            mock.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(supportedExpected);
+
+            var dataService = new MSSQLDataService(mock.Object);
+
+            // Act.
+            string supportedActual = dataService.ConvertSimpleValueToQueryValueString(supportedValue);
+            string notSupportedActual = dataService.ConvertSimpleValueToQueryValueString(notSupportedValue);
+
+            // Assert.
+            Assert.Equal(supportedExpected, supportedActual);
+            Assert.Equal(notSupportedExpected, notSupportedActual);
+        }
     }
 }
