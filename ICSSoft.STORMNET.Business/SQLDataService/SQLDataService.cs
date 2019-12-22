@@ -3032,6 +3032,11 @@
                 return "NULL";
             }
 
+            if (value is IConvertibleToQueryValueString)
+            {
+                return (value as IConvertibleToQueryValueString).ConvertToQueryValueString();
+            }
+
             System.Type valType = value.GetType();
             if (valType == typeof(string))
             {

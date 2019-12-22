@@ -5,6 +5,7 @@
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
 
+    using Moq;
     using Xunit;
 
     /// <summary>
@@ -157,6 +158,27 @@
             // Assert.
             Assert.Equal(2, view.Properties.Length);
             Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
+        }
+
+        /// <summary>
+        /// Test for using <see cref="IConvertibleToQueryValueString"/> in <see cref="SQLDataService.ConvertSimpleValueToQueryValueString(object)"/>.
+        /// </summary>
+        [Fact]
+        public void TestConvertibleToQueryValueString()
+        {
+            // Arrange.
+            string expected = "IConvertibleToQueryValueString";
+
+            var mock = new Mock<IConvertibleToQueryValueString>();
+            mock.Setup(m => m.ConvertToQueryValueString()).Returns(expected);
+
+            var dataService = new MSSQLDataService();
+
+            // Act.
+            string actual = dataService.ConvertSimpleValueToQueryValueString(mock.Object);
+
+            // Assert.
+            Assert.Equal(expected, actual);
         }
     }
 }
