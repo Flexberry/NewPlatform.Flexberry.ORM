@@ -1,8 +1,16 @@
 language: csharp
 solution: Flexberry ORM.sln
-install:
-  - nuget restore "Flexberry ORM.sln"
-  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory testrunner
+addons:
+  apt:
+    packages:
+      - doxygen
+services:
+  - postgresql
 script:
   - msbuild /p:Configuration=Debug "Flexberry ORM.sln"
-  - mono ./testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug-Net45/NewPlatform.Flexberry.ORM.Tests.dll
+  - mono ./packages/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/NewPlatform.Flexberry.ORM.Tests.dll
+  - mono ./packages/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false"
+    && (test $TRAVIS_BRANCH == "master" || test $TRAVIS_BRANCH == "develop")
+    && bash Doxygen/update-autodoc.sh

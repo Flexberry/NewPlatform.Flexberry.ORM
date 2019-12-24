@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>NewPlatform.Flexberry.ORM.OracleDataService</id>
+    <version>6.0.0-alpha06</version>
+    <title>Flexberry ORM</title>
+    <authors>New Platform Ltd</authors>
+    <owners>New Platform Ltd</owners>
+    <licenseUrl>http://flexberry.ru/License-FlexberryOrm-Runtime</licenseUrl>
+    <projectUrl>http://flexberry.net/FlexberryORM</projectUrl>
+    <iconUrl>https://flexberry.net/img/logo-color.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Flexberry ORM package.</description>
+    <releaseNotes>
+      Added
+      - OracleDataService in it's own NuGet package.
+    </releaseNotes>
+    <copyright>Copyright New Platform Ltd 2019</copyright>
+    <tags>Flexberry ORM</tags>
+    <dependencies>
+      <dependency id="NewPlatform.Flexberry.ORM.Abstractions" version="6.0.0-alpha04" />
+      <dependency id="Oracle.ManagedDataAccess.Core" version="2.19.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.OracleDataService.XML" />
+  </files>
+</package>

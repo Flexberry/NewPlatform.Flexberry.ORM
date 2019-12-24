@@ -3,8 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Specialized;
-    using System.DirectoryServices;
-    using System.Web;
 
     using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
@@ -85,7 +83,7 @@
             var vd = new VariableDef(lg.GetObjectTypeForNetType(typeof(string)), "UserName");
 
             Function func = lg.GetFunction(
-                lg.funcEQ, vd, GetUserName() + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty));
+                lg.funcEQ, vd, Services.CurrentUserService.CurrentUser.Login + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty));
 
             var lcs1 = new LoadingCustomizationStruct(0);
 
@@ -111,34 +109,6 @@
         public static void ClearAllUserLocks()
         {
             ClearAllUserLocks(DataServiceProvider.DataService);
-        }
-
-        /// <summary>
-        /// The get user name.
-        /// </summary>
-        /// <returns>
-        /// The get user name.
-        /// </returns>
-        [Obsolete("Use ICSSoft.Services.CurrentUserService.CurrentUser.FriendlyName instead")]
-        public static string GetUserName()
-        {
-            return OldGetUserName();
-
-            // return Services.CurrentUserService.CurrentUser.FriendlyName;
-        }
-
-        /// <summary>
-        /// The set user name.
-        /// </summary>
-        /// <param name="newusername">
-        /// The newusername.
-        /// </param>
-        [Obsolete("Use ICSSoft.Services.CurrentUserService.CurrentUser.FriendlyName instead")]
-        public static void SetUserName(string newusername)
-        {
-            OldSetUserName(newusername);
-
-            // Services.CurrentUserService.CurrentUser.FriendlyName = newusername;
         }
 
         /// <summary>
@@ -199,7 +169,7 @@
         /// </param>
         public void ClearLock(string LockKey)
         {
-            ClearLock(LockKey, GetUserName());
+            ClearLock(LockKey, Services.CurrentUserService.CurrentUser.Login);
         }
 
         /// <summary>
@@ -209,7 +179,7 @@
         /// </param>
         public void ClearLock(DataObject dobj)
         {
-            ClearLock(dobj, GetUserName());
+            ClearLock(dobj, Services.CurrentUserService.CurrentUser.Login);
         }
 
         /// <summary>
@@ -223,7 +193,7 @@
         /// </param>
         public void ClearWebLock(DataObject dobj, IDataService ds)
         {
-            ClearWebLock(dobj, GetUserName(), ds);
+            ClearWebLock(dobj, Services.CurrentUserService.CurrentUser.Login, ds);
         }
 
         /// <summary>
@@ -289,7 +259,7 @@
 
             var ld = new LockData();
             ld.LockKey = dobj.GetType().FullName + ":" + dobj.__PrimaryKey;
-            ld.UserName = GetUserName() + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty);
+            ld.UserName = Services.CurrentUserService.CurrentUser.Login + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty);
             try
             {
                 dataService.LoadObject(ld, false, true);
@@ -379,7 +349,7 @@
 
             var ld = new LockData();
             ld.LockKey = dobj.GetType().FullName + ":" + dobj.__PrimaryKey;
-            ld.UserName = GetUserName() + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty);
+            ld.UserName = Services.CurrentUserService.CurrentUser.Login + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty);
             try
             {
                 ds.LoadObject(ld, false, true);
@@ -461,7 +431,7 @@
         /// </returns>
         public string SetLock(string LockKey)
         {
-            return SetLock(LockKey, GetUserName());
+            return SetLock(LockKey, Services.CurrentUserService.CurrentUser.Login);
         }
 
         /// <summary>
@@ -475,7 +445,7 @@
         /// </returns>
         public string SetLock(DataObject dobj)
         {
-            return SetLock(dobj, GetUserName());
+            return SetLock(dobj, Services.CurrentUserService.CurrentUser.Login);
         }
 
         /// <summary>
@@ -493,7 +463,7 @@
         /// </returns>
         public string SetWebLock(DataObject dobj, IDataService ds)
         {
-            return SetWebLock(dobj, GetUserName(), ds);
+            return SetWebLock(dobj, Services.CurrentUserService.CurrentUser.Login, ds);
         }
 
         /// <summary>
@@ -586,51 +556,6 @@
             {
                 LightingView(div.View);
             }
-        }
-
-        /// <summary>
-        /// The old get user name.
-        /// </summary>
-        /// <returns>
-        /// The old get user name.
-        /// </returns>
-        private static string OldGetUserName()
-        {
-            if (HttpContext.Current != null)
-            {
-                return HttpContext.Current.User.Identity.Name;
-            }
-
-            if (username == string.Empty)
-            {
-                try
-                {
-                    var ds = new DirectorySearcher(
-                        "(&(objectClass=user)(sAMAccountName= " + Environment.UserName + "))", new[] { "cn" })
-                        {
-                           CacheResults = true
-                        };
-                    SearchResult sr = ds.FindOne();
-                    username = sr.Properties["cn"][0].ToString();
-                }
-                catch
-                {
-                    username = Environment.UserName;
-                }
-            }
-
-            return username;
-        }
-
-        /// <summary>
-        /// The old set user name.
-        /// </summary>
-        /// <param name="newusername">
-        /// The newusername.
-        /// </param>
-        private static void OldSetUserName(string newusername)
-        {
-            username = newusername;
         }
 
         /// <summary>

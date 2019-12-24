@@ -737,6 +737,8 @@ CREATE TABLE [Медведь] (
 
 	 [ЛесОбитания] UNIQUEIDENTIFIER  NULL,
 
+	 [Друг_m0] UNIQUEIDENTIFIER  NULL,
+
 	 PRIMARY KEY ([primaryKey]))
 
 
@@ -1695,6 +1697,9 @@ CREATE INDEX Медведь_IПапа on [Медведь] ([Папа])
 
  ALTER TABLE [Медведь] ADD CONSTRAINT [Медведь_FЛес_0] FOREIGN KEY ([ЛесОбитания]) REFERENCES [Лес]
 CREATE INDEX Медведь_IЛесОбитания on [Медведь] ([ЛесОбитания])
+
+ ALTER TABLE [Медведь] ADD CONSTRAINT [Медведь_FМедведь_2] FOREIGN KEY ([Друг_m0]) REFERENCES [Медведь]
+CREATE INDEX Медведь_IДруг_m0 on [Медведь] ([Друг_m0])
 
  ALTER TABLE [InformationTestClass6] ADD CONSTRAINT [InformationTestClass6_FClassWithCaptions_0] FOREIGN KEY ([ExampleOfClassWithCaptions]) REFERENCES [ClassWithCaptions]
 CREATE INDEX InformationTestClass6_IExampleOfClassWithCaptions on [InformationTestClass6] ([ExampleOfClassWithCaptions])
