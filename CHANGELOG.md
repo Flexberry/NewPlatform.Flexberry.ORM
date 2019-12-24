@@ -17,6 +17,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
+## [5.0.2] - 2019-12-24
+
+### Changed
+
+- Row_number exclude from sql query for optimization.
+
 ## [5.0.1] - 2019-12-11
 
 ### Added
