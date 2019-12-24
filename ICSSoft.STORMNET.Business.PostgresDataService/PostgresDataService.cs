@@ -856,16 +856,6 @@
                 int fromInd = resQuery.IndexOf("FROM (");
                 string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
 
-                 if (!string.IsNullOrEmpty(orderByExpr))
-                {
-                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + (orderByExpr.Contains("STORMMainObjectKey") ? string.Empty : ", STORMMainObjectKey") + ") as \"RowNumber\"" + nl);
-                }
-                else
-                {
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
-                }
-
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)
@@ -938,7 +928,10 @@
             int? maxResults = null)
         {
             string nl = Environment.NewLine;
+            string keyName = PutIdentifierIntoBrackets("STORMMainObjectKey");
+
             var ret = new Dictionary<int, string>();
+
             if (lcs == null || limitFunction == null)
             {
                 return ret;
@@ -956,6 +949,7 @@
             }
 
             bool usedSorting = false;
+
             if (lcs.ColumnsSort == null || lcs.ColumnsSort.Length == 0)
             {
                 lcs.ColumnsSort = new[] { new ColumnsSortDef("__PrimaryKey", SortOrder.Asc) };
@@ -966,53 +960,38 @@
             }
 
             string innerQuery = GenerateSQLSelect(lcs, false);
-            string offset = null;
-            if (lcs.RowNumber != null)
-            {
-                int posOffset = innerQuery.LastIndexOf("OFFSET ");
-                offset = innerQuery.Substring(posOffset);
-                innerQuery = innerQuery.Substring(0, posOffset);
 
-                // + nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
-            }
-
-            // надо добавить RowNumber
-            // top int.MaxValue
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
-            string orderByExpr = string.Empty; // , nl = Environment.NewLine;
+            string orderByExpr = string.Empty;
+
+            string orderByExprWithoutOffset = string.Empty;
+
             if (orderByIndex > -1)
             {
                 orderByExpr = innerQuery.Substring(orderByIndex);
+                orderByExprWithoutOffset = orderByExpr;
+                if (lcs.RowNumber != null)
+                {
+                    int posOffset = orderByExpr.LastIndexOf("OFFSET");
+                    orderByExprWithoutOffset = orderByExpr.Substring(0, posOffset - 1);
+                }
             }
 
-            int fromInd = innerQuery.ToLower().IndexOf("from");
+            string rowNumberExp = $"row_number() over (ORDER BY {keyName}) as \"RowNumber\"{nl}";
 
             if (!string.IsNullOrEmpty(orderByExpr))
             {
-                innerQuery = innerQuery.Substring(0, innerQuery.Length - orderByExpr.Length);
-                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
-            }
-            else
-            {
-                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " ) as \"RowNumber\"" + nl);
+                rowNumberExp = $"row_number() over ({orderByExprWithoutOffset}) as \"RowNumber\"{nl}";
             }
 
-            if (lcs.RowNumber != null)
-            {
-                innerQuery += nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
-            }
+            var source = $"select *, {rowNumberExp} from ({innerQuery}) NumberedRowsQuery";
 
-            string query = string.Format(
-            "SELECT{3} \"RowNumber\", {5} FROM {1}({0}) QueryForGettingIndex {1} WHERE ({2}) {4}",
-            innerQuery,
-            nl,
-            LimitFunction2SQLWhere(limitFunction),
-            maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
-            orderByExpr,
-            PutIdentifierIntoBrackets("STORMMainObjectKey"));
+            string top = maxResults.HasValue ? (" TOP " + maxResults) : string.Empty;
+            string lf = LimitFunction2SQLWhere(limitFunction);
 
-            // if (offset != null)
-            //    query += nl + offset;
+            string query =
+                 $"SELECT{top} \"RowNumber\", {keyName} FROM {nl}({source}) QueryForGettingIndex {nl} WHERE ({lf}) {orderByExprWithoutOffset}";
+
             object state = null;
             object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
             if (res != null)
@@ -1020,9 +999,7 @@
                 for (int i = 0; i < res.Length; i++)
                 {
                     object pk = res[i][1];
-
                     pk = Information.TranslateValueToPrimaryKeyType(lcs.LoadingTypes[0], pk);
-
                     ret[(int)Convert.ChangeType(res[i][0], typeof(int))] = pk.ToString();
                 }
 
