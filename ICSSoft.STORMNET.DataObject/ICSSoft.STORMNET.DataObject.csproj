@@ -115,6 +115,8 @@
     <Compile Include="Formatter.cs" />
     <Compile Include="Interfaces\IComparableType.cs" />
     <Compile Include="Interfaces\IContainsAcceptablePossibleValues.cs" />
+    <Compile Include="Interfaces\IConverterToQueryValueString.cs" />
+    <Compile Include="Interfaces\IConvertibleToQueryValueString.cs" />
     <Compile Include="Interfaces\ISpecialEmptyValue.cs" />
     <Compile Include="KeyGen\BaseKeyGenerator.cs" />
     <Compile Include="KeyGen\GUIDGenerator.cs" />
