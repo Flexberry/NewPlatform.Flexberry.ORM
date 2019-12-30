@@ -167,18 +167,16 @@
         public void TestConvertibleToQueryValueString()
         {
             // Arrange.
-            string expected = "IConvertibleToQueryValueString";
-
             var mock = new Mock<IConvertibleToQueryValueString>();
-            mock.Setup(m => m.ConvertToQueryValueString()).Returns(expected);
+            mock.Setup(m => m.ConvertToQueryValueString()).Returns(string.Empty);
 
             var dataService = new MSSQLDataService();
 
             // Act.
-            string actual = dataService.ConvertSimpleValueToQueryValueString(mock.Object);
+            dataService.ConvertSimpleValueToQueryValueString(mock.Object);
 
             // Assert.
-            Assert.Equal(expected, actual);
+            mock.Verify(m => m.ConvertToQueryValueString(), Times.Once);
         }
 
         /// <summary>
@@ -189,24 +187,22 @@
         {
             // Arrange.
             object supportedValue = new object();
-            string supportedExpected = "IConverterToQueryValueString";
-            int notSupportedValue = 0;
-            string notSupportedExpected = "0";
 
             var mock = new Mock<IConverterToQueryValueString>();
             mock.Setup(m => m.IsSupported(typeof(object))).Returns(true);
             mock.Setup(m => m.IsSupported(typeof(int))).Returns(false);
-            mock.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(supportedExpected);
+            mock.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(string.Empty);
 
             var dataService = new MSSQLDataService(mock.Object);
 
             // Act.
-            string supportedActual = dataService.ConvertSimpleValueToQueryValueString(supportedValue);
-            string notSupportedActual = dataService.ConvertSimpleValueToQueryValueString(notSupportedValue);
+            dataService.ConvertSimpleValueToQueryValueString(supportedValue);
+            dataService.ConvertSimpleValueToQueryValueString(0);
 
             // Assert.
-            Assert.Equal(supportedExpected, supportedActual);
-            Assert.Equal(notSupportedExpected, notSupportedActual);
+            mock.Verify(m => m.IsSupported(typeof(object)), Times.Once);
+            mock.Verify(m => m.IsSupported(typeof(int)), Times.Once);
+            mock.Verify(m => m.ConvertToQueryValueString(supportedValue), Times.Once);
         }
     }
 }
