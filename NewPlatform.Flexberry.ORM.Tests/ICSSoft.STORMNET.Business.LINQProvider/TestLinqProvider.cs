@@ -169,5 +169,28 @@
             // Assert.
             Assert.Equal(expected, actual.LimitFunction);
         }
+
+        /// <summary>
+        /// Проверка .
+        /// </summary>
+        [Fact]
+        public void TestFirstOrDefault()
+        {
+            // Arrange.
+            var testProvider = new TestQueryProvider<Медведь>();
+
+            new Query<Медведь>(testProvider).Where(b => b.Вес == 15).FirstOrDefault();
+            Expression queryExpression = testProvider.InnerExpression;
+
+            SQLWhereLanguageDef langDef = SQLWhereLanguageDef.LanguageDef;
+            Function expected = langDef.GetFunction(langDef.funcEQ, new VariableDef(langDef.NumericType, nameof(Медведь.Вес)), 15);
+
+            // Act.
+            LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, typeof(Медведь));
+
+            // Assert.
+            Assert.Equal(expected, actual.LimitFunction);
+            Assert.Equal(1, actual.ReturnTop);
+        }
     }
 }
