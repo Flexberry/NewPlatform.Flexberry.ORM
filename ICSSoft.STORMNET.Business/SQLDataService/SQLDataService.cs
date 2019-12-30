@@ -3065,9 +3065,9 @@
                 return ConverterToQueryValueString.ConvertToQueryValueString(value);
             }
 
-            if (value is IConvertibleToQueryValueString)
+            if (value is IConvertibleToQueryValueString convertibleValue)
             {
-                return (value as IConvertibleToQueryValueString).ConvertToQueryValueString();
+                return convertibleValue.ConvertToQueryValueString();
             }
 
             System.Type valType = value.GetType();
