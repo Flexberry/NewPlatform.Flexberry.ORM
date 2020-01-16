@@ -12,51 +12,56 @@ namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Xml;
-    
-    
+
+
     // *** Start programmer edit section *** (Using statements)
     using ICSSoft.STORMNET;
-    using ICSSoft.STORMNET.Business;
+    using System.Collections.Generic;
 
     // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
-    /// FileForTests.
+    /// NotifyUpdatePropertyByTypeGeneratedMock.
     /// </summary>
-    // *** Start programmer edit section *** (FileForTests CustomAttributes)
+    // *** Start programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomAttributes)
 
-    // *** End programmer edit section *** (FileForTests CustomAttributes)
-    [ICSSoft.STORMNET.StoreInstancesInType(typeof(SQLDataService), typeof(string))]
-    public class FileForTests : INotifyUpdateProperty
+    // *** End programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomAttributes)
+    public class NotifyUpdatePropertyByTypeGeneratedMock : INotifyUpdatePropertyByType
     {
-        
-        // *** Start programmer edit section *** (FileForTests CustomMembers)
-        /// <inheritdoc cref="INotifyUpdateProperty"/>
+
+        // *** Start programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomMembers)
+
+        /// <inheritdoc cref="INotifyUpdatePropertyByType"/>
+        public IDictionary<Type, IEnumerable<string>> GetSubscribedProperties()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc cref="INotifyUpdatePropertyByType"/>
         public void BeforeUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
             dataObject.DynamicProperties.Add(nameof(BeforeUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
-        /// <inheritdoc cref="INotifyUpdateProperty"/>
+        /// <inheritdoc cref="INotifyUpdatePropertyByType"/>
         public void AfterSuccessSqlUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
             dataObject.DynamicProperties.Add(nameof(AfterSuccessSqlUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
-        /// <inheritdoc cref="INotifyUpdateProperty"/>
+        /// <inheritdoc cref="INotifyUpdatePropertyByType"/>
         public void AfterSuccessUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
             dataObject.DynamicProperties.Add(nameof(AfterSuccessUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
-        /// <inheritdoc cref="INotifyUpdateProperty"/>
+        /// <inheritdoc cref="INotifyUpdatePropertyByType"/>
         public void AfterFailUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
-        // *** End programmer edit section *** (FileForTests CustomMembers)
-
+        // *** End programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomMembers)
     }
 }

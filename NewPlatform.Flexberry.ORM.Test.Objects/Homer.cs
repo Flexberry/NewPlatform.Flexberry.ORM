@@ -13,8 +13,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System;
     using System.Xml;
     using ICSSoft.STORMNET;
-
-
+    
+    
     // *** Start programmer edit section *** (Using statements)
     using System.Collections.Generic;
 
@@ -33,9 +33,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     {
         
         private string fName;
-
+        
         // *** Start programmer edit section *** (Homer CustomMembers)
-
         /// <inheritdoc cref="INotifyUpdateObject"/>
         public void BeforeUpdateObject(DataObject dataObject, ObjectStatus status, IEnumerable<DataObject> dataObjects)
         {
@@ -62,7 +61,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
 
         // *** End programmer edit section *** (Homer CustomMembers)
 
-
+        
         /// <summary>
         /// Name.
         /// </summary>

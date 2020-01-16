@@ -49,7 +49,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
             get
             {
                 // *** Start programmer edit section *** (МастерМ.Name Get)
-
                 return null;
                 // *** End programmer edit section *** (МастерМ.Name Get)
             }
@@ -73,7 +72,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
             get
             {
                 // *** Start programmer edit section *** (МастерМ.Value Get)
-
                 return 0;
                 // *** End programmer edit section *** (МастерМ.Value Get)
             }

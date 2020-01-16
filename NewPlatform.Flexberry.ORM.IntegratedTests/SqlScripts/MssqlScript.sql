@@ -1052,6 +1052,8 @@ CREATE TABLE [AuditClassWithSettings] (
 
 	 [Editor] VARCHAR(255)  NULL,
 
+	 [Name] VARCHAR(255)  NULL,
+
 	 PRIMARY KEY ([primaryKey]))
 
 

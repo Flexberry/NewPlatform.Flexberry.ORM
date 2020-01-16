@@ -45,6 +45,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fEditor;
         
+        private string fName;
+        
         // *** Start programmer edit section *** (AuditClassWithSettings CustomMembers)
 
         // *** End programmer edit section *** (AuditClassWithSettings CustomMembers)
@@ -173,6 +175,38 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (AuditClassWithSettings.Editor Set end)
 
                 // *** End programmer edit section *** (AuditClassWithSettings.Editor Set end)
+            }
+        }
+        
+        /// <summary>
+        /// Name.
+        /// </summary>
+        // *** Start programmer edit section *** (AuditClassWithSettings.Name CustomAttributes)
+
+        // *** End programmer edit section *** (AuditClassWithSettings.Name CustomAttributes)
+        [StrLen(255)]
+        public virtual string Name
+        {
+            get
+            {
+                // *** Start programmer edit section *** (AuditClassWithSettings.Name Get start)
+
+                // *** End programmer edit section *** (AuditClassWithSettings.Name Get start)
+                string result = this.fName;
+                // *** Start programmer edit section *** (AuditClassWithSettings.Name Get end)
+
+                // *** End programmer edit section *** (AuditClassWithSettings.Name Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (AuditClassWithSettings.Name Set start)
+
+                // *** End programmer edit section *** (AuditClassWithSettings.Name Set start)
+                this.fName = value;
+                // *** Start programmer edit section *** (AuditClassWithSettings.Name Set end)
+
+                // *** End programmer edit section *** (AuditClassWithSettings.Name Set end)
             }
         }
         
