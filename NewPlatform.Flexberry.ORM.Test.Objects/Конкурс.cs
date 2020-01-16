@@ -60,9 +60,9 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Пользователь fОрганизатор;
         
-        private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки fКритерииОценки;
-        
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfДокументацияККонкурсу fДокументы;
+        
+        private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки fКритерииОценки;
         
         // *** Start programmer edit section *** (Конкурс CustomMembers)
 
@@ -323,41 +323,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <summary>
         /// Конкурс.
         /// </summary>
-        // *** Start programmer edit section *** (Конкурс.КритерииОценки CustomAttributes)
-
-        // *** End programmer edit section *** (Конкурс.КритерииОценки CustomAttributes)
-        public virtual NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки КритерииОценки
-        {
-            get
-            {
-                // *** Start programmer edit section *** (Конкурс.КритерииОценки Get start)
-
-                // *** End programmer edit section *** (Конкурс.КритерииОценки Get start)
-                if ((this.fКритерииОценки == null))
-                {
-                    this.fКритерииОценки = new NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки(this);
-                }
-                NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки result = this.fКритерииОценки;
-                // *** Start programmer edit section *** (Конкурс.КритерииОценки Get end)
-
-                // *** End programmer edit section *** (Конкурс.КритерииОценки Get end)
-                return result;
-            }
-            set
-            {
-                // *** Start programmer edit section *** (Конкурс.КритерииОценки Set start)
-
-                // *** End programmer edit section *** (Конкурс.КритерииОценки Set start)
-                this.fКритерииОценки = value;
-                // *** Start programmer edit section *** (Конкурс.КритерииОценки Set end)
-
-                // *** End programmer edit section *** (Конкурс.КритерииОценки Set end)
-            }
-        }
-        
-        /// <summary>
-        /// Конкурс.
-        /// </summary>
         // *** Start programmer edit section *** (Конкурс.Документы CustomAttributes)
 
         // *** End programmer edit section *** (Конкурс.Документы CustomAttributes)
@@ -387,6 +352,41 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (Конкурс.Документы Set end)
 
                 // *** End programmer edit section *** (Конкурс.Документы Set end)
+            }
+        }
+        
+        /// <summary>
+        /// Конкурс.
+        /// </summary>
+        // *** Start programmer edit section *** (Конкурс.КритерииОценки CustomAttributes)
+
+        // *** End programmer edit section *** (Конкурс.КритерииОценки CustomAttributes)
+        public virtual NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки КритерииОценки
+        {
+            get
+            {
+                // *** Start programmer edit section *** (Конкурс.КритерииОценки Get start)
+
+                // *** End programmer edit section *** (Конкурс.КритерииОценки Get start)
+                if ((this.fКритерииОценки == null))
+                {
+                    this.fКритерииОценки = new NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки(this);
+                }
+                NewPlatform.Flexberry.ORM.Tests.DetailArrayOfКритерийОценки result = this.fКритерииОценки;
+                // *** Start programmer edit section *** (Конкурс.КритерииОценки Get end)
+
+                // *** End programmer edit section *** (Конкурс.КритерииОценки Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (Конкурс.КритерииОценки Set start)
+
+                // *** End programmer edit section *** (Конкурс.КритерииОценки Set start)
+                this.fКритерииОценки = value;
+                // *** Start programmer edit section *** (Конкурс.КритерииОценки Set end)
+
+                // *** End programmer edit section *** (Конкурс.КритерииОценки Set end)
             }
         }
         

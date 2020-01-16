@@ -40,9 +40,9 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fКомментарий;
         
-        private NewPlatform.Flexberry.ORM.Tests.ЗначениеКритерия fЗначениеКритерия;
-        
         private NewPlatform.Flexberry.ORM.Tests.Пользователь fЭксперт;
+        
+        private NewPlatform.Flexberry.ORM.Tests.ЗначениеКритерия fЗначениеКритерия;
         
         private NewPlatform.Flexberry.ORM.Tests.Идея fИдея;
         
@@ -117,6 +117,38 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <summary>
         /// ОценкаЭксперта.
         /// </summary>
+        // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт CustomAttributes)
+
+        // *** End programmer edit section *** (ОценкаЭксперта.Эксперт CustomAttributes)
+        [NotNull()]
+        public virtual NewPlatform.Flexberry.ORM.Tests.Пользователь Эксперт
+        {
+            get
+            {
+                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Get start)
+
+                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Get start)
+                NewPlatform.Flexberry.ORM.Tests.Пользователь result = this.fЭксперт;
+                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Get end)
+
+                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Set start)
+
+                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Set start)
+                this.fЭксперт = value;
+                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Set end)
+
+                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Set end)
+            }
+        }
+        
+        /// <summary>
+        /// ОценкаЭксперта.
+        /// </summary>
         // *** Start programmer edit section *** (ОценкаЭксперта.ЗначениеКритерия CustomAttributes)
 
         // *** End programmer edit section *** (ОценкаЭксперта.ЗначениеКритерия CustomAttributes)
@@ -145,38 +177,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (ОценкаЭксперта.ЗначениеКритерия Set end)
 
                 // *** End programmer edit section *** (ОценкаЭксперта.ЗначениеКритерия Set end)
-            }
-        }
-        
-        /// <summary>
-        /// ОценкаЭксперта.
-        /// </summary>
-        // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт CustomAttributes)
-
-        // *** End programmer edit section *** (ОценкаЭксперта.Эксперт CustomAttributes)
-        [NotNull()]
-        public virtual NewPlatform.Flexberry.ORM.Tests.Пользователь Эксперт
-        {
-            get
-            {
-                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Get start)
-
-                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Get start)
-                NewPlatform.Flexberry.ORM.Tests.Пользователь result = this.fЭксперт;
-                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Get end)
-
-                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Get end)
-                return result;
-            }
-            set
-            {
-                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Set start)
-
-                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Set start)
-                this.fЭксперт = value;
-                // *** Start programmer edit section *** (ОценкаЭксперта.Эксперт Set end)
-
-                // *** End programmer edit section *** (ОценкаЭксперта.Эксперт Set end)
             }
         }
         
