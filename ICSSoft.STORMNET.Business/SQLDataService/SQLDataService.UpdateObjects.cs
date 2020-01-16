@@ -107,8 +107,17 @@
 
             /*access checks*/
 
+            // Порядок выполнения запросов: delete, insert, update.
             if (DeleteQueries.Count > 0 || UpdateQueries.Count > 0 || InsertQueries.Count > 0)
-            { // Порядок выполнения запросов: delete,insert,update
+            {
+                Guid? operationUniqueId = null;
+
+                if (NotifierUpdateObjects != null)
+                {
+                    operationUniqueId = Guid.NewGuid();
+                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, extraProcessingList);
+                }
+
                 if (AuditService.IsAuditEnabled)
                 {
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
@@ -271,12 +280,18 @@
                     }
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
                             AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
+                    }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, extraProcessingList);
                     }
                 }
                 catch (Exception excpt)
@@ -284,8 +299,14 @@
                     dbTransactionWrapper.RollbackTransaction();
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено).
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
+                    }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, extraProcessingList);
                     }
 
                     dbTransactionWrapper.Dispose();
@@ -319,6 +340,12 @@
 
                 objects = new DataObject[res.Count];
                 res.CopyTo(objects);
+
+                if (NotifierUpdateObjects != null)
+                {
+                    NotifierUpdateObjects.AfterSuccessUpdateObjects(operationUniqueId.Value, this, objects);
+                }
+
                 BusinessTaskMonitor.EndTask(id);
             }
 

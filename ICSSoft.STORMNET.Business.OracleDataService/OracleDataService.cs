@@ -62,8 +62,9 @@
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service instance.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
-        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString)
-            : base(securityManager, auditService, converterToQueryValueString)
+        /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
+        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+            : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
         {
         }
 

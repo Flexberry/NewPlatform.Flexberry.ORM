@@ -32,8 +32,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
     public class AuditClassWithDisabledAudit : ICSSoft.STORMNET.DataObject, IDataObjectWithAuditFields
     {
         
-        private string fName;
-        
         private System.Nullable<System.DateTime> fCreateTime;
         
         private string fCreator;
@@ -46,38 +44,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
 
         // *** End programmer edit section *** (AuditClassWithDisabledAudit CustomMembers)
 
-        
-        /// <summary>
-        /// Name.
-        /// </summary>
-        // *** Start programmer edit section *** (AuditClassWithDisabledAudit.Name CustomAttributes)
-
-        // *** End programmer edit section *** (AuditClassWithDisabledAudit.Name CustomAttributes)
-        [StrLen(255)]
-        public virtual string Name
-        {
-            get
-            {
-                // *** Start programmer edit section *** (AuditClassWithDisabledAudit.Name Get start)
-
-                // *** End programmer edit section *** (AuditClassWithDisabledAudit.Name Get start)
-                string result = this.fName;
-                // *** Start programmer edit section *** (AuditClassWithDisabledAudit.Name Get end)
-
-                // *** End programmer edit section *** (AuditClassWithDisabledAudit.Name Get end)
-                return result;
-            }
-            set
-            {
-                // *** Start programmer edit section *** (AuditClassWithDisabledAudit.Name Set start)
-
-                // *** End programmer edit section *** (AuditClassWithDisabledAudit.Name Set start)
-                this.fName = value;
-                // *** Start programmer edit section *** (AuditClassWithDisabledAudit.Name Set end)
-
-                // *** End programmer edit section *** (AuditClassWithDisabledAudit.Name Set end)
-            }
-        }
         
         /// <summary>
         /// Время создания объекта.

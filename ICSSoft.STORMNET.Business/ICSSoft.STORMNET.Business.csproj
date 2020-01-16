@@ -140,6 +140,11 @@
     <Compile Include="CompositionRoot\IODataExportService.cs" />
     <Compile Include="ConfigResolver.cs" />
     <Compile Include="IConfigResolver.cs" />
+    <Compile Include="Interfaces\INotifyUpdatePropertyByType.cs" />
+    <Compile Include="Interfaces\INotifyUpdateProperty.cs" />
+    <Compile Include="Interfaces\INotifyUpdateObject.cs" />
+    <Compile Include="Interfaces\INotifyUpdateObjects.cs" />
+    <Compile Include="Notifiers\NotifierUpdateObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

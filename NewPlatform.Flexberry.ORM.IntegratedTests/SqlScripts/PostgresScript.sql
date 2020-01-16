@@ -2,54 +2,109 @@
 
 
 
-CREATE TABLE InformationTestClass (
+CREATE TABLE AuditMasterMasterObject (
 
  primaryKey UUID NOT NULL,
 
- PublicStringProperty VARCHAR(255) NULL,
+ Login VARCHAR(255) NULL,
 
- StringPropertyForInfTestClass VARCHAR(255) NULL,
+ Name VARCHAR(255) NULL,
 
- IntPropertyForInfTestClass INT NULL,
-
- BoolPropertyForInfTestClass BOOLEAN NULL,
+ Surname VARCHAR(255) NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РўРёРїР›Р°РїС‹ (
+CREATE TABLE ИсточникФинанс (
 
  primaryKey UUID NOT NULL,
 
- РќР°Р·РІР°РЅРёРµ VARCHAR(255) NULL,
-
- РђРєС‚СѓР°Р»СЊРЅРѕ BOOLEAN NULL,
+ НомИсточникаФин INT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РРґРµСЏ (
+CREATE TABLE Apparatus2 (
 
  primaryKey UUID NOT NULL,
 
- Р—Р°РіРѕР»РѕРІРѕРє VARCHAR(255) NULL,
+ ApparatusName VARCHAR(255) NULL,
 
- РћРїРёСЃР°РЅРёРµ VARCHAR(255) NULL,
+ Maker_m0 UUID NULL,
 
- РЎСѓРјРјР°Р‘Р°Р»Р»РѕРІ DOUBLE PRECISION NULL,
-
- РљРѕРЅРєСѓСЂСЃ_m0 UUID NOT NULL,
-
- РђРІС‚РѕСЂ_m0 UUID NOT NULL,
+ Exporter_m0 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE DateField (
+CREATE TABLE ComputedDetail (
 
  primaryKey UUID NOT NULL,
 
- Date TIMESTAMP(3) NULL,
+ DetailField1 VARCHAR(255) NULL,
+
+ DetailField2 VARCHAR(255) NULL,
+
+ ComputedMaster UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE AuditClassWithoutSettings (
+
+ primaryKey UUID NOT NULL,
+
+ Name VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Выплаты (
+
+ primaryKey UUID NOT NULL,
+
+ ДатаВыплаты TIMESTAMP(3) NULL,
+
+ СуммаВыплаты DOUBLE PRECISION NULL,
+
+ Кредит1 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Блоха (
+
+ primaryKey UUID NOT NULL,
+
+ Кличка VARCHAR(255) NULL,
+
+ МедведьОбитания UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Этап (
+
+ primaryKey UUID NOT NULL,
+
+ Статус VARCHAR(78) NULL,
+
+ КонфигурацияЭтапа_m0 UUID NOT NULL,
+
+ Запрос UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ИсходящийЗапрос (
+
+ primaryKey UUID NOT NULL,
+
+ ПервоеДлинноеПолеДляПроверки BOOLEAN NULL,
+
+ ВтороеДлинноеПолеДляПроверки VARCHAR(78) NULL,
+
+ ПятоеДлинноеПолеДляПроверки INT NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -69,62 +124,66 @@ CREATE TABLE AuditMasterObject (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE AuditClassWithDisabledAudit (
+CREATE TABLE Берлога (
+
+ primaryKey UUID NOT NULL,
+
+ Наименование VARCHAR(255) NULL,
+
+ Комфортность INT NULL,
+
+ Заброшена BOOLEAN NULL,
+
+ ЛесРасположения UUID NULL,
+
+ Медведь UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Cabbage2 (
+
+ primaryKey UUID NOT NULL,
+
+ Type VARCHAR(255) NULL,
+
+ Name VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE TypeNameUsageProviderTestClass (
 
  primaryKey UUID NOT NULL,
 
  Name VARCHAR(255) NULL,
 
- CreateTime TIMESTAMP(3) NULL,
+ PRIMARY KEY (primaryKey));
 
- Creator VARCHAR(255) NULL,
 
- EditTime TIMESTAMP(3) NULL,
+CREATE TABLE НаследникМ2 (
 
- Editor VARCHAR(255) NULL,
+ primaryKey UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE InformationTestClass2 (
+CREATE TABLE ИнспПоКредиту (
 
  primaryKey UUID NOT NULL,
 
- StringPropertyForInfTestClass2 VARCHAR(255) NULL,
-
- InformationTestClass_m0 UUID NULL,
-
- InformationTestClass_m1 UUID NULL,
+ ФИО VARCHAR(255) NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Country2 (
+CREATE TABLE ДокККонкурсу (
 
  primaryKey UUID NOT NULL,
 
- CountryName VARCHAR(255) NULL,
+ Файл TEXT NULL,
 
- XCoordinate INT NULL,
-
- YCoordinate INT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE TestClassA (
-
- primaryKey UUID NOT NULL,
-
- Name VARCHAR(255) NULL,
-
- Value INT NULL,
-
- РњР°СЃС‚РµСЂ_m0 UUID NULL,
-
- РњР°СЃС‚РµСЂ_m1 UUID NULL,
-
- РњР°СЃС‚РµСЂ_m2 UUID NULL,
+ Конкурс_m0 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -140,217 +199,133 @@ CREATE TABLE clb (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE AggregatorUpdateObjectTest (
+CREATE TABLE DataObjectWithKeyGuid (
 
  primaryKey UUID NOT NULL,
 
- AggregatorName VARCHAR(255) NULL,
+ LinkToMaster1 UUID NULL,
 
- Detail UUID NULL,
+ LinkToMaster2 UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Р›Р°РїР° (
+CREATE TABLE ОценкаЭксперта (
 
  primaryKey UUID NOT NULL,
 
- Р¦РІРµС‚ VARCHAR(255) NULL,
+ ЗначениеОценки DOUBLE PRECISION NULL,
 
- Р Р°Р·РјРµСЂ INT NULL,
+ Комментарий VARCHAR(255) NULL,
 
- Р”Р°С‚Р°Р РѕР¶РґРµРЅРёСЏ TIMESTAMP(3) NULL,
+ Эксперт_m0 UUID NOT NULL,
 
- Р‘С‹Р»РёР›РёРџРµСЂРµР»РѕРјС‹ BOOLEAN NULL,
+ ЗначениеКритер UUID NOT NULL,
 
- РЎС‚РѕСЂРѕРЅР° VARCHAR(11) NULL,
-
- РќРѕРјРµСЂ INT NULL,
-
- Р Р°Р·РјРµСЂDouble DOUBLE PRECISION NULL,
-
- Р Р°Р·РјРµСЂFloat REAL NULL,
-
- Р Р°Р·РјРµСЂNullableInt INT NULL,
-
- Р Р°Р·РјРµСЂDecimal DECIMAL NULL,
-
- Р Р°Р·РјРµСЂNullableDecimal DECIMAL NULL,
-
- Р Р°Р·РјРµСЂNullableChar SMALLINT NULL,
-
- РўРёРїР›Р°РїС‹_m0 UUID NULL,
-
- РљРѕС€РєР°_m0 UUID NOT NULL,
+ Идея_m0 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР° (
+CREATE TABLE Dish2 (
 
  primaryKey UUID NOT NULL,
 
- РќРѕРјРµСЂРР¤РҐРѕР·Р”РѕРіРѕРІ INT NULL,
+ DishName VARCHAR(255) NULL,
 
- РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ UUID NOT NULL,
+ MainIngridient_m0 UUID NULL,
 
- РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0 UUID NOT NULL,
+ MainIngridient_m1 UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РљРѕС‚РµРЅРѕРє (
+CREATE TABLE Медведь (
 
  primaryKey UUID NOT NULL,
 
- РљР»РёС‡РєР°РљРѕС‚РµРЅРєР° VARCHAR(255) NULL,
+ ПорядковыйНомер INT NULL,
 
- Р“Р»СѓРїРѕСЃС‚СЊ INT NULL,
+ Вес INT NULL,
 
- РљРѕС€РєР° UUID NOT NULL,
+ ЦветГлаз VARCHAR(255) NULL,
+
+ Пол VARCHAR(7) NULL,
+
+ ДатаРождения TIMESTAMP(3) NULL,
+
+ Мама UUID NULL,
+
+ ЛесОбитания UUID NULL,
+
+ Папа UUID NULL,
+
+ Друг_m0 UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ (
+CREATE TABLE TypeUsageProviderTestClassChil (
 
  primaryKey UUID NOT NULL,
 
- Р—РЅР°С‡РµРЅРёРµ VARCHAR(255) NULL,
+ Name VARCHAR(255) NULL,
 
- РЎСЂРµРґРћС†РµРЅРєР°Р­РєСЃРї DOUBLE PRECISION NULL,
-
- РљСЂРёС‚РµСЂРёР№_m0 UUID NOT NULL,
-
- РРґРµСЏ_m0 UUID NOT NULL,
+ DataObjectForTest_m0 UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ (
+CREATE TABLE Soup2 (
 
  primaryKey UUID NOT NULL,
 
- Р¤Р°Р№Р» TEXT NULL,
+ SoupName VARCHAR(255) NULL,
 
- РљРѕРЅРєСѓСЂСЃ_m0 UUID NOT NULL,
+ CabbageType UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Р›РёС‡РЅРѕСЃС‚СЊ (
+CREATE TABLE StoredClass (
 
  primaryKey UUID NOT NULL,
 
- Р¤РРћ VARCHAR(255) NULL,
+ StoredProperty VARCHAR(255) NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Р›РµСЃ (
+CREATE TABLE Клиент (
 
  primaryKey UUID NOT NULL,
 
- РќР°Р·РІР°РЅРёРµ VARCHAR(255) NULL,
+ ФИО VARCHAR(255) NULL,
 
- РџР»РѕС‰Р°РґСЊ INT NULL,
-
- Р—Р°РїРѕРІРµРґРЅРёРє BOOLEAN NULL,
-
- Р”Р°С‚Р°РџРѕСЃР»РћСЃРјРѕС‚СЂ TIMESTAMP(3) NULL,
-
- РЎС‚СЂР°РЅР° UUID NULL,
+ Прописка VARCHAR(255) NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE FullTypesDetail1 (
+CREATE TABLE ForKeyStorageTest (
+
+ StorageForKey VARCHAR(255) NOT NULL,
+
+ PRIMARY KEY (StorageForKey));
+
+
+CREATE TABLE КонфигурацияЭтапа (
 
  primaryKey UUID NOT NULL,
 
- PoleInt INT NULL,
+ ТретьеДлинноеПолеДляПроверки BOOLEAN NULL,
 
- PoleDateTime TIMESTAMP(3) NULL,
-
- PoleString VARCHAR(255) NULL,
-
- PoleFloat REAL NULL,
-
- PoleDouble DOUBLE PRECISION NULL,
-
- PoleDecimal DECIMAL NULL,
-
- PoleBool BOOLEAN NULL,
-
- PoleNullableInt INT NULL,
-
- PoleNullableDecimal DECIMAL NULL,
-
- PoleNullableDateTime TIMESTAMP(3) NULL,
-
- PoleNullInt INT NULL,
-
- PoleNullDateTime TIMESTAMP(3) NULL,
-
- PoleNullFloat REAL NULL,
-
- PoleNullDouble DOUBLE PRECISION NULL,
-
- PoleNullDecimal DECIMAL NULL,
-
- PoleGuid UUID NULL,
-
- PoleNullGuid UUID NULL,
-
- PoleEnum VARCHAR(15) NULL,
-
- PoleChar SMALLINT NULL,
-
- PoleNullChar SMALLINT NULL,
-
- FullTypesMainAgregator_m0 UUID NOT NULL,
+ ЧетвертоеДлинноеПолеДляПроверки INT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE DetailUpdateObjectTest (
-
- primaryKey UUID NOT NULL,
-
- DetailName VARCHAR(255) NULL,
-
- Master UUID NULL,
-
- AggregatorUpdateObjectTest UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE SomeMasterClass (
-
- primaryKey UUID NOT NULL,
-
- FieldA VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РџРѕСЂРѕРґР° (
-
- primaryKey UUID NOT NULL,
-
- РќР°Р·РІР°РЅРёРµ VARCHAR(255) NULL,
-
- РљР»СЋС‡ UUID NULL,
-
- РўРёРїРџРѕСЂРѕРґС‹ UUID NULL,
-
- РРµСЂР°СЂС…РёСЏ UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РњР°СЃС‚РµСЂРњ (
+CREATE TABLE TestClassA (
 
  primaryKey UUID NOT NULL,
 
@@ -358,34 +333,48 @@ CREATE TABLE РњР°СЃС‚РµСЂРњ (
 
  Value INT NULL,
 
- PRIMARY KEY (primaryKey));
+ Мастер_m0 UUID NULL,
 
+ Мастер_m1 UUID NULL,
 
-CREATE TABLE Р‘Р»РѕС…Р° (
-
- primaryKey UUID NOT NULL,
-
- РљР»РёС‡РєР° VARCHAR(255) NULL,
-
- РњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ UUID NULL,
+ Мастер_m2 UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РЎС‚СЂР°РЅР° (
+CREATE TABLE Перелом (
 
  primaryKey UUID NOT NULL,
 
- РќР°Р·РІР°РЅРёРµ VARCHAR(255) NULL,
+ Дата TIMESTAMP(3) NULL,
+
+ Тип VARCHAR(8) NULL,
+
+ Лапа_m0 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE TypeNameUsageProviderTestClass (
+CREATE TABLE НаследникМ1 (
 
  primaryKey UUID NOT NULL,
 
- Name VARCHAR(255) NULL,
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Лес (
+
+ primaryKey UUID NOT NULL,
+
+ Название VARCHAR(255) NULL,
+
+ Площадь INT NULL,
+
+ Заповедник BOOLEAN NULL,
+
+ ДатаПослОсмотр TIMESTAMP(3) NULL,
+
+ Страна UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -403,45 +392,35 @@ CREATE TABLE DetailClass (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РљСЂРµРґРёС‚ (
+CREATE TABLE AggregatorUpdateObjectTest (
 
  primaryKey UUID NOT NULL,
 
- Р”Р°С‚Р°Р’С‹РґР°С‡Рё TIMESTAMP(3) NULL,
-
- РЎСѓРјРјР°РљСЂРµРґРёС‚Р° DOUBLE PRECISION NULL,
-
- РЎСЂРѕРєРљСЂРµРґРёС‚Р° INT NULL,
-
- Р’РёРґРљСЂРµРґРёС‚Р° VARCHAR(15) NULL,
-
- РљР»РёРµРЅС‚ UUID NULL,
-
- РРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE MasterUpdateObjectTest (
-
- primaryKey UUID NOT NULL,
-
- MasterName VARCHAR(255) NULL,
+ AggregatorName VARCHAR(255) NULL,
 
  Detail UUID NULL,
 
- AggregatorUpdateObjectTest UUID NOT NULL,
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE КонфигурацияЗапроса (
+
+ primaryKey UUID NOT NULL,
+
+ ТретьеДлинноеПолеДляПроверки BOOLEAN NULL,
+
+ ЧетвертоеДлинноеПолеДляПроверки INT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РўРёРїРџРѕСЂРѕРґС‹ (
+CREATE TABLE Adress2 (
 
  primaryKey UUID NOT NULL,
 
- РќР°Р·РІР°РЅРёРµ VARCHAR(255) NULL,
+ HomeNumber INT NULL,
 
- Р”Р°С‚Р°Р РµРіРёСЃС‚СЂР°С†РёРё TIMESTAMP(3) NULL,
+ Country_m0 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -495,124 +474,6 @@ CREATE TABLE FullTypesMainAgregator (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE CombinedTypesUsageProviderTest (
-
- primaryKey UUID NOT NULL,
-
- Name VARCHAR(255) NULL,
-
- DataObjectForTest_m0 UUID NULL,
-
- TypeUsageProviderTestClass UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE AuditClassWithoutSettings (
-
- primaryKey UUID NOT NULL,
-
- Name VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РљРѕС€РєР° (
-
- primaryKey UUID NOT NULL,
-
- РљР»РёС‡РєР° VARCHAR(255) NULL,
-
- Р”Р°С‚Р°Р РѕР¶РґРµРЅРёСЏ TIMESTAMP(3) NOT NULL,
-
- РўРёРї VARCHAR(8) NOT NULL,
-
- РџРѕСЂРѕРґР°РЎС‚СЂРѕРєРѕР№ VARCHAR(255) NULL,
-
- РђРіСЂРµСЃСЃРёРІРЅР°СЏ BOOLEAN NULL,
-
- РљРѕР»РІРѕРЈСЃРѕРІРЎР»РµРІР° INT NULL,
-
- РљРѕР»РІРѕРЈСЃРѕРІРЎРїСЂР°РІР° INT NULL,
-
- РљР»СЋС‡ UUID NULL,
-
- РџРѕСЂРѕРґР° UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE SomeDetailClass (
-
- primaryKey UUID NOT NULL,
-
- FieldB VARCHAR(255) NULL,
-
- ClassA UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE FullTypesDetail2 (
-
- primaryKey UUID NOT NULL,
-
- PoleInt INT NULL,
-
- PoleDateTime TIMESTAMP(3) NULL,
-
- PoleString VARCHAR(255) NULL,
-
- PoleFloat REAL NULL,
-
- PoleDouble DOUBLE PRECISION NULL,
-
- PoleDecimal DECIMAL NULL,
-
- PoleBool BOOLEAN NULL,
-
- PoleNullableInt INT NULL,
-
- PoleNullableDecimal DECIMAL NULL,
-
- PoleNullableDateTime TIMESTAMP(3) NULL,
-
- PoleNullInt INT NULL,
-
- PoleNullDateTime TIMESTAMP(3) NULL,
-
- PoleNullFloat REAL NULL,
-
- PoleNullDouble DOUBLE PRECISION NULL,
-
- PoleNullDecimal DECIMAL NULL,
-
- PoleGuid UUID NULL,
-
- PoleNullGuid UUID NULL,
-
- PoleEnum VARCHAR(15) NULL,
-
- PoleChar SMALLINT NULL,
-
- PoleNullChar SMALLINT NULL,
-
- FullTypesMainAgregator UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Territory2 (
-
- primaryKey UUID NOT NULL,
-
- XCoordinate INT NULL,
-
- YCoordinate INT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
 CREATE TABLE Salad2 (
 
  primaryKey UUID NOT NULL,
@@ -630,272 +491,61 @@ CREATE TABLE Salad2 (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE ForKeyStorageTest (
-
- StorageForKey VARCHAR(255) NOT NULL,
-
- PRIMARY KEY (StorageForKey));
-
-
-CREATE TABLE Р’С‹РїР»Р°С‚С‹ (
+CREATE TABLE InformationTestClass3 (
 
  primaryKey UUID NOT NULL,
 
- Р”Р°С‚Р°Р’С‹РїР»Р°С‚С‹ TIMESTAMP(3) NULL,
+ StringPropForInfTestClass3 VARCHAR(255) NULL,
 
- РЎСѓРјРјР°Р’С‹РїР»Р°С‚С‹ DOUBLE PRECISION NULL,
-
- РљСЂРµРґРёС‚1 UUID NOT NULL,
+ InformationTestClass2 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅСЃ (
-
- primaryKey UUID NOT NULL,
-
- РќРѕРјРСЃС‚РѕС‡РЅРёРєР°Р¤РёРЅ INT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі (
-
- primaryKey UUID NOT NULL,
-
- РќРѕРјРЈС‡Р°СЃС‚РЅРҐРѕР·Р”РѕРі INT NULL,
-
- РЎС‚Р°С‚СѓСЃ VARCHAR(12) NULL,
-
- Р›РёС‡РЅРѕСЃС‚СЊ_m0 UUID NOT NULL,
-
- РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РџРµСЂРµР»РѕРј (
-
- primaryKey UUID NOT NULL,
-
- Р”Р°С‚Р° TIMESTAMP(3) NULL,
-
- РўРёРї VARCHAR(8) NULL,
-
- Р›Р°РїР°_m0 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Human2 (
-
- primaryKey UUID NOT NULL,
-
- HumanName VARCHAR(255) NULL,
-
- TodayHome_m0 UUID NULL,
-
- TodayHome_m1 UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° (
-
- primaryKey UUID NOT NULL,
-
- Р—РЅР°С‡РµРЅРёРµРћС†РµРЅРєРё DOUBLE PRECISION NULL,
-
- РљРѕРјРјРµРЅС‚Р°СЂРёР№ VARCHAR(255) NULL,
-
- Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ UUID NOT NULL,
-
- Р­РєСЃРїРµСЂС‚_m0 UUID NOT NULL,
-
- РРґРµСЏ_m0 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РњРµРґРІРµРґСЊ (
-
- primaryKey UUID NOT NULL,
-
- РџРѕСЂСЏРґРєРѕРІС‹Р№РќРѕРјРµСЂ INT NULL,
-
- Р’РµСЃ INT NULL,
-
- Р¦РІРµС‚Р“Р»Р°Р· VARCHAR(255) NULL,
-
- РџРѕР» VARCHAR(7) NULL,
-
- Р”Р°С‚Р°Р РѕР¶РґРµРЅРёСЏ TIMESTAMP(3) NULL,
-
- РњР°РјР° UUID NULL,
-
- РџР°РїР° UUID NULL,
-
- Р›РµСЃРћР±РёС‚Р°РЅРёСЏ UUID NULL,
-
- Р”СЂСѓРі_m0 UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE InformationTestClass6 (
-
- primaryKey UUID NOT NULL,
-
- StringPropForInfTestClass6 VARCHAR(255) NULL,
-
- ExampleOfClassWithCaptions UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Р‘РµСЂР»РѕРіР° (
-
- primaryKey UUID NOT NULL,
-
- РќР°РёРјРµРЅРѕРІР°РЅРёРµ VARCHAR(255) NULL,
-
- РљРѕРјС„РѕСЂС‚РЅРѕСЃС‚СЊ INT NULL,
-
- Р—Р°Р±СЂРѕС€РµРЅР° BOOLEAN NULL,
-
- Р›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ UUID NULL,
-
- РњРµРґРІРµРґСЊ UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE AuditMasterMasterObject (
-
- primaryKey UUID NOT NULL,
-
- Login VARCHAR(255) NULL,
-
- Name VARCHAR(255) NULL,
-
- Surname VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РљР»РёРµРЅС‚ (
-
- primaryKey UUID NOT NULL,
-
- Р¤РРћ VARCHAR(255) NULL,
-
- РџСЂРѕРїРёСЃРєР° VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Apparatus2 (
-
- primaryKey UUID NOT NULL,
-
- ApparatusName VARCHAR(255) NULL,
-
- Maker_m0 UUID NULL,
-
- Exporter_m0 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РќР°СЃР»РµРґРЅРёРєРњ2 (
+CREATE TABLE CombinedTypesUsageProviderTest (
 
  primaryKey UUID NOT NULL,
 
  Name VARCHAR(255) NULL,
 
- Value INT NULL,
+ DataObjectForTest_m0 UUID NULL,
+
+ TypeUsageProviderTestClass UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ (
+CREATE TABLE ClassWithCaptions (
 
  primaryKey UUID NOT NULL,
 
- Р›РѕРіРёРЅ VARCHAR(255) NULL,
-
- Р¤РРћ VARCHAR(255) NULL,
-
- EMail VARCHAR(255) NULL,
-
- Р”Р°С‚Р°Р РµРіРёСЃС‚СЂР°С†РёРё TIMESTAMP(3) NULL,
+ InformationTestClass4 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РќР°СЃР»РµРґРЅРёРєРњ1 (
+CREATE TABLE Country2 (
 
  primaryKey UUID NOT NULL,
 
- Name VARCHAR(255) NULL,
+ CountryName VARCHAR(255) NULL,
 
- Value INT NULL,
+ XCoordinate INT NULL,
+
+ YCoordinate INT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE AuditClassWithSettings (
+CREATE TABLE MasterUpdateObjectTest (
 
  primaryKey UUID NOT NULL,
 
- Name VARCHAR(255) NULL,
+ MasterName VARCHAR(255) NULL,
 
- CreateTime TIMESTAMP(3) NULL,
+ Detail UUID NULL,
 
- Creator VARCHAR(255) NULL,
-
- EditTime TIMESTAMP(3) NULL,
-
- Editor VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Dish2 (
-
- primaryKey UUID NOT NULL,
-
- DishName VARCHAR(255) NULL,
-
- MainIngridient_m0 UUID NULL,
-
- MainIngridient_m1 UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Cabbage2 (
-
- primaryKey UUID NOT NULL,
-
- Type VARCHAR(255) NULL,
-
- Name VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE DataObjectForTest (
-
- primaryKey UUID NOT NULL,
-
- Name VARCHAR(255) NULL,
-
- Height INT NULL,
-
- BirthDate TIMESTAMP(3) NULL,
-
- Gender BOOLEAN NULL,
+ AggregatorUpdateObjectTest UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -949,39 +599,460 @@ CREATE TABLE FullTypesMaster1 (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Plant2 (
+CREATE TABLE AuditAgregatorObject (
+
+ primaryKey UUID NOT NULL,
+
+ Login VARCHAR(255) NULL,
+
+ Name VARCHAR(255) NULL,
+
+ Surname VARCHAR(255) NULL,
+
+ MasterObject UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Territory2 (
+
+ primaryKey UUID NOT NULL,
+
+ XCoordinate INT NULL,
+
+ YCoordinate INT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE DateField (
+
+ primaryKey UUID NOT NULL,
+
+ Date TIMESTAMP(3) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE УчастникХозДог (
+
+ primaryKey UUID NOT NULL,
+
+ НомУчастнХозДог INT NULL,
+
+ Статус VARCHAR(12) NULL,
+
+ Личность_m0 UUID NOT NULL,
+
+ ХозДоговор_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Кредит (
+
+ primaryKey UUID NOT NULL,
+
+ ДатаВыдачи TIMESTAMP(3) NULL,
+
+ СуммаКредита DOUBLE PRECISION NULL,
+
+ СрокКредита INT NULL,
+
+ ВидКредита VARCHAR(15) NULL,
+
+ Клиент UUID NULL,
+
+ ИнспекторПоКред UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Кошка (
+
+ primaryKey UUID NOT NULL,
+
+ Кличка VARCHAR(255) NULL,
+
+ ДатаРождения TIMESTAMP(3) NOT NULL,
+
+ Тип VARCHAR(8) NOT NULL,
+
+ ПородаСтрокой VARCHAR(255) NULL,
+
+ Агрессивная BOOLEAN NULL,
+
+ КолвоУсовСлева INT NULL,
+
+ КолвоУсовСправа INT NULL,
+
+ Ключ UUID NULL,
+
+ Порода UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE FullTypesDetail2 (
+
+ primaryKey UUID NOT NULL,
+
+ PoleInt INT NULL,
+
+ PoleDateTime TIMESTAMP(3) NULL,
+
+ PoleString VARCHAR(255) NULL,
+
+ PoleFloat REAL NULL,
+
+ PoleDouble DOUBLE PRECISION NULL,
+
+ PoleDecimal DECIMAL NULL,
+
+ PoleBool BOOLEAN NULL,
+
+ PoleNullableInt INT NULL,
+
+ PoleNullableDecimal DECIMAL NULL,
+
+ PoleNullableDateTime TIMESTAMP(3) NULL,
+
+ PoleNullInt INT NULL,
+
+ PoleNullDateTime TIMESTAMP(3) NULL,
+
+ PoleNullFloat REAL NULL,
+
+ PoleNullDouble DOUBLE PRECISION NULL,
+
+ PoleNullDecimal DECIMAL NULL,
+
+ PoleGuid UUID NULL,
+
+ PoleNullGuid UUID NULL,
+
+ PoleEnum VARCHAR(15) NULL,
+
+ PoleChar SMALLINT NULL,
+
+ PoleNullChar SMALLINT NULL,
+
+ FullTypesMainAgregator UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE CabbagePart2 (
+
+ primaryKey UUID NOT NULL,
+
+ PartName VARCHAR(255) NULL,
+
+ Cabbage UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE DetailUpdateObjectTest (
+
+ primaryKey UUID NOT NULL,
+
+ DetailName VARCHAR(255) NULL,
+
+ Master UUID NULL,
+
+ AggregatorUpdateObjectTest UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE SimpleDataObject (
 
  primaryKey UUID NOT NULL,
 
  Name VARCHAR(255) NULL,
 
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё (
-
- primaryKey UUID NOT NULL,
-
- РџРѕСЂСЏРґРєРѕРІС‹Р№РќРѕРјРµСЂ INT NULL,
-
- РћРїРёСЃР°РЅРёРµ VARCHAR(255) NULL,
-
- Р’РµСЃ DOUBLE PRECISION NULL,
-
- РћР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ BOOLEAN NULL,
-
- РљРѕРЅРєСѓСЂСЃ_m0 UUID NOT NULL,
+ Age INT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE InformationTestClass4 (
+CREATE TABLE ХозДоговор (
 
  primaryKey UUID NOT NULL,
 
- StringPropForInfTestClass4 VARCHAR(255) NULL,
+ НомХозДоговора INT NULL,
 
- MasterOfInformationTestClass3 UUID NOT NULL,
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ФайлИдеи (
+
+ primaryKey UUID NOT NULL,
+
+ Файл TEXT NULL,
+
+ Владелец_m0 UUID NOT NULL,
+
+ Идея_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE InformationTestClass (
+
+ primaryKey UUID NOT NULL,
+
+ PublicStringProperty VARCHAR(255) NULL,
+
+ StringPropertyForInfTestClass VARCHAR(255) NULL,
+
+ IntPropertyForInfTestClass INT NULL,
+
+ BoolPropertyForInfTestClass BOOLEAN NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ЭтапИсходящегоЗапроса (
+
+ primaryKey UUID NOT NULL,
+
+ Статус VARCHAR(78) NULL,
+
+ Конфигурация UUID NOT NULL,
+
+ Запросы UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE cla (
+
+ primaryKey UUID NOT NULL,
+
+ info VARCHAR(255) NULL,
+
+ parent UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Mailman (
+
+ primaryKey UUID NOT NULL,
+
+ Name VARCHAR(255) NULL,
+
+ Photo NEWPLATFORM.FLEXBERRY.ORM.TESTS.FILEFORTESTS NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Страна (
+
+ primaryKey UUID NOT NULL,
+
+ Название VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Конкурс (
+
+ primaryKey UUID NOT NULL,
+
+ Название VARCHAR(255) NULL,
+
+ Описание VARCHAR(255) NULL,
+
+ ДатаНачала TIMESTAMP(3) NULL,
+
+ ДатаОкончания TIMESTAMP(3) NULL,
+
+ НачалоОценки TIMESTAMP(3) NULL,
+
+ ОкончаниеОценки TIMESTAMP(3) NULL,
+
+ Состоятие VARCHAR(16) NULL,
+
+ Организатор_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ТипПороды (
+
+ primaryKey UUID NOT NULL,
+
+ Название VARCHAR(255) NULL,
+
+ ДатаРегистрации TIMESTAMP(3) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE TypeUsageProviderTestClass (
+
+ primaryKey UUID NOT NULL,
+
+ Name VARCHAR(255) NULL,
+
+ DataObjectForTest_m0 UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE InformationTestClass6 (
+
+ primaryKey UUID NOT NULL,
+
+ StringPropForInfTestClass6 VARCHAR(255) NULL,
+
+ ExampleOfClassWithCaptions UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE SomeMasterClass (
+
+ primaryKey UUID NOT NULL,
+
+ FieldA VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Идея (
+
+ primaryKey UUID NOT NULL,
+
+ Заголовок VARCHAR(255) NULL,
+
+ Описание VARCHAR(255) NULL,
+
+ СуммаБаллов DOUBLE PRECISION NULL,
+
+ Автор_m0 UUID NOT NULL,
+
+ Конкурс_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Лапа (
+
+ primaryKey UUID NOT NULL,
+
+ Цвет VARCHAR(255) NULL,
+
+ Размер INT NULL,
+
+ ДатаРождения TIMESTAMP(3) NULL,
+
+ БылиЛиПереломы BOOLEAN NULL,
+
+ Сторона VARCHAR(11) NULL,
+
+ Номер INT NULL,
+
+ РазмерDouble DOUBLE PRECISION NULL,
+
+ РазмерFloat REAL NULL,
+
+ РазмерNullableInt INT NULL,
+
+ РазмерDecimal DECIMAL NULL,
+
+ РазмерNullableDecimal DECIMAL NULL,
+
+ РазмерNullableChar SMALLINT NULL,
+
+ ТипЛапы_m0 UUID NULL,
+
+ Кошка_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ЗначениеКритер (
+
+ primaryKey UUID NOT NULL,
+
+ Значение VARCHAR(255) NULL,
+
+ СредОценкаЭксп DOUBLE PRECISION NULL,
+
+ Критерий_m0 UUID NOT NULL,
+
+ Идея_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE CabbageSalad (
+
+ primaryKey UUID NOT NULL,
+
+ CabbageSaladName VARCHAR(255) NULL,
+
+ Cabbage1 UUID NULL,
+
+ Cabbage2 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE InformationTestClass2 (
+
+ primaryKey UUID NOT NULL,
+
+ StringPropertyForInfTestClass2 VARCHAR(255) NULL,
+
+ InformationTestClass_m0 UUID NULL,
+
+ InformationTestClass_m1 UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Котенок (
+
+ primaryKey UUID NOT NULL,
+
+ КличкаКотенка VARCHAR(255) NULL,
+
+ Глупость INT NULL,
+
+ Кошка UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Region (
+
+ primaryKey UUID NOT NULL,
+
+ RegionName VARCHAR(255) NULL,
+
+ Country2_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE AuditClassWithSettings (
+
+ primaryKey UUID NOT NULL,
+
+ CreateTime TIMESTAMP(3) NULL,
+
+ Creator VARCHAR(255) NULL,
+
+ EditTime TIMESTAMP(3) NULL,
+
+ Editor VARCHAR(255) NULL,
+
+ Name VARCHAR(255) NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -1001,78 +1072,240 @@ CREATE TABLE InformationTestClassChild (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE ClassWithCaptions (
+CREATE TABLE МастерМ (
 
  primaryKey UUID NOT NULL,
-
- InformationTestClass4 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Adress2 (
+CREATE TABLE FullTypesDetail1 (
 
  primaryKey UUID NOT NULL,
 
- HomeNumber INT NULL,
+ PoleInt INT NULL,
 
- Country_m0 UUID NOT NULL,
+ PoleDateTime TIMESTAMP(3) NULL,
+
+ PoleString VARCHAR(255) NULL,
+
+ PoleFloat REAL NULL,
+
+ PoleDouble DOUBLE PRECISION NULL,
+
+ PoleDecimal DECIMAL NULL,
+
+ PoleBool BOOLEAN NULL,
+
+ PoleNullableInt INT NULL,
+
+ PoleNullableDecimal DECIMAL NULL,
+
+ PoleNullableDateTime TIMESTAMP(3) NULL,
+
+ PoleNullInt INT NULL,
+
+ PoleNullDateTime TIMESTAMP(3) NULL,
+
+ PoleNullFloat REAL NULL,
+
+ PoleNullDouble DOUBLE PRECISION NULL,
+
+ PoleNullDecimal DECIMAL NULL,
+
+ PoleGuid UUID NULL,
+
+ PoleNullGuid UUID NULL,
+
+ PoleEnum VARCHAR(15) NULL,
+
+ PoleChar SMALLINT NULL,
+
+ PoleNullChar SMALLINT NULL,
+
+ FullTypesMainAgregator_m0 UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РРЅСЃРїРџРѕРљСЂРµРґРёС‚Сѓ (
+CREATE TABLE Порода (
 
  primaryKey UUID NOT NULL,
 
- Р¤РРћ VARCHAR(255) NULL,
+ Название VARCHAR(255) NULL,
+
+ Ключ UUID NULL,
+
+ ТипПороды UUID NULL,
+
+ Иерархия UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE РљРѕРЅРєСѓСЂСЃ (
+CREATE TABLE Запрос (
 
  primaryKey UUID NOT NULL,
 
- РќР°Р·РІР°РЅРёРµ VARCHAR(255) NULL,
+ ПервоеДлинноеПолеДляПроверки BOOLEAN NULL,
 
- РћРїРёСЃР°РЅРёРµ VARCHAR(255) NULL,
+ ВтороеДлинноеПолеДляПроверки VARCHAR(78) NULL,
 
- Р”Р°С‚Р°РќР°С‡Р°Р»Р° TIMESTAMP(3) NULL,
-
- Р”Р°С‚Р°РћРєРѕРЅС‡Р°РЅРёСЏ TIMESTAMP(3) NULL,
-
- РќР°С‡Р°Р»РѕРћС†РµРЅРєРё TIMESTAMP(3) NULL,
-
- РћРєРѕРЅС‡Р°РЅРёРµРћС†РµРЅРєРё TIMESTAMP(3) NULL,
-
- РЎРѕСЃС‚РѕСЏС‚РёРµ VARCHAR(16) NULL,
-
- РћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0 UUID NOT NULL,
+ ПятоеДлинноеПолеДляПроверки INT NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE TypeUsageProviderTestClassChil (
+CREATE TABLE InformationTestClass4 (
+
+ primaryKey UUID NOT NULL,
+
+ StringPropForInfTestClass4 VARCHAR(255) NULL,
+
+ MasterOfInformationTestClass3 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE DataObjectForTest (
 
  primaryKey UUID NOT NULL,
 
  Name VARCHAR(255) NULL,
 
- DataObjectForTest_m0 UUID NULL,
+ Height INT NULL,
+
+ BirthDate TIMESTAMP(3) NULL,
+
+ Gender BOOLEAN NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE CabbageSalad (
+CREATE TABLE ComputedMaster (
 
  primaryKey UUID NOT NULL,
 
- CabbageSaladName VARCHAR(255) NULL,
+ MasterField1 VARCHAR(255) NULL,
 
- Cabbage1 UUID NULL,
+ MasterField2 VARCHAR(255) NULL,
 
- Cabbage2 UUID NOT NULL,
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Личность (
+
+ primaryKey UUID NOT NULL,
+
+ ФИО VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE AuditClassWithDisabledAudit (
+
+ primaryKey UUID NOT NULL,
+
+ CreateTime TIMESTAMP(3) NULL,
+
+ Creator VARCHAR(255) NULL,
+
+ EditTime TIMESTAMP(3) NULL,
+
+ Editor VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE КритерийОценки (
+
+ primaryKey UUID NOT NULL,
+
+ ПорядковыйНомер INT NULL,
+
+ Описание VARCHAR(255) NULL,
+
+ Вес DOUBLE PRECISION NULL,
+
+ Обязательный BOOLEAN NULL,
+
+ Конкурс_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Place2 (
+
+ primaryKey UUID NOT NULL,
+
+ PlaceName VARCHAR(255) NULL,
+
+ TomorrowTeritory_m0 UUID NULL,
+
+ TomorrowTeritory_m1 UUID NULL,
+
+ TodayTerritory_m0 UUID NULL,
+
+ TodayTerritory_m1 UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ТипЛапы (
+
+ primaryKey UUID NOT NULL,
+
+ Название VARCHAR(255) NULL,
+
+ Актуально BOOLEAN NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE ИФХозДоговора (
+
+ primaryKey UUID NOT NULL,
+
+ НомерИФХозДогов INT NULL,
+
+ ИсточникФинан UUID NOT NULL,
+
+ ХозДоговор_m0 UUID NOT NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Homer (
+
+ primaryKey UUID NOT NULL,
+
+ Name VARCHAR(255) NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE MasterClass (
+
+ primaryKey UUID NOT NULL,
+
+ StringMasterProperty VARCHAR(255) NULL,
+
+ InformationTestClass3_m0 UUID NULL,
+
+ InformationTestClass2 UUID NULL,
+
+ InformationTestClass_m0 UUID NULL,
+
+ InformationTestClass_m1 UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Plant2 (
+
+ primaryKey UUID NOT NULL,
+
+ Name VARCHAR(255) NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -1086,170 +1319,41 @@ CREATE TABLE NullFileField (
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE CabbagePart2 (
+CREATE TABLE Пользователь (
 
  primaryKey UUID NOT NULL,
 
- PartName VARCHAR(255) NULL,
+ Логин VARCHAR(255) NULL,
 
- Cabbage UUID NOT NULL,
+ ФИО VARCHAR(255) NULL,
+
+ EMail VARCHAR(255) NULL,
+
+ ДатаРегистрации TIMESTAMP(3) NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE cla (
+CREATE TABLE Human2 (
 
  primaryKey UUID NOT NULL,
 
- info VARCHAR(255) NULL,
+ HumanName VARCHAR(255) NULL,
 
- parent UUID NULL,
+ TodayHome_m0 UUID NULL,
+
+ TodayHome_m1 UUID NULL,
 
  PRIMARY KEY (primaryKey));
 
 
-CREATE TABLE Place2 (
+CREATE TABLE SomeDetailClass (
 
  primaryKey UUID NOT NULL,
 
- PlaceName VARCHAR(255) NULL,
+ FieldB VARCHAR(255) NULL,
 
- TodayTerritory_m0 UUID NULL,
-
- TodayTerritory_m1 UUID NULL,
-
- TomorrowTeritory_m0 UUID NULL,
-
- TomorrowTeritory_m1 UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE SimpleDataObject (
-
- primaryKey UUID NOT NULL,
-
- Name VARCHAR(255) NULL,
-
- Age INT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE РҐРѕР·Р”РѕРіРѕРІРѕСЂ (
-
- primaryKey UUID NOT NULL,
-
- РќРѕРјРҐРѕР·Р”РѕРіРѕРІРѕСЂР° INT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE DataObjectWithKeyGuid (
-
- primaryKey UUID NOT NULL,
-
- LinkToMaster1 UUID NULL,
-
- LinkToMaster2 UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE StoredClass (
-
- primaryKey UUID NOT NULL,
-
- StoredProperty VARCHAR(255) NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE TypeUsageProviderTestClass (
-
- primaryKey UUID NOT NULL,
-
- Name VARCHAR(255) NULL,
-
- DataObjectForTest_m0 UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE AuditAgregatorObject (
-
- primaryKey UUID NOT NULL,
-
- Login VARCHAR(255) NULL,
-
- Name VARCHAR(255) NULL,
-
- Surname VARCHAR(255) NULL,
-
- MasterObject UUID NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Region (
-
- primaryKey UUID NOT NULL,
-
- RegionName VARCHAR(255) NULL,
-
- Country2_m0 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Р¤Р°Р№Р»РРґРµРё (
-
- primaryKey UUID NOT NULL,
-
- Р¤Р°Р№Р» TEXT NULL,
-
- Р’Р»Р°РґРµР»РµС†_m0 UUID NOT NULL,
-
- РРґРµСЏ_m0 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE InformationTestClass3 (
-
- primaryKey UUID NOT NULL,
-
- StringPropForInfTestClass3 VARCHAR(255) NULL,
-
- InformationTestClass2 UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE Soup2 (
-
- primaryKey UUID NOT NULL,
-
- SoupName VARCHAR(255) NULL,
-
- CabbageType UUID NOT NULL,
-
- PRIMARY KEY (primaryKey));
-
-
-CREATE TABLE MasterClass (
-
- primaryKey UUID NOT NULL,
-
- StringMasterProperty VARCHAR(255) NULL,
-
- InformationTestClass2 UUID NULL,
-
- InformationTestClass3_m0 UUID NULL,
-
- InformationTestClass_m0 UUID NULL,
-
- InformationTestClass_m1 UUID NULL,
+ ClassA UUID NOT NULL,
 
  PRIMARY KEY (primaryKey));
 
@@ -1484,276 +1588,291 @@ CREATE TABLE STORMAuField (
 
 
 
- ALTER TABLE РРґРµСЏ ADD CONSTRAINT FKe6cffefaff994a689944703b5b32be4f FOREIGN KEY (РљРѕРЅРєСѓСЂСЃ_m0) REFERENCES РљРѕРЅРєСѓСЂСЃ; 
-CREATE INDEX Indexcd5b48e689484e6ab4343ebdb4c85e3f on РРґРµСЏ (РљРѕРЅРєСѓСЂСЃ_m0); 
+ ALTER TABLE Apparatus2 ADD CONSTRAINT FK2fa1d88a7c93422498f3a5e2e39d38c0 FOREIGN KEY (Maker_m0) REFERENCES Country2; 
+CREATE INDEX Indexa16986368d164d62a0a484313020745c on Apparatus2 (Maker_m0); 
 
- ALTER TABLE РРґРµСЏ ADD CONSTRAINT FK969876bf072445edbab4ed9235616f87 FOREIGN KEY (РђРІС‚РѕСЂ_m0) REFERENCES РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ; 
-CREATE INDEX Index1785fd185bdf4c2085ea5f64e2944f29 on РРґРµСЏ (РђРІС‚РѕСЂ_m0); 
+ ALTER TABLE Apparatus2 ADD CONSTRAINT FK8e4ba475631643099caad09c500547c7 FOREIGN KEY (Exporter_m0) REFERENCES Country2; 
+CREATE INDEX Index21750952a6184f4f806bb9cf7d0b1759 on Apparatus2 (Exporter_m0); 
 
- ALTER TABLE AuditMasterObject ADD CONSTRAINT FKcd3bb9934bef453c8d9c92a579b4d5a2 FOREIGN KEY (MasterObject) REFERENCES AuditMasterMasterObject; 
-CREATE INDEX Indexad56f964d45947e6aebeb87fbd3f0ab2 on AuditMasterObject (MasterObject); 
+ ALTER TABLE ComputedDetail ADD CONSTRAINT FKfd2e0d6bea6f4fadb5816d0e891c6567 FOREIGN KEY (ComputedMaster) REFERENCES ComputedMaster; 
+CREATE INDEX Index7daa3a9d8be340c69185466ac677e4d0 on ComputedDetail (ComputedMaster); 
 
- ALTER TABLE InformationTestClass2 ADD CONSTRAINT FK5d5b439626b444548a7bd4c9cf669ccf FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
-CREATE INDEX Index00f5939ba34d4c3f957ae3b7aeb6f36d on InformationTestClass2 (InformationTestClass_m0); 
+ ALTER TABLE Выплаты ADD CONSTRAINT FK5dee2cb5e0294baeabaccf67449957db FOREIGN KEY (Кредит1) REFERENCES Кредит; 
+CREATE INDEX Index07f05761e60340718f09d9982b5cacfd on Выплаты (Кредит1); 
 
- ALTER TABLE InformationTestClass2 ADD CONSTRAINT FK4fb2e455ac0843a29e455a4ae4b826d4 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
-CREATE INDEX Index1f4ed47bf4c84b24846db313edcbf22f on InformationTestClass2 (InformationTestClass_m1); 
+ ALTER TABLE Блоха ADD CONSTRAINT FK4bbcf229aa7146ee8d5dda3d458939cd FOREIGN KEY (МедведьОбитания) REFERENCES Медведь; 
+CREATE INDEX Index4ed3ae4710cc472c8cfe0794a969dba4 on Блоха (МедведьОбитания); 
 
- ALTER TABLE TestClassA ADD CONSTRAINT FK47b0f02dc6eb43e2a58da0297d37e903 FOREIGN KEY (РњР°СЃС‚РµСЂ_m0) REFERENCES РњР°СЃС‚РµСЂРњ; 
-CREATE INDEX Index1a000d7a15174620a9d3f464b9bac7fa on TestClassA (РњР°СЃС‚РµСЂ_m0); 
+ ALTER TABLE Этап ADD CONSTRAINT FK9c1ff19bca7c46cdbfb3fdad23172707 FOREIGN KEY (КонфигурацияЭтапа_m0) REFERENCES КонфигурацияЭтапа; 
+CREATE INDEX Index7e30538a959b47c48ebc7ed1012aa626 on Этап (КонфигурацияЭтапа_m0); 
 
- ALTER TABLE TestClassA ADD CONSTRAINT FKd3134dfeca2849fb911e76f476fd067b FOREIGN KEY (РњР°СЃС‚РµСЂ_m1) REFERENCES РќР°СЃР»РµРґРЅРёРєРњ1; 
-CREATE INDEX Index1c583e2c075e42328b6c85d177cbc548 on TestClassA (РњР°СЃС‚РµСЂ_m1); 
+ ALTER TABLE Этап ADD CONSTRAINT FKcd9c7b0d819640d098d7455c5f8aaa82 FOREIGN KEY (Запрос) REFERENCES Запрос; 
+CREATE INDEX Index45de60a7d8e7461c9e2057a776ac7c0f on Этап (Запрос); 
 
- ALTER TABLE TestClassA ADD CONSTRAINT FKcef546deae5e458dab4f6236bc612239 FOREIGN KEY (РњР°СЃС‚РµСЂ_m2) REFERENCES РќР°СЃР»РµРґРЅРёРєРњ2; 
-CREATE INDEX Index6f7ede51526744daa4752c67d19bb6e3 on TestClassA (РњР°СЃС‚РµСЂ_m2); 
+ ALTER TABLE AuditMasterObject ADD CONSTRAINT FK32941e821f354e0d8b71f6ad61fe6cf9 FOREIGN KEY (MasterObject) REFERENCES AuditMasterMasterObject; 
+CREATE INDEX Indexe8f1347e0f9140f7916236f59aeab928 on AuditMasterObject (MasterObject); 
 
- ALTER TABLE clb ADD CONSTRAINT FKcfadfbca77f649a48914e28e2cde9a26 FOREIGN KEY (ref2) REFERENCES cla; 
-CREATE INDEX Indexe9c57715556f4924b49c933048e1c4e4 on clb (ref2); 
+ ALTER TABLE Берлога ADD CONSTRAINT FKeafff6ff15cb4594a54cfe6f91ab8ac9 FOREIGN KEY (ЛесРасположения) REFERENCES Лес; 
+CREATE INDEX Indexb08c8ab4a74143c2b23d4026f0705e79 on Берлога (ЛесРасположения); 
 
- ALTER TABLE clb ADD CONSTRAINT FK75f3be6df184437c985d5b4a57f9fc0a FOREIGN KEY (ref1) REFERENCES cla; 
-CREATE INDEX Index2394207fe53a413f8de0760651ed147c on clb (ref1); 
+ ALTER TABLE Берлога ADD CONSTRAINT FKfced157382144474b4e730ce258fe4a8 FOREIGN KEY (Медведь) REFERENCES Медведь; 
+CREATE INDEX Indexbc0c429a47e946679e38b7ce572c306f on Берлога (Медведь); 
 
- ALTER TABLE AggregatorUpdateObjectTest ADD CONSTRAINT FK136e069e412d4990bb5df74a545f383e FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
-CREATE INDEX Index62df6197c9e64e2d831884d88d78944e on AggregatorUpdateObjectTest (Detail); 
+ ALTER TABLE ДокККонкурсу ADD CONSTRAINT FK270526c6660640eead6f87862c48d622 FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
+CREATE INDEX Index795ca2ce8a954a3986dfd8b4be32197f on ДокККонкурсу (Конкурс_m0); 
 
- ALTER TABLE Р›Р°РїР° ADD CONSTRAINT FK439df1a6660148378984b70987106a56 FOREIGN KEY (РўРёРїР›Р°РїС‹_m0) REFERENCES РўРёРїР›Р°РїС‹; 
-CREATE INDEX Index8c650c8426e943e692f35b23ec29b3d0 on Р›Р°РїР° (РўРёРїР›Р°РїС‹_m0); 
+ ALTER TABLE clb ADD CONSTRAINT FKf01603c9e47d467e87f488a1f9de9147 FOREIGN KEY (ref2) REFERENCES cla; 
+CREATE INDEX Index0b420c4974e342e387f349f706f72d0e on clb (ref2); 
 
- ALTER TABLE Р›Р°РїР° ADD CONSTRAINT FKe63b196a3b6f45748e0d12102daa3453 FOREIGN KEY (РљРѕС€РєР°_m0) REFERENCES РљРѕС€РєР°; 
-CREATE INDEX Index257d99b4ad9f4f8eae955c3f35ace8e8 on Р›Р°РїР° (РљРѕС€РєР°_m0); 
+ ALTER TABLE clb ADD CONSTRAINT FKec741e285c274940a213b92e6231e96a FOREIGN KEY (ref1) REFERENCES cla; 
+CREATE INDEX Index9bff05ddcff34f0280d9efd8fed7d826 on clb (ref1); 
 
- ALTER TABLE РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР° ADD CONSTRAINT FK77af69eda7834137b35d24da3b5ddec0 FOREIGN KEY (РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ) REFERENCES РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅСЃ; 
-CREATE INDEX Index4fa7b3e0b1324eed8b1464beaf65e618 on РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР° (РСЃС‚РѕС‡РЅРёРєР¤РёРЅР°РЅ); 
+ ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FK81f80c39c9534b86890f5aaccc6e88e4 FOREIGN KEY (Эксперт_m0) REFERENCES Пользователь; 
+CREATE INDEX Indexabc0e26db03b4eb4835bf5a00f9b865f on ОценкаЭксперта (Эксперт_m0); 
 
- ALTER TABLE РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР° ADD CONSTRAINT FKa8fd67a270d24e6d81acd106788cc3fe FOREIGN KEY (РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0) REFERENCES РҐРѕР·Р”РѕРіРѕРІРѕСЂ; 
-CREATE INDEX Index757287bf73cb4773b0507735b305ac04 on РР¤РҐРѕР·Р”РѕРіРѕРІРѕСЂР° (РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0); 
+ ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FK1e8475ccaf9545a89c76db9e2c30c116 FOREIGN KEY (ЗначениеКритер) REFERENCES ЗначениеКритер; 
+CREATE INDEX Indexbc1c70dbc62947269eb635a536602ca7 on ОценкаЭксперта (ЗначениеКритер); 
 
- ALTER TABLE РљРѕС‚РµРЅРѕРє ADD CONSTRAINT FK4c330cf8c3b14d8ea32ddfc2912bbdc3 FOREIGN KEY (РљРѕС€РєР°) REFERENCES РљРѕС€РєР°; 
-CREATE INDEX Indexb755e85a163d44ad8c0b879b1dd60481 on РљРѕС‚РµРЅРѕРє (РљРѕС€РєР°); 
+ ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FK815253272fbe4bfe930a29f33aa998f3 FOREIGN KEY (Идея_m0) REFERENCES Идея; 
+CREATE INDEX Index3c2c9e49661b4dc0b0aa8fb6d4c0a881 on ОценкаЭксперта (Идея_m0); 
 
- ALTER TABLE Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ ADD CONSTRAINT FK389c4f044fae44cfbead7e81eb1c78a9 FOREIGN KEY (РљСЂРёС‚РµСЂРёР№_m0) REFERENCES РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё; 
-CREATE INDEX Index757139739f0147c1a4b9d775d9a49e5b on Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ (РљСЂРёС‚РµСЂРёР№_m0); 
+ ALTER TABLE Dish2 ADD CONSTRAINT FKa1aab0d0d7264a49a60422dcfc966982 FOREIGN KEY (MainIngridient_m0) REFERENCES Cabbage2; 
+CREATE INDEX Index08d71992cb9e400582e9bc0c8d03a14a on Dish2 (MainIngridient_m0); 
 
- ALTER TABLE Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ ADD CONSTRAINT FK5563d75cbd664d75898376be3c41b2ad FOREIGN KEY (РРґРµСЏ_m0) REFERENCES РРґРµСЏ; 
-CREATE INDEX Indexc18f61720dd64beca3575e18371e481d on Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ (РРґРµСЏ_m0); 
+ ALTER TABLE Dish2 ADD CONSTRAINT FK768846bba38747c98f29aab8cb8a15ca FOREIGN KEY (MainIngridient_m1) REFERENCES Plant2; 
+CREATE INDEX Index8a4069864cf04f029d70a552de7a31cd on Dish2 (MainIngridient_m1); 
 
- ALTER TABLE Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ ADD CONSTRAINT FK540b554abf1b4ef2826d0928716d1d7b FOREIGN KEY (РљРѕРЅРєСѓСЂСЃ_m0) REFERENCES РљРѕРЅРєСѓСЂСЃ; 
-CREATE INDEX Index838cc887f2d94f23b2ef758b279af867 on Р”РѕРєРљРљРѕРЅРєСѓСЂСЃСѓ (РљРѕРЅРєСѓСЂСЃ_m0); 
+ ALTER TABLE Медведь ADD CONSTRAINT FKd4417b6023b744a89cbf8f210bac7f88 FOREIGN KEY (Мама) REFERENCES Медведь; 
+CREATE INDEX Index634e23831bec490c85d87425fb427043 on Медведь (Мама); 
 
- ALTER TABLE Р›РµСЃ ADD CONSTRAINT FK715c6395e878478e93c795bf6ac361eb FOREIGN KEY (РЎС‚СЂР°РЅР°) REFERENCES РЎС‚СЂР°РЅР°; 
-CREATE INDEX Index87ca5563f40e4dce8e6a3ea82c1ff899 on Р›РµСЃ (РЎС‚СЂР°РЅР°); 
+ ALTER TABLE Медведь ADD CONSTRAINT FK0e883fdb212b400ca632fa7b701f034c FOREIGN KEY (ЛесОбитания) REFERENCES Лес; 
+CREATE INDEX Index5f17dfb1bcb040bbbe0d2b378c37b59f on Медведь (ЛесОбитания); 
 
- ALTER TABLE FullTypesDetail1 ADD CONSTRAINT FK050fccb8158746e9a43617885907feb6 FOREIGN KEY (FullTypesMainAgregator_m0) REFERENCES FullTypesMainAgregator; 
-CREATE INDEX Index833f9e2757d24c11845d9370a9159823 on FullTypesDetail1 (FullTypesMainAgregator_m0); 
+ ALTER TABLE Медведь ADD CONSTRAINT FK35e68316706b461a9b7a76214ef9f21c FOREIGN KEY (Папа) REFERENCES Медведь; 
+CREATE INDEX Indexf496bf5dca7a4ed88a9d66300a53d265 on Медведь (Папа); 
 
- ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FK1df38dce41c34a4099f01efe3cd69a21 FOREIGN KEY (Master) REFERENCES MasterUpdateObjectTest; 
-CREATE INDEX Index609761f455eb4e64a3e4a8ef1383c3c4 on DetailUpdateObjectTest (Master); 
+ ALTER TABLE Медведь ADD CONSTRAINT FK8e2540028cab4523a69858b1afc1268d FOREIGN KEY (Друг_m0) REFERENCES Медведь; 
+CREATE INDEX Index8c429c8e4b3c4dc8be6de8a795631a68 on Медведь (Друг_m0); 
 
- ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FKebc6dc5ff102475f889b2972e2dbee96 FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
-CREATE INDEX Index3978d0038e3f452599b9950ef7727bce on DetailUpdateObjectTest (AggregatorUpdateObjectTest); 
+ ALTER TABLE TypeUsageProviderTestClassChil ADD CONSTRAINT FKdb1831137bf4439c96ac1e9316005b26 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
+CREATE INDEX Index40e52175b47d425d8de6aef80d1fb41f on TypeUsageProviderTestClassChil (DataObjectForTest_m0); 
 
- ALTER TABLE РџРѕСЂРѕРґР° ADD CONSTRAINT FKd31208a3cee44c969d470c139e6e7dd0 FOREIGN KEY (РўРёРїРџРѕСЂРѕРґС‹) REFERENCES РўРёРїРџРѕСЂРѕРґС‹; 
-CREATE INDEX Indexef12944f1898430bacd77de42d2febcd on РџРѕСЂРѕРґР° (РўРёРїРџРѕСЂРѕРґС‹); 
+ ALTER TABLE Soup2 ADD CONSTRAINT FKc8f7aca42b84410c81d4bfbdab369928 FOREIGN KEY (CabbageType) REFERENCES Cabbage2; 
+CREATE INDEX Index06909b32953a44f89d016d41af527f88 on Soup2 (CabbageType); 
 
- ALTER TABLE РџРѕСЂРѕРґР° ADD CONSTRAINT FKec9a788676ae40a6bafba20de6c9bf93 FOREIGN KEY (РРµСЂР°СЂС…РёСЏ) REFERENCES РџРѕСЂРѕРґР°; 
-CREATE INDEX Index08782f40812f41dcb59f0caf0f94035c on РџРѕСЂРѕРґР° (РРµСЂР°СЂС…РёСЏ); 
+ ALTER TABLE TestClassA ADD CONSTRAINT FKda4dbc86282f4dacbeeec4f2ac7a6491 FOREIGN KEY (Мастер_m0) REFERENCES МастерМ; 
+CREATE INDEX Index0a0dc645fa4a43b1b58df5353d03b602 on TestClassA (Мастер_m0); 
 
- ALTER TABLE Р‘Р»РѕС…Р° ADD CONSTRAINT FKed48129fa4bd4ec08d23efaef322d71f FOREIGN KEY (РњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ) REFERENCES РњРµРґРІРµРґСЊ; 
-CREATE INDEX Index137022c981474fac99103a0535c5ba50 on Р‘Р»РѕС…Р° (РњРµРґРІРµРґСЊРћР±РёС‚Р°РЅРёСЏ); 
+ ALTER TABLE TestClassA ADD CONSTRAINT FK10c6ad8ca01e48f5a718fbc396a214d0 FOREIGN KEY (Мастер_m1) REFERENCES НаследникМ1; 
+CREATE INDEX Index2e3c319aac9448459d4f0e74c05887d3 on TestClassA (Мастер_m1); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FKff1ea92f894840669d5d2b08b39488f3 FOREIGN KEY (MasterClass_m0) REFERENCES MasterClass; 
-CREATE INDEX Indexf0298787f1624ec1adb4a063d46b3eb0 on DetailClass (MasterClass_m0); 
+ ALTER TABLE TestClassA ADD CONSTRAINT FK1e8f377a5f3340988338a8aa112a4c92 FOREIGN KEY (Мастер_m2) REFERENCES НаследникМ2; 
+CREATE INDEX Indexbcd0fb53b69a49d4ac2ded1e33827f2c on TestClassA (Мастер_m2); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FKd932daa3a0f04fa8a2b375fb83d7dcb3 FOREIGN KEY (MasterClass_m1) REFERENCES MasterClass; 
-CREATE INDEX Indexa6036688196f488fa5888836512d2a04 on DetailClass (MasterClass_m1); 
+ ALTER TABLE Перелом ADD CONSTRAINT FKd0f1d879dbcb437f8484aa8278efce4f FOREIGN KEY (Лапа_m0) REFERENCES Лапа; 
+CREATE INDEX Indexe506f7aaaa244b7b8bf0c506094c0d20 on Перелом (Лапа_m0); 
 
- ALTER TABLE РљСЂРµРґРёС‚ ADD CONSTRAINT FK9d2bd8b2a99747aeaeb506936500e187 FOREIGN KEY (РљР»РёРµРЅС‚) REFERENCES РљР»РёРµРЅС‚; 
-CREATE INDEX Index0b4e7310ab3c49a99e2f54dc5086c59b on РљСЂРµРґРёС‚ (РљР»РёРµРЅС‚); 
+ ALTER TABLE Лес ADD CONSTRAINT FK8f1150648fa7421aa1fb52a15ae97b97 FOREIGN KEY (Страна) REFERENCES Страна; 
+CREATE INDEX Index09f755feff83494e91ad59c96f98596e on Лес (Страна); 
 
- ALTER TABLE РљСЂРµРґРёС‚ ADD CONSTRAINT FK4deb281eff364a22a0a683b6d24c8d4e FOREIGN KEY (РРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ) REFERENCES РРЅСЃРїРџРѕРљСЂРµРґРёС‚Сѓ; 
-CREATE INDEX Index88cbd3d4e8264b0d883edb62ec106faf on РљСЂРµРґРёС‚ (РРЅСЃРїРµРєС‚РѕСЂРџРѕРљСЂРµРґ); 
+ ALTER TABLE DetailClass ADD CONSTRAINT FKe6f102bb705b4f498056826721083904 FOREIGN KEY (MasterClass_m0) REFERENCES MasterClass; 
+CREATE INDEX Indexbd1eae539aa5409389af5fe3e1236547 on DetailClass (MasterClass_m0); 
 
- ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FKa079e456d4104f55981b21064e656008 FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
-CREATE INDEX Index1e3b90b0f4fc4a2da2b16355381f3258 on MasterUpdateObjectTest (Detail); 
+ ALTER TABLE DetailClass ADD CONSTRAINT FK4d0ab5b56ec24d89b6105f8d717af6f9 FOREIGN KEY (MasterClass_m1) REFERENCES MasterClass; 
+CREATE INDEX Index8fad5a8489bf4b1e87a8d3723de2fb18 on DetailClass (MasterClass_m1); 
 
- ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FKfbf7180861664161ac6d361b111d2746 FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
-CREATE INDEX Index718c641085d54e0bb39e028a2774552d on MasterUpdateObjectTest (AggregatorUpdateObjectTest); 
+ ALTER TABLE AggregatorUpdateObjectTest ADD CONSTRAINT FKead89e2c231644de884e1dae3d763ad3 FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
+CREATE INDEX Index2d57b3f06d2c46a89e5e7de4a079cefa on AggregatorUpdateObjectTest (Detail); 
 
- ALTER TABLE FullTypesMainAgregator ADD CONSTRAINT FKa7ca8596f889411da339446e86c0d4fd FOREIGN KEY (FullTypesMaster1_m0) REFERENCES FullTypesMaster1; 
-CREATE INDEX Index7e5d4ebb52fc4220b581452d08e88e31 on FullTypesMainAgregator (FullTypesMaster1_m0); 
+ ALTER TABLE Adress2 ADD CONSTRAINT FKcb44f85a56d44bd1b099171e9aa40bc7 FOREIGN KEY (Country_m0) REFERENCES Country2; 
+CREATE INDEX Indexbb7c4547205142b7a2f6dd3f5b2f0e40 on Adress2 (Country_m0); 
 
- ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK3877e6278eea4a38b2ee1e2ac23e5124 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
-CREATE INDEX Indexd69cefb112d0433688c010a76654feee on CombinedTypesUsageProviderTest (DataObjectForTest_m0); 
+ ALTER TABLE FullTypesMainAgregator ADD CONSTRAINT FK006d8a5a75124f98b91184aa5de5666d FOREIGN KEY (FullTypesMaster1_m0) REFERENCES FullTypesMaster1; 
+CREATE INDEX Indexfba67e2bbe7e4ff28eadb05c418c0687 on FullTypesMainAgregator (FullTypesMaster1_m0); 
 
- ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FKd87fc5f2aa29474786c9ae1b9f5f7ff6 FOREIGN KEY (TypeUsageProviderTestClass) REFERENCES TypeUsageProviderTestClass; 
-CREATE INDEX Indexf800e39597c444e3be6a82d9c7623f72 on CombinedTypesUsageProviderTest (TypeUsageProviderTestClass); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FK9664fe921a804f10a1733a92a456a94f FOREIGN KEY (Ingridient2_m0) REFERENCES Cabbage2; 
+CREATE INDEX Index2609a883441e497b8bab55c025d7e181 on Salad2 (Ingridient2_m0); 
 
- ALTER TABLE РљРѕС€РєР° ADD CONSTRAINT FK91fd8fc9e4a349ae8e1b2e558647f2d4 FOREIGN KEY (РџРѕСЂРѕРґР°) REFERENCES РџРѕСЂРѕРґР°; 
-CREATE INDEX Index398fbea74cb042b5a81a0f88f43cbaee on РљРѕС€РєР° (РџРѕСЂРѕРґР°); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FKf3cd21cc7254439b8f8e105204892c93 FOREIGN KEY (Ingridient2_m1) REFERENCES Plant2; 
+CREATE INDEX Indexc932139f50144a4c886f265ee78825fa on Salad2 (Ingridient2_m1); 
 
- ALTER TABLE SomeDetailClass ADD CONSTRAINT FK4416b7a0662e40a085301b5422efe9e9 FOREIGN KEY (ClassA) REFERENCES SomeMasterClass; 
-CREATE INDEX Index0894789df3074d15a0cc4f4c78691069 on SomeDetailClass (ClassA); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FKc4e94c26851b475cb6930cad5916ac7e FOREIGN KEY (Ingridient1_m0) REFERENCES Cabbage2; 
+CREATE INDEX Indexf91e727f98b74d518dd73b4cc53ebf71 on Salad2 (Ingridient1_m0); 
 
- ALTER TABLE FullTypesDetail2 ADD CONSTRAINT FKe6acf061e0774b7fa7ad037b2d47b21d FOREIGN KEY (FullTypesMainAgregator) REFERENCES FullTypesMainAgregator; 
-CREATE INDEX Indexaa723fdb70e04055a1592a4ca50dba23 on FullTypesDetail2 (FullTypesMainAgregator); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FK4244083d439b440f9667297dd4487836 FOREIGN KEY (Ingridient1_m1) REFERENCES Plant2; 
+CREATE INDEX Index825a28eab6ed4a94a3dbe2bb684d5156 on Salad2 (Ingridient1_m1); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FK4606ed7473204545864723409c4e86fa FOREIGN KEY (Ingridient2_m0) REFERENCES Cabbage2; 
-CREATE INDEX Index1e7137bd903746f98daff5b9c06c501a on Salad2 (Ingridient2_m0); 
+ ALTER TABLE InformationTestClass3 ADD CONSTRAINT FK2b567bab7dea4f838f2a89ca46fb40af FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
+CREATE INDEX Indexeacb84340e6246b4abf9a79415fd3cbf on InformationTestClass3 (InformationTestClass2); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FK59b51b9aa6a14d7db2896c0d48e96fc3 FOREIGN KEY (Ingridient2_m1) REFERENCES Plant2; 
-CREATE INDEX Index41fae19e1daa4ef1bec48980742ba163 on Salad2 (Ingridient2_m1); 
+ ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK392c891f75e34fa78f85b5e658a7639f FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
+CREATE INDEX Indexc97af92568c246d58bc5dc44db224d58 on CombinedTypesUsageProviderTest (DataObjectForTest_m0); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FK62de64bc644e4f2f9b73748c46548bd2 FOREIGN KEY (Ingridient1_m0) REFERENCES Cabbage2; 
-CREATE INDEX Index9731d337926549c8a5de8e46bf0284ec on Salad2 (Ingridient1_m0); 
+ ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK36872fdd99fe42389f690b78b6362c94 FOREIGN KEY (TypeUsageProviderTestClass) REFERENCES TypeUsageProviderTestClass; 
+CREATE INDEX Index465b18576da9497db4ba02464f832057 on CombinedTypesUsageProviderTest (TypeUsageProviderTestClass); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FKe7d2dec1c4c04868a8c1b4cbab8527e5 FOREIGN KEY (Ingridient1_m1) REFERENCES Plant2; 
-CREATE INDEX Index7dd31af7454b434cad82f26494fc9748 on Salad2 (Ingridient1_m1); 
+ ALTER TABLE ClassWithCaptions ADD CONSTRAINT FK45cca9464cf94369abdfcf9472369020 FOREIGN KEY (InformationTestClass4) REFERENCES InformationTestClass4; 
+CREATE INDEX Indexfc615269a866493c834e3da077b0152c on ClassWithCaptions (InformationTestClass4); 
 
- ALTER TABLE Р’С‹РїР»Р°С‚С‹ ADD CONSTRAINT FK372692cc7d444b0f9dee4a3475adde59 FOREIGN KEY (РљСЂРµРґРёС‚1) REFERENCES РљСЂРµРґРёС‚; 
-CREATE INDEX Index4841efcdcd314a0bb01039bc276bbbb2 on Р’С‹РїР»Р°С‚С‹ (РљСЂРµРґРёС‚1); 
+ ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FKe0ce7ea43df144d4b43642aa49963a4a FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
+CREATE INDEX Indexd0cdfabaed7c4be591c3fef4e13268f1 on MasterUpdateObjectTest (Detail); 
 
- ALTER TABLE РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі ADD CONSTRAINT FK9d4393d139cf44a383ae50c2de03beae FOREIGN KEY (Р›РёС‡РЅРѕСЃС‚СЊ_m0) REFERENCES Р›РёС‡РЅРѕСЃС‚СЊ; 
-CREATE INDEX Indexbccca0ddd4b94cd3886e24e7222c7993 on РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі (Р›РёС‡РЅРѕСЃС‚СЊ_m0); 
+ ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FK60f3c7003fd94c2b89e52291c92a6013 FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
+CREATE INDEX Index37549545453946f39540b07e86c95b9d on MasterUpdateObjectTest (AggregatorUpdateObjectTest); 
 
- ALTER TABLE РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі ADD CONSTRAINT FKd1f564aa3c9d41f8b388d17780d81e00 FOREIGN KEY (РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0) REFERENCES РҐРѕР·Р”РѕРіРѕРІРѕСЂ; 
-CREATE INDEX Index3a007c95c35c48d3b0b2a08c30be392a on РЈС‡Р°СЃС‚РЅРёРєРҐРѕР·Р”РѕРі (РҐРѕР·Р”РѕРіРѕРІРѕСЂ_m0); 
+ ALTER TABLE AuditAgregatorObject ADD CONSTRAINT FKc22120d66ecb4bc5b09b024ec14be11c FOREIGN KEY (MasterObject) REFERENCES AuditMasterObject; 
+CREATE INDEX Index7438a52c715c419dacbc58eff49e6cdc on AuditAgregatorObject (MasterObject); 
 
- ALTER TABLE РџРµСЂРµР»РѕРј ADD CONSTRAINT FKc0a64938c67743138f94f6028085d908 FOREIGN KEY (Р›Р°РїР°_m0) REFERENCES Р›Р°РїР°; 
-CREATE INDEX Index4a24ec78123d4bd7aadbe5fa85f7084a on РџРµСЂРµР»РѕРј (Р›Р°РїР°_m0); 
+ ALTER TABLE УчастникХозДог ADD CONSTRAINT FK8712d52898d3416480ed206bb47b2d44 FOREIGN KEY (Личность_m0) REFERENCES Личность; 
+CREATE INDEX Index5e832fb401264aacb53c1daf740e6220 on УчастникХозДог (Личность_m0); 
 
- ALTER TABLE Human2 ADD CONSTRAINT FK5481f462da6444c4aa5fa1a2ba948c38 FOREIGN KEY (TodayHome_m0) REFERENCES Country2; 
-CREATE INDEX Indexf0533f036e69434d94e63413ddfeffb0 on Human2 (TodayHome_m0); 
+ ALTER TABLE УчастникХозДог ADD CONSTRAINT FK0312c89330a1469d912d8e2aaae505ac FOREIGN KEY (ХозДоговор_m0) REFERENCES ХозДоговор; 
+CREATE INDEX Indexa18907ec46184232add7ccd6785a1147 on УчастникХозДог (ХозДоговор_m0); 
 
- ALTER TABLE Human2 ADD CONSTRAINT FK575784db925e4041b9fa1d9317b19f25 FOREIGN KEY (TodayHome_m1) REFERENCES Territory2; 
-CREATE INDEX Index3528430971d44399a79fbda5a47f5c6f on Human2 (TodayHome_m1); 
+ ALTER TABLE Кредит ADD CONSTRAINT FK41365b926942477b8918b290a0d97b35 FOREIGN KEY (Клиент) REFERENCES Клиент; 
+CREATE INDEX Index123519603d73419495a55e55bcb92bff on Кредит (Клиент); 
 
- ALTER TABLE РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° ADD CONSTRAINT FKf6c9810ff6ab4eb8b1840d7d8735b6fa FOREIGN KEY (Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ) REFERENCES Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ; 
-CREATE INDEX Indexca098b1fccd245bf8af4296b581ec56e on РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° (Р—РЅР°С‡РµРЅРёРµРљСЂРёС‚РµСЂ); 
+ ALTER TABLE Кредит ADD CONSTRAINT FKb3faa0a5c3c344428c52370be940e5ab FOREIGN KEY (ИнспекторПоКред) REFERENCES ИнспПоКредиту; 
+CREATE INDEX Index5912810dba734656b0c641f9edab496e on Кредит (ИнспекторПоКред); 
 
- ALTER TABLE РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° ADD CONSTRAINT FKb6b9c5697c144b49a86f7b5834bc71ec FOREIGN KEY (Р­РєСЃРїРµСЂС‚_m0) REFERENCES РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ; 
-CREATE INDEX Index34f5a038e1864d8e999688128ca88bad on РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° (Р­РєСЃРїРµСЂС‚_m0); 
+ ALTER TABLE Кошка ADD CONSTRAINT FK0c846368bff14155b5e42433ebdecc8b FOREIGN KEY (Порода) REFERENCES Порода; 
+CREATE INDEX Indexb2ec3c3de74c4952a1e6549212f04268 on Кошка (Порода); 
 
- ALTER TABLE РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° ADD CONSTRAINT FKd70e683c5d764d43b2c8ec01fd7e8ad7 FOREIGN KEY (РРґРµСЏ_m0) REFERENCES РРґРµСЏ; 
-CREATE INDEX Index38bbeb361439493581af6055bad01897 on РћС†РµРЅРєР°Р­РєСЃРїРµСЂС‚Р° (РРґРµСЏ_m0); 
+ ALTER TABLE FullTypesDetail2 ADD CONSTRAINT FK48f7b35ccb95451e920203c86af6b0e5 FOREIGN KEY (FullTypesMainAgregator) REFERENCES FullTypesMainAgregator; 
+CREATE INDEX Index88ae90050edb4193bdaf80914f049fc0 on FullTypesDetail2 (FullTypesMainAgregator); 
 
- ALTER TABLE РњРµРґРІРµРґСЊ ADD CONSTRAINT FKc46da38ae34d43908ae5fe02a7e4295a FOREIGN KEY (РњР°РјР°) REFERENCES РњРµРґРІРµРґСЊ; 
-CREATE INDEX Index1bfa373ee0014fd1a547618838eae2e6 on РњРµРґРІРµРґСЊ (РњР°РјР°); 
+ ALTER TABLE CabbagePart2 ADD CONSTRAINT FK6346d1ac8e9c4aea98d5b8a39b0ea3f8 FOREIGN KEY (Cabbage) REFERENCES Cabbage2; 
+CREATE INDEX Indexde7c312f3186446ca95ddfb8856732d2 on CabbagePart2 (Cabbage); 
 
- ALTER TABLE РњРµРґРІРµРґСЊ ADD CONSTRAINT FK1a254cb88d7c49f78f225a24fa9e294c FOREIGN KEY (РџР°РїР°) REFERENCES РњРµРґРІРµРґСЊ; 
-CREATE INDEX Indexc09b3a2494754457b4aad7ef8605f268 on РњРµРґРІРµРґСЊ (РџР°РїР°); 
+ ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FKf5261894a7e64e44920c73a426bd797b FOREIGN KEY (Master) REFERENCES MasterUpdateObjectTest; 
+CREATE INDEX Index7ef8a75c64434991a62343320829ed40 on DetailUpdateObjectTest (Master); 
 
- ALTER TABLE РњРµРґРІРµРґСЊ ADD CONSTRAINT FK8839c25316ee48d9b73dcc58d86be324 FOREIGN KEY (Р›РµСЃРћР±РёС‚Р°РЅРёСЏ) REFERENCES Р›РµСЃ; 
-CREATE INDEX Index8b9b044c169a45b8b0c50cc2fb49779c on РњРµРґРІРµРґСЊ (Р›РµСЃРћР±РёС‚Р°РЅРёСЏ); 
+ ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FK94001c8d1af142d69ca8d946f55a31db FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
+CREATE INDEX Index4152c722dba04f319abdcf88b93c6800 on DetailUpdateObjectTest (AggregatorUpdateObjectTest); 
 
- ALTER TABLE РњРµРґРІРµРґСЊ ADD CONSTRAINT FK6ca3ed95cce940e88c663b9ad5023c2b FOREIGN KEY (Р”СЂСѓРі_m0) REFERENCES РњРµРґРІРµРґСЊ; 
-CREATE INDEX Indexf2cf5c78b4eb4cfd80716bd6b6e478a2 on РњРµРґРІРµРґСЊ (Р”СЂСѓРі_m0); 
+ ALTER TABLE ФайлИдеи ADD CONSTRAINT FKf9f20f60a69f44588f277602d8553c1c FOREIGN KEY (Владелец_m0) REFERENCES Пользователь; 
+CREATE INDEX Index88352efcf16740eb95968a13f314a3bd on ФайлИдеи (Владелец_m0); 
 
- ALTER TABLE InformationTestClass6 ADD CONSTRAINT FK6be00e929f744bf0bb43362efc22bdb1 FOREIGN KEY (ExampleOfClassWithCaptions) REFERENCES ClassWithCaptions; 
-CREATE INDEX Index5cda375109764b5fa00b1886d0b9304c on InformationTestClass6 (ExampleOfClassWithCaptions); 
+ ALTER TABLE ФайлИдеи ADD CONSTRAINT FK50b613dccaf64df28bef0bfd6fa433a7 FOREIGN KEY (Идея_m0) REFERENCES Идея; 
+CREATE INDEX Index2bd52920739a43e8bc03c2d1b2b32565 on ФайлИдеи (Идея_m0); 
 
- ALTER TABLE Р‘РµСЂР»РѕРіР° ADD CONSTRAINT FKe87e5c266bd44fbd89f385240ed7276a FOREIGN KEY (Р›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ) REFERENCES Р›РµСЃ; 
-CREATE INDEX Index4bdbe042cfa94b65af6cd2ff2ecd61bf on Р‘РµСЂР»РѕРіР° (Р›РµСЃР Р°СЃРїРѕР»РѕР¶РµРЅРёСЏ); 
+ ALTER TABLE ЭтапИсходящегоЗапроса ADD CONSTRAINT FK8cfad30b3a9e4b33a780a6a046950077 FOREIGN KEY (Конфигурация) REFERENCES КонфигурацияЗапроса; 
+CREATE INDEX Index426dbda34641433682abb801ca755a71 on ЭтапИсходящегоЗапроса (Конфигурация); 
 
- ALTER TABLE Р‘РµСЂР»РѕРіР° ADD CONSTRAINT FK35e6962b785d4d899692686745cc117a FOREIGN KEY (РњРµРґРІРµРґСЊ) REFERENCES РњРµРґРІРµРґСЊ; 
-CREATE INDEX Index72f690b6ded7483d90a836e3eb3c51d5 on Р‘РµСЂР»РѕРіР° (РњРµРґРІРµРґСЊ); 
+ ALTER TABLE ЭтапИсходящегоЗапроса ADD CONSTRAINT FKedd05645606047288aee30159d20fe99 FOREIGN KEY (Запросы) REFERENCES ИсходящийЗапрос; 
+CREATE INDEX Index3020fdf0c5c742f6ad72ef48c48d2526 on ЭтапИсходящегоЗапроса (Запросы); 
 
- ALTER TABLE Apparatus2 ADD CONSTRAINT FK8865fe3641004057892fd07ca4b9ad66 FOREIGN KEY (Maker_m0) REFERENCES Country2; 
-CREATE INDEX Indexbdbb9d0718704617b3c7dbd582435ae1 on Apparatus2 (Maker_m0); 
+ ALTER TABLE cla ADD CONSTRAINT FKe1a5129c34bd4830a4121552ca98feff FOREIGN KEY (parent) REFERENCES clb; 
+CREATE INDEX Index1d174215a68e4ec4ad331249650fa950 on cla (parent); 
 
- ALTER TABLE Apparatus2 ADD CONSTRAINT FK5ed57bbbe255441b885c716d26141997 FOREIGN KEY (Exporter_m0) REFERENCES Country2; 
-CREATE INDEX Indexd572999b5ec849ee977b830d22f77c92 on Apparatus2 (Exporter_m0); 
+ ALTER TABLE Конкурс ADD CONSTRAINT FK00efdeedfffe40f195f431261a015973 FOREIGN KEY (Организатор_m0) REFERENCES Пользователь; 
+CREATE INDEX Index0d9ff9acba6942359e616109e5790514 on Конкурс (Организатор_m0); 
 
- ALTER TABLE Dish2 ADD CONSTRAINT FK760da294bdbf480b8efe4c2db3139e4a FOREIGN KEY (MainIngridient_m0) REFERENCES Cabbage2; 
-CREATE INDEX Index066341a36b2f41bb9d672b43784c48b7 on Dish2 (MainIngridient_m0); 
+ ALTER TABLE TypeUsageProviderTestClass ADD CONSTRAINT FKf34bbf2a051b4e8bb2e36d4c4d7c44d3 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
+CREATE INDEX Indexaa7fa12e0ae041f1b01614ca4c961ad1 on TypeUsageProviderTestClass (DataObjectForTest_m0); 
 
- ALTER TABLE Dish2 ADD CONSTRAINT FK931f2574c8b744b0a3c7e6b1dfde3db3 FOREIGN KEY (MainIngridient_m1) REFERENCES Plant2; 
-CREATE INDEX Index7d8c511b09d345cb9cc3d0b76abb4b70 on Dish2 (MainIngridient_m1); 
+ ALTER TABLE InformationTestClass6 ADD CONSTRAINT FKe1813eb3d7a141c096c00f8915759b3a FOREIGN KEY (ExampleOfClassWithCaptions) REFERENCES ClassWithCaptions; 
+CREATE INDEX Index0fc3bc56ccd04f758981d56761bdb0bc on InformationTestClass6 (ExampleOfClassWithCaptions); 
 
- ALTER TABLE РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё ADD CONSTRAINT FKfb3b6a1cc9ee492bab4719d16b950e44 FOREIGN KEY (РљРѕРЅРєСѓСЂСЃ_m0) REFERENCES РљРѕРЅРєСѓСЂСЃ; 
-CREATE INDEX Index151daa8cbe024869a85daefd30e52200 on РљСЂРёС‚РµСЂРёР№РћС†РµРЅРєРё (РљРѕРЅРєСѓСЂСЃ_m0); 
+ ALTER TABLE Идея ADD CONSTRAINT FK7dac1f9af8344b36825dfa01a1c96b96 FOREIGN KEY (Автор_m0) REFERENCES Пользователь; 
+CREATE INDEX Indexea483e84596d4da598c4987c911281f5 on Идея (Автор_m0); 
 
- ALTER TABLE InformationTestClass4 ADD CONSTRAINT FK065902a422e8482c84650cd897d66840 FOREIGN KEY (MasterOfInformationTestClass3) REFERENCES InformationTestClass3; 
-CREATE INDEX Indexbda053e8498d49e3bc5336acd0dc7674 on InformationTestClass4 (MasterOfInformationTestClass3); 
+ ALTER TABLE Идея ADD CONSTRAINT FK2e41286341974c25bdc5708faf42f8f8 FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
+CREATE INDEX Index385d7cfed6b84596941bb5f242795019 on Идея (Конкурс_m0); 
 
- ALTER TABLE ClassWithCaptions ADD CONSTRAINT FKbbbfe22ec3774fd18ea8afa926339692 FOREIGN KEY (InformationTestClass4) REFERENCES InformationTestClass4; 
-CREATE INDEX Index5c3302d7853145a4a2b91124659cb0c3 on ClassWithCaptions (InformationTestClass4); 
+ ALTER TABLE Лапа ADD CONSTRAINT FKe1b4b1f971574883a4595f4030fc3dd9 FOREIGN KEY (ТипЛапы_m0) REFERENCES ТипЛапы; 
+CREATE INDEX Indexfc4e75d7e16441c685cdf27d3d838076 on Лапа (ТипЛапы_m0); 
 
- ALTER TABLE Adress2 ADD CONSTRAINT FK9869fef2f9254b3ca96d7a9912f46eef FOREIGN KEY (Country_m0) REFERENCES Country2; 
-CREATE INDEX Indexddf997e4f4ac49269fda6d6acac60dd4 on Adress2 (Country_m0); 
+ ALTER TABLE Лапа ADD CONSTRAINT FKff10ca0536cc49f1863f591fef68fa55 FOREIGN KEY (Кошка_m0) REFERENCES Кошка; 
+CREATE INDEX Index1c7b5873a3fc464aa06bb1fe7386f805 on Лапа (Кошка_m0); 
 
- ALTER TABLE РљРѕРЅРєСѓСЂСЃ ADD CONSTRAINT FKcc49df3e42ca4493899b63706c63e0a5 FOREIGN KEY (РћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0) REFERENCES РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ; 
-CREATE INDEX Index666700a4a88c413bb009cce98dedf1e3 on РљРѕРЅРєСѓСЂСЃ (РћСЂРіР°РЅРёР·Р°С‚РѕСЂ_m0); 
+ ALTER TABLE ЗначениеКритер ADD CONSTRAINT FKe411c453245c4a91a0509473e9851e96 FOREIGN KEY (Критерий_m0) REFERENCES КритерийОценки; 
+CREATE INDEX Index7a17c6563c6143e3b21585a2d2ccfa08 on ЗначениеКритер (Критерий_m0); 
 
- ALTER TABLE TypeUsageProviderTestClassChil ADD CONSTRAINT FKf93ec8d54be0444699148a9a756af4f8 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
-CREATE INDEX Indexaac44c20e9df4d9ebcabf56f978880e7 on TypeUsageProviderTestClassChil (DataObjectForTest_m0); 
+ ALTER TABLE ЗначениеКритер ADD CONSTRAINT FK2ee98c4e524846d5822c6e38ff708cb9 FOREIGN KEY (Идея_m0) REFERENCES Идея; 
+CREATE INDEX Index4a2c5d4823be4f118bcbb20ae2e12bf9 on ЗначениеКритер (Идея_m0); 
 
- ALTER TABLE CabbageSalad ADD CONSTRAINT FK291c62bb9a564d98a686df7c3e5f83a6 FOREIGN KEY (Cabbage1) REFERENCES Cabbage2; 
-CREATE INDEX Index7bf1b6d5e48e47519fb420ae16a14731 on CabbageSalad (Cabbage1); 
+ ALTER TABLE CabbageSalad ADD CONSTRAINT FK3112553ab45b4ceb8400e9c5bd9aadfd FOREIGN KEY (Cabbage1) REFERENCES Cabbage2; 
+CREATE INDEX Indexa4d2271383ca43578639b1aeb698f829 on CabbageSalad (Cabbage1); 
 
- ALTER TABLE CabbageSalad ADD CONSTRAINT FKe0f7b4e38d164b88bd03daef52f6d747 FOREIGN KEY (Cabbage2) REFERENCES Cabbage2; 
-CREATE INDEX Indexc6fc2bbcc64a4fbda8ac7786c6ab6eaf on CabbageSalad (Cabbage2); 
+ ALTER TABLE CabbageSalad ADD CONSTRAINT FK4752e362a4bb4a03a73c83e02ffff27a FOREIGN KEY (Cabbage2) REFERENCES Cabbage2; 
+CREATE INDEX Index77624afbe7fc466fa0e940269da3fb63 on CabbageSalad (Cabbage2); 
 
- ALTER TABLE CabbagePart2 ADD CONSTRAINT FK2f4dd2e4124f4d5e8b04cbc3578369dc FOREIGN KEY (Cabbage) REFERENCES Cabbage2; 
-CREATE INDEX Index5f785fda20bc44869e97a091de6021d0 on CabbagePart2 (Cabbage); 
+ ALTER TABLE InformationTestClass2 ADD CONSTRAINT FKd546de7baef74bec8a800c128cc82ec3 FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
+CREATE INDEX Index62f42ac492fc4a58a6f61c1bb5f63400 on InformationTestClass2 (InformationTestClass_m0); 
 
- ALTER TABLE cla ADD CONSTRAINT FK6f0e3b0b26c8413392fe1286517aa44e FOREIGN KEY (parent) REFERENCES clb; 
-CREATE INDEX Indexb111874b7f874149bc693e79e8309369 on cla (parent); 
+ ALTER TABLE InformationTestClass2 ADD CONSTRAINT FK1ef6af9c69c14dcaa0c130c8db6dcf21 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
+CREATE INDEX Indexc9a56c8f2e84450cb5319829175d89f3 on InformationTestClass2 (InformationTestClass_m1); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FKa048b57786ac4893a6cb5ec268685406 FOREIGN KEY (TodayTerritory_m0) REFERENCES Country2; 
-CREATE INDEX Indexa9aaccd4c0954369af092c9b720b6d4b on Place2 (TodayTerritory_m0); 
+ ALTER TABLE Котенок ADD CONSTRAINT FKb327230024ca46a193f6dd7640b15462 FOREIGN KEY (Кошка) REFERENCES Кошка; 
+CREATE INDEX Index0d49cbe4dbbd4f1b800daa58eabd75f0 on Котенок (Кошка); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FK82ab0912d50b428aaac1b7cd618aad7d FOREIGN KEY (TodayTerritory_m1) REFERENCES Territory2; 
-CREATE INDEX Index983fc7302b7d4df487471d66399dfd3a on Place2 (TodayTerritory_m1); 
+ ALTER TABLE Region ADD CONSTRAINT FK7acdeed6127b4cf5a58ef64af0bf1560 FOREIGN KEY (Country2_m0) REFERENCES Country2; 
+CREATE INDEX Indexbfbb8055c5e34d13a7d04da4f0ebe696 on Region (Country2_m0); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FKc22869ced1944a8aa818e61c5866b350 FOREIGN KEY (TomorrowTeritory_m0) REFERENCES Country2; 
-CREATE INDEX Indexc2d2844fd7fb42af807ca3b08d4c31f1 on Place2 (TomorrowTeritory_m0); 
+ ALTER TABLE FullTypesDetail1 ADD CONSTRAINT FK1c11a387fd554fcc8fbea4eb84bcc39a FOREIGN KEY (FullTypesMainAgregator_m0) REFERENCES FullTypesMainAgregator; 
+CREATE INDEX Indexd1f86a73552a4b84b38269f6836cfe57 on FullTypesDetail1 (FullTypesMainAgregator_m0); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FKf8267ab65e1d4cc5bbccf59630142f69 FOREIGN KEY (TomorrowTeritory_m1) REFERENCES Territory2; 
-CREATE INDEX Index9cbeef30d4a04cac9388f84108033ce1 on Place2 (TomorrowTeritory_m1); 
+ ALTER TABLE Порода ADD CONSTRAINT FKb94665a8d7d14b09ba340cb4c63ab00d FOREIGN KEY (ТипПороды) REFERENCES ТипПороды; 
+CREATE INDEX Index1a00d1d989494a209d9365582191df60 on Порода (ТипПороды); 
 
- ALTER TABLE TypeUsageProviderTestClass ADD CONSTRAINT FK7d4b305544454a96b2b4186c6e112cc7 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
-CREATE INDEX Index8d88f58179114f68bb462f19bc94aba3 on TypeUsageProviderTestClass (DataObjectForTest_m0); 
+ ALTER TABLE Порода ADD CONSTRAINT FKc40b3fdc3b5744ebbc188e88f587d9ca FOREIGN KEY (Иерархия) REFERENCES Порода; 
+CREATE INDEX Indexa2af6ca913d2464899b748f1ebb01ced on Порода (Иерархия); 
 
- ALTER TABLE AuditAgregatorObject ADD CONSTRAINT FKbd3b34a5538f4657a7da0003aca2bb0c FOREIGN KEY (MasterObject) REFERENCES AuditMasterObject; 
-CREATE INDEX Index7a17613de5ef41ceb9ac1ffdff0252ba on AuditAgregatorObject (MasterObject); 
+ ALTER TABLE InformationTestClass4 ADD CONSTRAINT FK1f62e9e8a9ee4c50b0e71c51089a1ccb FOREIGN KEY (MasterOfInformationTestClass3) REFERENCES InformationTestClass3; 
+CREATE INDEX Indexdc755dc48afe47e7a8de6608fb5bb270 on InformationTestClass4 (MasterOfInformationTestClass3); 
 
- ALTER TABLE Region ADD CONSTRAINT FK299d3319bcce4d1a8e5c9fb5b5f7b2a0 FOREIGN KEY (Country2_m0) REFERENCES Country2; 
-CREATE INDEX Index61aa6a960e52414992d2a83bfb27024c on Region (Country2_m0); 
+ ALTER TABLE КритерийОценки ADD CONSTRAINT FK357aaeb394654ad19690af7d2d71607b FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
+CREATE INDEX Indexd36c8852a11144049214f8423068d73a on КритерийОценки (Конкурс_m0); 
 
- ALTER TABLE Р¤Р°Р№Р»РРґРµРё ADD CONSTRAINT FK77f7a019c2c844a3ab372f63bf800d67 FOREIGN KEY (Р’Р»Р°РґРµР»РµС†_m0) REFERENCES РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ; 
-CREATE INDEX Index40a731aad2234eb4aafeefa2d8ca7f91 on Р¤Р°Р№Р»РРґРµРё (Р’Р»Р°РґРµР»РµС†_m0); 
+ ALTER TABLE Place2 ADD CONSTRAINT FKdad83897a7c34ff68fd4cb1cd5a11ba8 FOREIGN KEY (TomorrowTeritory_m0) REFERENCES Country2; 
+CREATE INDEX Index2cc1e628fbc341ee8273b2c59fdcc3dc on Place2 (TomorrowTeritory_m0); 
 
- ALTER TABLE Р¤Р°Р№Р»РРґРµРё ADD CONSTRAINT FK50fa3d74e88647e88bd90350a9da0f92 FOREIGN KEY (РРґРµСЏ_m0) REFERENCES РРґРµСЏ; 
-CREATE INDEX Indexfa930bea3c6c4429abac29baa805dfa5 on Р¤Р°Р№Р»РРґРµРё (РРґРµСЏ_m0); 
+ ALTER TABLE Place2 ADD CONSTRAINT FK2408b5e648844e08bfb529dab9ddf800 FOREIGN KEY (TomorrowTeritory_m1) REFERENCES Territory2; 
+CREATE INDEX Indexb5deab03602b4bb3b61bb07ee19ace23 on Place2 (TomorrowTeritory_m1); 
 
- ALTER TABLE InformationTestClass3 ADD CONSTRAINT FK5a85429e3e4648d48dc100e7b8df5528 FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
-CREATE INDEX Index5c7cf55d438141ef8fccce637fca42bc on InformationTestClass3 (InformationTestClass2); 
+ ALTER TABLE Place2 ADD CONSTRAINT FK2b98ecf3fffc4cd9abbfeb9eafec562a FOREIGN KEY (TodayTerritory_m0) REFERENCES Country2; 
+CREATE INDEX Indexb5e7a1c283cd4b779eda2ac0b3eb15a2 on Place2 (TodayTerritory_m0); 
 
- ALTER TABLE Soup2 ADD CONSTRAINT FK0e73ad511f5d4059aeb4641e900fbbb9 FOREIGN KEY (CabbageType) REFERENCES Cabbage2; 
-CREATE INDEX Index1f7bfafab1e94686bac5fe713e73f908 on Soup2 (CabbageType); 
+ ALTER TABLE Place2 ADD CONSTRAINT FK3434995d077d4a63bbd476c918b0d643 FOREIGN KEY (TodayTerritory_m1) REFERENCES Territory2; 
+CREATE INDEX Indexda5cd1a9fdb342d2aa72b311ab6bb6f1 on Place2 (TodayTerritory_m1); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FK3c95444ee5244df88de7cb1d8e3f2997 FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
-CREATE INDEX Index42e7460a9f2641568c5cedb4b35b4092 on MasterClass (InformationTestClass2); 
+ ALTER TABLE ИФХозДоговора ADD CONSTRAINT FKbe7d4d8e49f84e9c82b9cfa0d3ba7a2e FOREIGN KEY (ИсточникФинан) REFERENCES ИсточникФинанс; 
+CREATE INDEX Indexe6b73e445a1d419fbe67283a3fc8acd6 on ИФХозДоговора (ИсточникФинан); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FK6417fa63d341427c926b4c1033703e4f FOREIGN KEY (InformationTestClass3_m0) REFERENCES InformationTestClass3; 
-CREATE INDEX Index91b8a7114ed54f5f99f8da8204656aff on MasterClass (InformationTestClass3_m0); 
+ ALTER TABLE ИФХозДоговора ADD CONSTRAINT FK8a16278aac1444558ecfd6becb20e528 FOREIGN KEY (ХозДоговор_m0) REFERENCES ХозДоговор; 
+CREATE INDEX Indexa136db99cec3461891f2f1b7f3af1693 on ИФХозДоговора (ХозДоговор_m0); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FKbb7938ab31104e5e9c6fddb2b7ec80d4 FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
-CREATE INDEX Index8091a474623f4ae08e49f5d0745c51ef on MasterClass (InformationTestClass_m0); 
+ ALTER TABLE MasterClass ADD CONSTRAINT FKcfbcc6a767cb4a41930a44713552ca33 FOREIGN KEY (InformationTestClass3_m0) REFERENCES InformationTestClass3; 
+CREATE INDEX Index38f0dc519208469888a4194ca76eade1 on MasterClass (InformationTestClass3_m0); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FKcdc7390e237941bfaac5304a41c68f27 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
-CREATE INDEX Index49251b58177a43f0a9888a589a0796cb on MasterClass (InformationTestClass_m1); 
+ ALTER TABLE MasterClass ADD CONSTRAINT FKec664f0fb0dc42cd9a37e6f9715ea26f FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
+CREATE INDEX Index3c4f6f51719244419ff7645b6e65e7ab on MasterClass (InformationTestClass2); 
 
- ALTER TABLE STORMWEBSEARCH ADD CONSTRAINT FKa8e293a9668b4be5ad7f29055255df8a FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+ ALTER TABLE MasterClass ADD CONSTRAINT FK3fcb05bcabe9467c8fee65fe664961cd FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
+CREATE INDEX Indexcb6fe40201124ed29bf3b67946be58b5 on MasterClass (InformationTestClass_m0); 
 
- ALTER TABLE STORMFILTERDETAIL ADD CONSTRAINT FK743a645982ed442b890cfcc1fa33180c FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+ ALTER TABLE MasterClass ADD CONSTRAINT FK54de7aaa8bd04b06aa3f8960e0a7ddc7 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
+CREATE INDEX Index5b50849a048042f0846f272bb3593ec0 on MasterClass (InformationTestClass_m1); 
 
- ALTER TABLE STORMFILTERLOOKUP ADD CONSTRAINT FKdde68fd8ae5447fd97fff714107473c1 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+ ALTER TABLE Human2 ADD CONSTRAINT FKb4e6df0804f9421d8cd6d5b6f7f7a8f8 FOREIGN KEY (TodayHome_m0) REFERENCES Country2; 
+CREATE INDEX Index8dba805be9824975bef11f5a8c63e74b on Human2 (TodayHome_m0); 
 
- ALTER TABLE STORMAuEntity ADD CONSTRAINT FKe34def37ea9747a2bf32816562527f29 FOREIGN KEY (ObjectType_m0) REFERENCES STORMAuObjType; 
+ ALTER TABLE Human2 ADD CONSTRAINT FKd9ee5d8dff2245feb9315a00ec808f8d FOREIGN KEY (TodayHome_m1) REFERENCES Territory2; 
+CREATE INDEX Index0e2f2b1dae80477394d38fa39bc83474 on Human2 (TodayHome_m1); 
 
- ALTER TABLE STORMAuField ADD CONSTRAINT FKedde9c1adc7d4ad2b38565cd6b40d5a6 FOREIGN KEY (MainChange_m0) REFERENCES STORMAuField; 
+ ALTER TABLE SomeDetailClass ADD CONSTRAINT FK4be4c314d8d14848b16addede00bd562 FOREIGN KEY (ClassA) REFERENCES SomeMasterClass; 
+CREATE INDEX Index82a148cb723f47e3bcc45d21a724da96 on SomeDetailClass (ClassA); 
 
- ALTER TABLE STORMAuField ADD CONSTRAINT FK1829e7214ba34ee2a7b3525788cd37b1 FOREIGN KEY (AuditEntity_m0) REFERENCES STORMAuEntity; 
+ ALTER TABLE STORMWEBSEARCH ADD CONSTRAINT FK1d730c9570124340b71a1e01faf4a877 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+
+ ALTER TABLE STORMFILTERDETAIL ADD CONSTRAINT FK70a16110b14d4bc89edee90f48b22eb1 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+
+ ALTER TABLE STORMFILTERLOOKUP ADD CONSTRAINT FK66d6286bbb044b64ab9adda69782ee55 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+
+ ALTER TABLE STORMAuEntity ADD CONSTRAINT FKd4391b2c4cb045f3814703e8bcefeebc FOREIGN KEY (ObjectType_m0) REFERENCES STORMAuObjType; 
+
+ ALTER TABLE STORMAuField ADD CONSTRAINT FK18c695248431434d84329e3a7a657440 FOREIGN KEY (MainChange_m0) REFERENCES STORMAuField; 
+
+ ALTER TABLE STORMAuField ADD CONSTRAINT FKea1e46179f714ea3b01cb070799c2a4e FOREIGN KEY (AuditEntity_m0) REFERENCES STORMAuEntity; 
 

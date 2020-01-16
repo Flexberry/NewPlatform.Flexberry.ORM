@@ -103,6 +103,12 @@
         public IConverterToQueryValueString ConverterToQueryValueString { get; set; }
 
         /// <summary>
+        /// An instance of the class for custom process updated objects.
+        /// See <see cref="INotifyUpdateObjects"/>.
+        /// </summary>
+        public INotifyUpdateObjects NotifierUpdateObjects { get; set; }
+
+        /// <summary>
         /// Преобразовать значение в SQL строку
         /// </summary>
         /// <param name="function">Функция</param>
@@ -536,10 +542,12 @@
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service instance.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
-        public SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString)
+        /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
+        public SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
             : this(securityManager, auditService)
         {
             ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
+            NotifierUpdateObjects = notifierUpdateObjects;
         }
 
         private ICSSoft.STORMNET.TypeUsage fldTypeUsage;

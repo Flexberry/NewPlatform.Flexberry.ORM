@@ -94,9 +94,9 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Медведь fМама;
         
-        private NewPlatform.Flexberry.ORM.Tests.Медведь fПапа;
-        
         private NewPlatform.Flexberry.ORM.Tests.Лес fЛесОбитания;
+        
+        private NewPlatform.Flexberry.ORM.Tests.Медведь fПапа;
         
         private NewPlatform.Flexberry.ORM.Tests.Медведь fДруг;
         
@@ -349,6 +349,39 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <summary>
         /// Медведь.
         /// </summary>
+        // *** Start programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
+
+        // *** End programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
+        [PropertyStorage(new string[] {
+                "ЛесОбитания"})]
+        public virtual NewPlatform.Flexberry.ORM.Tests.Лес ЛесОбитания
+        {
+            get
+            {
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get start)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Get start)
+                NewPlatform.Flexberry.ORM.Tests.Лес result = this.fЛесОбитания;
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get end)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set start)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Set start)
+                this.fЛесОбитания = value;
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set end)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Set end)
+            }
+        }
+        
+        /// <summary>
+        /// Медведь.
+        /// </summary>
         // *** Start programmer edit section *** (Медведь.Папа CustomAttributes)
 
         // *** End programmer edit section *** (Медведь.Папа CustomAttributes)
@@ -379,39 +412,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
             }
         }
         
-        /// <summary>
-        /// Медведь.
-        /// </summary>
-        // *** Start programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
-
-        // *** End programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
-        [PropertyStorage(new string[] {
-                "ЛесОбитания"})]
-        public virtual NewPlatform.Flexberry.ORM.Tests.Лес ЛесОбитания
-        {
-            get
-            {
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get start)
-
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Get start)
-                NewPlatform.Flexberry.ORM.Tests.Лес result = this.fЛесОбитания;
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get end)
-
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Get end)
-                return result;
-            }
-            set
-            {
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set start)
-
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Set start)
-                this.fЛесОбитания = value;
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set end)
-
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Set end)
-            }
-        }
-
         /// <summary>
         /// Медведь.
         /// </summary>
