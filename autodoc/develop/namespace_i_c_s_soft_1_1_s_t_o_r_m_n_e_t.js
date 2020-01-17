@@ -44,6 +44,8 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t =
     [ "IAccessErrorNameConverter", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_access_error_name_converter.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_access_error_name_converter" ],
     [ "IComparableType", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_comparable_type.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_comparable_type" ],
     [ "IContainsAcceptablePossibleValues", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_contains_acceptable_possible_values.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_contains_acceptable_possible_values" ],
+    [ "IConverterToQueryValueString", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_converter_to_query_value_string.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_converter_to_query_value_string" ],
+    [ "IConvertibleToQueryValueString", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_convertible_to_query_value_string.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_convertible_to_query_value_string" ],
     [ "Information", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information" ],
     [ "InstanceCaptionPropertyAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_instance_caption_property_attribute.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_instance_caption_property_attribute" ],
     [ "IsHTMLAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_is_h_t_m_l_attribute.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_is_h_t_m_l_attribute" ],

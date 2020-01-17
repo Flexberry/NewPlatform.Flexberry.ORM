@@ -8,6 +8,8 @@ var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business
     [ "LoadingObjectLoadStringedObjectViewTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ad24f4d56bd78ae1f1f269eaa08abb6bf", null ],
     [ "LoadObjectsWithTop", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a97a6b6aae911b8ab28653e05df89a4f1", null ],
     [ "NullableDateTimeTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ac14f7114a822fe50cfc407157d4056d5", null ],
+    [ "TestLoadingObjectByPageWithOrder", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a089c47a1dee1cfeb3730714f0e1b3dee", null ],
+    [ "TestLoadingObjectByPageWithoutOrder", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a367093091f0eeca6a82db5e5aeb6eaf8", null ],
     [ "TestLoadingObjectIndex", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a43895d8f1387532c746e32b937e27ac8", null ],
     [ "TestLoadingObjectIndexesWithMaxResultsCount", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a49b98b398ba3a728ea2041f7660e98bb", null ],
     [ "TestLoadingObjectIndexesWithNegativeMaxResultCount", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ab6fe3a94bf52085cb9a93d21370850d4", null ],

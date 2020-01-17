@@ -2,7 +2,9 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service =
 [
     [ "OracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a31b5ae58cc9ba96bc39e92310c987d7c", null ],
     [ "OracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a25457818920a910a8ca71aa128ffc51a", null ],
+    [ "OracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a1549be66d82fcfb5c8b6e4508c8819a7", null ],
     [ "OracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a9a19a350a2785fb55cd32de500faea88", null ],
+    [ "OracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#ac09f2bc9d73478331a0a381aedf2aaef", null ],
     [ "Clone", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a27f9f307da5e134ef982c6e008ca846b", null ],
     [ "ConvertSimpleValueToQueryValueString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a286bc6340dd18e6c0b03dc7dda846d41", null ],
     [ "CustomizeCommand", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a8414e55cb91138dc52b04c9a298bf59d", null ],

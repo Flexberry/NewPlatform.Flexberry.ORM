@@ -1,5 +1,14 @@
 var NAVTREEINDEX5 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_caption_attribute.html":[1,0,2,1,21],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_caption_attribute.html#a0ea89bbbc5292097597edfe284586d06":[1,0,2,1,21,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_caption_attribute.html#a20531d802a34ebed1cf89b83c1def5a8":[1,0,2,1,21,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_image_file_attribute.html":[1,0,2,1,22],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_image_file_attribute.html#a27bfe18a14a29dc3c18cf2682a42cbd8":[1,0,2,1,22,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_image_file_attribute.html#ab4e1968b54b7069e55183118d7ea0422":[1,0,2,1,22,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_image_property_attribute.html":[1,0,2,1,23],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_image_property_attribute.html#ac3eb02859f7c4208ae509aa6230ee69c":[1,0,2,1,23,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_image_property_attribute.html#adf62e0017d58080d2ad68a81e24cd762":[1,0,2,1,23,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_storage_attribute.html":[1,0,2,1,24],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_storage_attribute.html#a3da689047f5c0641a3a0ff8ab8a7d5b6":[1,0,2,1,24,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_class_storage_attribute.html#acb67b59ab6dc4fa4064af90bc199b8a3":[1,0,2,1,24,0],
@@ -240,14 +249,5 @@ var NAVTREEINDEX5 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_dynamic_method_compiler.html":[1,0,2,1,35],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_empty_enum_value_attribute.html":[1,0,2,1,36],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html":[1,0,2,1,37],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html#a298996f00f65597ea631c78b1baf5ea6":[1,0,2,1,37,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html#a590878f56f46d7346568948375b58fb8":[1,0,2,1,37,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html#a6049dd7af34f1aae133898668eb7cc8d":[1,0,2,1,37,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_event_arg_catcher_type_attribute.html":[1,0,2,1,38],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_event_arg_catcher_type_attribute.html#a68fced842f074d02fa95d2de22d42a81":[1,0,2,1,38,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_event_arg_catcher_type_attribute.html#af76d4b4d0332d0bc9906e329154f2654":[1,0,2,1,38,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_agregator_property_must_be_data_object_type_exception.html":[1,0,2,1,4,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_agregator_property_must_be_data_object_type_exception.html#ada70c61b2d56cddeb35e6c540fe0fa5c":[1,0,2,1,4,0,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_agregator_property_must_be_data_object_type_exception.html#af238f28c2e3d51508985c21ea5831f7d":[1,0,2,1,4,0,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_data_object_exception.html":[1,0,2,1,4,1]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html#a298996f00f65597ea631c78b1baf5ea6":[1,0,2,1,37,1]
 };

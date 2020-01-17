@@ -9,6 +9,8 @@ var searchData=
   ['icomparabletype',['IComparableType',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_comparable_type.html',1,'ICSSoft::STORMNET']]],
   ['iconfigresolver',['IConfigResolver',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_config_resolver.html',1,'ICSSoft::STORMNET::Business']]],
   ['icontainsacceptablepossiblevalues',['IContainsAcceptablePossibleValues',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_contains_acceptable_possible_values.html',1,'ICSSoft::STORMNET']]],
+  ['iconvertertoqueryvaluestring',['IConverterToQueryValueString',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_converter_to_query_value_string.html',1,'ICSSoft::STORMNET']]],
+  ['iconvertibletoqueryvaluestring',['IConvertibleToQueryValueString',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_convertible_to_query_value_string.html',1,'ICSSoft::STORMNET']]],
   ['idataobjectwithauditfields',['IDataObjectWithAuditFields',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_data_object_with_audit_fields.html',1,'ICSSoft::STORMNET::Business::Audit']]],
   ['idataservice',['IDataService',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_data_service.html',1,'ICSSoft::STORMNET::Business']]],
   ['ierrormessage',['IErrorMessage',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_i_error_message.html',1,'ICSSoft::STORMNET::Exceptions']]],

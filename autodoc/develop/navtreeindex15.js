@@ -1,5 +1,16 @@
 var NAVTREEINDEX15 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a466a14baa27e704bc47a496dc6492d3d":[1,0,4,0,1,3,18,20],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a48ff6ca954808c4fa03b86708438ea25":[1,0,4,0,1,3,18,29],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a49320987a23b255b303b222478f8aa2c":[1,0,4,0,1,3,18,30],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a4e32cb493244be28803d9ed9aed43dde":[1,0,4,0,1,3,18,27],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a54055668695f91c1fb3add436b06f5ab":[1,0,4,0,1,3,18,22],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a59be175b9afb7e33ba09d03baabbba62":[1,0,4,0,1,3,18,7],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a5b6bd81fea1795703f145eb876fe2a39":[1,0,4,0,1,3,18,25],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a5dccc4972c52abcb73b3892f069fbf46":[1,0,4,0,1,3,18,26],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a6bcf64f43cb0771b3194490a65b914d1":[1,0,4,0,1,3,18,2],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a6c96d10525e4e2b6c6ce18802fbd739c":[1,0,4,0,1,3,18,17],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a7349aa8a89f7ca9d5e0e0b2b1b7d7f88":[1,0,4,0,1,3,18,19],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a734f8ffe8141c0f2631b0d4b7fd992b7":[1,0,4,0,1,3,18,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a770198934d060e356b16f7022ee259dc":[1,0,4,0,1,3,18,35],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_in1_tests.html#a80dbccff13bb9ce44f0924b1e6eeecee":[1,0,4,0,1,3,18,11],
@@ -238,16 +249,5 @@ var NAVTREEINDEX15 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a5391f07b1ae0d9fc67199bde71402c05":[1,0,4,0,1,3,28,11],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a5581a2f46143d9cea140b88f008edab7":[1,0,4,0,1,3,28,39],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a558782aa6a81f829d07dc627dff9d9f0":[1,0,4,0,1,3,28,45],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a5c5e933d19b2fdac00d20b298b6fa09c":[1,0,4,0,1,3,28,21],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a5ff829e032f5423f42033cff84e9db08":[1,0,4,0,1,3,28,22],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a64e14a1f41413ad895190d1d1a4c705b":[1,0,4,0,1,3,28,5],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a7b5593912e67242298bb9611eb87833e":[1,0,4,0,1,3,28,8],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a84e7e44bf2db286bc8fba31e88692ed2":[1,0,4,0,1,3,28,34],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a84f81edf9286a736abc327f938364bd5":[1,0,4,0,1,3,28,44],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a8a8917af95c64b8ae56fcd79e2e36c13":[1,0,4,0,1,3,28,42],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a8b626d3d9517a464679f41e22004ba50":[1,0,4,0,1,3,28,29],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a8bbd8fdae6b345bb7d434b4e946cff08":[1,0,4,0,1,3,28,46],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a8d78c18b83cb3936cc732eb190161dcc":[1,0,4,0,1,3,28,18],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#aa074194d645915b09e164e30f94eb4c7":[1,0,4,0,1,3,28,6],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#aa6489dbb8214af8966bd2cd116d427f7":[1,0,4,0,1,3,28,35]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_not_equals_tests.html#a5c5e933d19b2fdac00d20b298b6fa09c":[1,0,4,0,1,3,28,21]
 };
