@@ -115,7 +115,7 @@
                 if (NotifierUpdateObjects != null)
                 {
                     operationUniqueId = Guid.NewGuid();
-                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, extraProcessingList);
+                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
                 }
 
                 if (AuditService.IsAuditEnabled)
@@ -291,7 +291,7 @@
 
                     if (NotifierUpdateObjects != null)
                     {
-                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, extraProcessingList);
+                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
                     }
                 }
                 catch (Exception excpt)
@@ -306,7 +306,7 @@
 
                     if (NotifierUpdateObjects != null)
                     {
-                        NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, extraProcessingList);
+                        NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, objects);
                     }
 
                     dbTransactionWrapper.Dispose();
@@ -338,13 +338,13 @@
                     }
                 }
 
-                objects = new DataObject[res.Count];
-                res.CopyTo(objects);
-
                 if (NotifierUpdateObjects != null)
                 {
                     NotifierUpdateObjects.AfterSuccessUpdateObjects(operationUniqueId.Value, this, objects);
                 }
+
+                objects = new DataObject[res.Count];
+                res.CopyTo(objects);
 
                 BusinessTaskMonitor.EndTask(id);
             }
