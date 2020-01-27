@@ -125,6 +125,7 @@
                     IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     #region прошли вглубь обрабатывая only Update||Insert
+
                     bool go = true;
                     do
                     {
@@ -143,7 +144,7 @@
                             {
                                 if (
                                     (ex =
-                                     RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
+                                        RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
                                     == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
@@ -183,6 +184,7 @@
                     while (go);
 
                     #endregion
+
                     if (QueryOrder.Count > 0)
                     {
                         #region сзади чистые Update
@@ -271,30 +273,34 @@
                     }
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
                             AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
                     }
+
+                    dbTransactionWrapper.CommitTransaction();
                 }
                 catch (Exception excpt)
                 {
                     dbTransactionWrapper.RollbackTransaction();
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
                     }
 
-                    dbTransactionWrapper.Dispose();
                     BusinessTaskMonitor.EndSubTask(subTask);
                     throw new ExecutingQueryException(query, prevQueries, excpt);
                 }
-
-                dbTransactionWrapper.CommitTransaction();
-                dbTransactionWrapper.Dispose();
+                finally
+                {
+                    dbTransactionWrapper.Dispose();
+                }
 
                 var res = new ArrayList();
                 foreach (DataObject changedObject in objects)
