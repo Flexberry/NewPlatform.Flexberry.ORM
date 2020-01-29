@@ -12,7 +12,7 @@
     {
         private INotifyUpdatePropertyByType notifierUpdatePropertyByType;
         private IDictionary<Type, IEnumerable<string>> subscribedPropNotifiers;
-        private IDictionary<string, Tuple<ObjectStatus, object, object>> stateStore;
+        private IDictionary<string, Tuple<ObjectStatus, object, object>> stateStore = new Dictionary<string, Tuple<ObjectStatus, object, object>>();
 
         /// <summary>
         /// An instance of the class for custom process updated objects properties.
@@ -57,16 +57,21 @@
 
             foreach (DataObject dataObject in dataObjects)
             {
+                Type dataObjectType = dataObject.GetType();
+                ObjectStatus status = dataObject.GetStatus(false);
+
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
-                    notifyUpdateObject.BeforeUpdateObject(dataObject, dataObject.GetStatus(), dataObjects);
+                    string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey);
+                    var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, null, null);
+                    stateStore.Add(stateStoreKey, stateStoreValue);
+
+                    notifyUpdateObject.BeforeUpdateObject(dataObject, status, dataObjects);
                 }
 
-                Type dataObjectType = dataObject.GetType();
-                ObjectStatus status = dataObject.GetStatus();
                 List<string> alteredPropertyNames = new List<string>(dataObject.GetAlteredPropertyNames());
 
-                if (subscribedPropNotifiers.ContainsKey(dataObjectType) || status == ObjectStatus.Deleted)
+                if (subscribedPropNotifiers != null && (subscribedPropNotifiers.ContainsKey(dataObjectType) || status == ObjectStatus.Deleted))
                 {
                     IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
                     if (subscribedPropertyNames != null)
@@ -100,14 +105,8 @@
 
                             if (notify)
                             {
-                                string stateStoreKey = operationId.ToString() + dataObjectType.FullName + dataObject.__PrimaryKey + propertyName;
+                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
                                 var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-
-                                if (stateStore == null)
-                                {
-                                    stateStore = new Dictionary<string, Tuple<ObjectStatus, object, object>>();
-                                }
-
                                 stateStore.Add(stateStoreKey, stateStoreValue);
 
                                 NotifierUpdatePropertyByType.BeforeUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
@@ -125,7 +124,257 @@
                         INotifyUpdateProperty oldValue = null;
                         INotifyUpdateProperty newValue = null;
 
-                        string stateStoreKey = operationId.ToString() + dataObjectType.FullName + dataObject.__PrimaryKey + propertyName;
+                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+
+                        if (stateStore.ContainsKey(stateStoreKey))
+                        {
+                            var valuesFromStateStore = stateStore[stateStoreKey];
+                            oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                            newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                        }
+                        else
+                        {
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName) as INotifyUpdateProperty;
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+
+                            var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+                            stateStore.Add(stateStoreKey, stateStoreValue);
+                        }
+
+                        INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
+
+                        if (notifyUpdateProperty != null)
+                        {
+                            notifyUpdateProperty.BeforeUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                        }
+                    }
+                }
+
+                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+            }
+        }
+
+        /// <inheritdoc cref="INotifyUpdateObjects"/>
+        public virtual void AfterSuccessSqlUpdateObjects(Guid operationId, IDataService dataService, IDbTransaction transaction, IEnumerable<DataObject> dataObjects)
+        {
+            if (dataObjects == null)
+            {
+                return;
+            }
+
+            foreach (DataObject dataObject in dataObjects)
+            {
+                Type dataObjectType = dataObject.GetType();
+                ObjectStatus status = dataObject.GetStatus(false);
+
+                if (dataObject is INotifyUpdateObject notifyUpdateObject)
+                {
+                    notifyUpdateObject.AfterSuccessSqlUpdateObject(dataObject, status, dataObjects);
+                }
+
+                List<string> alteredPropertyNames = new List<string>(dataObject.GetAlteredPropertyNames());
+
+                if (subscribedPropNotifiers != null && (subscribedPropNotifiers.ContainsKey(dataObjectType) || status == ObjectStatus.Deleted))
+                {
+                    IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
+                    if (subscribedPropertyNames != null)
+                    {
+                        foreach (string propertyName in subscribedPropertyNames)
+                        {
+                            object oldValue = null;
+                            object newValue = null;
+                            bool notify = false;
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (alteredPropertyNames.Contains(propertyName))
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName);
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+
+                            if (notify)
+                            {
+                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+
+                                if (stateStore == null)
+                                {
+                                    stateStore = new Dictionary<string, Tuple<ObjectStatus, object, object>>();
+                                }
+
+                                stateStore.Add(stateStoreKey, stateStoreValue);
+
+                                NotifierUpdatePropertyByType.AfterSuccessSqlUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
+
+                foreach (string propertyName in alteredPropertyNames)
+                {
+                    Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                    if (propertyType.IsSubclassOf(typeof(INotifyUpdateProperty)))
+                    {
+                        INotifyUpdateProperty oldValue = null;
+                        INotifyUpdateProperty newValue = null;
+
+                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+
+                        if (stateStore.ContainsKey(stateStoreKey))
+                        {
+                            var valuesFromStateStore = stateStore[stateStoreKey];
+                            oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                            newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                        }
+                        else
+                        {
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName) as INotifyUpdateProperty;
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+
+                            var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+
+                            stateStore.Add(stateStoreKey, stateStoreValue);
+                        }
+
+                        INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
+
+                        if (notifyUpdateProperty != null)
+                        {
+                            notifyUpdateProperty.AfterSuccessSqlUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                        }
+                    }
+                }
+
+                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+            }
+        }
+
+        /// <inheritdoc cref="INotifyUpdateObjects"/>
+        public virtual void AfterSuccessUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
+        {
+            if (dataObjects == null)
+            {
+                return;
+            }
+
+            foreach (DataObject dataObject in dataObjects)
+            {
+                Type dataObjectType = dataObject.GetType();
+                ObjectStatus status = dataObject.GetStatus(false);
+
+                if (dataObject is INotifyUpdateObject notifyUpdateObject)
+                {
+                    string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey);
+                    Tuple<ObjectStatus, object, object> stateStoreValue = stateStore[stateStoreKey];
+                    stateStore.Remove(stateStoreKey);
+
+                    notifyUpdateObject.AfterSuccessUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
+                }
+
+                List<string> alteredPropertyNames = new List<string>(dataObject.GetAlteredPropertyNames());
+
+                if (subscribedPropNotifiers != null && (subscribedPropNotifiers.ContainsKey(dataObjectType) || status == ObjectStatus.Deleted))
+                {
+                    IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
+                    if (subscribedPropertyNames != null)
+                    {
+                        foreach (string propertyName in subscribedPropertyNames)
+                        {
+                            object oldValue = null;
+                            object newValue = null;
+                            bool notify = false;
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (alteredPropertyNames.Contains(propertyName))
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName);
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+
+                            if (notify)
+                            {
+                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+
+                                stateStore.Add(stateStoreKey, stateStoreValue);
+
+                                NotifierUpdatePropertyByType.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
+
+                foreach (string propertyName in alteredPropertyNames)
+                {
+                    Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                    if (propertyType.IsSubclassOf(typeof(INotifyUpdateProperty)))
+                    {
+                        INotifyUpdateProperty oldValue = null;
+                        INotifyUpdateProperty newValue = null;
+
+                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
 
                         if (stateStore != null && stateStore.ContainsKey(stateStoreKey))
                         {
@@ -168,7 +417,7 @@
 
                         if (notifyUpdateProperty != null)
                         {
-                            notifyUpdateProperty.BeforeUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                         }
                     }
                 }
@@ -178,21 +427,128 @@
         }
 
         /// <inheritdoc cref="INotifyUpdateObjects"/>
-        public virtual void AfterSuccessSqlUpdateObjects(Guid operationId, IDataService dataService, IDbTransaction transaction, IEnumerable<DataObject> dataObjects)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc cref="INotifyUpdateObjects"/>
-        public virtual void AfterSuccessUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc cref="INotifyUpdateObjects"/>
         public virtual void AfterFailUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
         {
-            throw new System.NotImplementedException();
+            if (dataObjects == null)
+            {
+                return;
+            }
+
+            foreach (DataObject dataObject in dataObjects)
+            {
+                Type dataObjectType = dataObject.GetType();
+                ObjectStatus status = dataObject.GetStatus(false);
+
+                if (dataObject is INotifyUpdateObject notifyUpdateObject)
+                {
+                    string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey);
+                    Tuple<ObjectStatus, object, object> stateStoreValue = stateStore[stateStoreKey];
+                    stateStore.Remove(stateStoreKey);
+
+                    notifyUpdateObject.AfterFailUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
+                }
+
+                List<string> alteredPropertyNames = new List<string>(dataObject.GetAlteredPropertyNames());
+
+                if (subscribedPropNotifiers != null && (subscribedPropNotifiers.ContainsKey(dataObjectType) || status == ObjectStatus.Deleted))
+                {
+                    IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
+                    if (subscribedPropertyNames != null)
+                    {
+                        foreach (string propertyName in subscribedPropertyNames)
+                        {
+                            object oldValue = null;
+                            object newValue = null;
+                            bool notify = false;
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (alteredPropertyNames.Contains(propertyName))
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName);
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+
+                            if (notify)
+                            {
+                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+
+                                stateStore.Add(stateStoreKey, stateStoreValue);
+
+                                NotifierUpdatePropertyByType.AfterFailUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
+
+                foreach (string propertyName in alteredPropertyNames)
+                {
+                    Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                    if (propertyType.IsSubclassOf(typeof(INotifyUpdateProperty)))
+                    {
+                        INotifyUpdateProperty oldValue = null;
+                        INotifyUpdateProperty newValue = null;
+
+                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+
+                        if (stateStore != null && stateStore.ContainsKey(stateStoreKey))
+                        {
+                            var valuesFromStateStore = stateStore[stateStoreKey];
+                            oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                            newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                        }
+                        else
+                        {
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName) as INotifyUpdateProperty;
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+
+                            var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+
+                            stateStore.Add(stateStoreKey, stateStoreValue);
+                        }
+
+                        INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
+
+                        if (notifyUpdateProperty != null)
+                        {
+                            notifyUpdateProperty.AfterFailUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                        }
+                    }
+                }
+
+                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+            }
         }
     }
 }

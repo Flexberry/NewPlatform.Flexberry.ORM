@@ -131,6 +131,7 @@
     <Compile Include="NullFileField.cs" />
     <Compile Include="NumberCaption.cs" />
     <Compile Include="NumberedYear.cs" />
+    <Compile Include="Parcel.cs" />
     <Compile Include="Place2.cs" />
     <Compile Include="Plant2.cs" />
     <Compile Include="PoleEnum.cs" />

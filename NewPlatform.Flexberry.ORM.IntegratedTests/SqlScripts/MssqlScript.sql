@@ -314,6 +314,21 @@ CREATE TABLE [ForKeyStorageTest] (
 	 PRIMARY KEY ([StorageForKey]))
 
 
+CREATE TABLE [Parcel] (
+
+	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
+
+	 [Address] VARCHAR(255)  NULL,
+
+	 [Weight] FLOAT  NULL,
+
+	 [DeliveredByHomer] UNIQUEIDENTIFIER  NULL,
+
+	 [DeliveredByMailman] UNIQUEIDENTIFIER  NULL,
+
+	 PRIMARY KEY ([primaryKey]))
+
+
 CREATE TABLE [КонфигурацияЭтапа] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -1713,6 +1728,12 @@ CREATE INDEX TypeUsageProviderTestClassChil_IDataObjectForTest_m0 on [TypeUsageP
 
  ALTER TABLE [Soup2] ADD CONSTRAINT [Soup2_FCabbage2_0] FOREIGN KEY ([CabbageType]) REFERENCES [Cabbage2]
 CREATE INDEX Soup2_ICabbageType on [Soup2] ([CabbageType])
+
+ ALTER TABLE [Parcel] ADD CONSTRAINT [Parcel_FHomer_0] FOREIGN KEY ([DeliveredByHomer]) REFERENCES [Homer]
+CREATE INDEX Parcel_IDeliveredByHomer on [Parcel] ([DeliveredByHomer])
+
+ ALTER TABLE [Parcel] ADD CONSTRAINT [Parcel_FMailman_0] FOREIGN KEY ([DeliveredByMailman]) REFERENCES [Mailman]
+CREATE INDEX Parcel_IDeliveredByMailman on [Parcel] ([DeliveredByMailman])
 
  ALTER TABLE [TestClassA] ADD CONSTRAINT [TestClassA_FМастерМ_0] FOREIGN KEY ([Мастер_m0]) REFERENCES [МастерМ]
 CREATE INDEX TestClassA_IМастер_m0 on [TestClassA] ([Мастер_m0])

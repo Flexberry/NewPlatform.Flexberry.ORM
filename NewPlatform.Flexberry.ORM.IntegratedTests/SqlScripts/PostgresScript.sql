@@ -314,6 +314,21 @@ CREATE TABLE ForKeyStorageTest (
  PRIMARY KEY (StorageForKey));
 
 
+CREATE TABLE Parcel (
+
+ primaryKey UUID NOT NULL,
+
+ Address VARCHAR(255) NULL,
+
+ Weight DOUBLE PRECISION NULL,
+
+ DeliveredByHomer UUID NULL,
+
+ DeliveredByMailman UUID NULL,
+
+ PRIMARY KEY (primaryKey));
+
+
 CREATE TABLE КонфигурацияЭтапа (
 
  primaryKey UUID NOT NULL,
@@ -1588,291 +1603,297 @@ CREATE TABLE STORMAuField (
 
 
 
- ALTER TABLE Apparatus2 ADD CONSTRAINT FKbf9319a4bd154bc9b9804752b0501bfa FOREIGN KEY (Maker_m0) REFERENCES Country2; 
-CREATE INDEX Index50307ef1530e49abbffadf3650caa571 on Apparatus2 (Maker_m0); 
+ ALTER TABLE Apparatus2 ADD CONSTRAINT FK9ca2924815894735aa5e0d6be0892ddb FOREIGN KEY (Maker_m0) REFERENCES Country2; 
+CREATE INDEX Index3772cf966ee24a12b4ae6e117da33e07 on Apparatus2 (Maker_m0); 
 
- ALTER TABLE Apparatus2 ADD CONSTRAINT FK1c91202c30b54169845fbaf0cc100ad9 FOREIGN KEY (Exporter_m0) REFERENCES Country2; 
-CREATE INDEX Index0feea3c0fffe480285f02bab11648c43 on Apparatus2 (Exporter_m0); 
+ ALTER TABLE Apparatus2 ADD CONSTRAINT FK12dc2546656e4b9aaa09fa75552780f9 FOREIGN KEY (Exporter_m0) REFERENCES Country2; 
+CREATE INDEX Indexbf1dcdeab10246deacdf6217fa395491 on Apparatus2 (Exporter_m0); 
 
- ALTER TABLE ComputedDetail ADD CONSTRAINT FK4f7280b356dd443fb2bcd4adccef72f4 FOREIGN KEY (ComputedMaster) REFERENCES ComputedMaster; 
-CREATE INDEX Indexe1c44184fa2e4c05b2c5a8bcb50ed3a3 on ComputedDetail (ComputedMaster); 
+ ALTER TABLE ComputedDetail ADD CONSTRAINT FKa157f7c209114bc7951e192d0a5310ac FOREIGN KEY (ComputedMaster) REFERENCES ComputedMaster; 
+CREATE INDEX Index325ea74332104338a9bbaeb361b88754 on ComputedDetail (ComputedMaster); 
 
- ALTER TABLE Выплаты ADD CONSTRAINT FKe0e942f81d2e425287bb789ea42e2815 FOREIGN KEY (Кредит1) REFERENCES Кредит; 
-CREATE INDEX Indexd9cd9fd841f54269b7ed87ed6cb373ce on Выплаты (Кредит1); 
+ ALTER TABLE Выплаты ADD CONSTRAINT FK8ff5ffdee3f14c9d96f063c95640f0fb FOREIGN KEY (Кредит1) REFERENCES Кредит; 
+CREATE INDEX Indexcf0c415ccbf948c4be6867a0aa44ce1e on Выплаты (Кредит1); 
 
- ALTER TABLE Блоха ADD CONSTRAINT FK853ed79eea694504bfcba293539d60e7 FOREIGN KEY (МедведьОбитания) REFERENCES Медведь; 
-CREATE INDEX Index4094f21efe8743549a75707e16e11137 on Блоха (МедведьОбитания); 
+ ALTER TABLE Блоха ADD CONSTRAINT FK3c26684644d54fdd8f134ccb3a58896e FOREIGN KEY (МедведьОбитания) REFERENCES Медведь; 
+CREATE INDEX Index1bc41e2e84da41d0860a87e00ba7554c on Блоха (МедведьОбитания); 
 
- ALTER TABLE Этап ADD CONSTRAINT FKa38702a67bd54caa96e11361c9d11e56 FOREIGN KEY (КонфигурацияЭтапа_m0) REFERENCES КонфигурацияЭтапа; 
-CREATE INDEX Index0dbb4608c9844d088e5bc94caf65719b on Этап (КонфигурацияЭтапа_m0); 
+ ALTER TABLE Этап ADD CONSTRAINT FK86dd2c3c73b94fba9306ffc348d194cb FOREIGN KEY (КонфигурацияЭтапа_m0) REFERENCES КонфигурацияЭтапа; 
+CREATE INDEX Index5b819cdc6ffd46de9a02316a96bbe8fa on Этап (КонфигурацияЭтапа_m0); 
 
- ALTER TABLE Этап ADD CONSTRAINT FK6dde97f0feb3470dbff2e3a877560ff2 FOREIGN KEY (Запрос) REFERENCES Запрос; 
-CREATE INDEX Index7cd7fce7028d41b09d7df7b05558b7da on Этап (Запрос); 
+ ALTER TABLE Этап ADD CONSTRAINT FK3556f853d4ec4e3db4856b6fe026a3af FOREIGN KEY (Запрос) REFERENCES Запрос; 
+CREATE INDEX Index6bde22bd9bca426d8ece98538eaef923 on Этап (Запрос); 
 
- ALTER TABLE AuditMasterObject ADD CONSTRAINT FKaa22588352f14286b33edd7dc2ef1fef FOREIGN KEY (MasterObject) REFERENCES AuditMasterMasterObject; 
-CREATE INDEX Indexd8bfc8c5bb1c4e46ae0e9bd51b8a8b29 on AuditMasterObject (MasterObject); 
+ ALTER TABLE AuditMasterObject ADD CONSTRAINT FK84ebf2a64ce94d69a2e2674b83478ed4 FOREIGN KEY (MasterObject) REFERENCES AuditMasterMasterObject; 
+CREATE INDEX Indexed33b96db1224e1c84d33ada055eddb3 on AuditMasterObject (MasterObject); 
 
- ALTER TABLE Берлога ADD CONSTRAINT FKf7df2befa45045acb408cf06967c1005 FOREIGN KEY (ЛесРасположения) REFERENCES Лес; 
-CREATE INDEX Indexa19d455fcef24a1d9e24836e07d56592 on Берлога (ЛесРасположения); 
+ ALTER TABLE Берлога ADD CONSTRAINT FK9262a42d86d84c409300756501d61574 FOREIGN KEY (ЛесРасположения) REFERENCES Лес; 
+CREATE INDEX Indexc9ec6c1c96594b449f7055b3004cc5b1 on Берлога (ЛесРасположения); 
 
- ALTER TABLE Берлога ADD CONSTRAINT FK492d99e0786a4a3eac091e48261f7070 FOREIGN KEY (Медведь) REFERENCES Медведь; 
-CREATE INDEX Indexaffedb93e8a7410dadc0f23810446274 on Берлога (Медведь); 
+ ALTER TABLE Берлога ADD CONSTRAINT FKcf14b992d6664811b40d95ab39361332 FOREIGN KEY (Медведь) REFERENCES Медведь; 
+CREATE INDEX Indexde0c106501d944be8b8854ec8ca2ffe0 on Берлога (Медведь); 
 
- ALTER TABLE ДокККонкурсу ADD CONSTRAINT FK307f12a4a85842d29a9791422df437fb FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
-CREATE INDEX Index9c25142a82dc4677bfb79c1d007101c6 on ДокККонкурсу (Конкурс_m0); 
+ ALTER TABLE ДокККонкурсу ADD CONSTRAINT FK8b7ba6896d1d44d58392ac3d6dc38ca7 FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
+CREATE INDEX Indexbdbaa2875d094effbfe77a98bde15924 on ДокККонкурсу (Конкурс_m0); 
 
- ALTER TABLE clb ADD CONSTRAINT FK29567279632d4cca9c5c41045b69e6c2 FOREIGN KEY (ref2) REFERENCES cla; 
-CREATE INDEX Index1df6933e4bfc4d74be0d183d0a6e15f4 on clb (ref2); 
+ ALTER TABLE clb ADD CONSTRAINT FK6569aca4ed5d4f4a80cef64a556b537d FOREIGN KEY (ref2) REFERENCES cla; 
+CREATE INDEX Indexf52ebbb6a9854b279199a15a6e7a160a on clb (ref2); 
 
- ALTER TABLE clb ADD CONSTRAINT FK9cde053231734f0aa8fe9dc1bcf275a0 FOREIGN KEY (ref1) REFERENCES cla; 
-CREATE INDEX Indexef5f992c299e4eb2ab9815a3feb0e5dc on clb (ref1); 
+ ALTER TABLE clb ADD CONSTRAINT FKaa24cc0ff45945e4a6f681e09e1af5e1 FOREIGN KEY (ref1) REFERENCES cla; 
+CREATE INDEX Index6c4bdef8a23d46d7aed75f9bdffbe736 on clb (ref1); 
 
- ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FK347e218695594a5680ce2b43995f6eed FOREIGN KEY (Эксперт_m0) REFERENCES Пользователь; 
-CREATE INDEX Index3ec75b415bd6496ab3231faccf5eda95 on ОценкаЭксперта (Эксперт_m0); 
+ ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FKcf184cc02d374df49feae3f8ec38d78e FOREIGN KEY (Эксперт_m0) REFERENCES Пользователь; 
+CREATE INDEX Index5087e6dd24cc4f939ef15c4851bff563 on ОценкаЭксперта (Эксперт_m0); 
 
- ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FK5c4a6fc24bdb457299083755d34c6b5a FOREIGN KEY (ЗначениеКритер) REFERENCES ЗначениеКритер; 
-CREATE INDEX Indexe63612cb87664c449989b68566d3ffe1 on ОценкаЭксперта (ЗначениеКритер); 
+ ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FKa26650286b3a430c8f0c5fc69319454c FOREIGN KEY (ЗначениеКритер) REFERENCES ЗначениеКритер; 
+CREATE INDEX Index42254b777cb74b33b87e1d49b3341648 on ОценкаЭксперта (ЗначениеКритер); 
 
- ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FKbab19ae05b6f486cbdb4d6c640fc4adc FOREIGN KEY (Идея_m0) REFERENCES Идея; 
-CREATE INDEX Index4a1f87837a984b82a758368de95b27ab on ОценкаЭксперта (Идея_m0); 
+ ALTER TABLE ОценкаЭксперта ADD CONSTRAINT FK1323bea984c544929ad5aaf08bc0d00e FOREIGN KEY (Идея_m0) REFERENCES Идея; 
+CREATE INDEX Index98bf5fed4ffc42dea62897ab5b97ca10 on ОценкаЭксперта (Идея_m0); 
 
- ALTER TABLE Dish2 ADD CONSTRAINT FK5b19be60c0a3462b936837952a46e3e5 FOREIGN KEY (MainIngridient_m0) REFERENCES Cabbage2; 
-CREATE INDEX Index87091a6c15084b18ac479a97e302efd6 on Dish2 (MainIngridient_m0); 
+ ALTER TABLE Dish2 ADD CONSTRAINT FK76c2415928b549f6b1091efdb4b8f89b FOREIGN KEY (MainIngridient_m0) REFERENCES Cabbage2; 
+CREATE INDEX Index68e29f76f54a48a2a2e77b5e61044791 on Dish2 (MainIngridient_m0); 
 
- ALTER TABLE Dish2 ADD CONSTRAINT FK4419ca1d49344f9b874dc32f3a32d9df FOREIGN KEY (MainIngridient_m1) REFERENCES Plant2; 
-CREATE INDEX Indexa14704d0866b42988e02f788fb8e0ecd on Dish2 (MainIngridient_m1); 
+ ALTER TABLE Dish2 ADD CONSTRAINT FK5c827912acb3475c804f92ce51894e67 FOREIGN KEY (MainIngridient_m1) REFERENCES Plant2; 
+CREATE INDEX Index4de91038ba8b4faab287c54cf077eb45 on Dish2 (MainIngridient_m1); 
 
- ALTER TABLE Медведь ADD CONSTRAINT FKcc377c3ceeaa4a15b8f6f8b2a99ff825 FOREIGN KEY (Мама) REFERENCES Медведь; 
-CREATE INDEX Indexe83571e0fb8146c78c2adf6e0c731473 on Медведь (Мама); 
+ ALTER TABLE Медведь ADD CONSTRAINT FK8374dcc7aaf54805bae9dc5776943faa FOREIGN KEY (Мама) REFERENCES Медведь; 
+CREATE INDEX Indexdab365bf9d5b41c39eba4cc3435e6ec3 on Медведь (Мама); 
 
- ALTER TABLE Медведь ADD CONSTRAINT FKe8f43727be064a928b0238a160a3d7f7 FOREIGN KEY (ЛесОбитания) REFERENCES Лес; 
-CREATE INDEX Indexb1d76dacd0d445ab9c4f09dd839e4030 on Медведь (ЛесОбитания); 
+ ALTER TABLE Медведь ADD CONSTRAINT FK66a311e628cf4f2b9e663f088a7f2efe FOREIGN KEY (ЛесОбитания) REFERENCES Лес; 
+CREATE INDEX Index370fe80029a34b328df45eb617dd382d on Медведь (ЛесОбитания); 
 
- ALTER TABLE Медведь ADD CONSTRAINT FK4464c2a03bae41d18824ad33edb77fc4 FOREIGN KEY (Папа) REFERENCES Медведь; 
-CREATE INDEX Indexa639eab3e52040809e8a12429bee093c on Медведь (Папа); 
+ ALTER TABLE Медведь ADD CONSTRAINT FKab87559bd9254cc98f182dc46f13d2d4 FOREIGN KEY (Папа) REFERENCES Медведь; 
+CREATE INDEX Indexd6369439deb24dd39c1e02c1bb32f92b on Медведь (Папа); 
 
- ALTER TABLE Медведь ADD CONSTRAINT FK0443c6b7423744a489ac3cd5052ced1f FOREIGN KEY (Друг_m0) REFERENCES Медведь; 
-CREATE INDEX Indexd9bc76723f9642f392ee852790d56f7d on Медведь (Друг_m0); 
+ ALTER TABLE Медведь ADD CONSTRAINT FKf16852f642054f82b9ab95fe40165a65 FOREIGN KEY (Друг_m0) REFERENCES Медведь; 
+CREATE INDEX Index9487b57b4f274fdc898d2b08b7cbdf62 on Медведь (Друг_m0); 
 
- ALTER TABLE TypeUsageProviderTestClassChil ADD CONSTRAINT FKeafb7d83193248b2900be87a0a511c3b FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
-CREATE INDEX Index45605d3ac0e249e6ababd7e0f1c9a1ad on TypeUsageProviderTestClassChil (DataObjectForTest_m0); 
+ ALTER TABLE TypeUsageProviderTestClassChil ADD CONSTRAINT FKf3a30ea26dd64b3585a0c6d641de972c FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
+CREATE INDEX Index58bdddd9d1a6462ca3e4c7babd953537 on TypeUsageProviderTestClassChil (DataObjectForTest_m0); 
 
- ALTER TABLE Soup2 ADD CONSTRAINT FK2ef943576175443ebfd14a8566fbf85e FOREIGN KEY (CabbageType) REFERENCES Cabbage2; 
-CREATE INDEX Index2cbf2d29364b4a8c898c8552e18eb3f5 on Soup2 (CabbageType); 
+ ALTER TABLE Soup2 ADD CONSTRAINT FK1ae118a11f6c48dfb35afd6b5ee2f2b3 FOREIGN KEY (CabbageType) REFERENCES Cabbage2; 
+CREATE INDEX Indexa26bc64c7f5346cc923caa0a6449b71b on Soup2 (CabbageType); 
 
- ALTER TABLE TestClassA ADD CONSTRAINT FK3e4f41572c4c44708f26960df36c9161 FOREIGN KEY (Мастер_m0) REFERENCES МастерМ; 
-CREATE INDEX Index026474f066e04f339452931a2d7437e2 on TestClassA (Мастер_m0); 
+ ALTER TABLE Parcel ADD CONSTRAINT FK1ebdcdfff4834b9a8061f42661612534 FOREIGN KEY (DeliveredByHomer) REFERENCES Homer; 
+CREATE INDEX Index76d1b1e2abe7423e82c6e3d7d4c3e81d on Parcel (DeliveredByHomer); 
 
- ALTER TABLE TestClassA ADD CONSTRAINT FK70863f34a13f4b87ac9927ed3e7290c8 FOREIGN KEY (Мастер_m1) REFERENCES НаследникМ1; 
-CREATE INDEX Index0d1fbae8eeb14ca69482775e79eae71e on TestClassA (Мастер_m1); 
+ ALTER TABLE Parcel ADD CONSTRAINT FK614ccdcbe00b4cb4bd183469276cf08a FOREIGN KEY (DeliveredByMailman) REFERENCES Mailman; 
+CREATE INDEX Index7769dae88d594838bb2c5600544f6c63 on Parcel (DeliveredByMailman); 
 
- ALTER TABLE TestClassA ADD CONSTRAINT FKeec4225622824a4fb5d15b340e5d3d8f FOREIGN KEY (Мастер_m2) REFERENCES НаследникМ2; 
-CREATE INDEX Index7f068d9ab07d49a687a1b4e142aef93f on TestClassA (Мастер_m2); 
+ ALTER TABLE TestClassA ADD CONSTRAINT FK248066b703904abab2601a3b5c6b9e4e FOREIGN KEY (Мастер_m0) REFERENCES МастерМ; 
+CREATE INDEX Index968452b0f7844528abdbd9f4b277037d on TestClassA (Мастер_m0); 
 
- ALTER TABLE Перелом ADD CONSTRAINT FK8cdcab55b5724c51815ce16d9010e322 FOREIGN KEY (Лапа_m0) REFERENCES Лапа; 
-CREATE INDEX Indexc07f2215a5ee4e108cfde4332ab9276f on Перелом (Лапа_m0); 
+ ALTER TABLE TestClassA ADD CONSTRAINT FKce99f2cb0c6347d794064f7de9906756 FOREIGN KEY (Мастер_m1) REFERENCES НаследникМ1; 
+CREATE INDEX Index3d024f4ddeb84ea79c6eca0b4b5ddb76 on TestClassA (Мастер_m1); 
 
- ALTER TABLE Лес ADD CONSTRAINT FKcef9e55fc1184758bf879f0fc42cc2e1 FOREIGN KEY (Страна) REFERENCES Страна; 
-CREATE INDEX Indexbbf7a3fb373b410fbc4a3906a1414dee on Лес (Страна); 
+ ALTER TABLE TestClassA ADD CONSTRAINT FK66463863dcdb4f75b5649611752dcdef FOREIGN KEY (Мастер_m2) REFERENCES НаследникМ2; 
+CREATE INDEX Index7a58f9ee27964d918e89f447b7cee9ca on TestClassA (Мастер_m2); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FK6a9adb3b23f247a797c7061e8ab3a555 FOREIGN KEY (MasterClass_m0) REFERENCES MasterClass; 
-CREATE INDEX Index62ebe0cb18f54eb7ae43dec3adc875b5 on DetailClass (MasterClass_m0); 
+ ALTER TABLE Перелом ADD CONSTRAINT FKf904a9b2faba46f6a058a9a361e30d4c FOREIGN KEY (Лапа_m0) REFERENCES Лапа; 
+CREATE INDEX Indexd38294be43754d558b3c37e52f0cb8ad on Перелом (Лапа_m0); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FKa2069337dfc04ec2a4c7ee96b550d7cf FOREIGN KEY (MasterClass_m1) REFERENCES MasterClass; 
-CREATE INDEX Index9bb7d5d3b74a41738e854ea818f7b989 on DetailClass (MasterClass_m1); 
+ ALTER TABLE Лес ADD CONSTRAINT FK08bfa25681c64ab9bea5232527f0aca2 FOREIGN KEY (Страна) REFERENCES Страна; 
+CREATE INDEX Index5d95af2d2c8543a7b97e786c6ebffdb3 on Лес (Страна); 
 
- ALTER TABLE AggregatorUpdateObjectTest ADD CONSTRAINT FK8a12bd37202142d0b848626ec6558f7a FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
-CREATE INDEX Indexd9465d1098fd43649816e1613da0c016 on AggregatorUpdateObjectTest (Detail); 
+ ALTER TABLE DetailClass ADD CONSTRAINT FKd565412e3e3943e1a099ab7d28254011 FOREIGN KEY (MasterClass_m0) REFERENCES MasterClass; 
+CREATE INDEX Index7c7c3e5252e142f0a27989821fe1207c on DetailClass (MasterClass_m0); 
 
- ALTER TABLE Adress2 ADD CONSTRAINT FK8a6efaf60f5949deaac94bbfbd7dd985 FOREIGN KEY (Country_m0) REFERENCES Country2; 
-CREATE INDEX Indexa499001216334115bcf8cb322993ff8c on Adress2 (Country_m0); 
+ ALTER TABLE DetailClass ADD CONSTRAINT FKaa98f71c30c3402191bc30c8a1f0d906 FOREIGN KEY (MasterClass_m1) REFERENCES MasterClass; 
+CREATE INDEX Index2de146b5ab0e433aae24b6e371015b87 on DetailClass (MasterClass_m1); 
 
- ALTER TABLE FullTypesMainAgregator ADD CONSTRAINT FK3afb42f616034bef80e78b7ae325dbb1 FOREIGN KEY (FullTypesMaster1_m0) REFERENCES FullTypesMaster1; 
-CREATE INDEX Index7e8104bb4eca4acb8d7e5083d5cea50a on FullTypesMainAgregator (FullTypesMaster1_m0); 
+ ALTER TABLE AggregatorUpdateObjectTest ADD CONSTRAINT FK089dbab029154d8fafc2439e497e2b9e FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
+CREATE INDEX Index04d7a213321844e6b80574b1a6289798 on AggregatorUpdateObjectTest (Detail); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FK4d6016db75ad48598fdc31526c5241ea FOREIGN KEY (Ingridient2_m0) REFERENCES Cabbage2; 
-CREATE INDEX Indexe8b245977a1b461b8295b087fcfc7991 on Salad2 (Ingridient2_m0); 
+ ALTER TABLE Adress2 ADD CONSTRAINT FKa8f77bc8522344b2a51d66ed4614c5ed FOREIGN KEY (Country_m0) REFERENCES Country2; 
+CREATE INDEX Index47b84c7509154220a4698c25b1beeaab on Adress2 (Country_m0); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FKef64d40078e84554b216865302257a4a FOREIGN KEY (Ingridient2_m1) REFERENCES Plant2; 
-CREATE INDEX Index81c61ad370034106a4fd475f4790d989 on Salad2 (Ingridient2_m1); 
+ ALTER TABLE FullTypesMainAgregator ADD CONSTRAINT FK537b0e9a9d82436d9c2a438ddce31cc9 FOREIGN KEY (FullTypesMaster1_m0) REFERENCES FullTypesMaster1; 
+CREATE INDEX Index0acd8a97bb2a49da81228dd831cde2b4 on FullTypesMainAgregator (FullTypesMaster1_m0); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FK5af01d54a3644a17929189ce2d544c09 FOREIGN KEY (Ingridient1_m0) REFERENCES Cabbage2; 
-CREATE INDEX Indexe6f057638d2840cd949c754a66df3dc3 on Salad2 (Ingridient1_m0); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FKa4c655bf91c84e5aad9999cd329e8349 FOREIGN KEY (Ingridient2_m0) REFERENCES Cabbage2; 
+CREATE INDEX Indexc6229cf88b594beba3fc6fca530969ba on Salad2 (Ingridient2_m0); 
 
- ALTER TABLE Salad2 ADD CONSTRAINT FKcbe3f76004c84b82acc0123f56a2c811 FOREIGN KEY (Ingridient1_m1) REFERENCES Plant2; 
-CREATE INDEX Indexe87887a49d024bf2be23b6d8e4695a81 on Salad2 (Ingridient1_m1); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FK758cdc79dfbf4e18915d8990cdaa7ee7 FOREIGN KEY (Ingridient2_m1) REFERENCES Plant2; 
+CREATE INDEX Indexb700ff40974140f68afe807b9be05421 on Salad2 (Ingridient2_m1); 
 
- ALTER TABLE InformationTestClass3 ADD CONSTRAINT FK96f1f095d8af43008c18e641c3776e86 FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
-CREATE INDEX Index7c7a06144776412a884ab4f63b6c77a6 on InformationTestClass3 (InformationTestClass2); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FKa5e930a8df4348d8b2454878a9e0bdb6 FOREIGN KEY (Ingridient1_m0) REFERENCES Cabbage2; 
+CREATE INDEX Index71d9d897688f47118414cea9d1cced8f on Salad2 (Ingridient1_m0); 
 
- ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK22e08f5712e5434b898b5ce82166f383 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
-CREATE INDEX Indexe01292ac4e044b06b1498c285799e2c5 on CombinedTypesUsageProviderTest (DataObjectForTest_m0); 
+ ALTER TABLE Salad2 ADD CONSTRAINT FK63c0fd7600f84cf089981376bf9a3a9f FOREIGN KEY (Ingridient1_m1) REFERENCES Plant2; 
+CREATE INDEX Index70f3435dc4d44af4b9fa0d0b3e3a7d5d on Salad2 (Ingridient1_m1); 
 
- ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK25ef33d4a27e403197183629b511bf9d FOREIGN KEY (TypeUsageProviderTestClass) REFERENCES TypeUsageProviderTestClass; 
-CREATE INDEX Indexd943c6fca7bd490d84dcfc7c12838482 on CombinedTypesUsageProviderTest (TypeUsageProviderTestClass); 
+ ALTER TABLE InformationTestClass3 ADD CONSTRAINT FK70f8f59928f04fcd96c316967d24ba0b FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
+CREATE INDEX Indexec95347254c74e45bf897874b0133941 on InformationTestClass3 (InformationTestClass2); 
 
- ALTER TABLE ClassWithCaptions ADD CONSTRAINT FK478ddd2a91794808be104f329d4e033c FOREIGN KEY (InformationTestClass4) REFERENCES InformationTestClass4; 
-CREATE INDEX Indexec48cc78aba842d0bc49102feaef016f on ClassWithCaptions (InformationTestClass4); 
+ ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK43d22a459d72423d83442a2fd9a88495 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
+CREATE INDEX Indexf3bd88779fa045aea626e4f9f68b4c5f on CombinedTypesUsageProviderTest (DataObjectForTest_m0); 
 
- ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FKa67d2c23470e4969bf8d80bc3b5fae60 FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
-CREATE INDEX Index6c13f807d611437caaf49a95e7e5e650 on MasterUpdateObjectTest (Detail); 
+ ALTER TABLE CombinedTypesUsageProviderTest ADD CONSTRAINT FK2c9903d04c0b4e2e9c3d95b88412c08b FOREIGN KEY (TypeUsageProviderTestClass) REFERENCES TypeUsageProviderTestClass; 
+CREATE INDEX Index711f1ec93f8b49a899b8e616c3211f4c on CombinedTypesUsageProviderTest (TypeUsageProviderTestClass); 
 
- ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FKd44607ca556a40449e3441e3a6049506 FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
-CREATE INDEX Index4dbd8afcd2e841ecbdb6d8783bea5ac3 on MasterUpdateObjectTest (AggregatorUpdateObjectTest); 
+ ALTER TABLE ClassWithCaptions ADD CONSTRAINT FKb4335930f1934cb783e72d4cbcc07e68 FOREIGN KEY (InformationTestClass4) REFERENCES InformationTestClass4; 
+CREATE INDEX Indexa67449eca7514441839747ea10fe2575 on ClassWithCaptions (InformationTestClass4); 
 
- ALTER TABLE AuditAgregatorObject ADD CONSTRAINT FK993c6798bcde494fa42788d52260ccce FOREIGN KEY (MasterObject) REFERENCES AuditMasterObject; 
-CREATE INDEX Index5b2d6e9284ce42898c72fe4e178aa8bf on AuditAgregatorObject (MasterObject); 
+ ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FK2b704fe9f18b4046a86ed91bab4e2a07 FOREIGN KEY (Detail) REFERENCES DetailUpdateObjectTest; 
+CREATE INDEX Index986ac64def84434986ac6878cbd00467 on MasterUpdateObjectTest (Detail); 
 
- ALTER TABLE УчастникХозДог ADD CONSTRAINT FK119f9851266e4b969123950efa8dd62f FOREIGN KEY (Личность_m0) REFERENCES Личность; 
-CREATE INDEX Index5f68f164f967484ebcb5ad3ff015eea9 on УчастникХозДог (Личность_m0); 
+ ALTER TABLE MasterUpdateObjectTest ADD CONSTRAINT FK27c3f21d71ae4624981d0492a3093a33 FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
+CREATE INDEX Index6a87e7eb19a04b8c9aa49411a0e1437f on MasterUpdateObjectTest (AggregatorUpdateObjectTest); 
 
- ALTER TABLE УчастникХозДог ADD CONSTRAINT FK118af27c9e9e4aee8fee3cd773e81974 FOREIGN KEY (ХозДоговор_m0) REFERENCES ХозДоговор; 
-CREATE INDEX Index951e8908686541e09cec06347a17b36e on УчастникХозДог (ХозДоговор_m0); 
+ ALTER TABLE AuditAgregatorObject ADD CONSTRAINT FK62bf11ddceaa4505a8d3a5e41c78aa15 FOREIGN KEY (MasterObject) REFERENCES AuditMasterObject; 
+CREATE INDEX Index31d002cb8d52474082d51627958bcf4b on AuditAgregatorObject (MasterObject); 
 
- ALTER TABLE Кредит ADD CONSTRAINT FK688db386910c4e5d820f4b91bac84ad8 FOREIGN KEY (Клиент) REFERENCES Клиент; 
-CREATE INDEX Index8548ae20576e4c6a9238bf498d2676cb on Кредит (Клиент); 
+ ALTER TABLE УчастникХозДог ADD CONSTRAINT FK49c3610fa910425a88a5043642d32a66 FOREIGN KEY (Личность_m0) REFERENCES Личность; 
+CREATE INDEX Index3dceef936cbf49df9c7cb968d4f94dd9 on УчастникХозДог (Личность_m0); 
 
- ALTER TABLE Кредит ADD CONSTRAINT FK068e4c99e1964dfeb332ae5774aeda77 FOREIGN KEY (ИнспекторПоКред) REFERENCES ИнспПоКредиту; 
-CREATE INDEX Index4e9cc609073240e298ba67fde3cb4351 on Кредит (ИнспекторПоКред); 
+ ALTER TABLE УчастникХозДог ADD CONSTRAINT FK4bce29f1e858490f9f6e1e16f1abb645 FOREIGN KEY (ХозДоговор_m0) REFERENCES ХозДоговор; 
+CREATE INDEX Indexa6f2da465e504a8fabe791be8569e2ca on УчастникХозДог (ХозДоговор_m0); 
 
- ALTER TABLE Кошка ADD CONSTRAINT FK0a2d85ddd6ec4c39845349245e2936cf FOREIGN KEY (Порода) REFERENCES Порода; 
-CREATE INDEX Index4bfcad668ef3407d95b92beaa75d3ecf on Кошка (Порода); 
+ ALTER TABLE Кредит ADD CONSTRAINT FK28fb9278f95140a9bbd7312e06ecbd0c FOREIGN KEY (Клиент) REFERENCES Клиент; 
+CREATE INDEX Index7ae7e6f3d2b1486c869efbbf284950d1 on Кредит (Клиент); 
 
- ALTER TABLE FullTypesDetail2 ADD CONSTRAINT FK35c0cc091ec14910a5a18e2823aa0186 FOREIGN KEY (FullTypesMainAgregator) REFERENCES FullTypesMainAgregator; 
-CREATE INDEX Indexa016e1d2c44a46fd8d818560dba2a220 on FullTypesDetail2 (FullTypesMainAgregator); 
+ ALTER TABLE Кредит ADD CONSTRAINT FK37bf2d4ccaa5422291ed28a608c8f927 FOREIGN KEY (ИнспекторПоКред) REFERENCES ИнспПоКредиту; 
+CREATE INDEX Index56df8abe94db4042b2e24d406be886df on Кредит (ИнспекторПоКред); 
 
- ALTER TABLE CabbagePart2 ADD CONSTRAINT FK53612fea76bf4b5c8538da3097951f31 FOREIGN KEY (Cabbage) REFERENCES Cabbage2; 
-CREATE INDEX Index183172915d3645bbaa03be831ee7e20b on CabbagePart2 (Cabbage); 
+ ALTER TABLE Кошка ADD CONSTRAINT FKb7603c22189d48bca46512b1a7d02c2a FOREIGN KEY (Порода) REFERENCES Порода; 
+CREATE INDEX Index14e224de69b14843ab7d02c2e0625b19 on Кошка (Порода); 
 
- ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FK3b56ad6a7844407681ce07c9cd176997 FOREIGN KEY (Master) REFERENCES MasterUpdateObjectTest; 
-CREATE INDEX Index15fb4303d8d74dd0b4871fa4ddd8c799 on DetailUpdateObjectTest (Master); 
+ ALTER TABLE FullTypesDetail2 ADD CONSTRAINT FK73744778928c4e37a897313a9749deae FOREIGN KEY (FullTypesMainAgregator) REFERENCES FullTypesMainAgregator; 
+CREATE INDEX Indexddf3a52a5d604315b0bfaed5349a1101 on FullTypesDetail2 (FullTypesMainAgregator); 
 
- ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FKccfcff3bb21441e69f15fab763939d6a FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
-CREATE INDEX Indexd6d59fb48597402e947fb25b7a24c8a7 on DetailUpdateObjectTest (AggregatorUpdateObjectTest); 
+ ALTER TABLE CabbagePart2 ADD CONSTRAINT FK4d508bc6af934857b92d3a2586457e5f FOREIGN KEY (Cabbage) REFERENCES Cabbage2; 
+CREATE INDEX Indexa34280f12822445980dce237d81bb1ff on CabbagePart2 (Cabbage); 
 
- ALTER TABLE ФайлИдеи ADD CONSTRAINT FKd4c45cda345c4a95931965a3e98e81b9 FOREIGN KEY (Владелец_m0) REFERENCES Пользователь; 
-CREATE INDEX Indexef1edc37ae2c4c8e83d216bd6b498f2b on ФайлИдеи (Владелец_m0); 
+ ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FK3a277c05c6544809b02990f72b7277e6 FOREIGN KEY (Master) REFERENCES MasterUpdateObjectTest; 
+CREATE INDEX Indexca8ed779461c43f390eb7dc8b6cc1e70 on DetailUpdateObjectTest (Master); 
 
- ALTER TABLE ФайлИдеи ADD CONSTRAINT FKf1f1e5701d634f59bc73badfbbc434f3 FOREIGN KEY (Идея_m0) REFERENCES Идея; 
-CREATE INDEX Indexb3c69b3532b442b381440437346c4ce0 on ФайлИдеи (Идея_m0); 
+ ALTER TABLE DetailUpdateObjectTest ADD CONSTRAINT FK18e5e519f51743a48f67c91d71983e25 FOREIGN KEY (AggregatorUpdateObjectTest) REFERENCES AggregatorUpdateObjectTest; 
+CREATE INDEX Index064c435f4e324c8da4b5f97ca19ba4d8 on DetailUpdateObjectTest (AggregatorUpdateObjectTest); 
 
- ALTER TABLE ЭтапИсходящегоЗапроса ADD CONSTRAINT FK3a09475bfa794227bbd4ad4fbd3b2dd6 FOREIGN KEY (Конфигурация) REFERENCES КонфигурацияЗапроса; 
-CREATE INDEX Indexae4e8896ffc548309ccfce7decd0bfbf on ЭтапИсходящегоЗапроса (Конфигурация); 
+ ALTER TABLE ФайлИдеи ADD CONSTRAINT FKfc64fa01f66b40979c3eb811e2926f2f FOREIGN KEY (Владелец_m0) REFERENCES Пользователь; 
+CREATE INDEX Indexe475ac220cb84b1d8f1095e6301d3d8d on ФайлИдеи (Владелец_m0); 
 
- ALTER TABLE ЭтапИсходящегоЗапроса ADD CONSTRAINT FK9f3a9bb4274845499d68c313c441a18d FOREIGN KEY (Запросы) REFERENCES ИсходящийЗапрос; 
-CREATE INDEX Index471da097c2d1419ca4e2fcef6f03d3b7 on ЭтапИсходящегоЗапроса (Запросы); 
+ ALTER TABLE ФайлИдеи ADD CONSTRAINT FK12cd4fccd43d4c4cb0c7218b6872256c FOREIGN KEY (Идея_m0) REFERENCES Идея; 
+CREATE INDEX Indexd435b8b7378145ec964869c687cd8d6a on ФайлИдеи (Идея_m0); 
 
- ALTER TABLE cla ADD CONSTRAINT FK8ced7390e62a4a94bb4ffd02ada95c65 FOREIGN KEY (parent) REFERENCES clb; 
-CREATE INDEX Indexd11ec014371342b691e58ea5d1cbd0f6 on cla (parent); 
+ ALTER TABLE ЭтапИсходящегоЗапроса ADD CONSTRAINT FK36adcce2a8e943d888c360a109d5f8c7 FOREIGN KEY (Конфигурация) REFERENCES КонфигурацияЗапроса; 
+CREATE INDEX Indexc099ed3a786f471f9836c5d78edca75b on ЭтапИсходящегоЗапроса (Конфигурация); 
 
- ALTER TABLE Конкурс ADD CONSTRAINT FK9b354451f2d843b294361d13c3fc2ac5 FOREIGN KEY (Организатор_m0) REFERENCES Пользователь; 
-CREATE INDEX Index09efa93d64e943d5b662c7ae22fb81c2 on Конкурс (Организатор_m0); 
+ ALTER TABLE ЭтапИсходящегоЗапроса ADD CONSTRAINT FKb7aa52a1d0c64dd3889ded5cbcc66f13 FOREIGN KEY (Запросы) REFERENCES ИсходящийЗапрос; 
+CREATE INDEX Index9df9b4fc30464dbe8b6d9fe0d5abaf5d on ЭтапИсходящегоЗапроса (Запросы); 
 
- ALTER TABLE TypeUsageProviderTestClass ADD CONSTRAINT FK258854abe2434c2991b34408f8b5c175 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
-CREATE INDEX Indexbdaf60d6a2e94e49ae1c33025970e884 on TypeUsageProviderTestClass (DataObjectForTest_m0); 
+ ALTER TABLE cla ADD CONSTRAINT FKac0a75d3bf054f7195b0192ce20aef0f FOREIGN KEY (parent) REFERENCES clb; 
+CREATE INDEX Index8573427c23d5495fa805f42b79328e1b on cla (parent); 
 
- ALTER TABLE InformationTestClass6 ADD CONSTRAINT FK5e971851d78c4f669061f6f737110f15 FOREIGN KEY (ExampleOfClassWithCaptions) REFERENCES ClassWithCaptions; 
-CREATE INDEX Index508063c243244ca39ee37617abaedabd on InformationTestClass6 (ExampleOfClassWithCaptions); 
+ ALTER TABLE Конкурс ADD CONSTRAINT FK6b6923c316834d40a32a5af329819b9b FOREIGN KEY (Организатор_m0) REFERENCES Пользователь; 
+CREATE INDEX Indexc1bb14ec2c024cfebc8079e763f71847 on Конкурс (Организатор_m0); 
 
- ALTER TABLE Идея ADD CONSTRAINT FK4b36e82d350a4272ae1de40a9f0a39c4 FOREIGN KEY (Автор_m0) REFERENCES Пользователь; 
-CREATE INDEX Indexf5d3d0d685d24198846f9bbf25aabc72 on Идея (Автор_m0); 
+ ALTER TABLE TypeUsageProviderTestClass ADD CONSTRAINT FK820da36c312549f3b92a05c877c889b5 FOREIGN KEY (DataObjectForTest_m0) REFERENCES DataObjectForTest; 
+CREATE INDEX Index7630f38b65284281a581d26b6568d530 on TypeUsageProviderTestClass (DataObjectForTest_m0); 
 
- ALTER TABLE Идея ADD CONSTRAINT FK05313e9b8eff451f9692a54126cb4fdc FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
-CREATE INDEX Index880b3f571fe446a28e2fb4da8f46d576 on Идея (Конкурс_m0); 
+ ALTER TABLE InformationTestClass6 ADD CONSTRAINT FK158eaf4a4f9a427391b968a8a7c00dc2 FOREIGN KEY (ExampleOfClassWithCaptions) REFERENCES ClassWithCaptions; 
+CREATE INDEX Index8ac1e2da5c644004a2e2d74b3a8b2287 on InformationTestClass6 (ExampleOfClassWithCaptions); 
 
- ALTER TABLE Лапа ADD CONSTRAINT FK2a52d113b5034de9b744ebc2066892e9 FOREIGN KEY (ТипЛапы_m0) REFERENCES ТипЛапы; 
-CREATE INDEX Index6a2000e26fef49b3b69a060473a5987c on Лапа (ТипЛапы_m0); 
+ ALTER TABLE Идея ADD CONSTRAINT FK06c1c5ee7e2348a6ad93b9975dadae7b FOREIGN KEY (Автор_m0) REFERENCES Пользователь; 
+CREATE INDEX Index3a60c2d134694aa38ba6e7c02abf580f on Идея (Автор_m0); 
 
- ALTER TABLE Лапа ADD CONSTRAINT FK046418184b6346e583b85b244147f981 FOREIGN KEY (Кошка_m0) REFERENCES Кошка; 
-CREATE INDEX Indexf2dc4e026d804921aa976144c72c4366 on Лапа (Кошка_m0); 
+ ALTER TABLE Идея ADD CONSTRAINT FK096cccce4e4b4336a1886f33f93d8f51 FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
+CREATE INDEX Index91ec36068d33438683db7caafb3b62df on Идея (Конкурс_m0); 
 
- ALTER TABLE ЗначениеКритер ADD CONSTRAINT FK81e070ed28b64773b43f9c8f77db4241 FOREIGN KEY (Критерий_m0) REFERENCES КритерийОценки; 
-CREATE INDEX Indexb5dd5783195e449ba212b29cf63ca1a2 on ЗначениеКритер (Критерий_m0); 
+ ALTER TABLE Лапа ADD CONSTRAINT FK75bf9e3fdf2f4252bb593e3c38b8d5f1 FOREIGN KEY (ТипЛапы_m0) REFERENCES ТипЛапы; 
+CREATE INDEX Index48646e10def8434682fed962942e82f3 on Лапа (ТипЛапы_m0); 
 
- ALTER TABLE ЗначениеКритер ADD CONSTRAINT FKed163539a358458c835d25d9f4f3d6af FOREIGN KEY (Идея_m0) REFERENCES Идея; 
-CREATE INDEX Index59a42aa8bc3a4c3b8414777f3e0fad59 on ЗначениеКритер (Идея_m0); 
+ ALTER TABLE Лапа ADD CONSTRAINT FKb5ba0f8113f54c8eaf00536fde753981 FOREIGN KEY (Кошка_m0) REFERENCES Кошка; 
+CREATE INDEX Index1b726f6e65c247cca3d69aafe854c384 on Лапа (Кошка_m0); 
 
- ALTER TABLE CabbageSalad ADD CONSTRAINT FK228e9f3466f3476e97b811fc933f9000 FOREIGN KEY (Cabbage1) REFERENCES Cabbage2; 
-CREATE INDEX Index3e4e1a48775340b0995e6c309c7b5a9b on CabbageSalad (Cabbage1); 
+ ALTER TABLE ЗначениеКритер ADD CONSTRAINT FK1bb53338d5dd493087eb5f702be79e6d FOREIGN KEY (Критерий_m0) REFERENCES КритерийОценки; 
+CREATE INDEX Index74fcfcd50af14c61b18e3ad04d3b05e0 on ЗначениеКритер (Критерий_m0); 
 
- ALTER TABLE CabbageSalad ADD CONSTRAINT FK2dc35373aa60489abe6808da1df53867 FOREIGN KEY (Cabbage2) REFERENCES Cabbage2; 
-CREATE INDEX Index36e6cead146448409590458fe6dc7e1c on CabbageSalad (Cabbage2); 
+ ALTER TABLE ЗначениеКритер ADD CONSTRAINT FKb8a4f903fc3940649ea8e1284f6748fa FOREIGN KEY (Идея_m0) REFERENCES Идея; 
+CREATE INDEX Index0370e3fd8bb045bd8c63529c56b9ff39 on ЗначениеКритер (Идея_m0); 
 
- ALTER TABLE InformationTestClass2 ADD CONSTRAINT FK0030d61a9cd443b79a1e43269ff89aa3 FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
-CREATE INDEX Indexa4c9ce55e06b4310ad6c37f8f9cbaeb4 on InformationTestClass2 (InformationTestClass_m0); 
+ ALTER TABLE CabbageSalad ADD CONSTRAINT FK49bdecfe34cd47e797b8868f5602e41b FOREIGN KEY (Cabbage1) REFERENCES Cabbage2; 
+CREATE INDEX Index419014ffa73342e5b0ea65921a85c1c5 on CabbageSalad (Cabbage1); 
 
- ALTER TABLE InformationTestClass2 ADD CONSTRAINT FKe3f7f10043434ea4b7c1139a7b57ec99 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
-CREATE INDEX Index713b46e96c714cb89544b4ca5032def1 on InformationTestClass2 (InformationTestClass_m1); 
+ ALTER TABLE CabbageSalad ADD CONSTRAINT FK1b9c38a9fc8040ac9fa9e0e49ae4d075 FOREIGN KEY (Cabbage2) REFERENCES Cabbage2; 
+CREATE INDEX Index185c52896b664f1abec8451ad83c23b5 on CabbageSalad (Cabbage2); 
 
- ALTER TABLE Котенок ADD CONSTRAINT FK5ec05479362c4b4394f4d8bb3508a1f5 FOREIGN KEY (Кошка) REFERENCES Кошка; 
-CREATE INDEX Index0df31c0dafa14660ab0c163e17856a6b on Котенок (Кошка); 
+ ALTER TABLE InformationTestClass2 ADD CONSTRAINT FKc092ec3e639b4221a89f6dcc78a0b59a FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
+CREATE INDEX Index0e9ab1280d5448b4a10f72df05a33e30 on InformationTestClass2 (InformationTestClass_m0); 
 
- ALTER TABLE Region ADD CONSTRAINT FKc4cc2bdb0a414c52991fe7fa4ef1ff77 FOREIGN KEY (Country2_m0) REFERENCES Country2; 
-CREATE INDEX Index03655577f2a44e3383ffa8c010bcd228 on Region (Country2_m0); 
+ ALTER TABLE InformationTestClass2 ADD CONSTRAINT FK23619536c40e40f788fb22b744d1c061 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
+CREATE INDEX Indexeef9c27b406d45a78734b6dcdecf8ab2 on InformationTestClass2 (InformationTestClass_m1); 
 
- ALTER TABLE FullTypesDetail1 ADD CONSTRAINT FK75301d6e92104e83869783dba911be60 FOREIGN KEY (FullTypesMainAgregator_m0) REFERENCES FullTypesMainAgregator; 
-CREATE INDEX Indexac60e739dd524c7a8c9c32bd93fde66d on FullTypesDetail1 (FullTypesMainAgregator_m0); 
+ ALTER TABLE Котенок ADD CONSTRAINT FK49a319da404447058ae88bd41a7633a2 FOREIGN KEY (Кошка) REFERENCES Кошка; 
+CREATE INDEX Indexd2b2e6dfb8624f54a7c76025a3503322 on Котенок (Кошка); 
 
- ALTER TABLE Порода ADD CONSTRAINT FK5565dce8a0b049ea9390250ca6cdec6e FOREIGN KEY (ТипПороды) REFERENCES ТипПороды; 
-CREATE INDEX Index0aa0a62c972d49d2b91df4918c53358a on Порода (ТипПороды); 
+ ALTER TABLE Region ADD CONSTRAINT FKb56815870651495d8c6d27ce6d356bc3 FOREIGN KEY (Country2_m0) REFERENCES Country2; 
+CREATE INDEX Index62f175dad65547169a038fb7b4425953 on Region (Country2_m0); 
 
- ALTER TABLE Порода ADD CONSTRAINT FK95057df4dc0e4c35a8806d64e298ca05 FOREIGN KEY (Иерархия) REFERENCES Порода; 
-CREATE INDEX Index7355be1d300e46adb728215c284d5d47 on Порода (Иерархия); 
+ ALTER TABLE FullTypesDetail1 ADD CONSTRAINT FK1cf74fed9daf4cd2bf708497d75b4096 FOREIGN KEY (FullTypesMainAgregator_m0) REFERENCES FullTypesMainAgregator; 
+CREATE INDEX Indexae9f547cb235403f96b65b5c977577e5 on FullTypesDetail1 (FullTypesMainAgregator_m0); 
 
- ALTER TABLE InformationTestClass4 ADD CONSTRAINT FK7b37833423c84786bbc23226c1779fcd FOREIGN KEY (MasterOfInformationTestClass3) REFERENCES InformationTestClass3; 
-CREATE INDEX Indexe81fd9efe84d495f863d9eda1f576109 on InformationTestClass4 (MasterOfInformationTestClass3); 
+ ALTER TABLE Порода ADD CONSTRAINT FKbdc12b85b1bb48e184a960beacaa3142 FOREIGN KEY (ТипПороды) REFERENCES ТипПороды; 
+CREATE INDEX Index248c7b1be62c41ce8771718d24dcbe09 on Порода (ТипПороды); 
 
- ALTER TABLE КритерийОценки ADD CONSTRAINT FKa03c496eba0142378ac45e066ac401f9 FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
-CREATE INDEX Index0b56fdd913f84616aa3c414ad5e31215 on КритерийОценки (Конкурс_m0); 
+ ALTER TABLE Порода ADD CONSTRAINT FKaaeeeba8cb844138a62fc0161985b52f FOREIGN KEY (Иерархия) REFERENCES Порода; 
+CREATE INDEX Index2b75b9a7de1c440c828c821ac8c0c82e on Порода (Иерархия); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FK371d3b0f5e3f4e4593f9a3d397dcef97 FOREIGN KEY (TomorrowTeritory_m0) REFERENCES Country2; 
-CREATE INDEX Index0c316ae4c6d3461f8d2544cb2e3b89c3 on Place2 (TomorrowTeritory_m0); 
+ ALTER TABLE InformationTestClass4 ADD CONSTRAINT FKcf834abb45c34037964b06c383762f78 FOREIGN KEY (MasterOfInformationTestClass3) REFERENCES InformationTestClass3; 
+CREATE INDEX Indexd6020e9b0b8443b28ba82d5a279fcb86 on InformationTestClass4 (MasterOfInformationTestClass3); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FKaa3b55d025944d59aef49d66db72a065 FOREIGN KEY (TomorrowTeritory_m1) REFERENCES Territory2; 
-CREATE INDEX Index93a28a40d0fc40abb3190cb9d622d469 on Place2 (TomorrowTeritory_m1); 
+ ALTER TABLE КритерийОценки ADD CONSTRAINT FK2ed3d8981dc841b08b82a0384ee596a3 FOREIGN KEY (Конкурс_m0) REFERENCES Конкурс; 
+CREATE INDEX Indexef979be0064b44e8a1787963929dfd7d on КритерийОценки (Конкурс_m0); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FK7ba4ed3d1de14017892cbaa4ce4b0e90 FOREIGN KEY (TodayTerritory_m0) REFERENCES Country2; 
-CREATE INDEX Indexb6cb28f4525e4d81ad364708305643d5 on Place2 (TodayTerritory_m0); 
+ ALTER TABLE Place2 ADD CONSTRAINT FK43edba9cc1074d23bd2f206360ad084a FOREIGN KEY (TomorrowTeritory_m0) REFERENCES Country2; 
+CREATE INDEX Index4c6f3569b535401fba08f1993620f317 on Place2 (TomorrowTeritory_m0); 
 
- ALTER TABLE Place2 ADD CONSTRAINT FKeb41dec781eb4c8ba599da6780d7f95f FOREIGN KEY (TodayTerritory_m1) REFERENCES Territory2; 
-CREATE INDEX Indexff565d3cd92b4b738d1f53bfc2b2af0b on Place2 (TodayTerritory_m1); 
+ ALTER TABLE Place2 ADD CONSTRAINT FKe69bcf36f8f445ab8d61e3c12f5ee9f8 FOREIGN KEY (TomorrowTeritory_m1) REFERENCES Territory2; 
+CREATE INDEX Indexcd5c9a1fce6e43a8a0b547a78fabb306 on Place2 (TomorrowTeritory_m1); 
 
- ALTER TABLE ИФХозДоговора ADD CONSTRAINT FK5e30cbc7096945349023fe1c5519c13d FOREIGN KEY (ИсточникФинан) REFERENCES ИсточникФинанс; 
-CREATE INDEX Indexe9b300ba05e743d69618614d7ff89a2c on ИФХозДоговора (ИсточникФинан); 
+ ALTER TABLE Place2 ADD CONSTRAINT FKc6755d65aba146f38d73d9f70c5b91b2 FOREIGN KEY (TodayTerritory_m0) REFERENCES Country2; 
+CREATE INDEX Index583752d68fcd413da8ff6b285ab3fc1f on Place2 (TodayTerritory_m0); 
 
- ALTER TABLE ИФХозДоговора ADD CONSTRAINT FK82108ccf4c374911ba04f40bfe0499c2 FOREIGN KEY (ХозДоговор_m0) REFERENCES ХозДоговор; 
-CREATE INDEX Index53c36ea94cd4496aa1a8928dc2705359 on ИФХозДоговора (ХозДоговор_m0); 
+ ALTER TABLE Place2 ADD CONSTRAINT FKc592d994916342d49ee90953fcaa4565 FOREIGN KEY (TodayTerritory_m1) REFERENCES Territory2; 
+CREATE INDEX Indexde0b92bd0621453dbbbe82f242b6be98 on Place2 (TodayTerritory_m1); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FKb57b426602534116a8189193a2066d3f FOREIGN KEY (InformationTestClass3_m0) REFERENCES InformationTestClass3; 
-CREATE INDEX Indexbecf96037abe453589f3116e65d93db1 on MasterClass (InformationTestClass3_m0); 
+ ALTER TABLE ИФХозДоговора ADD CONSTRAINT FKe18d32644c714fb090e1af402c21efa5 FOREIGN KEY (ИсточникФинан) REFERENCES ИсточникФинанс; 
+CREATE INDEX Index16546cd733c64fc79895843765329a26 on ИФХозДоговора (ИсточникФинан); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FK44f4f0950f3644f8bdbe9369e9ad7f95 FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
-CREATE INDEX Index565a34f409924b669676a3a6e5dbc6c0 on MasterClass (InformationTestClass2); 
+ ALTER TABLE ИФХозДоговора ADD CONSTRAINT FK930cb17a50214e5c892e560384b1d010 FOREIGN KEY (ХозДоговор_m0) REFERENCES ХозДоговор; 
+CREATE INDEX Index721267d2d27a4d8bba1eeb80a574ddf5 on ИФХозДоговора (ХозДоговор_m0); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FK783b82c58812431e9dba0dc9aac877be FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
-CREATE INDEX Index1d00677575b04b32a1372d18e18ef296 on MasterClass (InformationTestClass_m0); 
+ ALTER TABLE MasterClass ADD CONSTRAINT FK1c272d4df33c4592b942258be413c43d FOREIGN KEY (InformationTestClass3_m0) REFERENCES InformationTestClass3; 
+CREATE INDEX Indexa1f89d3ba5154fa2898657d2a3fe7688 on MasterClass (InformationTestClass3_m0); 
 
- ALTER TABLE MasterClass ADD CONSTRAINT FK327837d97ba848b5b8bd76c35d5c8c7a FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
-CREATE INDEX Indexcb8115f85db4468481c6f100e1e18927 on MasterClass (InformationTestClass_m1); 
+ ALTER TABLE MasterClass ADD CONSTRAINT FK815c1e2d99a14815902cd4c83f2333f8 FOREIGN KEY (InformationTestClass2) REFERENCES InformationTestClass2; 
+CREATE INDEX Index9e7d55de00c74cf5958c7cb685f0f551 on MasterClass (InformationTestClass2); 
 
- ALTER TABLE Human2 ADD CONSTRAINT FKd4a4156fcb2444eaa3ff78529839948f FOREIGN KEY (TodayHome_m0) REFERENCES Country2; 
-CREATE INDEX Index2a02a7185a434fe1bcd4267b57d7d5fd on Human2 (TodayHome_m0); 
+ ALTER TABLE MasterClass ADD CONSTRAINT FK18553cd3cd0147668f1bd7dd1e2867c7 FOREIGN KEY (InformationTestClass_m0) REFERENCES InformationTestClass; 
+CREATE INDEX Index239777f04711427c822a148cbb1d8de8 on MasterClass (InformationTestClass_m0); 
 
- ALTER TABLE Human2 ADD CONSTRAINT FK6ad465efc5bc4c10a56f26c7ff1dd073 FOREIGN KEY (TodayHome_m1) REFERENCES Territory2; 
-CREATE INDEX Indexcff300aba5e845fab3614910cef8d0b4 on Human2 (TodayHome_m1); 
+ ALTER TABLE MasterClass ADD CONSTRAINT FK7947a7a6a09646b1a37570d152741df5 FOREIGN KEY (InformationTestClass_m1) REFERENCES InformationTestClassChild; 
+CREATE INDEX Index8c790681a16049fa9535eadb32af3047 on MasterClass (InformationTestClass_m1); 
 
- ALTER TABLE SomeDetailClass ADD CONSTRAINT FKf8cfcc8b362142718656ffaf45d2fd8f FOREIGN KEY (ClassA) REFERENCES SomeMasterClass; 
-CREATE INDEX Indexae23024e6a33473e81915b30217ed322 on SomeDetailClass (ClassA); 
+ ALTER TABLE Human2 ADD CONSTRAINT FKe1c330380fc644e683e0e3cdb9766e88 FOREIGN KEY (TodayHome_m0) REFERENCES Country2; 
+CREATE INDEX Indexe23de9217c5e477f9e5c7eda4379a040 on Human2 (TodayHome_m0); 
 
- ALTER TABLE STORMWEBSEARCH ADD CONSTRAINT FK5288cae8fe1745699f0f8b1ec7be7008 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+ ALTER TABLE Human2 ADD CONSTRAINT FK58b2fdc382cb406890157dbe695ed8b4 FOREIGN KEY (TodayHome_m1) REFERENCES Territory2; 
+CREATE INDEX Indexeaa577cd270e4c9e93b2dbea4e66cd0f on Human2 (TodayHome_m1); 
 
- ALTER TABLE STORMFILTERDETAIL ADD CONSTRAINT FK61d479c7cdf44ef581e6b678760ddb75 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+ ALTER TABLE SomeDetailClass ADD CONSTRAINT FK1a88f637af4f4e7cb5dd4bf3dcf021c9 FOREIGN KEY (ClassA) REFERENCES SomeMasterClass; 
+CREATE INDEX Index324ab761b9534752aefc480cb41b3f42 on SomeDetailClass (ClassA); 
 
- ALTER TABLE STORMFILTERLOOKUP ADD CONSTRAINT FK46ccd3f83dc84017a5c4af548c9df68f FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
+ ALTER TABLE STORMWEBSEARCH ADD CONSTRAINT FK1e7eeea73ac940a7a450eb80d674fb26 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
 
- ALTER TABLE STORMAuEntity ADD CONSTRAINT FKb44274fd995b419d9311a2b9c75ffb89 FOREIGN KEY (ObjectType_m0) REFERENCES STORMAuObjType; 
+ ALTER TABLE STORMFILTERDETAIL ADD CONSTRAINT FK6f4b7fe6c7504b36b4912952df8623e5 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
 
- ALTER TABLE STORMAuField ADD CONSTRAINT FKd2c7fac7b1de430da4d8d801a194a091 FOREIGN KEY (MainChange_m0) REFERENCES STORMAuField; 
+ ALTER TABLE STORMFILTERLOOKUP ADD CONSTRAINT FK95abd17368484e308f4380abf68fd227 FOREIGN KEY (FilterSetting_m0) REFERENCES STORMFILTERSETTING; 
 
- ALTER TABLE STORMAuField ADD CONSTRAINT FK221b6f1af99a4d5bae3c946d9eca487e FOREIGN KEY (AuditEntity_m0) REFERENCES STORMAuEntity; 
+ ALTER TABLE STORMAuEntity ADD CONSTRAINT FKfd841c3369d94c96bedfead0d895c75f FOREIGN KEY (ObjectType_m0) REFERENCES STORMAuObjType; 
+
+ ALTER TABLE STORMAuField ADD CONSTRAINT FK90f7744da25f479ba77ee3dc53fb5c03 FOREIGN KEY (MainChange_m0) REFERENCES STORMAuField; 
+
+ ALTER TABLE STORMAuField ADD CONSTRAINT FK0c737ffc8791494d805e080cc825e147 FOREIGN KEY (AuditEntity_m0) REFERENCES STORMAuEntity; 
 
