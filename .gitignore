@@ -7,3 +7,4 @@
 
 #Ignore files built by Visual Studio
 *.user
+*.suo

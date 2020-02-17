@@ -56,6 +56,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
+        public string Value { get; set; }
+
         // *** End programmer edit section *** (FileForTests CustomMembers)
 
     }
