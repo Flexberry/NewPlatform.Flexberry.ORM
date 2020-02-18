@@ -12,8 +12,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Xml;
-    
-    
+
+
     // *** Start programmer edit section *** (Using statements)
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
@@ -28,10 +28,16 @@ namespace NewPlatform.Flexberry.ORM.Tests
 
     // *** End programmer edit section *** (FileForTests CustomAttributes)
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(SQLDataService), typeof(string))]
-    public class FileForTests : INotifyUpdateProperty
+    public class FileForTests : INotifyUpdateProperty, IComparableType
     {
-        
+
         // *** Start programmer edit section *** (FileForTests CustomMembers)
+
+        /// <summary>
+        /// Store for value of type.
+        /// </summary>
+        public string Value { get; set; }
+
         /// <inheritdoc cref="INotifyUpdateProperty"/>
         public void BeforeUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
@@ -56,7 +62,16 @@ namespace NewPlatform.Flexberry.ORM.Tests
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
-        public string Value { get; set; }
+        /// <inheritdoc cref="IComparableType"/>
+        public int Compare(object x)
+        {
+            if (x is FileForTests fileForTests)
+            {
+                return this.Value.CompareTo(fileForTests.Value);
+            }
+
+            throw new Exception($"Incompatible object type for compare with {nameof(FileForTests)}.");
+        }
 
         // *** End programmer edit section *** (FileForTests CustomMembers)
 

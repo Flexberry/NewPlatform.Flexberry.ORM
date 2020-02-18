@@ -208,13 +208,13 @@
 
                 // Act & Assert.
                 // Create success mailman.
-                var mailman = new Mailman() { Name = "Piter", Photo = new FileForTests() };
+                var mailman = new Mailman() { Name = "Piter", Photo = new FileForTests() { Value = "1" } };
                 ds.UpdateObject(mailman);
 
                 CheckSuccessUpdateProperty(ds, mailman);
 
-                // Create failed homer.
-                var failedMailman = new Mailman() { Name = "Boris", Photo = new FileForTests() };
+                // Create failed mailman.
+                var failedMailman = new Mailman() { Name = "Boris", Photo = new FileForTests() { Value = "2" } };
                 for (int i = 0; i < 300; i++)
                 {
                     failedMailman.Name += "N";
@@ -230,18 +230,21 @@
 
                 CheckFailUpdateProperty(ds, failedMailman);
 
-                // Update success homer.
-                mailman.Name = "UpdatedName";
+                // Update success mailman.
+                mailman.Photo = new FileForTests() { Value = "3" };
                 ds.UpdateObject(mailman);
 
                 CheckSuccessUpdateProperty(ds, mailman);
 
-                // Update failed homer.
+                // Update failed mailman.
                 for (int i = 0; i < 300; i++)
                 {
                     mailman.Name += "N";
                 }
 
+                Assert.Equal(0, mailman.DynamicProperties.Count);
+
+                mailman.Photo = new FileForTests() { Value = "4" };
                 try
                 {
                     ds.UpdateObject(mailman);
@@ -252,7 +255,7 @@
 
                 CheckFailUpdateProperty(ds, mailman);
 
-                // Delete failed homer.
+                // Delete failed mailman.
                 Parcel parcel = new Parcel() { DeliveredByMailman = mailman };
                 ds.UpdateObject(parcel);
                 mailman.SetStatus(ObjectStatus.Deleted);
@@ -267,7 +270,7 @@
 
                 CheckFailUpdateProperty(ds, mailman);
 
-                // Delete homer.
+                // Delete mailman.
                 parcel.DeliveredByMailman = null;
                 ds.UpdateObject(parcel);
 

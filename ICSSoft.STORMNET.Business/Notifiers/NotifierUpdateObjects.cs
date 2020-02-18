@@ -11,10 +11,10 @@
     public class NotifierUpdateObjects : INotifyUpdateObjects
     {
         private INotifyUpdatePropertyByType notifierUpdatePropertyByType;
-        private IDictionary<Type, IEnumerable<string>> subscribedPropNotifiers;
-        //private IDictionary<string, Tuple<ObjectStatus, object, object>> stateStore1 = new Dictionary<string, Tuple<ObjectStatus, object, object>>(); // TODO: remove it.
 
-        private IDictionary<Guid, IDictionary<Type, IDictionary<object, Tuple<ObjectStatus, object, object>>>> stateStore = new Dictionary<Guid, IDictionary<Type, IDictionary<object, Tuple<ObjectStatus, object, object>>>>();
+        private IDictionary<Type, IEnumerable<string>> subscribedPropNotifiers;
+
+        private IDictionary<Guid, IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>>> stateStore = new Dictionary<Guid, IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>>>();
 
         /// <summary>
         /// An instance of the class for custom process updated objects properties.
@@ -64,10 +64,8 @@
 
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
-                    string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey);
                     var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, null, null);
-                    //stateStore1.Add(stateStoreKey, stateStoreValue);
-                    AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, stateStoreValue);
+                    AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty, stateStoreValue);
 
                     notifyUpdateObject.BeforeUpdateObject(dataObject, status, dataObjects);
                 }
@@ -108,10 +106,8 @@
 
                             if (notify)
                             {
-                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
                                 var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-                                //stateStore1.Add(stateStoreKey, stateStoreValue);
-                                AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, stateStoreValue);
+                                AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName, stateStoreValue);
 
                                 NotifierUpdatePropertyByType.BeforeUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                             }
@@ -128,12 +124,10 @@
                         INotifyUpdateProperty oldValue = null;
                         INotifyUpdateProperty newValue = null;
 
-                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
-                        var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
+                        var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
 
-                        if (/*stateStore1.ContainsKey(stateStoreKey)*/ valuesFromStateStore != null) // TODO: GetFromStateStore
+                        if (valuesFromStateStore != null)
                         {
-                            //var valuesFromStateStore = stateStore1[stateStoreKey];
                             oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
                             newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
                         }
@@ -159,8 +153,7 @@
                             }
 
                             var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-                            //stateStore1.Add(stateStoreKey, stateStoreValue);
-                            AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, stateStoreValue);
+                            AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName, stateStoreValue);
                         }
 
                         INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
@@ -172,7 +165,42 @@
                     }
                 }
 
-                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+                if (status == ObjectStatus.Deleted)
+                {
+                    string[] allPropertyNames = Information.GetAllPropertyNames(dataObjectType);
+                    foreach (string propertyName in allPropertyNames)
+                    {
+                        Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                        if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                        {
+                            INotifyUpdateProperty oldValue = null;
+                            INotifyUpdateProperty newValue = null;
+
+                            var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+
+                            if (valuesFromStateStore != null)
+                            {
+                                oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+
+                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+                                AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName, stateStoreValue);
+                            }
+
+                            INotifyUpdateProperty notifyUpdateProperty = oldValue;
+
+                            if (notifyUpdateProperty != null)
+                            {
+                                notifyUpdateProperty.BeforeUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -230,12 +258,6 @@
 
                             if (notify)
                             {
-                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
-                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-
-                                //stateStore1.Add(stateStoreKey, stateStoreValue);
-                                AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, stateStoreValue);
-
                                 NotifierUpdatePropertyByType.AfterSuccessSqlUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                             }
                         }
@@ -251,13 +273,10 @@
                         INotifyUpdateProperty oldValue = null;
                         INotifyUpdateProperty newValue = null;
 
-                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
+                        Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
 
-                        Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
-
-                        if (valuesFromStateStore != null /*stateStore1.ContainsKey(stateStoreKey)*/) // TODO: GetFromStateStore
+                        if (valuesFromStateStore != null)
                         {
-                            //var valuesFromStateStore = stateStore1[stateStoreKey];
                             oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
                             newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
                         }
@@ -284,8 +303,7 @@
 
                             var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
 
-                            //stateStore1.Add(stateStoreKey, stateStoreValue);
-                            AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, stateStoreValue);
+                            AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName, stateStoreValue);
                         }
 
                         INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
@@ -316,11 +334,8 @@
 
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
-                    string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey);
-                    //Tuple<ObjectStatus, object, object> stateStoreValue = stateStore1[stateStoreKey];
-                    //stateStore1.Remove(stateStoreKey);
-                    Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
-                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
+                    Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
+                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
 
                     notifyUpdateObject.AfterSuccessUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
                 }
@@ -361,12 +376,8 @@
 
                             if (notify)
                             {
-                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
                                 var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-
-                                //stateStore1.Add(stateStoreKey, stateStoreValue);
-                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
-
+                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
 
                                 NotifierUpdatePropertyByType.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                             }
@@ -374,56 +385,48 @@
                     }
                 }
 
-                // TODO: тут уже нет информации об изменённых полях, надо брать то, что есть в хранилище.
-                foreach (string propertyName in alteredPropertyNames)
+                IDictionary<string, Tuple<ObjectStatus, object, object>> dataFromStore = null;
+
+                if (stateStore.ContainsKey(operationId))
                 {
-                    Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+                    IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>> typeDictionary = stateStore[operationId];
 
-                    if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                    if (typeDictionary.ContainsKey(dataObjectType))
                     {
-                        INotifyUpdateProperty oldValue = null;
-                        INotifyUpdateProperty newValue = null;
+                        IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>> primaryKeyDictionary = typeDictionary[dataObjectType];
 
-                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
-
-                        Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
-                        if (/*stateStore1 != null && stateStore1.ContainsKey(stateStoreKey)*/ valuesFromStateStore != null)
+                        if (primaryKeyDictionary.ContainsKey(dataObject.__PrimaryKey))
                         {
-                            //var valuesFromStateStore = stateStore1[stateStoreKey];
-                            oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
-                            newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                            dataFromStore = primaryKeyDictionary[dataObject.__PrimaryKey];
                         }
-                        else
+                    }
+                }
+
+                if (dataFromStore != null)
+                {
+                    foreach (string propertyName in dataFromStore.Keys)
+                    {
+                        if (!string.IsNullOrWhiteSpace(propertyName))
                         {
-                            if (status == ObjectStatus.Deleted)
+                            Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                            if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
                             {
-                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
-                            }
-                            else if (status == ObjectStatus.Created)
-                            {
-                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
-                            }
-                            else
-                            {
-                                DataObject dataCopy = dataObject.GetDataCopy();
-                                if (dataCopy != null)
+                                Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+                                if (valuesFromStateStore != null)
                                 {
-                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName) as INotifyUpdateProperty;
+                                    ObjectStatus objectStatusFromStateStore = valuesFromStateStore.Item1;
+                                    INotifyUpdateProperty oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                    INotifyUpdateProperty newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+
+                                    INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
+
+                                    if (notifyUpdateProperty != null)
+                                    {
+                                        notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, objectStatusFromStateStore, propertyName, oldValue, newValue);
+                                    }
                                 }
-
-                                newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
                             }
-
-                            var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-
-                            //stateStore1.Add(stateStoreKey, stateStoreValue);
-                        }
-
-                        INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
-
-                        if (notifyUpdateProperty != null)
-                        {
-                            notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                         }
                     }
                 }
@@ -447,11 +450,8 @@
 
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
-                    string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey);
-                    //Tuple<ObjectStatus, object, object> stateStoreValue = stateStore1[stateStoreKey];
-                    //stateStore1.Remove(stateStoreKey);
-                    Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
-                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
+                    Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
+                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
 
                     notifyUpdateObject.AfterFailUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
                 }
@@ -492,11 +492,9 @@
 
                             if (notify)
                             {
-                                string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
                                 var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
 
-                                //stateStore1.Add(stateStoreKey, stateStoreValue);
-                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
+                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
 
                                 NotifierUpdatePropertyByType.AfterFailUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                             }
@@ -504,7 +502,6 @@
                     }
                 }
 
-                // TODO
                 foreach (string propertyName in alteredPropertyNames)
                 {
                     Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
@@ -514,12 +511,9 @@
                         INotifyUpdateProperty oldValue = null;
                         INotifyUpdateProperty newValue = null;
 
-                        string stateStoreKey = string.Join("!", operationId.ToString(), dataObjectType.FullName, dataObject.__PrimaryKey, propertyName);
-
-                        Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey);
-                        if (/*stateStore1.ContainsKey(stateStoreKey)*/ valuesFromStateStore != null) // TODO: 
+                        Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+                        if (valuesFromStateStore != null)
                         {
-                            // var valuesFromStateStore = stateStore1[stateStoreKey];
                             oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
                             newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
                         }
@@ -543,10 +537,6 @@
 
                                 newValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
                             }
-
-                            var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-
-                            //stateStore1.Add(stateStoreKey, stateStoreValue); // TODO
                         }
 
                         INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
@@ -568,26 +558,34 @@
         /// <param name="operationId">Operation id.</param>
         /// <param name="dataObjectType">Data object type.</param>
         /// <param name="dataObjectPrimaryKey">Data object primaryKey.</param>
+        /// <param name="propertyName">Property name.</param>
         /// <param name="stateStoreValue">Value for state store.</param>
-        private void AddToStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey, Tuple<ObjectStatus, object, object> stateStoreValue)
+        private void AddToStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey, string propertyName, Tuple<ObjectStatus, object, object> stateStoreValue)
         {
             if (!stateStore.ContainsKey(operationId))
             {
-                stateStore.Add(operationId, new Dictionary<Type, IDictionary<object, Tuple<ObjectStatus, object, object>>>());
+                stateStore.Add(operationId, new Dictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>>());
             }
 
-            IDictionary<Type, IDictionary<object, Tuple<ObjectStatus, object, object>>> typeDictionary = stateStore[operationId];
+            IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>> typeDictionary = stateStore[operationId];
 
             if (!typeDictionary.ContainsKey(dataObjectType))
             {
-                typeDictionary.Add(dataObjectType, new Dictionary<object, Tuple<ObjectStatus, object, object>>());
+                typeDictionary.Add(dataObjectType, new Dictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>());
             }
 
-            IDictionary<object, Tuple<ObjectStatus, object, object>> primaryKeyDictionary = typeDictionary[dataObjectType];
+            IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>> primaryKeyDictionary = typeDictionary[dataObjectType];
 
             if (!primaryKeyDictionary.ContainsKey(dataObjectPrimaryKey))
             {
-                primaryKeyDictionary.Add(dataObjectPrimaryKey, stateStoreValue);
+                primaryKeyDictionary.Add(dataObjectPrimaryKey, new Dictionary<string, Tuple<ObjectStatus, object, object>>());
+            }
+
+            IDictionary<string, Tuple<ObjectStatus, object, object>> propertyNameDictionary = primaryKeyDictionary[dataObjectPrimaryKey];
+
+            if (!propertyNameDictionary.ContainsKey(propertyName))
+            {
+                propertyNameDictionary.Add(propertyName, stateStoreValue);
             }
         }
 
@@ -598,19 +596,25 @@
         /// <param name="dataObjectType">Data object type.</param>
         /// <param name="dataObjectPrimaryKey">Data object primaryKey.</param>
         /// <returns>Value from state store or <c>null</c> if it is absent.</returns>
-        private Tuple<ObjectStatus, object, object> GetFromStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey)
+        /// <param name="propertyName">Property name.</param>
+        private Tuple<ObjectStatus, object, object> GetFromStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey, string propertyName)
         {
             if (stateStore.ContainsKey(operationId))
             {
-                IDictionary<Type, IDictionary<object, Tuple<ObjectStatus, object, object>>> typeDictionary = stateStore[operationId];
+                IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>> typeDictionary = stateStore[operationId];
 
                 if (typeDictionary.ContainsKey(dataObjectType))
                 {
-                    IDictionary<object, Tuple<ObjectStatus, object, object>> primaryKeyDictionary = typeDictionary[dataObjectType];
+                    IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>> primaryKeyDictionary = typeDictionary[dataObjectType];
 
                     if (primaryKeyDictionary.ContainsKey(dataObjectPrimaryKey))
                     {
-                        return primaryKeyDictionary[dataObjectPrimaryKey];
+                        IDictionary<string, Tuple<ObjectStatus, object, object>> propertyNameDictionary = primaryKeyDictionary[dataObjectPrimaryKey];
+
+                        if (propertyNameDictionary.ContainsKey(propertyName))
+                        {
+                            return propertyNameDictionary[propertyName];
+                        }
                     }
                 }
             }
@@ -624,20 +628,26 @@
         /// <param name="operationId">Operation id.</param>
         /// <param name="dataObjectType">Data object type.</param>
         /// <param name="dataObjectPrimaryKey">Data object primaryKey.</param>
+        /// <param name="propertyName">Property name.</param>
         /// <returns>Operation result.</returns>
-        private bool RemoveFromStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey)
+        private bool RemoveFromStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey, string propertyName)
         {
             if (stateStore.ContainsKey(operationId))
             {
-                IDictionary<Type, IDictionary<object, Tuple<ObjectStatus, object, object>>> typeDictionary = stateStore[operationId];
+                IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>> typeDictionary = stateStore[operationId];
 
                 if (typeDictionary.ContainsKey(dataObjectType))
                 {
-                    IDictionary<object, Tuple<ObjectStatus, object, object>> primaryKeyDictionary = typeDictionary[dataObjectType];
+                    IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>> primaryKeyDictionary = typeDictionary[dataObjectType];
 
                     if (primaryKeyDictionary.ContainsKey(dataObjectPrimaryKey))
                     {
-                        return primaryKeyDictionary.Remove(dataObjectPrimaryKey);
+                        IDictionary<string, Tuple<ObjectStatus, object, object>> propertyNameDictionary = primaryKeyDictionary[dataObjectPrimaryKey];
+
+                        if (propertyNameDictionary.ContainsKey(propertyName))
+                        {
+                            return propertyNameDictionary.Remove(propertyName);
+                        }
                     }
                 }
             }
