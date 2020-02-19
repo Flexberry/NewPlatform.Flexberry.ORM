@@ -32,7 +32,8 @@
                 var новаяБерлога = new Берлога();
                 медведь.Берлога.Add(новаяБерлога);
 
-                dataService.UpdateObject(новаяБерлога);
+                ICSSoft.STORMNET.DataObject[] dataObjects = new ICSSoft.STORMNET.DataObject[] { медведь, новаяБерлога };
+                dataService.UpdateObjects(ref dataObjects);
 
                 var берлоги = медведь.Берлога.GetAllObjects().Cast<Берлога>();
 
