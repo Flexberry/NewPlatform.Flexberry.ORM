@@ -168,8 +168,14 @@
                 if (status == ObjectStatus.Deleted)
                 {
                     string[] allPropertyNames = Information.GetAllPropertyNames(dataObjectType);
+
                     foreach (string propertyName in allPropertyNames)
                     {
+                        if (propertyName == nameof(DataObject.IsReadOnly) || propertyName == nameof(DataObject.DynamicProperties) || propertyName == nameof(DataObject.__PrototypeKey) || propertyName == nameof(DataObject.Prototyped) || propertyName == nameof(DataObject.__PrimaryKey))
+                        {
+                            continue;
+                        }
+
                         Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
 
                         if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
@@ -315,7 +321,48 @@
                     }
                 }
 
-                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+                if (status == ObjectStatus.Deleted)
+                {
+                    string[] allPropertyNames = Information.GetAllPropertyNames(dataObjectType);
+
+                    foreach (string propertyName in allPropertyNames)
+                    {
+                        if (propertyName == nameof(DataObject.IsReadOnly) || propertyName == nameof(DataObject.DynamicProperties) || propertyName == nameof(DataObject.__PrototypeKey) || propertyName == nameof(DataObject.Prototyped) || propertyName == nameof(DataObject.__PrimaryKey))
+                        {
+                            continue;
+                        }
+
+                        Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                        if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                        {
+                            INotifyUpdateProperty oldValue = null;
+                            INotifyUpdateProperty newValue = null;
+
+                            var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+
+                            if (valuesFromStateStore != null)
+                            {
+                                oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+
+                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+                                AddToStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName, stateStoreValue);
+                            }
+
+                            INotifyUpdateProperty notifyUpdateProperty = oldValue;
+
+                            if (notifyUpdateProperty != null)
+                            {
+                                notifyUpdateProperty.AfterSuccessSqlUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -425,13 +472,54 @@
                                     {
                                         notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, objectStatusFromStateStore, propertyName, oldValue, newValue);
                                     }
+
+                                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
                                 }
                             }
                         }
                     }
                 }
 
-                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+                if (status == ObjectStatus.Deleted)
+                {
+                    string[] allPropertyNames = Information.GetAllPropertyNames(dataObjectType);
+
+                    foreach (string propertyName in allPropertyNames)
+                    {
+                        if (propertyName == nameof(DataObject.IsReadOnly) || propertyName == nameof(DataObject.DynamicProperties) || propertyName == nameof(DataObject.__PrototypeKey) || propertyName == nameof(DataObject.Prototyped) || propertyName == nameof(DataObject.__PrimaryKey))
+                        {
+                            continue;
+                        }
+
+                        Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                        if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                        {
+                            INotifyUpdateProperty oldValue = null;
+                            INotifyUpdateProperty newValue = null;
+
+                            var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+
+                            if (valuesFromStateStore != null)
+                            {
+                                oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+                            }
+                            else
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+
+                            INotifyUpdateProperty notifyUpdateProperty = oldValue;
+
+                            if (notifyUpdateProperty != null)
+                            {
+                                notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -453,7 +541,10 @@
                     Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
                     RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
 
-                    notifyUpdateObject.AfterFailUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
+                    if (stateStoreValue != null)
+                    {
+                        notifyUpdateObject.AfterFailUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
+                    }
                 }
 
                 List<string> alteredPropertyNames = new List<string>(dataObject.GetAlteredPropertyNames());
@@ -463,7 +554,7 @@
                     IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
                     if (subscribedPropertyNames != null)
                     {
-                        foreach (string propertyName in subscribedPropertyNames)
+                        foreach (string propertyName in subscribedPropertyNames) // TODO: GetFromStore
                         {
                             object oldValue = null;
                             object newValue = null;
@@ -548,7 +639,47 @@
                     }
                 }
 
-                // TODO: обработать если объект отправляют на удаление, а свойство не было загружено. Событие всё равно должно вызваться. Надо прокешировать рефлекшен по всем свойствам типа данных, чтобы каждый раз не дёргать его.
+                if (status == ObjectStatus.Deleted)
+                {
+                    string[] allPropertyNames = Information.GetAllPropertyNames(dataObjectType);
+
+                    foreach (string propertyName in allPropertyNames)
+                    {
+                        if (propertyName == nameof(DataObject.IsReadOnly) || propertyName == nameof(DataObject.DynamicProperties) || propertyName == nameof(DataObject.__PrototypeKey) || propertyName == nameof(DataObject.Prototyped) || propertyName == nameof(DataObject.__PrimaryKey))
+                        {
+                            continue;
+                        }
+
+                        Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                        if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                        {
+                            INotifyUpdateProperty oldValue = null;
+                            INotifyUpdateProperty newValue = null;
+
+                            var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+
+                            if (valuesFromStateStore != null)
+                            {
+                                oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+
+                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+                            }
+
+                            INotifyUpdateProperty notifyUpdateProperty = oldValue;
+
+                            if (notifyUpdateProperty != null)
+                            {
+                                notifyUpdateProperty.AfterFailUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
             }
         }
 

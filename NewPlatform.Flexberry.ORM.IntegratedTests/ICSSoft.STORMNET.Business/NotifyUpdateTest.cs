@@ -231,7 +231,8 @@
                 CheckFailUpdateProperty(ds, failedMailman);
 
                 // Update success mailman.
-                mailman.Photo = new FileForTests() { Value = "3" };
+                var coolPhoto = new FileForTests() { Value = "3" };
+                mailman.Photo = coolPhoto;
                 ds.UpdateObject(mailman);
 
                 CheckSuccessUpdateProperty(ds, mailman);
@@ -254,6 +255,9 @@
                 }
 
                 CheckFailUpdateProperty(ds, mailman);
+
+                // Remove Photo from AlteredPropertyNames.
+                mailman.Photo = coolPhoto;
 
                 // Delete failed mailman.
                 Parcel parcel = new Parcel() { DeliveredByMailman = mailman };
