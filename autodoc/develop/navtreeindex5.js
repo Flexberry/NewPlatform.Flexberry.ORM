@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#afe409dd1648e0d039aeeabea370b432c":[1,0,2,1,0,44,59],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_caption_attribute.html":[1,0,2,1,21],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_caption_attribute.html#a0ea89bbbc5292097597edfe284586d06":[1,0,2,1,21,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_caption_attribute.html#a20531d802a34ebed1cf89b83c1def5a8":[1,0,2,1,21,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_disable_insert_property_attribute.html#ad95b5bb22e90b23bebc2c7dcd44bd84a":[1,0,2,1,32,2],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_dynamic_method_compiler.html":[1,0,2,1,35],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_empty_enum_value_attribute.html":[1,0,2,1,36],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html":[1,0,2,1,37],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html#a298996f00f65597ea631c78b1baf5ea6":[1,0,2,1,37,1]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html":[1,0,2,1,37]
 };

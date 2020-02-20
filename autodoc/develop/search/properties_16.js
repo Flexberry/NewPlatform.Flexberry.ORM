@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['weight',['Weight',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_parcel.html#a87c20bd2acf347f1af4f10dd9d3a1a83',1,'NewPlatform::Flexberry::ORM::Tests::Parcel']]],
   ['width',['Width',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_image.html#aa32c74f57097b346dd15c9d38cb7e6ee',1,'ICSSoft::STORMNET::UserDataTypes::Image']]],
   ['working',['Working',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#aa91259a15d0766f2bf8fecabdc7bd97e',1,'NewPlatform::Flexberry::ORM::Tests::MultiThreadingTestTool']]],
   ['workingdata',['WorkingData',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a17b483f84abf5f8dc947e5304af46d51',1,'NewPlatform::Flexberry::ORM::Tests::MultiThreadingTestTool']]],

@@ -46,5 +46,6 @@ var functions_prop =
     [ "Ф", "functions_prop_$.html", null ],
     [ "Х", "functions_prop_%.html", null ],
     [ "Ц", "functions_prop_&.html", null ],
+    [ "Ч", "functions_prop_'.html", null ],
     [ "Э", "functions_prop_-.html", null ]
 ];

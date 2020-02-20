@@ -54,6 +54,8 @@ var searchData=
   ['commontest',['CommonTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_common_1_1_common_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::Common']]],
   ['compatibilitytypetest',['CompatibilityTypeTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_compatibility_type_test.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],
   ['compatibilitytypetesttest',['CompatibilityTypeTestTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_compatibility_type_test_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::FunctionalLanguage']]],
+  ['computeddetail',['ComputedDetail',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_computed_detail.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
+  ['computedmaster',['ComputedMaster',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_computed_master.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['confighelper',['ConfigHelper',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html',1,'ICSSoft::STORMNET::Business::Audit::HelpStructures']]],
   ['confighelpertest',['ConfigHelperTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_config_helper_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['configresolver',['ConfigResolver',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver.html',1,'ICSSoft::STORMNET::Business']]],

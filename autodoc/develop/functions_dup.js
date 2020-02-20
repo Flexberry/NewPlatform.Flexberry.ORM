@@ -46,5 +46,6 @@ var functions_dup =
     [ "Ф", "functions_$.html", null ],
     [ "Х", "functions_%.html", null ],
     [ "Ц", "functions_&.html", null ],
+    [ "Ч", "functions_'.html", null ],
     [ "Э", "functions_-.html", null ]
 ];

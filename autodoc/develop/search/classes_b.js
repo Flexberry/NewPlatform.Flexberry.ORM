@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['mailman',['Mailman',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_mailman.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['mapifiledesc',['MapiFileDesc',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_file_desc.html',1,'ICSSoft::STORMNET::Tools']]],
   ['mapimessage',['MapiMessage',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_message.html',1,'ICSSoft::STORMNET::Tools']]],
   ['mapirecipdesc',['MapiRecipDesc',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_recip_desc.html',1,'ICSSoft::STORMNET::Tools']]],
