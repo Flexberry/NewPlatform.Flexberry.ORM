@@ -288,7 +288,7 @@
         /// <summary>
         /// Test for <see cref="INotifyUpdatePropertyByType"/> intarface.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Not implemented interface yet")]
         public void INotifyUpdatePropertyByTypeTest()
         {
             foreach (IDataService dataService in DataServices)
