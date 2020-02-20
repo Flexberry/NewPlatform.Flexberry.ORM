@@ -134,6 +134,7 @@
                     IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     #region прошли вглубь обрабатывая only Update||Insert
+
                     bool go = true;
                     do
                     {
@@ -152,7 +153,7 @@
                             {
                                 if (
                                     (ex =
-                                     RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
+                                        RunCommands(InsertQueries, InsertTables, table, command, id, AlwaysThrowException))
                                     == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
@@ -192,6 +193,7 @@
                     while (go);
 
                     #endregion
+
                     if (QueryOrder.Count > 0)
                     {
                         #region сзади чистые Update
@@ -289,6 +291,9 @@
                             true);
                     }
 
+                    dbTransactionWrapper.CommitTransaction();
+                
+
                     if (NotifierUpdateObjects != null)
                     {
                         NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
@@ -309,13 +314,13 @@
                         NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, objects);
                     }
 
-                    dbTransactionWrapper.Dispose();
                     BusinessTaskMonitor.EndSubTask(subTask);
                     throw new ExecutingQueryException(query, prevQueries, excpt);
                 }
-
-                dbTransactionWrapper.CommitTransaction();
-                dbTransactionWrapper.Dispose();
+                finally
+                {
+                    dbTransactionWrapper.Dispose();
+                }
 
                 var res = new ArrayList();
                 foreach (DataObject changedObject in objects)

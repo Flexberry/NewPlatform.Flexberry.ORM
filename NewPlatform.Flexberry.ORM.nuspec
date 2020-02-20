@@ -23,6 +23,7 @@
       3. Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
       4. Loading details to delete on deleting aggregator object (using single transaction).
       5. Appending view properties from not stored prop expression.
+      6. Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.
