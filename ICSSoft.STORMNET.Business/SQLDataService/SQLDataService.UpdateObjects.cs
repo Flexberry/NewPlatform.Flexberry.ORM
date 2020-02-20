@@ -292,7 +292,6 @@
                     }
 
                     dbTransactionWrapper.CommitTransaction();
-                
 
                     if (NotifierUpdateObjects != null)
                     {
