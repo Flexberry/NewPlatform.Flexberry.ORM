@@ -77,6 +77,7 @@
     <Reference Include="System">
       <HintPath>System.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -91,6 +92,8 @@
     <Compile Include="AuditMasterMasterObject.cs" />
     <Compile Include="AuditMasterObject.cs" />
     <Compile Include="CaseSensitiveEnum.cs" />
+    <Compile Include="ComputedDetail.cs" />
+    <Compile Include="ComputedMaster.cs" />
     <Compile Include="DataObjectWithKeyGuid.cs" />
     <Compile Include="Cabbage2.cs" />
     <Compile Include="CabbagePart2.cs" />
@@ -104,11 +107,13 @@
     <Compile Include="DetailClass.cs" />
     <Compile Include="DetailUpdateObjectTest.cs" />
     <Compile Include="Dish2.cs" />
+    <Compile Include="FileForTests.cs" />
     <Compile Include="ForKeyStorageTest.cs" />
     <Compile Include="FullTypesDetail1.cs" />
     <Compile Include="FullTypesDetail2.cs" />
     <Compile Include="FullTypesMainAgregator.cs" />
     <Compile Include="FullTypesMaster1.cs" />
+    <Compile Include="Homer.cs" />
     <Compile Include="Human2.cs" />
     <Compile Include="InformationTestClass.cs" />
     <Compile Include="InformationTestClass2.cs" />
@@ -117,11 +122,16 @@
     <Compile Include="InformationTestClass6.cs" />
     <Compile Include="InformationTestClassChild.cs" />
     <Compile Include="InheritedMasterClass.cs" />
+    <Compile Include="Mailman.cs" />
     <Compile Include="MasterClass.cs" />
     <Compile Include="MasterUpdateObjectTest.cs" />
+    <Compile Include="NotifyUpdateObjectsGeneratedMock.cs" />
+    <Compile Include="NotifyUpdatePropertyByTypeGeneratedMock.cs" />
     <Compile Include="NotStoredClass.cs" />
     <Compile Include="NullFileField.cs" />
+    <Compile Include="NumberCaption.cs" />
     <Compile Include="NumberedYear.cs" />
+    <Compile Include="Parcel.cs" />
     <Compile Include="Place2.cs" />
     <Compile Include="Plant2.cs" />
     <Compile Include="PoleEnum.cs" />
@@ -149,11 +159,15 @@
     </Compile>
     <Compile Include="Блоха.cs" />
     <Compile Include="ДокументацияККонкурсу.cs" />
+    <Compile Include="Запрос.cs" />
     <Compile Include="ЗначениеКритерия.cs" />
     <Compile Include="Идея.cs" />
     <Compile Include="ИсточникФинансирования.cs" />
+    <Compile Include="ИсходящийЗапрос.cs" />
     <Compile Include="ИФХозДоговора.cs" />
     <Compile Include="Конкурс.cs" />
+    <Compile Include="КонфигурацияЗапроса.cs" />
+    <Compile Include="КонфигурацияЭтапа.cs" />
     <Compile Include="Кредит.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -169,6 +183,7 @@
     </Compile>
     <Compile Include="Пользователь.cs" />
     <Compile Include="Состояние.cs" />
+    <Compile Include="СтатусЗапроса.cs" />
     <Compile Include="Сторона.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -222,6 +237,8 @@
     <Compile Include="УчастникХозДоговора.cs" />
     <Compile Include="ФайлИдеи.cs" />
     <Compile Include="ХозДоговор.cs" />
+    <Compile Include="Этап.cs" />
+    <Compile Include="ЭтапИсходящегоЗапроса.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NewPlatform.Flexberry.ORM.Test.Objects.snk" />

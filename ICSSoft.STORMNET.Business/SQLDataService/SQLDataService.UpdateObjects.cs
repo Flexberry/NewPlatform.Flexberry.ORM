@@ -107,8 +107,17 @@
 
             /*access checks*/
 
+            // Порядок выполнения запросов: delete, insert, update.
             if (DeleteQueries.Count > 0 || UpdateQueries.Count > 0 || InsertQueries.Count > 0)
-            { // Порядок выполнения запросов: delete,insert,update
+            {
+                Guid? operationUniqueId = null;
+
+                if (NotifierUpdateObjects != null)
+                {
+                    operationUniqueId = Guid.NewGuid();
+                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                }
+
                 if (AuditService.IsAuditEnabled)
                 {
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
@@ -283,6 +292,11 @@
                     }
 
                     dbTransactionWrapper.CommitTransaction();
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                    }
                 }
                 catch (Exception excpt)
                 {
@@ -290,8 +304,13 @@
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     {
-                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено).
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
+                    }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, objects);
                     }
 
                     BusinessTaskMonitor.EndSubTask(subTask);
@@ -323,8 +342,14 @@
                     }
                 }
 
+                if (NotifierUpdateObjects != null)
+                {
+                    NotifierUpdateObjects.AfterSuccessUpdateObjects(operationUniqueId.Value, this, objects);
+                }
+
                 objects = new DataObject[res.Count];
                 res.CopyTo(objects);
+
                 BusinessTaskMonitor.EndTask(id);
             }
 
