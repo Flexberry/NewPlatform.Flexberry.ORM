@@ -18,6 +18,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Linq;
     using System.Collections.Generic;
 
+    using ICSSoft.STORMNET;
     // *** End programmer edit section *** (Using statements)
 
 
@@ -42,23 +43,39 @@ namespace NewPlatform.Flexberry.ORM.Tests
         public virtual ICSSoft.STORMNET.DataObject[] OnUpdateМедведь(NewPlatform.Flexberry.ORM.Tests.Медведь UpdatedObject)
         {
             // *** Start programmer edit section *** (OnUpdateМедведь)
-            var новаяБерлога = UpdatedObject.Берлога.GetAllObjects().FirstOrDefault(б => б.GetStatus() == ICSSoft.STORMNET.ObjectStatus.Created);
+            var updatedObjects = new List<DataObject>();
+            IEnumerable<Берлога> берлоги = UpdatedObject.Берлога.GetAllObjects().Cast<Берлога>();
+
+            var новаяБерлога = берлоги.FirstOrDefault(б => б.GetStatus() == ObjectStatus.Created);
             if (новаяБерлога != null)
             {
-                var старыеБерлоги = new List<Берлога>();
                 foreach (Берлога берлога in UpdatedObject.Берлога)
                 {
                     if (берлога != новаяБерлога)
                     {
                         берлога.Заброшена = true;
-                        старыеБерлоги.Add(берлога);
+                        updatedObjects.Add(берлога);
+                    }
+                }
+            }
+
+            var последняяБерлога = берлоги.FirstOrDefault(б => б.GetStatus() == ObjectStatus.Altered);
+            if (последняяБерлога != null)
+            {
+                foreach (Берлога берлога in UpdatedObject.Берлога)
+                {
+                    if (берлога != последняяБерлога)
+                    {
+                        берлога.Заброшена = true;
+                        updatedObjects.Add(берлога);
                     }
                 }
 
-                return старыеБерлоги.ToArray();
+                последняяБерлога.Заброшена = false;
+            }
             }
 
-            return new ICSSoft.STORMNET.DataObject[0];
+            return updatedObjects.Distinct().ToArray();
             // *** End programmer edit section *** (OnUpdateМедведь)
         }
     }
