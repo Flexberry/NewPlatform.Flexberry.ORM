@@ -451,7 +451,9 @@
 
                 if (dataFromStore != null)
                 {
-                    foreach (string propertyName in dataFromStore.Keys)
+                    string[] keys = new string[dataFromStore.Count];
+                    dataFromStore.Keys.CopyTo(keys, 0);
+                    foreach (string propertyName in keys)
                     {
                         if (!string.IsNullOrWhiteSpace(propertyName))
                         {
@@ -554,7 +556,7 @@
                     IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
                     if (subscribedPropertyNames != null)
                     {
-                        foreach (string propertyName in subscribedPropertyNames) // TODO: GetFromStore
+                        foreach (string propertyName in subscribedPropertyNames)
                         {
                             object oldValue = null;
                             object newValue = null;
