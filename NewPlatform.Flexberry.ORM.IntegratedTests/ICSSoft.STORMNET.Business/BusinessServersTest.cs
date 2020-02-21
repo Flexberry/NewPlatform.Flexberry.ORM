@@ -45,10 +45,10 @@
         }
 
         /// <summary>
-        /// Test to check the call business server of aggregator when changing detail.
+        /// Test to check the call business server of aggregator when updating detail.
         /// </summary>
         [Fact]
-        public void CallAggregatorBSOnChangeDetailTest()
+        public void CallAggregatorBSOnUpdateDetailTest()
         {
             foreach (IDataService dataService in DataServices)
             {
@@ -66,7 +66,7 @@
                 var берлоги = медведь.Берлога.GetAllObjects().Cast<Берлога>();
                 var комфортнаяБерлога = берлоги.FirstOrDefault(б => б.Комфортность == 1);
 
-                Assert.False(комфортнаяБерлога.Заброшена);
+                Assert.False(комфортнаяБерлога?.Заброшена);
                 Assert.Equal(1, берлоги.Count(б => б.Заброшена));
             }
         }
