@@ -70,5 +70,28 @@
                 Assert.Equal(1, берлоги.Count(б => б.Заброшена));
             }
         }
+
+        /// <summary>
+        /// Test to check the call business server of aggregator when deleting detail.
+        /// </summary>
+        [Fact]
+        public void CallAggregatorBSOnDeleteDetailTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var медведь = new Медведь();
+                медведь.Берлога.Add(new Берлога());
+                медведь.Берлога.Add(new Берлога());
+
+                dataService.UpdateObject(медведь);
+
+                медведь.Берлога[0].SetStatus(ObjectStatus.Deleted);
+
+                var dataObjects = new DataObjectClass[] { медведь, медведь.Берлога[0] };
+                dataService.UpdateObjects(ref dataObjects);
+
+                Assert.Equal(1, медведь.Берлога.GetAllObjects().Cast<Берлога>().First().Комфортность);
+            }
+        }
     }
 }
