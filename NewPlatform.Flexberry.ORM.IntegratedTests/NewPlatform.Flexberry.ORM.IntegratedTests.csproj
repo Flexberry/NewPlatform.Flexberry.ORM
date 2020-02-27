@@ -143,6 +143,7 @@
     <Compile Include="ICSSoft.STORMNET.Business\DetailsLoadTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\LoadObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\NotifyUpdateTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\MasterLoadingTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\SecondLoadObjectTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\SQLDataServiceTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\DataServiceSpeedTest.cs" />
