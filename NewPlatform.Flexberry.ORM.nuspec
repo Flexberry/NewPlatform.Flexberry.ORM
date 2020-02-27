@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta11</version>
+    <version>5.1.0-beta12</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -25,6 +25,7 @@
       4. Loading details to delete on deleting aggregator object (using single transaction).
       5. Appending view properties from not stored prop expression.
       6. Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
+      7. Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.

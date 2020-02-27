@@ -69,7 +69,7 @@
             var extraProcessingList = new List<DataObject>();
             GenerateQueriesForUpdateObjects(DeleteQueries, DeleteTables, UpdateQueries, UpdateFirstQueries, UpdateLastQueries, UpdateTables, InsertQueries, InsertTables, TableOperations, QueryOrder, true, AllQueriedObjects, DataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
-            GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList, dbTransactionWrapper.Transaction);
+            GenerateAuditForAggregators(AllQueriedObjects, DataObjectCache, ref extraProcessingList, dbTransactionWrapper);
 
             OnBeforeUpdateObjects(AllQueriedObjects);
 
