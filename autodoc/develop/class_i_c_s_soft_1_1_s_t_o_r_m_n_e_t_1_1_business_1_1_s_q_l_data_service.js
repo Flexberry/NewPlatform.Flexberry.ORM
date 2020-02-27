@@ -22,7 +22,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service =
     [ "CustomizeCommand", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#affc87d934c7a6dec6750ceeac317a16a", null ],
     [ "ExecuteNonQuery", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aa9559749906cad7297f7c99e7adf801b", null ],
     [ "FunctionToSql", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a522540056d587c2460c5b6c6239efcb9", null ],
-    [ "GenerateAuditForAggregators", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aefedd74fe1b081cc18b1c3892596519a", null ],
+    [ "GenerateAuditForAggregators", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a9df1f23949c83cd5a42ca0a30254ee64", null ],
     [ "GenerateQueriesForUpdateObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#afe3ea387ba51f6d575efb31ecb39d2cf", null ],
     [ "GenerateQueriesForUpdateObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a4725c4f3a88e0b656a360ec275fc57e5", null ],
     [ "GenerateSQLRowNumber", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#ab82f97ef2ea8bc9714e8ba6b09828d66", null ],
