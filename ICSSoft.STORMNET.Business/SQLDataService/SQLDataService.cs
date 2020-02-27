@@ -2212,8 +2212,8 @@
             }
             catch (Exception e)
             {
-                reader?.Dispose();
-                connection?.Dispose();
+                reader?.Close();
+                connection?.Close();
 
                 throw new ExecutingQueryException(query, string.Empty, e);
             }
@@ -2272,10 +2272,10 @@
 
                 if (i < LoadingBufferSize || LoadingBufferSize == 0)
                 {
-                    myReader.Dispose();
+                    myReader.Close();
 
                     // System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
-                    // myConnection.Dispose();
+                    // myConnection.Close();
                     State = null;
                 }
 
@@ -2283,9 +2283,9 @@
             }
             else
             {
-                myReader.Dispose();
+                myReader.Close();
 
-                // myConnection.Dispose();
+                // myConnection.Close();
                 State = null;
                 return null;
             }
@@ -2331,9 +2331,9 @@
 
                 if (i < loadingBufferSize || loadingBufferSize == 0)
                 {
-                    reader.Dispose();
+                    reader.Close();
                     IDbConnection connection = (IDbConnection)((object[])state)[0];
-                    connection.Dispose();
+                    connection.Close();
                     state = null;
                 }
 
@@ -2341,9 +2341,9 @@
             }
             else
             {
-                reader.Dispose();
+                reader.Close();
                 IDbConnection connection = (IDbConnection)((object[])state)[0];
-                connection.Dispose();
+                connection.Close();
                 state = null;
                 return null;
             }
@@ -3738,12 +3738,12 @@
 
             if (reader != null && !reader.IsClosed)
             {
-                reader.Dispose();
+                reader.Close();
             }
 
             if (connection != null && connection.State != ConnectionState.Closed)
             {
-                connection.Dispose();
+                connection.Close();
             }
 
             state = null;
