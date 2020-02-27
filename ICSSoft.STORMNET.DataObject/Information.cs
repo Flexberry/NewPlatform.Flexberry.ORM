@@ -1888,17 +1888,16 @@
                     prop.MultipleProp = true;
                 }
 
-                string spropname = curprop.Name;
                 string scurpropnamepart = string.Empty;
-                string scrupropnamepref = string.Empty;
-                string[] propname = spropname.Split('.');
-                string propalias = string.Empty;
+                string curpropName = curprop.Name.Replace("." + nameof(DataObject.__PrimaryKey), string.Empty);
+                string[] propname = curpropName.Split('.');
                 Type propType = null;
                 System.Type p = type;
                 Business.StorageStructForView.PropSource curSource = retVal.sources;
 
                 for (int j = 0; j < propname.Length; j++)
                 {
+                    string scrupropnamepref;
                     if (j == 0)
                     {
                         scurpropnamepart = propname[0];
@@ -1912,12 +1911,10 @@
 
                     if (j == propname.Length - 1)
                     {
-                        propalias = IsStoredProperty(p, propname[j]) ? GetPropertyStorageName(p, propname[j]) : null;
                         propType = GetPropertyType(p, propname[j]);
                     }
                     else
                     {
-                        string palias = GetPropertyStorageName(p, propname[j]);
                         bool propIsNotNull = GetPropertyNotNull(p, propname[j]);
 
                         bool found = false;
