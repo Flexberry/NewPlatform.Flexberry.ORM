@@ -615,17 +615,6 @@
 
         private ChangeViewForTypeDelegate fchangeViewForTypeDelegate = null;
 
-        private void AppendLog(string s)
-        {
-            string ts = System.Configuration.ConfigurationSettings.AppSettings["LogFile"];
-            if (ts != null && ts != string.Empty)
-            {
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(ts, true);
-                sw.WriteLine(s);
-                sw.Close();
-            }
-        }
-
         protected void prv_AddMasterObjectsToCache(DataObject dataobject, System.Collections.ArrayList arrl, DataObjectCache DataObjectCache)
         {
             arrl.Add(dataobject);
@@ -2223,15 +2212,8 @@
             }
             catch (Exception e)
             {
-                if (reader != null)
-                {
-                    reader.Close();
-                }
-
-                if (connection != null)
-                {
-                    connection.Close();
-                }
+                reader?.Dispose();
+                connection?.Dispose();
 
                 throw new ExecutingQueryException(query, string.Empty, e);
             }
@@ -2290,10 +2272,10 @@
 
                 if (i < LoadingBufferSize || LoadingBufferSize == 0)
                 {
-                    myReader.Close();
+                    myReader.Dispose();
 
                     // System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
-                    // myConnection.Close();
+                    // myConnection.Dispose();
                     State = null;
                 }
 
@@ -2301,9 +2283,9 @@
             }
             else
             {
-                myReader.Close();
+                myReader.Dispose();
 
-                // myConnection.Close();
+                // myConnection.Dispose();
                 State = null;
                 return null;
             }
@@ -2349,9 +2331,9 @@
 
                 if (i < loadingBufferSize || loadingBufferSize == 0)
                 {
-                    reader.Close();
+                    reader.Dispose();
                     IDbConnection connection = (IDbConnection)((object[])state)[0];
-                    connection.Close();
+                    connection.Dispose();
                     state = null;
                 }
 
@@ -2359,9 +2341,9 @@
             }
             else
             {
-                reader.Close();
+                reader.Dispose();
                 IDbConnection connection = (IDbConnection)((object[])state)[0];
-                connection.Close();
+                connection.Dispose();
                 state = null;
                 return null;
             }
@@ -3756,12 +3738,12 @@
 
             if (reader != null && !reader.IsClosed)
             {
-                reader.Close();
+                reader.Dispose();
             }
 
             if (connection != null && connection.State != ConnectionState.Closed)
             {
-                connection.Close();
+                connection.Dispose();
             }
 
             state = null;
@@ -4343,12 +4325,12 @@
         /// <param name="processingObjects">Объекты, которые необходимо обработать.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, для которых нужно создать записи аудита. Сюда записывается результат работы метода.</param>
-        /// <param name="transaction">Транзакция, в которой необходимо производить чтение (необязательный параметр).</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         protected virtual void GenerateAuditForAggregators(
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             ref List<DataObject> auditObjects,
-            IDbTransaction transaction = null)
+            DbTransactionWrapper dbTransactionWrapper = null)
         {
             if (!AuditService.IsAuditEnabled)
             {
@@ -4396,13 +4378,13 @@
                         var tempView = new View { Name = "AggregatorLoadingView", DefineClassType = dataObjectType };
                         tempView.AddProperty(aggregatorPropertyName);
 
-                        if (transaction == null)
+                        if (dbTransactionWrapper == null)
                         {
                             LoadObject(tempView, tempObject, dataObjectCache);
                         }
                         else
                         {
-                            LoadObjectByExtConn(tempView, tempObject, true, false, dataObjectCache, transaction.Connection, transaction);
+                            LoadObjectByExtConn(tempView, tempObject, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                         }
 
                         oldAggregator =
@@ -4481,13 +4463,13 @@
                     DataObject tempAggregator = (DataObject)Activator.CreateInstance(aggregatorType);
                     tempAggregator.SetExistObjectPrimaryKey(aggregator.__PrimaryKey);
 
-                    if (transaction == null)
+                    if (dbTransactionWrapper == null)
                     {
                         LoadObject(aggregatorView, tempAggregator, true, false, dataObjectCache);
                     }
                     else
                     {
-                        LoadObjectByExtConn(aggregatorView, tempAggregator, true, false, dataObjectCache, transaction.Connection, transaction);
+                        LoadObjectByExtConn(aggregatorView, tempAggregator, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                     }
 
                     DetailArray tempAggregatorDetailArray =
@@ -5688,7 +5670,7 @@
             var extraProcessingList = new List<DataObject>();
             GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
-            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper.Transaction);
+            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper);
 
             OnBeforeUpdateObjects(allQueriedObjects);
 

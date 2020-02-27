@@ -79,7 +79,7 @@
         public virtual void Dispose()
         {
             _transaction?.Dispose();
-            Connection?.Close();
+            Connection?.Dispose();
         }
 
         private IDbTransaction GetTransaction()
