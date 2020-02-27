@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
 - `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
 - Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.
+- Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
 
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.
@@ -26,6 +27,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Loading details to delete on deleting aggregator object (using single transaction).
 - Appending view properties from not stored prop expression.
 - Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
+- Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
 
 ### Security
 
