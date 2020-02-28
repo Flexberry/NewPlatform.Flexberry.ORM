@@ -37,7 +37,7 @@
                 var dataObjects = new DataObjectClass[] { медведь, новаяБерлога };
                 dataService.UpdateObjects(ref dataObjects);
 
-                var берлоги = медведь.Берлога.GetAllObjects().Cast<Берлога>();
+                var берлоги = медведь.Берлога.Cast<Берлога>();
 
                 Assert.Equal(1, берлоги.Count(б => б.Заброшена));
                 Assert.Equal(1, берлоги.Count(б => !б.Заброшена));
@@ -63,7 +63,7 @@
                 var dataObjects = new DataObjectClass[] { медведь, медведь.Берлога[0] };
                 dataService.UpdateObjects(ref dataObjects);
 
-                var берлоги = медведь.Берлога.GetAllObjects().Cast<Берлога>();
+                var берлоги = медведь.Берлога.Cast<Берлога>();
                 var комфортнаяБерлога = берлоги.FirstOrDefault(б => б.Комфортность == 1);
 
                 Assert.False(комфортнаяБерлога?.Заброшена);
@@ -90,7 +90,7 @@
                 var dataObjects = new DataObjectClass[] { медведь, медведь.Берлога[0] };
                 dataService.UpdateObjects(ref dataObjects);
 
-                Assert.Equal(1, медведь.Берлога.GetAllObjects().Cast<Берлога>().First().Комфортность);
+                Assert.Equal(1, медведь.Берлога.Cast<Берлога>().First().Комфортность);
             }
         }
     }
