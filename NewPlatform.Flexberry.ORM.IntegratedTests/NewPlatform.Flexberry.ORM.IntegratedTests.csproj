@@ -137,7 +137,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseIntegratedTest.cs" />
+    <Compile Include="ExternalLDef\MasterDetailsLimitTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\ConfigHelperTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\LinqToLcsMasterDetailsTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqOperations.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\ConfigResolverTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\DetailsLoadTest.cs" />
@@ -162,7 +164,6 @@
     <Compile Include="ICSSoft.STORMNET.DataObject\OrderPropertyTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\TypeUsageProviderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectCacheTest.cs" />
-    <Compile Include="ExternalLDef\ExternalLangDefTest.cs" />
     <Compile Include="ExternalLDef\RestrictionsOnTheDateAndDetailleTests.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\CompatibilityTypeTestTest.cs" />
     <Compile Include="ICSSoft.STORMNET.FunctionalLanguage\Function.cs" />

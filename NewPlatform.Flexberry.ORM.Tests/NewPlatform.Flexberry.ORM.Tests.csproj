@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="CurrentUserService\CurrentUserServiceTest.cs" />
     <Compile Include="CurrentUserService\ExtensionsTest.cs" />
+    <Compile Include="ExternalLDef\ExternalLangDefTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditClassSettingsLoaderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceTest.IsTypeAuditable.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqProvider.cs" />
@@ -252,7 +253,6 @@
     <Folder Include="ICSSoft.STORMNET.Business.ODBCDataService\" />
     <Folder Include="ICSSoft.STORMNET.Business.PostgresDataService\" />
     <Folder Include="ICSSoft.STORMNET.Collections\" />
-    <Folder Include="ICSSoft.STORMNET.Drawing\" />
     <Folder Include="ICSSoft.STORMNET.Tools\" />
     <Folder Include="ICSSoft.STORMNET.UserDataTypes\" />
   </ItemGroup>
