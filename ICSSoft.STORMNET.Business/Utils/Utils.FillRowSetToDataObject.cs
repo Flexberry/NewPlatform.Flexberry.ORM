@@ -1,11 +1,10 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using ICSSoft.STORMNET.Security;
-    using STORMDO = ICSSoft.STORMNET;
-    using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
@@ -42,13 +41,13 @@
             Information.SetPropValueByName(dobject, "__PrimaryKey", values[customizationStructViewPropertiesLength + advColsLength]);
 
             // 1. создаем структуру мастеров(свойств-объектов данных).
-            System.Collections.SortedList assList = new System.Collections.SortedList();
+            SortedList assList = new SortedList();
             int index = customizationStructViewPropertiesLength + 1 + advColsLength;
             CreateMastersStruct(dobject, values, ref index, 0, storageStruct.sources, assList, typesByKeys, dataObjectCache);
             assList.Add(storageStruct.sources, new object[] { dobject, 0 });
 
             // 2. заливаем данные.
-            System.Collections.ArrayList properiesValues = new System.Collections.ArrayList();
+            ArrayList properiesValues = new ArrayList();
             StringCollection allAdvCols = new StringCollection();
 
             int masterPosition = index;
@@ -128,7 +127,8 @@
                             object tmp0 = tmp[0];
                             if (value != null)
                             {
-                                if (Information.GetPropValueByName((DataObject)tmp0, prop.simpleName) == null)
+                                var master = Information.GetPropValueByName((DataObject)tmp0, prop.simpleName);
+                                if (master == null)
                                 {
                                     DataObject no = dataObjectCache.CreateDataObject(prop.MastersTypes[tmp1][k], value);
                                     if (no.GetStatus(false) == ObjectStatus.Created)
@@ -144,7 +144,7 @@
                                 else
                                 {
                                     // changed by fat
-                                    properiesValues.Add(new[] { prop.simpleName, Information.GetPropValueByName((DataObject)tmp0, prop.simpleName), tmp0 });
+                                    properiesValues.Add(new[] { prop.simpleName, master, tmp0 });
                                 }
                             }
                             else
@@ -159,67 +159,81 @@
             }
 
             // 2.2 Записываем в объекты.
-            System.Collections.SortedList curObjProperiesValues = new System.Collections.SortedList();
             while (properiesValues.Count > 0)
             {
-                // a. Выбираем для текущего объекта все свойства.
-                object[] tmp = (object[])properiesValues[0];
-                DataObject curobj = (DataObject)tmp[2];
-                dobjectType = curobj.GetType();
-                curObjProperiesValues.Clear();
-
-                List<string> loadedPropsColl = curobj.GetLoadedPropertiesList();
-
-                for (int i = properiesValues.Count - 1; i >= 0; i--)
-                {
-                    tmp = (object[])properiesValues[i];
-                    if (tmp[2] == curobj)
-                    {
-                        object tmp0 = tmp[0];
-                        if (!curObjProperiesValues.ContainsKey(tmp0))
-                        {
-                            curObjProperiesValues.Add(tmp0, tmp[1]);
-                            if (!loadedPropsColl.Contains((string)tmp0))
-                            {
-                                loadedPropsColl.Add((string)tmp0);
-                            }
-                        }
-
-                        properiesValues.RemoveAt(i);
-                    }
-                }
-
-                // b. Раскидываем согласно LoadOrder;
-                string[] loadOrder = Information.GetLoadingOrder(dobjectType);
-                int loadOrderLength = loadOrder.Length;
-                for (int i = 0; i < loadOrderLength; i++)
-                {
-                    string propName = loadOrder[i];
-                    if (curObjProperiesValues.ContainsKey(propName))
-                    {
-                        Information.SetPropValueByName(curobj, propName, curObjProperiesValues[propName]);
-                        curObjProperiesValues.Remove(propName);
-                    }
-                }
-
-                int curObjPropertiesValuesCount = curObjProperiesValues.Count;
-                for (int i = 0; i < curObjPropertiesValuesCount; i++)
-                {
-                    Information.SetPropValueByName(curobj, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
-                }
-
-                if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
-                {
-                    curobj.SetLoadingState(LoadingState.Loaded);
-                }
-                else
-                {
-                    curobj.SetLoadingState(LoadingState.LightLoaded);
-                    curobj.AddLoadedProperties(loadedPropsColl);
-                }
-
-                curobj.SetStatus(ObjectStatus.UnAltered);
+                ProcessPropertyValues(properiesValues);
             }
+        }
+
+        internal static void ProcessPropertyValues(ArrayList properiesValues)
+        {
+            // a. Выбираем для текущего объекта все свойства.
+            object[] tmp = (object[])properiesValues[0];
+            DataObject curobj = (DataObject)tmp[2];
+            DataObject curobjCopy = curobj.GetDataCopy();
+            Type dobjectType = curobj.GetType();
+            SortedList curObjProperiesValues = new SortedList();
+
+            List<string> loadedPropsColl = curobj.GetLoadedPropertiesList();
+
+            for (int i = properiesValues.Count - 1; i >= 0; i--)
+            {
+                tmp = (object[])properiesValues[i];
+                if (tmp[2] == curobj)
+                {
+                    object tmp0 = tmp[0];
+                    if (!curObjProperiesValues.ContainsKey(tmp0))
+                    {
+                        curObjProperiesValues.Add(tmp0, tmp[1]);
+                        if (!loadedPropsColl.Contains((string)tmp0))
+                        {
+                            loadedPropsColl.Add((string)tmp0);
+                        }
+                    }
+
+                    properiesValues.RemoveAt(i);
+                }
+            }
+
+            // b. Раскидываем согласно LoadOrder;
+            string[] loadOrder = Information.GetLoadingOrder(dobjectType);
+            int loadOrderLength = loadOrder.Length;
+            for (int i = 0; i < loadOrderLength; i++)
+            {
+                string propName = loadOrder[i];
+                if (curObjProperiesValues.ContainsKey(propName))
+                {
+                    Information.SetPropValueByName(curobj, propName, curObjProperiesValues[propName]);
+                    curObjProperiesValues.Remove(propName);
+                }
+            }
+
+            int curObjPropertiesValuesCount = curObjProperiesValues.Count;
+            for (int i = 0; i < curObjPropertiesValuesCount; i++)
+            {
+                Information.SetPropValueByName(curobj, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
+
+                // Братчиков: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+                if (curobjCopy != null)
+                {
+                    Information.SetPropValueByName(curobjCopy, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
+                }
+            }
+
+            if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
+            {
+                curobj.SetLoadingState(LoadingState.Loaded);
+            }
+            else
+            {
+                curobj.SetLoadingState(LoadingState.LightLoaded);
+                curobj.AddLoadedProperties(loadedPropsColl);
+
+                // Братчиков: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+                curobjCopy?.AddLoadedProperties(loadedPropsColl);
+            }
+
+            curobj.SetStatus(ObjectStatus.UnAltered);
         }
     }
 }
