@@ -95,6 +95,7 @@
                 Assert.Equal(2, forestLoadedProps.Length);
                 Assert.Equal(0, forestAlteredProps.Length);
                 Assert.Equal(ObjectStatus.UnAltered, forestStatus);
+                Assert.NotEqual(loadedBear.ЛесОбитания, (loadedBear.GetDataCopy() as Медведь).ЛесОбитания);
             }
         }
 
@@ -136,6 +137,54 @@
                 var forestStatus = loadedBearForest.GetStatus();
 
                 Assert.Equal(3, forestLoadedProps.Length);
+                Assert.Equal(0, forestAlteredProps.Length);
+                Assert.Equal(ObjectStatus.UnAltered, forestStatus);
+            }
+        }
+
+        /// <summary>
+        /// Тест проверяет состояние загруженного объекта при разном наборе мастеровых свойств.
+        /// </summary>
+        [Fact]
+        public void TestAlteredAfterLoadingExtraMasterProp()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                Медведь bear = CreateTestBear(dataService);
+
+                // Для Берлога и Медведь есть общий мастер Лес.
+                // Поэтому добавим в представление Берлога больше свойств класса Лес: Площадь.
+                var viewDen = new View { DefineClassType = typeof(Берлога) };
+                viewDen.AddProperties(
+                    Information.ExtractPropertyPath<Берлога>(b => b.Наименование),
+                    Information.ExtractPropertyPath<Берлога>(b => b.ЛесРасположения),
+                    Information.ExtractPropertyPath<Берлога>(b => b.ЛесРасположения.Название),
+                    Information.ExtractPropertyPath<Берлога>(b => b.ЛесРасположения.Страна),
+                    Information.ExtractPropertyPath<Берлога>(b => b.ЛесРасположения.Страна.Название),
+                    Information.ExtractPropertyPath<Берлога>(b => b.ЛесРасположения.Площадь));
+
+                var viewBear = new View { DefineClassType = typeof(Медведь) };
+                viewBear.AddProperties(
+                    Information.ExtractPropertyPath<Медведь>(b => b.Вес),
+                    Information.ExtractPropertyPath<Медведь>(b => b.ЛесОбитания),
+                    Information.ExtractPropertyPath<Медведь>(b => b.ЛесОбитания.Название),
+                    Information.ExtractPropertyPath<Медведь>(b => b.ЛесОбитания.Страна),
+                    Information.ExtractPropertyPath<Медведь>(b => b.ЛесОбитания.Страна.Название));
+                viewBear.AddDetailInView(nameof(Медведь.Берлога), viewDen, true);
+
+                // Act.
+                var loadedBear = PKHelper.CreateDataObject<Медведь>(bear);
+                dataService.LoadObject(viewBear, loadedBear);
+
+                // Assert.
+                Лес loadedBearForest = loadedBear.ЛесОбитания;
+                var forestLoadedProps = loadedBearForest.GetLoadedProperties();
+                var forestAlteredProps = loadedBearForest.GetAlteredPropertyNames();
+                var forestStatus = loadedBearForest.GetStatus();
+
+                Assert.NotEqual(loadedBearForest.Страна, ((Лес)loadedBearForest.GetDataCopy()).Страна);
+                Assert.Equal(4, forestLoadedProps.Length);
                 Assert.Equal(0, forestAlteredProps.Length);
                 Assert.Equal(ObjectStatus.UnAltered, forestStatus);
             }
