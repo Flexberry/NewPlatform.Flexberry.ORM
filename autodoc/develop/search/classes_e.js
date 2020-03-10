@@ -21,6 +21,7 @@ var searchData=
   ['primarykeytypeexception',['PrimaryKeyTypeException',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_primary_key_type_exception.html',1,'ICSSoft::STORMNET::Exceptions']]],
   ['printinitiatorstoppedeventargs',['PrintInitiatorStoppedEventArgs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_print_initiator_stopped_event_args.html',1,'ICSSoft::STORMNET::UI']]],
   ['printprevieweventargs',['PrintPreviewEventArgs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_print_preview_event_args.html',1,'ICSSoft::STORMNET::UI']]],
+  ['processingrowsetdatareftests',['ProcessingRowsetDataRefTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_processing_rowset_data_ref_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['propertycouldnotbenullexception',['PropertyCouldnotBeNullException',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_property_couldnot_be_null_exception.html',1,'ICSSoft::STORMNET::Exceptions']]],
   ['propertyinview',['PropertyInView',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_property_in_view.html',1,'ICSSoft::STORMNET']]],
   ['propertystorageattribute',['PropertyStorageAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_property_storage_attribute.html',1,'ICSSoft::STORMNET']]],
