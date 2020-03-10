@@ -4627,7 +4627,7 @@
             // Определить какой из DataService используется не предоставляется возможным,
             // в большинстве случаев DataServiceExpression будет один.
             // В случае нескольких DataServiceExpression, права все равно должны совпадать.
-            if (GetExpressionForProperty(type, propertyName).Count > 0)
+            if (expressions.Count > 0)
             {
                 expression = (string)expressions[0];
             }

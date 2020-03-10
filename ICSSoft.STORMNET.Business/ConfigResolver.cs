@@ -18,7 +18,7 @@
         public string ResolveConnectionString(string connStringName)
         {
             // Определяем, в каком режиме работает приложение - Web или Win.
-            var appMode = HttpRuntime.AppDomainAppId != null ? AppMode.Web : AppMode.Win;
+            var appMode = DataServiceProvider.IsWebApp ? AppMode.Web : AppMode.Win;
 
             return ConfigHelper.GetConnectionString(appMode, connStringName);
         }
