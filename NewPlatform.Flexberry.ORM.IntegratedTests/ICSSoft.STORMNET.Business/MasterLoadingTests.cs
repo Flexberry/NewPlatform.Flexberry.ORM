@@ -1,5 +1,6 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Business
 {
+    using System;
     using System.Linq;
 
     using ICSSoft.STORMNET;
@@ -95,7 +96,7 @@
                 Assert.Equal(2, forestLoadedProps.Length);
                 Assert.Equal(0, forestAlteredProps.Length);
                 Assert.Equal(ObjectStatus.UnAltered, forestStatus);
-                Assert.NotEqual(loadedBear.ЛесОбитания, (loadedBear.GetDataCopy() as Медведь).ЛесОбитания);
+                Assert.NotEqual(loadedBear.ЛесОбитания, ((Медведь)loadedBear.GetDataCopy()).ЛесОбитания);
             }
         }
 
@@ -192,10 +193,14 @@
 
         private static Медведь CreateTestBear(IDataService dataService)
         {
-            var country = new Страна { Название = "РФ" };
-            var forest = new Лес { Название = "Черняевский", Площадь = 600, Страна = country };
-            var bear = new Медведь { ЛесОбитания = forest, Вес = 500 };
-            var den = new Берлога { Наименование = "Спрятанная", Комфортность = 3, ЛесРасположения = forest };
+            var guidCountry = new Guid("37ea8412-2b3a-49d1-a129-8e7e5dd56473");
+            var guidForest = new Guid("a1a31995-4322-47a8-8128-da251826b958");
+            var guidBear = new Guid("89136856-459e-418d-a3be-547a60192517");
+            var guidDen = new Guid("66aa9864-4325-4cf8-8838-b30254dbcf61");
+            var country = new Страна { __PrimaryKey = guidCountry, Название = "РФ" };
+            var forest = new Лес { __PrimaryKey = guidForest, Название = "Черняевский", Площадь = 600, Страна = country };
+            var bear = new Медведь { __PrimaryKey = guidBear, ЛесОбитания = forest, Вес = 500 };
+            var den = new Берлога { __PrimaryKey = guidDen, Наименование = "Спрятанная", Комфортность = 3, ЛесРасположения = forest };
             bear.Берлога.Add(den);
 
             dataService.UpdateObject(bear);

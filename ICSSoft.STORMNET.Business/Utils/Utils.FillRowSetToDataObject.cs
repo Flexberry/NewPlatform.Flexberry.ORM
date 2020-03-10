@@ -38,7 +38,7 @@
             // Заливаем данные в объект данных.
             int customizationStructViewPropertiesLength = customizationStruct.View.Properties.Length;
             int advColsLength = advCols.Length;
-            Information.SetPropValueByName(dobject, "__PrimaryKey", values[customizationStructViewPropertiesLength + advColsLength]);
+            Information.SetPropValueByName(dobject, nameof(DataObject.__PrimaryKey), values[customizationStructViewPropertiesLength + advColsLength]);
 
             // 1. создаем структуру мастеров(свойств-объектов данных).
             SortedList assList = new SortedList();
@@ -211,25 +211,38 @@
             int curObjPropertiesValuesCount = curObjProperiesValues.Count;
             for (int i = 0; i < curObjPropertiesValuesCount; i++)
             {
-                Information.SetPropValueByName(curobj, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
+                string propName = (string)curObjProperiesValues.GetKey(i);
+                object propValue = curObjProperiesValues.GetByIndex(i);
+                Information.SetPropValueByName(curobj, propName, propValue);
 
-                // Братчиков: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+                // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+                // Иначе свойство будет считаться измененным, т.к. в копии оно будет незаполнено.
                 if (curobjCopy != null)
                 {
-                    Information.SetPropValueByName(curobjCopy, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
+                    if (propValue is DataObject dobjProp)
+                    {
+                        // При заполнении копии данных необходимо помещать копию мастера в копию объекта.
+                        DataObject dobjPropCopy = dobjProp.GetDataCopy();
+                        Information.SetPropValueByName(curobjCopy, propName, dobjPropCopy);
+                    }
+                    else
+                    {
+                        Information.SetPropValueByName(curobjCopy, propName, propValue);
+                    }
                 }
             }
 
             if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
             {
                 curobj.SetLoadingState(LoadingState.Loaded);
+                curobjCopy?.SetLoadingState(LoadingState.Loaded);
             }
             else
             {
                 curobj.SetLoadingState(LoadingState.LightLoaded);
                 curobj.AddLoadedProperties(loadedPropsColl);
 
-                // Братчиков: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+                // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
                 curobjCopy?.AddLoadedProperties(loadedPropsColl);
             }
 
