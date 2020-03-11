@@ -5,6 +5,8 @@
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.Windows.Forms;
 
     using NewPlatform.Flexberry.ORM.Tests;
 
@@ -184,10 +186,50 @@
                 var forestAlteredProps = loadedBearForest.GetAlteredPropertyNames();
                 var forestStatus = loadedBearForest.GetStatus();
 
-                Assert.NotEqual(loadedBearForest.Страна, ((Лес)loadedBearForest.GetDataCopy()).Страна);
                 Assert.Equal(4, forestLoadedProps.Length);
                 Assert.Equal(0, forestAlteredProps.Length);
                 Assert.Equal(ObjectStatus.UnAltered, forestStatus);
+                Assert.NotEqual(loadedBearForest.Страна, ((Лес)loadedBearForest.GetDataCopy()).Страна);
+            }
+        }
+
+        /// <summary>
+        /// Тест проверяет, что функция ограничения на первичный ключ мастера остается валидной.
+        /// </summary>
+        [Fact]
+        public void TestLimitFunctionOnMasterPrimaryKey()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                Медведь bear = CreateTestBear(dataService);
+
+                var viewBear = new View { DefineClassType = typeof(Медведь) };
+                viewBear.AddProperties(
+                    Information.ExtractPropertyPath<Медведь>(b => b.Вес),
+                    Information.ExtractPropertyPath<Медведь>(b => b.ЛесОбитания),
+                    Information.ExtractPropertyPath<Медведь>(b => b.ЛесОбитания.__PrimaryKey));
+
+                var langDef = ExternalLangDef.LanguageDef;
+                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), viewBear);
+                var masterVarDef = new VariableDef(
+                    langDef.DataObjectType,
+                    Information.ExtractPropertyPath<Медведь>(x => x.ЛесОбитания));
+                var masterKeyVarDef = new VariableDef(
+                    langDef.GuidType,
+                    Information.ExtractPropertyPath<Медведь>(x => x.ЛесОбитания.__PrimaryKey));
+                lcs.LimitFunction = langDef.GetFunction(
+                    langDef.funcAND,
+                    langDef.GetFunction(langDef.funcEQ, masterKeyVarDef, bear.ЛесОбитания.__PrimaryKey),
+                    langDef.GetFunction(langDef.funcEQ, masterVarDef, bear.ЛесОбитания));
+
+                // Act.
+                var loadedBears = dataService.LoadObjects(lcs).Cast<Медведь>().ToList();
+                var loadedBear = loadedBears.First();
+
+                // Assert.
+                Assert.Equal(1, loadedBears.Count);
+                Assert.True(PKHelper.EQDataObject(bear.ЛесОбитания, loadedBear.ЛесОбитания));
             }
         }
 

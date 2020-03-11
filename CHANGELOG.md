@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - ChangesToSqlBTMonitor now split queries by ';'.
 - Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
 - Upgraded Npgsql version to 3.2.6.
+- Optimize left join with SQLDataService.GenerateSQL methods for some cases.
 
 ### Deprecated
 
@@ -28,6 +29,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Appending view properties from not stored prop expression.
 - Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
 - Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
+- Incorrect altered state of masters after loading in some cases.
 
 ### Security
 
