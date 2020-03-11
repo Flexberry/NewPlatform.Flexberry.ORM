@@ -4,6 +4,7 @@ var searchData=
   ['basefunctiontest',['BaseFunctionTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_function_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['baseintegratedtest',['BaseIntegratedTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests']]],
   ['basekeygenerator',['BaseKeyGenerator',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_base_key_generator.html',1,'ICSSoft::STORMNET::KeyGen']]],
+  ['basesqldataservicetests',['BaseSQLDataServiceTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_s_q_l_data_service_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['basetest',['BaseTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['binaryserializer',['BinarySerializer',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_binary_serializer.html',1,'ICSSoft::STORMNET::Tools']]],
   ['blob',['Blob',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_blob.html',1,'ICSSoft::STORMNET::UserDataTypes']]],

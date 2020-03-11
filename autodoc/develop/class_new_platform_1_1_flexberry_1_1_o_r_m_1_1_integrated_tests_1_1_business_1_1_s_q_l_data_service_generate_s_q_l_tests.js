@@ -1,0 +1,6 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_generate_s_q_l_tests =
+[
+    [ "SQLDataServiceGenerateSQLTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_generate_s_q_l_tests.html#a8f1555361016af0c1aace9aeae71d121", null ],
+    [ "GenerateSQLSelectNoJoinsTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_generate_s_q_l_tests.html#ad96585847bea7f08a2c758897e7b709e", null ],
+    [ "GenerateSQLSelectSingleJoinTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_s_q_l_data_service_generate_s_q_l_tests.html#a8aa73df00a5cce6896603499c04e607e", null ]
+];

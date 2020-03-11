@@ -7,6 +7,7 @@ var searchData=
   ['baseintegratedtest',['BaseIntegratedTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html#a74286c698c12d7dddb842ee8da734eea',1,'NewPlatform::Flexberry::ORM::IntegratedTests::BaseIntegratedTest']]],
   ['baseintegratedtest',['BaseIntegratedTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests']]],
   ['basekeygenerator',['BaseKeyGenerator',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_base_key_generator.html',1,'ICSSoft::STORMNET::KeyGen']]],
+  ['basesqldataservicetests',['BaseSQLDataServiceTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_s_q_l_data_service_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['basetest',['BaseTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['basetype',['baseType',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_class_is_not_subclass_of_other_exception.html#aed13ea6d7bec8089e671ab99251ebb61',1,'ICSSoft::STORMNET::Exceptions::ClassIsNotSubclassOfOtherException']]],
   ['beforecloseeventhandler',['BeforeCloseEventHandler',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#af99c7fefd99a377d676f09d592bcae6a',1,'ICSSoft::STORMNET::UI']]],
