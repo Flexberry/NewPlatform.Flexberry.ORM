@@ -40,6 +40,10 @@
             int advColsLength = advCols.Length;
             Information.SetPropValueByName(dobject, nameof(DataObject.__PrimaryKey), values[customizationStructViewPropertiesLength + advColsLength]);
 
+            // Смирнов: Прочие свойства будут добавлены в методе ProcessPropertyValues.
+            // Необходимо для обработки ситуации, когда первичный ключ объекта не добавлен в представление.
+            dobject.AddLoadedProperties(nameof(DataObject.__PrimaryKey));
+
             // 1. создаем структуру мастеров(свойств-объектов данных).
             SortedList assList = new SortedList();
             int index = customizationStructViewPropertiesLength + 1 + advColsLength;
@@ -232,7 +236,7 @@
                 }
             }
 
-            if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
+            if (loadedPropsColl.Count >= Information.GetDataObjectPropertyNames(dobjectType).Length)
             {
                 curobj.SetLoadingState(LoadingState.Loaded);
                 curobjCopy?.SetLoadingState(LoadingState.Loaded);
@@ -240,11 +244,13 @@
             else
             {
                 curobj.SetLoadingState(LoadingState.LightLoaded);
-                curobj.AddLoadedProperties(loadedPropsColl);
-
-                // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
-                curobjCopy?.AddLoadedProperties(loadedPropsColl);
             }
+
+            // Смирнов: чтобы не сломать существующий код, загруженные свойства добавим в любом случае.
+            curobj.AddLoadedProperties(loadedPropsColl);
+
+            // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+            curobjCopy?.AddLoadedProperties(loadedPropsColl);
 
             curobj.SetStatus(ObjectStatus.UnAltered);
         }

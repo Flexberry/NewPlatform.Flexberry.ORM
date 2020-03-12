@@ -2,15 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading;
-    using System.Threading.Tasks;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.UserDataTypes;
     using ICSSoft.STORMNET.Windows.Forms;
+
     using NewPlatform.Flexberry.ORM.Tests;
+
     using Xunit;
     using Xunit.Abstractions;
 
@@ -126,7 +127,7 @@
                 Assert.NotNull(alteredPropertyNames);
                 Assert.Equal(0, alteredPropertyNames.Length);
                 Assert.NotNull(loadedProperties);
-                Assert.Equal(4, loadedProperties.Length);
+                Assert.Equal(5, loadedProperties.Length);
 
                 string s = "Подосиновая";
                 медведь.Берлога[0].Наименование = s;
