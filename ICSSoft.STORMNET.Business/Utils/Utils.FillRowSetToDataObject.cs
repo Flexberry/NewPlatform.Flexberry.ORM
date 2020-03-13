@@ -4,6 +4,8 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Linq;
+
     using ICSSoft.STORMNET.Security;
 
     /// <summary>
@@ -39,6 +41,10 @@
             int customizationStructViewPropertiesLength = customizationStruct.View.Properties.Length;
             int advColsLength = advCols.Length;
             Information.SetPropValueByName(dobject, nameof(DataObject.__PrimaryKey), values[customizationStructViewPropertiesLength + advColsLength]);
+
+            // Смирнов: Прочие свойства будут добавлены в методе ProcessPropertyValues.
+            // Необходимо для обработки ситуации, когда первичный ключ объекта не добавлен в представление.
+            dobject.AddLoadedProperties(nameof(DataObject.__PrimaryKey));
 
             // 1. создаем структуру мастеров(свойств-объектов данных).
             SortedList assList = new SortedList();
@@ -232,7 +238,11 @@
                 }
             }
 
-            if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
+            // Проверим, что все свойства объекта данных содержатся в перечне загруженных свойств.
+            // Смирнов: для получения свойств объекта применяется метод, используемый в конструкторе `View(Type, ReadType)`.
+            string[] doProperties = Information.GetStorablePropertyNames(dobjectType);
+            if (loadedPropsColl.Count >= doProperties.Length
+                && doProperties.All(p => loadedPropsColl.Contains(p)))
             {
                 curobj.SetLoadingState(LoadingState.Loaded);
                 curobjCopy?.SetLoadingState(LoadingState.Loaded);
@@ -240,11 +250,13 @@
             else
             {
                 curobj.SetLoadingState(LoadingState.LightLoaded);
-                curobj.AddLoadedProperties(loadedPropsColl);
-
-                // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
-                curobjCopy?.AddLoadedProperties(loadedPropsColl);
             }
+
+            // Смирнов: чтобы не сломать существующий код, загруженные свойства добавим в любом случае.
+            curobj.AddLoadedProperties(loadedPropsColl);
+
+            // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+            curobjCopy?.AddLoadedProperties(loadedPropsColl);
 
             curobj.SetStatus(ObjectStatus.UnAltered);
         }
