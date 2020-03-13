@@ -123,5 +123,37 @@
             // Assert.
             Assert.Equal(LoadingState.Loaded, forest.GetLoadingState());
         }
+
+        /// <summary>
+        /// Тест проверяет, что при загрузке объекта по <see cref="View.ReadType.OnlyThatObject" />
+        /// объекту присваивается <see cref="LoadingState.Loaded" />.
+        /// Класс имеет нехранимое свойство, которое не попадает в представление.
+        /// </summary>
+        [Fact]
+        public void TestReadTypeOnlyThatObjectNotStoredPropertyLoadedState()
+        {
+            // Arrange.
+            var sm = new EmptySecurityManager();
+            var view = new View(typeof(ComputedMaster), View.ReadType.OnlyThatObject);
+            var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(ComputedMaster), view);
+
+            var guidMaster = new Guid("37ea8412-2b3a-49d1-a129-8e7e5dd56473");
+            var master = PKHelper.CreateDataObject<ComputedMaster>(guidMaster);
+            var values = new object[4]
+                { "РФ", "Пермь", guidMaster, 0m };
+            var storageStruct = Information.GetStorageStructForView(
+                view,
+                view.DefineClassType,
+                StorageTypeEnum.SimpleStorage,
+                null,
+                typeof(SQLDataService));
+            var dataObjectCache = new DataObjectCache();
+
+            // Act.
+            Utils.FillRowSetToDataObject(master, values, storageStruct, lcs, null, lcs.AdvansedColumns, dataObjectCache, sm);
+
+            // Assert.
+            Assert.Equal(LoadingState.Loaded, master.GetLoadingState());
+        }
     }
 }

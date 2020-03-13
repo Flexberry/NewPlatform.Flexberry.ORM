@@ -33,7 +33,7 @@
                 var forest = new Лес { __PrimaryKey = guidForest, Название = "Черняевский", Площадь = 500, ДатаПоследнегоОсмотра = NullableDateTime.Today, Страна = country };
                 dataService.UpdateObject(forest);
 
-                // Полное представление для класса Лес.
+                // Полное представление для класса.
                 var view = new View(typeof(Лес), View.ReadType.OnlyThatObject);
 
                 // Act.
@@ -43,6 +43,33 @@
                 // Assert.
                 Assert.Equal(LoadingState.Loaded, loadedForest.GetLoadingState());
                 Assert.Equal(LoadingState.LightLoaded, loadedForest.Страна.GetLoadingState());
+            }
+        }
+
+        /// <summary>
+        /// Тест проверяет, что при загрузке объекта по <see cref="View.ReadType.OnlyThatObject" />
+        /// объекту присваивается <see cref="LoadingState.Loaded" />.
+        /// Класс имеет нехранимое свойство, которое не попадает в представление.
+        /// </summary>
+        [Fact]
+        public void TestReadTypeOnlyThatObjectNotStoredProperty()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var guidMaster = new Guid("37ea8412-2b3a-49d1-a129-8e7e5dd56473");
+                var master = new ComputedMaster { __PrimaryKey = guidMaster, MasterField1 = "РФ", MasterField2 = "Пермь" };
+                dataService.UpdateObject(master);
+
+                // Полное представление для класса.
+                var view = new View(typeof(ComputedMaster), View.ReadType.OnlyThatObject);
+
+                // Act.
+                var loadedMaster = PKHelper.CreateDataObject<ComputedMaster>(master);
+                dataService.LoadObject(view, loadedMaster);
+
+                // Assert.
+                Assert.Equal(LoadingState.Loaded, loadedMaster.GetLoadingState());
             }
         }
     }
