@@ -1,5 +1,9 @@
 var NAVTREEINDEX16 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#aa5d43914a215c6f9ea63a9449dd88f3e":[1,0,4,0,1,3,28,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#ab18e56294746e2add70bc8c0173f70af":[1,0,4,0,1,3,28,2],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#abea3c2cb8004800c15f132a6b97c2598":[1,0,4,0,1,3,28,14],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#ac3a4dc50b745a79168d4365d0608b9d8":[1,0,4,0,1,3,28,17],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#ac455acda3f2ef89d0ef87fa6b08a3738":[1,0,4,0,1,3,28,16],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#ac7da23042f9cf53f19364913f45797e3":[1,0,4,0,1,3,28,7],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#ad40596157acf03ef067d162512f03213":[1,0,4,0,1,3,28,11],
@@ -245,9 +249,5 @@ var NAVTREEINDEX16 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a63173c4944a3839019cb3baa89b9f766":[1,0,4,0,1,3,45,11],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a648f662d0f495693337f83102859e809":[1,0,4,0,1,3,45,20],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a68e4ae752eacab4ba6de7a72683e5366":[1,0,4,0,1,3,45,28],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a6c00da51d619864db5496886d7f8806e":[1,0,4,0,1,3,45,64],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a70b0d4233281e107b00f814ce3c677cf":[1,0,4,0,1,3,45,27],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a76710d9471ca77b6418e4bb7024be52f":[1,0,4,0,1,3,45,25],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a77bd3ea4e83d40e5018243c8ca5be52b":[1,0,4,0,1,3,45,10],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a79da7cda4293058454b35b5ceeb6cb53":[1,0,4,0,1,3,45,39]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a6c00da51d619864db5496886d7f8806e":[1,0,4,0,1,3,45,64]
 };

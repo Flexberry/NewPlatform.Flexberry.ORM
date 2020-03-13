@@ -1,0 +1,6 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_loading_state_tests =
+[
+    [ "LoadingStateTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_loading_state_tests.html#a46706c7516f02f7ffb9d18815028420d", null ],
+    [ "TestReadTypeOnlyThatObject", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_loading_state_tests.html#ad43037b2f66d1cebc2318bc8afdf3d40", null ],
+    [ "TestReadTypeOnlyThatObjectNotStoredProperty", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_loading_state_tests.html#ad6c3f5a4ef91257e483776220dc73c4a", null ]
+];

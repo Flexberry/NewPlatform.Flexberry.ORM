@@ -1,5 +1,11 @@
 var NAVTREEINDEX21 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB5_xD1_x81_1_1_views.html#aac6a43422023ea7540f0197e17f68263":[1,0,4,0,1,3,161,0,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html":[1,0,4,0,1,3,162,0],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html#a38316aa9aeb1fae2c2b0187b016c7157":[1,0,4,0,1,3,162,0,0],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE003e0c3873ff93dbbfd24ded1abf1ea1.html#afa5a39d6583a95b3cad08417445d3956":[1,0,4,0,1,3,162,0,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE_xD1_x81_xD1_x82_xD1_x8C.html":[1,0,4,0,1,3,162],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB8_xD1_x87_xD0_xBD_xD0_xBE_xD1_x81_xD1_x82_xD1_x8C.html#afcc8a216077e57752e86b16053bcdf88":[1,0,4,0,1,3,162,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB0_xD1_x81_xD1_x82_xD0_xB5_xD1_x80_xD0_x9C.html":[1,0,4,0,1,3,163],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB0_xD1_x81_xD1_x82_xD0_xB5_xD1_x80_xD0_x9C.html#a3497a46bbc90397134063173fa51a8a1":[1,0,4,0,1,3,163,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB0_xD1_x81_xD1_x82_xD0_xB5_xD1_x80_xD0_x9C.html#a901620ee2c0c442b72b3963173b5173d":[1,0,4,0,1,3,163,0],
@@ -134,8 +140,8 @@ var NAVTREEINDEX21 =
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aa691571e768d110e73dfcdad6b1638dc":[1,0,4,0,0,0,0,0],
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aaed4338a4a6cbe0f762c935d99ed20d1":[1,0,4,0,0,0,0,1],
 "classes.html":[1,1],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_.html":[1,3,0,26],
 "functions_.html":[1,3,0,27],
 "functions_.html":[1,3,0,28],
@@ -243,11 +249,5 @@ var NAVTREEINDEX21 =
 "functions_prop_s.html":[1,3,4,18],
 "functions_prop_t.html":[1,3,4,19],
 "functions_prop_u.html":[1,3,4,20],
-"functions_prop_v.html":[1,3,4,21],
-"functions_prop_w.html":[1,3,4,22],
-"functions_prop_x.html":[1,3,4,23],
-"functions_prop_y.html":[1,3,4,24],
-"functions_prop_z.html":[1,3,4,25],
-"functions_q.html":[1,3,0,16],
-"functions_r.html":[1,3,0,17]
+"functions_prop_v.html":[1,3,4,21]
 };

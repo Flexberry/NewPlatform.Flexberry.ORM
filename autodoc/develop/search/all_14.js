@@ -45,7 +45,7 @@ var searchData=
   ['updaterobject',['UpdaterObject',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object.html',1,'ICSSoft::STORMNET::Business']]],
   ['updateuser',['UpdateUser',['../interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_service.html#ae48289f8b481dd8854915d35db1a2dfe',1,'ICSSoft::STORMNET::Security::ISecurityService']]],
   ['upfunctiontype',['UpFunctionType',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_functional_language_def.html#a8e374c930dc71776d15e4cf88332547c',1,'ICSSoft::STORMNET::FunctionalLanguage::FunctionalLanguageDef']]],
-  ['url',['Url',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_web_file.html#a2038f6335d85fd9ed7dd6afa14caace7',1,'ICSSoft.STORMNET.UserDataTypes.WebFile.Url()'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_image.html#ad49333636f6b7205226de9f0b8764279',1,'ICSSoft.STORMNET.UserDataTypes.Image.URL()']]],
+  ['url',['URL',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_image.html#ad49333636f6b7205226de9f0b8764279',1,'ICSSoft.STORMNET.UserDataTypes.Image.URL()'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_web_file.html#a2038f6335d85fd9ed7dd6afa14caace7',1,'ICSSoft.STORMNET.UserDataTypes.WebFile.Url()']]],
   ['useadaptivetypeloading',['UseAdaptiveTypeLoading',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_in_view.html#ab2f8d83a55be5edc347b7dd910e719c2',1,'ICSSoft::STORMNET::DetailInView']]],
   ['useadaptiveviewsloading',['UseAdaptiveViewsLoading',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_associated_detail_view_attribute.html#ad835b77f483b50942d589677d8185bda',1,'ICSSoft::STORMNET::AssociatedDetailViewAttribute']]],
   ['usecommandtimeout',['UseCommandTimeout',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a95d1bc3392a67d142be0ddd6352c8787',1,'ICSSoft::STORMNET::Business::SQLDataService']]],
@@ -66,8 +66,8 @@ var searchData=
   ['usetypes',['UseTypes',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_type_usage_attribute.html#ab565157c63757cda4481e054236d836e',1,'ICSSoft::STORMNET::TypeUsageAttribute']]],
   ['usingtypes',['UsingTypes',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_property_using_types.html#a1d4fc1f31eb04abf4ab76f4d0d5341a5',1,'ICSSoft::STORMNET::Business::PropertyUsingTypes']]],
   ['utcnow',['UtcNow',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a80ba42ee7e544bd8029ec887d801ea27',1,'ICSSoft::STORMNET::UserDataTypes::NullableDateTime']]],
-  ['utils',['Utils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_utils.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
   ['utils',['Utils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils.html',1,'ICSSoft::STORMNET::Business']]],
+  ['utils',['Utils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_utils.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
   ['utilsdetail',['UtilsDetail',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_detail.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['utilslcs',['UtilsLcs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_lcs.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]]
 ];

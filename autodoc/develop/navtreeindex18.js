@@ -1,5 +1,11 @@
 var NAVTREEINDEX18 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a18876e9b4e0a8449460ee049da61bdac":[1,0,4,0,1,3,83,17],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a234ec6ca55727bbbaab16141174f7dcf":[1,0,4,0,1,3,83,6],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a277ce9400e5c62c2dc2911c938179f3e":[1,0,4,0,1,3,83,7],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a3ce8b5feeb0704277a0a549856941a0b":[1,0,4,0,1,3,83,16],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a41c66c484e102cbf885870455d19aff5":[1,0,4,0,1,3,83,21],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a4b0285996c20a0df7dc5a4b4b5bf33ca":[1,0,4,0,1,3,83,20],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a53ffb1fa72d675ce65cfebe48909fc69":[1,0,4,0,1,3,83,2],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a54c71f327394cf80a112497a30d2981e":[1,0,4,0,1,3,83,14],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a5a3ce037b21832a65ea4b8eb79efaee6":[1,0,4,0,1,3,83,4],
@@ -243,11 +249,5 @@ var NAVTREEINDEX18 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ac21cbfb0e125949e507234a97006ed84":[1,0,4,0,1,3,107,9],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ad7391d41f2121b72388a7467e4dc23b3":[1,0,4,0,1,3,107,3],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ad76a7aa1cbc09a3760d3ff67bf97e00b":[1,0,4,0,1,3,107,6],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool_1_1_exception_in_threads.html":[1,0,4,0,1,3,107,0],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool_1_1_exception_in_threads.html#a189fb0ac0b57bfb40d86508278a9fe61":[1,0,4,0,1,3,107,0,1],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool_1_1_exception_in_threads.html#a80db4bbd01ce1a0e06ab2f03c71b519e":[1,0,4,0,1,3,107,0,0],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_not_stored_class.html":[1,0,4,0,1,3,110],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_notify_update_objects_generated_mock.html":[1,0,4,0,1,3,108],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_notify_update_objects_generated_mock.html#a294d072632098d79d0d7c40ed4924b61":[1,0,4,0,1,3,108,0],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_notify_update_objects_generated_mock.html#a3fae3d6587aba183d3dd88294e269549":[1,0,4,0,1,3,108,2]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool_1_1_exception_in_threads.html":[1,0,4,0,1,3,107,0]
 };

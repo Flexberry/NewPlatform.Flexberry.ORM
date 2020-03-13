@@ -27,6 +27,7 @@ var searchData=
   ['loadingcustomizationstruct',['LoadingCustomizationStruct',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_loading_customization_struct.html',1,'ICSSoft::STORMNET::Business']]],
   ['loadingcustomizationstructtest',['LoadingCustomizationStructTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_loading_customization_struct_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::FunctionalLanguage']]],
   ['loadingorderattribute',['LoadingOrderAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_loading_order_attribute.html',1,'ICSSoft::STORMNET']]],
+  ['loadingstatetests',['LoadingStateTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_loading_state_tests.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests::Business']]],
   ['loadobjecttest',['LoadObjectTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests::Business']]],
   ['lockdata',['LockData',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_lock_data.html',1,'ICSSoft::STORMNET::Business']]],
   ['lockservice',['LockService',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_lock_service.html',1,'ICSSoft::STORMNET::Business']]]
