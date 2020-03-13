@@ -240,8 +240,9 @@
 
             // Проверим, что все свойства объекта данных содержатся в перечне загруженных свойств.
             // Смирнов: для получения свойств объекта применяется метод, используемый в конструкторе `View(Type, ReadType)`.
-            var doProperties = Information.GetStorablePropertyNames(dobjectType);
-            if (doProperties.All(p => loadedPropsColl.Contains(p)))
+            string[] doProperties = Information.GetStorablePropertyNames(dobjectType);
+            if (loadedPropsColl.Count >= doProperties.Length
+                && doProperties.All(p => loadedPropsColl.Contains(p)))
             {
                 curobj.SetLoadingState(LoadingState.Loaded);
                 curobjCopy?.SetLoadingState(LoadingState.Loaded);
