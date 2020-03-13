@@ -2860,45 +2860,6 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheDataObjectPropertyNames = new TypeAtrValueCollection();
-
-        /// <summary>
-        /// Вернуть все имена свойств для класса-наследника от <see cref="DataObject" />.
-        /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных.</param>
-        /// <returns>Одномерный строковый массив имён свойств.</returns>
-        static public string[] GetDataObjectPropertyNames(Type type)
-        {
-            if (!type.IsSubclassOf(typeof(DataObject)))
-            {
-                throw new ArgumentOutOfRangeException($"Переданный тип {type.FullName} не является наследником {typeof(DataObject).FullName}");
-            }
-
-            lock (cacheDataObjectPropertyNames)
-            {
-                string[] res = (string[])cacheDataObjectPropertyNames[type];
-                if (res != null)
-                {
-                    return CopyStringArray(res);
-                }
-
-                // Исключим собственные свойства DataObject, кроме первичного ключа.
-                const string keyPropertyName = nameof(DataObject.__PrimaryKey);
-                var excludedPropertiesNames = typeof(DataObject).GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
-                    .Where(n => n.Name != keyPropertyName)
-                    .Select(n => n.Name)
-                    .ToArray();
-
-                string[] propertyNames = GetAllPropertyNames(type);
-                string[] returnValue = propertyNames
-                    .Where(p => !excludedPropertiesNames.Contains(p))
-                    .ToArray();
-
-                cacheDataObjectPropertyNames[type] = returnValue;
-                return returnValue;
-            }
-        }
-
         /// <summary>
         /// Проверить есть ли такое свойство в указанном типе
         /// </summary>

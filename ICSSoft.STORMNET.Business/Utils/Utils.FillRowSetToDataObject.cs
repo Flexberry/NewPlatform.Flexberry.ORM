@@ -4,6 +4,8 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Linq;
+
     using ICSSoft.STORMNET.Security;
 
     /// <summary>
@@ -236,7 +238,10 @@
                 }
             }
 
-            if (loadedPropsColl.Count >= Information.GetDataObjectPropertyNames(dobjectType).Length)
+            // Проверим, что все свойства объекта данных содержатся в перечне загруженных свойств.
+            // Смирнов: для получения свойств объекта применяется метод, используемый в конструкторе `View(Type, ReadType)`.
+            var doProperties = Information.GetStorablePropertyNames(dobjectType);
+            if (doProperties.All(p => loadedPropsColl.Contains(p)))
             {
                 curobj.SetLoadingState(LoadingState.Loaded);
                 curobjCopy?.SetLoadingState(LoadingState.Loaded);
