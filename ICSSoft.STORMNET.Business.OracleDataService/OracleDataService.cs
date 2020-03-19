@@ -1,7 +1,6 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-    using System.Data.OracleClient;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Security.Cryptography;
@@ -13,6 +12,7 @@
     using System.Collections;
     using Security;
     using Audit;
+    using Oracle.ManagedDataAccess.Client;
 
     /// <summary>
     /// Сервис данных для доступа к данным Oracle
@@ -499,7 +499,7 @@
             else if (value is string && value.ToString().Length > 4000)
             {
                 string paramName = "param_" + arParams.Count;
-                OracleParameter param = new OracleParameter(paramName, OracleType.Clob);
+                OracleParameter param = new OracleParameter(paramName, OracleDbType.Clob);
                 param.Value = value;
                 arParams.Add(param);
                 return ':' + paramName;

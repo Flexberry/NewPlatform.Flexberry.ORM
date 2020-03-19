@@ -59,7 +59,7 @@
             // Попытка использовать ExternalLangDef, так как там
             // содержится больше функций, чем в SQLWhereLangDef
             var externalLangDef = Type.GetType(
-                "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ExternalLangDef, Version=1.0.0.0, " +
+                "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ICSSoft.STORMNET.Business.ExternalLangDef, Version=1.0.0.0, " +
                 "Culture=neutral, PublicKeyToken=50dc27591ed591e6",
                 false);
             if(externalLangDef == null)

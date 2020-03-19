@@ -1,12 +1,10 @@
 ﻿namespace ICSSoft.STORMNET.Business.Audit
 {
     using System;
-    using System.ServiceModel;
 
     /// <summary>
     /// Интерфейс для аудита (основная логика).
     /// </summary>
-    [ServiceContract]
     public interface IAudit
     {
         /// <summary>
@@ -14,14 +12,12 @@
         /// </summary>
         /// <param name="commonAuditParameters">Объект, содержащий данные для аудита.</param>
         /// <returns>Id сформированной записи аудита.</returns>
-        [OperationContract]
         Guid WriteCommonAuditOperation(CommonAuditParameters commonAuditParameters);
 
         /// <summary>
         /// Подтверждение созданных ранее операций аудита.
         /// </summary>
         /// <param name="ratificationAuditParameters">Параметры для утверждения внесённых ранее записей аудита.</param>
-        [OperationContract]
         void RatifyAuditOperation(RatificationAuditParameters ratificationAuditParameters);
 
         /// <summary>
@@ -29,7 +25,6 @@
         /// </summary>
         /// <param name="checkedCustomAuditParameters">Параметры аудита.</param>
         /// <returns>Id сформированной записи аудита.</returns>
-        [OperationContract]
         Guid WriteCustomAuditOperation(CheckedCustomAuditParameters checkedCustomAuditParameters);
     }
 }

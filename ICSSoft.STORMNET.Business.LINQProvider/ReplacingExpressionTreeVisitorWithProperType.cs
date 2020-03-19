@@ -9,7 +9,7 @@
     /// Данный класс представляет собой по сути ReplacingExpressionTreeVisitor с выправленным нужным образом методом VisitMemberExpression,
     /// который убирает привязку свойства псевдодетейла к объекту типа мастера.
     /// </summary>
-    public class ReplacingExpressionTreeVisitorWithProperType : ExpressionTreeVisitor
+    public class ReplacingExpressionTreeVisitorWithProperType : ExpressionVisitor
     {
         private readonly Expression _replacedExpression;
         private readonly Expression _replacementExpression;
@@ -34,7 +34,7 @@
         /// <returns> Сформированное в модель выражение (замена аргумента не произведена, поскольку необходима привязка к другому типу). </returns>
         public static Expression Replace(Expression replacedExpression, Expression replacementExpression, Expression sourceTree)
         {
-            return new ReplacingExpressionTreeVisitorWithProperType(replacedExpression, replacementExpression).VisitExpression(sourceTree);
+            return new ReplacingExpressionTreeVisitorWithProperType(replacedExpression, replacementExpression).Visit(sourceTree);
         }
 
         /// <summary>
@@ -42,40 +42,47 @@
         /// </summary>
         /// <param name="expression"> Выражение. </param>
         /// <returns> Преобразованное во внутреннее представление выражение. </returns>
-        public override Expression VisitExpression(Expression expression)
+        public override Expression Visit(Expression expression)
         {
             return Equals(expression, _replacedExpression)
                 ? _replacementExpression
-                : base.VisitExpression(expression);
+                : base.Visit(expression);
         }
 
-        /// <summary>
-        /// Перевод в модель полученного подзапроса.
-        /// </summary>
-        /// <param name="expression"> Подзапрос. </param>
-        /// <returns> Преобразованный во внутреннее представление подзапрос. </returns>
-        protected override Expression VisitSubQueryExpression(SubQueryExpression expression)
-        {
-            expression.QueryModel.TransformExpressions(((ExpressionTreeVisitor)this).VisitExpression);
-            return expression;
-        }
+        
+        
 
-        /// <summary>
-        /// Перевод в модель полученной неизвестной структуры.
-        /// </summary>
-        /// <param name="expression"> Неизвестная структура. </param>
-        /// <returns> Вместо исключения как в базовом типе будет просто возвращено выражение без изменений. </returns>
-        protected override Expression VisitUnknownNonExtensionExpression(Expression expression)
-        {
-            return expression;
-        }
+        ///// <summary>
+        ///// Перевод в модель полученного подзапроса.
+        ///// </summary>
+        ///// <param name="expression"> Подзапрос. </param>
+        ///// <returns> Преобразованный во внутреннее представление подзапрос. </returns>
+        //protected override Expression VisitSubQuery(SubQueryExpression expression)
+        //{
+            
+        //    expression.QueryModel.TransformExpressions(((ExpressionVisitor)this).Visit);
+        //    return expression;
+        //}
+
+
+        ///// <summary>
+        ///// Перевод в модель полученной неизвестной структуры.
+        ///// </summary>
+        ///// <param name="expression"> Неизвестная структура. </param>
+        ///// <returns> Вместо исключения как в базовом типе будет просто возвращено выражение без изменений. </returns>
+        //protected override Expression VisitUnknownNonExtension(Expression expression)
+        //{
+        //    return expression;
+        //}
+
+        
 
         /// <summary>
         /// Перевод в модель аргумента.
         /// </summary>
         /// <param name="expression"> Аргумент выражения. </param>
         /// <returns> Вернётся аргумент, преобразование и привязка выполнена не будет, поскольку привязка будет пытаться выполниться для другого типа. </returns>
-        protected override Expression VisitMemberExpression(MemberExpression expression)
+        protected override Expression VisitMember(MemberExpression expression)
         { // Данный класс затеян ради переопределения данного метода
             return expression;
         }

@@ -8,7 +8,6 @@
 
     using Xunit;
 
-    
     public class FunctionSerializeTest
     {
         /// <summary>

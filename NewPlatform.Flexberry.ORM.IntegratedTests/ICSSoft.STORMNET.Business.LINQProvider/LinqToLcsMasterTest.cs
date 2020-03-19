@@ -17,8 +17,6 @@
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
 
-        private MSSQLDataService ds = (MSSQLDataService)DataServiceProvider.DataService;
-
         /// <summary>
         /// A test for GetLcs
         /// </summary>

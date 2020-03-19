@@ -13,14 +13,14 @@
     ///This is a test class for ToolXMLTest and is intended
     ///to contain all ToolXMLTest Unit Tests
     ///</summary>
-    
+
     public class ToolXMLTest
     {
         /// <summary>
         ///A test for ToolXML Constructor
         ///</summary>
         [Fact]
-        
+
         public void ToolXMLConstructorTest()
         {
             ToolXML target = new ToolXML();
@@ -28,7 +28,7 @@
         }
 
         [Fact]
-        
+
         public void DataObjectWithKeyGuid2XMLDocumentTest()
         {
             DataObjectWithKeyGuid dataObjectWithKeyGuid = new DataObjectWithKeyGuid();
@@ -48,10 +48,10 @@
         }
 
         [Fact]
-        
+
         public void SimpleDataObject2XMLDocumentTest()
         {
-            SimpleDataObject simpleDataObject  = new SimpleDataObject();
+            SimpleDataObject simpleDataObject = new SimpleDataObject();
             string name = "Tomcat";
             int age = 15;
             KeyGuid pk = (KeyGuid)simpleDataObject.__PrimaryKey;
@@ -84,22 +84,6 @@
         }
 
         [Fact]
-        
-        public void DataObjectWithKeyGuid2StringTest()
-        {
-            DataObjectWithKeyGuid dataObjectWithKeyGuid = new DataObjectWithKeyGuid();
-            KeyGuid g = Guid.NewGuid();
-            dataObjectWithKeyGuid.LinkToMaster1 = g;
-            Console.WriteLine("Записали Guid " + dataObjectWithKeyGuid.LinkToMaster1);
-            var serializedObj = ToolXML.ObjectToString(dataObjectWithKeyGuid);
-
-            DataObjectWithKeyGuid dObjFromXML = (DataObjectWithKeyGuid)ToolXML.ObjectFromString(serializedObj);
-
-            Assert.Equal(dObjFromXML.LinkToMaster1, g);
-        }
-
-        [Fact]
-        
         public void AssemblyLoadTest()
         {
             string asmName = "ICSSoft.STORMNET.DataObject, Version=1.0.0.1, Culture=neutral";//typeof(DataObject).Assembly.FullName;
@@ -135,7 +119,7 @@
         /// Тестирование сериализации в xml объекта данных вместе с его мастерами (и его десериализации)
         /// </summary>
         [Fact]
-        
+
         public void DataObjectToXmlWithMastersTest()
         {
             var credit = new Кредит() { ДатаВыдачи = DateTime.Now, СрокКредита = 300, СуммаКредита = 1000 };
@@ -146,7 +130,7 @@
             var planStroke = new Выплаты() { ДатаВыплаты = DateTime.Now, СуммаВыплаты = 100500 };
             credit.Выплаты.Add(planStroke);
             var dataObject = (ICSSoft.STORMNET.DataObject)credit;
-            
+
             try
             {
                 var serializedObj = ToolXML.DataObject2XMLDocument(ref dataObject, true, false, false, true);
@@ -214,7 +198,7 @@
             // Сейчас объект не десериализуется.
 
             // Arrange.
-            STORMNET.DataObject nullWebFile = new Class_WebFile() {Attr = null};
+            STORMNET.DataObject nullWebFile = new Class_WebFile() { Attr = null };
             STORMNET.DataObject deserializedObject = new Class_WebFile();
 
             var serializedObj = ToolXML.DataObject2XMLDocument(ref nullWebFile);
@@ -231,9 +215,9 @@
         /// </summary>
         [Fact]
         public void NullableDateTimeSerialization()
-        {           
+        {
             // Arrange.
-            STORMNET.DataObject nullDateTime = new Class_NullableDateTime() {Attr = null };
+            STORMNET.DataObject nullDateTime = new Class_NullableDateTime() { Attr = null };
             STORMNET.DataObject deserializedObject = new Class_NullableDateTime();
 
             // Act.
@@ -253,7 +237,7 @@
         public void NullableDecimalSerialization()
         {
             // Arrange.
-            STORMNET.DataObject nullDecimal = new Class_NullableDecimal() {Attr = null};
+            STORMNET.DataObject nullDecimal = new Class_NullableDecimal() { Attr = null };
             STORMNET.DataObject deserializedObject = new Class_NullableDecimal();
 
             // Act.
@@ -261,7 +245,7 @@
             ToolXML.XMLDocument2DataObject(ref deserializedObject, serializedObj);
 
             // Assert.
-            Assert.Equal(((Class_NullableDecimal) nullDecimal).Attr, ((Class_NullableDecimal) deserializedObject).Attr);
+            Assert.Equal(((Class_NullableDecimal)nullDecimal).Attr, ((Class_NullableDecimal)deserializedObject).Attr);
         }
 
         /// <summary>

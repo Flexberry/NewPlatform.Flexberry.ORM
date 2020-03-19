@@ -1710,7 +1710,7 @@
                 }
                 else
                 {
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY \"STORMMainObjectKey\") as \"RowNumber\"" + nl);
                 }
 
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow.ToString() + " and " + customizationStruct.RowNumber.EndRow.ToString() + nl +

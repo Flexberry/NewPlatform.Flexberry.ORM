@@ -1,6 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Extensions
 {
-#if NETFX_45
     using Microsoft.Spatial;
     using System;
     using System.Collections.Generic;
@@ -125,5 +124,4 @@
             return geo.CoordinateSystem.Id;
         }
     }
-#endif
 }

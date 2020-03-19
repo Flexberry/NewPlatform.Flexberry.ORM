@@ -17,7 +17,7 @@
         /// <param name="elementType"></param>
         /// <param name="arrays"></param>
         /// <returns></returns>
-        public static Array ConcatArrays(System.Type elementType, params Array[] arrays)
+        public static Array ConcatArrays(Type elementType, params Array[] arrays)
         {
             int Length = 0;
             for (int i = 0; i < arrays.Length; i++)
