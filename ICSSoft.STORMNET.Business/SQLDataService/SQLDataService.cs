@@ -2439,6 +2439,39 @@
         }
 
         /// <summary>
+        /// Получить выражения для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы.</param>
+        /// <returns>Выражение для обращения к таблице.</returns>
+        public virtual string GetTableStorageExpression(string tableName)
+        {
+            return string.Concat(
+                GetTableModifierPrefix(tableName),
+                PutIdentifierIntoBrackets(tableName),
+                GetTableModifierSuffix(tableName));
+        }
+
+        /// <summary>
+        /// Получить префикс для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы.</param>
+        /// <returns>Префикс-модификатор.</returns>
+        public virtual string GetTableModifierPrefix(string tableName)
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Получить суффикс для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы</param>
+        /// <returns>Суффикс-модификатор.</returns>
+        public virtual string GetTableModifierSuffix(string tableName)
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Вернуть модификатор для обращения к таблице (напр WITH (NOLOCK))
         /// Можно перегрузить этот метод в сервисе данных-наследнике
         /// для возврата соответствующего своего модификатора.
@@ -2552,13 +2585,17 @@
                             }
                         }
 
+                        string subTable = string.Concat(
+                            GenString("(", subjoinscount),
+                            " ",
+                            GetTableStorageExpression(subSource.storage[j].Storage));
                         if (subSource.storage[j].nullableLink)
                         {
-                            GetLeftJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
 
                         FromPart += FromStr + ")";
@@ -2616,13 +2653,14 @@
                         string FromStr, WhereStr;
 
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
+                        string subTable = GetTableStorageExpression(subSource.storage[j].Storage);
                         if (subSource.storage[j].nullableLink)
                         {
-                            GetLeftJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
 
                         FromPart += FromStr;
@@ -2907,8 +2945,12 @@
             string superSelectKeyFields = string.Empty;
 
             string MainStor = storageStruct.sources.storage[0].Storage;
-            string fromstring =
-                PutIdentifierIntoBrackets(MainStor) + " " + PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + " " + GetJoinTableModifierExpression();
+            string fromstring = string.Concat(
+                GetTableStorageExpression(MainStor),
+                " ",
+                PutIdentifierIntoBrackets(storageStruct.sources.Name + "0"),
+                " ",
+                GetJoinTableModifierExpression());
             string wherestring = string.Empty;
 
             System.Collections.ArrayList keysandtypes = new System.Collections.ArrayList();
