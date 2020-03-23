@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
 - Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.
 - Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
+- Support of postgres table suffix and prefix modifiers.
 
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.
