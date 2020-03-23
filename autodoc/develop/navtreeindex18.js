@@ -1,5 +1,8 @@
 var NAVTREEINDEX18 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_for_key_storage_test.html#a98871fee80c23ee2d3015db92742b17c":[1,0,4,0,1,3,82,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html":[1,0,4,0,1,3,83],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a0fad3dc9aecae6f9b468b8de59eb4e4a":[1,0,4,0,1,3,83,19],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a18876e9b4e0a8449460ee049da61bdac":[1,0,4,0,1,3,83,17],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a234ec6ca55727bbbaab16141174f7dcf":[1,0,4,0,1,3,83,6],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a277ce9400e5c62c2dc2911c938179f3e":[1,0,4,0,1,3,83,7],
@@ -246,8 +249,5 @@ var NAVTREEINDEX18 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a797cc272dd33e0cb9e91f2a73ca5713a":[1,0,4,0,1,3,107,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a935a8ca40c10bddc34cb93604837de4b":[1,0,4,0,1,3,107,8],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#aa91259a15d0766f2bf8fecabdc7bd97e":[1,0,4,0,1,3,107,10],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ac21cbfb0e125949e507234a97006ed84":[1,0,4,0,1,3,107,9],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ad7391d41f2121b72388a7467e4dc23b3":[1,0,4,0,1,3,107,3],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ad76a7aa1cbc09a3760d3ff67bf97e00b":[1,0,4,0,1,3,107,6],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool_1_1_exception_in_threads.html":[1,0,4,0,1,3,107,0]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ac21cbfb0e125949e507234a97006ed84":[1,0,4,0,1,3,107,9]
 };

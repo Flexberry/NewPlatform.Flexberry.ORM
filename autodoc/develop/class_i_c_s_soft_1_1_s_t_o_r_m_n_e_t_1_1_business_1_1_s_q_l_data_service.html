@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Flexberry ORM 5.1.0-beta15: Класс ICSSoft.STORMNET.Business.SQLDataService</title>
+<title>Flexberry ORM 5.1.0-beta16: Класс ICSSoft.STORMNET.Business.SQLDataService</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 5.1.0-beta15
+   <div id="projectname">Flexberry ORM 5.1.0-beta16
    </div>
   </td>
  </tr>
@@ -263,6 +263,15 @@ virtual object[][]&#160;</td><td class="memItemRight" valign="bottom"><b>ReadNex
 <tr class="memitem:a5d77474759bc8e259822c74c5da52d3d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a5d77474759bc8e259822c74c5da52d3d">GetInnerJoinExpression</a> (string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)</td></tr>
 <tr class="memdesc:a5d77474759bc8e259822c74c5da52d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">получить InnerJoin выражение  <a href="#a5d77474759bc8e259822c74c5da52d3d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a5d77474759bc8e259822c74c5da52d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa399e922601c39afa7df2f17c057725"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#afa399e922601c39afa7df2f17c057725">GetTableStorageExpression</a> (string tableName)</td></tr>
+<tr class="memdesc:afa399e922601c39afa7df2f17c057725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить выражения для обращения к таблице.  <a href="#afa399e922601c39afa7df2f17c057725">Подробнее...</a><br /></td></tr>
+<tr class="separator:afa399e922601c39afa7df2f17c057725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a881773ac2c231e47389fb04f3e5311a9"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a881773ac2c231e47389fb04f3e5311a9">GetTableModifierPrefix</a> (string tableName)</td></tr>
+<tr class="memdesc:a881773ac2c231e47389fb04f3e5311a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить префикс для обращения к таблице.  <a href="#a881773ac2c231e47389fb04f3e5311a9">Подробнее...</a><br /></td></tr>
+<tr class="separator:a881773ac2c231e47389fb04f3e5311a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17ac7ff5d66d9cc37542cd2c3f9c7f3"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#ab17ac7ff5d66d9cc37542cd2c3f9c7f3">GetTableModifierSuffix</a> (string tableName)</td></tr>
+<tr class="memdesc:ab17ac7ff5d66d9cc37542cd2c3f9c7f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить суффикс для обращения к таблице.  <a href="#ab17ac7ff5d66d9cc37542cd2c3f9c7f3">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab17ac7ff5d66d9cc37542cd2c3f9c7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94f464c3224209daa4dd482470da1ea5"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a94f464c3224209daa4dd482470da1ea5">GetJoinTableModifierExpression</a> ()</td></tr>
 <tr class="memdesc:a94f464c3224209daa4dd482470da1ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вернуть модификатор для обращения к таблице (напр WITH (NOLOCK)) Можно перегрузить этот метод в сервисе данных-наследнике для возврата соответствующего своего модификатора. Базовый <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html" title="Data service for SQL storage. ">SQLDataService</a> возвращает пустую строку.  <a href="#a94f464c3224209daa4dd482470da1ea5">Подробнее...</a><br /></td></tr>
 <tr class="separator:a94f464c3224209daa4dd482470da1ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2265,6 +2274,105 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 <dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
 
 <p>Замещает <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_data_service.html#ae40f9aa1baa88874bde1e8b7d2749b94">ICSSoft.STORMNET.Business.IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a881773ac2c231e47389fb04f3e5311a9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string ICSSoft.STORMNET.Business.SQLDataService.GetTableModifierPrefix </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>tableName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получить префикс для обращения к таблице. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tableName</td><td>Имя таблицы.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Префикс-модификатор.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab17ac7ff5d66d9cc37542cd2c3f9c7f3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string ICSSoft.STORMNET.Business.SQLDataService.GetTableModifierSuffix </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>tableName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получить суффикс для обращения к таблице. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tableName</td><td>Имя таблицы</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Суффикс-модификатор.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afa399e922601c39afa7df2f17c057725"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string ICSSoft.STORMNET.Business.SQLDataService.GetTableStorageExpression </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>tableName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получить выражения для обращения к таблице. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tableName</td><td>Имя таблицы.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Выражение для обращения к таблице.</dd></dl>
 
 </div>
 </div>

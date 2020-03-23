@@ -1,5 +1,8 @@
 var NAVTREEINDEX13 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a97a6b6aae911b8ab28653e05df89a4f1":[1,0,4,0,1,1,0,3,6],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a99fdb5380b25dd262b1fdd4cf73f63eb":[1,0,4,0,1,1,0,3,0],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ab6fe3a94bf52085cb9a93d21370850d4":[1,0,4,0,1,1,0,3,12],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ac14f7114a822fe50cfc407157d4056d5":[1,0,4,0,1,1,0,3,7],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ad24f4d56bd78ae1f1f269eaa08abb6bf":[1,0,4,0,1,1,0,3,5],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#adcb7d73a82a3017088bd345cb3b33387":[1,0,4,0,1,1,0,3,15],
@@ -246,8 +249,5 @@ var NAVTREEINDEX13 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a8bb04e504bd89bb39f41ff5acd97b01a":[1,0,4,0,1,3,12,4],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#aa2a51875c2313fc11bb51fe20b1a6a6c":[1,0,4,0,1,3,12,10],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#aab7f5ea8af02f149095431f60cbff30b":[1,0,4,0,1,3,12,5],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#ac7069d0afc20cc864c2cbdfd8e3f61db":[1,0,4,0,1,3,12,0],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#ad8be8a0c2e62559727b49cb1d3ea7cc8":[1,0,4,0,1,3,12,7],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#ae3aeddb1a900284319f9b683581e3152":[1,0,4,0,1,3,12,2],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#af5a68af72172690d960f3a54fed730de":[1,0,4,0,1,3,12,6]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#ac7069d0afc20cc864c2cbdfd8e3f61db":[1,0,4,0,1,3,12,0]
 };
