@@ -2442,21 +2442,23 @@
         /// Получить выражения для обращения к таблице.
         /// </summary>
         /// <param name="tableName">Имя таблицы.</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
         /// <returns>Выражение для обращения к таблице.</returns>
-        public virtual string GetTableStorageExpression(string tableName)
+        public virtual string GetTableStorageExpression(string tableName, bool onJoin)
         {
             return string.Concat(
-                GetTableModifierPrefix(tableName),
+                GetTableModifierPrefix(tableName, onJoin),
                 PutIdentifierIntoBrackets(tableName),
-                GetTableModifierSuffix(tableName));
+                GetTableModifierSuffix(tableName, onJoin));
         }
 
         /// <summary>
         /// Получить префикс для обращения к таблице.
         /// </summary>
         /// <param name="tableName">Имя таблицы.</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
         /// <returns>Префикс-модификатор.</returns>
-        public virtual string GetTableModifierPrefix(string tableName)
+        public virtual string GetTableModifierPrefix(string tableName, bool onJoin)
         {
             return string.Empty;
         }
@@ -2465,8 +2467,9 @@
         /// Получить суффикс для обращения к таблице.
         /// </summary>
         /// <param name="tableName">Имя таблицы</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
         /// <returns>Суффикс-модификатор.</returns>
-        public virtual string GetTableModifierSuffix(string tableName)
+        public virtual string GetTableModifierSuffix(string tableName, bool onJoin)
         {
             return string.Empty;
         }
@@ -2588,7 +2591,7 @@
                         string subTable = string.Concat(
                             GenString("(", subjoinscount),
                             " ",
-                            GetTableStorageExpression(subSource.storage[j].Storage));
+                            GetTableStorageExpression(subSource.storage[j].Storage, true));
                         if (subSource.storage[j].nullableLink)
                         {
                             GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
@@ -2653,7 +2656,7 @@
                         string FromStr, WhereStr;
 
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
-                        string subTable = GetTableStorageExpression(subSource.storage[j].Storage);
+                        string subTable = GetTableStorageExpression(subSource.storage[j].Storage, true);
                         if (subSource.storage[j].nullableLink)
                         {
                             GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
@@ -2941,12 +2944,9 @@
             string MainKeyBracked = PutIdentifierIntoBrackets("STORMMainObjectKey");
             string MainKey = PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + "." + PutIdentifierIntoBrackets(storageStruct.sources.storage[0].PrimaryKeyStorageName) + " as " + MainKeyBracked;
 
-            string selectKeyFields = string.Empty;
-            string superSelectKeyFields = string.Empty;
-
             string MainStor = storageStruct.sources.storage[0].Storage;
             string fromstring = string.Concat(
-                GetTableStorageExpression(MainStor),
+                GetTableStorageExpression(MainStor, false),
                 " ",
                 PutIdentifierIntoBrackets(storageStruct.sources.Name + "0"),
                 " ",
@@ -2979,8 +2979,8 @@
                 }
             }
 
-            selectKeyFields = MainKey;
-            superSelectKeyFields = MainKeyBracked;
+            string selectKeyFields = MainKey;
+            string superSelectKeyFields = MainKeyBracked;
 
             if (addNotMainKeys)
             {
