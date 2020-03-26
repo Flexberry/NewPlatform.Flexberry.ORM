@@ -5372,14 +5372,14 @@
                 }
             }
 
-            if (alteredLastList.Count > 0)
-            {
-                GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
-            }
-
             if (alteredList.Count > 0)
             {
                 GenerateUpdateQueries(alteredList, updateList, updateTables, tableOperations, updateQueries);
+            }
+
+            if (alteredLastList.Count > 0)
+            {
+                GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
             }
 
             deleteTables.Clear();
