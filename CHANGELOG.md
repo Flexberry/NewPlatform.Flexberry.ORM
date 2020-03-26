@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
 - Incorrect altered state of masters after loading in some cases.
 - Setting LoadingState.Loaded to DataObject after loading.
+- Objects updating order if exists cycle in dependencies graph of them.
 
 ### Security
 
