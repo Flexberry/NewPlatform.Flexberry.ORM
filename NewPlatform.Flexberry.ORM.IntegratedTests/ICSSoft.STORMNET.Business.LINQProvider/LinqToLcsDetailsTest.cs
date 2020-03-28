@@ -128,20 +128,20 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var dvd = new DetailVariableDef
-                          {
-                              ConnectMasterPorp = "Кошка",
-                              OwnerConnectProp = new[] { "Кошка" },
-                              View = Information.GetView("ЛапаE", typeof(Лапа)),
-                              Type = this.ldef.GetObjectType("Details")
-                          };
+            {
+                ConnectMasterPorp = "Кошка",
+                OwnerConnectProp = new[] { "Кошка" },
+                View = Information.GetView("ЛапаE", typeof(Лапа)),
+                Type = this.ldef.GetObjectType("Details")
+            };
 
             var lf = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "ТипЛапы.Название"), "передняя");
 
             var expected = new LoadingCustomizationStruct(null)
-                               {
-                                   LimitFunction =
+            {
+                LimitFunction =
                                        this.ldef.GetFunction("Exist", dvd, lf)
-                               };
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Котенок)), new[] { Utils.GetDefaultView(typeof(Кошка)) });

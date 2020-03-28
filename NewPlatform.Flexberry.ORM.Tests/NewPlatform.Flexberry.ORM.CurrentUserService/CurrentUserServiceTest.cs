@@ -58,7 +58,7 @@
 
             Assert.Equal(myUser.FriendlyName, CurrentUserService.CurrentUser.FriendlyName);
 
-            CurrentUserService.Reset();
+            CurrentUserService.ResolveUser<CurrentUser>();
         }
 
         /// <summary>

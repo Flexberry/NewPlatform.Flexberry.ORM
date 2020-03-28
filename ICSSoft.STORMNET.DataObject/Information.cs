@@ -1885,17 +1885,16 @@
                     prop.MultipleProp = true;
                 }
 
-                string spropname = curprop.Name;
                 string scurpropnamepart = string.Empty;
-                string scrupropnamepref = string.Empty;
-                string[] propname = spropname.Split('.');
-                string propalias = string.Empty;
+                string curpropName = curprop.Name.Replace("." + nameof(DataObject.__PrimaryKey), string.Empty);
+                string[] propname = curpropName.Split('.');
                 Type propType = null;
                 System.Type p = type;
                 Business.StorageStructForView.PropSource curSource = retVal.sources;
 
                 for (int j = 0; j < propname.Length; j++)
                 {
+                    string scrupropnamepref;
                     if (j == 0)
                     {
                         scurpropnamepart = propname[0];
@@ -1909,12 +1908,10 @@
 
                     if (j == propname.Length - 1)
                     {
-                        propalias = IsStoredProperty(p, propname[j]) ? GetPropertyStorageName(p, propname[j]) : null;
                         propType = GetPropertyType(p, propname[j]);
                     }
                     else
                     {
-                        string palias = GetPropertyStorageName(p, propname[j]);
                         bool propIsNotNull = GetPropertyNotNull(p, propname[j]);
 
                         bool found = false;
@@ -2141,7 +2138,7 @@
                     prop.MultipleProp = true;
                 }
 
-                if (Information.GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
+                if (GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
                 {
                     spropname = spropname + ".__PrimaryKey";
                 }
@@ -3501,6 +3498,29 @@
         }
 
         /// <summary>
+        /// Добавить недостающие свойства в представление из выражений нехранимых свойств.
+        /// </summary>
+        /// <param name="dataObjectView">Представление.</param>
+        /// <param name="dsType">Тип сервиса данных.</param>
+        public static void AppendPropertiesFromNotStored(View dataObjectView, Type dsType)
+        {
+            var notStoredProps = dataObjectView.Properties.Where(p => !IsStoredProperty(dataObjectView.DefineClassType, p.Name));
+            foreach (var notStoredProp in notStoredProps)
+            {
+                string expression = GetPropertyExpression(dataObjectView.DefineClassType, notStoredProp.Name, dsType);
+                if (!string.IsNullOrEmpty(expression))
+                {
+                    int lastDotIndex = notStoredProp.Name.LastIndexOf(".", StringComparison.InvariantCultureIgnoreCase);
+                    string notStoredPropOwner = lastDotIndex != -1
+                        ? notStoredProp.Name.Substring(0, lastDotIndex + 1)
+                        : string.Empty;
+                    var propertiesInExpression = GetPropertiesInExpression(expression, notStoredPropOwner);
+                    dataObjectView.AddProperties(propertiesInExpression);
+                }
+            }
+        }
+
+        /// <summary>
         /// Вернуть выражение с учетом DataService. <see cref="DataServiceExpressionAttribute"/> для свойства.
         /// </summary>
         /// <param name="type">Тип объекта.</param>
@@ -4556,7 +4576,7 @@
             // Определить какой из DataService используется не предоставляется возможным,
             // в большинстве случаев DataServiceExpression будет один.
             // В случае нескольких DataServiceExpression, права все равно должны совпадать.
-            if (GetExpressionForProperty(type, propertyName).Count > 0)
+            if (expressions.Count > 0)
             {
                 expression = (string)expressions[0];
             }

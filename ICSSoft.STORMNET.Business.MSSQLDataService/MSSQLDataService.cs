@@ -32,12 +32,33 @@
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="MSSQLDataService"/> class with specified converter.
+        /// </summary>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        public MSSQLDataService(IConverterToQueryValueString converterToQueryValueString)
+            : base(converterToQueryValueString)
+        {
+        }
+
+        /// <summary>
         /// Создание сервиса данных для Microsoft SQL Server с указанием настроек проверки полномочий.
         /// </summary>
         /// <param name="securityManager">Менеджер полномочий.</param>
         /// <param name="auditService">Сервис аудита.</param>
         public MSSQLDataService(ISecurityManager securityManager, IAuditService auditService)
             : base(securityManager, auditService)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MSSQLDataService"/> class with specified security manager, audit service and converter.
+        /// </summary>
+        /// <param name="securityManager">The security manager instance.</param>
+        /// <param name="auditService">The audit service instance.</param>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
+        public MSSQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+            : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
         {
         }
 

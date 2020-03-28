@@ -1,8 +1,11 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
+    using System.Linq;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
 
+    using Moq;
     using Xunit;
 
     /// <summary>
@@ -114,6 +117,92 @@
 
             // Act.
             Assert.Throws<System.InvalidOperationException>(() => ds.LoadObjects(LoadingCustomizationStruct.GetSimpleStruct(typeof(Клиент), dynamicView)));
+        }
+
+        /// <summary>
+        /// Test <see cref="Information.AppendPropertiesFromNotStored" /> for master property.
+        /// </summary>
+        [Fact]
+        public void TestAppendPropertiesFromNotStoredForMaster()
+        {
+            // Arrange.
+            var view = new View { DefineClassType = typeof(Котенок) };
+            view.AddProperties(
+                Information.ExtractPropertyPath<Котенок>(x => x.Кошка),
+                Information.ExtractPropertyPath<Котенок>(x => x.Кошка.КошкаСтрокой));
+            string missingProp = Information.ExtractPropertyPath<Котенок>(x => x.Кошка.Кличка);
+
+            // Act.
+            Information.AppendPropertiesFromNotStored(view, typeof(SQLDataService));
+
+            // Assert.
+            Assert.Equal(3, view.Properties.Length);
+            Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
+        }
+
+        /// <summary>
+        /// Test <see cref="Information.AppendPropertiesFromNotStored" /> for own property.
+        /// </summary>
+        [Fact]
+        public void TestAppendPropertiesFromNotStored()
+        {
+            // Arrange.
+            var view = new View { DefineClassType = typeof(Кошка) };
+            view.AddProperties(
+                Information.ExtractPropertyPath<Кошка>(x => x.КошкаСтрокой));
+            string missingProp = Information.ExtractPropertyPath<Кошка>(x => x.Кличка);
+
+            // Act.
+            Information.AppendPropertiesFromNotStored(view, typeof(SQLDataService));
+
+            // Assert.
+            Assert.Equal(2, view.Properties.Length);
+            Assert.Contains(missingProp, view.Properties.Select(x => x.Name));
+        }
+
+        /// <summary>
+        /// Test for using <see cref="IConvertibleToQueryValueString"/> in <see cref="SQLDataService.ConvertSimpleValueToQueryValueString(object)"/>.
+        /// </summary>
+        [Fact]
+        public void TestConvertibleToQueryValueString()
+        {
+            // Arrange.
+            var mock = new Mock<IConvertibleToQueryValueString>();
+            mock.Setup(m => m.ConvertToQueryValueString()).Returns(string.Empty);
+
+            var dataService = new MSSQLDataService();
+
+            // Act.
+            dataService.ConvertSimpleValueToQueryValueString(mock.Object);
+
+            // Assert.
+            mock.Verify(m => m.ConvertToQueryValueString(), Times.Once);
+        }
+
+        /// <summary>
+        /// Test for using <see cref="IConverterToQueryValueString"/> in <see cref="SQLDataService.ConvertSimpleValueToQueryValueString(object)"/>.
+        /// </summary>
+        [Fact]
+        public void TestConverterToQueryValueString()
+        {
+            // Arrange.
+            object supportedValue = new object();
+
+            var mock = new Mock<IConverterToQueryValueString>();
+            mock.Setup(m => m.IsSupported(typeof(object))).Returns(true);
+            mock.Setup(m => m.IsSupported(typeof(int))).Returns(false);
+            mock.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(string.Empty);
+
+            var dataService = new MSSQLDataService(mock.Object);
+
+            // Act.
+            dataService.ConvertSimpleValueToQueryValueString(supportedValue);
+            dataService.ConvertSimpleValueToQueryValueString(0);
+
+            // Assert.
+            mock.Verify(m => m.IsSupported(typeof(object)), Times.Once);
+            mock.Verify(m => m.IsSupported(typeof(int)), Times.Once);
+            mock.Verify(m => m.ConvertToQueryValueString(supportedValue), Times.Once);
         }
     }
 }

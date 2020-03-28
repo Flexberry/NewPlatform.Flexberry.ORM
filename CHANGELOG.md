@@ -5,8 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+- `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
+- `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
+- Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.
+- Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
+- Support of postgres table suffix and prefix modifiers.
+- Differ table modifiers `from` and `join` expressions.
 
 ### Changed
+- ChangesToSqlBTMonitor now split queries by ';'.
+- Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
+- Upgraded Npgsql version to 3.2.6.
+- Optimize left join with SQLDataService.GenerateSQL methods for some cases.
 
 - `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
 - `CurrentUserService` support only windows users.
@@ -26,6 +36,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
 
 ### Fixed
+
+- Parsing nullable guids with PKHelper.GetKeys method.
+- Getting property storage name when resolving circular dependencies.
+- Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
+- Loading details to delete on deleting aggregator object (using single transaction).
+- Appending view properties from not stored prop expression.
+- Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
+- Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
+- Incorrect altered state of masters after loading in some cases.
+- Setting LoadingState.Loaded to DataObject after loading.
+- Objects updating order if exists cycle in dependencies graph of them.
 
 ### Security
 

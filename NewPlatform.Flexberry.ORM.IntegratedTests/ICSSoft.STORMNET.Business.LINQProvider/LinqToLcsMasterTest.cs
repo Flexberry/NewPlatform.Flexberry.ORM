@@ -5,14 +5,13 @@
     using System.Linq.Expressions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// This is a test class for LinqToLcsTest and is intended
     /// to contain all LinqToLcsTest Unit Tests
     /// </summary>
-    
     public class LinqToLcsMasterTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -30,9 +29,9 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction = ldef.GetFunction(ldef.funcEQ, порода, new VariableDef(ldef.DataObjectType, "Порода"))
-                };
+            {
+                LimitFunction = ldef.GetFunction(ldef.funcEQ, порода, new VariableDef(ldef.DataObjectType, "Порода"))
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -42,10 +41,9 @@
         public void GetLcsMasterMemberTest()
         {
             var порода = new Порода
-                {
-                    Название = "тест"
-                };
-            
+            {
+                Название = "тест"
+            };
 
             var testProvider = new TestLcsQueryProvider<Кошка>();
 
@@ -53,11 +51,11 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         ldef.GetFunction(
                             ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.Название"), порода.Название)
-                };
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -80,7 +78,6 @@
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
         }
-        
 
         [Fact]
         public void GetLcsMasterOrTest()
@@ -112,8 +109,8 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         ldef.GetFunction(
                             ldef.funcOR,
                             ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1),
@@ -141,6 +138,7 @@
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
         }
+
         [Fact]
         public void GetLcsMasterNotNullTest()
         {
@@ -201,7 +199,7 @@
             var порода1 = new Порода();
             var testProvider = new TestLcsQueryProvider<Кошка>();
 
-            new Query<Кошка>(testProvider).Where(o => (o.Порода != null) && (o.Порода != порода1) ).ToArray();
+            new Query<Кошка>(testProvider).Where(o => (o.Порода != null) && (o.Порода != порода1)).ToArray();
             Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
@@ -261,16 +259,16 @@
         {
             var breedType = new ТипПороды() { Название = "Чеширский Улыбчивый" };
             var testProvider = new TestLcsQueryProvider<Кошка>();
-            
+
             new Query<Кошка>(testProvider).Where(o => o.Порода.ТипПороды == breedType).ToArray();
             Expression queryExpression = testProvider.InnerExpression;
-            
+
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
                         ldef.GetFunction(
-                            ldef.funcEQ, 
-                            new VariableDef(ldef.DataObjectType, Information.ExtractPropertyPath<Кошка>(x => x.Порода.ТипПороды)), 
+                            ldef.funcEQ,
+                            new VariableDef(ldef.DataObjectType, Information.ExtractPropertyPath<Кошка>(x => x.Порода.ТипПороды)),
                             breedType)
             };
 
@@ -327,7 +325,7 @@
             {
                 LimitFunction =
                         ldef.GetFunction(
-                            ldef.funcLEQ, 
+                            ldef.funcLEQ,
                             ldef.GetFunction(
                                 ldef.funcOnlyDate,
                                 new VariableDef(ldef.DateTimeType, "Порода.ТипПороды.ДатаРегистрации")),
@@ -367,14 +365,14 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
-                               {
-                                   LimitFunction =
+            {
+                LimitFunction =
                                        ldef.GetFunction(
                                            ldef.funcEQ,
                                            new VariableDef(ldef.GuidType, "Порода"),
                                            strGuid),
-                                   ReturnType = LcsReturnType.Object
-                               };
+                ReturnType = LcsReturnType.Object
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -400,7 +398,6 @@
                     ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), guid)
             };
 
-
             Assert.True(Equals(expected, actual));
         }
 
@@ -423,7 +420,6 @@
                 LimitFunction =
                     ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), null)
             };
-
 
             Assert.True(Equals(expected, actual));
         }

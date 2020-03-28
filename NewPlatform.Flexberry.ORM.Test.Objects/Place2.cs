@@ -43,9 +43,9 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fPlaceName;
         
-        private NewPlatform.Flexberry.ORM.Tests.Territory2 fTodayTerritory;
-        
         private NewPlatform.Flexberry.ORM.Tests.Territory2 fTomorrowTeritory;
+        
+        private NewPlatform.Flexberry.ORM.Tests.Territory2 fTodayTerritory;
         
         // *** Start programmer edit section *** (Place2 CustomMembers)
 
@@ -87,40 +87,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <summary>
         /// Place2.
         /// </summary>
-        // *** Start programmer edit section *** (Place2.TodayTerritory CustomAttributes)
-
-        // *** End programmer edit section *** (Place2.TodayTerritory CustomAttributes)
-        [TypeUsage(new string[] {
-                "NewPlatform.Flexberry.ORM.Tests.Country2",
-                "NewPlatform.Flexberry.ORM.Tests.Territory2"})]
-        public virtual NewPlatform.Flexberry.ORM.Tests.Territory2 TodayTerritory
-        {
-            get
-            {
-                // *** Start programmer edit section *** (Place2.TodayTerritory Get start)
-
-                // *** End programmer edit section *** (Place2.TodayTerritory Get start)
-                NewPlatform.Flexberry.ORM.Tests.Territory2 result = this.fTodayTerritory;
-                // *** Start programmer edit section *** (Place2.TodayTerritory Get end)
-
-                // *** End programmer edit section *** (Place2.TodayTerritory Get end)
-                return result;
-            }
-            set
-            {
-                // *** Start programmer edit section *** (Place2.TodayTerritory Set start)
-
-                // *** End programmer edit section *** (Place2.TodayTerritory Set start)
-                this.fTodayTerritory = value;
-                // *** Start programmer edit section *** (Place2.TodayTerritory Set end)
-
-                // *** End programmer edit section *** (Place2.TodayTerritory Set end)
-            }
-        }
-        
-        /// <summary>
-        /// Place2.
-        /// </summary>
         // *** Start programmer edit section *** (Place2.TomorrowTeritory CustomAttributes)
 
         // *** End programmer edit section *** (Place2.TomorrowTeritory CustomAttributes)
@@ -150,6 +116,40 @@ namespace NewPlatform.Flexberry.ORM.Tests
                 // *** Start programmer edit section *** (Place2.TomorrowTeritory Set end)
 
                 // *** End programmer edit section *** (Place2.TomorrowTeritory Set end)
+            }
+        }
+        
+        /// <summary>
+        /// Place2.
+        /// </summary>
+        // *** Start programmer edit section *** (Place2.TodayTerritory CustomAttributes)
+
+        // *** End programmer edit section *** (Place2.TodayTerritory CustomAttributes)
+        [TypeUsage(new string[] {
+                "NewPlatform.Flexberry.ORM.Tests.Country2",
+                "NewPlatform.Flexberry.ORM.Tests.Territory2"})]
+        public virtual NewPlatform.Flexberry.ORM.Tests.Territory2 TodayTerritory
+        {
+            get
+            {
+                // *** Start programmer edit section *** (Place2.TodayTerritory Get start)
+
+                // *** End programmer edit section *** (Place2.TodayTerritory Get start)
+                NewPlatform.Flexberry.ORM.Tests.Territory2 result = this.fTodayTerritory;
+                // *** Start programmer edit section *** (Place2.TodayTerritory Get end)
+
+                // *** End programmer edit section *** (Place2.TodayTerritory Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (Place2.TodayTerritory Set start)
+
+                // *** End programmer edit section *** (Place2.TodayTerritory Set start)
+                this.fTodayTerritory = value;
+                // *** Start programmer edit section *** (Place2.TodayTerritory Set end)
+
+                // *** End programmer edit section *** (Place2.TodayTerritory Set end)
             }
         }
         

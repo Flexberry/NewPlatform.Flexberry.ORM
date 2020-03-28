@@ -5,6 +5,7 @@
     using System.Linq;
 
     using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;
 
     using Xunit;
@@ -90,6 +91,26 @@
         private static readonly List<tDayOfWeek> EnumList = new List<tDayOfWeek> { Enum1, Enum2 };
 
         private static readonly Type EnumType = typeof(tDayOfWeek);
+
+        private static readonly Guid Guid1 = Guid.NewGuid();
+
+        private static readonly Guid Guid2 = Guid.NewGuid();
+
+        private static readonly List<Guid> GuidList = new List<Guid> { Guid1, Guid2 };
+
+        private static readonly Guid? NullableGuid1 = Guid.NewGuid();
+
+        private static readonly Guid? NullableGuid2 = Guid.NewGuid();
+
+        private static readonly List<Guid?> NullableGuidList = new List<Guid?> { NullableGuid1, NullableGuid2 };
+
+        private static readonly Guid? KeyGuid1 = Guid.NewGuid();
+
+        private static readonly Guid? KeyGuid2 = Guid.NewGuid();
+
+        private static readonly List<KeyGuid> KeyGuidList = new List<KeyGuid> { KeyGuid1, KeyGuid2 };
+
+        private static readonly Type GuidType = LangDef.GuidType.NetCompatibilityType;
 
         [Fact]
         public void ParseObjectTest00()
@@ -287,6 +308,60 @@
         public void ParseObjectTest32()
         {
             Assert.NotNull(FunctionHelper.ParseObject(nNumericType, nDecimalList.Where(x => true)));
+        }
+
+        [Fact]
+        public void ParseObjectTest33()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, GuidList));
+        }
+
+        [Fact]
+        public void ParseObjectTest34()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, GuidList.ToArray()));
+        }
+
+        [Fact]
+        public void ParseObjectTest35()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, GuidList.Where(x => true)));
+        }
+
+        [Fact]
+        public void ParseObjectTest36()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, NullableGuidList));
+        }
+
+        [Fact]
+        public void ParseObjectTest37()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, NullableGuidList.ToArray()));
+        }
+
+        [Fact]
+        public void ParseObjectTest38()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, NullableGuidList.Where(x => true)));
+        }
+
+        [Fact]
+        public void ParseObjectTest39()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, KeyGuidList));
+        }
+
+        [Fact]
+        public void ParseObjectTest40()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, KeyGuidList.ToArray()));
+        }
+
+        [Fact]
+        public void ParseObjectTest41()
+        {
+            Assert.NotNull(FunctionHelper.ParseObject(GuidType, KeyGuidList.Where(x => true)));
         }
     }
 }

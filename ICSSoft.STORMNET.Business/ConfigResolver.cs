@@ -12,7 +12,10 @@
         /// <inheritdoc cref="IConfigResolver"/>
         public string ResolveConnectionString(string connStringName)
         {
-            return ConfigHelper.GetConnectionString(AppMode.Win, connStringName);
+            // Определяем, в каком режиме работает приложение - Web или Win.
+            var appMode = DataServiceProvider.IsWebApp ? AppMode.Web : AppMode.Win;
+
+            return ConfigHelper.GetConnectionString(appMode, connStringName);
         }
     }
 }
