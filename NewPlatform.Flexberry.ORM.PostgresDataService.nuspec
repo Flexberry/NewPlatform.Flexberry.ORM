@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>6.0.0-alpha07</version>
+    <version>6.0.0-alpha08</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -19,10 +19,10 @@
       1. Maintaining rows order while ordering field contains similar valuesin PostgresDataService
       2. Primary key quotation in order by clause in SQLDataService
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2019</copyright>
+    <copyright>Copyright New Platform Ltd 2020</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM.Abstractions" version="6.0.0-alpha04" />
+      <dependency id="NewPlatform.Flexberry.ORM.Abstractions" version="6.0.0-alpha08" />
       <dependency id="Npgsql" version="4.0.7" />
     </dependencies>
   </metadata>
