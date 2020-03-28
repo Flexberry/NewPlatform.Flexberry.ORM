@@ -2439,6 +2439,42 @@
         }
 
         /// <summary>
+        /// Получить выражения для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы.</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
+        /// <returns>Выражение для обращения к таблице.</returns>
+        public virtual string GetTableStorageExpression(string tableName, bool onJoin)
+        {
+            return string.Concat(
+                GetTableModifierPrefix(tableName, onJoin),
+                PutIdentifierIntoBrackets(tableName),
+                GetTableModifierSuffix(tableName, onJoin));
+        }
+
+        /// <summary>
+        /// Получить префикс для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы.</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
+        /// <returns>Префикс-модификатор.</returns>
+        public virtual string GetTableModifierPrefix(string tableName, bool onJoin)
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Получить суффикс для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
+        /// <returns>Суффикс-модификатор.</returns>
+        public virtual string GetTableModifierSuffix(string tableName, bool onJoin)
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Вернуть модификатор для обращения к таблице (напр WITH (NOLOCK))
         /// Можно перегрузить этот метод в сервисе данных-наследнике
         /// для возврата соответствующего своего модификатора.
@@ -2552,13 +2588,17 @@
                             }
                         }
 
+                        string subTable = string.Concat(
+                            GenString("(", subjoinscount),
+                            " ",
+                            GetTableStorageExpression(subSource.storage[j].Storage, true));
                         if (subSource.storage[j].nullableLink)
                         {
-                            GetLeftJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
 
                         FromPart += FromStr + ")";
@@ -2616,13 +2656,14 @@
                         string FromStr, WhereStr;
 
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
+                        string subTable = GetTableStorageExpression(subSource.storage[j].Storage, true);
                         if (subSource.storage[j].nullableLink)
                         {
-                            GetLeftJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
 
                         FromPart += FromStr;
@@ -2903,12 +2944,13 @@
             string MainKeyBracked = PutIdentifierIntoBrackets("STORMMainObjectKey");
             string MainKey = PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + "." + PutIdentifierIntoBrackets(storageStruct.sources.storage[0].PrimaryKeyStorageName) + " as " + MainKeyBracked;
 
-            string selectKeyFields = string.Empty;
-            string superSelectKeyFields = string.Empty;
-
             string MainStor = storageStruct.sources.storage[0].Storage;
-            string fromstring =
-                PutIdentifierIntoBrackets(MainStor) + " " + PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + " " + GetJoinTableModifierExpression();
+            string fromstring = string.Concat(
+                GetTableStorageExpression(MainStor, false),
+                " ",
+                PutIdentifierIntoBrackets(storageStruct.sources.Name + "0"),
+                " ",
+                GetJoinTableModifierExpression());
             string wherestring = string.Empty;
 
             System.Collections.ArrayList keysandtypes = new System.Collections.ArrayList();
@@ -2937,8 +2979,8 @@
                 }
             }
 
-            selectKeyFields = MainKey;
-            superSelectKeyFields = MainKeyBracked;
+            string selectKeyFields = MainKey;
+            string superSelectKeyFields = MainKeyBracked;
 
             if (addNotMainKeys)
             {
@@ -5330,14 +5372,14 @@
                 }
             }
 
-            if (alteredLastList.Count > 0)
-            {
-                GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
-            }
-
             if (alteredList.Count > 0)
             {
                 GenerateUpdateQueries(alteredList, updateList, updateTables, tableOperations, updateQueries);
+            }
+
+            if (alteredLastList.Count > 0)
+            {
+                GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
             }
 
             deleteTables.Clear();
