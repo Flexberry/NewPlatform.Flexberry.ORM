@@ -5682,18 +5682,15 @@
         /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
         /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
         /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
-        /// TODO: Объединить код с UpdateObjects.
         /// </summary>
         /// <param name="objects">Объекты для обновления.</param>
         /// <param name="dataObjectCache">Кеш объектов.</param>
         /// <param name="alwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
-        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
-        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
-        public virtual void UpdateObjectsByExtConn(
-            ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
+        public virtual void UpdateObjectsByExtConn(ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbTransactionWrapper dbTransactionWrapper)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
-            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
+
             var deleteQueries = new StringCollection();
             var updateQueries = new StringCollection();
             var updateFirstQueries = new StringCollection();
@@ -5706,7 +5703,7 @@
             var tableOperations = new SortedList();
             var queryOrder = new StringCollection();
 
-            var allQueriedObjects = new System.Collections.ArrayList();
+            var allQueriedObjects = new ArrayList();
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
@@ -5750,15 +5747,23 @@
 
             /*access checks*/
 
+            // Порядок выполнения запросов: delete, insert, update.
             if (deleteQueries.Count > 0 || updateQueries.Count > 0 || insertQueries.Count > 0)
             {
-                // порядок выполнения запросов: delete,insert,update
+                Guid? operationUniqueId = null;
+
+                if (NotifierUpdateObjects != null)
+                {
+                    operationUniqueId = Guid.NewGuid();
+                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                }
+
                 if (AuditService.IsAuditEnabled)
-                { // На этот момент транзакция уже открыта, поэтому нужно писать в транзакциях, иначе возникнут проблемы взаимоблокировок.
+                {
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
-                     * объекты находятся именно в том состоянии, в каком должны были пойти в базу.
+                     * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
                      */
-                    AuditOperation(extraProcessingList, auditOperationInfoList, dbTransactionWrapper.Transaction);
+                    AuditOperation(extraProcessingList, auditOperationInfoList, dbTransactionWrapper.Transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
                 }
 
                 string query = string.Empty;
@@ -5782,12 +5787,12 @@
 
                         if ((ops & OperationType.Delete) != OperationType.Delete && updateLastQueries.Count == 0)
                         {
-                            // смотрим есть ли Инсерты
+                            // Смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
                             {
                                 if (
                                     (ex =
-                                     RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException))
+                                        RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException))
                                     == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
@@ -5799,7 +5804,7 @@
                                 }
                             }
 
-                            // смотрим есть ли Update
+                            // Смотрим есть ли Update
                             if (go && ((ops & OperationType.Update) == OperationType.Update))
                             {
                                 if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
@@ -5888,10 +5893,9 @@
                         }
                     }
 
-                    // а теперь опять с начала
-                    for (int i = 0; i < queryOrder.Count; i++)
+                    // А теперь опять с начала
+                    foreach (string table in queryOrder)
                     {
-                        string table = queryOrder[i];
                         if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
@@ -5912,19 +5916,31 @@
                     }
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
                             AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
                     }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                    }
                 }
                 catch (Exception excpt)
                 {
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено).
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
+                    }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, objects);
                     }
 
                     BusinessTaskMonitor.EndSubTask(subTask);
@@ -5932,14 +5948,14 @@
                 }
 
                 var res = new ArrayList();
-                for (int i = 0; i < objects.Length; i++)
+                foreach (DataObject changedObject in objects)
                 {
-                    objects[i].ClearPrototyping(true);
+                    changedObject.ClearPrototyping(true);
 
-                    if (objects[i].GetStatus(false) != STORMDO.ObjectStatus.Deleted)
+                    if (changedObject.GetStatus(false) != STORMDO.ObjectStatus.Deleted)
                     {
-                        Utils.UpdateInternalDataInObjects(objects[i], true, dataObjectCache);
-                        res.Add(objects[i]);
+                        Utils.UpdateInternalDataInObjects(changedObject, true, dataObjectCache);
+                        res.Add(changedObject);
                     }
                 }
 
@@ -5952,8 +5968,14 @@
                     }
                 }
 
-                objects = new ICSSoft.STORMNET.DataObject[res.Count];
+                if (NotifierUpdateObjects != null)
+                {
+                    NotifierUpdateObjects.AfterSuccessUpdateObjects(operationUniqueId.Value, this, objects);
+                }
+
+                objects = new DataObject[res.Count];
                 res.CopyTo(objects);
+
                 BusinessTaskMonitor.EndTask(id);
             }
 
@@ -5961,6 +5983,26 @@
             {
                 AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
             }
+        }
+
+        /// <summary>
+        /// Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку
+        /// и откатывать транзакцию при неудачном запросе в базу данных). Если
+        /// он true, всегда взводится ошибка. Иначе, выполнение продолжается.
+        /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
+        /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
+        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
+        /// </summary>
+        /// <param name="objects">Объекты для обновления.</param>
+        /// <param name="dataObjectCache">Кеш объектов.</param>
+        /// <param name="alwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
+        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
+        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
+        public virtual void UpdateObjectsByExtConn(
+            ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
+        {
+            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
+            UpdateObjectsByExtConn(ref objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
         }
 
         private void OnBeforeUpdateObjects(ArrayList allQueriedObjects)
