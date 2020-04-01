@@ -1,5 +1,11 @@
 var NAVTREEINDEX18 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_fill_row_set_to_data_object_tests.html#a0ae1d354bca0b4a48fe79efc75dcdf60":[1,0,4,0,1,3,81,2],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_fill_row_set_to_data_object_tests.html#adfd3ec774b1178bb563204a1ed4322b4":[1,0,4,0,1,3,81,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_fill_row_set_to_data_object_tests.html#ae7fa12242e0fe1d4369db52211f4ca55":[1,0,4,0,1,3,81,3],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_fill_row_set_to_data_object_tests.html#af4c3544993b48627bef84051dfbcc53d":[1,0,4,0,1,3,81,0],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_for_key_storage_test.html":[1,0,4,0,1,3,82],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_for_key_storage_test.html#a4ed658e79bd7891360dbc8134a73ea6c":[1,0,4,0,1,3,82,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_for_key_storage_test.html#a98871fee80c23ee2d3015db92742b17c":[1,0,4,0,1,3,82,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html":[1,0,4,0,1,3,83],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_full_types_detail1.html#a0fad3dc9aecae6f9b468b8de59eb4e4a":[1,0,4,0,1,3,83,19],
@@ -243,11 +249,5 @@ var NAVTREEINDEX18 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a0300d619351e32772de9d4d6a5d74145":[1,0,4,0,1,3,107,7],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a0e337feeaeb7d0de4378774727c70b97":[1,0,4,0,1,3,107,12],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a12ee47962dfb5243ba01b0e6065e7cff":[1,0,4,0,1,3,107,4],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a15edd2fb466aea6150621009f20c0c25":[1,0,4,0,1,3,107,5],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a17b483f84abf5f8dc947e5304af46d51":[1,0,4,0,1,3,107,11],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a5dc419fbebd8a47f822690a35b152dbd":[1,0,4,0,1,3,107,2],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a797cc272dd33e0cb9e91f2a73ca5713a":[1,0,4,0,1,3,107,1],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a935a8ca40c10bddc34cb93604837de4b":[1,0,4,0,1,3,107,8],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#aa91259a15d0766f2bf8fecabdc7bd97e":[1,0,4,0,1,3,107,10],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#ac21cbfb0e125949e507234a97006ed84":[1,0,4,0,1,3,107,9]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a15edd2fb466aea6150621009f20c0c25":[1,0,4,0,1,3,107,5]
 };

@@ -358,8 +358,11 @@ virtual <a class="el" href="struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1
 <tr class="memitem:acdde88cacd804c3326303fe0dc179abf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#acdde88cacd804c3326303fe0dc179abf">UpdateObjectsOrdered</a> (ref DataObject[] objects, bool alwaysThrowException=true)</td></tr>
 <tr class="memdesc:acdde88cacd804c3326303fe0dc179abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить объекты данных в указанном порядке  <a href="#acdde88cacd804c3326303fe0dc179abf">Подробнее...</a><br /></td></tr>
 <tr class="separator:acdde88cacd804c3326303fe0dc179abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cccff681b7ac1acefcb86690653605a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a9cccff681b7ac1acefcb86690653605a">UpdateObjectsByExtConn</a> (ref DataObject[] objects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> dataObjectCache, bool alwaysThrowException, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html">DbTransactionWrapper</a> dbTransactionWrapper)</td></tr>
+<tr class="memdesc:a9cccff681b7ac1acefcb86690653605a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку и откатывать транзакцию при неудачном запросе в базу данных). Если он true, всегда взводится ошибка. Иначе, выполнение продолжается. Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде: The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION  <a href="#a9cccff681b7ac1acefcb86690653605a">Подробнее...</a><br /></td></tr>
+<tr class="separator:a9cccff681b7ac1acefcb86690653605a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aced8c52e25b1fc2551122be97fc6401f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aced8c52e25b1fc2551122be97fc6401f">UpdateObjectsByExtConn</a> (ref DataObject[] objects, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)</td></tr>
-<tr class="memdesc:aced8c52e25b1fc2551122be97fc6401f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку и откатывать транзакцию при неудачном запросе в базу данных). Если он true, всегда взводится ошибка. Иначе, выполнение продолжается. Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде: The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION TODO: Объединить код с UpdateObjects.  <a href="#aced8c52e25b1fc2551122be97fc6401f">Подробнее...</a><br /></td></tr>
+<tr class="memdesc:aced8c52e25b1fc2551122be97fc6401f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку и откатывать транзакцию при неудачном запросе в базу данных). Если он true, всегда взводится ошибка. Иначе, выполнение продолжается. Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде: The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION  <a href="#aced8c52e25b1fc2551122be97fc6401f">Подробнее...</a><br /></td></tr>
 <tr class="separator:aced8c52e25b1fc2551122be97fc6401f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1885c2a3cf082d6732b0b2a7bde14b50"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a1885c2a3cf082d6732b0b2a7bde14b50">LoadObject</a> (<a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html">ICSSoft.STORMNET.DataObject</a> dobject)</td></tr>
 <tr class="memdesc:a1885c2a3cf082d6732b0b2a7bde14b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загрузка одного объекта данных  <a href="#a1885c2a3cf082d6732b0b2a7bde14b50">Подробнее...</a><br /></td></tr>
@@ -4839,6 +4842,63 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 
 </div>
 </div>
+<a class="anchor" id="a9cccff681b7ac1acefcb86690653605a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ICSSoft.STORMNET.Business.SQLDataService.UpdateObjectsByExtConn </td>
+          <td>(</td>
+          <td class="paramtype">ref DataObject[]&#160;</td>
+          <td class="paramname"><em>objects</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>&#160;</td>
+          <td class="paramname"><em>dataObjectCache</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>alwaysThrowException</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html">DbTransactionWrapper</a>&#160;</td>
+          <td class="paramname"><em>dbTransactionWrapper</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку и откатывать транзакцию при неудачном запросе в базу данных). Если он true, всегда взводится ошибка. Иначе, выполнение продолжается. Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде: The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">objects</td><td>Объекты для обновления.</td></tr>
+    <tr><td class="paramname">dataObjectCache</td><td>Кеш объектов.</td></tr>
+    <tr><td class="paramname">alwaysThrowException</td><td>Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</td></tr>
+    <tr><td class="paramname">dbTransactionWrapper</td><td>Экземпляр <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html" title="Обёртка над IDbConnection и IDbTransaction. ">DbTransactionWrapper</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="aced8c52e25b1fc2551122be97fc6401f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -4889,7 +4949,7 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 </table>
 </div><div class="memdoc">
 
-<p>Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку и откатывать транзакцию при неудачном запросе в базу данных). Если он true, всегда взводится ошибка. Иначе, выполнение продолжается. Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде: The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION TODO: Объединить код с UpdateObjects. </p>
+<p>Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку и откатывать транзакцию при неудачном запросе в базу данных). Если он true, всегда взводится ошибка. Иначе, выполнение продолжается. Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде: The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
     <tr><td class="paramname">objects</td><td>Объекты для обновления.</td></tr>

@@ -405,7 +405,7 @@ var searchData=
   ['getweblock',['GetWebLock',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_lock_service.html#af9f952514447a420f3cbe00c405c6c08',1,'ICSSoft::STORMNET::Business::LockService']]],
   ['getxdocumentbyxelement',['GetXDocumentByXElement',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_xml_tools.html#ae54812fad945d94011871ed4230178c1',1,'ICSSoft::STORMNET::Tools::XmlTools']]],
   ['gost',['Gost',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_transliteration.html#aacbd087597f70cc7326c175ddd0811bda29531b875d246284dd84bdb7ade9aea0',1,'ICSSoft::STORMNET::Tools::Transliteration']]],
-  ['guid',['Guid',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a8173d54cd84b052fd7c803e0e0dabc69',1,'ICSSoft.STORMNET.KeyGen.KeyGuid.Guid()'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a5166d9924efec1441bc41f036fa491fd',1,'ICSSoft.STORMNET.KeyGen.KeyGuid.guid()']]],
+  ['guid',['guid',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a5166d9924efec1441bc41f036fa491fd',1,'ICSSoft.STORMNET.KeyGen.KeyGuid.guid()'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a8173d54cd84b052fd7c803e0e0dabc69',1,'ICSSoft.STORMNET.KeyGen.KeyGuid.Guid()']]],
   ['guidextensions',['GuidExtensions',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_guid_extensions.html',1,'ICSSoft::STORMNET::Tools']]],
   ['guidgenerator',['GUIDGenerator',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_g_u_i_d_generator.html',1,'ICSSoft::STORMNET::KeyGen']]],
   ['guidtostringgenerator',['GUIDToStringGenerator',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_g_u_i_d_to_string_generator.html',1,'NewPlatform::Flexberry::ORM::Tests']]],

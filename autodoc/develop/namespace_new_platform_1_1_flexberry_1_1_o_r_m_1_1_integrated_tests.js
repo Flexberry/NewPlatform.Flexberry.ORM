@@ -7,5 +7,6 @@ var namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests =
     [ "LINQProvider", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider.html", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider" ],
     [ "Postgres", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres.html", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres" ],
     [ "BaseIntegratedTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_base_integrated_test" ],
+    [ "BusinessServersTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_servers_test.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_servers_test" ],
     [ "DataObjectCacheTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_data_object_cache_test.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_data_object_cache_test" ]
 ];

@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['callaggregatorbsonadddetailtest',['CallAggregatorBSOnAddDetailTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_servers_test.html#aed282acad6ddcf7421fdab8bcefa6f73',1,'NewPlatform::Flexberry::ORM::IntegratedTests::BusinessServersTest']]],
+  ['callaggregatorbsondeletedetailtest',['CallAggregatorBSOnDeleteDetailTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_servers_test.html#a3d5283636b8f5dedae31e7097675bd5b',1,'NewPlatform::Flexberry::ORM::IntegratedTests::BusinessServersTest']]],
+  ['callaggregatorbsonupdatedetailtest',['CallAggregatorBSOnUpdateDetailTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_servers_test.html#a4b01a8b472cad8e5cff4b9c0137efd4f',1,'NewPlatform::Flexberry::ORM::IntegratedTests::BusinessServersTest']]],
   ['callcount',['CallCount',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a4b4fe9a910c57f2204017ceb14eda2c6',1,'ICSSoft::STORMNET::Business::LINQProvider::LinqToLcs']]],
   ['canceleventargs',['CancelEventArgs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_cancel_event_args.html#ae8b22109897364d908446ddccb755af7',1,'ICSSoft::STORMNET::UI::CancelEventArgs']]],
   ['canceleventargshandler',['CancelEventArgsHandler',['../namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#a39cc1d1a501257eea22174b3333fdebb',1,'ICSSoft::STORMNET::UI']]],

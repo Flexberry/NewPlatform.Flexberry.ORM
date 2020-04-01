@@ -105,6 +105,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service =
     [ "UpdateObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a727d5f5bd7493669a474c02e6751662f", null ],
     [ "UpdateObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a916431c904d2e7a881bb692318a36763", null ],
     [ "UpdateObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#ace2fe58068e34fc578092821a0c235ee", null ],
+    [ "UpdateObjectsByExtConn", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a9cccff681b7ac1acefcb86690653605a", null ],
     [ "UpdateObjectsByExtConn", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aced8c52e25b1fc2551122be97fc6401f", null ],
     [ "UpdateObjectsOrdered", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#acdde88cacd804c3326303fe0dc179abf", null ],
     [ "ChangeCustomizationString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a9783670c2f65c62268deb6740263391d", null ],
