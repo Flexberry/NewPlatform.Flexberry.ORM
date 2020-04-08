@@ -1,8 +1,5 @@
 var NAVTREEINDEX13 =
 {
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a92e8a78d3e366ec09cdaa22fd02b3ffa":[1,0,4,0,1,1,0,3,14],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a97a6b6aae911b8ab28653e05df89a4f1":[1,0,4,0,1,1,0,3,6],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a99fdb5380b25dd262b1fdd4cf73f63eb":[1,0,4,0,1,1,0,3,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ab6fe3a94bf52085cb9a93d21370850d4":[1,0,4,0,1,1,0,3,12],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ac14f7114a822fe50cfc407157d4056d5":[1,0,4,0,1,1,0,3,7],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ad24f4d56bd78ae1f1f269eaa08abb6bf":[1,0,4,0,1,1,0,3,5],
@@ -249,5 +246,8 @@ var NAVTREEINDEX13 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html#a2024510c2da8c2b5e7bcd9db91a9ad79":[1,0,4,0,1,3,11,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html":[1,0,4,0,1,3,12],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a3ba664b35149e0dccc400cfccf237ca3":[1,0,4,0,1,3,12,1],
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a3bdffed2e823ff51838c7dfaf513d571":[1,0,4,0,1,3,12,3]
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a3bdffed2e823ff51838c7dfaf513d571":[1,0,4,0,1,3,12,3],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a7aea9e42973ef6022b93df10af65355b":[1,0,4,0,1,3,12,8],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a85c60d54a317dc3384ab12d0ffe066fe":[1,0,4,0,1,3,12,9],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a8bb04e504bd89bb39f41ff5acd97b01a":[1,0,4,0,1,3,12,4]
 };
