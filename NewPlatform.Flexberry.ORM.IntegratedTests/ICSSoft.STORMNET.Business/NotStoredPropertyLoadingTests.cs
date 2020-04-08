@@ -75,8 +75,8 @@
                 dataService.LoadObject(viewStoredClass, loadedStoredClass);
 
                 // Assert.
-                Assert.Equal(2, loadedStoredClass.GetLoadedProperties().Length);
-                Assert.True(!loadedStoredClass.CheckLoadedProperty(x => x.NotStoredProperty));
+                Assert.Equal(3, loadedStoredClass.GetLoadedProperties().Length);
+                Assert.True(loadedStoredClass.CheckLoadedProperty(x => x.NotStoredProperty));
             }
         }
 
@@ -105,17 +105,8 @@
                 dataService.LoadObject(viewBear, loadedBear);
 
                 // Assert.
-                string dse = Information.GetPropertyExpression(typeof(Медведь), Information.ExtractPropertyPath<Медведь>(b => b.ВычислимоеПоле), dataService.GetType());
-                if (!string.IsNullOrEmpty(dse))
-                {
-                    Assert.Equal(4, loadedBear.GetLoadedProperties().Length);
-                    Assert.True(loadedBear.CheckLoadedProperty(x => x.ВычислимоеПоле));
-                }
-                else
-                {
-                    Assert.Equal(3, loadedBear.GetLoadedProperties().Length);
-                    Assert.True(!loadedBear.CheckLoadedProperty(x => x.ВычислимоеПоле));
-                }
+                Assert.Equal(4, loadedBear.GetLoadedProperties().Length);
+                Assert.True(loadedBear.CheckLoadedProperty(x => x.ВычислимоеПоле));
             }
         }
     }

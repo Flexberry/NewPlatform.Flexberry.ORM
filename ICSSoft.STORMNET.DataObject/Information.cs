@@ -2068,7 +2068,7 @@
 
                 // if (!prop.Stored)
                 {
-                    prop.Expression = (string)GetExpressionForProperty(curSource.storage[0].ownerType, pname).GetMostCompatible(DataServiceType);
+                    prop.Expression = GetPropertyExpression(curSource.storage[0].ownerType, pname, DataServiceType);
                 }
             }
 
@@ -2229,7 +2229,7 @@
 
                 // if (!prop.Stored)
                 {
-                    prop.Expression = (string)GetExpressionForProperty(curSource.storage[0].ownerType, pname).GetMostCompatible(DataServiceType);
+                    prop.Expression = GetPropertyExpression(curSource.storage[0].ownerType, pname, DataServiceType);
                 }
             }
 

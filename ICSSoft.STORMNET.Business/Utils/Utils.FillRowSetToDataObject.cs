@@ -74,93 +74,90 @@
             for (int i = 0; i < customizationStructViewPropertiesLength; i++)
             {
                 StorageStructForView.PropStorage prop = storageStruct.props[i];
-                if (Information.IsStoredProperty(dobjectType, prop.Name) || prop.Expression != null)
+                if (prop.MastersTypes == null)
                 {
-                    if (prop.MastersTypes == null)
+                    object[] tmp = (object[])assList[prop.source];
+                    object value;
+                    if (customizationStruct.ColumnsOrder != null && customizationStruct.ColumnsOrder.Length >= customizationStructViewPropertiesLength)
                     {
-                        object[] tmp = (object[])assList[prop.source];
-                        object value;
-                        if (customizationStruct.ColumnsOrder != null && customizationStruct.ColumnsOrder.Length >= customizationStructViewPropertiesLength)
+                        value = values[Array.IndexOf(customizationStruct.ColumnsOrder, prop.Name)];
+                    }
+                    else
+                    {
+                        value = values[i];
+                    }
+
+                    if (value == DBNull.Value)
+                    {
+                        value = null;
+                    }
+
+                    if (tmp != null)
+                    {
+                        properiesValues.Add(
+                            new[] { prop.simpleName, value, tmp[0] });
+                    }
+                }
+                else
+                {
+                    object[] tmp = (object[])assList[prop.source];
+                    if (tmp != null)
+                    {
+                        // Ищем позицию.
+                        int tmp1 = (int)tmp[1];
+                        int curMasterPosition = masterPosition;
+                        for (int j = 0; j < tmp1; j++)
                         {
-                            value = values[Array.IndexOf(customizationStruct.ColumnsOrder, prop.Name)];
-                        }
-                        else
-                        {
-                            value = values[i];
+                            curMasterPosition += prop.MastersTypes[j].Length;
                         }
 
+                        int k = 0;
+                        object value = values[curMasterPosition];
                         if (value == DBNull.Value)
                         {
                             value = null;
                         }
 
-                        if (tmp != null)
+                        while (k < prop.MastersTypes[tmp1].Length - 1 && value == null)
                         {
-                            properiesValues.Add(
-                                new[] { prop.simpleName, value, tmp[0] });
-                        }
-                    }
-                    else
-                    {
-                        object[] tmp = (object[])assList[prop.source];
-                        if (tmp != null)
-                        {
-                            // Ищем позицию.
-                            int tmp1 = (int)tmp[1];
-                            int curMasterPosition = masterPosition;
-                            for (int j = 0; j < tmp1; j++)
-                            {
-                                curMasterPosition += prop.MastersTypes[j].Length;
-                            }
-
-                            int k = 0;
-                            object value = values[curMasterPosition];
+                            k++;
+                            value = values[curMasterPosition + k];
                             if (value == DBNull.Value)
                             {
                                 value = null;
                             }
+                        }
 
-                            while (k < prop.MastersTypes[tmp1].Length - 1 && value == null)
+                        object tmp0 = tmp[0];
+                        if (value != null)
+                        {
+                            var master = Information.GetPropValueByName((DataObject)tmp0, prop.simpleName);
+                            if (master == null)
                             {
-                                k++;
-                                value = values[curMasterPosition + k];
-                                if (value == DBNull.Value)
+                                DataObject no = dataObjectCache.CreateDataObject(prop.MastersTypes[tmp1][k], value);
+                                if (no.GetStatus(false) == ObjectStatus.Created)
                                 {
-                                    value = null;
+                                    no.SetStatus(ObjectStatus.UnAltered);
+                                    no.SetLoadingState(LoadingState.LightLoaded);
+                                    no.InitDataCopy(dataObjectCache);
                                 }
-                            }
 
-                            object tmp0 = tmp[0];
-                            if (value != null)
-                            {
-                                var master = Information.GetPropValueByName((DataObject)tmp0, prop.simpleName);
-                                if (master == null)
-                                {
-                                    DataObject no = dataObjectCache.CreateDataObject(prop.MastersTypes[tmp1][k], value);
-                                    if (no.GetStatus(false) == ObjectStatus.Created)
-                                    {
-                                        no.SetStatus(ObjectStatus.UnAltered);
-                                        no.SetLoadingState(LoadingState.LightLoaded);
-                                        no.InitDataCopy(dataObjectCache);
-                                    }
-
-                                    value = no;
-                                    properiesValues.Add(new[] { prop.simpleName, value, tmp0 });
-                                }
-                                else
-                                {
-                                    // changed by fat
-                                    properiesValues.Add(new[] { prop.simpleName, master, tmp0 });
-                                }
+                                value = no;
+                                properiesValues.Add(new[] { prop.simpleName, value, tmp0 });
                             }
                             else
                             {
-                                properiesValues.Add(new[] { prop.simpleName, null, tmp0 });
+                                // changed by fat
+                                properiesValues.Add(new[] { prop.simpleName, master, tmp0 });
                             }
                         }
-
-                        masterPosition += prop.MastersTypesCount;
+                        else
+                        {
+                            properiesValues.Add(new[] { prop.simpleName, null, tmp0 });
+                        }
                     }
+
+                    masterPosition += prop.MastersTypesCount;
                 }
             }
 
