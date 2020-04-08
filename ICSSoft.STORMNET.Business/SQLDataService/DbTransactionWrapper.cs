@@ -17,7 +17,10 @@
         public DbTransactionWrapper(SQLDataService dataService)
         {
             if (dataService == null)
+            {
                 throw new ArgumentNullException(nameof(dataService));
+            }
+
             Connection = dataService.GetConnection();
         }
 
@@ -52,7 +55,9 @@
             var cmd = Connection.CreateCommand();
             cmd.Transaction = Transaction;
             if (sql != null)
+            {
                 cmd.CommandText = sql;
+            }
 
             return cmd;
         }
@@ -65,7 +70,9 @@
         {
             // Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`
             if (_transaction?.Connection != null)
+            {
                 _transaction?.Commit();
+            }
         }
 
         /// <summary>
@@ -76,7 +83,9 @@
         {
             // Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`
             if (_transaction?.Connection != null)
+            {
                 _transaction?.Rollback();
+            }
         }
 
         /// <inheritdoc />
@@ -89,7 +98,9 @@
         private IDbTransaction GetTransaction()
         {
             if (_transaction != null)
+            {
                 return _transaction;
+            }
 
             try
             {
