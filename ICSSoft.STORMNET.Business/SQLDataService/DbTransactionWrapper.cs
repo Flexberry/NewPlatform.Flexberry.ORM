@@ -63,7 +63,9 @@
         /// </summary>
         public virtual void CommitTransaction()
         {
-            _transaction?.Commit();
+            // Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`
+            if (_transaction?.Connection != null)
+                _transaction?.Commit();
         }
 
         /// <summary>
@@ -72,7 +74,9 @@
         /// </summary>
         public virtual void RollbackTransaction()
         {
-            _transaction?.Rollback();
+            // Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`
+            if (_transaction?.Connection != null)
+                _transaction?.Rollback();
         }
 
         /// <inheritdoc />
