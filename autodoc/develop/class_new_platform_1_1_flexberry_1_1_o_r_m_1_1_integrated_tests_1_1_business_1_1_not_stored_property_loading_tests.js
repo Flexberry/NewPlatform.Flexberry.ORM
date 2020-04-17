@@ -1,0 +1,7 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_not_stored_property_loading_tests =
+[
+    [ "NotStoredPropertyLoadingTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_not_stored_property_loading_tests.html#a3d875986b38d1a69141bbb786a38a629", null ],
+    [ "TestLoadingNotStoredProperty", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_not_stored_property_loading_tests.html#ad287ba971850cd281f780eac6e8da860", null ],
+    [ "TestLoadingNotStoredPropertyWithAllExpressions", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_not_stored_property_loading_tests.html#ad59737ce57de4b9363ed38ace2ed741f", null ],
+    [ "TestLoadingNotStoredPropertyWithNoExpression", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_not_stored_property_loading_tests.html#a8a95547cf879216db9b9d00bedd8e370", null ]
+];

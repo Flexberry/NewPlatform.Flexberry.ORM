@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "Flexberry ORM 5.1.0-beta18", "index.html", [
+  [ "Flexberry ORM 5.1.0-beta19", "index.html", [
     [ "Пространства имен", null, [
       [ "Пространства имен", "namespaces.html", "namespaces" ],
       [ "Члены пространств имен", "namespacemembers.html", [
@@ -41,16 +41,16 @@ var NAVTREEINDEX =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#ac36a88933f7ff3cd0ced09befe377458",
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#aaf64cf8a759bcb8c59676a68ee0385c1",
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#ab6fe3a94bf52085cb9a93d21370850d4",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#aa2a51875c2313fc11bb51fe20b1a6a6c",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_greater_or_equal_tests.html#ac759d02cdbdeeb67a96717a30d6d886b",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#a5c19edbd545a5f2ae08a666909f8e909",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a540b11c4574f383b84682b4ebb036fdb",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_fill_row_set_to_data_object_tests.html#af4c3544993b48627bef84051dfbcc53d",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a935a8ca40c10bddc34cb93604837de4b",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_data_object.html#a1dfb231b0bdc532435b6270bb70cb309",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB5_xD1_x81.html#a56e5e9b990c9611665ec0a5064700a0e",
-"functions_prop_o.html",
-"namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html"
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_and_tests.html#a3ba664b35149e0dccc400cfccf237ca3",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_greater_or_equal_tests.html#ab7756673bbc38abe9689fa3ff58fcbe3",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_like_tests.html#a140b2f919a7ec14dc0f8b0ae4aa3a341",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_convert_value_tests.html#a47272bd132f6a89fa2a94e17cf703338",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_file_for_tests.html#af16ed5cb6fd88e3ee9e7fa3c5132c1fc",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_multi_threading_test_tool.html#a12ee47962dfb5243ba01b0e6065e7cff",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_test_class_a.html",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html#ab7267f57678aa105b90dd13571e01e46",
+"functions_prop_i.html",
+"namespace_current_user_service_1_1_tests.html"
 ];
 
 var SYNCONMSG = 'нажмите на выключить для синхронизации панелей';
