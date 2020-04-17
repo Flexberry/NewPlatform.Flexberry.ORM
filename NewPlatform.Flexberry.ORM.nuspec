@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta18</version>
+    <version>5.1.0-beta19</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -31,6 +31,7 @@
       8. Incorrect altered state of masters after loading in some cases.
       9. Setting LoadingState.Loaded to DataObject after loading.
       10. Objects updating order if exists cycle in dependencies graph of them.
+      11. DbTransactionWrapper commit and rollback over expired connections.
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.

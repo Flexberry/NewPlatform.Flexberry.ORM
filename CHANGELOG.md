@@ -34,6 +34,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Incorrect altered state of masters after loading in some cases.
 - Setting LoadingState.Loaded to DataObject after loading.
 - Objects updating order if exists cycle in dependencies graph of them.
+- DbTransactionWrapper commit and rollback over expired connections.
 
 ### Security
 
