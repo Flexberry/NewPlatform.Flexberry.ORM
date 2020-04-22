@@ -5721,8 +5721,6 @@
                 return indexX.CompareTo(indexY);
             });
 
-            Exception ex = null;
-
             /*access checks*/
 
             foreach (DataObject dtob in allQueriedObjects)
@@ -5771,6 +5769,7 @@
                 object subTask = null;
                 try
                 {
+                    Exception ex = null;
                     IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     // прошли вглубь обрабатывая only Update||Insert
@@ -5790,10 +5789,7 @@
                             // Смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
                             {
-                                if (
-                                    (ex =
-                                        RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
                                     tableOperations[table] = ops;
@@ -5831,6 +5827,11 @@
                     }
                     while (go);
 
+                    if (ex != null)
+                    {
+                        throw ex;
+                    }
+
                     if (queryOrder.Count > 0)
                     {
                         // сзади чистые Update
@@ -5845,8 +5846,7 @@
 
                                 if (ops == OperationType.Update && updateLastQueries.Count == 0)
                                 {
-                                    if (
-                                        (ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
+                                    if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
                                     {
                                         ops = Minus(ops, OperationType.Update);
                                         tableOperations[table] = ops;
@@ -5873,6 +5873,11 @@
                             }
                         }
                         while (go);
+                    }
+
+                    if (ex != null)
+                    {
+                        throw ex;
                     }
 
                     foreach (string table in queryOrder)
