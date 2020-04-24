@@ -819,6 +819,16 @@
 
         private SetHandler SetHandlerCached(Type thisType, FieldInfo fi)
         {
+            if (thisType == null)
+            {
+                throw new ArgumentNullException(nameof(thisType));
+            }
+
+            if (fi == null)
+            {
+                throw new ArgumentNullException(nameof(fi));
+            }
+
             SetHandler setHandler;
             if (!cacheSetHandler.TryGetValue(fi, out setHandler))
             {
