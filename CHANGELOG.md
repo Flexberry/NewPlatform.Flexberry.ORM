@@ -35,6 +35,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Setting LoadingState.Loaded to DataObject after loading.
 - Objects updating order if exists cycle in dependencies graph of them.
 - DbTransactionWrapper commit and rollback over expired connections.
+- Null GetHandler or SetHandler via cache dictionary. 
+- Rethrowing exception while handling special scenario via UpdateObjects.
 
 ### Security
 
