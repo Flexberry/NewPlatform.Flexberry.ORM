@@ -787,6 +787,16 @@
 
         private GetHandler GetHandlerCached(Type thisType, FieldInfo fi)
         {
+            if (thisType == null)
+            {
+                throw new ArgumentNullException(nameof(thisType));
+            }
+
+            if (fi == null)
+            {
+                throw new ArgumentNullException(nameof(fi));
+            }
+
             GetHandler getHandler;
             if (!cacheGetHandler.TryGetValue(fi, out getHandler))
             {
