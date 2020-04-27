@@ -74,7 +74,14 @@
             for (int i = 0; i < customizationStructViewPropertiesLength; i++)
             {
                 StorageStructForView.PropStorage prop = storageStruct.props[i];
-                if (Information.IsStoredProperty(dobjectType, prop.Name) || prop.Expression != null)
+                string propertyName = prop.Name;
+                string ending = $".{nameof(DataObject.__PrimaryKey)}";
+                if (propertyName.EndsWith(ending))
+                {
+                    propertyName = propertyName.Substring(0, propertyName.LastIndexOf(ending));
+                }
+
+                if (Information.IsStoredProperty(dobjectType, propertyName) || prop.Expression != null)
                 {
                     if (prop.MastersTypes == null)
                     {
