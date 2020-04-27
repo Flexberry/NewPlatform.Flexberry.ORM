@@ -731,6 +731,55 @@
         }
 
         /// <summary>
+        /// Метод проверки вычитки объекта с нехранимым мастером без <see cref="DataServiceExpression"/> методом <see cref="SQLDataService.LoadObjects(LoadingCustomizationStruct)"/>.
+        /// </summary>
+        [Fact]
+        public void LoadObjectWithNotStoredMasterTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                SQLDataService ds = (SQLDataService)dataService;
+
+                try
+                {
+                    // Arrange.
+                    // Сначала создаём структуру данных, требуемую для теста.
+                    int top = 1;
+                    var state = new Страна() { Название = "zzz" };
+                    var updateObjectsArray = new DataObject[] { state };
+
+                    ds.UpdateObjects(ref updateObjectsArray);
+
+                    var view = Страна.Views.СтранаL;
+                    var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Страна), view);
+                    lcs.View.AddProperty(Information.ExtractPropertyPath<Страна>(s => s.Президент.__PrimaryKey));
+                    lcs.ReturnTop = top;
+
+                    // Выведем в консоль запрос, который генерируется данной операцией.
+                    ds.AfterGenerateSQLSelectQuery -= ds_AfterGenerateSQLSelectQuery;
+                    ds.AfterGenerateSQLSelectQuery += ds_AfterGenerateSQLSelectQuery;
+
+                    // Act.
+                    var dataObjects = ds.LoadObjects(lcs);
+
+                    // Assert.
+                    Assert.Equal(top, dataObjects.Length);
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Тест запущен");
+                    Debug.WriteLine(dataService.GetType().Name);
+                    Debug.WriteLine(dataService.CustomizationString);
+                    throw;
+                }
+                finally
+                {
+                    ds.AfterGenerateSQLSelectQuery -= ds_AfterGenerateSQLSelectQuery;
+                }
+            }
+        }
+
+        /// <summary>
         /// Обработчик события генерации SQL-запроса.
         /// </summary>
         /// <param name="sender">Инициатор события.</param>
