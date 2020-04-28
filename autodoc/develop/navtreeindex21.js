@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html#ab710934ca7c91a657548cab43bfdbe3a":[1,0,4,0,1,3,160,0,2],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html#ab7267f57678aa105b90dd13571e01e46":[1,0,4,0,1,3,160,0,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html#adc8390cbd2621591f269c95222b22f31":[1,0,4,0,1,3,160,0,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9B_xD0_xB0_xD0_xBF_xD0_xB0_1_1_views.html#aefa0e59a0a76edb28450cee547054793":[1,0,4,0,1,3,160,0,3],
@@ -80,6 +81,7 @@ var NAVTREEINDEX21 =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD1_x80_xD0_xBE_xD0_xB4_xD0_xB0_1_1_views.html#af8e132e70efe2326a044b85868a9c38c":[1,0,4,0,1,3,171,0,3],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0.html":[1,0,4,0,1,3,172],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0.html#a48861d571527c7b245d2f8d10a73ed1d":[1,0,4,0,1,3,172,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0.html#a7dcda78b44f3e57eebe61dcf6c54d09e":[1,0,4,0,1,3,172,2],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0_1_1_views.html":[1,0,4,0,1,3,172,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0_1_1_views.html#a8af7cf972742f4faa3e368f62a59d0d6":[1,0,4,0,1,3,172,0,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA1_xD1_x82_xD1_x80_xD0_xB0_xD0_xBD_xD0_xB0_1_1_views.html#ad99973b9c38b2fa0b1ab05fd8ee8609b":[1,0,4,0,1,3,172,0,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX21 =
 "functions_prop_c.html":[1,3,4,3],
 "functions_prop_d.html":[1,3,4,4],
 "functions_prop_e.html":[1,3,4,5],
-"functions_prop_f.html":[1,3,4,6],
-"functions_prop_g.html":[1,3,4,7],
-"functions_prop_h.html":[1,3,4,8]
+"functions_prop_f.html":[1,3,4,6]
 };

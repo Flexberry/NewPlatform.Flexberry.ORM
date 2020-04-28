@@ -1,5 +1,7 @@
 var NAVTREEINDEX22 =
 {
+"functions_prop_g.html":[1,3,4,7],
+"functions_prop_h.html":[1,3,4,8],
 "functions_prop_i.html":[1,3,4,9],
 "functions_prop_k.html":[1,3,4,10],
 "functions_prop_l.html":[1,3,4,11],
@@ -244,10 +246,8 @@ var NAVTREEINDEX22 =
 "interface_new_platform_1_1_flexberry_1_1_i_o_data_export_service.html#a2205b48fe36f348007a0ebdf3b6a8a30":[1,0,4,0,7,0],
 "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_name.html":[1,0,4,0,1,3,92],
 "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_i_name.html#a04bd45f84ff8b80fd1385ab3fbc2c316":[1,0,4,0,1,3,92,0],
-"namespace_adv_limit.html":[1,0,0],
 "namespace_adv_limit.html":[0,0,0],
+"namespace_adv_limit.html":[1,0,0],
 "namespace_adv_limit_1_1_external_lang_def.html":[1,0,0,0],
-"namespace_adv_limit_1_1_external_lang_def.html":[0,0,0,0],
-"namespace_current_user_service.html":[0,0,1],
-"namespace_current_user_service.html":[1,0,1]
+"namespace_adv_limit_1_1_external_lang_def.html":[0,0,0,0]
 };
