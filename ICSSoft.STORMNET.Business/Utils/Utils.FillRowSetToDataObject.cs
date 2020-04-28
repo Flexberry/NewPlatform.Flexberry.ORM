@@ -74,7 +74,11 @@
             for (int i = 0; i < customizationStructViewPropertiesLength; i++)
             {
                 StorageStructForView.PropStorage prop = storageStruct.props[i];
-                if (Information.IsStoredProperty(dobjectType, prop.Name) || prop.Expression != null)
+
+                // Information.IsStoredProperty for __PrimaryKey property always return true, but master may be NotStored then check it.
+                string propertyName = prop.Name.Replace("." + nameof(DataObject.__PrimaryKey), string.Empty);
+
+                if (Information.IsStoredProperty(dobjectType, propertyName) || prop.Expression != null)
                 {
                     if (prop.MastersTypes == null)
                     {

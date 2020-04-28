@@ -37,6 +37,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - DbTransactionWrapper commit and rollback over expired connections.
 - Null GetHandler or SetHandler via cache dictionary. 
 - Rethrowing exception while handling special scenario via UpdateObjects.
+- Fix loading __PrimaryKey property of NotStored master.
 
 ### Security
 

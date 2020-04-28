@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta20</version>
+    <version>5.1.0-beta21</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -34,6 +34,7 @@
       11. DbTransactionWrapper commit and rollback over expired connections.
       12. Null GetHandler or SetHandler via cache dictionary.
       13. Rethrowing exception while handling special scenario via UpdateObjects.
+      14. Fix loading __PrimaryKey property of NotStored master.
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.
