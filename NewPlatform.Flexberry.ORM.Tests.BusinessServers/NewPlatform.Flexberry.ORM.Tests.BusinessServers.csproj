@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateObjectTestBS.cs" />
     <Compile Include="БерлогаБС.cs" />
+    <Compile Include="МедведьБС.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">

@@ -731,6 +731,63 @@
         }
 
         /// <summary>
+        /// Метод проверки вычитки объекта с нехранимым мастером без <see cref="DataServiceExpression"/> методом <see cref="SQLDataService.LoadObjects(LoadingCustomizationStruct)"/>.
+        /// </summary>
+        [Fact]
+        public void LoadObjectWithNotStoredMasterTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                SQLDataService ds = (SQLDataService)dataService;
+
+                try
+                {
+                    // Arrange.
+                    // Сначала создаём структуру данных, требуемую для теста.
+                    int top = 1;
+                    var state = new Страна() { Название = "zzz" };
+                    var forest = new Лес() { Название = "yyy", Страна = state };
+                    var updateObjectsArray = new DataObject[] { state, forest };
+
+                    ds.UpdateObjects(ref updateObjectsArray);
+
+                    var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Страна), Страна.Views.СтранаL);
+                    lcs.View.AddProperty(Information.ExtractPropertyPath<Страна>(s => s.Президент.__PrimaryKey));
+                    lcs.ReturnTop = top;
+
+                    View view = new View() { DefineClassType = typeof(Лес), Name = "yyy" };
+                    var lcsForest = LoadingCustomizationStruct.GetSimpleStruct(typeof(Лес), view);
+                    lcsForest.View.AddProperty(Information.ExtractPropertyPath<Лес>(f => f.Название));
+                    lcsForest.View.AddProperty(Information.ExtractPropertyPath<Лес>(f => f.Страна.Президент.__PrimaryKey));
+                    lcsForest.ReturnTop = top;
+
+                    // Выведем в консоль запрос, который генерируется данной операцией.
+                    ds.AfterGenerateSQLSelectQuery -= ds_AfterGenerateSQLSelectQuery;
+                    ds.AfterGenerateSQLSelectQuery += ds_AfterGenerateSQLSelectQuery;
+
+                    // Act.
+                    var dataObjects = ds.LoadObjects(lcs);
+                    var dataObjectsForest = ds.LoadObjects(lcsForest);
+
+                    // Assert.
+                    Assert.Equal(top, dataObjects.Length);
+                    Assert.Equal(top, dataObjectsForest.Length);
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Тест запущен");
+                    Debug.WriteLine(dataService.GetType().Name);
+                    Debug.WriteLine(dataService.CustomizationString);
+                    throw;
+                }
+                finally
+                {
+                    ds.AfterGenerateSQLSelectQuery -= ds_AfterGenerateSQLSelectQuery;
+                }
+            }
+        }
+
+        /// <summary>
         /// Обработчик события генерации SQL-запроса.
         /// </summary>
         /// <param name="sender">Инициатор события.</param>
