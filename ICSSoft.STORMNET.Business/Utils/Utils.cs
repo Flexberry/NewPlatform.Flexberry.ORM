@@ -718,13 +718,7 @@
             int keyIndex = customizationStruct.View.Properties.Length + customizationStruct.AdvansedColumns.Length;
             bool[] readedTypes = new bool[dataObjectType.Length];
             Array.Clear(readedTypes, 0, readedTypes.Length);
-
-            // #if NETFX_35
-                for (int i = 0; i < value.Length; i++)
-
-            // #else
-            //    System.Threading.Tasks.Parallel.For(0, value.Length, i =>
-            // #endif
+            for (int i = 0; i < value.Length; i++)
             {
                 long index = Convert.ToInt64(value[i][ObjectTypeIndexPOs].ToString());
                 readedTypes[index] = true;
@@ -737,12 +731,31 @@
                 keys[i] = res[i].__PrimaryKey;
             }
 
-            // #if NETFX_35
-            // #else
-            //    );
-            // #endif
-
             // обработка детейлов
+            ProcessingRowsetDataRefDetails(keys, readedTypes, dataObjectType, customizationStruct, res, dataService, сlearDataObjects, dataObjectCache, connection, transaction);
+
+            if (customizationStruct.InitDataCopy)
+            {
+                foreach (DataObject dobj in res)
+                {
+                    dobj.SetStatus(ObjectStatus.UnAltered);
+                    dobj.InitDataCopy(dataObjectCache);
+                }
+            }
+        }
+
+        private static void ProcessingRowsetDataRefDetails(
+            object[] keys,
+            bool[] readedTypes,
+            Type[] dataObjectType,
+            LoadingCustomizationStruct customizationStruct,
+            DataObject[] res,
+            IDataService dataService,
+            bool сlearDataObjects,
+            DataObjectCache dataObjectCache,
+            IDbConnection connection = null,
+            IDbTransaction transaction = null)
+        {
             if (customizationStruct.View.Details != null && customizationStruct.View.Details.Length > 0)
             {
                 var details = new SortedList();
@@ -766,360 +779,356 @@
                     var div = (DetailInView)details[detnames[i]];
                     if (div.LoadOnLoadAgregator)
                     {
-                        var detTypes = new ArrayList();
-                        for (int h = 0; h < dataObjectType.Length; h++)
+                        ProcessingRowsetDetaRefDetail(div, keys, readedTypes, dataObjectType, customizationStruct, res, dataService, сlearDataObjects, dataObjectCache, connection, transaction);
+                    }
+                }
+            }
+        }
+
+        private static void ProcessingRowsetDetaRefDetail(
+            DetailInView div,
+            object[] keys,
+            bool[] readedTypes,
+            Type[] dataObjectType,
+            LoadingCustomizationStruct customizationStruct,
+            DataObject[] res,
+            IDataService dataService,
+            bool сlearDataObjects,
+            DataObjectCache dataObjectCache,
+            IDbConnection connection = null,
+            IDbTransaction transaction = null)
+        {
+            var detTypes = new ArrayList();
+            for (int h = 0; h < dataObjectType.Length; h++)
+            {
+                if (readedTypes[h])
+                {
+                    Type[] tu = dataService.TypeUsage.GetUsageTypes(dataObjectType[h], div.Name);
+                    for (int n = 0; n < tu.Length; n++)
+                    {
+                        if (!detTypes.Contains(tu[n]))
                         {
-                            if (readedTypes[h])
-                            {
-                                Type[] tu = dataService.TypeUsage.GetUsageTypes(dataObjectType[h], div.Name);
-                                for (int n = 0; n < tu.Length; n++)
-                                {
-                                    if (!detTypes.Contains(tu[n]))
-                                    {
-                                        detTypes.Add(tu[n]);
-                                    }
-                                }
-                            }
-                        }
-
-                        var detailTypes = new Type[detTypes.Count];
-                        detTypes.CopyTo(detailTypes);
-
-                        // строим функцию ограничений
-                        string agregatorName = Information.GetAgregatePropertyName(detailTypes[0]);
-
-                        STORMFunction func;
-                        FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lg = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                        var vd =
-                            new FunctionalLanguage.VariableDef(
-                            lg.GetObjectTypeForNetType(keys[0].GetType()), agregatorName);
-
-                        var alPars = new ArrayList();
-                        alPars.Add(vd);
-                        var alagrObjects = new ArrayList();
-                        if (div.Name.IndexOf(".") <= 0)
-                        {
-                            alPars.AddRange(keys);
-                            alagrObjects.AddRange(res);
-                        }
-                        else
-                        {
-                            string mprop = div.Name.Substring(0, div.Name.IndexOf("."));
-                            for (int k = 0; k < keys.Length; k++)
-                            {
-                                var dobj = (DataObject)Information.GetPropValueByName(res[k], mprop);
-                                if (dobj != null)
-                                {
-                                    alPars.Add(dobj.__PrimaryKey);
-                                    alagrObjects.Add(dobj);
-                                }
-                            }
-                        }
-
-                        func = lg.GetFunction(lg.funcIN, alPars.ToArray());
-                        div.View.AddProperty(agregatorName, string.Empty, false, string.Empty);
-
-                        var arsorts = new System.Collections.ArrayList();
-                        ColumnsSortDef[] sorts;
-                        string sortprop = ICSSoft.STORMNET.Information.GetOrderPropertyName(detailTypes[0]);
-                        if (sortprop != string.Empty)
-                        {
-                            div.View.AddProperty(sortprop, string.Empty, false, string.Empty);
-                            arsorts.AddRange(
-                                new ColumnsSortDef[]
-                                {
-                                    new ColumnsSortDef(agregatorName, SortOrder.Asc),
-                                    new ColumnsSortDef(sortprop, SortOrder.Asc)
-                                });
-                        }
-                        else
-                        {
-                            arsorts.Add(new ColumnsSortDef(agregatorName, SortOrder.Asc));
-                        }
-
-                        ColumnsSortDef[] subsorts = customizationStruct.GetColumnsSortDef(div.Name);
-                        if (subsorts != null && subsorts.Length > 0)
-                        {
-                            arsorts.AddRange(subsorts);
-                        }
-
-                        sorts = (ColumnsSortDef[])arsorts.ToArray(typeof(ColumnsSortDef));
-
-                        // собираем типы данных для детейла
-                        var dcs = new LoadingCustomizationStruct(dataService.GetInstanceId());
-                        string divname = div.Name;
-                        if (divname.IndexOf(".") >= 0)
-                        {
-                            divname = divname.Substring(divname.IndexOf(".") + 1);
-                        }
-
-                        for (int j = 0; j < alagrObjects.Count; j++)
-                        {
-                            ((DataObject)alagrObjects[j]).AddLoadedProperties(divname);
-                        }
-
-                        bool UseAdaptive = false;
-                        DetailArray detArr = null;
-                        int index = 0;
-                        if (div.UseAdaptiveTypeLoading)
-                        {
-                            UseAdaptive = true;
-                            bool ClearedArray = false;
-                            for (int AdaptIndex = 0; AdaptIndex < detailTypes.Length; AdaptIndex++)
-                            {
-                                Type typeKey = detailTypes[AdaptIndex];
-                                View typeView = div.AdaptiveTypeViews.Contains(typeKey) ? (ICSSoft.STORMNET.View)div.AdaptiveTypeViews[typeKey] : Information.GetView(div.View.Name, typeKey);
-                                typeView = typeView == null ? div.View : div.View | typeView;
-
-                                dcs.Init(sorts, func, new Type[] { typeKey }, typeView, null);
-                                dcs.InitDataCopy = false;
-                                DataObject[] detailObjects = LoadObjects(dcs, dataObjectCache, dataService, connection, transaction);
-
-                                object curKey = null;
-                                detArr = null;
-
-                                for (int j = 0; j < detailObjects.Length; j++)
-                                {
-                                    object curObjectKey = ((STORMDO.DataObject)STORMDO.Information.GetPropValueByName(detailObjects[j], agregatorName)).__PrimaryKey;
-                                    if (curKey != curObjectKey)
-                                    {
-                                        curKey = curObjectKey;
-                                        index = 0;
-                                        for (int ii = 0; ii < alagrObjects.Count; ii++)
-                                        {
-                                            if (((DataObject)alagrObjects[ii]).__PrimaryKey.Equals(curKey))
-                                            {
-                                                index = ii;
-                                                break;
-                                            }
-                                        }
-
-                                        if (detArr != null)
-                                        {
-                                            DataObject dobj = detArr.AgregatorObject;
-                                            dobj.AddLoadedProperties(div.Name);
-                                            if (customizationStruct.InitDataCopy)
-                                            {
-                                                dobj.InitDataCopy(dataObjectCache);
-                                            }
-                                        }
-
-                                        detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], div.Name);
-                                        if (detArr == null)
-                                        {
-                                            Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
-                                            detArr = (DetailArray)detArrType.GetConstructor(new Type[] { alagrObjects[index].GetType() }).Invoke(new object[] { (DataObject)alagrObjects[index] });
-                                            Information.SetPropValueByName((DataObject)alagrObjects[index], divname, detArr);
-                                        }
-
-                                        if (!сlearDataObjects)
-                                        {
-                                            var al = new ArrayList();
-                                            foreach (DataObject do1 in detArr.GetAllObjects())
-                                            {
-                                                bool founded = false;
-                                                foreach (object loadedkey in keys)
-                                                {
-                                                    if (do1.__PrimaryKey.Equals(loadedkey))
-                                                    {
-                                                        founded = true;
-                                                        break;
-                                                    }
-                                                }
-
-                                                if (!founded)
-                                                {
-                                                    al.Add(do1);
-                                                }
-                                            }
-
-                                            DataObject[] detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
-
-                                            // Братчиков 2009-07-08 - Баг при зачитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
-                                            {
-                                                View view4Load = dcs.View;
-                                                if (detailObjects1.Length > 0 && !(detailObjects1[0].GetType().Equals(view4Load.DefineClassType) || detailObjects1[0].GetType().IsSubclassOf(view4Load.DefineClassType)))
-                                                {
-                                                    view4Load = div.View;
-                                                }
-
-                                                // TODO: разобраться, может ли это приводить к проблемам, если будет выполняться вне транзакции.
-                                                dataService.LoadObjects(detailObjects1, view4Load, сlearDataObjects, dataObjectCache);
-                                            }
-
-                                            // Братчиков 2009-07-08
-                                        }
-                                        else
-                                        {
-                                            if (!ClearedArray)
-                                            {
-                                                ClearedArray = true;
-                                                detArr.Clear();
-                                            }
-                                        }
-                                    }
-
-                                    if (!сlearDataObjects)
-                                    {
-                                        DataObject[] detailObjects1 = detArr.GetAllObjects();
-                                        DataObject p = null;
-                                        foreach (DataObject d in detailObjects1)
-                                        {
-                                            if (d.__PrimaryKey.ToString() == detailObjects[j].__PrimaryKey.ToString()
-                                                || (d.Prototyped && d.__PrototypeKey.ToString() == detailObjects[j].__PrimaryKey.ToString()))
-                                            {
-                                                p = d;
-                                            }
-                                        }
-
-                                        if (p != null)
-                                        {
-                                            detailObjects[j] = p;
-                                        }
-                                    }
-
-                                    if (detArr.GetByKey(detailObjects[j].__PrimaryKey) != null)
-                                    {
-                                        detArr.RemoveByKey(detailObjects[j].__PrimaryKey);
-                                    }
-
-                                    detArr.AddObject(detailObjects[j]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            dcs.Init(sorts, func, detailTypes, div.View, null);
-                            dcs.InitDataCopy = false;
-                            DataObject[] detailObjects = LoadObjects(dcs, dataObjectCache, dataService, connection, transaction);
-
-                            int allinserted = 0;
-
-                            object curKey = null;
-                            detArr = null;
-                            for (int j = 0; j < detailObjects.Length; j++)
-                            {
-                                object curObjectKey = ((STORMDO.DataObject)STORMDO.Information.GetPropValueByName(detailObjects[j], agregatorName)).__PrimaryKey;
-                                if ((curKey == null && curKey != curObjectKey) || (curKey != null && !curKey.Equals(curObjectKey)))
-                                {
-                                    curKey = curObjectKey;
-                                    index = 0;
-                                    for (; index < alagrObjects.Count; index++)
-                                    {
-                                        if (((DataObject)alagrObjects[index]).__PrimaryKey.Equals(curKey))
-                                        {
-                                            break;
-                                        }
-                                    }
-
-                                    if (detArr != null)
-                                    {
-                                        DataObject dobj = detArr.AgregatorObject;
-                                        dobj.AddLoadedProperties(divname);
-                                    }
-
-                                    detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], divname);
-                                    if (detArr == null)
-                                    {
-                                        Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
-                                        detArr = (DetailArray)detArrType.GetConstructor(new Type[] { alagrObjects[index].GetType() }).Invoke(new object[] { ((DataObject)alagrObjects[index]) });
-                                        Information.SetPropValueByName((DataObject)alagrObjects[index], divname, detArr);
-                                    }
-
-                                    if (!сlearDataObjects)
-                                    {
-                                        var al = new ArrayList();
-                                        foreach (DataObject do1 in detArr.GetAllObjects())
-                                        {
-                                            bool founded = keys.Contains(do1.__PrimaryKey);
-                                            if (!founded)
-                                            {
-                                                al.Add(do1);
-                                            }
-                                        }
-
-                                        var detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
-
-                                        // TODO: разобраться, может ли это приводить к проблемам, если будет выполняться вне транзакции.
-                                        dataService.LoadObjects(detailObjects1, dcs.View, сlearDataObjects, dataObjectCache);
-                                    }
-                                    else
-                                    {
-                                        detArr.Clear();
-                                    }
-                                }
-
-                                if (!сlearDataObjects)
-                                {
-                                    DataObject[] detailObjects1 = detArr.GetAllObjects();
-                                    DataObject p = null;
-                                    foreach (DataObject d in detailObjects1)
-                                    {
-                                        if (d.__PrimaryKey.ToString() == detailObjects[j].__PrimaryKey.ToString()
-                                            || (d.Prototyped && d.__PrototypeKey.ToString() == detailObjects[j].__PrimaryKey.ToString()))
-                                        {
-                                            p = d;
-                                            break;
-                                        }
-                                    }
-
-                                    if (p != null)
-                                    {
-                                        detailObjects[j] = p;
-                                    }
-                                }
-
-                                if (detArr.GetByKey(detailObjects[j].__PrimaryKey) != null)
-                                {
-                                    detArr.RemoveByKey(detailObjects[j].__PrimaryKey);
-                                }
-
-                                detArr.AddObject(detailObjects[j]);
-                                allinserted++;
-                            }
-
-                            index++;
-                        }
-
-                        for (index = 0; index < alagrObjects.Count; index++)
-                        {
-                            detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], divname);
-                            if (detArr == null)
-                            {
-                                Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
-                                detArr = (DetailArray)detArrType.GetConstructor(new Type[] { alagrObjects[index].GetType() }).Invoke(new object[] { ((DataObject)alagrObjects[index]) });
-                                Information.SetPropValueByName((DataObject)alagrObjects[index], divname, detArr);
-                            }
-
-                            if (UseAdaptive && sortprop != string.Empty)
-                            {
-                                detArr.Ordering();
-                            }
-
-                            DataObject dobj = detArr.AgregatorObject;
-                            dobj.AddLoadedProperties(divname);
+                            detTypes.Add(tu[n]);
                         }
                     }
                 }
             }
 
-            if (customizationStruct.InitDataCopy)
-            {
-            // #if NETFX_35
-                foreach (DataObject dobj in res)
+            var detailTypes = new Type[detTypes.Count];
+            detTypes.CopyTo(detailTypes);
 
-            // #else
-            //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
-            // #endif
+            // строим функцию ограничений
+            string agregatorName = Information.GetAgregatePropertyName(detailTypes[0]);
+
+            STORMFunction func;
+            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lg = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+            var vd =
+                new FunctionalLanguage.VariableDef(
+                lg.GetObjectTypeForNetType(keys[0].GetType()), agregatorName);
+
+            var alPars = new ArrayList();
+            alPars.Add(vd);
+            var alagrObjects = new ArrayList();
+            if (div.Name.IndexOf(".") <= 0)
+            {
+                alPars.AddRange(keys);
+                alagrObjects.AddRange(res);
+            }
+            else
+            {
+                string mprop = div.Name.Substring(0, div.Name.IndexOf("."));
+                for (int k = 0; k < keys.Length; k++)
                 {
-                    dobj.SetStatus(ObjectStatus.UnAltered);
-                    dobj.InitDataCopy(dataObjectCache);
+                    var dobj = (DataObject)Information.GetPropValueByName(res[k], mprop);
+                    if (dobj != null)
+                    {
+                        alPars.Add(dobj.__PrimaryKey);
+                        alagrObjects.Add(dobj);
+                    }
+                }
+            }
+
+            func = lg.GetFunction(lg.funcIN, alPars.ToArray());
+            div.View.AddProperty(agregatorName, string.Empty, false, string.Empty);
+
+            var arsorts = new System.Collections.ArrayList();
+            ColumnsSortDef[] sorts;
+            string sortprop = ICSSoft.STORMNET.Information.GetOrderPropertyName(detailTypes[0]);
+            if (sortprop != string.Empty)
+            {
+                div.View.AddProperty(sortprop, string.Empty, false, string.Empty);
+                arsorts.AddRange(
+                    new ColumnsSortDef[]
+                    {
+                        new ColumnsSortDef(agregatorName, SortOrder.Asc),
+                        new ColumnsSortDef(sortprop, SortOrder.Asc)
+                    });
+            }
+            else
+            {
+                arsorts.Add(new ColumnsSortDef(agregatorName, SortOrder.Asc));
+            }
+
+            ColumnsSortDef[] subsorts = customizationStruct.GetColumnsSortDef(div.Name);
+            if (subsorts != null && subsorts.Length > 0)
+            {
+                arsorts.AddRange(subsorts);
+            }
+
+            sorts = (ColumnsSortDef[])arsorts.ToArray(typeof(ColumnsSortDef));
+
+            // собираем типы данных для детейла
+            var dcs = new LoadingCustomizationStruct(dataService.GetInstanceId());
+            string divname = div.Name;
+            if (divname.IndexOf(".") >= 0)
+            {
+                divname = divname.Substring(divname.IndexOf(".") + 1);
+            }
+
+            for (int j = 0; j < alagrObjects.Count; j++)
+            {
+                ((DataObject)alagrObjects[j]).AddLoadedProperties(divname);
+            }
+
+            DetailArray detArr;
+            int index = 0;
+            if (div.UseAdaptiveTypeLoading)
+            {
+                bool ClearedArray = false;
+                for (int AdaptIndex = 0; AdaptIndex < detailTypes.Length; AdaptIndex++)
+                {
+                    Type typeKey = detailTypes[AdaptIndex];
+                    View typeView = div.AdaptiveTypeViews.Contains(typeKey) ? (ICSSoft.STORMNET.View)div.AdaptiveTypeViews[typeKey] : Information.GetView(div.View.Name, typeKey);
+                    typeView = typeView == null ? div.View : div.View | typeView;
+
+                    dcs.Init(sorts, func, new Type[] { typeKey }, typeView, null);
+                    dcs.InitDataCopy = сlearDataObjects;
+                    DataObject[] detailObjects = LoadObjects(dcs, dataObjectCache, dataService, connection, transaction);
+
+                    object curKey = null;
+                    detArr = null;
+
+                    for (int j = 0; j < detailObjects.Length; j++)
+                    {
+                        object curObjectKey = ((STORMDO.DataObject)STORMDO.Information.GetPropValueByName(detailObjects[j], agregatorName)).__PrimaryKey;
+                        if (curKey != curObjectKey)
+                        {
+                            curKey = curObjectKey;
+                            index = 0;
+                            for (int ii = 0; ii < alagrObjects.Count; ii++)
+                            {
+                                if (((DataObject)alagrObjects[ii]).__PrimaryKey.Equals(curKey))
+                                {
+                                    index = ii;
+                                    break;
+                                }
+                            }
+
+                            if (detArr != null)
+                            {
+                                DataObject dobj = detArr.AgregatorObject;
+                                dobj.AddLoadedProperties(div.Name);
+                                if (customizationStruct.InitDataCopy)
+                                {
+                                    dobj.InitDataCopy(dataObjectCache);
+                                }
+                            }
+
+                            detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], div.Name);
+                            if (detArr == null)
+                            {
+                                Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
+                                detArr = (DetailArray)detArrType.GetConstructor(new Type[] { alagrObjects[index].GetType() }).Invoke(new object[] { (DataObject)alagrObjects[index] });
+                                Information.SetPropValueByName((DataObject)alagrObjects[index], divname, detArr);
+                            }
+
+                            if (!сlearDataObjects)
+                            {
+                                var al = new ArrayList();
+                                foreach (DataObject do1 in detArr.GetAllObjects())
+                                {
+                                    bool founded = false;
+                                    foreach (object loadedkey in keys)
+                                    {
+                                        if (do1.__PrimaryKey.Equals(loadedkey))
+                                        {
+                                            founded = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!founded)
+                                    {
+                                        al.Add(do1);
+                                    }
+                                }
+
+                                DataObject[] detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
+
+                                // Братчиков 2009-07-08 - Баг при зачитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
+                                {
+                                    View view4Load = dcs.View;
+                                    if (detailObjects1.Length > 0 && !(detailObjects1[0].GetType().Equals(view4Load.DefineClassType) || detailObjects1[0].GetType().IsSubclassOf(view4Load.DefineClassType)))
+                                    {
+                                        view4Load = div.View;
+                                    }
+
+                                    // TODO: разобраться, может ли это приводить к проблемам, если будет выполняться вне транзакции.
+                                    dataService.LoadObjects(detailObjects1, view4Load, сlearDataObjects, dataObjectCache);
+                                }
+
+                                // Братчиков 2009-07-08
+                            }
+                            else
+                            {
+                                if (!ClearedArray)
+                                {
+                                    ClearedArray = true;
+                                    detArr.Clear();
+                                }
+                            }
+                        }
+
+                        if (!сlearDataObjects)
+                        {
+                            DataObject[] detailObjects1 = detArr.GetAllObjects();
+                            DataObject p = null;
+                            foreach (DataObject d in detailObjects1)
+                            {
+                                if (d.__PrimaryKey.ToString() == detailObjects[j].__PrimaryKey.ToString()
+                                    || (d.Prototyped && d.__PrototypeKey.ToString() == detailObjects[j].__PrimaryKey.ToString()))
+                                {
+                                    p = d;
+                                }
+                            }
+
+                            if (p != null)
+                            {
+                                detailObjects[j] = p;
+                            }
+                        }
+
+                        if (detArr.GetByKey(detailObjects[j].__PrimaryKey) != null)
+                        {
+                            detArr.RemoveByKey(detailObjects[j].__PrimaryKey);
+                        }
+
+                        detArr.AddObject(detailObjects[j]);
+                    }
+                }
+            }
+            else
+            {
+                dcs.Init(sorts, func, detailTypes, div.View, null);
+                dcs.InitDataCopy = сlearDataObjects;
+                DataObject[] detailObjects = LoadObjects(dcs, dataObjectCache, dataService, connection, transaction);
+
+                int allinserted = 0;
+
+                object curKey = null;
+                detArr = null;
+                for (int j = 0; j < detailObjects.Length; j++)
+                {
+                    object curObjectKey = ((STORMDO.DataObject)STORMDO.Information.GetPropValueByName(detailObjects[j], agregatorName)).__PrimaryKey;
+                    if ((curKey == null && curKey != curObjectKey) || (curKey != null && !curKey.Equals(curObjectKey)))
+                    {
+                        curKey = curObjectKey;
+                        index = 0;
+                        for (; index < alagrObjects.Count; index++)
+                        {
+                            if (((DataObject)alagrObjects[index]).__PrimaryKey.Equals(curKey))
+                            {
+                                break;
+                            }
+                        }
+
+                        if (detArr != null)
+                        {
+                            DataObject dobj = detArr.AgregatorObject;
+                            dobj.AddLoadedProperties(divname);
+                        }
+
+                        detArr = (DetailArray)Information.GetPropValueByName((DataObject)alagrObjects[index], divname);
+                        if (detArr == null)
+                        {
+                            Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
+                            detArr = (DetailArray)detArrType.GetConstructor(new Type[] { alagrObjects[index].GetType() }).Invoke(new object[] { ((DataObject)alagrObjects[index]) });
+                            Information.SetPropValueByName((DataObject)alagrObjects[index], divname, detArr);
+                        }
+
+                        if (!сlearDataObjects)
+                        {
+                            var al = new ArrayList();
+                            foreach (DataObject do1 in detArr.GetAllObjects())
+                            {
+                                bool founded = keys.Contains(do1.__PrimaryKey);
+                                if (!founded)
+                                {
+                                    al.Add(do1);
+                                }
+                            }
+
+                            var detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
+
+                            // TODO: разобраться, может ли это приводить к проблемам, если будет выполняться вне транзакции.
+                            dataService.LoadObjects(detailObjects1, dcs.View, сlearDataObjects, dataObjectCache);
+                        }
+                        else
+                        {
+                            detArr.Clear();
+                        }
+                    }
+
+                    if (!сlearDataObjects)
+                    {
+                        DataObject[] detailObjects1 = detArr.GetAllObjects();
+                        DataObject p = null;
+                        foreach (DataObject d in detailObjects1)
+                        {
+                            if (d.__PrimaryKey.ToString() == detailObjects[j].__PrimaryKey.ToString()
+                                || (d.Prototyped && d.__PrototypeKey.ToString() == detailObjects[j].__PrimaryKey.ToString()))
+                            {
+                                p = d;
+                                break;
+                            }
+                        }
+
+                        if (p != null)
+                        {
+                            detailObjects[j] = p;
+                        }
+                    }
+
+                    if (detArr.GetByKey(detailObjects[j].__PrimaryKey) != null)
+                    {
+                        detArr.RemoveByKey(detailObjects[j].__PrimaryKey);
+                    }
+
+                    detArr.AddObject(detailObjects[j]);
+                    allinserted++;
                 }
 
-            // #if NETFX_35
-            // #else
-            //    );
-            // #endif
+                index++;
+            }
+
+            for (index = 0; index < alagrObjects.Count; index++)
+            {
+                DataObject alagrObject = (DataObject)alagrObjects[index];
+                detArr = (DetailArray)Information.GetPropValueByName(alagrObject, divname);
+                if (detArr == null)
+                {
+                    Type detArrType = Information.GetPropertyType(customizationStruct.View.DefineClassType, div.Name);
+                    detArr = (DetailArray)detArrType.GetConstructor(new[] { alagrObject.GetType() }).Invoke(new object[] { alagrObject });
+                    Information.SetPropValueByName(alagrObject, divname, detArr);
+                }
+
+                if (div.UseAdaptiveTypeLoading && sortprop != string.Empty)
+                {
+                    detArr.Ordering();
+                }
+
+                DataObject dobj = detArr.AgregatorObject;
+                dobj.AddLoadedProperties(divname);
             }
         }
 
