@@ -38,6 +38,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Null GetHandler or SetHandler via cache dictionary. 
 - Rethrowing exception while handling special scenario via UpdateObjects.
 - Fix loading __PrimaryKey property of NotStored master.
+- Fix InitDataCopy for already loaded details.
 
 ### Security
 
