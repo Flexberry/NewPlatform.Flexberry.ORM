@@ -968,6 +968,10 @@
                                         arobject.InitDataCopy(DataObjectCache);
                                         arobject.DynamicProperties.Remove("MasterInitDataCopy");
                                     }
+                                    else if (arobject.GetStatus(false) == ObjectStatus.UnAltered && arobject.GetAlteredPropertyNames().Length > 0)
+                                    {
+                                        arobject.InitDataCopy(DataObjectCache);
+                                    }
 
                                     // arobject.InitDataCopy(DataObjectCache);
                                     // Братчиков
