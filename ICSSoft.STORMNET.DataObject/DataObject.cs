@@ -968,7 +968,8 @@
                                         arobject.InitDataCopy(DataObjectCache);
                                         arobject.DynamicProperties.Remove("MasterInitDataCopy");
                                     }
-                                    else if (arobject.GetStatus(false) == ObjectStatus.UnAltered && arobject.GetLoadedProperties().Length != arobject.dataCopy.GetLoadedProperties().Length)
+                                    else if (arobject.GetStatus(false) == ObjectStatus.UnAltered 
+                                        && arobject.GetLoadedProperties().Length != arobject.dataCopy.GetLoadedProperties().Length)
                                     {
                                         arobject.InitDataCopy(DataObjectCache);
                                     }

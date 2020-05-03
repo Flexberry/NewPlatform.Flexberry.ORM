@@ -213,9 +213,9 @@
                 var cache = new DataObjectCache();
                 cache.StartCaching(false);
                 var loadedLeg = PKHelper.CreateDataObject<Лапа>(leg1);
-                dataService.LoadObject(legView, loadedLeg, false, true, cache);
+                dataService.LoadObject(legView, loadedLeg, true, true, cache);
                 var loadedCat = PKHelper.CreateDataObject<Кошка>(cat);
-                dataService.LoadObject(catView, loadedCat, false, true, cache);
+                dataService.LoadObject(catView, loadedCat, true, true, cache);
 
                 // Assert.
                 Assert.Equal(ObjectStatus.UnAltered, loadedLeg.GetStatus());
