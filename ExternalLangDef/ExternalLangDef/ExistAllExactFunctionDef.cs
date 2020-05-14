@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections;
-using ICSSoft.STORMNET.FunctionalLanguage;
-using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-
-namespace ICSSoft.STORMNET.Windows.Forms
+﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
+    using System;
+    using System.Collections;
+
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+
     public partial class ExternalLangDef
     {
-        private string GetConditionForExistAllExact(Function func, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
+        private string GetConditionForExistAllExact(
+            Function func,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            IDataService dataService)
         {
             if (!(func.Parameters[1] is Function) ||
                 ((Function)func.Parameters[1]).FunctionDef.StringedView != funcEQ &&
@@ -41,7 +47,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
             Function funcOperand2 = GetFunction(funcEQ, 0, GetFunction(funcCountWithLimit, vdefDet, GetFunction(funcNOT, funcAdv)));
             Function function = GetFunction(funcAND, funcOperand1, funcOperand2);
 
-            return base.SQLTranslFunction(function, convertValue, convertIdentifier);
+            return base.SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
         }
     }
 }

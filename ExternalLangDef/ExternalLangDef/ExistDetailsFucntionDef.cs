@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ICSSoft.STORMNET.Business;
-using ICSSoft.STORMNET.FunctionalLanguage;
-using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-
-namespace ICSSoft.STORMNET.Windows.Forms
+﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
+    using System;
+    using System.Text;
+
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+
     public partial class ExternalLangDef
     {
-        private string GetConditionForExistDetails(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier)
+        private string GetConditionForExistDetails(
+            Function func,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            IDataService dataService)
         {
-            if (!(DataService is SQLDataService))
+            if (!(dataService is SQLDataService))
             {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExistDetails));

@@ -36,6 +36,7 @@
       13. Rethrowing exception while handling special scenario via UpdateObjects.
       14. Fix loading __PrimaryKey property of NotStored master.
       15. Fix InitDataCopy for already loaded details.
+      16. Removed usage of DataServiceProvider.DataService for ExternalLangDef.
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.

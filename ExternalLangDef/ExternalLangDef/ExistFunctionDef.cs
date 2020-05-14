@@ -14,10 +14,13 @@
         /// </summary>
         public const string ExistViewName = "__ExistView__";
 
-        private string GetConditionForExist(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
+        private string GetConditionForExist(
+            Function func,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            IDataService dataService = null)
         {
-            if (!(DataService is SQLDataService))
+            if (!(dataService is SQLDataService))
             {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExist));
@@ -56,11 +59,11 @@
             }
 
             // генерируем where часть для подзапроса в exists
-            string whereForConition = SQLTranslFunction((Function)conditionFunc, convertValue,
-                                                        identifier =>
-                                                        ConvertIdentifierForDetail(identifier, dvd.ConnectMasterPorp,
-                                                                                   agregatorAlias, detailAlias,
-                                                                                   convertIdentifier));
+            string whereForConition = SQLTranslFunction(
+                (Function)conditionFunc,
+                convertValue,
+                identifier => ConvertIdentifierForDetail(identifier, dvd.ConnectMasterPorp, agregatorAlias, detailAlias, convertIdentifier),
+                dataService);
 
             string condition = string.Format("{0} WHERE {1}", selectForCondition, whereForConition);
             string result = string.Format("exists({4} and {2}.{0} = {3}.{1})",
@@ -130,8 +133,7 @@
                 }
             }
 
-            var currentDataService = (dataService != null) ? dataService : DataService;
-            string query = ((SQLDataService)currentDataService).GenerateSQLSelect(lcs, false);
+            string query = (dataService as SQLDataService)?.GenerateSQLSelect(lcs, false);
             return query;
         }
     }
