@@ -1488,7 +1488,8 @@
         {
             return FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(limitFunction,
                                                                                ConvertValueToQueryValueString,
-                                                                               PutIdentifierIntoBrackets);
+                                                                               PutIdentifierIntoBrackets,
+                                                                               this);
         }
 
         public virtual string PutIdentifierIntoBrackets(string identifier)
