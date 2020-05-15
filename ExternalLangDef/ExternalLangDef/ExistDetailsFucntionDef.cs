@@ -15,7 +15,7 @@
             delegatePutIdentifierToBrackets convertIdentifier,
             IDataService dataService)
         {
-            if (!(dataService is SQLDataService))
+            if (!(dataService is SQLDataService sqlDataService))
             {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExistDetails));
@@ -51,9 +51,9 @@
                 throw new Exception(wrongParametersMessage);
             }
 
-            string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null);
+            string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null, sqlDataService);
             selectForDetail1 = selectForDetail1.Replace("STORMMainObjectKey", "STORMMainObjectKey1");
-            string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null);
+            string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null, sqlDataService);
             selectForDetail2 = selectForDetail2.Replace("STORMMainObjectKey", "STORMMainObjectKey2");
 
             // формируем условие для функции

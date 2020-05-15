@@ -451,7 +451,7 @@
                 if (value.FunctionDef.StringedView == "=" &&
                     ((value.Parameters[1] == null) || (value.Parameters[1].GetType() == typeof(string) && ((string)value.Parameters[1]) == string.Empty)))
                 {
-                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " IS NULL )";
+                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " IS NULL )";
                 }
             }
 
@@ -466,7 +466,7 @@
                 case "SQL":
                     return value.Parameters[0].ToString();
                 case "ISNULL":
-                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " IS NULL )";
+                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " IS NULL )";
                 case "NOT":
                     string result = string.Empty;
                     if (value.Parameters[0] is VariableDef)
@@ -491,15 +491,15 @@
 
                     if (result == string.Empty)
                     {
-                        result = "( NOT " + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " )";
+                        result = "( NOT " + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " )";
                     }
 
                     return result;
                 case "LIKE":
                     string par1 = string.Empty, par2 = string.Empty;
 
-                    par1 = AddUpper(value.Parameters[0], convertValue, convertIdentifier);
-                    par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier);
+                    par1 = AddUpper(value.Parameters[0], convertValue, convertIdentifier, dataService);
+                    par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier, dataService);
 
                     if (value.Parameters[1] != null && value.Parameters[1].GetType() == typeof(string))
                     {
@@ -608,26 +608,26 @@
                         pars = new string[value.Parameters.Count];
                         for (int i = 0; i < pars.Length; i++)
                         {
-                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, dataService);
                         }
 
                         return "( " + string.Join(" " + "=" + " ", pars) + ")";
                     }
                     else if (value.Parameters.Count == 1)
                     {
-                        return SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " is null";
+                        return SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " is null";
                     }
 
                     pars = new string[value.Parameters.Count - 1];
                     for (int i = 1; i < value.Parameters.Count; i++)
                     {
-                        pars[i - 1] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                        pars[i - 1] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, dataService);
                     }
 
-                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier) + " in (" + string.Join(",", pars) + "))";
+                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier, dataService) + " in (" + string.Join(",", pars) + "))";
 
                 case "BETWEEN":
-                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier) + " between " + AddUpper(value.Parameters[1], convertValue, convertIdentifier) + " and " + AddUpper(value.Parameters[2], convertValue, convertIdentifier) + ")";
+                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier, dataService) + " between " + AddUpper(value.Parameters[1], convertValue, convertIdentifier, dataService) + " and " + AddUpper(value.Parameters[2], convertValue, convertIdentifier, dataService) + ")";
                 default:
                     throw new Exception("Not found function :" + value.FunctionDef.StringedView);
             }

@@ -18,9 +18,9 @@
             Function func,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
-            IDataService dataService = null)
+            IDataService dataService)
         {
-            if (!(dataService is SQLDataService))
+            if (!(dataService is SQLDataService sqlDataService))
             {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExist));
@@ -34,7 +34,7 @@
             string agregatorAlias = "STORMGENERATEDQUERY";
 
             // генерируем подзапрос для exists
-            string selectForCondition = GetSelectForDetailVariableDef(dvd, null, dataService);
+            string selectForCondition = GetSelectForDetailVariableDef(dvd, null, sqlDataService);
             selectForCondition = selectForCondition.Replace(convertIdentifier(agregatorAlias),
                                                             convertIdentifier(detailAlias));
 
@@ -109,9 +109,9 @@
         /// <param name="additionalProperties">
         /// Свойства, которые необходимо добавить в представление при вычитки детейлов.
         /// </param>
-        /// <param name="dataService">Сервис данных.</param>
+        /// <param name="sqlDataService">Сервис данных.</param>
         /// <returns>Сформированный запрос по представлению детейла.</returns>
-        private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties, Business.IDataService dataService = null)
+        private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties, SQLDataService sqlDataService)
         {
             var lcs = new LoadingCustomizationStruct(null)
             {
@@ -133,7 +133,7 @@
                 }
             }
 
-            string query = (dataService as SQLDataService)?.GenerateSQLSelect(lcs, false);
+            string query = sqlDataService.GenerateSQLSelect(lcs, false);
             return query;
         }
     }
