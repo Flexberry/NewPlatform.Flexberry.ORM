@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta22</version>
+    <version>5.1.0-beta23</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -36,6 +36,7 @@
       13. Rethrowing exception while handling special scenario via UpdateObjects.
       14. Fix loading __PrimaryKey property of NotStored master.
       15. Fix InitDataCopy for already loaded details.
+      16. Removed usage of DataServiceProvider.DataService for ExternalLangDef.
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.

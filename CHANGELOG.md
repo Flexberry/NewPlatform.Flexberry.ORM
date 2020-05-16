@@ -39,6 +39,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Rethrowing exception while handling special scenario via UpdateObjects.
 - Fix loading __PrimaryKey property of NotStored master.
 - Fix InitDataCopy for already loaded details.
+- Removed usage of DataServiceProvider.DataService for ExternalLangDef.
 
 ### Security
 
