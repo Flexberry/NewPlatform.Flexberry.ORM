@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "Flexberry ORM 5.1.0-beta22", "index.html", [
+  [ "Flexberry ORM 5.1.0-beta23", "index.html", [
     [ "Пространства имен", null, [
       [ "Пространства имен", "namespaces.html", "namespaces" ],
       [ "Члены пространств имен", "namespacemembers.html", [
@@ -39,7 +39,7 @@ var NAVTREEINDEX =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html#aeb4265edfaafbd5f2a45204569f7a763",
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_file_desc.html#a42f9d43f2f04d46ee5fb23dba85ac5bf",
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#ac36a88933f7ff3cd0ced09befe377458",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#aaf64cf8a759bcb8c59676a68ee0385c1",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#aa9d47b3e37f9a30beb15979d1d8a41f1",
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_1_1_load_object_test.html#a97a6b6aae911b8ab28653e05df89a4f1",
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_base_test.html#a2024510c2da8c2b5e7bcd9db91a9ad79",
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_greater_or_equal_tests.html#ab4fda67003cdadfdf45b0685ec7c96c1",
