@@ -4304,51 +4304,6 @@
         }
 
         /// <summary>
-        /// Провести аудит операции для одного объекта.
-        /// </summary>
-        /// <param name="dobject"> Объект, аудит которого нужно провести. </param>
-        /// <param name="auditOperationInfoList"> Список id записей аудита. </param>
-        /// <param name="transaction">
-        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
-        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// </param>
-        private void AuditOperation(DataObject dobject, ICollection<AuditAdditionalInfo> auditOperationInfoList, IDbTransaction transaction)
-        {
-            if (dobject != null && AuditService.IsAuditEnabled)
-            {
-                AuditAdditionalInfo auditAdditionalInfo =
-                            AuditService.WriteCommonAuditOperationWithAutoFields(dobject, this, true, transaction); // Если что, то исключение будет проброшено
-                if (auditAdditionalInfo != null && auditAdditionalInfo.AuditRecordPrimaryKey != Guid.Empty)
-                {
-                    auditOperationInfoList.Add(auditAdditionalInfo);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Провести аудит операции для нескольких объектов.
-        /// </summary>
-        /// <param name="dobjects"> Объект, аудит которого нужно провести. </param>
-        /// <param name="auditOperationInfoList"> Список id записей аудита. </param>
-        /// <param name="transaction">
-        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
-        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// По умолчанию - null.
-        /// </param>
-        private void AuditOperation(IEnumerable<DataObject> dobjects, ICollection<AuditAdditionalInfo> auditOperationInfoList, IDbTransaction transaction = null)
-        {
-            if (dobjects != null)
-            {
-                foreach (var dobject in dobjects)
-                {
-                    AuditOperation(dobject, auditOperationInfoList, transaction);
-                }
-            }
-        }
-
-        /// <summary>
         /// Поиск в списке объектов аналогичного указанному (должен совпасть тип и идентификатор).
         /// </summary>
         /// <param name="searchedDataObjectList">Список объектов, где производится поиск.</param>
@@ -5761,7 +5716,7 @@
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
                      * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
                      */
-                    AuditOperation(extraProcessingList, auditOperationInfoList, dbTransactionWrapper.Transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
+                    AuditService.WriteCommonAuditOperationWithAutoFields(extraProcessingList, auditOperationInfoList, this, true, dbTransactionWrapper.Transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
                 }
 
                 string query = string.Empty;
