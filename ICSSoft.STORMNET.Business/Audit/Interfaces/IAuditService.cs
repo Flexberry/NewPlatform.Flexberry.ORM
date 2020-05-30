@@ -226,6 +226,26 @@
         /// <summary>
         /// Сообщаем о совершении потенциально аудируемого действа.
         /// </summary>
+        /// <param name="operationedObjects"> Объекты, над которыми выполняется операция. </param>
+        /// <param name="auditOperationInfoList"> Дополнительная информация, которую необходимо передать в аудит. </param>
+        /// <param name="dataService"> Сервис данных, который выполянет операцию. </param>
+        /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - true).</param>
+        /// <param name="transaction">
+        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
+        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
+        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
+        /// По умолчанию - null.
+        /// </param>
+        void WriteCommonAuditOperationWithAutoFields(
+            IEnumerable<DataObject> operationedObjects,
+            ICollection<AuditAdditionalInfo> auditOperationInfoList,
+            IDataService dataService,
+            bool throwExceptions = true,
+            IDbTransaction transaction = null);
+
+        /// <summary>
+        /// Сообщаем о совершении потенциально аудируемого действа.
+        /// </summary>
         /// <param name="operationedObject"> Объект, над которым выполняется операция. </param>
         /// <param name="dataService"> Сервис данных, который выполянет операцию. </param>
         /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - true).</param>
