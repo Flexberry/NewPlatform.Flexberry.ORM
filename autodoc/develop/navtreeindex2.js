@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a4b4fe9a910c57f2204017ceb14eda2c6":[1,0,2,1,0,3,10,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a6e16910a98c3cd669913f868df8b0a0c":[1,0,2,1,0,3,10,10],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a6f0947d1d3082d6ab9123c6161e0125a":[1,0,2,1,0,3,10,4],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a768e9c9523d152cdee442a4a9e729c9a":[1,0,2,1,0,3,10,12],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a9bf04ccb751b578919ecaa8dd8c7f902":[1,0,2,1,0,3,10,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a50da3b9c502696092034996ec08affb0":[1,0,2,1,0,3,1,12,6],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a54c36321902fd9688307dc1e080e43ff":[1,0,2,1,0,3,1,12,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a5acd7a454494cf4e4ce4b685722d3c93":[1,0,2,1,0,3,1,12,10],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a7467226f12a582f1eda011cf70b8fc04":[1,0,2,1,0,3,1,12,9],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a74962d799cf80b4ade125747f7594478":[1,0,2,1,0,3,1,12,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a7499702a066808aed4e02447a2c98027":[1,0,2,1,0,3,1,12,2]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_with_pseudo_details_test.html#a7467226f12a582f1eda011cf70b8fc04":[1,0,2,1,0,3,1,12,9]
 };

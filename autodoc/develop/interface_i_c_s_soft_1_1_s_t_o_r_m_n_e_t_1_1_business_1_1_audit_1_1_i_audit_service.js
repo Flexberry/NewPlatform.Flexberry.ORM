@@ -12,6 +12,7 @@ var interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_
     [ "RatifyAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a182d72aeffb22047a1cde34d26ad7590", null ],
     [ "RatifyAuditOperationWithAutoFields", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#af24ab984e8f6f28aca617c5ee2345adb", null ],
     [ "WriteCommonAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a9fedf871fe0bb5690aaede7c711e4bc8", null ],
+    [ "WriteCommonAuditOperationWithAutoFields", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#aef28e01f9f1656b70e90c700a717b119", null ],
     [ "WriteCommonAuditOperationWithAutoFields", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#aa3b71483af57f8b58c630626c9715ec2", null ],
     [ "WriteCustomAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#af85aabacf360ca6d153dfa7e532cffff", null ],
     [ "WriteCustomAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a4ca1de4bec5773e594aea5e4bd6d2489", null ],

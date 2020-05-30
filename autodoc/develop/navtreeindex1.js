@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#aa110fed764b8bf5977c91f93a50f138d":[1,0,2,1,0,0,2,2,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#ac5d5bc52b70d9cea0c2640dc376d02d6":[1,0,2,1,0,0,2,2,3],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#ad245003cdfc26a272639d12cab277fbf":[1,0,2,1,0,0,2,2,4],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_app_setting.html":[1,0,2,1,0,0,3,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_app_setting.html#a066bb9122eea0edd8216f72c2ed7f0ae":[1,0,2,1,0,0,3,0,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html":[1,0,2,1,0,3,10],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a0a03690da15cf7cca1cba74f057a898d":[1,0,2,1,0,3,10,5],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a1c69789f9a8757a2d55e84aba81f3502":[1,0,2,1,0,3,10,11],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a33eac0b0e36e604ad133fde04770d970":[1,0,2,1,0,3,10,8],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a4b4fe9a910c57f2204017ceb14eda2c6":[1,0,2,1,0,3,10,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a6e16910a98c3cd669913f868df8b0a0c":[1,0,2,1,0,3,10,10]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a33eac0b0e36e604ad133fde04770d970":[1,0,2,1,0,3,10,8]
 };
