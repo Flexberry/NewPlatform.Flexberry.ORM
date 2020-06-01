@@ -287,11 +287,8 @@
 
             foreach (var keptFieldsValue in _keptFieldsValues)
             {
-                var propertyValue = objectType.GetProperty(keptFieldsValue.Key).GetValue(objectInstanse, null);
-                _keptFieldsValues[keptFieldsValue.Key].NewValue =
-                    propertyValue == null
-                    ? null
-                    : propertyValue.ToString();
+                var propertyValue = Information.GetPropValueByName(objectInstanse, keptFieldsValue.Key);
+                _keptFieldsValues[keptFieldsValue.Key].NewValue = propertyValue?.ToString();
             }
         }
 

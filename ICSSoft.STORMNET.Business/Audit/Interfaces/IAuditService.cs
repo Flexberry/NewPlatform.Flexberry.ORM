@@ -256,6 +256,7 @@
         /// По умолчанию - null.
         /// </param>
         /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
+        [Obsolete("Use WriteCommonAuditOperationWithAutoFields(IEnumerable{DataObject},ICollection{AuditAdditionalInfo},IDataService,bool,IDbTransaction).")]
         AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
             DataObject operationedObject,
             IDataService dataService,

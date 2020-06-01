@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
 - Upgraded Npgsql version to 3.2.6.
 - Optimize left join with SQLDataService.GenerateSQL methods for some cases.
+- Moved group audit from SQLDataService to AuditService.
 
 ### Deprecated
 
