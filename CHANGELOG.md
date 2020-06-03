@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
 - Support of postgres table suffix and prefix modifiers.
 - Differ table modifiers `from` and `join` expressions.
+- Property AuditService.IsLogInfoEnabled to disable audit log info.
 
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.
@@ -41,6 +42,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix loading __PrimaryKey property of NotStored master.
 - Fix InitDataCopy for already loaded details.
 - Removed usage of DataServiceProvider.DataService for ExternalLangDef.
+- Auditing objects with Unaltered status and Deleted not presented in database.
 
 ### Security
 

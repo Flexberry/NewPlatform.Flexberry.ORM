@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta24</version>
+    <version>5.1.0-beta25</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -19,6 +19,7 @@
       4. Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
       5. Support of postgres table suffix and prefix modifiers.
       6. Differ table modifiers `from` and `join` expressions.
+      7. Property AuditService.IsLogInfoEnabled to disable audit log info.
 
       Fixed
       1. Parsing nullable guids with PKHelper.GetKeys method.
@@ -37,6 +38,7 @@
       14. Fix loading __PrimaryKey property of NotStored master.
       15. Fix InitDataCopy for already loaded details.
       16. Removed usage of DataServiceProvider.DataService for ExternalLangDef.
+      17. Auditing objects with Unaltered status and Deleted not presented in database.
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.
