@@ -169,6 +169,12 @@
         public bool PersistUtcDates { get; set; }
 
         /// <summary>
+        /// Flag indicates that this service uses <see cref="LogService.LogInfo(object)" /> and <see cref="LogService.LogInfoFormat" /> to log audit operation information.
+        /// Default is <see langword="true" />.
+        /// </summary>
+        public bool DetailedLogEnabled { get; set; } = true;
+
+        /// <summary>
         /// Элемент, реализующий логику аудита.
         /// </summary>
         public IAudit Audit
@@ -504,12 +510,16 @@
                 if (commonAuditParameters != null)
                 {
                     var operatedObject = commonAuditParameters.OldVersionOperatedObject ?? commonAuditParameters.OperatedObject; // для UPDATE нужно взять старую версию.
-                    var auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                    auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(
-                        auditOperationId,
-                        operatedObject,
-                        ConvertTypeOfAudit(commonAuditParameters.TypeOfAuditOperation),
-                        commonAuditParameters.AuditView);
+                    if (operatedObject != null)
+                    {
+                        // При удалении OperatedObject может быть null, если не удалось найти объект данных в БД.
+                        var auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
+                        auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(
+                            auditOperationId,
+                            operatedObject,
+                            ConvertTypeOfAudit(commonAuditParameters.TypeOfAuditOperation),
+                            commonAuditParameters.AuditView);
+                    }
                 }
 
                 return auditAdditionalInfo;
@@ -551,12 +561,20 @@
                 Type dataObjectType = operationedObject.GetType();
                 var objectStatus = operationedObject.GetStatus(false);
                 var typeOfAudit = ConvertObjectStatus(objectStatus);
-                if (_typeAuditSettingsLoader.HasSettings(dataObjectType)
+                if (objectStatus != ObjectStatus.UnAltered
+                    && _typeAuditSettingsLoader.HasSettings(dataObjectType)
                     && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType)
                     && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
                 {
                     // Настройки вообще есть и аудит для приложения и для класса включён.
-                    LogService.LogInfoFormat("AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}", operationedObject, objectStatus, operationedObject.__PrimaryKey);
+                    if (DetailedLogEnabled)
+                    {
+                        LogService.LogInfoFormat(
+                            "AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}",
+                            operationedObject,
+                            objectStatus,
+                            operationedObject.__PrimaryKey);
+                    }
 
                     // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
                     string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
@@ -692,11 +710,14 @@
 
             commonAuditParameters.WriteMode = currentWriteMode;
 
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
                     commonAuditParameters.OperatedObject.__PrimaryKey,
                     commonAuditParameters.OperatedObject,
                     currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            }
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -742,11 +763,14 @@
         {
             var currentWriteMode = checkedCustomAuditParameters.WriteMode;
 
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
                     checkedCustomAuditParameters.AuditObjectPrimaryKey,
                     checkedCustomAuditParameters.AuditObjectTypeOrDescription,
                     currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            }
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -786,11 +810,14 @@
         /// <param name="checkClassAuditSettings">Следует ли проверять настройки аудита в классах.</param>
         protected virtual void CheckAndSendToAudit(RatificationAuditParameters ratificationAuditParameters, bool checkClassAuditSettings)
         {
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0} отправляется {1} со статусом {2}",
                     string.Join(", ", ratificationAuditParameters.AuditOperationInfoList.Select(x => x.ToString()).ToArray()),
                     AppSetting.DefaultWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно",
                     ratificationAuditParameters.ExecutionResult);
+            }
 
             if (AppSetting.DefaultWriteMode == tWriteMode.Asynchronous)
             {
@@ -1056,7 +1083,7 @@
             if (dataObjectWithAuditFields != null)
             {
                 // Добавляем поля, кто же изменил объект. //TODO: определить эту запись в правильное место.
-                operationedObject.AddLoadedProperties(new List<string> { "EditTime", "Editor" });
+                operationedObject.AddLoadedProperties(nameof(IDataObjectWithAuditFields.EditTime), nameof(IDataObjectWithAuditFields.Editor));
                 dataObjectWithAuditFields.EditTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Editor = GetCurrentUserInfo(ApplicationMode, true);
             }
@@ -1398,6 +1425,7 @@
 
         /// <summary>
         /// Вычитать из базы соответствующий объекту объект.
+        /// TODO: в большинстве ситуаций достаточно проверить, что объект уже загружен необходимыми свойствами (рекурсия по детейлам).
         /// </summary>
         /// <param name="operationedObject">Объект, чью копию будем вычитывать из БД.</param>
         /// <param name="curView">Представление, по которому будем вычитывать из БД.</param>
