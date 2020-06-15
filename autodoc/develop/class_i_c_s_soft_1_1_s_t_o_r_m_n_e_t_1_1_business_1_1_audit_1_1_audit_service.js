@@ -30,6 +30,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_servic
     [ "AppSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5bd2ef836436bd5db477d62048a49eb0", null ],
     [ "Audit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a4888ae347e1151a2a1ca06a8e59d5215", null ],
     [ "AuditConnectionStringName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3051e3e6df1829e3779e13e7a668cb1e", null ],
+    [ "DetailedLogEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a375725ccfe491ad448e5c0675c81c5dc", null ],
     [ "PersistUtcDates", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a68d16f4dfa5de27b86bce4d6c2ac939a", null ],
     [ "ShowPrimaryKey", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a6c5ec1793b221ed76ce1a2d554a4e094", null ]
 ];
