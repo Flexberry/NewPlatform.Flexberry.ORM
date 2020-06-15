@@ -19,7 +19,7 @@
       4. Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
       5. Support of postgres table suffix and prefix modifiers.
       6. Differ table modifiers `from` and `join` expressions.
-      7. Property AuditService.IsLogInfoEnabled to disable audit log info.
+      7. Property AuditService.DetailedLogEnabled to disable audit log info.
 
       Fixed
       1. Parsing nullable guids with PKHelper.GetKeys method.

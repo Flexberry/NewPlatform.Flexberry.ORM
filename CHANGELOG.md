@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
 - Support of postgres table suffix and prefix modifiers.
 - Differ table modifiers `from` and `join` expressions.
-- Property AuditService.IsLogInfoEnabled to disable audit log info.
+- Property AuditService.DetailedLogEnabled to disable audit log info.
 
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.

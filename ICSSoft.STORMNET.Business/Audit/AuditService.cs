@@ -172,7 +172,7 @@
         /// Flag indicates that this service uses <see cref="LogService.LogInfo(object)" /> and <see cref="LogService.LogInfoFormat" /> to log audit operation information.
         /// Default is <see langword="true" />.
         /// </summary>
-        public bool IsLogInfoEnabled { get; set; } = true;
+        public bool DetailedLogEnabled { get; set; } = true;
 
         /// <summary>
         /// Элемент, реализующий логику аудита.
@@ -567,7 +567,7 @@
                     && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
                 {
                     // Настройки вообще есть и аудит для приложения и для класса включён.
-                    if (IsLogInfoEnabled)
+                    if (DetailedLogEnabled)
                     {
                         LogService.LogInfoFormat(
                             "AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}",
@@ -710,7 +710,7 @@
 
             commonAuditParameters.WriteMode = currentWriteMode;
 
-            if (IsLogInfoEnabled)
+            if (DetailedLogEnabled)
             {
                 LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
@@ -763,7 +763,7 @@
         {
             var currentWriteMode = checkedCustomAuditParameters.WriteMode;
 
-            if (IsLogInfoEnabled)
+            if (DetailedLogEnabled)
             {
                 LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
@@ -810,7 +810,7 @@
         /// <param name="checkClassAuditSettings">Следует ли проверять настройки аудита в классах.</param>
         protected virtual void CheckAndSendToAudit(RatificationAuditParameters ratificationAuditParameters, bool checkClassAuditSettings)
         {
-            if (IsLogInfoEnabled)
+            if (DetailedLogEnabled)
             {
                 LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0} отправляется {1} со статусом {2}",
