@@ -55,8 +55,8 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
-                var county = new Страна { Название = "РФ" };
-                var forest = new Лес { Страна = county };
+                var country = new Страна { Название = "РФ" };
+                var forest = new Лес { Страна = country };
                 dataService.UpdateObject(forest);
 
                 Expression<Func<Лес, object>> propertyExpression0 = x => x.Страна;
