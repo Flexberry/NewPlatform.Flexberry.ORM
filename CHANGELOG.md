@@ -43,6 +43,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix InitDataCopy for already loaded details.
 - Removed usage of DataServiceProvider.DataService for ExternalLangDef.
 - Auditing objects with Unaltered status and Deleted not presented in database.
+- Auditing objects with Unaltered status #2.
 
 ### Security
 
