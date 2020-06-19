@@ -560,76 +560,78 @@
                 CommonAuditParameters commonAuditParameters = null;
                 Type dataObjectType = operationedObject.GetType();
                 var objectStatus = operationedObject.GetStatus(false);
-                var typeOfAudit = ConvertObjectStatus(objectStatus);
                 if (objectStatus != ObjectStatus.UnAltered
                     && _typeAuditSettingsLoader.HasSettings(dataObjectType)
-                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType)
-                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
+                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType))
                 {
-                    // Настройки вообще есть и аудит для приложения и для класса включён.
-                    if (DetailedLogEnabled)
+                    var typeOfAudit = ConvertObjectStatus(objectStatus);
+                    if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
                     {
-                        LogService.LogInfoFormat(
-                            "AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}",
-                            operationedObject,
-                            objectStatus,
-                            operationedObject.__PrimaryKey);
-                    }
+                        // Настройки вообще есть и аудит для приложения и для класса включён.
+                        if (DetailedLogEnabled)
+                        {
+                            LogService.LogInfoFormat(
+                                "AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}",
+                                operationedObject,
+                                objectStatus,
+                                operationedObject.__PrimaryKey);
+                        }
 
-                    // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
-                    string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
-                    classConnectionStringName = CheckHelper.IsNullOrWhiteSpace(classConnectionStringName)
-                        ? classConnectionStringName
-                        : (AppSetting.IsDatabaseLocal ? GetConnectionStringName(dataService) : AppSetting.AuditConnectionStringName);
+                        // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
+                        string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
+                        classConnectionStringName = CheckHelper.IsNullOrWhiteSpace(classConnectionStringName)
+                            ? classConnectionStringName
+                            : (AppSetting.IsDatabaseLocal ? GetConnectionStringName(dataService) : AppSetting.AuditConnectionStringName);
 
-                    commonAuditParameters = GenerateBaseCommonAuditParameters(operationedObject, classConnectionStringName, throwExceptions);
-                    commonAuditParameters.AuditView = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, typeOfAudit);
-                    var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, typeOfAudit);
+                        commonAuditParameters = GenerateBaseCommonAuditParameters(operationedObject, classConnectionStringName, throwExceptions);
+                        commonAuditParameters.AuditView = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, typeOfAudit);
+                        var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, typeOfAudit);
 
-                    switch (objectStatus)
-                    {
-                        case ObjectStatus.Deleted:
-                            var deletedObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
-                            if (deletedObject != null)
-                            {
-                                commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.DELETE;
-                                commonAuditParameters.OperatedObject = deletedObject;
-                            }
+                        switch (objectStatus)
+                        {
+                            case ObjectStatus.Deleted:
+                                var deletedObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
+                                if (deletedObject != null)
+                                {
+                                    commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.DELETE;
+                                    commonAuditParameters.OperatedObject = deletedObject;
+                                }
 
-                            break;
+                                break;
 
-                        case ObjectStatus.Created:
-                            var createdObject = CopyNotSavedDataObject(operationedObject);
+                            case ObjectStatus.Created:
+                                var createdObject = CopyNotSavedDataObject(operationedObject);
 
-                            commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
-                            commonAuditParameters.OperatedObject = createdObject;
-
-                            break;
-
-                        case ObjectStatus.Altered:
-                            // Текущая версия объекта.
-                            var newObject = CopyNotSavedDataObject(operationedObject);
-
-                            // Хранимое в БД значение.
-                            var oldObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
-                            if (oldObject != null)
-                            {
-                                // Догружаем объект по представлению аудита, чтобы корректно записать все поля, особенно актуально для нехранимых полей.
-                                List<string> loadedProperties = CopyAlteredNotSavedDataObject(oldObject, newObject, curView, dataService, transaction);
-
-                                // Пишем аудит изменения.
-                                commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.UPDATE;
-                                commonAuditParameters.OperatedObject = newObject;
-                                commonAuditParameters.OldVersionOperatedObject = oldObject;
-                                commonAuditParameters.LoadedProperties = loadedProperties.ToArray();
-                            }
-                            else
-                            {
                                 commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
-                                commonAuditParameters.OperatedObject = newObject;
-                            }
+                                commonAuditParameters.OperatedObject = createdObject;
 
-                            break;
+                                break;
+
+                            case ObjectStatus.Altered:
+                                // Текущая версия объекта.
+                                var newObject = CopyNotSavedDataObject(operationedObject);
+
+                                // Хранимое в БД значение.
+                                var oldObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
+                                if (oldObject != null)
+                                {
+                                    // Догружаем объект по представлению аудита, чтобы корректно записать все поля, особенно актуально для нехранимых полей.
+                                    List<string> loadedProperties = CopyAlteredNotSavedDataObject(oldObject, newObject, curView, dataService, transaction);
+
+                                    // Пишем аудит изменения.
+                                    commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.UPDATE;
+                                    commonAuditParameters.OperatedObject = newObject;
+                                    commonAuditParameters.OldVersionOperatedObject = oldObject;
+                                    commonAuditParameters.LoadedProperties = loadedProperties.ToArray();
+                                }
+                                else
+                                {
+                                    commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
+                                    commonAuditParameters.OperatedObject = newObject;
+                                }
+
+                                break;
+                        }
                     }
                 }
 
