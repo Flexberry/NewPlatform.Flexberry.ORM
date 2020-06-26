@@ -4959,36 +4959,7 @@
                 {
                     foreach (BusinessServer bs in bss)
                     {
-                        bs.ObjectsToUpdate = processingObjects;
-                        object prevPrimaryKey = processingObject.__PrimaryKey;
-                        STORMDO.DataObject[] subobjects = bs.OnUpdateDataobject(processingObject);
-                        curObjectStatus = processingObject.GetStatus(true);
-                        if (!processingObject.__PrimaryKey.Equals(prevPrimaryKey))
-                        {
-                            TypeKeyPair typeKeyPair = new TypeKeyPair(typeOfProcessingObject, prevPrimaryKey);
-                            processingObjectsKeys.Remove(typeKeyPair);
-                            if (processingObject.GetStatus(false) == ObjectStatus.Created)
-                            {
-                                KeyGen.KeyGenerator.GenerateUnique(processingObject, this);
-                            }
-
-                            AddToProcessingObjectsKeys(processingObjectsKeys, processingObject);
-                        }
-
-                        foreach (STORMDO.DataObject subobject in subobjects)
-                        {
-                            subobject.GetStatus(true);
-                            if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
-                            {
-                                if (subobject.GetStatus(false) == ObjectStatus.Created)
-                                {
-                                    KeyGen.KeyGenerator.GenerateUnique(subobject, this);
-                                }
-
-                                processingObjects.Add(subobject);
-                                AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
-                            }
-                        }
+                        ProcessBusinessServer(processingObject, typeOfProcessingObject, bs, processingObjects, processingObjectsKeys, ref curObjectStatus);
                     }
                 }
 
@@ -5379,6 +5350,48 @@
                     (from DataObject mi in processingObjects select mi).ToList();
                 auditObjects.AddRange(processingObjectsList);
                 auditObjects.AddRange(extraProcessingList.Where(dataObject => !ContainsKeyINProcessing(processingObjectsKeys, dataObject)));
+            }
+        }
+
+        private void ProcessBusinessServer(DataObject processingObject, Type typeOfProcessingObject, BusinessServer bs, ArrayList processingObjects, Dictionary<TypeKeyPair, bool> processingObjectsKeys, ref ObjectStatus curObjectStatus)
+        {
+            try
+            {
+                bs.ObjectsToUpdate = processingObjects;
+                object prevPrimaryKey = processingObject.__PrimaryKey;
+                DataObject[] subobjects = bs.OnUpdateDataobject(processingObject);
+                curObjectStatus = processingObject.GetStatus(true);
+                if (!processingObject.__PrimaryKey.Equals(prevPrimaryKey))
+                {
+                    TypeKeyPair typeKeyPair = new TypeKeyPair(typeOfProcessingObject, prevPrimaryKey);
+                    processingObjectsKeys.Remove(typeKeyPair);
+                    if (curObjectStatus == ObjectStatus.Created)
+                    {
+                        KeyGenerator.GenerateUnique(processingObject, this);
+                    }
+
+                    AddToProcessingObjectsKeys(processingObjectsKeys, processingObject);
+                }
+
+                foreach (DataObject subobject in subobjects)
+                {
+                    var subobjectStatus = subobject.GetStatus(true);
+                    if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
+                    {
+                        if (subobjectStatus == ObjectStatus.Created)
+                        {
+                            KeyGenerator.GenerateUnique(subobject, this);
+                        }
+
+                        processingObjects.Add(subobject);
+                        AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
+                    }
+                }
+            }
+            finally
+            {
+                // Высвобождаем обрабатываемые объекты.
+                bs.ObjectsToUpdate = null;
             }
         }
 
