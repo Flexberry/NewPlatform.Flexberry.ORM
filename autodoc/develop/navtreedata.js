@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "Flexberry ORM 5.1.0-beta27", "index.html", [
+  [ "Flexberry ORM 5.1.0-beta28", "index.html", [
     [ "Пространства имен", null, [
       [ "Пространства имен", "namespaces.html", "namespaces" ],
       [ "Члены пространств имен", "namespacemembers.html", [
@@ -45,12 +45,13 @@ var NAVTREEINDEX =
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_greater_or_equal_tests.html#a79520eb174cfbe79b001ad900989c10f",
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_less_tests.html#af15b2b4941f51cc4b63e15ee677ed06d",
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_computed_master.html",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_enrich_view_with_properties_used_in_function_test.html#ac782f95966bcb476574045a133fb48f2",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_m_s_s_q_l_data_service_test.html#a0ff55af9e674231b4c09248afc5be37b",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_salad2_1_1_views.html#a0ff31777d2754fc56075d50943669fd6",
-"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#ab20b53d8447564c6b8fe747ae7ccfb12",
-"functions_prop.html",
-"interface_i_c_s_soft_1_1_services_1_1_current_user_service_1_1_i_user.html#a5a96b314edb2d5b430675b53a3aebd9a"
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_dish2_1_1_views.html#a50b4f023d8db72dec15f627a022d11c2",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_is_key_type_tests.html#af80dd11707eb8c81a640b3f88a5236e2",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_salad2.html",
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#aa4c3ab3672234b3187600778def453d3",
+"functions_l.html",
+"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_service.html#ae4ea50c417940d1cac1e614d2be011b1",
+"struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_pseudo_detail_in_extended_view.html#a7aaa31c682d3b218902b08bc996f52af"
 ];
 
 var SYNCONMSG = 'нажмите на выключить для синхронизации панелей';

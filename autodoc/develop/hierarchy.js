@@ -334,7 +334,6 @@ var hierarchy =
     [ "ICSSoft.STORMNET.DataObjectCache", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.DataObjectCacheTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_cache_test.html", null ],
     [ "ICSSoft.STORMNET.DataObjectExtension", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_extension.html", null ],
-    [ "NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html", null ],
     [ "NewPlatform.Flexberry.ORM.Tests.DataObjectTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_test.html", null ],
     [ "ICSSoft.STORMNET.Tests.TestClasses.DataObject.DataObjectTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_data_object_test.html", null ],
     [ "NewPlatform.Flexberry.ORM.Validation.DataObjectValidator", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_data_object_validator.html", null ],
@@ -549,7 +548,8 @@ var hierarchy =
         [ "NewPlatform.Flexberry.ORM.IntegratedTests.FunctionalLanguage.LoadCharTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_functional_language_1_1_load_char_test.html", null ],
         [ "NewPlatform.Flexberry.ORM.IntegratedTests.LINQProvider.LinqODataServiceTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_o_data_service_test.html", null ],
         [ "NewPlatform.Flexberry.ORM.IntegratedTests.LINQProvider.LinqToLcsChainWhereTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_l_i_n_q_provider_1_1_linq_to_lcs_chain_where_test.html", null ],
-        [ "NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html", null ]
+        [ "NewPlatform.Flexberry.ORM.IntegratedTests.Postgres.PostgresDataServiceTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_postgres_1_1_postgres_data_service_test.html", null ],
+        [ "NewPlatform.Flexberry.ORM.Tests.DataObjectExtensionTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_data_object_extension_tests.html", null ]
       ] ]
     ] ],
     [ "IEnumerable", null, [

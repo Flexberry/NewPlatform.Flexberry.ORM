@@ -1,5 +1,10 @@
 var NAVTREEINDEX21 =
 {
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#aa4c3ab3672234b3187600778def453d3":[1,0,4,0,1,3,160,1],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#aeb5a0dd1b866620c9b551807e8655d24":[1,0,4,0,1,3,160,5],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82.html#af4398d1f53300f7b18d78c6dc4f5ab02":[1,0,4,0,1,3,160,7],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html":[1,0,4,0,1,3,160,0],
+"class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#aa576d1d78084fb8a6990609e3e981855":[1,0,4,0,1,3,160,0,2],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#ab20b53d8447564c6b8fe747ae7ccfb12":[1,0,4,0,1,3,160,0,0],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#ac34345e6acc36e17074390c64dea8766":[1,0,4,0,1,3,160,0,1],
 "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB8_xD1_x82_xD0_xB57fb640bb588637967cbbf4fd26348887.html":[1,0,4,0,1,3,161,0],
@@ -185,8 +190,8 @@ var NAVTREEINDEX21 =
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aa691571e768d110e73dfcdad6b1638dc":[1,0,4,0,0,0,0,0],
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aaed4338a4a6cbe0f762c935d99ed20d1":[1,0,4,0,0,0,0,1],
 "classes.html":[1,1],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_.html":[1,3,0,26],
 "functions_.html":[1,3,0,27],
 "functions_.html":[1,3,0,28],
@@ -244,10 +249,5 @@ var NAVTREEINDEX21 =
 "functions_g.html":[1,3,0,7],
 "functions_h.html":[1,3,0,8],
 "functions_i.html":[1,3,0,9],
-"functions_k.html":[1,3,0,10],
-"functions_l.html":[1,3,0,11],
-"functions_m.html":[1,3,0,12],
-"functions_n.html":[1,3,0,13],
-"functions_o.html":[1,3,0,14],
-"functions_p.html":[1,3,0,15]
+"functions_k.html":[1,3,0,10]
 };
