@@ -110,7 +110,7 @@
     <Compile Include="ICSSoft.STORMNET.Business\BaseSQLDataServiceTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServerDefaultOrderTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServerOrderTest.cs" />
-    <Compile Include="ICSSoft.STORMNET.Business\BusinessServerProviderTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\BusinessServerProviderMultiThreadTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\DataServiceProviderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\EnrichViewWithPropertiesUsedInFunctionTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\Utils\FillRowSetToDataObjectTests.cs" />

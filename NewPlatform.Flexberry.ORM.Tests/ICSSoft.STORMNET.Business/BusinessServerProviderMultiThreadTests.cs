@@ -15,14 +15,14 @@
     /// <summary>
     /// Тесты <see cref="BusinessServerProvider" />
     /// </summary>
-    public class BusinessServerProviderTests
+    public class BusinessServerProviderMultiThreadTests
     {
         private readonly ITestOutputHelper Output;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public BusinessServerProviderTests(ITestOutputHelper output)
+        public BusinessServerProviderMultiThreadTests(ITestOutputHelper output)
         {
             Output = output;
         }
