@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta27</version>
+    <version>5.1.0-beta28</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -40,6 +40,7 @@
       16. Removed usage of DataServiceProvider.DataService for ExternalLangDef.
       17. Auditing objects with Unaltered status and Deleted not presented in database.
       18. Removed memory lock by business server (possible memory leakage).
+      19. Removed caching business server (fix multi-threading).
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.
