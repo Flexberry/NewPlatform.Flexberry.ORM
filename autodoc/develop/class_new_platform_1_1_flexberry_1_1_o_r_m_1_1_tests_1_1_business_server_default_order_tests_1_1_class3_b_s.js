@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_default_order_tests_1_1_class3_b_s =
+[
+    [ "OnUpdateClass3", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_default_order_tests_1_1_class3_b_s.html#a183ee284bea461432d67c9c56d9a387b", null ]
+];

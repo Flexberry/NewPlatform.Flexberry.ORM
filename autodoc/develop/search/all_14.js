@@ -66,8 +66,8 @@ var searchData=
   ['usetypes',['UseTypes',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_type_usage_attribute.html#ab565157c63757cda4481e054236d836e',1,'ICSSoft::STORMNET::TypeUsageAttribute']]],
   ['usingtypes',['UsingTypes',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_property_using_types.html#a1d4fc1f31eb04abf4ab76f4d0d5341a5',1,'ICSSoft::STORMNET::Business::PropertyUsingTypes']]],
   ['utcnow',['UtcNow',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a80ba42ee7e544bd8029ec887d801ea27',1,'ICSSoft::STORMNET::UserDataTypes::NullableDateTime']]],
-  ['utils',['Utils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils.html',1,'ICSSoft::STORMNET::Business']]],
   ['utils',['Utils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_utils.html',1,'ICSSoft::STORMNET::Business::LINQProvider::Tests']]],
+  ['utils',['Utils',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_utils.html',1,'ICSSoft::STORMNET::Business']]],
   ['utilsdetail',['UtilsDetail',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_detail.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]],
   ['utilslcs',['UtilsLcs',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_lcs.html',1,'ICSSoft::STORMNET::Business::LINQProvider']]]
 ];

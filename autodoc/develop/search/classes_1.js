@@ -31,8 +31,10 @@ var searchData=
   ['buildtests',['BuildTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_build_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['businessserver',['BusinessServer',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server.html',1,'ICSSoft::STORMNET::Business']]],
   ['businessserverattribute',['BusinessServerAttribute',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_attribute.html',1,'ICSSoft::STORMNET::Business']]],
+  ['businessserverdefaultordertests',['BusinessServerDefaultOrderTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_default_order_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['businessserverordertest',['BusinessServerOrderTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_order_test.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['businessserverprovider',['BusinessServerProvider',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html',1,'ICSSoft::STORMNET::Business']]],
+  ['businessserverprovidermultithreadtests',['BusinessServerProviderMultiThreadTests',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_tests.html',1,'NewPlatform::Flexberry::ORM::Tests']]],
   ['businessserverstest',['BusinessServersTest',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_business_servers_test.html',1,'NewPlatform::Flexberry::ORM::IntegratedTests']]],
   ['businesstaskmonitor',['BusinessTaskMonitor',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor.html',1,'ICSSoft::STORMNET::Business']]]
 ];

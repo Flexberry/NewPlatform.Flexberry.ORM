@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t1cba3ba528dd7b3bd4d1e2da27936a96 =
+[
+    [ "OnUpdateObjectsToUpdateMultiThreadClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t1cba3ba528dd7b3bd4d1e2da27936a96.html#ad8e3290da3e8f2cd178b4e3087912dde", null ]
+];

@@ -4,6 +4,8 @@ var searchData=
   ['objectcreator',['ObjectCreator',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_object_creator.html',1,'ICSSoft::STORMNET']]],
   ['objectcreatortest',['ObjectCreatorTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_object_creator_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::DataObject']]],
   ['objectnotalteredexception',['ObjectNotAlteredException',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_object_not_altered_exception.html',1,'ICSSoft::STORMNET::Exceptions']]],
+  ['objectstoupdatemultithreadbs',['ObjectsToUpdateMultiThreadBS',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t1cba3ba528dd7b3bd4d1e2da27936a96.html',1,'NewPlatform::Flexberry::ORM::Tests::BusinessServerProviderMultiThreadTests']]],
+  ['objectstoupdatemultithreadclass',['ObjectsToUpdateMultiThreadClass',['../class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t4c3b33b4795e1116a3d915f4910a2e29.html',1,'NewPlatform::Flexberry::ORM::Tests::BusinessServerProviderMultiThreadTests']]],
   ['objectstringdataview',['ObjectStringDataView',['../struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_object_string_data_view.html',1,'ICSSoft::STORMNET::Business']]],
   ['objecttype',['ObjectType',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_object_type.html',1,'ICSSoft::STORMNET::FunctionalLanguage']]],
   ['objecttypetest',['ObjectTypeTest',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_object_type_test.html',1,'ICSSoft::STORMNET::Tests::TestClasses::FunctionalLanguage']]],
