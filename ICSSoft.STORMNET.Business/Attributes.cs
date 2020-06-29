@@ -6,6 +6,8 @@ using System.Collections;
 
 namespace ICSSoft.STORMNET.Business
 {
+    using System.Linq;
+
     /// <summary>
     /// Типы событий на которые могу быть навешены обработчики
     /// </summary>
@@ -236,7 +238,8 @@ namespace ICSSoft.STORMNET.Business
                     ArrayList atrs = new ArrayList(dataObjectType.GetCustomAttributes(typeof(BusinessServerAttribute), false));
 
                     // добавим бизнес-сервера, которые достались от интерфейсов
-                    Type[] interfaces = dataObjectType.GetInterfaces();
+                    // Smirnov: сортируем по имени, чтобы исключить зависимость от платформы.
+                    Type[] interfaces = dataObjectType.GetInterfaces().OrderBy(i => i.FullName).ToArray();
                     List<Type> baseInterfaces = new List<Type>();
                     if (dataObjectType.BaseType != null)
                     {
