@@ -111,21 +111,33 @@
         }
 
         [BusinessServer(typeof(Class3BS), DataServiceObjectEvents.OnAllEvents)]
-        public class Class3 : DataObject { }
+        public class Class3 : DataObject
+        {
+        }
 
         [BusinessServer(typeof(Class2BS), DataServiceObjectEvents.OnAllEvents)]
-        public class Class2 : Class3, Interface3 { }
+        public class Class2 : Class3, Interface3
+        {
+        }
 
         [BusinessServer(typeof(Class1BS), DataServiceObjectEvents.OnAllEvents)]
-        public class Class1 : Class2, Interface1, Interface2 { }
+        public class Class1 : Class2, Interface1, Interface2
+        {
+        }
 
         [BusinessServer(typeof(Interface3BS), DataServiceObjectEvents.OnAllEvents)]
-        public interface Interface3 { }
+        public interface Interface3
+        {
+        }
 
         [BusinessServer(typeof(Interface2BS), DataServiceObjectEvents.OnAllEvents)]
-        public interface Interface2 { }
+        public interface Interface2
+        {
+        }
 
         [BusinessServer(typeof(Interface1BS), DataServiceObjectEvents.OnAllEvents)]
-        public interface Interface1 { }
+        public interface Interface1
+        {
+        }
     }
 }
