@@ -44,6 +44,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed usage of DataServiceProvider.DataService for ExternalLangDef.
 - Auditing objects with Unaltered status and Deleted not presented in database.
 - Removed memory lock by business server (possible memory leakage).
+- Removed caching business server (fix multi-threading)
 
 ### Security
 
