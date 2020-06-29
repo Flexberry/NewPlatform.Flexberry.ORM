@@ -7,6 +7,9 @@
 
     /// <summary>
     /// Тесты класса <see cref="BusinessServerProvider" />.
+    /// <remarks>
+    /// Подтверждение к https://flexberry.github.io/ru/fo_order-calls-bs.html#content
+    /// </remarks>
     /// </summary>
     public class BusinessServerDefaultOrderTests
     {
