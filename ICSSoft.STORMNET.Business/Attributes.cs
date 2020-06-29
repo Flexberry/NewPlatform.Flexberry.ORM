@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using ICSSoft.STORMNET;
-using System.Collections;
-
-namespace ICSSoft.STORMNET.Business
+﻿namespace ICSSoft.STORMNET.Business
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// Типы событий на которые могу быть навешены обработчики
@@ -180,10 +178,7 @@ namespace ICSSoft.STORMNET.Business
         {
         }
 
-        /// <summary>
-        /// Кеш бизнессерверов
-        /// </summary>
-        static private System.Collections.SortedList cache = new System.Collections.SortedList();
+        private static Dictionary<string, BusinessServerAttribute[]> atrCache = new Dictionary<string, BusinessServerAttribute[]>();
 
         /// <summary>
         /// Получить бизнессервер
@@ -214,95 +209,63 @@ namespace ICSSoft.STORMNET.Business
         /// <returns></returns>
         static public BusinessServer[] GetBusinessServer(System.Type dataObjectType, DataServiceObjectEvents dsevent, IDataService ds)
         {
-            // 2011-08-04 Братчиков: кешируем с учётом разных строк соединения. Это нужно для того чтобы не переписывать чужому бизнес-серверу датасервис
-            string key = dataObjectType.FullName + "." + dsevent + "." + (ds != null ? (ds.CustomizationString ?? "salt") : "tlas").GetHashCode();
-            lock(cache)
+            var atrs = GetBusinessServerAttributes(dataObjectType, dsevent);
+
+            ArrayList bss = new ArrayList();
+            foreach (var atr in atrs)
             {
-                if (cache.ContainsKey(key))
+                BusinessServer bs = (BusinessServer)Activator.CreateInstance(atr.BusinessServerType);
+                bs.Order = atr.Order;
+                bs.DataService = ds;
+                bs.SetType(dataObjectType);
+                bss.Insert(0, bs);
+            }
+
+            return (BusinessServer[])bss.ToArray(typeof(BusinessServer));
+        }
+
+        private static BusinessServerAttribute[] GetBusinessServerAttributes(Type dataObjectType, DataServiceObjectEvents dsevent)
+        {
+            string key = dataObjectType.FullName + "." + dsevent;
+            if (atrCache.ContainsKey(key))
+            {
+                return atrCache[key];
+            }
+
+            lock (atrCache)
+            {
+                if (atrCache.ContainsKey(key))
                 {
-                    BusinessServer[] ret_bs = (BusinessServer[])cache[key];
-
-                    foreach(BusinessServer bsi in ret_bs)
-                    {
-                        bsi.DataService = ds;
-                    }
-
-                    return ret_bs;
+                    return atrCache[key];
                 }
 
-                ArrayList bss = new ArrayList();
-                bool needSort = false;
-                while (dataObjectType != typeof(DataObject) && dataObjectType != typeof(object))
-                { // TODO: разобраться с логикой выполнения и привести в соответствие со статьёй http://storm:3013/Otrabotka-polzovatelskih-operacii-v-processe-raboty-servisa-dannyh-integraciya-s-biznes-serverom.ashx.
+                var atrs = new List<BusinessServerAttribute>();
+                while (dataObjectType != typeof(DataObject) && dataObjectType != typeof(object) && dataObjectType != null)
+                {
+                    // TODO: разобраться с логикой выполнения и привести в соответствие со статьёй http://storm:3013/Otrabotka-polzovatelskih-operacii-v-processe-raboty-servisa-dannyh-integraciya-s-biznes-serverom.ashx.
                     // получим сначала бизнес-сервера у самого класса (не может быть больше одного)
-                    ArrayList atrs = new ArrayList(dataObjectType.GetCustomAttributes(typeof(BusinessServerAttribute), false));
+                    atrs.AddRange(dataObjectType.GetCustomAttributes<BusinessServerAttribute>(false));
 
-                    // добавим бизнес-сервера, которые достались от интерфейсов
+                    // добавим бизнес-сервера, которые достались от интерфейсов.
+                    // Smirnov: вытягиваются все интерфейсы, в тч и унаследованные.
                     // Smirnov: сортируем по имени, чтобы исключить зависимость от платформы.
                     Type[] interfaces = dataObjectType.GetInterfaces().OrderBy(i => i.FullName).ToArray();
-                    List<Type> baseInterfaces = new List<Type>();
-                    if (dataObjectType.BaseType != null)
-                    {
-                        baseInterfaces.AddRange(dataObjectType.BaseType.GetInterfaces());
-                    }
+                    Type[] baseInterfaces = dataObjectType.BaseType?.GetInterfaces();
 
                     foreach (Type interf in interfaces)
                     {
-                        if (!baseInterfaces.Contains(interf))
+                        if (baseInterfaces == null || !baseInterfaces.Contains(interf))
                         {
-                            atrs.AddRange(interf.GetCustomAttributes(typeof (BusinessServerAttribute), false));
-                        }
-                    }
-
-                    // создадим инстанции бизнес-серверов и добавим в итоговый массив
-                    foreach (BusinessServerAttribute atr in atrs)
-                    {
-                        if ((dsevent & atr.ServerEvents) == dsevent)
-                        {
-                            BusinessServer bs = (BusinessServer)Activator.CreateInstance(atr.BusinessServerType);
-                            bs.DataService = ds;
-                            bs.SetType(dataObjectType);
-                            bss.Insert(0, bs);
-                            if (atr.Order != 0)
-                            {
-                                bs.Order = atr.Order;
-                                needSort = true;
-                            }
+                            atrs.AddRange(interf.GetCustomAttributes<BusinessServerAttribute>(false));
                         }
                     }
 
                     dataObjectType = dataObjectType.BaseType;
                 }
 
-                // пересортируем бизнессерверы
-                if (needSort)
-                {
-                    // Получим отсортированный список, в котором будет упорядоченная коллекция с допустимыми одинаковыми ключами
-                    // bss.Sort(new BusinesServerComparer());
-                    ArrayList sortedArList = new ArrayList();
-                    SortedList sl = new SortedList();
-                    foreach (BusinessServer bs in bss)
-                    {
-                        if (!sl.ContainsKey(bs.Order))
-                        {
-                            sl.Add(bs.Order, new ArrayList());
-                        }
-
-                        ((ArrayList)sl[bs.Order]).Add(bs);
-                    }
-
-                    foreach (DictionaryEntry entry in sl)
-                    {
-                        ArrayList arl = (ArrayList)entry.Value;
-                        sortedArList.AddRange(arl);
-                    }
-
-                    bss = sortedArList;
-                }
-
-                BusinessServer[] res = (BusinessServer[])bss.ToArray(typeof(BusinessServer));
-                cache.Add(key, res);
-                return res;
+                var atrsSorted = atrs.Where(atr => (dsevent & atr.ServerEvents) == dsevent).OrderBy(atr => atr.Order).ToArray();
+                atrCache[key] = atrsSorted;
+                return atrsSorted;
             }
         }
     }
