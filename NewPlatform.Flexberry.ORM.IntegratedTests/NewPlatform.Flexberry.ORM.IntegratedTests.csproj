@@ -142,6 +142,7 @@
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqOperations.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServersTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\ConfigResolverTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\DataServiceMemoryLeakageTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\DetailsLoadTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\LoadingStateTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\LoadObjectTest.cs" />
