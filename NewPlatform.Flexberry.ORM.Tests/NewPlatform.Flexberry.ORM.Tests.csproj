@@ -117,6 +117,7 @@
     <Compile Include="ICSSoft.STORMNET.Business\InterfaceTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\Utils\ProcessingRowsetDataRefTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\SQLDataServiceGenerateSQLTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectExtensionTests.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\KeyGuidTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\PKHelper\PKComparerTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\PKHelper\PKHelperTest.cs" />
