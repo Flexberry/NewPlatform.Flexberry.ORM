@@ -8,7 +8,10 @@
 
     public class DataObjectMemoryLeakageTests
     {
-        [Fact]
+        /// <summary>
+        /// Тест создания тяжелых объектов.
+        /// </summary>
+        [Fact(Skip = "Manual testing")]
         public void CreateTest()
         {
             // Arrange.
