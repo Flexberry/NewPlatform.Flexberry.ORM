@@ -2,30 +2,98 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
 
     using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тесты <see cref="BusinessServerProvider" />
     /// </summary>
     public class BusinessServerProviderTests
     {
+        private readonly ITestOutputHelper Output;
+
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/>
+        /// Конструктор.
+        /// </summary>
+        public BusinessServerProviderTests(ITestOutputHelper output)
+        {
+            Output = output;
+        }
+
+        /// <summary>
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>
         /// </summary>
         [Fact]
-        public void GetBusinessServerMultiThreadTest()
+        public void GetBusinessServerMultiThreadAsParallelTest()
         {
             // Arrange.
             const int length = 100;
-            int[] range = Enumerable.Range(0, length).ToArray();
+            IEnumerable<int> range = Enumerable.Range(0, length);
 
             // Act.
             range.AsParallel().ForAll(Action);
+        }
+
+        /// <summary>
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>
+        /// </summary>
+        [Fact]
+        public void GetBusinessServerMultiThreadToolTest()
+        {
+            // Arrange.
+            const int length = 100;
+            var multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
+            multiThreadingTestTool.StartThreads(length);
+
+            // Assert.
+            var exception = multiThreadingTestTool.GetExceptions();
+            if (exception != null)
+            {
+                foreach (var item in exception.InnerExceptions)
+                {
+                    Output.WriteLine($"Thread {item.Key}: {item.Value}");
+                }
+
+                // Пусть так.
+                Assert.Empty(exception.InnerExceptions);
+            }
+        }
+
+        private void MultiThreadMethod(object sender)
+        {
+            var parametersDictionary = sender as Dictionary<string, object>;
+            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+
+            // Arrange.
+            var processingObject = new ObjectsToUpdateMultiThreadClass();
+            var processingObjects = new ArrayList { processingObject };
+
+            // Act.
+            var bss = BusinessServerProvider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), DataServiceObjectEvents.OnInsertToStorage, null);
+            foreach (BusinessServer bs in bss)
+            {
+                try
+                {
+                    bs.ObjectsToUpdate = processingObjects;
+                    DataObject[] subobjects = bs.OnUpdateDataobject(processingObject);
+
+                    // Assert.
+                    Assert.Empty(subobjects);
+                }
+                catch (Exception exception)
+                {
+                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
+                    return;
+                }
+            }
         }
 
         private void Action(int i)
