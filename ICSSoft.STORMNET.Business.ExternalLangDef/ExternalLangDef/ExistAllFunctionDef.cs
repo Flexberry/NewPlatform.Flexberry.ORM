@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections;
-using ICSSoft.STORMNET.FunctionalLanguage;
-using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-
-namespace ICSSoft.STORMNET.Windows.Forms
+﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
+    using System;
+    using System.Collections;
+
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+
     public partial class ExternalLangDef
     {
-        private string GetConditionForExistAll(Function func,
-                                               delegateConvertValueToQueryValueString convertValue,
-                                               delegatePutIdentifierToBrackets convertIdentifier)
+        private string GetConditionForExistAll(
+            Function func,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            IDataService dataService)
         {
             if (!(func.Parameters[1] is Function) ||
                 ((Function)func.Parameters[1]).FunctionDef.StringedView != funcEQ &&
@@ -48,7 +52,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
                                          ? func.Parameters[1]
                                          : GetFunction(funcAND, funcAdv, func.Parameters[1]));
 
-                return SQLTranslFunction(f, convertValue, convertIdentifier);
+                return SQLTranslFunction(f, convertValue, convertIdentifier, dataService);
             }
 
             var vdefDet = func.Parameters[0] as VariableDef;
@@ -66,7 +70,7 @@ namespace ICSSoft.STORMNET.Windows.Forms
             }
 
             Function function = GetFunction(funcAND, newpars);
-            return base.SQLTranslFunction(function, convertValue, convertIdentifier);
+            return base.SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
         }
     }
 }

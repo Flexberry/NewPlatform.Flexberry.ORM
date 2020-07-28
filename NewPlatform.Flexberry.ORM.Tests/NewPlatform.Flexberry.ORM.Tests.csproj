@@ -142,12 +142,16 @@
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceTest.IsTypeAuditable.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqProvider.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BaseSQLDataServiceTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\BusinessServerDefaultOrderTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServerOrderTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\BusinessServerProviderMultiThreadTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\DataServiceProviderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\EnrichViewWithPropertiesUsedInFunctionTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\Utils\FillRowSetToDataObjectTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\InterfaceTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\Utils\ProcessingRowsetDataRefTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\SQLDataServiceGenerateSQLTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.DataObject\DataObjectExtensionTests.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\KeyGuidTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\PKHelper\PKComparerTest.cs" />
     <Compile Include="ICSSoft.STORMNET.DataObject\PKHelper\PKHelperTest.cs" />

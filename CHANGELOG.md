@@ -11,12 +11,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
 - Support of postgres table suffix and prefix modifiers.
 - Differ table modifiers `from` and `join` expressions.
+- Property AuditService.DetailedLogEnabled to disable audit log info.
 
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.
 - Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
 - Upgraded Npgsql version to 3.2.6.
 - Optimize left join with SQLDataService.GenerateSQL methods for some cases.
+- Moved group audit from SQLDataService to AuditService.
 
 - `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
 - `CurrentUserService` support only windows users.
@@ -51,6 +53,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Null GetHandler or SetHandler via cache dictionary. 
 - Rethrowing exception while handling special scenario via UpdateObjects.
 - Fix loading __PrimaryKey property of NotStored master.
+- Fix InitDataCopy for already loaded details.
+- Removed usage of DataServiceProvider.DataService for ExternalLangDef.
+- Auditing objects with Unaltered status and Deleted not presented in database.
+- Removed memory lock by business server (possible memory leakage).
+- Removed caching business server (fix multi-threading)
 
 ### Security
 

@@ -14,10 +14,13 @@
         /// </summary>
         public const string ExistViewName = "__ExistView__";
 
-        private string GetConditionForExist(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier, Business.IDataService dataService = null)
+        private string GetConditionForExist(
+            Function func,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            IDataService dataService)
         {
-            if (!(DataService is SQLDataService))
+            if (!(dataService is SQLDataService sqlDataService))
             {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExist));
@@ -31,7 +34,7 @@
             string agregatorAlias = "STORMGENERATEDQUERY";
 
             // генерируем подзапрос для exists
-            string selectForCondition = GetSelectForDetailVariableDef(dvd, null, dataService);
+            string selectForCondition = GetSelectForDetailVariableDef(dvd, null, sqlDataService);
             selectForCondition = selectForCondition.Replace(convertIdentifier(agregatorAlias),
                                                             convertIdentifier(detailAlias));
 
@@ -56,11 +59,11 @@
             }
 
             // генерируем where часть для подзапроса в exists
-            string whereForConition = SQLTranslFunction((Function)conditionFunc, convertValue,
-                                                        identifier =>
-                                                        ConvertIdentifierForDetail(identifier, dvd.ConnectMasterPorp,
-                                                                                   agregatorAlias, detailAlias,
-                                                                                   convertIdentifier));
+            string whereForConition = SQLTranslFunction(
+                (Function)conditionFunc,
+                convertValue,
+                identifier => ConvertIdentifierForDetail(identifier, dvd.ConnectMasterPorp, agregatorAlias, detailAlias, convertIdentifier),
+                dataService);
 
             string condition = string.Format("{0} WHERE {1}", selectForCondition, whereForConition);
             string result = string.Format("exists({4} and {2}.{0} = {3}.{1})",
@@ -106,9 +109,9 @@
         /// <param name="additionalProperties">
         /// Свойства, которые необходимо добавить в представление при вычитки детейлов.
         /// </param>
-        /// <param name="dataService">Сервис данных.</param>
+        /// <param name="sqlDataService">Сервис данных.</param>
         /// <returns>Сформированный запрос по представлению детейла.</returns>
-        private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties, Business.IDataService dataService = null)
+        private string GetSelectForDetailVariableDef(DetailVariableDef dvd, List<string> additionalProperties, SQLDataService sqlDataService)
         {
             var lcs = new LoadingCustomizationStruct(null)
             {
@@ -130,8 +133,7 @@
                 }
             }
 
-            var currentDataService = (dataService != null) ? dataService : DataService;
-            string query = ((SQLDataService)currentDataService).GenerateSQLSelect(lcs, false);
+            string query = sqlDataService.GenerateSQLSelect(lcs, false);
             return query;
         }
     }

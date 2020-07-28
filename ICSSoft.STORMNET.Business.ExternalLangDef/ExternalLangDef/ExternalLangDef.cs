@@ -996,9 +996,14 @@
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
         /// <returns></returns>
-        private string DataServiceSwitch(ICSSoft.STORMNET.FunctionalLanguage.Function value, ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString convertValue, ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets convertIdentifier)
+        private string DataServiceSwitch(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, IDataService dataService)
         {
-            return DataService.FunctionToSql(this, value, convertValue, convertIdentifier);
+            if (dataService == null)
+            {
+                throw new ArgumentNullException(nameof(dataService));
+            }
+
+            return dataService.FunctionToSql(this, value, convertValue, convertIdentifier);
         }
 
         public string[] retVars = null;
@@ -1028,17 +1033,20 @@
             return string.Format("({0} {1} )", res, wrapper);
         }
 
-        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
+        /// <inheritdoc />
+        protected override string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, object dataService)
         {
+            IDataService ds = dataService as IDataService;
+
             if (value.FunctionDef.StringedView == "NOTISNULL")
             {
-                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier);
+                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService);
                 return WrapNull(value.Parameters[0], translSwitch, "IS NOT NULL");
             }
 
             if (value.FunctionDef.StringedView == "ISNULL")
             {
-                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier);
+                string translSwitch = SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService);
                 return WrapNull(value.Parameters[0], translSwitch, "IS NULL");
             }
 
@@ -1049,7 +1057,7 @@
 
             if (value.FunctionDef.StringedView == "TODAY")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "YearDIFF" || value.FunctionDef.StringedView == "quarterDIFF"
@@ -1063,49 +1071,49 @@
             if (value.FunctionDef.StringedView == "YearPart" || value.FunctionDef.StringedView == "MonthPart"
                      || value.FunctionDef.StringedView == "DayPart")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "hhPart" || value.FunctionDef.StringedView == "miPart")
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcDayOfWeekZeroBased)
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcDaysInMonth)
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
                 // здесь требуется преобразование из DATASERVICE
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcImplication)
@@ -1115,37 +1123,37 @@
 
                 // не А или В
                 var fres = GetFunction(funcOR, f1, value.Parameters[1]);
-                return base.SQLTranslFunction(fres, convertValue, convertIdentifier);
+                return base.SQLTranslFunction(fres, convertValue, convertIdentifier, dataService);
             }
 
             if (value.FunctionDef.StringedView == "DATEDIFF")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcExistExact)
             {
-                return GetConditionForExistExact(value, convertValue, convertIdentifier);
+                return GetConditionForExistExact(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcExistDetails)
             {
-                return GetConditionForExistDetails(value, convertValue, convertIdentifier);
+                return GetConditionForExistDetails(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcExistAll)
             {
-                return GetConditionForExistAll(value, convertValue, convertIdentifier);
+                return GetConditionForExistAll(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcExistAllExact)
             {
-                return GetConditionForExistAllExact(value, convertValue, convertIdentifier);
+                return GetConditionForExistAllExact(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcExist)
             {
-                return GetConditionForExist(value, convertValue, convertIdentifier, dataService as Business.IDataService);
+                return GetConditionForExist(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcSumWithLimit
@@ -1189,19 +1197,17 @@
                 retVars = (string[])al.ToArray(typeof(string));
 
                 string Slct =
-                    (DataService as ICSSoft.STORMNET.Business.SQLDataService).GenerateSQLSelect(lcs, true)
-                                                                             .Replace(
-                                                                                 "STORMGENERATEDQUERY",
-                                                                                 "SGQ"
-                                                                                 + Guid.NewGuid()
-                                                                                       .ToString()
-                                                                                       .Replace(
-                                                                                           "-", string.Empty));
+                    (dataService as SQLDataService).GenerateSQLSelect(lcs, true)
+                    .Replace(
+                        "STORMGENERATEDQUERY",
+                        "SGQ"
+                        + Guid.NewGuid()
+                            .ToString("N"));
                 string CountIdentifier =
                     convertIdentifier(
                         "g" + Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 29));
 
-                var sumExpression = SQLTranslSwitch(par, convertValue, convertIdentifier);
+                var sumExpression = SQLTranslSwitch(par, convertValue, convertIdentifier, dataService);
 
                 var parBoolVariableDef = par as VariableDef;
                 if ((parBoolVariableDef != null)
@@ -1238,14 +1244,14 @@
             if (value.FunctionDef.StringedView == funcCountWithLimit
                      || value.FunctionDef.StringedView == "Count")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "SUM" || value.FunctionDef.StringedView == "AVG"
                      || value.FunctionDef.StringedView == "MAX"
                      || value.FunctionDef.StringedView == "MIN")
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == "OR")
@@ -1279,7 +1285,7 @@
 
                 if (!DetFuncs)
                 {
-                    return base.SQLTranslFunction(value, convertValue, convertIdentifier);
+                    return base.SQLTranslFunction(value, convertValue, convertIdentifier, dataService);
                 }
                 else
                 {
@@ -1292,7 +1298,8 @@
                             SQLTranslFunction(
                                 value.Parameters[i] as FunctionalLanguage.Function,
                                 convertValue,
-                                convertIdentifier);
+                                convertIdentifier,
+                                dataService);
                         if (s.IndexOf("in (") > 0)
                         {
                             p = s.Substring(0, s.IndexOf("in (") + 4);
@@ -1330,22 +1337,22 @@
             if (value.FunctionDef.StringedView == funcToUpper
                      || value.FunctionDef.StringedView == funcToLower)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcDateAdd)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcToChar)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             if (value.FunctionDef.StringedView == funcGeoIntersects || value.FunctionDef.StringedView == funcGeomIntersects)
             {
-                return DataServiceSwitch(value, convertValue, convertIdentifier);
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
             return base.SQLTranslFunction(value, convertValue, convertIdentifier, dataService);
@@ -1454,4 +1461,3 @@
         }
     }
 }
-
