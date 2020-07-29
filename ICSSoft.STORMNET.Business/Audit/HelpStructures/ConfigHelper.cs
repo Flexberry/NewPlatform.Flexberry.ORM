@@ -5,7 +5,6 @@
     using System.Configuration;
     using System.Linq;
     using System.Reflection;
-    using System.Web.Configuration;
     using Security;
 
     /// <summary>
@@ -24,10 +23,7 @@
         /// <returns> Строка соединения. </returns>
         public static string GetConnectionString(AppMode currentAppMode, string connStringName)
         {
-            var settingCollection =
-                currentAppMode == AppMode.Web
-                ? WebConfigurationManager.ConnectionStrings
-                : ConfigurationManager.ConnectionStrings;
+            var settingCollection = ConfigurationManager.ConnectionStrings;
             return (from ConnectionStringSettings mi in settingCollection
                     where mi.Name == connStringName
                     select mi.ConnectionString).FirstOrDefault();
@@ -41,10 +37,7 @@
         /// <returns> Значение настройки. </returns>
         public static string GetAppSetting(AppMode currentAppMode, string appSettingName)
         {
-            var settingCollection =
-                currentAppMode == AppMode.Web
-                ? WebConfigurationManager.AppSettings
-                : ConfigurationManager.AppSettings;
+            var settingCollection = ConfigurationManager.AppSettings;
             return (from mi in settingCollection.AllKeys
                     where mi == appSettingName
                     select settingCollection[mi]).FirstOrDefault();

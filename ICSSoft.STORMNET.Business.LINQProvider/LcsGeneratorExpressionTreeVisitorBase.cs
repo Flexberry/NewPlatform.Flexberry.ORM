@@ -14,12 +14,11 @@
     using ICSSoft.STORMNET.UserDataTypes;
     using ICSSoft.STORMNET.Windows.Forms;
 
+    using Microsoft.Spatial;
+
     using Remotion.Linq.Clauses.Expressions;
     using Remotion.Linq.Clauses.ExpressionTreeVisitors;
     using Remotion.Linq.Parsing;
-#if NETFX_45
-    using Microsoft.Spatial;
-#endif
 
     /// <summary>
     /// Visitor, который обходит распарсенноое дерево
@@ -530,7 +529,6 @@
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
                 _stacksHolder.PushParam(new VariableDef(_ldef.StringType, varname));
             }
-#if NETFX_45
             else if (memberType == typeof(Geography))
             {
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
@@ -541,7 +539,6 @@
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
                 _stacksHolder.PushParam(new VariableDef(_ldef.GeometryType, varname));
             }
-#endif
             else
             {
                 throw new UnknownTypeException("Неизвестный тип операнда " + memberType.Name);
@@ -592,7 +589,6 @@
             string methodName = expression.Method.Name;
             switch (methodName)
             {
-#if NETFX_45
                 case "GeoIntersects":
                 case "Intersects":
                     UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geography), typeof(Geography) });
@@ -617,7 +613,6 @@
                     _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeomIntersects, arg_1, arg_2));
 
                     return expression;
-#endif
 
                 case "Get":
                     // Обработка параметров

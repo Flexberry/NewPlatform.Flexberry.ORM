@@ -328,7 +328,6 @@
                                             setHandler(obj, dtVal1);
                                             return;
                                         }
-#if NETFX_45
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -344,7 +343,6 @@
                                             setHandler(obj, geo);
                                             return;
                                         }
-#endif
 
                                         if (propType.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[] { typeof(string), typeof(System.IFormatProvider) }, null) != null)
                                         {
@@ -2535,7 +2533,6 @@
                                     }
                                 }
                             }
-#if NETFX_45
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2544,7 +2541,6 @@
                             {
                                 UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
-#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2662,7 +2658,6 @@
                         }
                     }
                 }
-#if NETFX_45
                 else if (val1 is Geography && val2 is Geography)
                 {
                     UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2671,7 +2666,6 @@
                 {
                     UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                 }
-#endif
                 else if (val1 is IComparableType)
                 {
                     UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2798,7 +2792,6 @@
                                     }
                                 }
                             }
-#if NETFX_45
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2807,7 +2800,6 @@
                             {
                                 UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
-#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
