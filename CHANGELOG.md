@@ -25,7 +25,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
-
 - Parsing nullable guids with PKHelper.GetKeys method.
 - Getting property storage name when resolving circular dependencies.
 - Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
@@ -44,7 +43,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed usage of DataServiceProvider.DataService for ExternalLangDef.
 - Auditing objects with Unaltered status and Deleted not presented in database.
 - Removed memory lock by business server (possible memory leakage).
-- Removed caching business server (fix multi-threading)
+- Removed caching business server (fix multi-threading).
+- Getting new instance of audit data service on every write audit operation.
 
 ### Security
 
