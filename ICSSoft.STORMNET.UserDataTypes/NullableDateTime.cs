@@ -1,9 +1,10 @@
-﻿using System;
-using System.Xml;
-using System.Xml.Schema;
-
-namespace ICSSoft.STORMNET.UserDataTypes
+﻿namespace ICSSoft.STORMNET.UserDataTypes
 {
+    using System;
+    using System.Configuration;
+    using System.Xml;
+    using System.Xml.Schema;
+
     using ICSSoft.STORMNET.Windows.Forms.Binders;
 
     /// <summary>
@@ -308,7 +309,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             if (format == null)
             {
-                format = System.Configuration.ConfigurationSettings.AppSettings["NullableDateTimeDefaultFormat"];
+                format = ConfigurationManager.AppSettings["NullableDateTimeDefaultFormat"];
             }
 
             return Value.ToString(format, formatProvider);

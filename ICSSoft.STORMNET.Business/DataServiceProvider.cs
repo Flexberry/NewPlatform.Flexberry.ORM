@@ -5,7 +5,6 @@
     using System.Security.Cryptography;
     using System.Text;
     using System.Web;
-    using System.Web.Configuration;
     using ICSSoft.Services;
 
     using Unity;
@@ -73,13 +72,11 @@
                             if (dataService.CustomizationString == null)
                             {
                                 // Пробуем получить строку соединения в web-стиле.
-                                string connectionStringName =
-                                    WebConfigurationManager.AppSettings["DefaultConnectionStringName"];
+                                string connectionStringName = ConfigurationManager.AppSettings["DefaultConnectionStringName"];
                                 string connectionString = null;
                                 if (!string.IsNullOrEmpty(connectionStringName))
                                 {
-                                    ConnectionStringSettings connString =
-                                        WebConfigurationManager.ConnectionStrings[connectionStringName];
+                                    ConnectionStringSettings connString = ConfigurationManager.ConnectionStrings[connectionStringName];
                                     if (connString != null)
                                     {
                                         connectionString = connString.ConnectionString;
