@@ -71,9 +71,11 @@
             // Сначала пытаемся найти строку соединения с указанным именем.
             var dataServiceCustomizationString = GetConnectionString(currentAppMode, connStringName);
 
+            var dataServiceReturnedByDataServiceProvider = DataServiceProvider.DataService;
+
             Type dataServiceRealType =
                 string.IsNullOrEmpty(dataServiceType)
-                    ? DataServiceProvider.DataService.GetType()
+                    ? dataServiceReturnedByDataServiceProvider.GetType()
                     : Type.GetType(dataServiceType);
 
             if (dataServiceRealType == null || !(dataServiceRealType.IsSubclassOf(typeof(SQLDataService)) || dataServiceRealType == typeof(SQLDataService)))
@@ -82,7 +84,7 @@
             }
 
             var realDataServiceCustomizationString = string.IsNullOrEmpty(dataServiceCustomizationString)
-                ? DataServiceProvider.DataService.CustomizationString
+                ? dataServiceReturnedByDataServiceProvider.CustomizationString
                 : dataServiceCustomizationString;
 
             var dataServiceCacheKey = $"{dataServiceRealType.FullName}_{realDataServiceCustomizationString}";
