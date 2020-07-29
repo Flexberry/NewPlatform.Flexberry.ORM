@@ -109,5 +109,13 @@
                 return dataService;
             }
         }
+
+        /// <summary>
+        /// Очистка кеша сервисов данных аудита.
+        /// </summary>
+        public static void ClearAuditDataServiceCache()
+        {
+            DataServiceCache.Clear();
+        }
     }
 }
