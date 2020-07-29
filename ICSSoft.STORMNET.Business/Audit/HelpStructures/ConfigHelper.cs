@@ -13,7 +13,6 @@
     /// </summary>
     public static class ConfigHelper
     {
-
         private static readonly Dictionary<string, IDataService> DataServiceCache =
             new Dictionary<string, IDataService>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -100,8 +99,8 @@
                     .ToList();
 
                 IDataService dataService = foundConstructors.Count == 1
-                    ? (IDataService) foundConstructors[0].Invoke(new object[] {new EmptySecurityManager()})
-                    : (IDataService) Activator.CreateInstance(dataServiceRealType);
+                    ? (IDataService)foundConstructors[0].Invoke(new object[] { new EmptySecurityManager() })
+                    : (IDataService)Activator.CreateInstance(dataServiceRealType);
 
                 dataService.CustomizationString = realDataServiceCustomizationString;
                 DataServiceCache.Add(dataServiceCacheKey, dataService);
