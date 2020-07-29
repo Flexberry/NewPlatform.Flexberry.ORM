@@ -13,6 +13,10 @@
     /// </summary>
     public static class ConfigHelper
     {
+
+        private static readonly Dictionary<string, IDataService> DataServiceCache =
+            new Dictionary<string, IDataService>(StringComparer.InvariantCultureIgnoreCase);
+
         /// <summary>
         /// Получение строки соединения из конфига.
         /// </summary>
@@ -78,19 +82,32 @@
                 throw new NotImplementedException("использование сервиса данных типа " + dataServiceType);
             }
 
-            List<ConstructorInfo> foundConstructors = dataServiceRealType.GetConstructors()
-                                                    .Where(x => x.GetParameters().Count() == 1 && x.GetParameters().All(y => y.ParameterType == typeof(ISecurityManager)))
-                                                    .ToList();
+            var realDataServiceCustomizationString = string.IsNullOrEmpty(dataServiceCustomizationString)
+                ? DataServiceProvider.DataService.CustomizationString
+                : dataServiceCustomizationString;
 
-            IDataService dataService = foundConstructors.Count == 1
-                ? (IDataService)foundConstructors[0].Invoke(new object[] { new EmptySecurityManager() })
-                : (IDataService)Activator.CreateInstance(dataServiceRealType);
+            var dataServiceCacheKey = $"{dataServiceRealType.FullName}_{realDataServiceCustomizationString}";
 
-            dataService.CustomizationString =
-                string.IsNullOrEmpty(dataServiceCustomizationString)
-                    ? DataServiceProvider.DataService.CustomizationString
-                    : dataServiceCustomizationString;
-            return dataService;
+            if (DataServiceCache.ContainsKey(dataServiceCacheKey))
+            {
+                return DataServiceCache[dataServiceCacheKey];
+            }
+            else
+            {
+                List<ConstructorInfo> foundConstructors = dataServiceRealType.GetConstructors()
+                    .Where(x => x.GetParameters().Count() == 1 &&
+                                x.GetParameters().All(y => y.ParameterType == typeof(ISecurityManager)))
+                    .ToList();
+
+                IDataService dataService = foundConstructors.Count == 1
+                    ? (IDataService) foundConstructors[0].Invoke(new object[] {new EmptySecurityManager()})
+                    : (IDataService) Activator.CreateInstance(dataServiceRealType);
+
+                dataService.CustomizationString = realDataServiceCustomizationString;
+                DataServiceCache.Add(dataServiceCacheKey, dataService);
+
+                return dataService;
+            }
         }
     }
 }
