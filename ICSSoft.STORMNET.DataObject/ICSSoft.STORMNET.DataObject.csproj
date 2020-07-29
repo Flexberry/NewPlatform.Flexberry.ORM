@@ -127,6 +127,7 @@
     <Compile Include="PKHelper\FastAllocator.cs" />
     <Compile Include="PKHelper\PKComparer.cs" />
     <Compile Include="PKHelper\PKHelper.cs" />
+    <Compile Include="Properties\InternalsVisibleTo.cs" />
     <Compile Include="PseudoDetailInExtendedView.cs" />
     <Compile Include="Security\AccessAndRole.cs" />
     <Compile Include="Security\AccessType.cs">

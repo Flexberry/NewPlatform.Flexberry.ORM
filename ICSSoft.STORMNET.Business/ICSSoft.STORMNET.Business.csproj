@@ -217,6 +217,7 @@
     <Compile Include="LoadingCustomizationStruct.cs" />
     <Compile Include="MasterObjStruct.cs" />
     <Compile Include="ObjectStringDataView.cs" />
+    <Compile Include="Properties\InternalsVisibleTo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
