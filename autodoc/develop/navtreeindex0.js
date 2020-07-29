@@ -236,9 +236,10 @@ var NAVTREEINDEX0 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_check_helper.html":[1,0,2,1,0,0,1,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_check_helper.html#a83c4cfc68e441b91092059b130502a58":[1,0,2,1,0,0,1,1,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html":[1,0,2,1,0,0,1,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#a41d6e4f56dedde54342ca3d019eef73e":[1,0,2,1,0,0,1,2,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#a827888e7de213b9940feb3f63a41e554":[1,0,2,1,0,0,1,2,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#ae3d36dc766b4b56ae406fa03e7aff746":[1,0,2,1,0,0,1,2,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#a41d6e4f56dedde54342ca3d019eef73e":[1,0,2,1,0,0,1,2,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#a827888e7de213b9940feb3f63a41e554":[1,0,2,1,0,0,1,2,3],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#aa0da4bc89f00dcc7a876fec98460db05":[1,0,2,1,0,0,1,2,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html#ae3d36dc766b4b56ae406fa03e7aff746":[1,0,2,1,0,0,1,2,2],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_error_processer.html":[1,0,2,1,0,0,1,3],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_error_processer.html#ab9b31b4feeec1a80a30aa195e72fadde":[1,0,2,1,0,0,1,3,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_error_processer.html#afe91b4b23176934d48cae03826187056":[1,0,2,1,0,0,1,3,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_enabled_audit_test.html":[1,0,2,1,0,0,2,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_enabled_audit_test.html#a00bb18d6447a995965f8adffaf0e740f":[1,0,2,1,0,0,2,1,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_enabled_audit_test.html#a60ec00265eb50c22dc8c39284c2c036e":[1,0,2,1,0,0,2,1,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html":[1,0,2,1,0,0,2,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html#a2377fc233d628eb13ab4c4f65b365ee9":[1,0,2,1,0,0,2,2,2]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_base_audit_service_test.html":[1,0,2,1,0,0,2,2]
 };

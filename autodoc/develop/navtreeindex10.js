@@ -1,5 +1,17 @@
 var NAVTREEINDEX10 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_external_module.html#a4bc15ce950fc64397bb54d8c0109d450":[1,0,2,1,10,5,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_external_module.html#af10ad28ae09c56f2d99f5b540bcdf42e":[1,0,2,1,10,5,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_guid_extensions.html":[1,0,2,1,10,6],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_guid_extensions.html#a1735b5b7e5d469bb5ddfa2acb81779a0":[1,0,2,1,10,6,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html":[1,0,2,1,10,10],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#a0f50710da08f373c005fb22caf41802e":[1,0,2,1,10,10,6],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#a4a389863ad6e6d7d6bc448186591636e":[1,0,2,1,10,10,3],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#a68260d7c4cf45425db813aee6915d77f":[1,0,2,1,10,10,5],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#a6997889301e662189a65e07b4ebe6e30":[1,0,2,1,10,10,2],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#a728047958f20c1f3913e9cefad47ece2":[1,0,2,1,10,10,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#ab1167554a6824eda33861e5b76f86d54":[1,0,2,1,10,10,4],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html#ac466bac4bf9692b9867ae5b0781cbf4b":[1,0,2,1,10,10,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_file_desc.html":[1,0,2,1,10,7],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_file_desc.html#a1b23fbd038bd83b9a529fd615274e2c6":[1,0,2,1,10,7,5],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_file_desc.html#a33bd4df2730dcff24c15b3d982f834f7":[1,0,2,1,10,7,2],
@@ -237,17 +249,5 @@ var NAVTREEINDEX10 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a3c591d23f46ae170e5eb70e0b07938a2":[1,0,2,1,12,5,6],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a3e01ac64f752c5725bf45779a48061af":[1,0,2,1,12,5,10],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a578a3fff95429018f39285e942ac3789":[1,0,2,1,12,5,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a5b861460b0e6dd285a51e1d6b1c68b59":[1,0,2,1,12,5,4],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a5d9596166ba41623edf052293127e537":[1,0,2,1,12,5,14],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a5eda530fdf0ad240ee080172eec3a657":[1,0,2,1,12,5,13],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a61e32ece7fbc280ea873c396893567f7":[1,0,2,1,12,5,33],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a68d54b8acced7ab867f39f83c6aa0353":[1,0,2,1,12,5,34],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a699ed48bb2b2470f8db188d94d1f0808":[1,0,2,1,12,5,28],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a80395a908d6a8facf7a53fa7439ecd71":[1,0,2,1,12,5,36],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a80ba42ee7e544bd8029ec887d801ea27":[1,0,2,1,12,5,38],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a8a3aa3ca4d037829718eed067e296148":[1,0,2,1,12,5,20],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a9c576eac85e6acefcbadb7855aee4b3b":[1,0,2,1,12,5,12],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a9e1ba237d7e14504ae9e1358c2eb35c6":[1,0,2,1,12,5,8],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a9f8671c66fcce0f2f7f9cb8a1dbef948":[1,0,2,1,12,5,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#aa67e56d4a8ec6d43250d893b9c80c216":[1,0,2,1,12,5,7]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html#a5b861460b0e6dd285a51e1d6b1c68b59":[1,0,2,1,12,5,4]
 };
