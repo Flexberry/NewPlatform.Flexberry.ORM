@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Configuration;
 
     /// <summary>
     /// Провайдер текущего монитора выполнения задач.
@@ -15,7 +16,7 @@
         {
             try
             {
-                string taskCompName = System.Configuration.ConfigurationSettings.AppSettings["BusinessTaskMonitorType"];
+                string taskCompName = ConfigurationManager.AppSettings["BusinessTaskMonitorType"];
                 if (taskCompName != null && taskCompName != string.Empty)
                 {
                     taskMonitor = (IBusinessTaskMonitor)Activator.CreateInstance(Type.GetType(taskCompName));

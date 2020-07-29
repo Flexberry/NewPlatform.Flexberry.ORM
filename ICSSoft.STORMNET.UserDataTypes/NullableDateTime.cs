@@ -1,11 +1,11 @@
 ﻿namespace ICSSoft.STORMNET.UserDataTypes
 {
     using System;
+    using System.Configuration;
     using System.Xml;
     using System.Xml.Schema;
 
     using ICSSoft.STORMNET.Windows.Forms.Binders;
-    using System.Configuration;
 
     /// <summary>
     /// DateTime с поддержкой null (в ту эпоху, когда ещё не было DateTime? у нас уже был этот класс - так и повелось).

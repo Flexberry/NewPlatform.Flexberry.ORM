@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
@@ -941,8 +940,8 @@
                     "Привести дату {0} к строке длиной {1} в формате {2}",
                     new FunctionParameterDef(DateTimeType),
                     new FunctionParameterDef(NumericType),
-                    new FunctionParameterDef(NumericType))
-                    , new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
+                    new FunctionParameterDef(NumericType)),
+                    new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
                     new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
                     new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
                     new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType))

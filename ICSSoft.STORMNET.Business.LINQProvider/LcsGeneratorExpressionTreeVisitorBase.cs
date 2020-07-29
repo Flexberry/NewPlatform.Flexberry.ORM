@@ -13,7 +13,9 @@
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.UserDataTypes;
     using ICSSoft.STORMNET.Windows.Forms;
+
     using Microsoft.Spatial;
+
     using Remotion.Linq.Clauses.Expressions;
     using Remotion.Linq.Clauses.ExpressionVisitors;
     using Remotion.Linq.Parsing;
@@ -616,6 +618,7 @@
                     _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeomIntersects, arg_1, arg_2));
 
                     return expression;
+
                 case "Get":
                     // Обработка параметров
                     if (expression.Object.Type == typeof(ParamSet))

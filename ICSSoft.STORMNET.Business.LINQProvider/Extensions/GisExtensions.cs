@@ -1,11 +1,8 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Extensions
 {
-    using Microsoft.Spatial;
-    using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
+
+    using Microsoft.Spatial;
 
     /// <summary>
     /// Методы расширения Gis для LINQProvider.
