@@ -148,7 +148,6 @@
                     IDataService ds = dsList[rand.Next(dsList.Count - 1)];
 
                     ExternalLangDef ldef = ExternalLangDef.LanguageDef;
-                    ldef.DataService = ds;
 
                     // Arrange.
                     ICSSoft.STORMNET.View pawView = new ICSSoft.STORMNET.View();

@@ -5,11 +5,12 @@
     using System.Data;
     using System.Linq;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
     using ICSSoft.STORMNET.Exceptions;
+
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
 
     using DataObject = ICSSoft.STORMNET.DataObject;
     using View = ICSSoft.STORMNET.View;
@@ -19,36 +20,27 @@
     /// </summary>
     public class AuditService : IAuditService
     {
-        #region Статические элементы
+        #region Конструкторы
 
         /// <summary>
-        /// Текущий класс для работы с сервисом аудита.
+        /// Initializes a new instance of the <see cref="AuditService" /> class.
         /// </summary>
-        private static IAuditService _currentAuditService;
-
-        /// <summary>
-        /// Текущий класс для работы с сервисом аудита.
-        /// </summary>
-        public static IAuditService Current => _currentAuditService ?? (_currentAuditService = new AuditService());
-
-        /// <summary>
-        /// Инициализация текущего сервиса аудита.
-        /// </summary>
-        /// <param name="appSetting">Настройки аудита приложения.</param>
-        /// <param name="audit">Элемент, реализующий логику аудита.</param>
-        /// <param name="service">Сервис аудита, который будет установлен как текущий.</param>
-        public static void InitAuditService(AuditAppSetting appSetting, IAudit audit, IAuditService service)
+        /// <param name="currentUserAccessor">
+        /// Сервис доступа к данным текущего пользовтаеля.
+        /// </param>
+        public AuditService(ICurrentUserAccessor currentUserAccessor)
         {
-            _currentAuditService = service;
-            Current.AppSetting = appSetting;
-            Current.Audit = audit;
-            Current.ApplicationMode = AppMode.Win;
-            Current.ShowPrimaryKey = false;
+            _currentUserAccessor = currentUserAccessor ?? throw new ArgumentNullException(nameof(currentUserAccessor));
         }
 
-        #endregion Статические элементы
+        #endregion
 
         #region Поля и свойства
+
+        /// <summary>
+        /// Сервис доступа к данным текущего пользовтаеля.
+        /// </summary>
+        private readonly ICurrentUserAccessor _currentUserAccessor;
 
         /// <summary>
         /// Current audit settings loader for types.
@@ -1474,13 +1466,13 @@
         /// <param name="needNameNotLogin">Данный метод должен постараться вернуть дружественное имя пользователя (логин выдаётся в крайнем случае).</param>
         /// <returns>Имя пользователя.</returns>
         /// <exception cref="Exception">Если задан неподдерживаемый режим, то произойдёт исключение.</exception>
-        private static string GetCurrentUserInfo(AppMode curMode, bool needNameNotLogin)
+        private string GetCurrentUserInfo(AppMode curMode, bool needNameNotLogin)
         {
             // Сначала пробуем определить имя пользователя через CurrentUserService.
             try
             {
                 // Данный метод должен отработать как в win, так и в web.
-                var currentUser = CurrentUserService.CurrentUser;
+                var currentUser = _currentUserAccessor.CurrentUser;
                 if (currentUser != null)
                 {
                     if (needNameNotLogin)

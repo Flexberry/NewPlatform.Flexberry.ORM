@@ -1,7 +1,12 @@
 ﻿namespace ICSSoft.STORMNET.Business.Audit.Tests
 {
+    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.Objects;
+
+    using Moq;
+
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
 
     using Xunit;
 
@@ -19,8 +24,9 @@
         [Fact]
         public void TestIsTypeAuditableWithoutAuditSettings()
         {
-            // Assert.
-            var auditService = new AuditService();
+            // Arrange.
+            var mockUserAccessor = new Mock<ICurrentUserAccessor>();
+            var auditService = new AuditService(mockUserAccessor.Object);
 
             // Act && Assert.
             Assert.False(auditService.IsTypeAuditable(typeof(AuditClassWithSettings)));
@@ -35,8 +41,9 @@
         [Fact]
         public void TestIsTypeAuditableWithDisabledAudit()
         {
-            // Assert.
-            var auditService = new AuditService
+            // Arrange.
+            var mockUserAccessor = new Mock<ICurrentUserAccessor>();
+            var auditService = new AuditService(mockUserAccessor.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = false },
             };
@@ -54,8 +61,9 @@
         [Fact]
         public void TestIsTypeAuditableWithEnabledAudit()
         {
-            // Assert.
-            var auditService = new AuditService
+            // Arrange.
+            var mockUserAccessor = new Mock<ICurrentUserAccessor>();
+            var auditService = new AuditService(mockUserAccessor.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = true },
             };

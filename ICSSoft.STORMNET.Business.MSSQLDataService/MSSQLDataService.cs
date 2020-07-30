@@ -1,45 +1,19 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
 
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using Services;
-    using System.Collections;
+    using ICSSoft.STORMNET.Windows.Forms;
 
     /// <summary>
     /// Сервис данных для работы с Microsoft SQL Server.
     /// </summary>
     public class MSSQLDataService : SQLDataService
     {
-        /// <summary>
-        /// Создание сервиса данных для Microsoft SQL Server без параметров.
-        /// </summary>
-        public MSSQLDataService()
-        {
-        }
-
-        /// <summary>
-        /// Создание сервиса данных для Microsoft SQL Server с указанием настроек проверки полномочий.
-        /// </summary>
-        /// <param name="securityManager">Сконструированный менеджер полномочий.</param>
-        public MSSQLDataService(ISecurityManager securityManager)
-            : base(securityManager)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MSSQLDataService"/> class with specified converter.
-        /// </summary>
-        /// <param name="converterToQueryValueString">The converter instance.</param>
-        public MSSQLDataService(IConverterToQueryValueString converterToQueryValueString)
-            : base(converterToQueryValueString)
-        {
-        }
-
         /// <summary>
         /// Создание сервиса данных для Microsoft SQL Server с указанием настроек проверки полномочий.
         /// </summary>
@@ -57,7 +31,7 @@
         /// <param name="auditService">The audit service instance.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        public MSSQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+        public MSSQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
             : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
         {
         }
@@ -140,7 +114,8 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+                // return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+                throw new NotImplementedException("Не реализована поддержка текущего пользователя");
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")

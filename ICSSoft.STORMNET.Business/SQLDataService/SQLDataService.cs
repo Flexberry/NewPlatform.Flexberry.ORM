@@ -9,7 +9,6 @@
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
@@ -18,8 +17,6 @@
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.Security;
-
-    using Unity;
 
     using SpecColl = System.Collections.Specialized;
     using STORMDO = ICSSoft.STORMNET;
@@ -156,30 +153,6 @@
         }
 
         /// <summary>
-        /// Имплементация интерфейса <see cref="IPasswordHasher"/> для хеширования пароля.
-        /// </summary>
-        private IConfigResolver _configResolver;
-
-        /// <summary>
-        /// Получение инстации класса для разрешения свойств классов на основе данных из файла конфигурации приложения.
-        /// </summary>
-        private IConfigResolver ConfigResolver
-        {
-            get
-            {
-                if (_configResolver != null)
-                {
-                    return _configResolver;
-                }
-
-                IUnityContainer container = UnityFactory.GetContainer();
-                _configResolver = container.Resolve<IConfigResolver>();
-
-                return _configResolver;
-            }
-        }
-
-        /// <summary>
         /// Свойство для установки строки соединения по имени.
         /// </summary>
         public string CustomizationStringName
@@ -251,42 +224,15 @@
         }
 
         /// <summary>
-        /// Сервис подсистемы полномочий, который применяется для проверки прав доступа. Рекомендуется устанавливать его через конструктор, в противном случае используется настройка в Unity.
+        /// Сервис разрешения строк соединения на основе файла конфигурации приложения.
         /// </summary>
-        public ISecurityManager SecurityManager
-        {
-            get
-            {
-                if (_securityManager == null)
-                {
-                    IUnityContainer container = UnityFactory.GetContainer();
-                    _securityManager = container.Resolve<ISecurityManager>();
-                }
+        public IConfigResolver ConfigResolver { get; set; }
 
-                return _securityManager;
-            }
+        /// <inheritdoc cref="IDataService" />
+        public ISecurityManager SecurityManager { get; protected set; }
 
-            protected set
-            {
-                _securityManager = value;
-            }
-        }
-
-        private IAuditService _auditService;
-
-        /// <inheritdoc/>
-        public IAuditService AuditService
-        {
-            get
-            {
-                if (_auditService != null)
-                {
-                    return _auditService;
-                }
-
-                return ICSSoft.STORMNET.Business.Audit.AuditService.Current;
-            }
-        }
+        /// <inheritdoc cref="IDataService" />
+        public IAuditService AuditService { get; }
 
         /// <summary>
         /// Возвращает количество объектов удовлетворяющих запросу.
@@ -479,7 +425,7 @@
         /// <summary>
         /// Construct data service with default settings.
         /// </summary>
-        public SQLDataService()
+        protected SQLDataService()
         {
             UseCommandTimeout = false;
             string commandTimeout = null;
@@ -506,35 +452,15 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager.
-        /// </summary>
-        /// <param name="securityManager">The security manager instance.</param>
-        public SQLDataService(ISecurityManager securityManager)
-            : this()
-        {
-            _securityManager = securityManager;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified converter.
-        /// </summary>
-        /// <param name="converterToQueryValueString">The converter instance.</param>
-        public SQLDataService(IConverterToQueryValueString converterToQueryValueString)
-            : this()
-        {
-            ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager and audit service.
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service.</param>
-        public SQLDataService(ISecurityManager securityManager, IAuditService auditService)
+        protected SQLDataService(ISecurityManager securityManager, IAuditService auditService)
             : this()
         {
-            _securityManager = securityManager;
-            _auditService = auditService;
+            SecurityManager = securityManager ?? throw new ArgumentNullException(nameof(securityManager));
+            AuditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
         }
 
         /// <summary>
@@ -544,7 +470,7 @@
         /// <param name="auditService">The audit service instance.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        public SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+        protected SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
             : this(securityManager, auditService)
         {
             ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
@@ -5424,11 +5350,6 @@
 
         private bool m_bUseCommandTimeout = false;
         private int m_iCommandTimeout = 0;
-
-        /// <summary>
-        /// Приватное поле для <see cref="SecurityManager"/>.
-        /// </summary>
-        private ISecurityManager _securityManager;
 
         /// <summary>
         /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout"/>.

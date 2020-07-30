@@ -5,6 +5,10 @@
     using System.Data;
     using System.Linq;
 
+    using ICSSoft.STORMNET.Security;
+
+    using Moq;
+
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
@@ -220,7 +224,10 @@
             newObject.CopyTo(dataCopyObject, true, true, false);
             dataCopyObject.MasterObject = null;
             newObject.SetDataCopy(dataCopyObject);
-            var ds = new LocalDataService();
+
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new LocalDataService(mockSecurityManager.Object, mockAuditService.Object);
 
             // Act.
             var loadedProperties = AuditService.CopyAlteredNotSavedDataObject(oldObject, newObject, auditView, ds, null);
@@ -592,7 +599,9 @@
             dataCopyObject.MasterObject = null;
             newObject.SetDataCopy(dataCopyObject);
 
-            var ds = new LocalDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new LocalDataService(mockSecurityManager.Object, mockAuditService.Object);
 
             // Act.
             var loadedProperties = AuditService.CopyAlteredNotSavedDataObject(oldObject, newObject, auditView, ds, null);
@@ -642,6 +651,16 @@
             ///     Количество обращений к инстанции данного класса.
             /// </summary>
             public int Counter;
+
+            /// <summary>
+            /// Создание сервиса данных для Microsoft SQL Server с указанием настроек проверки полномочий.
+            /// </summary>
+            /// <param name="securityManager">Менеджер полномочий.</param>
+            /// <param name="auditService">Сервис аудита.</param>
+            public LocalDataService(ISecurityManager securityManager, IAuditService auditService)
+                : base(securityManager, auditService)
+            {
+            }
 
             /// <summary>
             ///     Имитация загрузки объекта.

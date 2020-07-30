@@ -13,6 +13,10 @@
 
     using Xunit;
     using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Security;
+
+    using Moq;
 
     /// <summary>
     /// Тесты, которые проверяют расширение представления по функции.
@@ -86,7 +90,9 @@
         [Fact]
         public void AddPropertyByLimitFunctionWithExpression()
         {
-            var ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             var function = langdef.GetFunction(langdef.funcEQ, new VariableDef(langdef.GuidType, "МедведьСтрокой"), "Бум");
 
             var view = ViewPropertyAppender.GetViewWithPropertiesUsedInFunction(Медведь.Views.МедведьShort, function, ds);
@@ -106,7 +112,9 @@
         [Fact]
         public void EnrichDetailViewTest()
         {
-            var ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             var dvd = new DetailVariableDef();
             dvd.ConnectMasterPorp = Information.ExtractPropertyPath<Выплаты>(x => x.Кредит1);
             dvd.OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey };

@@ -20,6 +20,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Spatial" Version="7.7.2" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,11 +30,6 @@
 
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Spatial" Version="7.7.2" />
-    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,16 +7,14 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using ICSSoft.Services;
+
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Exceptions;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
 
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-
-    using Unity;
 
     /// <summary>
     /// Сервис данных для XML.
@@ -31,35 +29,11 @@
         private Guid _instanceId = Guid.NewGuid();
         private ChangeViewForTypeDelegate _changeViewForTypeDelegate;
 
-        /// <summary>
-        /// Приватное поле для <see cref="SecurityManager"/>.
-        /// </summary>
-        private ISecurityManager _securityManager;
+        /// <inheritdoc cref="IDataService" />
+        public ISecurityManager SecurityManager { get; protected set; }
 
-        /// <summary>
-        /// Сервис подсистемы полномочий, который применяется для проверки прав доступа. Рекомендуется устанавливать его через конструктор.
-        /// </summary>
-        public ISecurityManager SecurityManager
-        {
-            get
-            {
-                if (_securityManager == null)
-                {
-                    IUnityContainer container = UnityFactory.GetContainer();
-                    _securityManager = container.Resolve<ISecurityManager>();
-                }
-
-                return _securityManager;
-            }
-
-            protected set
-            {
-                _securityManager = value;
-            }
-        }
-
-        /// <inheritdoc/>
-        public IAuditService AuditService => ICSSoft.STORMNET.Business.Audit.AuditService.Current;
+        /// <inheritdoc cref="IDataService" />
+        public IAuditService AuditService { get; }
 
         /// <summary>
         /// Путь до файлов с базой и схемой.

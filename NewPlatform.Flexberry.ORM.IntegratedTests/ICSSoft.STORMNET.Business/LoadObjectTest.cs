@@ -7,10 +7,15 @@
     using System.Linq;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
     using ICSSoft.STORMNET.UserDataTypes;
+
+    using Moq;
+
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
 
@@ -368,8 +373,9 @@
         public void LoadingObjectLoadStringedObjectViewTest()
         {
             // TODO: Обработать после выполнения задачи 4009
-
-            var dataService = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             dataService.CustomizationString = "SERVER=rtc-storm;Trusted_connection=yes;DATABASE=dochitka_test;";
 
             // Cоздание тестовой записи.
@@ -421,8 +427,9 @@
         public void LoadingObjectLoadObjectsTest()
         {
             // TODO: Обработать после выполнения задачи 4009
-
-            var dataService = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             dataService.CustomizationString = ConfigurationManager.ConnectionStrings["TestAppNormal"]
                 .ConnectionString;
 
@@ -475,8 +482,9 @@
         public void LoadingObjectGetObjectsCount()
         {
             // TODO: Обработать после выполнения задачи 4009
-
-            var dataService = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             dataService.CustomizationString = ConfigurationManager.ConnectionStrings["TestAppNormal"]
                 .ConnectionString;
 

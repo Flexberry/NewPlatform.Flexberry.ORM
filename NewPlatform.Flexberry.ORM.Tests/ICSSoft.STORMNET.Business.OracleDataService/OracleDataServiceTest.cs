@@ -3,6 +3,10 @@
     using System.Data;
 
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Security;
+
+    using Moq;
 
     using Xunit;
 
@@ -17,7 +21,9 @@
         /// <returns>Сконструированный OracleDataService.</returns>
         public static OracleDataService CreateOracleDataServiceForTests()
         {
-            var ds = new OracleDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new OracleDataService(mockSecurityManager.Object, mockAuditService.Object);
             ds.CustomizationString = "Data Source=dbserver-oracle;User ID=ora_tester;Password=pwd;";
             return ds;
         }
@@ -28,7 +34,7 @@
         [Fact]
         public void GetOraConnectionTest()
         {
-            OracleDataService ds = CreateOracleDataServiceForTests();
+            using OracleDataService ds = CreateOracleDataServiceForTests();
             IDbConnection cnn = ds.GetConnection();
             Assert.NotNull(cnn);
         }

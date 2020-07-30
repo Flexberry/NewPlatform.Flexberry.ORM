@@ -9,6 +9,11 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.Linq;
     using System.Threading;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Security;
+
+    using Moq;
+
     using Npgsql;
     using Oracle.ManagedDataAccess.Client;
     using Xunit;
@@ -257,7 +262,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="MSSQLDataService"/> instance.</returns>
         protected virtual MSSQLDataService CreateMssqlDataService(string connectionString)
         {
-            return new MSSQLDataService { CustomizationString = connectionString };
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            return new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -267,7 +274,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="PostgresDataService"/> instance.</returns>
         protected virtual PostgresDataService CreatePostgresDataService(string connectionString)
         {
-            return new PostgresDataService { CustomizationString = connectionString };
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            return new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -277,7 +286,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="OracleDataService"/> instance.</returns>
         protected virtual OracleDataService CreateOracleDataService(string connectionString)
         {
-            return new OracleDataService { CustomizationString = connectionString };
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            return new OracleDataService(mockSecurityManager.Object, mockAuditService.Object) { CustomizationString = connectionString };
         }
 
         /// <summary>
