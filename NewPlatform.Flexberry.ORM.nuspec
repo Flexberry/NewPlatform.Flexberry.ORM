@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>6.0.0-beta02</version>
+    <version>6.0.0-beta03</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -34,41 +34,75 @@
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.LogService" version="2.0.0-beta01" />
-      <dependency id="Microsoft.Spatial" version="7.5.0" />
-      <dependency id="Remotion.Linq" version="2.2.0" />
-      <dependency id="SharpZipLib" version="1.2.0" />
-      <dependency id="System.DirectoryServices" version="4.5.0" />
-      <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
-      <dependency id="System.Runtime.Serialization.Formatters" version="4.3.0" />
-      <dependency id="Unity.Abstractions" version="5.11.1" />
-      <dependency id="Unity.Configuration" version="5.11.1" />
-      <dependency id="Unity.Container" version="5.11.1" />
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="NewPlatform.Flexberry.LogService" version="2.0.0-beta01" />
+        <dependency id="Microsoft.Spatial" version="7.5.0" />
+        <dependency id="Remotion.Linq" version="2.2.0" />
+        <dependency id="SharpZipLib" version="1.2.0" />
+        <dependency id="Unity.Abstractions" version="5.11.1" />
+        <dependency id="Unity.Configuration" version="5.11.1" />
+        <dependency id="Unity.Container" version="5.11.1" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="NewPlatform.Flexberry.LogService" version="2.0.0-beta01" />
+        <dependency id="Microsoft.Spatial" version="7.5.0" />
+        <dependency id="Remotion.Linq" version="2.2.0" />
+        <dependency id="SharpZipLib" version="1.2.0" />
+        <dependency id="Unity.Abstractions" version="5.11.1" />
+        <dependency id="Unity.Configuration" version="5.11.1" />
+        <dependency id="Unity.Container" version="5.11.1" />
+        <dependency id="System.DirectoryServices" version="4.5.0" />
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Runtime.Serialization.Formatters" version="4.3.0" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="NewPlatform.Flexberry.ORM.CurrentUserService.dll" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" />
-    <file src="NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
-    <file src="ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
-    <file src="ICSSoft.STORMNET.Business.ExternalLangDef.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" />
-    <file src="ICSSoft.STORMNET.Business.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.dll" />
-    <file src="ICSSoft.STORMNET.Business.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.xml" />
-    <file src="ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.LINQProvider.dll" />
-    <file src="ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.LINQProvider.XML" />
-    <file src="ICSSoft.STORMNET.Business.LockService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.LockService.dll" />
-    <file src="ICSSOft.STORMNET.Business.LockService.xml" target="lib\netstandard2.0\ICSSOft.STORMNET.Business.LockService.xml" />
-    <file src="ICSSoft.STORMNET.Collections.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Collections.dll" />
-    <file src="ICSSoft.STORMNET.Collections.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Collections.xml" />
-    <file src="ICSSoft.STORMNET.DataObject.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.DataObject.dll" />
-    <file src="ICSSoft.STORMNET.DataObject.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.DataObject.xml" />
-    <file src="ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.FunctionalLanguage.dll" />
-    <file src="ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.FunctionalLanguage.xml" />
-    <file src="ICSSoft.STORMNET.Tools.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Tools.dll" />
-    <file src="ICSSoft.STORMNET.Tools.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Tools.xml" />
-    <file src="ICSSoft.STORMNET.UserDataTypes.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.UserDataTypes.dll" />
-    <file src="ICSSoft.STORMNET.UserDataTypes.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.UserDataTypes.XML" />
-    <file src="NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
-    <file src="NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
+    <file src="ICSSoft.STORMNET.Business\bin\$configuration$\net45\ICSSoft.STORMNET.Business.dll" target="lib\net45\ICSSoft.STORMNET.Business.dll" />
+    <file src="ICSSoft.STORMNET.Business\bin\$configuration$\net45\ICSSoft.STORMNET.Business.xml" target="lib\net45\ICSSoft.STORMNET.Business.xml" />
+    <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net45\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\net45\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
+    <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net45\ICSSoft.STORMNET.Business.ExternalLangDef.XML" target="lib\net45\ICSSoft.STORMNET.Business.ExternalLangDef.XML" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net45\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net45\ICSSoft.STORMNET.Business.LINQProvider.dll" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net45\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net45\ICSSoft.STORMNET.Business.LINQProvider.XML" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net45\ICSSoft.STORMNET.Business.LockService.dll" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net45\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net45\ICSSOft.STORMNET.Business.LockService.xml" />
+    <file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net45\ICSSoft.STORMNET.Collections.dll" target="lib\net45\ICSSoft.STORMNET.Collections.dll" />
+    <file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net45\ICSSoft.STORMNET.Collections.xml" target="lib\net45\ICSSoft.STORMNET.Collections.xml" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net45\ICSSoft.STORMNET.DataObject.dll" target="lib\net45\ICSSoft.STORMNET.DataObject.dll" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net45\ICSSoft.STORMNET.DataObject.xml" target="lib\net45\ICSSoft.STORMNET.DataObject.xml" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\net45\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net45\ICSSoft.STORMNET.FunctionalLanguage.dll" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\net45\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net45\ICSSoft.STORMNET.FunctionalLanguage.xml" />
+    <file src="ICSSoft.STORMNET.Tools\bin\$configuration$\net45\ICSSoft.STORMNET.Tools.dll" target="lib\net45\ICSSoft.STORMNET.Tools.dll" />
+    <file src="ICSSoft.STORMNET.Tools\bin\$configuration$\net45\ICSSoft.STORMNET.Tools.xml" target="lib\net45\ICSSoft.STORMNET.Tools.xml" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\net45\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net45\ICSSoft.STORMNET.UserDataTypes.dll" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\net45\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net45\ICSSoft.STORMNET.UserDataTypes.XML" />
+    <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.CurrentUserService.dll" target="lib\net45\NewPlatform.Flexberry.ORM.CurrentUserService.dll" />
+    <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\net45\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
+    <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\net45\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
+    <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\net45\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
+
+    <file src="ICSSoft.STORMNET.Business\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.dll" />
+    <file src="ICSSoft.STORMNET.Business\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.xml" />
+    <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
+    <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.LINQProvider.dll" />
+    <file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.LINQProvider.XML" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.LockService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.LockService.dll" />
+    <file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\netstandard2.0\ICSSOft.STORMNET.Business.LockService.xml" target="lib\netstandard2.0\ICSSOft.STORMNET.Business.LockService.xml" />
+    <file src="ICSSoft.STORMNET.Collections\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Collections.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Collections.dll" />
+    <file src="ICSSoft.STORMNET.Collections\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Collections.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Collections.xml" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.DataObject.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.DataObject.dll" />
+    <file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.DataObject.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.DataObject.xml" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.FunctionalLanguage.dll" />
+    <file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.FunctionalLanguage.xml" />
+    <file src="ICSSoft.STORMNET.Tools\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Tools.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Tools.dll" />
+    <file src="ICSSoft.STORMNET.Tools\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Tools.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Tools.xml" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.UserDataTypes.dll" />
+    <file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.UserDataTypes.XML" />
+    <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" />
+    <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
+    <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
+    <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
 
     <file src="config.install.xdt" target="content\app.config.install.xdt" />
     <file src="config.install.xdt" target="content\web.config.install.xdt" />
