@@ -16,7 +16,6 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
     /// <summary>
     /// Класс для тестирования преобразований из шаблона типа Regex в шаблон типа sql-like и наоборот.
     /// </summary>
-    
     public class TestRegexToSql
     {
         /// <summary>
@@ -42,10 +41,10 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
             UtilsLcs.MinimalRegexCheck("^abc$");
             UtilsLcs.MinimalRegexCheck("^ab.c$");
             UtilsLcs.MinimalRegexCheck("^ab.*c$");
-            //UtilsLcs.MinimalRegexCheck(@"^ab\\.*c$"); // TODO: временно экранирование снимается полностью.
-            //UtilsLcs.MinimalRegexCheck(@"^ab\\d.*c$");
-            //UtilsLcs.MinimalRegexCheck(@"^ab\\d\$.*c$");
-            //UtilsLcs.MinimalRegexCheck(@"^ab\\d\^.*c$");
+            // UtilsLcs.MinimalRegexCheck(@"^ab\\.*c$"); // TODO: временно экранирование снимается полностью.
+            // UtilsLcs.MinimalRegexCheck(@"^ab\\d.*c$");
+            // UtilsLcs.MinimalRegexCheck(@"^ab\\d\$.*c$");
+            // UtilsLcs.MinimalRegexCheck(@"^ab\\d\^.*c$");
         }
 
         /// <summary>
@@ -189,7 +188,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
                 UtilsLcs.MinimalRegexCheck("^ab.*$c$");
             });
             Assert.IsType(typeof(NotSupportedRegexException), exception);
-        }    
+        }
 
         /// <summary>
         /// Проверяем корректность перевода из regex в sql-like.
@@ -208,8 +207,8 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
             Assert.Equal(@"*ab.c*", UtilsLcs.ConvertRegexToSql(@"ab\.c"));
             // Assert.Equal(@"*ab_c*", UtilsLcs.ConvertRegexToSql(@"ab_c")); //TODO: временно экранирование снимается со всех символов
             // Assert.Equal(@"*ab*c*", UtilsLcs.ConvertRegexToSql(@"ab\*c")); //TODO: временно экранирование снимается со всех символов
-            Assert.Equal(@"*ab[c*", UtilsLcs.ConvertRegexToSql(@"ab\[c")); //TODO: временно экранирование снимается со всех символов
-            Assert.Equal(@"*ab]c*", UtilsLcs.ConvertRegexToSql(@"ab\]c")); //TODO: временно экранирование снимается со всех символов
+            Assert.Equal(@"*ab[c*", UtilsLcs.ConvertRegexToSql(@"ab\[c")); // TODO: временно экранирование снимается со всех символов
+            Assert.Equal(@"*ab]c*", UtilsLcs.ConvertRegexToSql(@"ab\]c")); // TODO: временно экранирование снимается со всех символов
         }
 
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -229,7 +228,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = this.ldef.GetFunction(ldef.funcLike, new VariableDef(ldef.StringType, "Название"), "*12*3*")
+                LimitFunction = this.ldef.GetFunction(ldef.funcLike, new VariableDef(ldef.StringType, "Название"), "*12*3*"),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));
@@ -251,7 +250,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = this.ldef.GetFunction(ldef.funcLike, "123", "*12*3*")
+                LimitFunction = this.ldef.GetFunction(ldef.funcLike, "123", "*12*3*"),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));

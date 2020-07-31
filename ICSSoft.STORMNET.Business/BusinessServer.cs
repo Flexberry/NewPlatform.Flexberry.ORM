@@ -92,7 +92,7 @@
                 System.Reflection.ParameterInfo[] ps = methodInfo.GetParameters();
 
                 if (ps.Length == 1
-                    && ps[0].ParameterType == objectType 
+                    && ps[0].ParameterType == objectType
                     && (ps[0].ParameterType.IsSubclassOf(typeof(DataObject)) // Это на случай, если BS навешен непосредственно на класс или его предка.
                         || ps[0].ParameterType.IsInterface) // Это на случай, если BS навешен на интерфейс его предка.
                     && BsMethodNameStart + ps[0].ParameterType.Name == methodinfoName

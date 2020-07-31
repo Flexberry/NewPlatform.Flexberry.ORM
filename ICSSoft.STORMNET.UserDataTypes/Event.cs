@@ -4,7 +4,7 @@ using System.Xml.Linq;
 namespace ICSSoft.STORMNET.UserDataTypes
 {
     /// <summary>
-    /// Пользовательский тип - событие;
+    /// Пользовательский тип - событие;.
     /// </summary>
     [StoreInstancesInType("ICSSoft.STORMNET.Business.C2RDataService.C2RDataService, ICSSoft.STORMNET.Business.C2RDataService",
                           "ICSSoft.STORMNET.UserDataTypes.Record, ICSSoft.STORMNET.UserDataTypes")]
@@ -13,37 +13,37 @@ namespace ICSSoft.STORMNET.UserDataTypes
     public class Event
     {
         /// <summary>
-        /// Тема события
+        /// Тема события.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Описание события
+        /// Описание события.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Время начала события
+        /// Время начала события.
         /// </summary>
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// Время конца события
+        /// Время конца события.
         /// </summary>
         public NullableDateTime FinishTime { get; set; }
 
         /// <summary>
-        /// Автор события
+        /// Автор события.
         /// </summary>
         public string Author { get; set; }
 
         /// <summary>
-        /// Место события
+        /// Место события.
         /// </summary>
         public string Place { get; set; }
 
         /// <summary>
-        /// Категория события (info / warning / error / проч)
+        /// Категория события (info / warning / error / проч).
         /// </summary>
         public string Category { get; set; }
 

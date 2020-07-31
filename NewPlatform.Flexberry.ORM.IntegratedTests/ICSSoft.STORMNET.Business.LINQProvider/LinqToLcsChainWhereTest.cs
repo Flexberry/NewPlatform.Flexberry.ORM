@@ -7,13 +7,12 @@
     using ICSSoft.STORMNET.UserDataTypes;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
-    
+
     using System.Configuration;
 
     /// <summary>
     /// Проверка цепочного вызова Where при LINQ-запросах к сервису данных.
     /// </summary>
-    
     public class LinqToLcsChainWhereTest : BaseIntegratedTest
     {
         /// <summary>
@@ -32,15 +31,14 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-
                 // Arrange.
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
-                ТипПороды типПороды = new ТипПороды() {Название = "Простая", ДатаРегистрации = DateTime.Now};
+                ТипПороды типПороды = new ТипПороды() { Название = "Простая", ДатаРегистрации = DateTime.Now };
 
-                Порода породаДикая = new Порода() {Название = "Дикая"};
-                Порода породаПерсидская = new Порода() {Название = "Персидская", ТипПороды = типПороды};
-                Порода породаБезПороды = new Порода() {Название = "БезПороды", Иерархия = породаДикая};
+                Порода породаДикая = new Порода() { Название = "Дикая" };
+                Порода породаПерсидская = new Порода() { Название = "Персидская", ТипПороды = типПороды };
+                Порода породаБезПороды = new Порода() { Название = "БезПороды", Иерархия = породаДикая };
 
                 ds.UpdateObject(породаДикая);
                 ds.UpdateObject(породаПерсидская);
@@ -49,18 +47,18 @@
                 var вася = new Кошка
                 {
                     Кличка = "Вася",
-                    ДатаРождения = (NullableDateTime) DateTime.Now,
+                    ДатаРождения = (NullableDateTime)DateTime.Now,
                     Порода = породаПерсидская,
                     Тип = ТипКошки.Домашняя,
-                    Агрессивная = false
+                    Агрессивная = false,
                 };
                 var кузя = new Кошка
                 {
                     Кличка = "Кузя",
-                    ДатаРождения = (NullableDateTime) DateTime.Now,
+                    ДатаРождения = (NullableDateTime)DateTime.Now,
                     Порода = породаПерсидская,
                     Тип = ТипКошки.Дикая,
-                    Агрессивная = false
+                    Агрессивная = false,
                 };
 
                 ds.UpdateObject(вася);
@@ -76,7 +74,6 @@
                 // Assert.
                 // В тестовом наборе нет агрессивных кошек, следовательно FirstOrDefault должен вернуть null.
                 Assert.Equal(null, агрессивнаяКошка);
-
             }
         }
     }

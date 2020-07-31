@@ -9,7 +9,6 @@
     /// <summary>
     /// Class of unit test for extension methods (<see cref="CurrentUserServiceExtensions"/>).
     /// </summary>
-    
     public class ExtensionsTest
     {
         /// <summary>

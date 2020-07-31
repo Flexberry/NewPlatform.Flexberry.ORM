@@ -11,7 +11,7 @@
         /// Checks if the type is supported.
         /// </summary>
         /// <param name="type">Type to be checked.</param>
-        /// <returns><code>true</code> if the type is supported, otherwise <code>false</code>.</returns>
+        /// <returns><code>true</code> if the type is supported, otherwise. <code>false</code>.</returns>
         bool IsSupported(Type type);
 
         /// <summary>

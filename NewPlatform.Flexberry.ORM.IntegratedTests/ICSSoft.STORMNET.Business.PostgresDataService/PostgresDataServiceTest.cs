@@ -29,7 +29,9 @@
             foreach (var ds in DataServices)
             {
                 if (ds is PostgresDataService)
+                {
                     DataService = ds as PostgresDataService;
+                }
             }
         }
 

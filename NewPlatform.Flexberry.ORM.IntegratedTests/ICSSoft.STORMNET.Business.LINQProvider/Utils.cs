@@ -14,7 +14,7 @@
             {
                 return Information.GetView("ТипЛапыE", type);
             }
-            
+
             if (type == typeof(Лапа))
             {
                 return Information.GetView("ЛапаE", type);

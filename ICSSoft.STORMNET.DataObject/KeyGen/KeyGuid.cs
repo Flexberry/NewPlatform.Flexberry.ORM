@@ -20,7 +20,7 @@
         protected Guid guid;
 
         /// <summary>
-        /// Создать новый уникальный идентификатор. Равносильно <code>Guid.NewGuid()</code>.
+        /// Создать новый уникальный идентификатор. Равносильно. <code>Guid.NewGuid()</code>.
         /// </summary>
         public KeyGuid()
         {
@@ -55,7 +55,7 @@
         }
 
         /// <summary>
-        /// преобрзовать string->keyGuid
+        /// преобрзовать string->keyGuid.
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
@@ -71,7 +71,7 @@
 
         public static bool operator <(KeyGuid x, KeyGuid y)
         {
-            if((object)x == null)
+            if ((object)x == null)
             {
                 return (object)y != null;
             }
@@ -114,7 +114,7 @@
         private static readonly System.Text.RegularExpressions.Regex GuidPattern2 = new System.Text.RegularExpressions.Regex(@"^\{[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\}$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
         /// <summary>
-        /// Проверка на гуидность
+        /// Проверка на гуидность.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -129,7 +129,7 @@
         }
 
         /// <summary>
-        /// генерация нового KeyGuid
+        /// генерация нового KeyGuid.
         /// </summary>
         /// <returns></returns>
         public static KeyGuid NewGuid()
@@ -143,7 +143,8 @@
         [DataMember]
         public Guid Guid
         {
-            get { return guid; } set { guid = value; }
+            get { return guid; }
+            set { guid = value; }
         }
 
         #region IComparable
@@ -174,7 +175,7 @@
         }
 
         /// <summary>
-        /// Неявно преобразовать из Guid в KeyGuid
+        /// Неявно преобразовать из Guid в KeyGuid.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -194,7 +195,7 @@
         }
 
         /// <summary>
-        /// Неявно преобразовать из Guid? в KeyGuid
+        /// Неявно преобразовать из Guid? в KeyGuid.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -234,7 +235,7 @@
         }
 
         /// <summary>
-        /// Неявно преобразовать из String в KeyGuid
+        /// Неявно преобразовать из String в KeyGuid.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -257,7 +258,7 @@
         /// Сравнение инстанций. Сравнение происходит по значению <see cref="Guid"/>.
         /// </summary>
         /// <param name="obj">Объект для сравнения.</param>
-        /// <returns>Результат сравнения объектов. Если равны, то <c>true</c></returns>
+        /// <returns>Результат сравнения объектов. Если равны, то <c>true</c>.</returns>
         public override bool Equals(object obj)
         {
             if (obj is KeyGuid)
@@ -280,7 +281,7 @@
         #region operators == и !=
 
         /// <summary>
-        /// ==
+        /// ==.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -301,7 +302,7 @@
         }
 
         /// <summary>
-        /// !=
+        /// !=.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>

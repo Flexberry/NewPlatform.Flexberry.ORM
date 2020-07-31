@@ -6,7 +6,6 @@
 
     public partial class ExternalLangDef
     {
-
         private string GetConditionForExistExact(
             Function func,
             delegateConvertValueToQueryValueString convertValue,

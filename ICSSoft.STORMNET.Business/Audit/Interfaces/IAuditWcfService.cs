@@ -4,7 +4,7 @@
 
     /// <summary>
     /// Интерфейс для AuditWcfService
-    /// (на настоящий момент представляет собой наследника IAudit)
+    /// (на настоящий момент представляет собой наследника IAudit).
     /// </summary>
     public interface IAuditWcfService : IAudit
     {

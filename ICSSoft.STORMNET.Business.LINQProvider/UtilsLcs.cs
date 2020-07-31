@@ -16,7 +16,7 @@
     using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
     /// <summary>
-    ///     Вспомогательные методы
+    ///     Вспомогательные методы.
     /// </summary>
     public static class UtilsLcs
     {
@@ -26,7 +26,7 @@
         private const string RegexCheckPattern = @"(([^\\](\\\\)*(([\+\?\{\}\(\)\|\[\]])|([^\.\\]\*)|(\\\.\*)|(\\\w)|(\$.+$)))|(^.*[^\\](\\\\)*\^))";
 
         /// <summary>
-        /// Шаблон, по которому проверяются ограничения по переводу из Regex в sql-like, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like. 
+        /// Шаблон, по которому проверяются ограничения по переводу из Regex в sql-like, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like.
         /// </summary>
         private const string RegexDatabaseDependedPattern = @"(([^\\](\\\\)*\\\*)|_|%|(\\\\))";
 
@@ -41,7 +41,7 @@
         private static Regex RegexDatabaseDependedChecker = new Regex(RegexDatabaseDependedPattern);
 
         /// <summary>
-        /// Шаблон, по которому проверяются ограничения по переводу из sql-like в Regex, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like. 
+        /// Шаблон, по которому проверяются ограничения по переводу из sql-like в Regex, связанные с тем, что для разных диалектов sql пока что недоступно формирование разных шаблонов для like.
         /// </summary>
         private const string RegexDatabaseDependedPatternBack = @"[%\\]";
 
@@ -68,13 +68,13 @@
         #region Public Methods and Operators
 
         /// <summary>
-        /// Проверка актуальных параметров метода на соответствие ожидаемым
+        /// Проверка актуальных параметров метода на соответствие ожидаемым.
         /// </summary>
         /// <param name="expression">
-        /// Выражение-вызов метода
+        /// Выражение-вызов метода.
         /// </param>
         /// <param name="args">
-        /// Ожидаемый массив типов аргументов метода
+        /// Ожидаемый массив типов аргументов метода.
         /// </param>
         public static void CheckMethodArguments(MethodCallExpression expression, Type[] args)
         {
@@ -119,16 +119,16 @@
         }
 
         /// <summary>
-        /// Проверка равен ли метод из expression заданному параметрами name и args
+        /// Проверка равен ли метод из expression заданному параметрами name и args.
         /// </summary>
         /// <param name="expression">
-        /// Expression
+        /// Expression.
         /// </param>
         /// <param name="name">
-        /// имя метода
+        /// имя метода.
         /// </param>
         /// <param name="args">
-        /// массив типов аргументов метода
+        /// массив типов аргументов метода.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
@@ -174,7 +174,7 @@
                                                          ExpressionType.GreaterThan,
                                                          ExpressionType.GreaterThanOrEqual,
                                                          ExpressionType.LessThan,
-                                                         ExpressionType.LessThanOrEqual
+                                                         ExpressionType.LessThanOrEqual,
                                                      };
             if (acceptableForNull.Contains(exprType))
             {
@@ -239,7 +239,7 @@
                 case ExpressionType.Divide:
                     return ldef.funcDiv;
 
-                    // TODO: Разобраться с константами funcSub и funcMinus
+                // TODO: Разобраться с константами funcSub и funcMinus
                 default:
                     throw new Exception("Нет соответствия типов");
             }
@@ -275,16 +275,16 @@
         }
 
         /// <summary>
-        /// возвращает lcs функцию по имени функции C#
+        /// возвращает lcs функцию по имени функции C#.
         /// </summary>
         /// <param name="name">
-        /// имя функции из C#
+        /// имя функции из C#.
         /// </param>
         /// <returns>
-        /// функция lcs
+        /// функция lcs.
         /// </returns>
         /// <exception cref="MethodSignatureException">
-        /// в lcs нет аналога этой функции
+        /// в lcs нет аналога этой функции.
         /// </exception>
         public static string GetFunctionByName(string name)
         {
@@ -338,7 +338,7 @@
         }
 
         /// <summary>
-        /// Минимальная проверка шаблона sql-like: то, что в нём нет символов, которые пока нельзя перевести в Regex и обратно. 
+        /// Минимальная проверка шаблона sql-like: то, что в нём нет символов, которые пока нельзя перевести в Regex и обратно.
         /// </summary>
         /// <param name="sqlString"> Шаблон поиска в sql-like. </param>
         public static void MinimalSqlCheck(string sqlString)
@@ -354,10 +354,10 @@
         /// Метод преобразует шаблон поиска в стиле sql-like в шаблон в стиле Regex.
         /// Как будет переводиться (*, а не %, поскольку так переводит SQLDataService):
         /// *abc* => abc
-        /// abc* => ^abc 
+        /// abc* => ^abc
         /// *abc => abc$
         /// abc*d => abc.*d
-        /// ab_c => ab.c
+        /// ab_c => ab.c.
         /// </summary>
         /// <param name="sqlString"> Строка, которая была в шаблоне поиска для sql-like. </param>
         /// <returns> Сформированный шаблон поиска для Regex. </returns>
@@ -387,7 +387,7 @@
         }
 
         /// <summary>
-        /// Минимальная проверка шаблона регулярных выражений: то, что он вообще валиден, и то, что в нём нет символов, которые нельзя перевести в sql-like. 
+        /// Минимальная проверка шаблона регулярных выражений: то, что он вообще валиден, и то, что в нём нет символов, которые нельзя перевести в sql-like.
         /// </summary>
         /// <param name="regexString"> Шаблон регулярного выражения. </param>
         public static void MinimalRegexCheck(string regexString)
@@ -425,7 +425,7 @@
         /// abc$ => *abc
         /// abc.*d => abc*d
         /// ab.c => ab_c
-        /// Порядок замены: 
+        /// Порядок замены:
         /// 1. Экранируются _. //TODO: временно не делается
         /// 2. .* (точка не экранирована, это проверилось ранее)
         /// 3. . (если точка не экранирована)
@@ -443,7 +443,7 @@
             // regexString = regexString.Replace("_", @"\_"); //TODO: временно не делается
 
             // .* (точка не экранирована, это проверилось ранее)
-            regexString = regexString.Replace(".*", "*"); 
+            regexString = regexString.Replace(".*", "*");
 
             // . (если точка не экранирована)
             regexString = regexString.Replace(@"\.", TempNotAccessibleString);
@@ -523,7 +523,7 @@
         public static Function GetParamBinaryFunc(ExpressionType exprType, object par2, object par1)
         {
             if (par1 == null && par2 == null)
-            { 
+            {
                 switch (exprType)
                 {
                     case ExpressionType.Equal:
@@ -632,7 +632,7 @@
         }
 
         /// <summary>
-        /// Проверяет, что объект - функция с определенным именем
+        /// Проверяет, что объект - функция с определенным именем.
         /// </summary>
         /// <param name="f">
         /// </param>
@@ -707,9 +707,9 @@
         /// Проверить, есть ли требуемый мастер в представлении.
         /// Если представление динамическое, то при отсутствии мастера он добавляется.
         /// </summary>
-        /// <param name="view">Представление</param>
-        /// <param name="masterName">Имя мастера</param>
-        /// <param name="viewIsDynamic">Является ли представление динамическим</param>
+        /// <param name="view">Представление.</param>
+        /// <param name="masterName">Имя мастера.</param>
+        /// <param name="viewIsDynamic">Является ли представление динамическим.</param>
         public static void AddMasterToView(View view, string masterName, bool viewIsDynamic)
         {
             // Нужно проверить содержание в представлении только самого мастера.
@@ -737,14 +737,14 @@
 
         /// <summary>
         /// Возвращает представление детейла из представления агрегатора.
-        /// Если представление динамическое и в нем не оказалось нужного детейла, то 
+        /// Если представление динамическое и в нем не оказалось нужного детейла, то
         /// добавляет его, задавая в качестве представления пустое представление (которое будет заполняться
-        /// при разборе подзапросов к данному детейлу)
+        /// при разборе подзапросов к данному детейлу).
         /// </summary>
-        /// <param name="view">Представление агрегатора</param>
-        /// <param name="detailName">Имя детейла</param>
-        /// <param name="viewIsDynamic">Является ли представление динамическим</param>
-        /// <returns>Представление детейла</returns>
+        /// <param name="view">Представление агрегатора.</param>
+        /// <param name="detailName">Имя детейла.</param>
+        /// <param name="viewIsDynamic">Является ли представление динамическим.</param>
+        /// <returns>Представление детейла.</returns>
         public static View AddDetailViewToView(View view, string detailName, bool viewIsDynamic)
         {
             if (!view.Details.Any(x => x.Name.Equals(detailName)))
@@ -753,10 +753,10 @@
                 {
                     var detailType = Information.GetItemType(view.DefineClassType, detailName);
                     var detailView = new View
-                        {
-                            DefineClassType = detailType,
-                            Name = GetNameForDynamicView(detailType)
-                        };
+                    {
+                        DefineClassType = detailType,
+                        Name = GetNameForDynamicView(detailType),
+                    };
                     view.AddDetailInView(detailName, detailView, true, string.Empty, false, string.Empty, null);
                 }
                 else

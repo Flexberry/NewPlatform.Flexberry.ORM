@@ -7,7 +7,6 @@
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
 
-    
     public class LinqToLcsBooleanTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -105,6 +104,5 @@
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(ТипЛапы)));
             Assert.True(Equals(expected, actual));
         }
-
     }
 }

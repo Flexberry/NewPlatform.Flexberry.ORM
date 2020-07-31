@@ -60,7 +60,7 @@
         /// Gets the singleton instance of Unity container.
         /// </summary>
         /// <remarks>The first instance will be created using <see cref="CreateContainer"/>.</remarks>
-        /// <returns>The singleton instance of Unity container</returns>
+        /// <returns>The singleton instance of Unity container.</returns>
         public static IUnityContainer GetContainer()
         {
             if (_instance == null)

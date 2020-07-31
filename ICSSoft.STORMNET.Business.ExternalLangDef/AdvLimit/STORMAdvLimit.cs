@@ -11,7 +11,7 @@
                                 "Module",
                                 "Name",
                                 "Value",
-                                "HotKeyData"
+                                "HotKeyData",
     })]
     public partial class STORMAdvLimit : DataObject
     {
@@ -21,13 +21,13 @@
         private string fValue;
 
         /// <summary>
-        /// десериализованное AdvansedLimit
+        /// десериализованное AdvansedLimit.
         /// </summary>
         public AdvansedLimit fAdvLimit;
         private int fHotKeyData;
 
         /// <summary>
-        /// Десериализованное AdvansedLimit. Десериализацией занимается AdvLimitComponent
+        /// Десериализованное AdvansedLimit. Десериализацией занимается AdvLimitComponent.
         /// </summary>
         [NotStored]
         public AdvansedLimit AdvLimit
@@ -37,7 +37,7 @@
         }
 
         /// <summary>
-        /// горячая клавиша
+        /// горячая клавиша.
         /// </summary>
         public int HotKeyData
         {
@@ -53,7 +53,7 @@
         }
 
         /// <summary>
-        /// имя
+        /// имя.
         /// </summary>
         public virtual string Name
         {
@@ -70,7 +70,7 @@
         }
 
         /// <summary>
-        /// пользователь, чьё это ограничение
+        /// пользователь, чьё это ограничение.
         /// </summary>
         public virtual string User
         {
@@ -87,7 +87,7 @@
         }
 
         /// <summary>
-        /// модуль (генерируется AdvLimitComponent-ом, содержит информацию о форме и о списковом контроле)
+        /// модуль (генерируется AdvLimitComponent-ом, содержит информацию о форме и о списковом контроле).
         /// </summary>
         public virtual string Module
         {
@@ -104,7 +104,7 @@
         }
 
         /// <summary>
-        /// Сериализованное ограничение
+        /// Сериализованное ограничение.
         /// </summary>
         public virtual string Value
         {

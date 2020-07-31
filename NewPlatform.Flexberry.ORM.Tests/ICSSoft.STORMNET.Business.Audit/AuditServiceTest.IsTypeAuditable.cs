@@ -38,7 +38,7 @@
             // Assert.
             var auditService = new AuditService
             {
-                AppSetting = new AuditAppSetting { AuditEnabled = false }
+                AppSetting = new AuditAppSetting { AuditEnabled = false },
             };
 
             // Act && Assert.
@@ -57,7 +57,7 @@
             // Assert.
             var auditService = new AuditService
             {
-                AppSetting = new AuditAppSetting { AuditEnabled = true }
+                AppSetting = new AuditAppSetting { AuditEnabled = true },
             };
 
             // Act && Assert.

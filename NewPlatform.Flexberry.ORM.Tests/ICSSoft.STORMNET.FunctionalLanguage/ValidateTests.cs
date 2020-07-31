@@ -99,7 +99,7 @@
                 {
                     Type = LangDef.DetailsType,
                     View = TestDataObject.Views.E,
-                    ConnectMasterPorp = Information.ExtractPropertyName<TestDataObject>(x => x.Hierarchy)
+                    ConnectMasterPorp = Information.ExtractPropertyName<TestDataObject>(x => x.Hierarchy),
                 }));
         }
 
@@ -112,7 +112,7 @@
                     Type = LangDef.DetailsType,
                     View = TestDataObject.Views.E,
                     ConnectMasterPorp = Information.ExtractPropertyName<TestDataObject>(x => x.Hierarchy),
-                    OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey }
+                    OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
                 });
         }
 

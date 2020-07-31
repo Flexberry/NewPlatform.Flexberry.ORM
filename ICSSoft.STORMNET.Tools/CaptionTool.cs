@@ -3,17 +3,17 @@
     using System;
 
     /// <summary>
-    /// Вспомогательный класс для обработки и получения Caption'ов и других имён
+    /// Вспомогательный класс для обработки и получения Caption'ов и других имён.
     /// </summary>
     public class CaptionTool
     {
         /// <summary>
         /// Формирование из текста читаемого заголовка(caption)
-        /// (ранее данный метод находится в STORM.NET Case Tool plugin)
+        /// (ранее данный метод находится в STORM.NET Case Tool plugin).
         /// </summary>
-        /// <param name="propertyName">Исходный текст</param>
-        /// <param name="splitWords">Разделять ли слова</param>
-        /// <param name="hideMasters">Скрывать ли имена мастеров</param>
+        /// <param name="propertyName">Исходный текст.</param>
+        /// <param name="splitWords">Разделять ли слова.</param>
+        /// <param name="hideMasters">Скрывать ли имена мастеров.</param>
         public static string TransformTitle(string propertyName, bool splitWords, bool hideMasters)
         {
             string captionText = string.Empty;
@@ -123,16 +123,16 @@
         /// <summary>
         /// Класс для получения Caption'a поля по его имени
         /// (если представление null или поле с таким именем не найдено, то отобразится просто
-        /// имя поля, разделённое из camel-нотации)
+        /// имя поля, разделённое из camel-нотации).
         /// </summary>
         /// <param name="currentView">
-        /// Представление, по которому будет получаться Caption
+        /// Представление, по которому будет получаться Caption.
         /// </param>
         /// <param name="fieldName">
-        /// Имя поля
+        /// Имя поля.
         /// </param>
         /// <returns>
-        /// Результат
+        /// Результат.
         /// </returns>
         public static string GetAttrCaptionByView(View currentView, string fieldName)
         {

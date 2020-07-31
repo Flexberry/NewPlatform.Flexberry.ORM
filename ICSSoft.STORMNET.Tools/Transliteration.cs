@@ -24,7 +24,7 @@
             /// <summary>
             /// ISO 9-95
             /// </summary>
-            ISO
+            ISO,
         }
 
         /// <summary>

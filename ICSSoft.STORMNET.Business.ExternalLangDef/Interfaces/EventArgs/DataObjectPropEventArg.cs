@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// параметры событий форм с передачей объекта данных и имени свойства
+    /// параметры событий форм с передачей объекта данных и имени свойства.
     /// </summary>
     [EventArgCatcherType("ICSSoft.STORMNET.UI.DataObjectPropEventArgsCatcher, ICSSoft.STORMNET.UI, Version=1.0.0.1, Culture=neutral, PublicKeyToken=21ce651d390c1fa0")]
     public class DataObjectPropEventArg : ICSSoft.STORMNET.UI.DataObjectEventArgs
@@ -11,7 +11,7 @@
         private string fpropertyname;
 
         /// <summary>
-        /// параметры событий форм с передачей объекта данных и имени свойства
+        /// параметры событий форм с передачей объекта данных и имени свойства.
         /// </summary>
         /// <param name="propertyname"></param>
         /// <param name="dataobject"></param>
@@ -23,7 +23,7 @@
         }
 
         /// <summary>
-        /// параметры событий форм с передачей объекта данных и имени свойства
+        /// параметры событий форм с передачей объекта данных и имени свойства.
         /// </summary>
         /// <param name="propertyname"></param>
         /// <param name="dataobject"></param>
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// имя свойства
+        /// имя свойства.
         /// </summary>
         public virtual string propertyname
         {

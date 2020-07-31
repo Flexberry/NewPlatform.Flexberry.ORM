@@ -1,23 +1,20 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System;
-    using System.Configuration;
     using System.Linq;
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
     using NewPlatform.Flexberry.ORM.IntegratedTests;
-    using System.Reflection;
 
     /// <summary>
     /// Тесты на работу провайдера с ограничением вида:
     /// Where(DataObject.StringField == someString || DataObject.IntField.ToString() == someString).
-    /// В качестве someString по задумке может прийти строка, гуид или целое число. 
+    /// В качестве someString по задумке может прийти строка, гуид или целое число.
     /// Если приходит гуид, этот запрос падает с ошибкой приведения типов, потому, что генерируется запрос вида:
-    /// WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78') OR ( "IntField" = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78'))
+    /// WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78') OR ( "IntField" = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78')).
     /// </summary>
-
-    public class LinqToLcsIntOrStringTest: BaseIntegratedTest
+    public class LinqToLcsIntOrStringTest : BaseIntegratedTest
     {
         /// <summary>
         /// Конструктор.
@@ -34,7 +31,6 @@
         [Fact]
         public void TestSomeStringValueIntToStringPoleInt()
         {
-
             // Arrange.
             int intValue = 1;
             var someString = intValue.ToString();
@@ -42,10 +38,11 @@
             {
                 if (dataService is OracleDataService && typeof(SQLDataService).Assembly.ImageRuntimeVersion.StartsWith("v2"))
                 {
-                    ///TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
-                    ///Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
+                    // TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
+                    // Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
                     continue;
                 }
+
                 var ds = (SQLDataService)dataService;
                 var fullTypesMaster = new FullTypesMaster1() { PoleInt = intValue };
                 var updateObjectsArray = new DataObject[] { fullTypesMaster };
@@ -71,7 +68,6 @@
         [Fact]
         public void TestSomeStringValueIntToStringPoleString()
         {
-
             // Arrange.
             int intValue = 1;
             var someString = intValue.ToString();
@@ -79,10 +75,11 @@
             {
                 if (dataService is OracleDataService && typeof(SQLDataService).Assembly.ImageRuntimeVersion.StartsWith("v2"))
                 {
-                    ///TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
-                    ///Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
+                    // TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
+                    // Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
                     continue;
                 }
+
                 var ds = (SQLDataService)dataService;
                 var fullTypesMaster = new FullTypesMaster1() { PoleString = someString };
                 var updateObjectsArray = new DataObject[] { fullTypesMaster };
@@ -118,7 +115,7 @@
                 var view = FullTypesMaster1.Views.FullMasterView;
 
                 // Происходит падение теста так как генерируется запрос вида:
-                // WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78') 
+                // WHERE ( ( "StringField " = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78')
                 //      OR ( "IntField" = N'7e30b4d0-5f62-494e-aa8b-4c8ffce49f78')).
                 var query = ((SQLDataService)dataService)
                             .Query<FullTypesMaster1>(view)
@@ -140,7 +137,7 @@
         public void TestSomeStringValueString()
         {
             // Arrange.
-            var someString ="Тестовая строка";
+            var someString = "Тестовая строка";
             foreach (IDataService dataService in DataServices)
             {
                 var ds = (SQLDataService)dataService;
@@ -182,7 +179,7 @@
                 var view = FullTypesMaster1.Views.FullMasterView;
 
                 // Происходит падение теста так как генерируется запрос вида:
-                // WHERE ( ( "PoleString" = N'72fca622-a01e-494c-be1c-0821178594fb') 
+                // WHERE ( ( "PoleString" = N'72fca622-a01e-494c-be1c-0821178594fb')
                 //      OR ( "PoleInt" = N'72fca622-a01e-494c-be1c-0821178594fb')).
                 var query = ((SQLDataService)dataService)
                             .Query<FullTypesMaster1>(view)
@@ -203,7 +200,6 @@
         [Fact]
         public void TestSomeStringValueNullableGuidNull()
         {
-
             // Arrange.
             Guid? eqGuid = null;
             var someString = eqGuid.ToString();
@@ -211,10 +207,11 @@
             {
                 if (dataService is OracleDataService && typeof(SQLDataService).Assembly.ImageRuntimeVersion.StartsWith("v2"))
                 {
-                    ///TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
-                    ///Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
+                    // TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
+                    // Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
                     continue;
                 }
+
                 var ds = (SQLDataService)dataService;
                 var fullTypesMaster = new FullTypesMaster1() { PoleString = someString };
                 var updateObjectsArray = new DataObject[] { fullTypesMaster };

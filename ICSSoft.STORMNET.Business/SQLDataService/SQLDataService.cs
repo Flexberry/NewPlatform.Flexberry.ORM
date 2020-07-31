@@ -81,7 +81,7 @@
         private StorageTypeEnum prvStorageType = StorageTypeEnum.SimpleStorage;
 
         /// <summary>
-        /// Тип хранилища
+        /// Тип хранилища.
         /// </summary>
         public StorageTypeEnum StorageType
         {
@@ -109,11 +109,11 @@
         public INotifyUpdateObjects NotifierUpdateObjects { get; set; }
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public virtual string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -136,9 +136,9 @@
         ////------ Э Т О       Н А Д О     П Е Р Е Г Р У З И Т Ь
 
         /// <summary>
-        /// Вернуть объект <see cref="System.Data.IDbConnection"/>
+        /// Вернуть объект <see cref="System.Data.IDbConnection"/>.
         /// </summary>
-        /// <returns>Коннекция к БД</returns>
+        /// <returns>Коннекция к БД.</returns>
         public abstract System.Data.IDbConnection GetConnection();
 
         ////-----------------------------------------------------
@@ -147,11 +147,12 @@
         private string _customizationStringName;
 
         /// <summary>
-        /// Настроичная строка (строка соединения)
+        /// Настроичная строка (строка соединения).
         /// </summary>
         public string CustomizationString
         {
-            get { return customizationString; } set { customizationString = value; }
+            get { return customizationString; }
+            set { customizationString = value; }
         }
 
         /// <summary>
@@ -179,7 +180,7 @@
         }
 
         /// <summary>
-        /// Свойство для установки строки соединения по имени
+        /// Свойство для установки строки соединения по имени.
         /// </summary>
         public string CustomizationStringName
         {
@@ -196,14 +197,14 @@
         }
 
         /// <summary>
-        /// Делегат для смены строки соединения
+        /// Делегат для смены строки соединения.
         /// </summary>
         public static ChangeCustomizationStringDelegate ChangeCustomizationString = null;
 
         private bool _doNotChangeCustomizationString = false;
 
         /// <summary>
-        /// Не менять строку соединения общим делегатом ChangeCustomizationString
+        /// Не менять строку соединения общим делегатом ChangeCustomizationString.
         /// </summary>
         public bool DoNotChangeCustomizationString
         {
@@ -288,10 +289,10 @@
         }
 
         /// <summary>
-        /// Возвращает количество объектов удовлетворяющих запросу
+        /// Возвращает количество объектов удовлетворяющих запросу.
         /// </summary>
         /// <param name="customizationStruct">
-        /// Что выбираем
+        /// Что выбираем.
         /// </param>
         /// <returns>
         /// </returns>
@@ -387,8 +388,8 @@
         /// <param name="limitFunction">Функция ограничения, определяющая искомые объекты.</param>
         /// <param name="maxResults">
         /// Максимальное число возвращаемых результатов.
-        /// Этот параметр не соответствует <code>lcs.ReturnTop</code>, а устанавливает максимальное число
-        /// искомых объектов, тогда как <code>lcs.ReturnTop</code> ограничивает число объектов, в которых
+        /// Этот параметр не соответствует. <code>lcs.ReturnTop</code>, а устанавливает максимальное число
+        /// искомых объектов, тогда как. <code>lcs.ReturnTop</code> ограничивает число объектов, в которых
         /// проводится поиск.
         /// Если значение не определено (<c>null</c>), то возвращаются все найденные результаты.
         /// </param>
@@ -576,25 +577,25 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        /// <param name="ClearDataObject">очищать ли объект</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        /// <param name="ClearDataObject">очищать ли объект.</param>
+        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        public virtual void LoadObject(
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
         {
             LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, ClearDataObject, CheckExistingObject, DataObjectCache);
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">наименование представления</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
-        /// <param name="ClearDataObject">очищать ли объект</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectViewName">наименование представления.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="ClearDataObject">очищать ли объект.</param>
+        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        public virtual void LoadObject(
             string dataObjectViewName,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
         {
@@ -602,11 +603,11 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление объекта</param>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectView">представление объекта.</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
         {
@@ -749,13 +750,13 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
-        /// <param name="ClearDataObject">очищать ли объект</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="ClearDataObject">очищать ли объект.</param>
+        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
         {
@@ -862,11 +863,11 @@
         }
 
         /// <summary>
-        /// Метод для дочитки объекта данных. Загруженные ранее свойства не затираются, изменённые свойства не затираются. Подменяются поштучно свойства копии данных. TODO: дописать тесты, проверить и сделать публичным
+        /// Метод для дочитки объекта данных. Загруженные ранее свойства не затираются, изменённые свойства не затираются. Подменяются поштучно свойства копии данных. TODO: дописать тесты, проверить и сделать публичным.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        /// <param name="dataObject">бъект данных, который требуется загрузить</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище</param>
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="dataObject">бъект данных, который требуется загрузить.</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         /// <param name="dataObjectCache"></param>
         protected virtual void SecondLoadObject(
     View dataObjectView,
@@ -878,9 +879,9 @@
         /// <summary>
         /// Метод для дочитки объекта данных. Загруженные ранее свойства не затираются, изменённые свойства не затираются. Подменяются поштучно свойства копии данных.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        /// <param name="dataObject">бъект данных, который требуется загрузить</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище</param>
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="dataObject">бъект данных, который требуется загрузить.</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         /// <param name="dataObjectCache"></param>
         /// <param name="dataObjectFromDB"></param>
         protected virtual void PrvSecondLoadObject(
@@ -1070,11 +1071,11 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">имя представления объекта</param>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectViewName">имя представления объекта.</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        public virtual void LoadObject(
             string dataObjectViewName,
             ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
         {
@@ -1082,10 +1083,10 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        virtual public void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        public virtual void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
         {
             LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, true, true, DataObjectCache);
         }
@@ -1268,11 +1269,11 @@
         private bool mustNewgenerate = false;
 
         /// <summary>
-        /// получить запрос на вычитку данных
+        /// получить запрос на вычитку данных.
         /// </summary>
-        /// <param name="customizationStruct">настройка выборки</param>
-        /// <param name="StorageStruct">возвращается соответствующая структура выборки</param>
-        /// <returns>запрос</returns>
+        /// <param name="customizationStruct">настройка выборки.</param>
+        /// <param name="StorageStruct">возвращается соответствующая структура выборки.</param>
+        /// <returns>запрос.</returns>
         public virtual string GenerateSQLSelect(LoadingCustomizationStruct customizationStruct, bool ForReadValues, out STORMDO.Business.StorageStructForView[] StorageStruct, bool Optimized)
         {
             View prevV = customizationStruct.View;
@@ -1736,10 +1737,10 @@
         }
 
         /// <summary>
-        /// получить запрос на вычитку данных
+        /// получить запрос на вычитку данных.
         /// </summary>
-        /// <param name="customizationStruct">настройка выборки</param>
-        /// <returns>запрос</returns>
+        /// <param name="customizationStruct">настройка выборки.</param>
+        /// <returns>запрос.</returns>
         public virtual string GenerateSQLSelect(LoadingCustomizationStruct customizationStruct, bool Optimized)
         {
             STORMDO.Business.StorageStructForView[] storageStructs;
@@ -1747,11 +1748,11 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/></param>
+        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
         /// <returns></returns>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct customizationStruct, DataObjectCache DataObjectCache)
         {
             object state = null;
@@ -1760,12 +1761,12 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="dataobjects">исходные объекты</param>
-        /// <param name="dataObjectView">представлене</param>
-        /// <param name="ClearDataobject">очищать ли существующие</param>
-        virtual public void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
+        /// <param name="dataobjects">исходные объекты.</param>
+        /// <param name="dataObjectView">представлене.</param>
+        /// <param name="ClearDataobject">очищать ли существующие.</param>
+        public virtual void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
             ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject, DataObjectCache DataObjectCache)
         {
             if (dataobjects == null || dataobjects.Length == 0)
@@ -1904,10 +1905,10 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных по представлению
+        /// Загрузка объектов данных по представлению.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="dataObjectView">представление.</param>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             ICSSoft.STORMNET.View dataObjectView)
         {
             LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
@@ -1917,10 +1918,10 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных по массиву представлений
+        /// Загрузка объектов данных по массиву представлений.
         /// </summary>
-        /// <param name="dataObjectViews">массив представлений</param>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="dataObjectViews">массив представлений.</param>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             ICSSoft.STORMNET.View[] dataObjectViews)
         {
             System.Collections.ArrayList arr = new System.Collections.ArrayList();
@@ -1940,10 +1941,10 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных по массиву структур
+        /// Загрузка объектов данных по массиву структур.
         /// </summary>
-        /// <param name="customizationStructs">массив структур</param>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="customizationStructs">массив структур.</param>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct[] customizationStructs)
         {
             System.Collections.ArrayList arr = new System.Collections.ArrayList();
@@ -2014,12 +2015,12 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/></param>
-        /// <param name="State">Состояние вычитки( для последующей дочитки )</param>
+        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
+        /// <param name="State">Состояние вычитки( для последующей дочитки ).</param>
         /// <returns></returns>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct customizationStruct,
             ref object State, DataObjectCache DataObjectCache)
         {
@@ -2065,11 +2066,11 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных по представлению
+        /// Загрузка объектов данных по представлению.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        /// <param name="changeViewForTypeDelegate">делегат</param>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="changeViewForTypeDelegate">делегат.</param>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             ICSSoft.STORMNET.View dataObjectView, ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
@@ -2081,11 +2082,11 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных по массиву представлений
+        /// Загрузка объектов данных по массиву представлений.
         /// </summary>
-        /// <param name="dataObjectViews">массив представлений</param>
-        /// <param name="changeViewForTypeDelegate">делегат</param>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="dataObjectViews">массив представлений.</param>
+        /// <param name="changeViewForTypeDelegate">делегат.</param>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             ICSSoft.STORMNET.View[] dataObjectViews, ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
@@ -2097,11 +2098,11 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных по массиву структур
+        /// Загрузка объектов данных по массиву структур.
         /// </summary>
-        /// <param name="customizationStructs">массив структур</param>
-        /// <param name="changeViewForTypeDelegate">делегат</param>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="customizationStructs">массив структур.</param>
+        /// <param name="changeViewForTypeDelegate">делегат.</param>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct[] customizationStructs, ChangeViewForTypeDelegate changeViewForTypeDelegate)
         {
             if (changeViewForTypeDelegate != null)
@@ -2113,11 +2114,11 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="State">Состояние вычитки( для последующей дочитки)</param>
+        /// <param name="State">Состояние вычитки( для последующей дочитки).</param>
         /// <returns></returns>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache DataObjectCache)
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache DataObjectCache)
         {
             if (State == null)
             {
@@ -2292,7 +2293,7 @@
         }
 
         /// <summary>
-        /// Вычитка следующей порции данных
+        /// Вычитка следующей порции данных.
         /// </summary>
         /// <param name="state"></param>
         /// <param name="loadingBufferSize"></param>
@@ -2350,10 +2351,10 @@
         }
 
         /// <summary>
-        /// Выполнить запрос
+        /// Выполнить запрос.
         /// </summary>
-        /// <param name="query">SQL запрос</param>
-        /// <returns>количество задетых строк</returns>
+        /// <param name="query">SQL запрос.</param>
+        /// <returns>количество задетых строк.</returns>
         public virtual int ExecuteNonQuery(string query)
         {
             using (IDbConnection connection = GetConnection())
@@ -2386,10 +2387,10 @@
         public event OnCreateCommandEventHandler OnCreateCommand;
 
         /// <summary>
-        /// получить LeftJoin выражение
+        /// получить LeftJoin выражение.
         /// </summary>
-        /// <param name="subTable">имя таблицы</param>
-        /// <param name="subTableAlias">псевдоним таблицы</param>
+        /// <param name="subTable">имя таблицы.</param>
+        /// <param name="subTableAlias">псевдоним таблицы.</param>
         /// <param name="parentAliasWithKey"></param>
         /// <param name="subTableKey"></param>
         /// <param name="subJoins"></param>
@@ -2412,7 +2413,7 @@
         }
 
         /// <summary>
-        /// получить InnerJoin выражение
+        /// получить InnerJoin выражение.
         /// </summary>
         /// <param name="subTable"></param>
         /// <param name="subTableAlias"></param>
@@ -2466,7 +2467,7 @@
         /// <summary>
         /// Получить суффикс для обращения к таблице.
         /// </summary>
-        /// <param name="tableName">Имя таблицы</param>
+        /// <param name="tableName">Имя таблицы.</param>
         /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
         /// <returns>Суффикс-модификатор.</returns>
         public virtual string GetTableModifierSuffix(string tableName, bool onJoin)
@@ -2480,16 +2481,16 @@
         /// для возврата соответствующего своего модификатора.
         /// Базовый <see cref="SQLDataService"/> возвращает пустую строку.
         /// </summary>
-        /// <returns>""</returns>
+        /// <returns>"".</returns>
         public virtual string GetJoinTableModifierExpression()
         {
             return string.Empty;
         }
 
         /// <summary>
-        /// Вернуть in выражение для where
+        /// Вернуть in выражение для where.
         /// </summary>
-        /// <param name="identifiers">идентифткаторы</param>
+        /// <param name="identifiers">идентифткаторы.</param>
         /// <returns></returns>
         public virtual string GetINExpression(params string[] identifiers)
         {
@@ -2503,9 +2504,9 @@
         }
 
         /// <summary>
-        /// Вернуть ifnull выражение
+        /// Вернуть ifnull выражение.
         /// </summary>
-        /// <param name="identifiers">идентифткаторы</param>
+        /// <param name="identifiers">идентифткаторы.</param>
         /// <returns></returns>
         public virtual string GetIfNullExpression(params string[] identifiers)
         {
@@ -2519,24 +2520,24 @@
         }
 
         /// <summary>
-        /// Офромить идентификатор
+        /// Офромить идентификатор.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
-        /// <returns>оформленный идентификатор(например в кавычках)</returns>
+        /// <param name="identifier">идентификатор.</param>
+        /// <returns>оформленный идентификатор(например в кавычках).</returns>
         public virtual string PutIdentifierIntoBrackets(string identifier)
         {
             return string.Concat("\"", identifier, "\"");
         }
 
         /// <summary>
-        /// создать join соединения
+        /// создать join соединения.
         /// </summary>
-        /// <param name="source">источник с которого формируется соединение</param>
-        /// <param name="parentAlias">вышестоящий алиас</param>
-        /// <param name="index">индекс источника</param>
-        /// <param name="keysandtypes">ключи и типы</param>
-        /// <param name="baseOutline">смещение в запросе</param>
-        /// <param name="joinscount">количество соединений</param>
+        /// <param name="source">источник с которого формируется соединение.</param>
+        /// <param name="parentAlias">вышестоящий алиас.</param>
+        /// <param name="index">индекс источника.</param>
+        /// <param name="keysandtypes">ключи и типы.</param>
+        /// <param name="baseOutline">смещение в запросе.</param>
+        /// <param name="joinscount">количество соединений.</param>
         /// <returns></returns>
         public virtual void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
             string parentAlias, int index,
@@ -2562,7 +2563,7 @@
                             {
                                         PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
                                         PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
-                                            subSource.Name
+                                            subSource.Name,
                                     });
                         string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName); // +"_M"+(locindex++).ToString());
                         int subjoinscount;
@@ -2608,14 +2609,14 @@
         }
 
         /// <summary>
-        /// создать join соединения
+        /// создать join соединения.
         /// </summary>
-        /// <param name="source">источник с которого формируется соединение</param>
-        /// <param name="parentAlias">вышестоящий алиас</param>
-        /// <param name="index">индекс источника</param>
-        /// <param name="keysandtypes">ключи и типы</param>
-        /// <param name="baseOutline">смещение в запросе</param>
-        /// <param name="joinscount">количество соединений</param>
+        /// <param name="source">источник с которого формируется соединение.</param>
+        /// <param name="parentAlias">вышестоящий алиас.</param>
+        /// <param name="index">индекс источника.</param>
+        /// <param name="keysandtypes">ключи и типы.</param>
+        /// <param name="baseOutline">смещение в запросе.</param>
+        /// <param name="joinscount">количество соединений.</param>
         /// <returns></returns>
         public virtual void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
             string parentAlias, int index,
@@ -2647,7 +2648,7 @@
                             {
                                             PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
                                             PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
-                                            subSource.Name
+                                            subSource.Name,
                                         });
                         string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName); // +"_M"+(locindex++).ToString());
                         string subjoin = string.Empty;
@@ -2677,12 +2678,12 @@
         }
 
         /// <summary>
-        /// преобразовать выражение с учетом
+        /// преобразовать выражение с учетом.
         /// </summary>
         /// <param name="expression"></param>
         /// <param name="namespacewithpoint"></param>
         /// <returns></returns>
-        virtual public string TranslateExpression(string expression, string namespacewithpoint, string exteranlnamewithpoint, out bool PointExistInSourceIdentifier)
+        public virtual string TranslateExpression(string expression, string namespacewithpoint, string exteranlnamewithpoint, out bool PointExistInSourceIdentifier)
         {
             string[] expressarr = expression.Split('@');
             string result = string.Empty;
@@ -2747,7 +2748,7 @@
             return "(" + result + ")";
         }
 
-        virtual public string GetConvertToTypeExpression(Type valType, string value)
+        public virtual string GetConvertToTypeExpression(Type valType, string value)
         {
             if (valType == typeof(Guid))
             {
@@ -2769,21 +2770,21 @@
         ///     atr1,atr2, ...  atr3,
         ///     Key1,Key2, ...  key3
         /// FROM
-        ///     fromjoins
+        ///     fromjoins.
         /// </summary>
-        /// <param name="storageStruct">структура хранилища</param>
-        /// <param name="AddingAdvansedField">довленные дополнительные свойства</param>
-        /// <param name="AddingKeysCount">добавленниые ключи</param>
+        /// <param name="storageStruct">структура хранилища.</param>
+        /// <param name="AddingAdvansedField">довленные дополнительные свойства.</param>
+        /// <param name="AddingKeysCount">добавленниые ключи.</param>
         /// <param name="addMasterFieldsCustomizer"></param>
         /// <param name="addNotMainKeys"></param>
         /// <param name="SelectTypesIds"></param>
         /// <returns></returns>
-        virtual public string GenerateSQLSelectByStorageStruct(STORMDO.Business.StorageStructForView storageStruct, bool addNotMainKeys, bool addMasterFieldsCustomizer, string AddingAdvansedField, int AddingKeysCount, bool SelectTypesIds)
+        public virtual string GenerateSQLSelectByStorageStruct(STORMDO.Business.StorageStructForView storageStruct, bool addNotMainKeys, bool addMasterFieldsCustomizer, string AddingAdvansedField, int AddingKeysCount, bool SelectTypesIds)
         {
             return GenerateSQLSelectByStorageStruct(storageStruct, addNotMainKeys, addMasterFieldsCustomizer, AddingAdvansedField, AddingKeysCount, SelectTypesIds, mustNewgenerate, true);
         }
 
-        virtual public string GenerateSQLSelectByStorageStruct(STORMDO.Business.StorageStructForView storageStruct, bool addNotMainKeys, bool addMasterFieldsCustomizer, string AddingAdvansedField, int AddingKeysCount, bool SelectTypesIds, bool MustNewGenerate, bool MustDopSelect)
+        public virtual string GenerateSQLSelectByStorageStruct(STORMDO.Business.StorageStructForView storageStruct, bool addNotMainKeys, bool addMasterFieldsCustomizer, string AddingAdvansedField, int AddingKeysCount, bool SelectTypesIds, bool MustNewGenerate, bool MustDopSelect)
         {
             string nl = Environment.NewLine;
             string nlk = "," + nl;
@@ -3192,7 +3193,7 @@
         }
 
         /// <summary>
-        /// конвертация значений в строки запроса
+        /// конвертация значений в строки запроса.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -3231,7 +3232,7 @@
         }
 
         /// <summary>
-        /// Преобразование значение свойства в строку для запроса
+        /// Преобразование значение свойства в строку для запроса.
         /// </summary>
         /// <param name="dataobject"></param>
         /// <param name="propname"></param>
@@ -3369,7 +3370,7 @@
         }
 
         /// <summary>
-        /// Преобразование функции
+        /// Преобразование функции.
         /// </summary>
         /// <param name="LimitFunction"></param>
         /// <returns></returns>
@@ -3388,7 +3389,6 @@
 
                 // не применять для существуют такие и им подобных..
                 bool bExistsFounded = CheckExists(LimitFunction);
-                ;
                 if (!bExistsFounded)
                 {
                     sw = System.Text.RegularExpressions.Regex.Replace(sw,
@@ -3430,7 +3430,7 @@
         }
 
         /// <summary>
-        /// Преобразование функции
+        /// Преобразование функции.
         /// </summary>
         /// <param name="LimitFunction"></param>
         /// <returns></returns>
@@ -3446,12 +3446,12 @@
         //-------LOAD separated string Objetcs ------------------------------------
 
         /// <summary>
-        /// Загрузка без создания объектов
+        /// Загрузка без создания объектов.
         /// </summary>
-        /// <param name="separator">разделитель в строках</param>
-        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/></param>
-        /// <returns>массив структур <see cref="ObjectStringDataView"/></returns>
-        virtual public ObjectStringDataView[] LoadStringedObjectView(
+        /// <param name="separator">разделитель в строках.</param>
+        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
+        /// <returns>массив структур <see cref="ObjectStringDataView"/>.</returns>
+        public virtual ObjectStringDataView[] LoadStringedObjectView(
             char separator,
             LoadingCustomizationStruct customizationStruct)
         {
@@ -3461,13 +3461,13 @@
         }
 
         /// <summary>
-        /// Загрузка без создания объектов
+        /// Загрузка без создания объектов.
         /// </summary>
-        /// <param name="separator">разделитель в строках</param>
+        /// <param name="separator">разделитель в строках.</param>
         /// <param name="customizationStruct"></param>
         /// <param name="State"></param>
         /// <returns></returns>
-        virtual public ObjectStringDataView[] LoadStringedObjectView(
+        public virtual ObjectStringDataView[] LoadStringedObjectView(
             char separator,
             LoadingCustomizationStruct customizationStruct,
             ref object State)
@@ -3542,7 +3542,6 @@
 
                 int PropCount = customizationStruct.View.Properties.Length + ((customizationStruct.AdvansedColumns != null) ? customizationStruct.AdvansedColumns.Length : 0);
                 object[] procRead = null;
-                ;
                 ObjectStringDataView[] result = null;
                 if (resValue == null)
                 {
@@ -3564,11 +3563,11 @@
         }
 
         /// <summary>
-        /// Загрузка без создания объектов
+        /// Загрузка без создания объектов.
         /// </summary>
         /// <param name="customizationStruct"></param>
         /// <returns></returns>
-        virtual public object[][] LoadRawValues(LoadingCustomizationStruct customizationStruct)
+        public virtual object[][] LoadRawValues(LoadingCustomizationStruct customizationStruct)
         {
             object state = null;
             object ID = BusinessTaskMonitor.BeginTask("Load raw values");
@@ -3619,7 +3618,7 @@
                         customizationStruct.View.Properties =
                             new[]
                                 {
-                                    customizationStruct.View.Properties[0]
+                                    customizationStruct.View.Properties[0],
                                 };
                     }
                 }
@@ -3670,7 +3669,7 @@
             }
         }
 
-        virtual public ObjectStringDataView[] LoadValues(
+        public virtual ObjectStringDataView[] LoadValues(
             char separator,
             LoadingCustomizationStruct customizationStruct)
         {
@@ -3701,7 +3700,6 @@
                     ref State, customizationStruct.LoadingBufferSize);
                 int PropCount = customizationStruct.View.Properties.Length + ((customizationStruct.AdvansedColumns != null) ? customizationStruct.AdvansedColumns.Length : 0);
                 object[] procRead = null;
-                ;
                 ObjectStringDataView[] result = null;
                 if (resValue == null)
                 {
@@ -3725,7 +3723,7 @@
         /// <summary>
         ///
         /// </summary>
-        virtual public ObjectStringDataView[] LoadStringedObjectView(ref object state)
+        public virtual ObjectStringDataView[] LoadStringedObjectView(ref object state)
         {
             object[] statearr = (object[])state;
             System.Type[] dataObjectType = (System.Type[])statearr[1];
@@ -3792,16 +3790,16 @@
             state = null;
         }
 
-        virtual public void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
         {
             UpdateObject(ref dobject, DataObjectCache, false);
         }
 
         /// <summary>
-        /// Обновление объекта данных
+        /// Обновление объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется обновить</param>
-        virtual public void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache, bool AlwaysThrowException)
+        /// <param name="dobject">объект данных, который требуется обновить.</param>
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache, bool AlwaysThrowException)
         {
             STORMDO.DataObject[] arr = new STORMDO.DataObject[] { dobject };
             UpdateObjects(ref arr, DataObjectCache, AlwaysThrowException);
@@ -3815,37 +3813,37 @@
             }
         }
 
-        virtual public void UpdateObject(ICSSoft.STORMNET.DataObject dobject)
+        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject)
         {
             UpdateObject(dobject, false);
         }
 
         /// <summary>
-        /// Обновление объекта данных
+        /// Обновление объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется обновить</param>
-        virtual public void UpdateObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+        /// <param name="dobject">объект данных, который требуется обновить.</param>
+        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
         {
             UpdateObject(ref dobject, DataObjectCache);
         }
 
         /// <summary>
-        /// Обновление объекта данных
+        /// Обновление объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется обновить</param>
-        virtual public void UpdateObject(ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException)
+        /// <param name="dobject">объект данных, который требуется обновить.</param>
+        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException)
         {
             UpdateObject(ref dobject, new DataObjectCache(), AlwaysThrowException);
         }
 
         /// <summary>
-        /// Возвращает измененные данные со значениями
+        /// Возвращает измененные данные со значениями.
         /// </summary>
-        /// <param name="dobject">у кого проверяем</param>
-        /// <param name="CheckLoadedProps">проверять ли загруженность измененных свойств</param>
-        /// <param name="propsWithValues">пары свойство-значение</param>
-        /// <param name="detailObjects">вычисленные измененные объекты</param>
-        /// <param name="ReturnPropStorageNames">возвращать ли не сами свойства а их хранилища</param>
+        /// <param name="dobject">у кого проверяем.</param>
+        /// <param name="CheckLoadedProps">проверять ли загруженность измененных свойств.</param>
+        /// <param name="propsWithValues">пары свойство-значение.</param>
+        /// <param name="detailObjects">вычисленные измененные объекты.</param>
+        /// <param name="ReturnPropStorageNames">возвращать ли не сами свойства а их хранилища.</param>
         protected virtual void GetAlteredPropsWithValues(
             ICSSoft.STORMNET.DataObject dobject, bool CheckLoadedProps,
             out ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues,
@@ -4007,16 +4005,16 @@
         }
 
         /// <summary>
-        /// Удаляемые объекты особым образом добавляются в словарь
+        /// Удаляемые объекты особым образом добавляются в словарь.
         /// </summary>
         /// <param name="dobject">
-        /// Удаляемый объект
+        /// Удаляемый объект.
         /// </param>
         /// <param name="UpdaterFunction">
-        /// Функция обновления
+        /// Функция обновления.
         /// </param>
         /// <param name="DeleteList">
-        /// Соответствие между таблицей и первичными ключами удаляемых объектов
+        /// Соответствие между таблицей и первичными ключами удаляемых объектов.
         /// </param>
         /// <param name="DeleteTables">
         /// The delete tables.
@@ -4072,20 +4070,20 @@
         /// <summary>
         /// У основного представления есть связь на представление на детейлы. Часть из них вообще не загружалась, данная функция обрабатывает как раз их.
         /// Данная функция либо возвращает объекты детейлов, если есть навешенные на них бизнес-сервера,
-        /// иначе формирует запрос на удаление всех детейлов определённого типа у объекта
+        /// иначе формирует запрос на удаление всех детейлов определённого типа у объекта.
         /// </summary>
         /// <param name="view">
-        /// Представление, соответствующее детейлу
+        /// Представление, соответствующее детейлу.
         /// </param>
         /// <param name="DeleteDictionary">
         /// The delete dictionary.
         /// </param>
         /// <param name="mainkey">
-        /// Первичный ключ агрегатора детейлов
+        /// Первичный ключ агрегатора детейлов.
         /// </param>
         /// <param name="updateobjects">
         /// Детейлы, на которые навешены бизнес-сервера
-        /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер)
+        /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).
         /// </param>
         /// <param name="DeleteTables">
         /// The delete tables.
@@ -4098,7 +4096,7 @@
         /// </param>
         /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <returns>
-        /// Набор объектов, которые необходимо занести в аудит
+        /// Набор объектов, которые необходимо занести в аудит.
         /// </returns>
         private IEnumerable<DataObject> AddDeletedViewToDeleteDictionary(
             STORMDO.View view,
@@ -4218,7 +4216,7 @@
             None = 0,
             Update = 1,
             Delete = 2,
-            Insert = 4
+            Insert = 4,
         }
 
         /// <summary>
@@ -4253,21 +4251,21 @@
         /// <summary>
         /// Генерация запросов для изменения объектов.
         /// </summary>
-        /// <param name="deleteQueries"> Запросы для удаление </param>
+        /// <param name="deleteQueries"> Запросы для удаление. </param>
         /// <param name="deleteTables"> The Delete Tables. </param>
-        /// <param name="updateQueries"> Запросы для изменения </param>
-        /// <param name="updateFirstQueries"> Запросы для изменения, выполняемые до остальных запросов </param>
+        /// <param name="updateQueries"> Запросы для изменения. </param>
+        /// <param name="updateFirstQueries"> Запросы для изменения, выполняемые до остальных запросов. </param>
         /// <param name="updateLastQueries"> Запросы для изменения, выполняемые после остальных запросов.</param>
         /// <param name="updateTables"> The Update Tables. </param>
-        /// <param name="insertQueries"> Запросы для добавления </param>
+        /// <param name="insertQueries"> Запросы для добавления. </param>
         /// <param name="insertTables"> The Insert Tables. </param>
         /// <param name="tableOperations"> The Table Operations. </param>
         /// <param name="queryOrder"> The Query Order. </param>
-        /// <param name="checkLoadedProps"> Проверять ли загруженность свойств </param>
+        /// <param name="checkLoadedProps"> Проверять ли загруженность свойств. </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
         /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
-        /// <param name="dobjects"> Для чего генерим запросы </param>
+        /// <param name="dobjects"> Для чего генерим запросы. </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
             StringCollection deleteTables,
@@ -4438,7 +4436,7 @@
                 var aggregatorView = new View
                 {
                     Name = "DetailsLoadingView",
-                    DefineClassType = aggregatorType
+                    DefineClassType = aggregatorType,
                 };
 
                 DetailInView detailInView = aggregatorAuditView.GetDetail(detailArrayPropertyName);
@@ -4887,7 +4885,7 @@
         /// <param name="deleteQueries">Запросы для удаление (выходной параметр).</param>
         /// <param name="deleteTables">Таблицы, из которых будет проведено удаление данных (выходной параметр).</param>
         /// <param name="updateQueries">Сгенерированные запросы для изменения (выходной параметр).</param>
-        /// <param name="updateFirstQueries"> Сгенерированные запросы для изменения (выходной параметр), выполняемые до остальных запросов </param>
+        /// <param name="updateFirstQueries"> Сгенерированные запросы для изменения (выходной параметр), выполняемые до остальных запросов. </param>
         /// <param name="updateLastQueries"> Запросы для изменения, выполняемые после остальных запросов.</param>
         /// <param name="updateTables">Таблицы, в которых будет проведено изменение данных (выходной параметр).</param>
         /// <param name="insertQueries">Сгенерированные запросы для добавления (выходной параметр).</param>
@@ -5178,7 +5176,9 @@
                     grafDependencies.Clear();
                     grafDependencies.Add(dependencie);
                     if (!FindCycles(ref grafDependencies, dependencie, dependenciesList[i], dependencie, dependenciesList, processingObjects, createdList, alteredLastList))
+                    {
                         break;
+                    }
                 }
             }
 
@@ -5521,7 +5521,7 @@
         private ISecurityManager _securityManager;
 
         /// <summary>
-        /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout"/>
+        /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout"/>.
         /// </summary>
         public int CommandTimeout
         {
@@ -5530,7 +5530,7 @@
         }
 
         /// <summary>
-        /// Использовать ли атрибут <see cref="CommandTimeout"/> (если задан через конфиг, то будет true) по-умолчанию false
+        /// Использовать ли атрибут <see cref="CommandTimeout"/> (если задан через конфиг, то будет true) по-умолчанию false.
         /// </summary>
         public bool UseCommandTimeout
         {
@@ -5619,15 +5619,15 @@
         }
 
         /// <summary>
-        /// Обновить объекты данных в указанном порядке
+        /// Обновить объекты данных в указанном порядке.
         /// </summary>
         /// <param name="objects">
         /// The objects.
         /// </param>
         /// <param name="alwaysThrowException">
-        /// Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию. По умолчанию true;
+        /// Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию. По умолчанию true;.
         /// </param>
-        virtual public void UpdateObjectsOrdered(ref DataObject[] objects, bool alwaysThrowException = true)
+        public virtual void UpdateObjectsOrdered(ref DataObject[] objects, bool alwaysThrowException = true)
         {
             using (var dbTransactionWrapper = new DbTransactionWrapper(this))
             {
@@ -5656,7 +5656,7 @@
         /// он true, всегда взводится ошибка. Иначе, выполнение продолжается.
         /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
         /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
-        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
+        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION.
         /// </summary>
         /// <param name="objects">Объекты для обновления.</param>
         /// <param name="dataObjectCache">Кеш объектов.</param>
@@ -5971,7 +5971,7 @@
         /// он true, всегда взводится ошибка. Иначе, выполнение продолжается.
         /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
         /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
-        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
+        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION.
         /// </summary>
         /// <param name="objects">Объекты для обновления.</param>
         /// <param name="dataObjectCache">Кеш объектов.</param>
@@ -6003,20 +6003,20 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        virtual public void LoadObject(ICSSoft.STORMNET.DataObject dobject)
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        public virtual void LoadObject(ICSSoft.STORMNET.DataObject dobject)
         {
             LoadObject(dobject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">имя представления объекта</param>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectViewName">имя представления объекта.</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        public virtual void LoadObject(
             string dataObjectViewName,
             ICSSoft.STORMNET.DataObject dobject)
         {
@@ -6024,11 +6024,11 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление объекта</param>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectView">представление объекта.</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject)
         {
@@ -6036,25 +6036,25 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        /// <param name="ClearDataObject">очищать ли объект</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        /// <param name="ClearDataObject">очищать ли объект.</param>
+        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        public virtual void LoadObject(
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject)
         {
             LoadObject(dobject, ClearDataObject, CheckExistingObject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">наименование представления</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
-        /// <param name="ClearDataObject">очищать ли объект</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectViewName">наименование представления.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="ClearDataObject">очищать ли объект.</param>
+        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        public virtual void LoadObject(
             string dataObjectViewName,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject)
         {
@@ -6062,13 +6062,13 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
-        /// <param name="ClearDataObject">очищать ли объект</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище</param>
-        virtual public void LoadObject(
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="ClearDataObject">очищать ли объект.</param>
+        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
             ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject)
         {
@@ -6078,35 +6078,35 @@
         //-----------------------------------------------------
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="dataobjects">исходные объекты</param>
-        /// <param name="dataObjectView">представлене</param>
-        /// <param name="ClearDataobject">очищать ли существующие</param>
-        virtual public void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
+        /// <param name="dataobjects">исходные объекты.</param>
+        /// <param name="dataObjectView">представлене.</param>
+        /// <param name="ClearDataobject">очищать ли существующие.</param>
+        public virtual void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
             ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject)
         {
             LoadObjects(dataobjects, dataObjectView, ClearDataobject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/></param>
-        /// <returns>результат запроса</returns>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
+        /// <returns>результат запроса.</returns>
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct customizationStruct)
         {
             return LoadObjects(customizationStruct, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/></param>
-        /// <param name="State">Состояние вычитки( для последующей дочитки )</param>
+        /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
+        /// <param name="State">Состояние вычитки( для последующей дочитки ).</param>
         /// <returns></returns>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct customizationStruct,
             ref object State)
         {
@@ -6114,26 +6114,26 @@
         }
 
         /// <summary>
-        /// Загрузка объектов данных
+        /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="State">Состояние вычитки( для последующей дочитки)</param>
+        /// <param name="State">Состояние вычитки( для последующей дочитки).</param>
         /// <returns></returns>
-        virtual public ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State)
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State)
         {
             return LoadObjects(ref State, new DataObjectCache());
         }
 
         //-------LOAD separated string Objetcs ------------------------------------
-        virtual public void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject)
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject)
         {
             UpdateObject(ref dobject, false);
         }
 
         /// <summary>
-        /// Обновление объекта данных
+        /// Обновление объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется обновить</param>
-        virtual public void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException)
+        /// <param name="dobject">объект данных, который требуется обновить.</param>
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException)
         {
             UpdateObject(ref dobject, new DataObjectCache(), AlwaysThrowException);
         }
@@ -6188,8 +6188,8 @@
         /// <summary>
         /// Выражение DataServiceExpression содержит только метаинформацию для контроля прав на атрибуты.
         /// </summary>
-        /// <param name="expression">Выражение DataServiceExpression</param>
-        /// <returns>True/False</returns>
+        /// <param name="expression">Выражение DataServiceExpression.</param>
+        /// <returns>True/False.</returns>
         public bool IsExpressionContainAttrubuteCheckOnly(string expression)
         {
             return !string.IsNullOrEmpty(expression)
@@ -6200,26 +6200,26 @@
     }
 
     /// <summary>
-    /// Исключительная ситуация, при выполнении запроса
+    /// Исключительная ситуация, при выполнении запроса.
     /// </summary>
     [Serializable]
     public class ExecutingQueryException : Exception, System.Runtime.Serialization.ISerializable
     {
         /// <summary>
-        /// Запрос при котором возникла ошибка
+        /// Запрос при котором возникла ошибка.
         /// </summary>
         public string curQuery;
 
         /// <summary>
-        /// Выполненные предыдущие запросы (в этой же транзакции)
+        /// Выполненные предыдущие запросы (в этой же транзакции).
         /// </summary>
         public string prevQueries;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="cq">Запрос при котором возникла ошибка</param>
-        /// <param name="pq"> Выполненные предыдущие запросы (в этой же транзакции)</param>
+        /// <param name="cq">Запрос при котором возникла ошибка.</param>
+        /// <param name="pq"> Выполненные предыдущие запросы (в этой же транзакции).</param>
         /// <param name="inner"></param>
         public ExecutingQueryException(string cq, string pq, Exception inner)
             : base((string.IsNullOrEmpty(cq) && string.IsNullOrEmpty(pq)) ? "Executing query exception" : ((string.IsNullOrEmpty(cq) ? "Executing query exception" : ("Error on executing:" + Environment.NewLine + cq)) + (string.IsNullOrEmpty(pq) ? string.Empty : (Environment.NewLine + "Previous queries:" + Environment.NewLine + pq))), inner)

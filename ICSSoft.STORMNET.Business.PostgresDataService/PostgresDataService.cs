@@ -150,7 +150,7 @@
                "VERBOSE",
                "WHEN",
                "WHERE",
-               "WITH"
+               "WITH",
             };
 
         /// <summary>
@@ -309,11 +309,11 @@
         }
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public override string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -895,8 +895,8 @@
         /// <param name="limitFunction">Функция ограничения, определяющая искомые объекты.</param>
         /// <param name="maxResults">
         /// Максимальное число возвращаемых результатов.
-        /// Этот параметр не соответствует <code>lcs.ReturnTop</code>, а устанавливает максимальное число
-        /// искомых объектов, тогда как <code>lcs.ReturnTop</code> ограничивает число объектов, в которых
+        /// Этот параметр не соответствует. <code>lcs.ReturnTop</code>, а устанавливает максимальное число
+        /// искомых объектов, тогда как. <code>lcs.ReturnTop</code> ограничивает число объектов, в которых
         /// проводится поиск.
         /// Если значение не определено (<c>null</c>), то возвращаются все найденные результаты.
         /// </param>
@@ -1002,7 +1002,6 @@
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
             string orderByExpr = string.Empty;
             string orderByExprWithoutOffset = string.Empty;
-
 
             if (orderByIndex > -1)
             {

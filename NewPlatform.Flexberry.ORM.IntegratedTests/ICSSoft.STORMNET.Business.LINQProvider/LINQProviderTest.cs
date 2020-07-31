@@ -2,8 +2,7 @@
 {
     using Xunit;
 
-    
     public class LINQProviderTest
-    {        
+    {
     }
 }
