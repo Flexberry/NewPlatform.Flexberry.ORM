@@ -7,7 +7,7 @@ addons:
 services:
   - postgresql
 script:
-  - msbuild /verbosity:quiet /p:Configuration=Debug "Flexberry ORM.sln"
+  - msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln"
   - mono ./packages/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/NewPlatform.Flexberry.ORM.Tests.dll
   - mono ./packages/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 after_success:
