@@ -5,11 +5,14 @@
     <Configurations>Debug;Release</Configurations>
     <LangVersion>8</LangVersion>
     <RootNamespace>ICSSoft.STORMNET.Business.LINQProvider</RootNamespace>
+    <AssemblyName>ICSSoft.STORMNET.Business.LINQProvider</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\ICSSoft.STORMNET.Business.LINQProvider.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">

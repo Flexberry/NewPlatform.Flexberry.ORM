@@ -5,11 +5,14 @@
     <Configurations>Debug;Release</Configurations>
     <LangVersion>8</LangVersion>
     <RootNamespace>ICSSoft.STORMNET.Collections</RootNamespace>
+    <AssemblyName>ICSSoft.STORMNET.Collections</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Collections.snk</AssemblyOriginatorKeyFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\ICSSoft.STORMNET.Collections.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
