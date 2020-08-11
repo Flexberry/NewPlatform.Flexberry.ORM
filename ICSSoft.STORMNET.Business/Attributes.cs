@@ -178,7 +178,7 @@
         {
         }
 
-        private static Dictionary<string, BusinessServerAttribute[]> atrCache = new Dictionary<string, BusinessServerAttribute[]>();
+        private static Dictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>> atrCache = new Dictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>>();
 
         /// <summary>
         /// Получить бизнессервер
@@ -209,22 +209,25 @@
         /// <returns></returns>
         static public BusinessServer[] GetBusinessServer(System.Type dataObjectType, DataServiceObjectEvents dsevent, IDataService ds)
         {
-            var atrs = GetBusinessServerAttributes(dataObjectType, dsevent);
+            var pairs = GetBusinessServerAttributesWithInherit(dataObjectType, dsevent);
 
             ArrayList bss = new ArrayList();
-            foreach (var atr in atrs)
+            foreach (var pair in pairs)
             {
-                BusinessServer bs = (BusinessServer)Activator.CreateInstance(atr.BusinessServerType);
-                bs.Order = atr.Order;
-                bs.DataService = ds;
-                bs.SetType(dataObjectType);
-                bss.Insert(0, bs);
+                foreach (var atr in pair.Value)
+                {
+                    BusinessServer bs = (BusinessServer)Activator.CreateInstance(atr.BusinessServerType);
+                    bs.Order = atr.Order;
+                    bs.DataService = ds;
+                    bs.SetType(pair.Key);
+                    bss.Insert(0, bs);
+                }
             }
 
             return (BusinessServer[])bss.ToArray(typeof(BusinessServer));
         }
 
-        private static BusinessServerAttribute[] GetBusinessServerAttributes(Type dataObjectType, DataServiceObjectEvents dsevent)
+        private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInherit(Type dataObjectType, DataServiceObjectEvents dsevent)
         {
             string key = dataObjectType.FullName + "." + dsevent;
             if (atrCache.ContainsKey(key))
@@ -239,12 +242,12 @@
                     return atrCache[key];
                 }
 
-                var atrs = new List<BusinessServerAttribute>();
+                var atrs = new Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>();
                 while (dataObjectType != typeof(DataObject) && dataObjectType != typeof(object) && dataObjectType != null)
                 {
                     // TODO: разобраться с логикой выполнения и привести в соответствие со статьёй http://storm:3013/Otrabotka-polzovatelskih-operacii-v-processe-raboty-servisa-dannyh-integraciya-s-biznes-serverom.ashx.
                     // получим сначала бизнес-сервера у самого класса (не может быть больше одного)
-                    atrs.AddRange(dataObjectType.GetCustomAttributes<BusinessServerAttribute>(false));
+                    atrs[dataObjectType] = GetBusinessServerAttributes(dataObjectType, dsevent);
 
                     // добавим бизнес-сервера, которые достались от интерфейсов.
                     // Smirnov: вытягиваются все интерфейсы, в тч и унаследованные.
@@ -256,17 +259,21 @@
                     {
                         if (baseInterfaces == null || !baseInterfaces.Contains(interf))
                         {
-                            atrs.AddRange(interf.GetCustomAttributes<BusinessServerAttribute>(false));
+                            atrs[interf] = GetBusinessServerAttributes(interf, dsevent);
                         }
                     }
 
                     dataObjectType = dataObjectType.BaseType;
                 }
 
-                var atrsSorted = atrs.Where(atr => (dsevent & atr.ServerEvents) == dsevent).OrderBy(atr => atr.Order).ToArray();
-                atrCache[key] = atrsSorted;
-                return atrsSorted;
+                atrCache[key] = atrs;
+                return atrs;
             }
+        }
+
+        private static IReadOnlyCollection<BusinessServerAttribute> GetBusinessServerAttributes(Type type, DataServiceObjectEvents dsevent)
+        {
+            return type.GetCustomAttributes<BusinessServerAttribute>(false).Where(atr => (dsevent & atr.ServerEvents) == dsevent).OrderBy(atr => atr.Order).ToList();
         }
     }
 }

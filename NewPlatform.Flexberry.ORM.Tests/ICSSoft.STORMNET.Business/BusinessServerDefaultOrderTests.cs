@@ -25,6 +25,7 @@
             // Assert.
             Assert.Single(bss);
             Assert.Equal(typeof(Class3BS), bss[0].GetType());
+            Assert.Equal(nameof(Class3BS.OnUpdateClass3), bss[0].Method.Name);
         }
 
         [Fact]
@@ -39,8 +40,11 @@
             // Assert.
             Assert.Equal(3, bss.Length);
             Assert.Equal(typeof(Class3BS), bss[0].GetType());
+            Assert.Equal(nameof(Class3BS.OnUpdateClass3), bss[0].Method.Name);
             Assert.Equal(typeof(Interface3BS), bss[1].GetType());
+            Assert.Equal(nameof(Interface3BS.OnUpdateInterface3), bss[1].Method.Name);
             Assert.Equal(typeof(Class2BS), bss[2].GetType());
+            Assert.Equal(nameof(Class2BS.OnUpdateClass2), bss[2].Method.Name);
         }
 
         [Fact]
@@ -55,11 +59,17 @@
             // Assert.
             Assert.Equal(6, bss.Length);
             Assert.Equal(typeof(Class3BS), bss[0].GetType());
+            Assert.Equal(nameof(Class3BS.OnUpdateClass3), bss[0].Method.Name);
             Assert.Equal(typeof(Interface3BS), bss[1].GetType());
+            Assert.Equal(nameof(Interface3BS.OnUpdateInterface3), bss[1].Method.Name);
             Assert.Equal(typeof(Class2BS), bss[2].GetType());
+            Assert.Equal(nameof(Class2BS.OnUpdateClass2), bss[2].Method.Name);
             Assert.Equal(typeof(Interface2BS), bss[3].GetType());
+            Assert.Equal(nameof(Interface2BS.OnUpdateInterface2), bss[3].Method.Name);
             Assert.Equal(typeof(Interface1BS), bss[4].GetType());
+            Assert.Equal(nameof(Interface1BS.OnUpdateInterface1), bss[4].Method.Name);
             Assert.Equal(typeof(Class1BS), bss[5].GetType());
+            Assert.Equal(nameof(Class1BS.OnUpdateClass1), bss[5].Method.Name);
         }
 
         public class Class3BS : BusinessServer
