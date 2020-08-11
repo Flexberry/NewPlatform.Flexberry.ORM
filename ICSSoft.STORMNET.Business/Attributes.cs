@@ -209,7 +209,7 @@
         /// <returns></returns>
         static public BusinessServer[] GetBusinessServer(System.Type dataObjectType, DataServiceObjectEvents dsevent, IDataService ds)
         {
-            var pairs = GetBusinessServerAttributesWithInherit(dataObjectType, dsevent);
+            var pairs = GetBusinessServerAttributesWithInheritCached(dataObjectType, dsevent);
 
             ArrayList bss = new ArrayList();
             foreach (var pair in pairs)
@@ -227,7 +227,7 @@
             return (BusinessServer[])bss.ToArray(typeof(BusinessServer));
         }
 
-        private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInherit(Type dataObjectType, DataServiceObjectEvents dsevent)
+        private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInheritCached(Type dataObjectType, DataServiceObjectEvents dsevent)
         {
             string key = dataObjectType.FullName + "." + dsevent;
             if (atrCache.ContainsKey(key))
@@ -242,33 +242,40 @@
                     return atrCache[key];
                 }
 
-                var atrs = new Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>();
-                while (dataObjectType != typeof(DataObject) && dataObjectType != typeof(object) && dataObjectType != null)
-                {
-                    // TODO: разобраться с логикой выполнения и привести в соответствие со статьёй http://storm:3013/Otrabotka-polzovatelskih-operacii-v-processe-raboty-servisa-dannyh-integraciya-s-biznes-serverom.ashx.
-                    // получим сначала бизнес-сервера у самого класса (не может быть больше одного)
-                    atrs[dataObjectType] = GetBusinessServerAttributes(dataObjectType, dsevent);
-
-                    // добавим бизнес-сервера, которые достались от интерфейсов.
-                    // Smirnov: вытягиваются все интерфейсы, в тч и унаследованные.
-                    // Smirnov: сортируем по имени, чтобы исключить зависимость от платформы.
-                    Type[] interfaces = dataObjectType.GetInterfaces().OrderBy(i => i.FullName).ToArray();
-                    Type[] baseInterfaces = dataObjectType.BaseType?.GetInterfaces();
-
-                    foreach (Type interf in interfaces)
-                    {
-                        if (baseInterfaces == null || !baseInterfaces.Contains(interf))
-                        {
-                            atrs[interf] = GetBusinessServerAttributes(interf, dsevent);
-                        }
-                    }
-
-                    dataObjectType = dataObjectType.BaseType;
-                }
+                var atrs = GetBusinessServerAttributesWithInherit(dataObjectType, dsevent);
 
                 atrCache[key] = atrs;
                 return atrs;
             }
+        }
+
+        private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInherit(Type dataObjectType, DataServiceObjectEvents dsevent)
+        {
+            var atrs = new Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>();
+            while (dataObjectType != typeof(DataObject) && dataObjectType != typeof(object) && dataObjectType != null)
+            {
+                // TODO: разобраться с логикой выполнения и привести в соответствие со статьёй http://storm:3013/Otrabotka-polzovatelskih-operacii-v-processe-raboty-servisa-dannyh-integraciya-s-biznes-serverom.ashx.
+                // получим сначала бизнес-сервера у самого класса (не может быть больше одного)
+                atrs[dataObjectType] = GetBusinessServerAttributes(dataObjectType, dsevent);
+
+                // добавим бизнес-сервера, которые достались от интерфейсов.
+                // Smirnov: вытягиваются все интерфейсы, в тч и унаследованные.
+                // Smirnov: сортируем по имени, чтобы исключить зависимость от платформы.
+                Type[] interfaces = dataObjectType.GetInterfaces().OrderBy(i => i.FullName).ToArray();
+                Type[] baseInterfaces = dataObjectType.BaseType?.GetInterfaces();
+
+                foreach (Type interf in interfaces)
+                {
+                    if (baseInterfaces == null || !baseInterfaces.Contains(interf))
+                    {
+                        atrs[interf] = GetBusinessServerAttributes(interf, dsevent);
+                    }
+                }
+
+                dataObjectType = dataObjectType.BaseType;
+            }
+
+            return atrs;
         }
 
         private static IReadOnlyCollection<BusinessServerAttribute> GetBusinessServerAttributes(Type type, DataServiceObjectEvents dsevent)
