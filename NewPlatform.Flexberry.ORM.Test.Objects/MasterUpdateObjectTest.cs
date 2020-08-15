@@ -27,8 +27,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     // *** Start programmer edit section *** (MasterUpdateObjectTest CustomAttributes)
 
     // *** End programmer edit section *** (MasterUpdateObjectTest CustomAttributes)
-    [BusinessServer("NewPlatform.Flexberry.ORM.Tests.UpdateObjectTestBS, Flexberry.ORM.Tests.BusinessS" +
-        "ervers", ICSSoft.STORMNET.Business.DataServiceObjectEvents.OnAllEvents)]
+    [BusinessServer("NewPlatform.Flexberry.ORM.Tests.UpdateObjectTestBS, NewPlatform.Flexberry.ORM.Tests.BusinessServers", ICSSoft.STORMNET.Business.DataServiceObjectEvents.OnAllEvents)]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("MasterUpdateObjectTestE", new string[] {

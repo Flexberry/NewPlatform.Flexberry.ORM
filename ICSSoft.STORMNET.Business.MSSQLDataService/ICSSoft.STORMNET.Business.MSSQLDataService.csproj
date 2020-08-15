@@ -1,141 +1,59 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{64E6F763-3ED4-479D-A767-AD9F475AA8E1}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Configurations>Debug;Release</Configurations>
+    <LangVersion>8</LangVersion>
+    <RootNamespace>ICSSoft.STORMNET.Business</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Business.MSSQLDataService</AssemblyName>
-    <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Business.MSSQLDataService.snk</AssemblyOriginatorKeyFile>
-    <DefaultClientScript>JScript</DefaultClientScript>
-    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
-    <DefaultTargetSchema>IE50</DefaultTargetSchema>
-    <DelaySign>false</DelaySign>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ICSSoft.STORMNET.Business.MSSQLDataService</RootNamespace>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <PublishUrl>http://localhost/ICSSoft.STORMNET.Business.MSSQLDataService/</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net45\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Debug-Net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml</DocumentationFile>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>full</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Business.MSSQLDataService.snk</AssemblyOriginatorKeyFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release-Net45\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Release-Net45\ICSSoft.STORMNET.Business.MSSQLDataService.XML</DocumentationFile>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System">
-      <Name>System</Name>
-    </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <ProjectReference Include="..\CurrentUserService\CurrentUserService.csproj">
-      <Project>{dbfb4362-4180-4687-b092-a43d269fdd93}</Project>
-      <Name>CurrentUserService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ExternalLangDef\ExternalLangDef.csproj">
-      <Project>{a063e5c7-3dcd-4b7b-8f3f-9f1108c71a6e}</Project>
-      <Name>ExternalLangDef</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
-      <Project>{70245187-E302-4FA1-9725-0553C3B68BE5}</Project>
-      <Name>ICSSoft.STORMNET.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
-      <Name>ICSSoft.STORMNET.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
-      <Name>ICSSoft.STORMNET.DataObject</Name>
-      <Project>{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj">
-      <Project>{329c3da0-05f7-45c4-b081-9daf7b78733f}</Project>
-      <Name>ICSSoft.STORMNET.FunctionalLanguage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
-      <Project>{52E5BA46-979D-4C9D-8704-183A9CA0EB40}</Project>
-      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MSSQLDataService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ICSSoft.STORMNET.Business.MSSQLDataService.snk" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="StyleCop.Cache" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <Reference Include="System.Data" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj" />
+  </ItemGroup>
+
 </Project>

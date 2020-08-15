@@ -4,12 +4,15 @@
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release</Configurations>
     <LangVersion>8</LangVersion>
-    <RootNamespace>NewPlatform.Flexberry.ORM.Tests</RootNamespace>
+    <RootNamespace>ICSSoft.Services</RootNamespace>
+    <AssemblyName>NewPlatform.Flexberry.ORM.CurrentUserService</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test.Objects.snk</AssemblyOriginatorKeyFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.ORM.Tests.Objects.xml</DocumentationFile>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
@@ -36,11 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
+    <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
 
 </Project>
