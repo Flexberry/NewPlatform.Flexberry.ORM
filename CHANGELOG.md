@@ -72,6 +72,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed memory lock by business server (possible memory leakage).
 - Removed caching business server (fix multi-threading).
 - Getting new instance of audit data service on every write audit operation.
+- Getting inherited business servers.
 
 ### Security
 
