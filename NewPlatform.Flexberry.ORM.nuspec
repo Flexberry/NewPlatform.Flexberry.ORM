@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>6.0.0-beta04</version>
+    <version>6.0.0-beta06</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -39,18 +39,18 @@
         <dependency id="Microsoft.Spatial" version="7.5.0" />
         <dependency id="Remotion.Linq" version="2.2.0" />
         <dependency id="SharpZipLib" version="1.2.0" />
-        <dependency id="Unity.Abstractions" version="5.11.1" />
-        <dependency id="Unity.Configuration" version="5.11.1" />
-        <dependency id="Unity.Container" version="5.11.1" />
+        <dependency id="Unity.Abstractions" version="5.11.6" />
+        <dependency id="Unity.Configuration" version="5.11.2" />
+        <dependency id="Unity.Container" version="5.11.8" />
       </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="NewPlatform.Flexberry.LogService" version="2.0.0-beta01" />
         <dependency id="Microsoft.Spatial" version="7.5.0" />
         <dependency id="Remotion.Linq" version="2.2.0" />
         <dependency id="SharpZipLib" version="1.2.0" />
-        <dependency id="Unity.Abstractions" version="5.11.1" />
-        <dependency id="Unity.Configuration" version="5.11.1" />
-        <dependency id="Unity.Container" version="5.11.1" />
+        <dependency id="Unity.Abstractions" version="5.11.6" />
+        <dependency id="Unity.Configuration" version="5.11.2" />
+        <dependency id="Unity.Container" version="5.11.8" />
         <dependency id="System.DirectoryServices" version="4.5.0" />
         <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
         <dependency id="System.Runtime.Serialization.Formatters" version="4.3.0" />
