@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>NewPlatform.Flexberry.ORM.OracleDataService</id>
+    <version>6.0.0-beta04</version>
+    <title>Flexberry ORM</title>
+    <authors>New Platform Ltd</authors>
+    <owners>New Platform Ltd</owners>
+    <licenseUrl>http://flexberry.ru/License-FlexberryOrm-Runtime</licenseUrl>
+    <projectUrl>http://flexberry.net/FlexberryORM</projectUrl>
+    <iconUrl>https://flexberry.net/img/logo-color.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Flexberry ORM package.</description>
+    <releaseNotes>
+      Added
+      - OracleDataService in it's own NuGet package.
+    </releaseNotes>
+    <copyright>Copyright New Platform Ltd 2020</copyright>
+    <tags>Flexberry ORM</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta04" />
+        <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta04" />
+        <dependency id="Oracle.ManagedDataAccess.Core" version="2.19.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.OracleDataService.XML" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.OracleDataService.XML" />  </files>
+</package>

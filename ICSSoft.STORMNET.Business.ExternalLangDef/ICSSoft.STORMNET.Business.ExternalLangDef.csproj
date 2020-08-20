@@ -4,13 +4,15 @@
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release</Configurations>
     <LangVersion>8</LangVersion>
-    <DelaySign>false</DelaySign>
-    <RootNamespace>NewPlatform.Flexberry.ORM.Tests</RootNamespace>
+    <RootNamespace>ExternalLangDef</RootNamespace>
+    <AssemblyName>ICSSoft.STORMNET.Business.ExternalLangDef</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test.BusinessServers.snk</AssemblyOriginatorKeyFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.ORM.Tests.BusinessServers.xml</DocumentationFile>
+    <AssemblyOriginatorKeyFile>ExternalLangDef.snk</AssemblyOriginatorKeyFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
@@ -37,13 +39,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj" />
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\ResourceData.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceData.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\ResourceData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

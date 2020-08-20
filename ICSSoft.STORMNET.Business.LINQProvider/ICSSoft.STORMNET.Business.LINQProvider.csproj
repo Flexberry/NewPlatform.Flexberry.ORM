@@ -1,155 +1,55 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Configurations>Debug;Release</Configurations>
+    <LangVersion>8</LangVersion>
     <RootNamespace>ICSSoft.STORMNET.Business.LINQProvider</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Business.LINQProvider</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-  </PropertyGroup>
-  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net45\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_45</DefineConstants>
-    <DocumentationFile>bin\Debug-Net45\ICSSoft.STORMNET.Business.LINQProvider.XML</DocumentationFile>
-    <DebugType>full</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release-Net45\</OutputPath>
-    <DefineConstants>TRACE;NETFX_45</DefineConstants>
-    <DocumentationFile>bin\Release-Net45\ICSSoft.STORMNET.Business.LINQProvider.XML</DocumentationFile>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="LogService">
-      <HintPath>..\packages\NewPlatform.Flexberry.LogService.1.1.0\lib\net35\LogService.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Spatial, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Spatial.6.15.0\lib\portable-net45+win+wpa81\Microsoft.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Remotion.Linq, Version=1.15.2.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Remotion.Linq.1.15.2.0\lib\net45\Remotion.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Exceptions\MasterLevelException.cs" />
-    <Compile Include="Exceptions\MethodSignatureException.cs" />
-    <Compile Include="Exceptions\UnknownTypeException.cs" />
-    <Compile Include="Exceptions\NotSupportedRegexException.cs" />
-    <Compile Include="Extensions\FlexLinqExtensions.cs" />
-    <Compile Include="Extensions\GisExtensions.cs" />
-    <Compile Include="IExpressionTreeVisitor.cs" />
-    <Compile Include="IQueryModelVisitor.cs" />
-    <Compile Include="LcsGeneratorExpressionTreeVisitorCommon.cs" />
-    <Compile Include="LcsGeneratorExpressionTreeVisitorBase.cs" />
-    <Compile Include="LcsGeneratorQueryModelVisitor.cs" />
-    <Compile Include="LcsQuery.cs" />
-    <Compile Include="LcsQueryProvider.cs" />
-    <Compile Include="DateTimeEarlyExpressionTransformer.cs" />
-    <Compile Include="LinqToLcs.cs" />
-    <Compile Include="ParamSet.cs" />
-    <Compile Include="ParamsUtils.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PseudoDetail.cs" />
-    <Compile Include="PseudoDetailConsts.cs" />
-    <Compile Include="PseudoDetailExtension.cs" />
-    <Compile Include="Query.cs" />
-    <Compile Include="QueryProvider.cs" />
-    <Compile Include="ReplacingExpressionTreeVisitorWithProperType.cs" />
-    <Compile Include="TreeVisitorStacksHolder.cs" />
-    <Compile Include="UtilsDetail.cs" />
-    <Compile Include="UtilsLcs.cs" />
+    <None Remove="StyleCop.Cache" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="key.snk" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <PackageReference Include="Microsoft.Spatial" Version="7.5.0" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\ExternalLangDef\ExternalLangDef.csproj">
-      <Project>{a063e5c7-3dcd-4b7b-8f3f-9f1108c71a6e}</Project>
-      <Name>ExternalLangDef</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
-      <Project>{70245187-e302-4fa1-9725-0553c3b68be5}</Project>
-      <Name>ICSSoft.STORMNET.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
-      <Name>ICSSoft.STORMNET.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
-      <Project>{3d5d3908-bcb7-4f22-a5b0-bd626d67d1ae}</Project>
-      <Name>ICSSoft.STORMNET.DataObject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj">
-      <Project>{329c3da0-05f7-45c4-b081-9daf7b78733f}</Project>
-      <Name>ICSSoft.STORMNET.FunctionalLanguage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
-      <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
-      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
