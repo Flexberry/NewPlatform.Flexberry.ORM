@@ -621,7 +621,9 @@
                     return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
                 }
 
-                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                Type valueType = value.GetType();
+
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
                 {
                     return $"date '{value.ToString()}'";
                 }

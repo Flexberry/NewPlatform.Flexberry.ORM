@@ -361,7 +361,7 @@
                     return "'" + dateTime.ToString("yyyyMMdd HH:mm:ss.fff") + "'";
                 }
 
-                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
                 {
                     return $"'{value.ToString()}'";
                 }
