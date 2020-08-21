@@ -3486,7 +3486,11 @@
                         object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
                         foreach (DataServiceExpressionAttribute atr in myAttributes)
                         {
-                            res.Add(atr.TypeofDataService, atr.Expression);
+                            var key = atr.TypeofDataService;
+                            if (key != null)
+                            {
+                                res.Add(key, atr.Expression);
+                            }
                         }
 
                         cacheGetExpressionForProperty[type, propName] = res;
