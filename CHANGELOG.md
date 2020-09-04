@@ -5,8 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+- .NET Standard 2.0 implementation
 
 ### Changed
+- MSSQLDataService, PostgresDataService, OracleDataService in it's own NuGet packages.
 - `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
 - `CurrentUserService` support only windows users.
 - `DataServiceProvider.IsWebApp` now always return `false`.
@@ -22,14 +24,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `RemoteAuditController` class.
 - `CurrentUserFromLockService` class.
 - `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
-- `DirectoryServicesTools` class.
 
 ### Fixed
 
 ### Security
 
 
-## [5.1.0] - 2020-07-??
+## [5.1.0] - 2020-09-??
 
 ### Added
 - `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
