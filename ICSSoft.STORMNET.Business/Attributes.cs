@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -178,7 +179,7 @@
         {
         }
 
-        private static Dictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>> atrCache = new Dictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>>();
+        private static ConcurrentDictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>> atrCache = new ConcurrentDictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>>();
 
         /// <summary>
         /// Получить бизнессервер
@@ -230,23 +231,7 @@
         private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInheritCached(Type dataObjectType, DataServiceObjectEvents dsevent)
         {
             string key = dataObjectType.FullName + "." + dsevent;
-            if (atrCache.ContainsKey(key))
-            {
-                return atrCache[key];
-            }
-
-            lock (atrCache)
-            {
-                if (atrCache.ContainsKey(key))
-                {
-                    return atrCache[key];
-                }
-
-                var atrs = GetBusinessServerAttributesWithInherit(dataObjectType, dsevent);
-
-                atrCache[key] = atrs;
-                return atrs;
-            }
+            return atrCache.GetOrAdd(key, k => GetBusinessServerAttributesWithInherit(dataObjectType, dsevent));
         }
 
         private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInherit(Type dataObjectType, DataServiceObjectEvents dsevent)

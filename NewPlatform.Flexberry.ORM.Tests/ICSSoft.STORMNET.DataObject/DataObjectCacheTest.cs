@@ -7,7 +7,6 @@
     /// <summary>
     /// Тесты для класса <see cref="DataObjectCache"/>.
     /// </summary>
-    
     public class DataObjectCacheTest
     {
         /// <summary>
@@ -20,21 +19,19 @@
             Assert.NotNull(target);
         }
 
-        private  DataObjectCache cache = new DataObjectCache();
-
         /// <summary>
         /// Проверка работы кэша объектов данных.
         /// </summary>
         [Fact]
         public void DataObjectCacheMainTest()
         {
+            DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject();
+            object pkey = PrvCreateDataObject(cache);
             DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey);
             cache.StopCaching();
             Assert.NotNull(sdo);
             Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo.Name));
-
         }
 
         /// <summary>
@@ -43,8 +40,9 @@
         [Fact]
         public void DataObjectCacheParentTest()
         {
+            DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject();
+            object pkey = PrvCreateDataObject(cache);
             cache.StartCaching(true);
             DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey);
             cache.StopCaching();
@@ -53,7 +51,7 @@
             Console.WriteLine(String.Format("Null when ClipParentCahce = true"));
 
             cache.StartCaching(false);
-            object pkey1 = PrvCreateDataObject();
+            object pkey1 = PrvCreateDataObject(cache);
             cache.StartCaching(false);
             DataObjectForTest sdo1 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey1);
             cache.StopCaching();
@@ -64,17 +62,15 @@
             //проверим что будет, если создадим объект в дочернем кэше - доступен ли он будет после его остановки?
             cache.StartCaching(false);
             cache.StartCaching(false);
-            object pkey2 = PrvCreateDataObject();
+            object pkey2 = PrvCreateDataObject(cache);
             cache.StopCaching();
             DataObjectForTest sdo2 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey2);
             cache.StopCaching();
             Assert.NotNull(sdo2);
             Console.WriteLine(String.Format("Объект создали в дочернем кеше, а читаем в родительском"));
-
         }
 
-
-        private object PrvCreateDataObject()
+        private object PrvCreateDataObject(DataObjectCache cache)
         {
             DataObjectForTest sdo = new DataObjectForTest();
             sdo.Name = "Объект данных";
@@ -87,16 +83,15 @@
         /// Проверка работы кэша объектов данных
         /// </summary>
         [Fact]
-        
         public void DataObjectCacheCreatingTest()
         {
+            DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject();
+            object pkey = PrvCreateDataObject(cache);
             DataObjectForTest sdo = (DataObjectForTest)cache.CreateDataObject(typeof(DataObjectForTest), pkey);
             cache.StopCaching();
             Assert.NotNull(sdo);
             Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo.Name));
-
         }
 
         /// <summary>
@@ -108,10 +103,9 @@
 
         }
 
-
         /// <summary>
-        ///A test for AddDataObject
-        ///</summary>
+        /// A test for AddDataObject
+        /// </summary>
         [Fact(Skip = "A method that does not return a value cannot be verified.")]
         public void AddDataObjectTest()
         {
@@ -120,10 +114,9 @@
             target.AddDataObject(dobj);
         }
 
-
         /// <summary>
-        ///A test for ContextedLivingObjects
-        ///</summary>
+        /// A test for ContextedLivingObjects
+        /// </summary>
         [Fact]
         //[DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
         public void ContextedLivingObjectsTest()
@@ -137,8 +130,8 @@
         }
 
         /// <summary>
-        ///A test for CreateDataObject
-        ///</summary>
+        /// A test for CreateDataObject
+        /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
         public void CreateDataObjectTest()
         {
@@ -152,8 +145,8 @@
         }
 
         /// <summary>
-        ///A test for GetLivingDataObject
-        ///</summary>
+        /// A test for GetLivingDataObject
+        /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
         public void GetLivingDataObjectTest()
         {
@@ -166,11 +159,9 @@
             Assert.Equal(expected, actual);
         }
 
-
-
         /// <summary>
-        ///A test for StartCaching
-        ///</summary>
+        /// A test for StartCaching
+        /// </summary>
         [Fact(Skip = "A method that does not return a value cannot be verified.")]
         public void StartCachingTest()
         {
@@ -180,8 +171,8 @@
         }
 
         /// <summary>
-        ///A test for StopCaching
-        ///</summary>
+        /// A test for StopCaching
+        /// </summary>
         [Fact(Skip = "A method that does not return a value cannot be verified.")]
         public void StopCachingTest()
         {
@@ -190,8 +181,8 @@
         }
 
         /// <summary>
-        ///A test for prvGetLivingDataObject
-        ///</summary>
+        /// A test for prvGetLivingDataObject
+        /// </summary>
         [Fact]
         //[DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
         public void prvGetLivingDataObjectTest()
@@ -207,8 +198,8 @@
         }
 
         /// <summary>
-        ///A test for prvRemoveLivingDataObject
-        ///</summary>
+        /// A test for prvRemoveLivingDataObject
+        /// </summary>
         [Fact]
         //[DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
         public void prvRemoveLivingDataObjectTest()
@@ -221,8 +212,8 @@
         }
 
         /// <summary>
-        ///A test for Creator
-        ///</summary>
+        /// A test for Creator
+        /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
         public void CreatorTest()
         {
