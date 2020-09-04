@@ -1,6 +1,6 @@
-﻿[assembly: Xunit.TestFramework("NewPlatform.Flexberry.ORM.Tests.XUnitTestRunnerInitializator", "NewPlatform.Flexberry.ORM.Tests")]
+﻿[assembly: Xunit.TestFramework("NewPlatform.Flexberry.ORM.IntegratedTests.XUnitTestRunnerInitializer", "NewPlatform.Flexberry.ORM.IntegratedTests")]
 
-namespace NewPlatform.Flexberry.ORM.Tests
+namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
 #if NETCORE
     using System.Configuration;
@@ -14,13 +14,13 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Инициализация тестового запуска.
     /// </summary>
-    public class XUnitTestRunnerInitializator : XunitTestFramework
+    public class XUnitTestRunnerInitializer : XunitTestFramework
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="XUnitTestRunnerInitializator" /> class.
+        /// Initializes a new instance of the <see cref="XUnitTestRunnerInitializer" /> class.
         /// </summary>
         /// <param name="messageSink">The message sink used to send diagnostic messages.</param>
-        public XUnitTestRunnerInitializator(IMessageSink messageSink)
+        public XUnitTestRunnerInitializer(IMessageSink messageSink)
             : base(messageSink)
         {
 #if NETCORE
