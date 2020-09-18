@@ -1,7 +1,5 @@
 ﻿namespace ICSSoft.Services
 {
-    using System.Web;
-
     /// <summary>
     /// Текущий пользователь приложения.
     /// </summary>
@@ -10,7 +8,7 @@
         /// <summary>
         /// Текущий windows-пользователь.
         /// </summary>
-        private CurrentUserService.IUser _winUser;
+        private CurrentUserService.IUser user;
 
         /// <summary>
         /// Логин пользователя.
@@ -48,7 +46,7 @@
         /// </returns>
         private CurrentUserService.IUser GetUser()
         {
-            return _winUser ?? (_winUser = new CurrentWindowsUser());
+            return user ?? (user = new EmptyCurrentUser());
         }
     }
 }
