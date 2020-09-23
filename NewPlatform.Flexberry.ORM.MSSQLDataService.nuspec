@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.MSSQLDataService</id>
-    <version>6.0.0-beta09</version>
+    <version>6.0.0-beta10</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -21,10 +21,10 @@
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta09" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta10" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta09" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta10" />
         <dependency id="System.Data.SqlClient" version="4.6.1" />
       </group>
     </dependencies>
