@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0-beta01" />
+    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0-beta03" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />
   </ItemGroup>
 
@@ -49,7 +49,6 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
