@@ -27,15 +27,7 @@
         /// <param name="typeName">Тип ControlProvider'а строкой.</param>
         public ControlProviderAttribute(string typeName)
         {
-            try
-            {
-                var type = Type.GetType(typeName, true);
-                ControlProviderType = type;
-            }
-            catch (Exception exception)
-            {
-                throw new TypeLoadException("Ошибка загрузки типа провайдера элемента управления.", exception);
-            }
+            ControlProviderType = Type.GetType(typeName, false, true);
         }
     }
 }

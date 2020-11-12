@@ -26,6 +26,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
 
 ### Fixed
+- `ControlProviderAttribute(string)` constructor ignores type loading error.
 
 ### Security
 
