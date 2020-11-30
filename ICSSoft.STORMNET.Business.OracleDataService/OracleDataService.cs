@@ -494,41 +494,51 @@
 
         public override string ConvertSimpleValueToQueryValueString(object value)
         {
-            if (value is DateTime)
+            if (value != null)
             {
-                return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
-            }
-            else if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
-            {
-                // 382c74c3-721d-4f34-80e5-57657b6cbc27
-//              string res=value.ToString();
-//              res=res.Remove(23,1);
-//              res=res.Remove(18,1);
-//              res=res.Remove(13,1);
-//              res=res.Remove(8,1);
-                byte[] byteArrGuid = new Guid(value.ToString()).ToByteArray();
-                string hexGuidString = string.Empty;
-                foreach (byte b in byteArrGuid)
+
+                if (value is DateTime dt)
                 {
-                    hexGuidString += b.ToString("x2"); // Получаем строку байтов.
+                    return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", dt.ToString("yyyy-MM-dd HH:mm:ss"));
                 }
 
-                return string.Format("HEXTORAW('{0}')", hexGuidString);
+                Type valueType = value.GetType();
+
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
+                {
+                    return $"TO_DATE('{value}', 'YYYY-MM-DD')";
+                }
+
+                if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
+                {
+                    // 382c74c3-721d-4f34-80e5-57657b6cbc27
+                    //string res = value.ToString();
+                    //res = res.Remove(23, 1);
+                    //res = res.Remove(18, 1);
+                    //res = res.Remove(13, 1);
+                    //res = res.Remove(8, 1);
+                    byte[] byteArrGuid = new Guid(value.ToString()).ToByteArray();
+                    string hexGuidString = string.Empty;
+                    foreach (byte b in byteArrGuid)
+                    {
+                        hexGuidString += b.ToString("x2"); // Получаем строку байтов.
+                    }
+
+                    return string.Format("HEXTORAW('{0}')", hexGuidString);
+                }
+
+                // Исключаем Error: ORA-01704: string literal too long
+                if (value is string && value.ToString().Length > 4000)
+                {
+                    string paramName = "param_" + arParams.Count;
+                    OracleParameter param = new OracleParameter(paramName, OracleDbType.Clob);
+                    param.Value = value;
+                    arParams.Add(param);
+                    return ':' + paramName;
+                }
             }
 
-            // Исключаем Error: ORA-01704: string literal too long
-            else if (value is string && value.ToString().Length > 4000)
-            {
-                string paramName = "param_" + arParams.Count;
-                OracleParameter param = new OracleParameter(paramName, OracleDbType.Clob);
-                param.Value = value;
-                arParams.Add(param);
-                return ':' + paramName;
-            }
-            else
-            {
-                return base.ConvertSimpleValueToQueryValueString(value);
-            }
+            return base.ConvertSimpleValueToQueryValueString(value);
         }
 
         protected override void CustomizeCommand(System.Data.IDbCommand cmd)
