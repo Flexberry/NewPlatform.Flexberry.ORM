@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
@@ -602,7 +603,7 @@
         /// <summary>
         /// кэш для функции GetView
         /// </summary>
-        private static Dictionary<long, View> cacheGetView = new Dictionary<long, View>();
+        private static ConcurrentDictionary<long, View> cacheGetView = new ConcurrentDictionary<long, View>();
 
         /// <summary>
         /// Делегат для настройки статических представлений.
@@ -610,64 +611,37 @@
         public static TuneStaticViewDelegate TuneStaticViewDelegate = null;
 
         /// <summary>
-        /// Получить представление по его имени и классу объекта данных.
+        /// Получить представление по его имени и классу объекта данных из кэша.
         /// </summary>
+        /// <param name="viewName">Имя статического представления.</param>
+        /// <param name="type">Тип данных.</param>
         /// <returns>Запрашиваемое представление, возможно из кеша.</returns>
         public static View GetView(string viewName, Type type)
         {
             if (string.IsNullOrEmpty(viewName))
             {
-                throw new ArgumentNullException("ViewName", "Не указано имя представления. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(viewName), "Не указано имя представления. Обратитесь к разработчику.");
             }
 
             if (type == null)
             {
-                throw new ArgumentNullException("type", "Не указан тип объекта. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(type), "Не указан тип объекта. Обратитесь к разработчику.");
             }
 
             long key = (((long)type.GetHashCode()) << 32) + viewName.GetHashCode();
+            var view = cacheGetView.GetOrAdd(key, k => GetViewInternal(viewName, type));
+            if (view == null)
             {
-                View view;
-                if (cacheGetView.TryGetValue(key, out view))
-                {
-                    View retView = view.Clone();
-                    if (TuneStaticViewDelegate != null)
-                    {
-                        retView = TuneStaticViewDelegate(viewName, type, retView);
-                    }
-
-                    return retView;
-                }
+                return null;
             }
 
-            var classAttributes = type.GetCustomAttributes(typeof(ViewAttribute), false);
-            for (int i = 0; i < classAttributes.Length; i++)
+            View retView = view.Clone();
+            if (TuneStaticViewDelegate != null)
             {
-                string sViewName = ((ViewAttribute)classAttributes[i]).Name;
-                if (sViewName == viewName)
-                {
-                    var view = new View((ViewAttribute)classAttributes[i], type);
-                    lock (cacheGetView)
-                    {
-                        if (!cacheGetView.ContainsKey(key))
-                        {
-                            cacheGetView.Add(key, view);
-                        }
-                    }
-
-                    View retView = view.Clone();
-                    if (TuneStaticViewDelegate != null)
-                    {
-                        retView = TuneStaticViewDelegate(viewName, type, retView);
-                    }
-
-                    return retView;
-                }
+                retView = TuneStaticViewDelegate(viewName, type, retView);
             }
 
-            return type.BaseType == null
-                       ? null
-                       : GetView(viewName, type.BaseType);
+            return retView;
         }
 
         /// <summary>
@@ -717,6 +691,29 @@
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Получить статическое представление по его имени и классу объекта данных.
+        /// </summary>
+        /// <param name="viewName">Имя статического представления.</param>
+        /// <param name="type">Тип данных.</param>
+        /// <returns>Представление.</returns>
+        internal static View GetViewInternal(string viewName, Type type)
+        {
+            var classAttributes = type.GetCustomAttributes<ViewAttribute>(false);
+            foreach (var attr in classAttributes)
+            {
+                string sViewName = attr.Name;
+                if (sViewName == viewName)
+                {
+                    return new View(attr, type);
+                }
+            }
+
+            return type.BaseType == null
+                ? null
+                : GetView(viewName, type.BaseType);
         }
 
         #endregion
@@ -3155,7 +3152,7 @@
 
                 bool bres;
 
-                int pointIndex = propName.IndexOf(".");
+                int pointIndex = propName.IndexOf(".", StringComparison.InvariantCultureIgnoreCase);
                 if (pointIndex >= 0)
                 {
                     string masterName = propName.Substring(0, pointIndex);
