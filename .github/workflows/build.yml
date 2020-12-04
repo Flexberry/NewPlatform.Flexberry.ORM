@@ -64,7 +64,7 @@ jobs:
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Integration test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.IntegratedTests.dll -p:ParallelizeTestCollections=false
 
       - name: Update documentation
         run: |
