@@ -1,4 +1,4 @@
-﻿[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+﻿[assembly: Xunit.CollectionBehavior(MaxParallelThreads = 1, DisableTestParallelization = true)]
 
 namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
@@ -299,11 +299,14 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                     {
                         if (ds is PostgresDataService)
                         {
-                            using (var conn = new NpgsqlConnection(connectionStringPostgres))
+                            using (var connection = new NpgsqlConnection(connectionStringPostgres))
                             {
-                                conn.Open();
-                                using (var command = new NpgsqlCommand($"DROP DATABASE \"{_databaseName}\";", conn))
+                                connection.Open();
+                                using (var command = connection.CreateCommand())
                                 {
+                                    command.CommandText = $"SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'{_databaseName}\' AND pid <> pg_backend_pid();";
+                                    command.ExecuteNonQuery();
+                                    command.CommandText = $"DROP DATABASE \"{_databaseName}\";";
                                     command.ExecuteNonQuery();
                                 }
                             }
@@ -314,8 +317,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                             using (var connection = new SqlConnection(connectionStringMssql))
                             {
                                 connection.Open();
-                                using (var command = new SqlCommand($"DROP DATABASE {_databaseName}", connection))
+                                using (var command = connection.CreateCommand())
                                 {
+                                    command.CommandText = $"DROP DATABASE {_databaseName}";
                                     command.ExecuteNonQuery();
                                 }
                             }

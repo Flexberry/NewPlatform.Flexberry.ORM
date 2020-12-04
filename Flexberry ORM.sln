@@ -7,8 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet Package Properties", 
 	ProjectSection(SolutionItems) = preProject
 		config.install.xdt = config.install.xdt
 		config.uninstall.xdt = config.uninstall.xdt
-		NewPlatform.Flexberry.ORM.nuspec = NewPlatform.Flexberry.ORM.nuspec
 		NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec = NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec
+		NewPlatform.Flexberry.ORM.nuspec = NewPlatform.Flexberry.ORM.nuspec
 		NewPlatform.Flexberry.ORM.OracleDataService.nuspec = NewPlatform.Flexberry.ORM.OracleDataService.nuspec
 		NewPlatform.Flexberry.ORM.PostgresDataService.nuspec = NewPlatform.Flexberry.ORM.PostgresDataService.nuspec
 	EndProjectSection
@@ -18,13 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2
 		Flexberry ORM Projects Dependencies.dgml = Flexberry ORM Projects Dependencies.dgml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.BusinessServers", "NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj", "{70D27598-B67E-41E6-8A1A-06DAD5336C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.Tests.BusinessServers", "NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj", "{70D27598-B67E-41E6-8A1A-06DAD5336C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests", "NewPlatform.Flexberry.ORM.Tests\NewPlatform.Flexberry.ORM.Tests.csproj", "{86840178-3314-43F3-B686-F5BF54A9DCA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.Tests", "NewPlatform.Flexberry.ORM.Tests\NewPlatform.Flexberry.ORM.Tests.csproj", "{86840178-3314-43F3-B686-F5BF54A9DCA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.IntegratedTests", "NewPlatform.Flexberry.ORM.IntegratedTests\NewPlatform.Flexberry.ORM.IntegratedTests.csproj", "{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.IntegratedTests", "NewPlatform.Flexberry.ORM.IntegratedTests\NewPlatform.Flexberry.ORM.IntegratedTests.csproj", "{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source", "{B05C8E70-96B4-4227-A1D2-3A4565913340}"
 	ProjectSection(SolutionItems) = preProject
@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source"
 		Flexberry.ruleset = Flexberry.ruleset
 		LICENSE.md = LICENSE.md
 		README.md = README.md
+		Doxygen\update-autodoc.sh = Doxygen\update-autodoc.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{B440D002-B8D5-4695-B948-16829F52796C}"

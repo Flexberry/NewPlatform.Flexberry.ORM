@@ -164,7 +164,7 @@
                 ds.UpdateObject(кошка);
 
                 MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
-                multiThreadingTestTool.StartThreads(150, ds);
+                multiThreadingTestTool.StartThreads(50, ds);
 
                 var exception = multiThreadingTestTool.GetExceptions();
 
