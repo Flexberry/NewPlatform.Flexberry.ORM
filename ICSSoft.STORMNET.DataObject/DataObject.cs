@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -1747,53 +1748,44 @@
             return Information.ContainsAlteredProps(this, dataCopy, true);
         }
 
-        // private static Collections.TypeBaseCollection fieldsCollection = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+        /// <summary>
+        /// Кэш массивов приватных полей.
+        /// </summary>
+        private static readonly ConcurrentDictionary<Type, IReadOnlyCollection<FieldInfo>> FieldsCollection = new ConcurrentDictionary<Type, IReadOnlyCollection<FieldInfo>>();
+
+        private static IReadOnlyCollection<FieldInfo> GetPrivateFields(Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var res = new List<FieldInfo>();
+            Type ct = type;
+            while (ct != null)
+            {
+                FieldInfo[] fis = ct.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                res.AddRange(fis);
+                if (ct == typeof(DataObject))
+                {
+                    break;
+                }
+
+                ct = ct.BaseType;
+            }
+
+            return res;
+        }
 
         /// <summary>
-        /// Кэш массивов приватных полей
+        /// Возвращает массив приватных полей.
         /// </summary>
-        private static Dictionary<Type, FieldInfo[]> fieldsCollection = new Dictionary<Type, FieldInfo[]>();
-
-        /// <summary>
-        /// константа для блокирования межпотокового доступа
-        /// </summary>
-        private static string m_ObjNull = "CONST";
-
-        /// <summary>
-        /// Возвращает массив приватных полей
-        /// </summary>
-        /// <returns>массив приватных полей</returns>
+        /// <returns>массив приватных полей.</returns>
         private FieldInfo[] GetPrivateFields()
         {
             Type thisType = GetType();
-            if (!fieldsCollection.ContainsKey(thisType))
-            {
-                lock (m_ObjNull)
-                {
-                    if (!fieldsCollection.ContainsKey(thisType))
-                    {
-                        ArrayList resarr = new ArrayList();
-                        Type ct = thisType;
-                        while (true)
-                        {
-                            FieldInfo[] fis = ct.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                            resarr.AddRange(fis);
-                            if (ct == typeof(DataObject))
-                            {
-                                break;
-                            }
-
-                            ct = ct.BaseType;
-                        }
-
-                        FieldInfo[] res = new FieldInfo[resarr.Count];
-                        resarr.CopyTo(res);
-                        fieldsCollection.Add(thisType, res);
-                    }
-                }
-            }
-
-            return (FieldInfo[])fieldsCollection[thisType].Clone();
+            var fields = FieldsCollection.GetOrAdd(thisType, k => GetPrivateFields(thisType));
+            return fields.ToArray();
         }
 
         /// <summary>
