@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ICSSoft.STORMNET.FunctionalLanguage
+﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
+    using System;
+    using System.Collections.Concurrent;
+
     /// <summary>
     /// Совместимость типов
     /// </summary>
@@ -36,8 +36,8 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         static private System.Collections.Specialized.StringCollection _checkedTypes;
         static private System.Collections.SortedList _canConvertTo;
         static private System.Collections.Specialized.StringCollection _knownTypes;
-        static private Dictionary<long, TypesCompatibilities> _cacheCheck = new Dictionary<long, TypesCompatibilities>();
-        private static string _lockConst = "CONST";
+        static private readonly ConcurrentDictionary<long, TypesCompatibilities> CacheCheck = new ConcurrentDictionary<long, TypesCompatibilities>();
+        private static readonly string _lockConst = "CONST";
 
         static private void ThisIsKnownType(Type type)
         {
@@ -251,54 +251,36 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         /// <returns></returns>
         static public TypesCompatibilities Check(Type from, Type to)
         {
-            TypesCompatibilities retValue;
-            long key = (((long)from.GetHashCode()) << 32) + to.GetHashCode();
-
-            if (_cacheCheck.TryGetValue(key, out retValue))
+            if (from == null)
             {
-                return retValue;
+                throw new ArgumentNullException(nameof(@from));
             }
 
+            if (to == null)
+            {
+                throw new ArgumentNullException(nameof(to));
+            }
+
+            long key = (((long)from.GetHashCode()) << 32) + to.GetHashCode();
+
+            return CacheCheck.GetOrAdd(key, k => CheckInternal(from, to));
+        }
+
+        internal static TypesCompatibilities CheckInternal(Type from, Type to)
+        {
             if (from == to)
             {
-                retValue = TypesCompatibilities.Equal;
-                lock (_cacheCheck)
-                {
-                    if (!_cacheCheck.ContainsKey(key))
-                    {
-                        _cacheCheck.Add(key, retValue);
-                    }
-                }
-
-                return retValue;
+                return TypesCompatibilities.Equal;
             }
 
             if (from.IsSubclassOf(to))
             {
-                retValue = TypesCompatibilities.Convertable;
-                lock (_cacheCheck)
-                {
-                    if (!_cacheCheck.ContainsKey(key))
-                    {
-                        _cacheCheck.Add(key, retValue);
-                    }
-                }
-
-                return retValue;
+                return TypesCompatibilities.Convertable;
             }
 
             if (from == typeof(object) || to == typeof(object))
             {
-                retValue = TypesCompatibilities.Convertable;
-                lock (_cacheCheck)
-                {
-                    if (!_cacheCheck.ContainsKey(key))
-                    {
-                        _cacheCheck.Add(key, retValue);
-                    }
-                }
-
-                return retValue;
+                return TypesCompatibilities.Convertable;
             }
 
             // стандартный Convert
@@ -447,70 +429,25 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                 System.Collections.Specialized.StringCollection sl = (System.Collections.Specialized.StringCollection)_canConvertTo[from.FullName];
                 if (sl.Contains(to.FullName))
                 {
-                    retValue = TypesCompatibilities.Convertable;
-                    lock (_cacheCheck)
-                    {
-                        if (!_cacheCheck.ContainsKey(key))
-                        {
-                            _cacheCheck.Add(key, retValue);
-                        }
-                    }
-
-                    return retValue;
+                    return TypesCompatibilities.Convertable;
                 }
 
                 if (_knownTypes.Contains(from.FullName) && _knownTypes.Contains(to.FullName) &&
                     FoundTransform(from.FullName, to.FullName))
                 {
-                    retValue = TypesCompatibilities.Convertable;
-                    lock (_cacheCheck)
-                    {
-                        if (!_cacheCheck.ContainsKey(key))
-                        {
-                            _cacheCheck.Add(key, retValue);
-                        }
-                    }
-
-                    return retValue;
+                    return TypesCompatibilities.Convertable;
                 }
 
-                retValue = TypesCompatibilities.No;
-                lock (_cacheCheck)
-                {
-                    if (!_cacheCheck.ContainsKey(key))
-                    {
-                        _cacheCheck.Add(key, retValue);
-                    }
-                }
-
-                return retValue;
+                return TypesCompatibilities.No;
             }
 
             if (_knownTypes.Contains(from.FullName) && _knownTypes.Contains(to.FullName) &&
                 FoundTransform(from.FullName, to.FullName))
             {
-                retValue = TypesCompatibilities.Convertable;
-                lock (_cacheCheck)
-                {
-                    if (!_cacheCheck.ContainsKey(key))
-                    {
-                        _cacheCheck.Add(key, retValue);
-                    }
-                }
-
-                return retValue;
+                return TypesCompatibilities.Convertable;
             }
 
-            retValue = TypesCompatibilities.No;
-            lock (_cacheCheck)
-            {
-                if (!_cacheCheck.ContainsKey(key))
-                {
-                    _cacheCheck.Add(key, retValue);
-                }
-            }
-
-            return retValue;
+            return TypesCompatibilities.No;
         }
     }
 
