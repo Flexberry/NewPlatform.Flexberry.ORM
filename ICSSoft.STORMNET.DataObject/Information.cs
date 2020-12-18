@@ -22,7 +22,7 @@
     /// <summary>
     /// Доступ к метаданным
     /// </summary>
-    public sealed class Information
+    public static class Information
     {
         #region Информация о генераторе первичных ключей
 
@@ -56,17 +56,13 @@
         }
 
         #endregion
-        #region Конструкторы классов
-        private Information()
-        {
-        }
-        #endregion
+
         #region Доступ к свойствам класса
 
         /// <summary>
         /// кэш для делегатов получения значения свойств из объектов
         /// </summary>
-        private static Dictionary<long, GetHandler> cacheGetPropValueByNameHandler = new Dictionary<long, GetHandler>();
+        private static ConcurrentDictionary<long, GetHandler> cacheGetPropValueByName = new ConcurrentDictionary<long, GetHandler>();
 
         /// <summary>
         /// Получить значение свойства объекта данных по имени этого свойства
@@ -102,21 +98,11 @@
             else if (pi != null) // надо проверить что такое свойство есть
             {
                 long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-                if (!cacheGetPropValueByNameHandler.ContainsKey(key))
-                {
-                    lock (cacheGetPropValueByNameHandler)
-                    {
-                        if (!cacheGetPropValueByNameHandler.ContainsKey(key))
-                        {
-                            GetHandler getHandler = DynamicMethodCompiler.CreateGetHandler(tp, pi);
-                            cacheGetPropValueByNameHandler.Add(key, getHandler);
-                        }
-                    }
-                }
+                GetHandler getHandler = cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(tp, pi));
 
                 try
                 {
-                    value = cacheGetPropValueByNameHandler[key](obj);
+                    value = getHandler(obj);
                 }
                 catch (InvalidProgramException)
                 {
@@ -265,25 +251,18 @@
                     }
 
                     long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-
-                    if (!cacheSetPropValueByName.ContainsKey(key))
-                    {
-                        lock (cacheSetPropValueByName)
+                    SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(
+                        key,
+                        k =>
                         {
-                            if (!cacheSetPropValueByName.ContainsKey(key))
+                            SetHandler sh = null;
+                            if (pi != null && pi.CanWrite)
                             {
-                                SetHandler sh = null;
-                                if (pi != null && pi.CanWrite)
-                                {
-                                    sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
-                                }
-
-                                cacheSetPropValueByName.Add(key, sh);
+                                sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
                             }
-                        }
-                    }
 
-                    SetHandler setHandler = cacheSetPropValueByName[key];
+                            return sh;
+                        });
 
                     if (propType == typeof(string))
                     {
@@ -328,6 +307,7 @@
                                             setHandler(obj, dtVal1);
                                             return;
                                         }
+
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -424,7 +404,7 @@
             }
         }
 
-        private static Dictionary<long, SetHandler> cacheSetPropValueByName = new Dictionary<long, SetHandler>();
+        private static ConcurrentDictionary<long, SetHandler> cacheSetPropValueByName = new ConcurrentDictionary<long, SetHandler>();
 
         /// <summary>
         /// Установить значение свойства объекта данных по имени этого свойства,
@@ -485,20 +465,7 @@
                                 }
 
                                 long key = objType.GetHashCode() * 10000000000 + propName.GetHashCode();
-
-                                if (!cacheSetPropValueByName.ContainsKey(key))
-                                {
-                                    lock (cacheSetPropValueByName)
-                                    {
-                                        if (!cacheSetPropValueByName.ContainsKey(key))
-                                        {
-                                            SetHandler sh = DynamicMethodCompiler.CreateSetHandler(objType, propInfo);
-                                            cacheSetPropValueByName.Add(key, sh);
-                                        }
-                                    }
-                                }
-
-                                SetHandler setHandler = cacheSetPropValueByName[key];
+                                SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(objType, propInfo));
                                 if (propType.IsEnum && PropValue == null)
                                 {
                                     try
@@ -597,7 +564,9 @@
         }
 
         #endregion
+
         #region Работа с представлениями
+
         #region "View GetView(string ViewName,System.Type type)"
 
         /// <summary>
@@ -719,6 +688,7 @@
         #endregion
 
         #region "string[] AllViews(System.Type type)"
+
         static private TypeAtrValueCollection cacheAllViews = new TypeAtrValueCollection();
 
         /// <summary>
@@ -759,6 +729,7 @@
         }
 
         #endregion
+
         #region "string[] AllViews(params System.Type[] types)"
 
         /// <summary>
@@ -798,7 +769,9 @@
                 }
             }
         }
+
         #endregion
+
         #region "bool CheckViewForClasses(string ViewName,params System.Type[] types)"
 
         /// <summary>
@@ -836,6 +809,7 @@
 
             return true;
         }
+
         #endregion
 
         /// <summary>
@@ -909,6 +883,7 @@
         }
 
         #endregion
+
         #region Информация о свойствах
 
         static private TypeAtrValueCollection cacheGetTypeStorageName = new TypeAtrValueCollection();
@@ -1093,11 +1068,10 @@
                                     if (pars.Length == 1)
                                     {
                                         err += cci.ToString() + " " + Environment.NewLine +
-                                            pars[0].ParameterType.AssemblyQualifiedName + Environment.NewLine +
-                                            AgregatorType.AssemblyQualifiedName + Environment.NewLine +
-                                            (pars[0].ParameterType == AgregatorType).ToString() +
-
-                                            ";";
+                                           pars[0].ParameterType.AssemblyQualifiedName + Environment.NewLine +
+                                           AgregatorType.AssemblyQualifiedName + Environment.NewLine +
+                                           (pars[0].ParameterType == AgregatorType).ToString() +
+                                           ";";
                                         if ((pars[0].ParameterType == AgregatorType) || AgregatorType.IsSubclassOf(pars[0].ParameterType))
                                         {
                                             ci = cci;
@@ -3125,7 +3099,7 @@
             }
         }
 
-        static private Dictionary<string, bool> cacheIsStoredProp = new Dictionary<string, bool>();
+        static private ConcurrentDictionary<string, bool> cacheIsStoredProp = new ConcurrentDictionary<string, bool>();
 
         /// <summary>
         /// Хранимое ли свойство
@@ -3137,51 +3111,41 @@
         {
             string key = type.FullName + "." + propName;
 
-            if (cacheIsStoredProp.ContainsKey(key))
+            return cacheIsStoredProp.GetOrAdd(key, k => IsStoredPropertyInternal(type, propName));
+        }
+
+        private static bool IsStoredPropertyInternal(Type type, string propName)
+        {
+            bool bres;
+
+            int pointIndex = propName.IndexOf(".", StringComparison.InvariantCultureIgnoreCase);
+            if (pointIndex >= 0)
             {
-                return cacheIsStoredProp[key];
+                string masterName = propName.Substring(0, pointIndex);
+                string masterPropName = propName.Substring(pointIndex + 1);
+                bres = IsStoredPropertyInternal(GetPropertyType(type, masterName), masterPropName);
             }
-
-            lock (cacheIsStoredProp)
-
+            else
             {
-                if (cacheIsStoredProp.ContainsKey(key))
+                PropertyInfo prop = type.GetProperty(propName);
+                if (prop == null)
                 {
-                    return cacheIsStoredProp[key];
+                    throw new NoSuchPropertyException(type, propName);
                 }
 
-                bool bres;
-
-                int pointIndex = propName.IndexOf(".", StringComparison.InvariantCultureIgnoreCase);
-                if (pointIndex >= 0)
+                var myAttributes = prop.GetCustomAttributes(typeof(NotStoredAttribute), true);
+                if (myAttributes.Length > 0)
                 {
-                    string masterName = propName.Substring(0, pointIndex);
-                    string masterPropName = propName.Substring(pointIndex + 1);
-                    bres = IsStoredProperty(GetPropertyType(type, masterName), masterPropName);
+                    var notStored = (NotStoredAttribute)myAttributes[0];
+                    bres = !notStored.Value;
                 }
                 else
                 {
-                    PropertyInfo prop = type.GetProperty(propName);
-                    if (prop == null)
-                    {
-                        throw new NoSuchPropertyException(type, propName);
-                    }
-
-                    var myAttributes = prop.GetCustomAttributes(typeof(NotStoredAttribute), true);
-                    if (myAttributes.Length > 0)
-                    {
-                        var notStored = (NotStoredAttribute)myAttributes[0];
-                        bres = !notStored.Value;
-                    }
-                    else
-                    {
-                        bres = true;
-                    }
+                    bres = true;
                 }
-
-                cacheIsStoredProp.Add(key, bres);
-                return bres;
             }
+
+            return bres;
         }
 
         static private TypeAtrValueCollection cacheIsStoredType = new TypeAtrValueCollection();
