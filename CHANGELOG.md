@@ -27,6 +27,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - `ControlProviderAttribute(string)` constructor ignores type loading error.
+- Multiple concurrency fixes.
 
 ### Security
 
