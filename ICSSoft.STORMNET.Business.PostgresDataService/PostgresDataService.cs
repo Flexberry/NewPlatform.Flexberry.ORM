@@ -898,6 +898,8 @@
                 // It is necessary to add primary key field for maintaining rows order while ordering field contains similar values.
                 if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains("STORMMainObjectKey"))
                     orderByExprForPaging += ", STORMMainObjectKey";
+                else if (!string.IsNullOrEmpty(orderByExprForPaging))
+                    orderByExprForPaging = orderByExpr;
                 else
                     orderByExprForPaging = $"{nl}ORDER BY STORMMainObjectKey";
 
