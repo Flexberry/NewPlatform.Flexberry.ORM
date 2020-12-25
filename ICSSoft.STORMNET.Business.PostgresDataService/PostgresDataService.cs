@@ -904,7 +904,7 @@
                     orderByExprForPaging += $", {SQLWhereLanguageDef.StormMainObjectKey}";
                     query = query.Replace(orderByExpr, orderByExprForPaging);
                 }
-                else
+                else if (string.IsNullOrEmpty(orderByExprForPaging)) 
                 {
                     orderByExprForPaging = $"{nl}ORDER BY {SQLWhereLanguageDef.StormMainObjectKey}";
                     query += orderByExprForPaging;
