@@ -818,19 +818,22 @@
                 ds.UpdateObjects(ref dataObjects);
 
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
-                lcs.ColumnsSort = new[] { new ColumnsSortDef(nameof(Кошка.ДатаРождения), SortOrder.Asc) };
+                lcs.ColumnsSort = new[] { new ColumnsSortDef(nameof(Кошка.ДатаРождения), SortOrder.Asc), new ColumnsSortDef(SQLWhereLanguageDef.StormMainObjectKey, SortOrder.Asc)};
+                int returnTop = catCount / 2;
+                lcs.ReturnTop = returnTop;
+                lcs.RowNumber = new RowNumberDef(1, returnTop);
 
                 // Act
                 ObjectStringDataView[] dataObjectDefs = ds.LoadStringedObjectView('|', lcs);
 
                 // Assert
-                Assert.Equal(catCount, dataObjectDefs.Length);
+                Assert.Equal(returnTop, dataObjectDefs.Length);
 
                 bool ordered = true;
 
                 DateTime lastDate = DateTime.Now;
 
-                for (int i = 0; i < catCount; i++)
+                for (int i = 0; i < returnTop; i++)
                 {
                     DateTime date = (DateTime)(dataObjectDefs[i].ObjectedData[1]);
 
@@ -839,6 +842,8 @@
                         ordered = false;
                         break;
                     }
+
+                    lastDate = date;
                 }
 
                 Assert.True(ordered);
