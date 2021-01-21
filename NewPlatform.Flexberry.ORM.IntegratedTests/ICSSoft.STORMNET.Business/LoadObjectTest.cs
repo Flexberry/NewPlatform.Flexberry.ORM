@@ -809,7 +809,7 @@
                         ДатаРождения = (NullableDateTime)DateTime.Now.AddDays(random.Next(29)).AddMonths(random.Next(13)).AddYears(random.Next(catCount)),
                         Тип = ТипКошки.Дикая,
                         Порода = new Порода { Название = "Чеширская" + i },
-                        Кличка = "Мурка" + i
+                        Кличка = "Мурка" + i,
                     };
                     objectsToUpdate.Add(cat);
                 }

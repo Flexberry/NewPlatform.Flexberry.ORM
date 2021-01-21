@@ -1,43 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{70245187-E302-4FA1-9725-0553C3B68BE5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{64E6F763-3ED4-479D-A767-AD9F475AA8E1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{6222D225-707C-41E9-A494-8A849CFFFBBA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.DataObject", "ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj", "{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.FunctionalLanguage", "ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj", "{329C3DA0-05F7-45C4-B081-9DAF7B78733F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Tools", "ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj", "{D58C2E43-59EF-4D6F-B006-1A7BB6508689}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.UserDataTypes", "ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj", "{52E5BA46-979D-4C9D-8704-183A9CA0EB40}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalLangDef", "ExternalLangDef\ExternalLangDef.csproj", "{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.DRDataService", "ICSSoft.STORMNET.Business.DRDataService\ICSSoft.STORMNET.Business.DRDataService.csproj", "{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{DD7C77E8-BBB6-462F-9604-AD08C8F85772}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.ODBCDataService", "ICSSoft.STORMNET.Business.ODBCDataService\ICSSoft.STORMNET.Business.ODBCDataService.csproj", "{68344B38-6E12-4905-8C04-7574594E5180}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.OracleDataService", "ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj", "{5E29DE24-8237-428E-BF7C-B5CFED45860A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business.PostgresDataService", "ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj", "{E9F19C18-6A48-4354-A4FB-1B610243592F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet Package Properties", "NuGet Package Properties", "{8B2EC67F-05B1-4C15-8CAE-C0D58F75CE4C}"
 	ProjectSection(SolutionItems) = preProject
 		config.install.xdt = config.install.xdt
 		config.uninstall.xdt = config.uninstall.xdt
-		NewPlatform.Flexberry.CurrentUserService.nuspec = NewPlatform.Flexberry.CurrentUserService.nuspec
+		NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec = NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec
 		NewPlatform.Flexberry.ORM.nuspec = NewPlatform.Flexberry.ORM.nuspec
-		NewPlatform.Flexberry.UnityFactory.nuspec = NewPlatform.Flexberry.UnityFactory.nuspec
+		NewPlatform.Flexberry.ORM.OracleDataService.nuspec = NewPlatform.Flexberry.ORM.OracleDataService.nuspec
+		NewPlatform.Flexberry.ORM.PostgresDataService.nuspec = NewPlatform.Flexberry.ORM.PostgresDataService.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2380577-D80D-43DE-A11C-4BAA1443691B}"
@@ -45,19 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{F2
 		Flexberry ORM Projects Dependencies.dgml = Flexberry ORM Projects Dependencies.dgml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangesToSqlBTMonitor", "ChangesToSqlBTMonitor\ChangesToSqlBTMonitor.csproj", "{20AB00BA-286C-44D3-B7D9-EBA2246CF615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.Objects", "NewPlatform.Flexberry.ORM.Test.Objects\NewPlatform.Flexberry.ORM.Tests.Objects.csproj", "{3839079F-72FF-4038-82EB-BD49712418F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.Tests.BusinessServers", "NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj", "{70D27598-B67E-41E6-8A1A-06DAD5336C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests.BusinessServers", "NewPlatform.Flexberry.ORM.Tests.BusinessServers\NewPlatform.Flexberry.ORM.Tests.BusinessServers.csproj", "{70D27598-B67E-41E6-8A1A-06DAD5336C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.Tests", "NewPlatform.Flexberry.ORM.Tests\NewPlatform.Flexberry.ORM.Tests.csproj", "{86840178-3314-43F3-B686-F5BF54A9DCA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrentUserService", "CurrentUserService\CurrentUserService.csproj", "{DBFB4362-4180-4687-B092-A43D269FDD93}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityFactory", "UnityFactory\UnityFactory.csproj", "{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.Tests", "NewPlatform.Flexberry.ORM.Tests\NewPlatform.Flexberry.ORM.Tests.csproj", "{86840178-3314-43F3-B686-F5BF54A9DCA8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.ORM.IntegratedTests", "NewPlatform.Flexberry.ORM.IntegratedTests\NewPlatform.Flexberry.ORM.IntegratedTests.csproj", "{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.IntegratedTests", "NewPlatform.Flexberry.ORM.IntegratedTests\NewPlatform.Flexberry.ORM.IntegratedTests.csproj", "{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source", "{B05C8E70-96B4-4227-A1D2-3A4565913340}"
 	ProjectSection(SolutionItems) = preProject
@@ -69,7 +36,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source"
 		Flexberry.ruleset = Flexberry.ruleset
 		LICENSE.md = LICENSE.md
 		README.md = README.md
+		Doxygen\update-autodoc.sh = Doxygen\update-autodoc.sh
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Collections", "ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj", "{B440D002-B8D5-4695-B948-16829F52796C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.DataObject", "ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj", "{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.UnityFactory", "NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj", "{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Tools", "ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj", "{A9D017FB-3863-406C-A2E9-12F3C347C82D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.ORM.CurrentUserService", "NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj", "{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.FunctionalLanguage", "ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj", "{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{A91ADC6E-6331-462C-8492-B96BDCE22942}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.ExternalLangDef", "ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj", "{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.UserDataTypes", "ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj", "{1D800834-34AD-4750-88C1-A23D9EC1E615}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.MSSQLDataService", "ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj", "{35FF051A-5274-463F-944A-75087A4BBDE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.LINQProvider", "ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj", "{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.LockService", "ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj", "{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.OracleDataService", "ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj", "{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSSoft.STORMNET.Business.PostgresDataService", "ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj", "{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,66 +73,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{70245187-E302-4FA1-9725-0553C3B68BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70245187-E302-4FA1-9725-0553C3B68BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70245187-E302-4FA1-9725-0553C3B68BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70245187-E302-4FA1-9725-0553C3B68BE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64E6F763-3ED4-479D-A767-AD9F475AA8E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6222D225-707C-41E9-A494-8A849CFFFBBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{329C3DA0-05F7-45C4-B081-9DAF7B78733F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D58C2E43-59EF-4D6F-B006-1A7BB6508689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D58C2E43-59EF-4D6F-B006-1A7BB6508689}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D58C2E43-59EF-4D6F-B006-1A7BB6508689}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D58C2E43-59EF-4D6F-B006-1A7BB6508689}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52E5BA46-979D-4C9D-8704-183A9CA0EB40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A063E5C7-3DCD-4B7B-8F3F-9F1108C71A6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DDD55A4-63CF-488E-85AA-FA65EAD9F21E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F9BD531-9D79-433D-A2E7-E3A04FD72D5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD7C77E8-BBB6-462F-9604-AD08C8F85772}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68344B38-6E12-4905-8C04-7574594E5180}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E29DE24-8237-428E-BF7C-B5CFED45860A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9F19C18-6A48-4354-A4FB-1B610243592F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20AB00BA-286C-44D3-B7D9-EBA2246CF615}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3839079F-72FF-4038-82EB-BD49712418F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -145,14 +81,6 @@ Global
 		{70D27598-B67E-41E6-8A1A-06DAD5336C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D27598-B67E-41E6-8A1A-06DAD5336C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D27598-B67E-41E6-8A1A-06DAD5336C05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBFB4362-4180-4687-B092-A43D269FDD93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBFB4362-4180-4687-B092-A43D269FDD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBFB4362-4180-4687-B092-A43D269FDD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBFB4362-4180-4687-B092-A43D269FDD93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA7026D6-5A82-4E03-A26A-5E780B7AD64E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86840178-3314-43F3-B686-F5BF54A9DCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86840178-3314-43F3-B686-F5BF54A9DCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86840178-3314-43F3-B686-F5BF54A9DCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -161,6 +89,62 @@ Global
 		{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{908A8086-28AA-4A56-B2DA-4F22FBBF07F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B440D002-B8D5-4695-B948-16829F52796C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F023A10-0417-4D54-B1ED-F5BDCC69BEC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0621FC6-CFD1-43D0-9E25-6217D82C77E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D017FB-3863-406C-A2E9-12F3C347C82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D017FB-3863-406C-A2E9-12F3C347C82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D017FB-3863-406C-A2E9-12F3C347C82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D017FB-3863-406C-A2E9-12F3C347C82D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A997AF0-27ED-469F-B19E-B41D9B3EEE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18DDB59-34FA-4128-ADCB-F49EBA345B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91ADC6E-6331-462C-8492-B96BDCE22942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD11CD8-79F3-4E21-8F82-CDCB9104BD3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D800834-34AD-4750-88C1-A23D9EC1E615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35FF051A-5274-463F-944A-75087A4BBDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB2B7BC-75C9-4D72-B9B8-A91E98424730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293F43B5-7A8D-4846-B2AD-52B30BAFEFA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DA6E3A-2C5B-4F6D-A98E-7BA6E8389477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{493AF44A-47DE-4118-8BC6-5FB8CD9DC548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

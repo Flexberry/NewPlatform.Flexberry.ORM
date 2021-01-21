@@ -27,7 +27,7 @@
         /// <param name="context"></param>
         public TypeBaseCollection(SerializationInfo info, StreamingContext context)
         {
-            System.Type[] typesarr = (System.Type[])info.GetValue("types", typeof(Type[]));
+            Type[] typesarr = (Type[])info.GetValue("types", typeof(Type[]));
             object[] valuesarr = (object[])info.GetValue("values", typeof(object[]));
 
             lock (types)
@@ -50,7 +50,7 @@
         {
             lock (types)
             {
-                info.AddValue("types", types.ToArray(typeof(System.Type)));
+                info.AddValue("types", types.ToArray(typeof(Type)));
             }
 
             lock (values)
@@ -64,7 +64,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool Contains(System.Type key)
+        public bool Contains(Type key)
         {
             lock (types)
             {
@@ -101,7 +101,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Add(System.Type key, object value)
+        public void Add(Type key, object value)
         {
             if (!Contains(key))
             {
@@ -124,7 +124,7 @@
         /// <summary>
         /// доступ по ключу
         /// </summary>
-        public object this[System.Type key]
+        public object this[Type key]
         {
             get
             {
@@ -212,7 +212,7 @@
         /// <param name="index"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Insert(int index, System.Type key, object value)
+        public void Insert(int index, Type key, object value)
         {
             if (!Contains(key))
             {
@@ -271,7 +271,7 @@
         /// удалить по ключу
         /// </summary>
         /// <param name="key"></param>
-        public void Remove(System.Type key)
+        public void Remove(Type key)
         {
             if (Contains(key))
             {
@@ -284,7 +284,7 @@
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public System.Type Key(int index)
+        public Type Key(int index)
         {
             lock (types)
             {
@@ -292,7 +292,7 @@
                 {
                     if (index >= 0 && index <= types.Count)
                     {
-                        return (System.Type)types[index];
+                        return (Type)types[index];
                     }
                     else
                     {
@@ -307,7 +307,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public object GetMostCompatible(System.Type key)
+        public object GetMostCompatible(Type key)
         {
             if (Contains(key))
             {
@@ -315,7 +315,7 @@
             }
             else
             {
-                System.Type objectType = typeof(object);
+                Type objectType = typeof(object);
                 while (key != objectType)
                 {
                     key = key.BaseType;
@@ -334,12 +334,12 @@
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public object[] GetCompatible(System.Type key)
+        public object[] GetCompatible(Type key)
         {
             System.Collections.ArrayList res = new System.Collections.ArrayList();
             lock (types)
             {
-                foreach (System.Type curType in types)
+                foreach (Type curType in types)
                 {
                     if (curType == key || key.IsSubclassOf(curType))
                     {

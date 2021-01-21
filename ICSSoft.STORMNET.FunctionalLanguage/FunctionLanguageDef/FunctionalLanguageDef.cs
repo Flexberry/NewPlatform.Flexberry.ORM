@@ -1,8 +1,8 @@
 ﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     using System;
-    using System.Linq;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Text;
 
     /// <summary>
@@ -364,13 +364,15 @@
                         if (!FunctionsByStringedViewList.ContainsKey(f.StringedView))
                         {
                             FunctionsByStringedViewList.Add(f.StringedView, new ArrayList());
-                        } ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
+                        }
+
+                        ((ArrayList)FunctionsByStringedViewList[f.StringedView]).Add(f);
                     }
                 }
             }
         }
 
-        private SortedList FunctionsByParametersTypes = new SortedList();
+        private readonly ConcurrentDictionary<string, FunctionDef> FunctionsByParametersTypes = new ConcurrentDictionary<string, FunctionDef>();
 
         /// <summary>
         /// Создание ограничивающей функции
@@ -387,7 +389,7 @@
                 throw new NotFoundFunctionBySignatureException();
             }
 
-            if ((functionString == "=" || functionString == "<>") && parameters.Count() == 2)
+            if ((functionString == "=" || functionString == "<>") && parameters.Length == 2)
             { // В этом месте нет возможности получить доступ к привычным константам ExternalLangDef
                 if (parameters[0] == null && parameters[1] == null)
                 { // По сути null == null (True) или null != null (NOT(True))
@@ -410,22 +412,29 @@
                 }
             }
 
+            string key = GetFunctionDefKey(functionString, parameters);
+            var fd = FunctionsByParametersTypes.GetOrAdd(key, k => GetFunctionDef(functionString, parameters));
+            return new Function(fd, parameters);
+        }
+
+        protected virtual string GetFunctionDefKey(string functionString, params object[] parameters)
+        {
             var keySB = new StringBuilder(functionString);
-            keySB.Append(";");
+            keySB.Append(';');
             foreach (object prm in parameters)
             {
                 var partype = new StringBuilder();
-                if (prm is Function)
+                if (prm is Function function)
                 {
                     partype.Append("FunctionType(");
-                    partype.Append((prm as Function).FunctionDef.ReturnType.StringedView);
-                    partype.Append(")");
+                    partype.Append(function.FunctionDef.ReturnType.StringedView);
+                    partype.Append(')');
                 }
-                else if (prm is VariableDef)
+                else if (prm is VariableDef varDef)
                 {
                     partype.Append("FunctionType(");
-                    partype.Append((prm as VariableDef).Type.StringedView);
-                    partype.Append(")");
+                    partype.Append(varDef.Type.StringedView);
+                    partype.Append(')');
                 }
                 else
                 {
@@ -438,36 +447,21 @@
                 }
 
                 keySB.Append(partype.ToString());
-                keySB.Append(";");
+                keySB.Append(';');
             }
 
-            string key = keySB.ToString();
-            if (FunctionsByParametersTypes.ContainsKey(key))
+            return keySB.ToString();
+        }
+
+        protected virtual FunctionDef GetFunctionDef(string functionString, params object[] parameters)
+        {
+            var functionArrList = (ArrayList)FunctionsByStringedViewList[functionString];
+            foreach (FunctionDef fd in functionArrList)
             {
-                var fd = (FunctionDef)FunctionsByParametersTypes[key];
                 var f = new Function(fd, parameters);
-                return f;
-            }
-
-            lock (m_objNull)
-            {
-                if (FunctionsByParametersTypes.ContainsKey(key))
+                if (f.CheckWithoutSubFoldersSafetly())
                 {
-                    var fd = (FunctionDef)FunctionsByParametersTypes[key];
-                    var f = new Function(fd, parameters);
-                    return f;
-                }
-
-                var functionArrList = (ArrayList)FunctionsByStringedViewList[functionString];
-                for (int i = 0; i < functionArrList.Count; i++)
-                {
-                    var fd = (FunctionDef)functionArrList[i];
-                    var f = new Function(fd, parameters);
-                    if (f.CheckWithoutSubFoldersSafetly())
-                    {
-                        FunctionsByParametersTypes.Add(key, fd);
-                        return f;
-                    }
+                    return fd;
                 }
             }
 

@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -41,7 +42,7 @@
             }
 
             MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadWorkLinqWithTake);
-            multiThreadingTestTool.StartThreads(150, DataServices);
+            multiThreadingTestTool.StartThreads(50, DataServices);
 
             var exception = multiThreadingTestTool.GetExceptions();
 
@@ -65,8 +66,7 @@
             Random rand = new Random();
             var parametersDictionary = sender as Dictionary<string, object>;
             List<ICSSoft.STORMNET.Business.IDataService> dsList = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as List<ICSSoft.STORMNET.Business.IDataService>;
-
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             for (int i = 0; i < 5; i++)
             {
@@ -91,7 +91,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }
@@ -110,7 +110,7 @@
             }
 
             MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadWorkLcsWithReturnTop);
-            multiThreadingTestTool.StartThreads(150, DataServices);
+            multiThreadingTestTool.StartThreads(50, DataServices);
 
             var exception = multiThreadingTestTool.GetExceptions();
 
@@ -134,8 +134,7 @@
             Random rand = new Random();
             var parametersDictionary = sender as Dictionary<string, object>;
             List<ICSSoft.STORMNET.Business.IDataService> dsList = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as List<ICSSoft.STORMNET.Business.IDataService>;
-
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             for (int i = 0; i < 5; i++)
             {
@@ -206,7 +205,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }
