@@ -20,7 +20,7 @@
       5. Support of postgres table suffix and prefix modifiers.
       6. Differ table modifiers `from` and `join` expressions.
       7. Property AuditService.DetailedLogEnabled to disable audit log info.
-      8. Interface `IODataExportServiceFast` for fast export service based on ObjectStringDataView type.
+      8. Interface `IExportStringedObjectViewService` for fast export service based on ObjectStringDataView type.
 
       Fixed
       1. Parsing nullable guids with PKHelper.GetKeys method.
