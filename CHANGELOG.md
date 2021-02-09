@@ -5,6 +5,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
+## [5.1.0] - 2021-03-19
+
+### Added
 - `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
 - `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
 - Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.
@@ -12,6 +27,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Support of postgres table suffix and prefix modifiers.
 - Differ table modifiers `from` and `join` expressions.
 - Property AuditService.DetailedLogEnabled to disable audit log info.
+- Interface `IExportStringedObjectViewService` for fast export service based on ObjectStringDataView type.
 
 ### Changed
 - ChangesToSqlBTMonitor now split queries by ';'.
@@ -47,6 +63,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Getting new instance of audit data service on every write audit operation.
 - Getting inherited business servers.
 - Concurrent getting business servers.
+- Ordering in PostgresDataService when used RowNumber.
 
 ### Security
 
