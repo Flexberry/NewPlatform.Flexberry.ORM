@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>6.0.0-beta12</version>
+    <version>6.0.0-beta13</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -15,7 +15,7 @@
       Added
       1. PostgresDataService in it's own NuGet package.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2020</copyright>
+    <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0-beta11" />
