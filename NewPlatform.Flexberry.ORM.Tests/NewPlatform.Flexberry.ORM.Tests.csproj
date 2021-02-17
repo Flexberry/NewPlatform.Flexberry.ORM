@@ -103,6 +103,7 @@
     <Compile Include="ICSSoft.STORMNET.Business.Audit\AuditServiceTest.IsTypeAuditable.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.LINQProvider\TestLinqProvider.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BaseSQLDataServiceTests.cs" />
+    <Compile Include="ICSSoft.STORMNET.Business\BusinessServerCustomOrderTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServerDefaultOrderTests.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServerOrderTest.cs" />
     <Compile Include="ICSSoft.STORMNET.Business\BusinessServerProviderMultiThreadTests.cs" />

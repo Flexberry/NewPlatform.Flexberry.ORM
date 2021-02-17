@@ -212,7 +212,7 @@
         {
             var pairs = GetBusinessServerAttributesWithInheritCached(dataObjectType, dsevent);
 
-            ArrayList bss = new ArrayList();
+            List<BusinessServer> bss = new List<BusinessServer>();
             foreach (var pair in pairs)
             {
                 foreach (var atr in pair.Value)
@@ -225,7 +225,7 @@
                 }
             }
 
-            return (BusinessServer[])bss.ToArray(typeof(BusinessServer));
+            return bss.OrderBy(x => x.Order).ToArray();
         }
 
         private static Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>> GetBusinessServerAttributesWithInheritCached(Type dataObjectType, DataServiceObjectEvents dsevent)
