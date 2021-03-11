@@ -1101,5 +1101,33 @@
                 dataService.UpdateObjects(ref objects, true);
             }
         }
+
+        /// <summary>
+        /// Тест для проверки записи иерархической сущности. Проверяем, что нет лишних Update-запросов в БД.
+        /// </summary>
+        [Fact]
+        public void InsertHierarchyTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                SQLDataService sqlDataService = (dataService as SQLDataService);
+                sqlDataService.OnCreateCommand += (object sender, CreateCommandEventArgs e) =>
+                {
+                    if (e.Command.CommandText.StartsWith("UPDATE"))
+                    {
+                        throw new Exception("Unnecessary update");
+                    }
+                };
+
+                var master = new Медведь { ПорядковыйНомер = 1 };
+
+                // Act.
+                dataService.UpdateObject(master);
+
+                // Assert.
+                Assert.Equal(1, master.ПорядковыйНомер);
+            }
+        }
     }
 }
