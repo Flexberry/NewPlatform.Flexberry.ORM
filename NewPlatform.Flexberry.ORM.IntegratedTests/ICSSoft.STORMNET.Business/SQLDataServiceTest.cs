@@ -1099,6 +1099,16 @@
 
                 // Act.
                 dataService.UpdateObjects(ref objects, true);
+
+                // Assert.
+                View view = Медведь.Views.МедведьL.Clone();
+                view.AddProperty(nameof(Медведь.Друг));
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
+                DataObject[] loadedObjects = dataService.LoadObjects(lcs);
+
+                Assert.Equal(2, loadedObjects.Length);
+
+                Assert.True((loadedObjects[0] as Медведь).Друг == (loadedObjects[1] as Медведь) || (loadedObjects[1] as Медведь).Друг == (loadedObjects[0] as Медведь));
             }
         }
 
