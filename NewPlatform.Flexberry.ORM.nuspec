@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.0-beta34</version>
+    <version>5.1.0-beta35</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -46,6 +46,7 @@
       21. Getting inherited business servers.
       22. Concurrent getting business servers.
       23. Ordering in PostgresDataService when used RowNumber.
+      24. Remove unnecessary update sql query for insert single hierarchical object.
 
       Changed
       1. ChangesToSqlBTMonitor now split queries by ';'.
@@ -54,7 +55,7 @@
       4. Optimize left join with SQLDataService.GenerateSQL methods for some cases.
       5. Moved group audit from SQLDataService to AuditService.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2020</copyright>
+    <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
