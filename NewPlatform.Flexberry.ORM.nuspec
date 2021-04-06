@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.0.0</version>
+    <version>5.1.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,36 +12,55 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-Added
-1. Simply (Update/Insert style) order for write audit operation.
-2. Interface IODataExportService.
-3. Geometry type support.
-4. CheckLoadedProperty generic extension methods.
-5. Delegate to check compatible property storage types.
-6. PersistUtcDates property to AuditService.
-7. PKHelper and FunctionBuilder utilities.
+      Added
+      1. `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
+      2. `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
+      3. Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.
+      4. Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
+      5. Support of postgres table suffix and prefix modifiers.
+      6. Differ table modifiers `from` and `join` expressions.
+      7. Property AuditService.DetailedLogEnabled to disable audit log info.
+      8. Interface `IExportStringedObjectViewService` for fast export service based on ObjectStringDataView type.
 
-Changed
-1. [BREAKINGCHANGE] Upgrade Unity to 5.x version.
-2. Upgrade Npgsql to 3.x version.
+      Fixed
+      1. Parsing nullable guids with PKHelper.GetKeys method.
+      2. Getting property storage name when resolving circular dependencies.
+      3. Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
+      4. Loading details to delete on deleting aggregator object (using single transaction).
+      5. Appending view properties from not stored prop expression.
+      6. Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
+      7. Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
+      8. Incorrect altered state of masters after loading in some cases.
+      9. Setting LoadingState.Loaded to DataObject after loading.
+      10. Objects updating order if exists cycle in dependencies graph of them.
+      11. DbTransactionWrapper commit and rollback over expired connections.
+      12. Null GetHandler or SetHandler via cache dictionary.
+      13. Rethrowing exception while handling special scenario via UpdateObjects.
+      14. Fix loading __PrimaryKey property of NotStored master.
+      15. Fix InitDataCopy for already loaded details.
+      16. Removed usage of DataServiceProvider.DataService for ExternalLangDef.
+      17. Auditing objects with Unaltered status and Deleted not presented in database.
+      18. Removed memory lock by business server (possible memory leakage).
+      19. Removed caching business server (fix multi-threading).
+      20. Getting new instance of audit data service on every write audit operation.
+      21. Getting inherited business servers.
+      22. Concurrent getting business servers.
+      23. Ordering in PostgresDataService when used RowNumber.
+      24. Remove unnecessary update sql query for insert single hierarchical object.
 
-Removed
-1. [BREAKINGCHANGE] Support for .NET 3.5 and .NET 4.0 has been dropped - minimal version has been upgraded to .NET 4.5.
-
-Fixed
-1. Fix for Init Custom AuditService.
-2. Fix DataService init.
-3. Fix PostgresDataService wrong access to short names dictionary in multithreading app.
-4. Fix support multithreading in View.AddProperty method.
-5. Fix error for inherited aggregator type with same storage.
-6. Fix empty file saving in PostgresDataService.
-</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2018</copyright>
+      Changed
+      1. ChangesToSqlBTMonitor now split queries by ';'.
+      2. Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
+      3. Upgraded Npgsql version to 3.2.6.
+      4. Optimize left join with SQLDataService.GenerateSQL methods for some cases.
+      5. Moved group audit from SQLDataService to AuditService.
+    </releaseNotes>
+    <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
         <dependency id="NewPlatform.Flexberry.LogService" version="1.1.0" />
-        <dependency id="Npgsql" version="3.0.8" />
+        <dependency id="Npgsql" version="3.2.6" />
         <dependency id="Remotion.Linq" version="1.15.2.0" />
         <dependency id="SharpZipLib" version="0.86.0" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
@@ -90,7 +109,5 @@ Fixed
 
     <file src="config.install.xdt" target="content\app.config.install.xdt" />
     <file src="config.install.xdt" target="content\web.config.install.xdt" />
-    <file src="config.uninstall.xdt" target="content\app.config.uninstall.xdt" />
-    <file src="config.uninstall.xdt" target="content\web.config.uninstall.xdt" />
   </files>
 </package>

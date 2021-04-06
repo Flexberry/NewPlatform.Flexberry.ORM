@@ -17,6 +17,50 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 
 
+## [5.1.0] - 2021-04-06
+
+### Added
+- `FunctionBuilder` implements `BuildLike(VariableDef, string)` functions.
+- `DbTransactionWrapper` class to wrap `IDbConnection` and `IDbTransaction`.
+- Interfaces `IConverterToQueryValueString` and `IConvertibleToQueryValueString` to control the conversion of objects to a query string.
+- Interfaces `INotifyUpdateObjects`, `INotifyUpdateObject`, `INotifyUpdateProperty` and `INotifyUpdatePropertyByType` for notify when data is updates.
+- Support of postgres table suffix and prefix modifiers.
+- Differ table modifiers `from` and `join` expressions.
+- Property AuditService.DetailedLogEnabled to disable audit log info.
+- Interface `IExportStringedObjectViewService` for fast export service based on ObjectStringDataView type.
+
+### Changed
+- ChangesToSqlBTMonitor now split queries by ';'.
+- Signatures of the method `GenerateQueriesForUpdateObjects` and its overloads.
+- Upgraded Npgsql version to 3.2.6.
+- Optimize left join with SQLDataService.GenerateSQL methods for some cases.
+- Moved group audit from SQLDataService to AuditService.
+
+### Fixed
+- Parsing nullable guids with PKHelper.GetKeys method.
+- Getting property storage name when resolving circular dependencies.
+- Getting Unity container by replace UnityFactory.CreateContainer to UnityFactory.GetContainer.
+- Loading details to delete on deleting aggregator object (using single transaction).
+- Appending view properties from not stored prop expression.
+- Updating empty array via `SQLDataService.UpdateObjects` (connections remain opened).
+- Updating array with no changes via `SQLDataService.UpdateObjects` (connections remain opened).
+- Incorrect altered state of masters after loading in some cases.
+- Setting LoadingState.Loaded to DataObject after loading.
+- Objects updating order if exists cycle in dependencies graph of them.
+- DbTransactionWrapper commit and rollback over expired connections.
+- Null GetHandler or SetHandler via cache dictionary. 
+- Rethrowing exception while handling special scenario via UpdateObjects.
+- Fix loading __PrimaryKey property of NotStored master.
+- Fix InitDataCopy for already loaded details.
+- Removed usage of DataServiceProvider.DataService for ExternalLangDef.
+- Auditing objects with Unaltered status and Deleted not presented in database.
+- Removed memory lock by business server (possible memory leakage).
+- Removed caching business server (fix multi-threading).
+- Getting new instance of audit data service on every write audit operation.
+- Getting inherited business servers.
+- Concurrent getting business servers.
+- Ordering in PostgresDataService when used RowNumber.
+
 ## [5.0.0] - 2018-12-13
 
 ### Added

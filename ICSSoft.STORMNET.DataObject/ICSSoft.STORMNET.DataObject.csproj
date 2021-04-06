@@ -115,6 +115,8 @@
     <Compile Include="Formatter.cs" />
     <Compile Include="Interfaces\IComparableType.cs" />
     <Compile Include="Interfaces\IContainsAcceptablePossibleValues.cs" />
+    <Compile Include="Interfaces\IConverterToQueryValueString.cs" />
+    <Compile Include="Interfaces\IConvertibleToQueryValueString.cs" />
     <Compile Include="Interfaces\ISpecialEmptyValue.cs" />
     <Compile Include="KeyGen\BaseKeyGenerator.cs" />
     <Compile Include="KeyGen\GUIDGenerator.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="PKHelper\FastAllocator.cs" />
     <Compile Include="PKHelper\PKComparer.cs" />
     <Compile Include="PKHelper\PKHelper.cs" />
+    <Compile Include="Properties\InternalsVisibleTo.cs" />
     <Compile Include="PseudoDetailInExtendedView.cs" />
     <Compile Include="Security\AccessAndRole.cs" />
     <Compile Include="Security\AccessType.cs">

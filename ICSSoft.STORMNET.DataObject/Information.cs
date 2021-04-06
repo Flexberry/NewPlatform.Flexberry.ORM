@@ -328,7 +328,6 @@
                                             setHandler(obj, dtVal1);
                                             return;
                                         }
-#if NETFX_45
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -344,7 +343,6 @@
                                             setHandler(obj, geo);
                                             return;
                                         }
-#endif
 
                                         if (propType.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[] { typeof(string), typeof(System.IFormatProvider) }, null) != null)
                                         {
@@ -1888,17 +1886,16 @@
                     prop.MultipleProp = true;
                 }
 
-                string spropname = curprop.Name;
                 string scurpropnamepart = string.Empty;
-                string scrupropnamepref = string.Empty;
-                string[] propname = spropname.Split('.');
-                string propalias = string.Empty;
+                string curpropName = curprop.Name.Replace("." + nameof(DataObject.__PrimaryKey), string.Empty);
+                string[] propname = curpropName.Split('.');
                 Type propType = null;
                 System.Type p = type;
                 Business.StorageStructForView.PropSource curSource = retVal.sources;
 
                 for (int j = 0; j < propname.Length; j++)
                 {
+                    string scrupropnamepref;
                     if (j == 0)
                     {
                         scurpropnamepart = propname[0];
@@ -1912,12 +1909,10 @@
 
                     if (j == propname.Length - 1)
                     {
-                        propalias = IsStoredProperty(p, propname[j]) ? GetPropertyStorageName(p, propname[j]) : null;
                         propType = GetPropertyType(p, propname[j]);
                     }
                     else
                     {
-                        string palias = GetPropertyStorageName(p, propname[j]);
                         bool propIsNotNull = GetPropertyNotNull(p, propname[j]);
 
                         bool found = false;
@@ -2144,7 +2139,7 @@
                     prop.MultipleProp = true;
                 }
 
-                if (Information.GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
+                if (GetPropertyType(view.DefineClassType, spropname).IsSubclassOf(typeof(DataObject)))
                 {
                     spropname = spropname + ".__PrimaryKey";
                 }
@@ -2538,7 +2533,6 @@
                                     }
                                 }
                             }
-#if NETFX_45
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2547,7 +2541,6 @@
                             {
                                 UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
-#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2665,7 +2658,6 @@
                         }
                     }
                 }
-#if NETFX_45
                 else if (val1 is Geography && val2 is Geography)
                 {
                     UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2674,7 +2666,6 @@
                 {
                     UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                 }
-#endif
                 else if (val1 is IComparableType)
                 {
                     UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -2801,7 +2792,6 @@
                                     }
                                 }
                             }
-#if NETFX_45
                             else if (val1 is Geography && val2 is Geography)
                             {
                                 UnAltered = ((Geography)val1).Equals((Geography)val2);
@@ -2810,7 +2800,6 @@
                             {
                                 UnAltered = ((Geometry)val1).Equals((Geometry)val2);
                             }
-#endif
                             else if (val1 is IComparableType)
                             {
                                 UnAltered = ((IComparableType)val1).Compare(val2) == 0;
@@ -3505,6 +3494,29 @@
                     }
 
                     return res;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Добавить недостающие свойства в представление из выражений нехранимых свойств.
+        /// </summary>
+        /// <param name="dataObjectView">Представление.</param>
+        /// <param name="dsType">Тип сервиса данных.</param>
+        public static void AppendPropertiesFromNotStored(View dataObjectView, Type dsType)
+        {
+            var notStoredProps = dataObjectView.Properties.Where(p => !IsStoredProperty(dataObjectView.DefineClassType, p.Name));
+            foreach (var notStoredProp in notStoredProps)
+            {
+                string expression = GetPropertyExpression(dataObjectView.DefineClassType, notStoredProp.Name, dsType);
+                if (!string.IsNullOrEmpty(expression))
+                {
+                    int lastDotIndex = notStoredProp.Name.LastIndexOf(".", StringComparison.InvariantCultureIgnoreCase);
+                    string notStoredPropOwner = lastDotIndex != -1
+                        ? notStoredProp.Name.Substring(0, lastDotIndex + 1)
+                        : string.Empty;
+                    var propertiesInExpression = GetPropertiesInExpression(expression, notStoredPropOwner);
+                    dataObjectView.AddProperties(propertiesInExpression);
                 }
             }
         }
@@ -4604,7 +4616,7 @@
             // Определить какой из DataService используется не предоставляется возможным,
             // в большинстве случаев DataServiceExpression будет один.
             // В случае нескольких DataServiceExpression, права все равно должны совпадать.
-            if (GetExpressionForProperty(type, propertyName).Count > 0)
+            if (expressions.Count > 0)
             {
                 expression = (string)expressions[0];
             }

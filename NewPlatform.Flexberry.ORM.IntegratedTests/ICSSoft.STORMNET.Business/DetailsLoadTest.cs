@@ -2,15 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading;
-    using System.Threading.Tasks;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.UserDataTypes;
     using ICSSoft.STORMNET.Windows.Forms;
+
     using NewPlatform.Flexberry.ORM.Tests;
+
     using Xunit;
     using Xunit.Abstractions;
 
@@ -126,7 +127,7 @@
                 Assert.NotNull(alteredPropertyNames);
                 Assert.Equal(0, alteredPropertyNames.Length);
                 Assert.NotNull(loadedProperties);
-                Assert.Equal(4, loadedProperties.Length);
+                Assert.Equal(5, loadedProperties.Length);
 
                 string s = "Подосиновая";
                 медведь.Берлога[0].Наименование = s;
@@ -183,6 +184,42 @@
                 порода.SetStatus(ObjectStatus.Deleted);
                 DataObject[] dataObjsForDel = new DataObject[] { кошка, порода };
                 ds.UpdateObjects(ref dataObjsForDel);
+            }
+        }
+
+        [Fact]
+        public void CachedCascadeDetailLoadTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var breed = new Порода { Название = "Чеширская" };
+                var cat = new Кошка { ДатаРождения = NullableDateTime.UtcNow, Тип = ТипКошки.Домашняя, Порода = breed, Кличка = "Мурзик" };
+                var leg1 = new Лапа { Номер = 1 };
+                var leg2 = new Лапа { Номер = 2 };
+                var fracture1 = new Перелом { Тип = ТипПерелома.Закрытый, Дата = DateTime.UtcNow };
+                leg1.Перелом.Add(fracture1);
+                cat.Лапа.AddRange(leg1, leg2);
+                dataService.UpdateObject(cat);
+
+                // OData читает мастеровые объекты вместе с первичным ключом, но можно подгрузить любое другое свойство.
+                var legView = new View { DefineClassType = typeof(Лапа) };
+                legView.AddProperty(nameof(Лапа.__PrimaryKey));
+
+                // В представлении должны быть детейлы, а в представлении детейлов - детейлы следующего уровня.
+                var catView = new View(typeof(Кошка), View.ReadType.WithRelated);
+
+                // Act.
+                var cache = new DataObjectCache();
+                cache.StartCaching(false);
+                var loadedLeg = PKHelper.CreateDataObject<Лапа>(leg1);
+                dataService.LoadObject(legView, loadedLeg, true, true, cache);
+                var loadedCat = PKHelper.CreateDataObject<Кошка>(cat);
+                dataService.LoadObject(catView, loadedCat, true, true, cache);
+
+                // Assert.
+                Assert.Equal(ObjectStatus.UnAltered, loadedLeg.GetStatus());
+                Assert.Equal(ObjectStatus.UnAltered, loadedCat.GetStatus());
             }
         }
 

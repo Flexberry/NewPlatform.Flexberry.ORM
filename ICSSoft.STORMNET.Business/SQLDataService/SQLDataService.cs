@@ -97,6 +97,18 @@
         }
 
         /// <summary>
+        /// An instance of the class responsible for converting values to a string for the SQL query.
+        /// See <see cref="IConverterToQueryValueString"/>.
+        /// </summary>
+        public IConverterToQueryValueString ConverterToQueryValueString { get; set; }
+
+        /// <summary>
+        /// An instance of the class for custom process updated objects.
+        /// See <see cref="INotifyUpdateObjects"/>.
+        /// </summary>
+        public INotifyUpdateObjects NotifierUpdateObjects { get; set; }
+
+        /// <summary>
         /// Преобразовать значение в SQL строку
         /// </summary>
         /// <param name="function">Функция</param>
@@ -503,6 +515,16 @@
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified converter.
+        /// </summary>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        public SQLDataService(IConverterToQueryValueString converterToQueryValueString)
+            : this()
+        {
+            ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager and audit service.
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
@@ -512,6 +534,20 @@
         {
             _securityManager = securityManager;
             _auditService = auditService;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager, audit service and converter.
+        /// </summary>
+        /// <param name="securityManager">The security manager instance.</param>
+        /// <param name="auditService">The audit service instance.</param>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
+        public SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+            : this(securityManager, auditService)
+        {
+            ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
+            NotifierUpdateObjects = notifierUpdateObjects;
         }
 
         private ICSSoft.STORMNET.TypeUsage fldTypeUsage;
@@ -578,17 +614,6 @@
         }
 
         private ChangeViewForTypeDelegate fchangeViewForTypeDelegate = null;
-
-        private void AppendLog(string s)
-        {
-            string ts = System.Configuration.ConfigurationSettings.AppSettings["LogFile"];
-            if (ts != null && ts != string.Empty)
-            {
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(ts, true);
-                sw.WriteLine(s);
-                sw.Close();
-            }
-        }
 
         protected void prv_AddMasterObjectsToCache(DataObject dataobject, System.Collections.ArrayList arrl, DataObjectCache DataObjectCache)
         {
@@ -1289,26 +1314,7 @@
                 STORMDO.View dataObjectView = customizationStruct.View;
                 if (dataObjectView.Name == string.Empty)
                 {
-                    for (int i = 0; i < dataObjectView.Properties.Length; i++)
-                    {
-                        if (!Information.IsStoredProperty(dataObjectView.DefineClassType, dataObjectView.Properties[i].Name))
-                        {
-                            string[] arr1 = Information.AllViews(dataObjectView.DefineClassType);
-                            for (int ii = 0; ii < arr1.Length; ii++)
-                            {
-                                View v1 = Information.GetView(arr1[ii], dataObjectView.DefineClassType);
-                                if (v1.CheckPropname(dataObjectView.Properties[i].Name))
-                                {
-                                    for (int j = 0; j < v1.Properties.Length; j++)
-                                    {
-                                        dataObjectView.AddProperty(v1.Properties[j].Name, v1.Properties[j].Name, dataObjectView.Properties[i].Name.Equals(v1.Properties[j].Name), string.Empty);
-                                    }
-
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    Information.AppendPropertiesFromNotStored(dataObjectView, this.GetType());
                 }
 
                 STORMFunction LimitFunction = customizationStruct.LimitFunction;
@@ -1719,7 +1725,7 @@
                 }
                 else
                 {
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
+                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY \"STORMMainObjectKey\") as \"RowNumber\"" + nl);
                 }
 
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow.ToString() + " and " + customizationStruct.RowNumber.EndRow.ToString() + nl +
@@ -2150,21 +2156,22 @@
             }
         }
 
-        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, System.Data.IDbConnection Connection, System.Data.IDbTransaction Transaction)
+        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, IDbConnection Connection, IDbTransaction Transaction)
         {
             object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + Query);
             try
             {
-                System.Data.IDbCommand myCommand = Connection.CreateCommand();
-                myCommand.CommandText = Query;
-                myCommand.Transaction = Transaction;
-                CustomizeCommand(myCommand);
+                using (IDbCommand myCommand = Connection.CreateCommand())
+                {
+                    myCommand.CommandText = Query;
+                    myCommand.Transaction = Transaction;
+                    CustomizeCommand(myCommand);
 
-                // Connection.Open();
-                System.Data.IDataReader myReader = myCommand.ExecuteReader();
-                object[] state = new object[] { Connection, myReader };
-                State = state;
-                return ReadNextByExtConn(ref State, LoadingBufferSize);
+                    // Connection.Open();
+                    IDataReader myReader = myCommand.ExecuteReader();
+                    State = new object[] { Connection, myReader };
+                    return ReadNextByExtConn(ref State, LoadingBufferSize);
+                }
             }
             catch (Exception e)
             {
@@ -2205,15 +2212,8 @@
             }
             catch (Exception e)
             {
-                if (reader != null)
-                {
-                    reader.Close();
-                }
-
-                if (connection != null)
-                {
-                    connection.Close();
-                }
+                reader?.Close();
+                connection?.Close();
 
                 throw new ExecutingQueryException(query, string.Empty, e);
             }
@@ -2283,7 +2283,6 @@
             }
             else
             {
-                System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
                 myReader.Close();
 
                 // myConnection.Close();
@@ -2440,6 +2439,42 @@
         }
 
         /// <summary>
+        /// Получить выражения для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы.</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
+        /// <returns>Выражение для обращения к таблице.</returns>
+        public virtual string GetTableStorageExpression(string tableName, bool onJoin)
+        {
+            return string.Concat(
+                GetTableModifierPrefix(tableName, onJoin),
+                PutIdentifierIntoBrackets(tableName),
+                GetTableModifierSuffix(tableName, onJoin));
+        }
+
+        /// <summary>
+        /// Получить префикс для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы.</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
+        /// <returns>Префикс-модификатор.</returns>
+        public virtual string GetTableModifierPrefix(string tableName, bool onJoin)
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Получить суффикс для обращения к таблице.
+        /// </summary>
+        /// <param name="tableName">Имя таблицы</param>
+        /// <param name="onJoin"><see langword="true" />, если имя таблицы требуется для соединения таблиц join.</param>
+        /// <returns>Суффикс-модификатор.</returns>
+        public virtual string GetTableModifierSuffix(string tableName, bool onJoin)
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Вернуть модификатор для обращения к таблице (напр WITH (NOLOCK))
         /// Можно перегрузить этот метод в сервисе данных-наследнике
         /// для возврата соответствующего своего модификатора.
@@ -2553,13 +2588,17 @@
                             }
                         }
 
+                        string subTable = string.Concat(
+                            GenString("(", subjoinscount),
+                            " ",
+                            GetTableStorageExpression(subSource.storage[j].Storage, true));
                         if (subSource.storage[j].nullableLink)
                         {
-                            GetLeftJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(GenString("(", subjoinscount) + " " + PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
 
                         FromPart += FromStr + ")";
@@ -2617,13 +2656,14 @@
                         string FromStr, WhereStr;
 
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
+                        string subTable = GetTableStorageExpression(subSource.storage[j].Storage, true);
                         if (subSource.storage[j].nullableLink)
                         {
-                            GetLeftJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(PutIdentifierIntoBrackets(subSource.storage[j].Storage), curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
 
                         FromPart += FromStr;
@@ -2904,12 +2944,13 @@
             string MainKeyBracked = PutIdentifierIntoBrackets("STORMMainObjectKey");
             string MainKey = PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + "." + PutIdentifierIntoBrackets(storageStruct.sources.storage[0].PrimaryKeyStorageName) + " as " + MainKeyBracked;
 
-            string selectKeyFields = string.Empty;
-            string superSelectKeyFields = string.Empty;
-
             string MainStor = storageStruct.sources.storage[0].Storage;
-            string fromstring =
-                PutIdentifierIntoBrackets(MainStor) + " " + PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + " " + GetJoinTableModifierExpression();
+            string fromstring = string.Concat(
+                GetTableStorageExpression(MainStor, false),
+                " ",
+                PutIdentifierIntoBrackets(storageStruct.sources.Name + "0"),
+                " ",
+                GetJoinTableModifierExpression());
             string wherestring = string.Empty;
 
             System.Collections.ArrayList keysandtypes = new System.Collections.ArrayList();
@@ -2938,8 +2979,8 @@
                 }
             }
 
-            selectKeyFields = MainKey;
-            superSelectKeyFields = MainKeyBracked;
+            string selectKeyFields = MainKey;
+            string superSelectKeyFields = MainKeyBracked;
 
             if (addNotMainKeys)
             {
@@ -3049,6 +3090,16 @@
             if (value == null)
             {
                 return "NULL";
+            }
+
+            if (ConverterToQueryValueString?.IsSupported(value.GetType()) == true)
+            {
+                return ConverterToQueryValueString.ConvertToQueryValueString(value);
+            }
+
+            if (value is IConvertibleToQueryValueString convertibleValue)
+            {
+                return convertibleValue.ConvertToQueryValueString();
             }
 
             System.Type valType = value.GetType();
@@ -3326,9 +3377,11 @@
             STORMDO.Business.StorageStructForView[] StorageStruct, string[] asnameprop, bool MustNewGenerate)
         {
             string sw =
-                ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(LimitFunction,
-                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString(ConvertValueToQueryValueString),
-                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets));
+                ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(
+                    LimitFunction,
+                    new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString(ConvertValueToQueryValueString),
+                    new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets),
+                    this);
             if (MustNewGenerate)
             {
                 sw = ReplaceAliases(StorageStruct, asnameprop, sw);
@@ -3386,7 +3439,8 @@
             return
                 ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.ToSQLString(LimitFunction,
                 new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegateConvertValueToQueryValueString(ConvertValueToQueryValueString),
-                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets));
+                new ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.delegatePutIdentifierToBrackets(PutIdentifierIntoBrackets),
+                this);
         }
 
         //-------LOAD separated string Objetcs ------------------------------------
@@ -4029,9 +4083,6 @@
         /// <param name="mainkey">
         /// Первичный ключ агрегатора детейлов
         /// </param>
-        /// <param name="DeleteOrder">
-        /// The delete order.
-        /// </param>
         /// <param name="updateobjects">
         /// Детейлы, на которые навешены бизнес-сервера
         /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер)
@@ -4045,10 +4096,7 @@
         /// <param name="DataObjectCache">
         /// The data object cache.
         /// </param>
-        /// <param name="processingObjectsKeys">
-        /// Ключи обрабатываемых объектов
-        /// (список содержит первичные ключи объектов, которые уже попали в список на обновление)
-        /// </param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <returns>
         /// Набор объектов, которые необходимо занести в аудит
         /// </returns>
@@ -4059,7 +4107,8 @@
             out DataObject[] updateobjects,
             StringCollection DeleteTables,
             SortedList TableOperations,
-            DataObjectCache DataObjectCache)
+            DataObjectCache DataObjectCache,
+            DbTransactionWrapper dbTransactionWrapper)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
@@ -4080,10 +4129,11 @@
 
             if (sq != string.Empty)
             {
+                object state = null;
                 BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
                 if (bs != null && bs.Length > 0)
                 { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                    updateobjects = LoadObjects(cs, DataObjectCache);
+                    updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                 }
                 else
                 {
@@ -4092,7 +4142,7 @@
                        * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                        * а бизнес-сервера основного объекта уже выполнились.
                        */
-                        DataObject[] detailObjects = LoadObjects(cs);
+                        DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                         if (detailObjects != null)
                         {
                             foreach (var detailObject in detailObjects)
@@ -4207,6 +4257,7 @@
         /// <param name="deleteTables"> The Delete Tables. </param>
         /// <param name="updateQueries"> Запросы для изменения </param>
         /// <param name="updateFirstQueries"> Запросы для изменения, выполняемые до остальных запросов </param>
+        /// <param name="updateLastQueries"> Запросы для изменения, выполняемые после остальных запросов.</param>
         /// <param name="updateTables"> The Update Tables. </param>
         /// <param name="insertQueries"> Запросы для добавления </param>
         /// <param name="insertTables"> The Insert Tables. </param>
@@ -4215,12 +4266,14 @@
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <param name="dobjects"> Для чего генерим запросы </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
             StringCollection deleteTables,
             StringCollection updateQueries,
             StringCollection updateFirstQueries,
+            StringCollection updateLastQueries,
             StringCollection updateTables,
             StringCollection insertQueries,
             StringCollection insertTables,
@@ -4229,6 +4282,7 @@
             bool checkLoadedProps,
             System.Collections.ArrayList processingObjects,
             DataObjectCache dataObjectCache,
+            DbTransactionWrapper dbTransactionWrapper,
             params ICSSoft.STORMNET.DataObject[] dobjects)
         {
             GenerateQueriesForUpdateObjects(
@@ -4236,6 +4290,7 @@
                 deleteTables,
                 updateQueries,
                 updateFirstQueries,
+                updateLastQueries,
                 updateTables,
                 insertQueries,
                 insertTables,
@@ -4245,52 +4300,8 @@
                 processingObjects,
                 dataObjectCache,
                 null,
+                dbTransactionWrapper,
                 dobjects);
-        }
-
-        /// <summary>
-        /// Провести аудит операции для одного объекта.
-        /// </summary>
-        /// <param name="dobject"> Объект, аудит которого нужно провести. </param>
-        /// <param name="auditOperationInfoList"> Список id записей аудита. </param>
-        /// <param name="transaction">
-        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
-        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// </param>
-        private void AuditOperation(DataObject dobject, ICollection<AuditAdditionalInfo> auditOperationInfoList, IDbTransaction transaction)
-        {
-            if (dobject != null && AuditService.IsAuditEnabled)
-            {
-                AuditAdditionalInfo auditAdditionalInfo =
-                            AuditService.WriteCommonAuditOperationWithAutoFields(dobject, this, true, transaction); // Если что, то исключение будет проброшено
-                if (auditAdditionalInfo != null && auditAdditionalInfo.AuditRecordPrimaryKey != Guid.Empty)
-                {
-                    auditOperationInfoList.Add(auditAdditionalInfo);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Провести аудит операции для нескольких объектов.
-        /// </summary>
-        /// <param name="dobjects"> Объект, аудит которого нужно провести. </param>
-        /// <param name="auditOperationInfoList"> Список id записей аудита. </param>
-        /// <param name="transaction">
-        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
-        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// По умолчанию - null.
-        /// </param>
-        private void AuditOperation(IEnumerable<DataObject> dobjects, ICollection<AuditAdditionalInfo> auditOperationInfoList, IDbTransaction transaction = null)
-        {
-            if (dobjects != null)
-            {
-                foreach (var dobject in dobjects)
-                {
-                    AuditOperation(dobject, auditOperationInfoList, transaction);
-                }
-            }
         }
 
         /// <summary>
@@ -4312,12 +4323,12 @@
         /// <param name="processingObjects">Объекты, которые необходимо обработать.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, для которых нужно создать записи аудита. Сюда записывается результат работы метода.</param>
-        /// <param name="transaction">Транзакция, в которой необходимо производить чтение (необязательный параметр).</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         protected virtual void GenerateAuditForAggregators(
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             ref List<DataObject> auditObjects,
-            IDbTransaction transaction = null)
+            DbTransactionWrapper dbTransactionWrapper = null)
         {
             if (!AuditService.IsAuditEnabled)
             {
@@ -4365,13 +4376,13 @@
                         var tempView = new View { Name = "AggregatorLoadingView", DefineClassType = dataObjectType };
                         tempView.AddProperty(aggregatorPropertyName);
 
-                        if (transaction == null)
+                        if (dbTransactionWrapper == null)
                         {
                             LoadObject(tempView, tempObject, dataObjectCache);
                         }
                         else
                         {
-                            LoadObjectByExtConn(tempView, tempObject, true, false, dataObjectCache, transaction.Connection, transaction);
+                            LoadObjectByExtConn(tempView, tempObject, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                         }
 
                         oldAggregator =
@@ -4450,13 +4461,13 @@
                     DataObject tempAggregator = (DataObject)Activator.CreateInstance(aggregatorType);
                     tempAggregator.SetExistObjectPrimaryKey(aggregator.__PrimaryKey);
 
-                    if (transaction == null)
+                    if (dbTransactionWrapper == null)
                     {
                         LoadObject(aggregatorView, tempAggregator, true, false, dataObjectCache);
                     }
                     else
                     {
-                        LoadObjectByExtConn(aggregatorView, tempAggregator, true, false, dataObjectCache, transaction.Connection, transaction);
+                        LoadObjectByExtConn(aggregatorView, tempAggregator, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                     }
 
                     DetailArray tempAggregatorDetailArray =
@@ -4688,6 +4699,182 @@
         }
 
         /// <summary>
+        /// Поиск циклов в графе зависимостей.
+        /// </summary>
+        /// <param name="grafDependencies">Граф полученный в результате обхода графа зависимостей.</param>
+        /// <param name="currentType">Текущий обрабатываемый тип.</param>
+        /// <param name="dependencies">Графе зависимостей.</param>
+        /// <param name="previousType">Предыдущий обрабатываемый тип.</param>
+        /// <param name="dependenciesList">Коллекция графов зависимостей.</param>
+        /// <param name="processingObjects">Текущие обрабатываемые объекты (то есть объекты, которые данный сервис данных планирует подтвердить в БД
+        ///  в текущей транзакции).</param>
+        /// <param name="createdList">Измененные данные со значениями, для которых строятся запросы, на создание.</param>
+        /// <param name="alteredList">Измененные данные со значениями, для которых строятся запросы, на обновление.</param>
+        /// <returns>False - если найден цикл и надо остановить обход.</returns>
+        private bool FindCycles(
+            ref List<Type> grafDependencies,
+            Type currentType,
+            Dictionary<Type, List<Type>> dependencies,
+            Type previousType,
+            List<Dictionary<Type, List<Type>>> dependenciesList,
+            ArrayList processingObjects,
+            Dictionary<DataObject, Collections.CaseSensivityStringDictionary> createdList,
+            Dictionary<DataObject, Collections.CaseSensivityStringDictionary> alteredList)
+        {
+            if (dependencies.ContainsKey(currentType))
+            {
+                foreach (Type dependencie in dependencies[currentType])
+                {
+                    // Если зависимости нет в текущих обрабатываемых объектах со статусом на создание или удалени, то она удаляется из графа зависимостей.
+                    var processingObjectsList = processingObjects.Cast<DataObject>().Where(t => t.GetType() == dependencie && t.GetStatus() == ObjectStatus.Created).ToList();
+                    if (processingObjectsList.Count > 0)
+                    {
+                        // Проверяется создает ли цикл зависимость.
+                        if (!grafDependencies.Contains(dependencie))
+                        {
+                            grafDependencies.Add(dependencie);
+                            if (!FindCycles(ref grafDependencies, dependencie, dependencies, currentType, dependenciesList, processingObjects, createdList, alteredList))
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                grafDependencies.Remove(dependencie);
+                            }
+                        }
+                        else
+                        {
+                            if (!FixCyclic(currentType, dependencie, dependencies[currentType], createdList, alteredList))
+                            {
+                                var indexDependencie = grafDependencies.IndexOf(dependencie);
+                                var type = grafDependencies[indexDependencie + 1];
+                                if (!FixCyclic(dependencie, type, dependencies[dependencie], createdList, alteredList))
+                                {
+                                    throw new Exception("Неразрешимый цикл");
+                                }
+                                else
+                                {
+                                    grafDependencies.RemoveRange(indexDependencie, grafDependencies.Count - indexDependencie);
+                                    dependenciesList.Add(dependencies);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                dependenciesList.Add(dependencies);
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (processingObjects.Cast<DataObject>().Where(t => t.GetType() == dependencie && t.GetStatus() == ObjectStatus.Deleted).ToList().Count() == 0)
+                        {
+                            dependencies[currentType].Remove(dependencie);
+                            dependenciesList.Add(dependencies);
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Если зависимость просто есть (в текущих обрабатываемых объектах её нет или статус на обновление), то она удаляется из графа зависимостей.
+                if (processingObjects.Cast<DataObject>().Where(t => t.GetType() == currentType && (t.GetStatus() == ObjectStatus.Created || t.GetStatus() == ObjectStatus.Deleted)).ToList().Count > 0)
+                {
+                    grafDependencies.Remove(currentType);
+                }
+                else
+                {
+                    dependencies[previousType].Remove(currentType);
+                    dependenciesList.Add(dependencies);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Разрешение циклической связи.
+        /// </summary>
+        /// <param name="currentType">Текущий обрабатываемый тип.</param>
+        /// <param name="dependencie">Зависимость с циклом.</param>
+        /// <param name="dependencies">Графе зависимостей.</param>
+        /// <param name="createdList">Измененные данные со значениями, для которых строятся запросы, на создание.</param>
+        /// <param name="alteredList">Измененные данные со значениями, для которых строятся запросы, на обновление.</param>
+        /// <returns>True - если цикл можно исправить, False - если нет.</returns>
+        private bool FixCyclic(
+            Type currentType,
+            Type dependencie,
+            List<Type> dependencies,
+            Dictionary<DataObject, Collections.CaseSensivityStringDictionary> createdList,
+            Dictionary<DataObject, Collections.CaseSensivityStringDictionary> alteredList)
+        {
+            string[] props = Information.GetAllPropertyNames(currentType);
+
+            // Поиск свойства, в нужном типе.
+            var filterProps = props
+                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
+                .ToList();
+
+            if (filterProps.Count > 0)
+            {
+                foreach (string prop in filterProps)
+                {
+                    // Проверяется свойство на NotNull.
+                    if (!Information.GetPropertyNotNull(currentType, prop))
+                    {
+                        dependencies.Remove(dependencie);
+                        var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
+
+                        Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
+                        string[] propertyStorageNames = new string[types.Length];
+                        string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
+                        for (int i = 0; i < types.Length; i++)
+                        {
+                            string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
+                            propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
+                        }
+
+                        // Изменяем значения в объектах, для устранения цикла.
+                        foreach (var createdObject in createdObjects)
+                        {
+                            Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
+                            foreach (var propertyStorageName in propertyStorageNames)
+                            {
+                                // Добавляем свойство в запрос на изменение объекта.
+                                if (alteredList.ContainsKey(createdObject))
+                                {
+                                    alteredList[createdObject].Add(propertyStorageName, propsCollection.Get(propertyStorageName));
+                                }
+                                else
+                                {
+                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                    alteredCollection.Add(propertyStorageName, propsCollection.Get(propertyStorageName));
+                                    alteredList.Add(createdObject, alteredCollection);
+                                }
+
+                                // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                                propsCollection.Remove(propertyStorageName);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Генерация запросов для изменения объектов
         /// (дополнительно возвращается список объектов, для которых необходимо создание записей аудита).
         /// </summary>
@@ -4695,6 +4882,7 @@
         /// <param name="deleteTables">Таблицы, из которых будет проведено удаление данных (выходной параметр).</param>
         /// <param name="updateQueries">Сгенерированные запросы для изменения (выходной параметр).</param>
         /// <param name="updateFirstQueries"> Сгенерированные запросы для изменения (выходной параметр), выполняемые до остальных запросов </param>
+        /// <param name="updateLastQueries"> Запросы для изменения, выполняемые после остальных запросов.</param>
         /// <param name="updateTables">Таблицы, в которых будет проведено изменение данных (выходной параметр).</param>
         /// <param name="insertQueries">Сгенерированные запросы для добавления (выходной параметр).</param>
         /// <param name="insertTables">Таблицы, в которые будет проведена вставка данных (выходной параметр).</param>
@@ -4706,12 +4894,14 @@
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда
         /// передан не null и текущий сервис аудита включен.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
             StringCollection deleteTables,
             StringCollection updateQueries,
             StringCollection updateFirstQueries,
+            StringCollection updateLastQueries,
             StringCollection updateTables,
             StringCollection insertQueries,
             StringCollection insertTables,
@@ -4721,6 +4911,7 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
+            DbTransactionWrapper dbTransactionWrapper,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -4728,6 +4919,11 @@
             var deleteList = new System.Collections.SortedList();
             var deleteDictionary = new ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary();
             var extraProcessingList = new List<DataObject>();
+            var createdList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
+            var alteredList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
+            var alteredLastList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
+            var updateList = new Dictionary<DataObject, UpdaterObject>();
+
             List<DataObject> extraUpdateList = new List<DataObject>();
             Dictionary<Type, List<Type>> dependencies = new Dictionary<Type, List<Type>>();
 
@@ -4764,36 +4960,7 @@
                 {
                     foreach (BusinessServer bs in bss)
                     {
-                        bs.ObjectsToUpdate = processingObjects;
-                        object prevPrimaryKey = processingObject.__PrimaryKey;
-                        STORMDO.DataObject[] subobjects = bs.OnUpdateDataobject(processingObject);
-                        curObjectStatus = processingObject.GetStatus(true);
-                        if (!processingObject.__PrimaryKey.Equals(prevPrimaryKey))
-                        {
-                            TypeKeyPair typeKeyPair = new TypeKeyPair(typeOfProcessingObject, prevPrimaryKey);
-                            processingObjectsKeys.Remove(typeKeyPair);
-                            if (processingObject.GetStatus(false) == ObjectStatus.Created)
-                            {
-                                KeyGen.KeyGenerator.GenerateUnique(processingObject, this);
-                            }
-
-                            AddToProcessingObjectsKeys(processingObjectsKeys, processingObject);
-                        }
-
-                        foreach (STORMDO.DataObject subobject in subobjects)
-                        {
-                            subobject.GetStatus(true);
-                            if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
-                            {
-                                if (subobject.GetStatus(false) == ObjectStatus.Created)
-                                {
-                                    KeyGen.KeyGenerator.GenerateUnique(subobject, this);
-                                }
-
-                                processingObjects.Add(subobject);
-                                AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
-                            }
-                        }
+                        ProcessBusinessServer(processingObject, typeOfProcessingObject, bs, processingObjects, processingObjectsKeys, ref curObjectStatus);
                     }
                 }
 
@@ -4842,7 +5009,7 @@
                             {
                                 DataObject[] detailsObjects;
                                 IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache);
+                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, dbTransactionWrapper);
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)
@@ -4869,6 +5036,7 @@
                             ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues;
                             DataObject[] detailsObjects;
                             DataObject[] mastersObjects;
+
                             if (StorageType == StorageTypeEnum.HierarchicalStorage)
                             {
                                 GetAlteredPropsWithValues(
@@ -4878,73 +5046,6 @@
                                     out detailsObjects,
                                     out mastersObjects,
                                     false);
-                                foreach (DataObject detobj in detailsObjects)
-                                {
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                        {
-                                            KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                        }
-
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                foreach (DataObject detobj in mastersObjects)
-                                {
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                        {
-                                            KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                        }
-
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                string[] cols = propsWithValues.GetAllKeys();
-                                var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                                foreach (string col in cols)
-                                {
-                                    Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
-                                    StringCollection propsInTable = null;
-                                    if (valuesByTables.Contains(defType))
-                                    {
-                                        propsInTable = (StringCollection)valuesByTables[defType];
-                                    }
-                                    else
-                                    {
-                                        propsInTable = new StringCollection();
-                                        propsInTable.Add("__PrimaryKey");
-                                        valuesByTables.Add(defType, propsInTable);
-                                    }
-
-                                    propsInTable.Add(col);
-                                }
-
-                                for (int k = 0; k < valuesByTables.Count; k++)
-                                {
-                                    Type t = valuesByTables.Key(k);
-                                    string tableName =
-                                        Information.GetClassStorageName(t);
-                                    string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
-                                    var propsInTable = (StringCollection)valuesByTables[t];
-                                    string columns = propsInTable[0];
-                                    string values = propsWithValues[propsInTable[0]];
-                                    for (int j = 1; j < propsInTable.Count; j++)
-                                    {
-                                        columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
-                                        values += nlk + propsWithValues[propsInTable[j]];
-                                    }
-
-                                    query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
-                                    AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
-                                    insertQueries.Add(query);
-                                }
                             }
                             else
                             {
@@ -4955,50 +5056,38 @@
                                     out detailsObjects,
                                     out mastersObjects,
                                     true);
-                                foreach (DataObject detobj in detailsObjects)
-                                {
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                        {
-                                            KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                        }
-
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
-                                foreach (DataObject detobj in mastersObjects)
-                                {
-                                    string tableName = Information.GetClassStorageName(detobj.GetType());
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                        {
-                                            KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                        }
-
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                string[] cols = propsWithValues.GetAllKeys();
-                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
-                                string columns = cols[0];
-                                string values = propsWithValues[cols[0]];
-                                for (int j = 1; j < propsWithValues.Count; j++)
-                                {
-                                    columns += nlk + cols[j];
-                                    values += nlk + propsWithValues[cols[j]];
-                                }
-
-                                query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
-                                AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
-                                insertQueries.Add(query);
                             }
+
+                            foreach (DataObject detobj in detailsObjects)
+                            {
+                                if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
+                                {
+                                    if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
+                                        KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
+
+                                    processingObjects.Add(detobj);
+                                    AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
+                                }
+                            }
+
+                            foreach (DataObject detobj in mastersObjects)
+                            {
+                                if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
+                                {
+                                    if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                    {
+                                        KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                    }
+
+                                    processingObjects.Add(detobj);
+                                    AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
+                                }
+                            }
+
+                            createdList.Add(processingObject, propsWithValues);
+                            updateList.Add(processingObject, updaterobject);
 
                             break;
                         }
@@ -5023,164 +5112,79 @@
                                     out detailsObjects,
                                     out mastersObjects,
                                     false);
-                                foreach (DataObject detobj in detailsObjects)
-                                {
-                                    if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                    {
-                                        KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                    }
-
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                foreach (DataObject detobj in mastersObjects)
-                                {
-                                    if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                    {
-                                        KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                    }
-
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                if (propsWithValues.Count > 0)
-                                {
-                                    string[] cols = propsWithValues.GetAllKeys();
-                                    var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                                    foreach (string col in cols)
-                                    {
-                                        Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
-                                        StringCollection propsInTable = null;
-                                        if (valuesByTables.Contains(defType))
-                                        {
-                                            propsInTable = (StringCollection)valuesByTables[defType];
-                                        }
-                                        else
-                                        {
-                                            propsInTable = new StringCollection();
-                                            valuesByTables.Add(defType, propsInTable);
-                                        }
-
-                                        propsInTable.Add(col);
-                                    }
-
-                                    for (int k = 0; k < valuesByTables.Count; k++)
-                                    {
-                                        Type t = valuesByTables.Key(k);
-                                        var propsInTable = (StringCollection)valuesByTables[t];
-                                        string tableName = Information.GetClassStorageName(t);
-                                        string query = "UPDATE " + PutIdentifierIntoBrackets(tableName) + " SET " + nl;
-
-                                        string values = propsInTable[0] + " = " + propsWithValues[propsInTable[0]];
-                                        for (int j = 1; j < propsInTable.Count; j++)
-                                        {
-                                            values += nlk + PutIdentifierIntoBrackets(propsInTable[j]) + " = " + propsWithValues[propsInTable[j]];
-                                        }
-
-                                        query += values + nl + " WHERE ";
-                                        FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                                        var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(t).KeyType), Information.GetPrimaryKeyStorageName(t));
-                                        FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
-                                        if (updaterobject != null)
-                                        {
-                                            func = updaterobject.Function;
-                                        }
-
-                                        query += LimitFunction2SQLWhere(func);
-                                        AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
-                                        if (!updateQueries.Contains(query))
-                                        {
-                                            updateQueries.Add(query);
-                                        }
-                                    }
-                                }
                             }
                             else
                             {
                                 GetAlteredPropsWithValues(processingObject, checkLoadedProps, out propsWithValues, out detailsObjects, out mastersObjects, true);
-                                foreach (DataObject detobj in detailsObjects)
-                                {
-                                    if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                    {
-                                        KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                    }
+                            }
 
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
+                            foreach (DataObject detobj in detailsObjects)
+                            {
+                                if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                {
+                                    KeyGen.KeyGenerator.GenerateUnique(detobj, this);
                                 }
 
-                                string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
-                                foreach (DataObject detobj in mastersObjects)
+                                if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
                                 {
-                                    if (detobj.GetStatus(false) == ObjectStatus.Created)
-                                    {
-                                        KeyGen.KeyGenerator.GenerateUnique(detobj, this);
-                                    }
-
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
-                                    {
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
-                                    }
-                                }
-
-                                if (propsWithValues.Count > 0)
-                                {
-                                    string query = "UPDATE " + PutIdentifierIntoBrackets(mainTableName) + " SET " + nl;
-                                    string[] cols = propsWithValues.GetAllKeys();
-                                    string values = cols[0] + " = " + propsWithValues[cols[0]];
-                                    for (int j = 1; j < propsWithValues.Count; j++)
-                                    {
-                                        values += nlk + cols[j] + " = " + propsWithValues[cols[j]];
-                                    }
-
-                                    query += values + nl + " WHERE ";
-                                    FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                                    var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                                        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(processingObject.GetType()).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
-                                    FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
-                                    if (updaterobject != null)
-                                    {
-                                        func = updaterobject.Function;
-                                    }
-
-                                    query += LimitFunction2SQLWhere(func);
-                                    AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
-                                    if (!updateQueries.Contains(query))
-                                    {
-                                        updateQueries.Add(query);
-                                    }
+                                    processingObjects.Add(detobj);
+                                    AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
                                 }
                             }
+
+                            foreach (DataObject detobj in mastersObjects)
+                            {
+                                if (detobj.GetStatus(false) == ObjectStatus.Created)
+                                {
+                                    KeyGen.KeyGenerator.GenerateUnique(detobj, this);
+                                }
+
+                                if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
+                                {
+                                    processingObjects.Add(detobj);
+                                    AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
+                                }
+                            }
+
+                            alteredList.Add(processingObject, propsWithValues);
+                            updateList.Add(processingObject, updaterobject);
 
                             break;
                         }
                 }
             }
 
-            foreach (DataObject processingObject in processingObjects)
+            if (processingObjects.Count > 1)
             {
-                // Включем текущий объект в граф зависимостей.
-                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
+                foreach (DataObject processingObject in processingObjects)
+                {
+                    // Включем текущий объект в граф зависимостей.
+                    GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
+                }
+            }
+
+            // Поиск и разрешение циклов в зависимостях.
+            List<Type> grafDependencies = new List<Type>();
+            List<Dictionary<Type, List<Type>>> dependenciesList = new List<Dictionary<Type, List<Type>>>();
+            dependenciesList.Add(dependencies);
+            for (int i = 0; i < dependenciesList.Count; i++)
+            {
+                var dependencieKeys = dependenciesList[i].Keys;
+                foreach (Type dependencie in dependencieKeys)
+                {
+                    grafDependencies.Clear();
+                    grafDependencies.Add(dependencie);
+                    if (!FindCycles(ref grafDependencies, dependencie, dependenciesList[i], dependencie, dependenciesList, processingObjects, createdList, alteredLastList))
+                        break;
+                }
             }
 
             for (int i = 0; i < extraUpdateList.Count; i++)
             {
                 DataObject processingObject = extraUpdateList[i];
                 ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary propsWithValues;
-                Type typeOfProcessingObject = processingObject.GetType();
+                var alteredFirstList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
+                var updateFirstList = new Dictionary<DataObject, UpdaterObject>();
                 DataObject[] detailsObjects;
                 DataObject[] mastersObjects;
 
@@ -5194,8 +5198,235 @@
                 if (StorageType == StorageTypeEnum.HierarchicalStorage)
                 {
                     GetAlteredPropsWithValues(processingObject, false, out propsWithValues, out detailsObjects, out mastersObjects, false);
+                }
+                else
+                {
+                    GetAlteredPropsWithValues(processingObject, checkLoadedProps, out propsWithValues, out detailsObjects, out mastersObjects, true);
+                }
+
+                alteredFirstList.Add(processingObject, propsWithValues);
+                updateFirstList.Add(processingObject, updaterobject);
+
+                GenerateUpdateQueries(alteredFirstList, updateFirstList, updateTables, tableOperations, updateFirstQueries);
+            }
+
+            List<Type> depList = GetOrderFromDependencies(dependencies);
+            foreach (DataObject processingObject in processingObjects)
+            {
+                if (depList.IndexOf(processingObject.GetType()) < 0)
+                {
+                    depList.Add(processingObject.GetType());
+                }
+            }
+
+            queryOrder.Clear();
+            foreach (Type t in depList)
+            {
+                string qry = Information.GetClassStorageName(t);
+                if (!queryOrder.Contains(qry))
+                {
+                    queryOrder.Add(qry);
+                }
+            }
+
+            if (createdList.Count > 0)
+            {
+                foreach (var processingObject in createdList.Keys)
+                {
+                    var propsWithValues = createdList[processingObject];
+
+                    Type typeOfProcessingObject = processingObject.GetType();
+                    string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
 
                     if (propsWithValues.Count > 0)
+                    {
+                        if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                        {
+                            string[] cols = propsWithValues.GetAllKeys();
+                            var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                            foreach (string col in cols)
+                            {
+                                Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
+                                StringCollection propsInTable = null;
+                                if (valuesByTables.Contains(defType))
+                                {
+                                    propsInTable = (StringCollection)valuesByTables[defType];
+                                }
+                                else
+                                {
+                                    propsInTable = new StringCollection();
+                                    propsInTable.Add("__PrimaryKey");
+                                    valuesByTables.Add(defType, propsInTable);
+                                }
+
+                                propsInTable.Add(col);
+                            }
+
+                            for (int k = 0; k < valuesByTables.Count; k++)
+                            {
+                                Type t = valuesByTables.Key(k);
+                                string tableName =
+                                    Information.GetClassStorageName(t);
+                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
+                                var propsInTable = (StringCollection)valuesByTables[t];
+                                string columns = propsInTable[0];
+                                string values = propsWithValues[propsInTable[0]];
+                                for (int j = 1; j < propsInTable.Count; j++)
+                                {
+                                    columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
+                                    values += nlk + propsWithValues[propsInTable[j]];
+                                }
+
+                                query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
+                                AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
+                                insertQueries.Add(query);
+                            }
+                        }
+                        else
+                        {
+                            string[] cols = propsWithValues.GetAllKeys();
+                            string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
+                            string columns = cols[0];
+                            string values = propsWithValues[cols[0]];
+                            for (int j = 1; j < propsWithValues.Count; j++)
+                            {
+                                columns += nlk + cols[j];
+                                values += nlk + propsWithValues[cols[j]];
+                            }
+
+                            query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
+                            AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
+                            insertQueries.Add(query);
+                        }
+                    }
+                }
+            }
+
+            if (alteredList.Count > 0)
+            {
+                GenerateUpdateQueries(alteredList, updateList, updateTables, tableOperations, updateQueries);
+            }
+
+            if (alteredLastList.Count > 0)
+            {
+                GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
+            }
+
+            deleteTables.Clear();
+            if (deleteList.Count > 0)
+            {
+                for (int j = 0; j < queryOrder.Count; j++)
+                {
+                    if (deleteDictionary[queryOrder[j]] != string.Empty)
+                    {
+                        if (deleteList.ContainsKey(queryOrder[j]))
+                        {
+                            FunctionalLanguage.Function func = (STORMFunction)deleteList[queryOrder[j]];
+                            string Query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " +
+                                           LimitFunction2SQLWhere(func);
+                            if (!deleteQueries.Contains(Query))
+                            {
+                                deleteTables.Add(queryOrder[j]);
+                                deleteQueries.Add(Query);
+                            }
+                        }
+
+                        if (deleteDictionary.ContainsKey(queryOrder[j]))
+                        {
+                            string[] sq = deleteDictionary[queryOrder[j]].Split((char)0);
+                            foreach (string s in sq)
+                            {
+                                string query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " + s;
+                                if (!deleteQueries.Contains(query))
+                                {
+                                    deleteTables.Add(queryOrder[j]);
+                                    deleteQueries.Add(query);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (AuditService.IsAuditEnabled && auditObjects != null)
+            {
+                List<DataObject> processingObjectsList =
+                    (from DataObject mi in processingObjects select mi).ToList();
+                auditObjects.AddRange(processingObjectsList);
+                auditObjects.AddRange(extraProcessingList.Where(dataObject => !ContainsKeyINProcessing(processingObjectsKeys, dataObject)));
+            }
+        }
+
+        private void ProcessBusinessServer(DataObject processingObject, Type typeOfProcessingObject, BusinessServer bs, ArrayList processingObjects, Dictionary<TypeKeyPair, bool> processingObjectsKeys, ref ObjectStatus curObjectStatus)
+        {
+            try
+            {
+                bs.ObjectsToUpdate = processingObjects;
+                object prevPrimaryKey = processingObject.__PrimaryKey;
+                DataObject[] subobjects = bs.OnUpdateDataobject(processingObject);
+                curObjectStatus = processingObject.GetStatus(true);
+                if (!processingObject.__PrimaryKey.Equals(prevPrimaryKey))
+                {
+                    TypeKeyPair typeKeyPair = new TypeKeyPair(typeOfProcessingObject, prevPrimaryKey);
+                    processingObjectsKeys.Remove(typeKeyPair);
+                    if (curObjectStatus == ObjectStatus.Created)
+                    {
+                        KeyGenerator.GenerateUnique(processingObject, this);
+                    }
+
+                    AddToProcessingObjectsKeys(processingObjectsKeys, processingObject);
+                }
+
+                foreach (DataObject subobject in subobjects)
+                {
+                    var subobjectStatus = subobject.GetStatus(true);
+                    if (!ContainsKeyINProcessing(processingObjectsKeys, subobject))
+                    {
+                        if (subobjectStatus == ObjectStatus.Created)
+                        {
+                            KeyGenerator.GenerateUnique(subobject, this);
+                        }
+
+                        processingObjects.Add(subobject);
+                        AddToProcessingObjectsKeys(processingObjectsKeys, subobject);
+                    }
+                }
+            }
+            finally
+            {
+                // Высвобождаем обрабатываемые объекты.
+                bs.ObjectsToUpdate = null;
+            }
+        }
+
+        /// <summary>
+        /// Генерация запросов для изменения объектов.
+        /// </summary>
+        /// <param name="alteredList">Измененные данные со значениями, для которых строятся запросы.</param>
+        /// <param name="updateList">Спецклассы, предназначенный для выполнения групповых операций.</param>
+        /// <param name="updateTables">Таблицы, в которых будет проведено изменение данных (выходной параметр).</param>
+        /// <param name="tableOperations">Операции, которые будут произведены над таблицами (выходной параметр).</param>
+        /// <param name="updateQueries">Сгенерированные запросы для изменения (выходной параметр).</param>
+        private void GenerateUpdateQueries(
+            Dictionary<DataObject, Collections.CaseSensivityStringDictionary> alteredList,
+            Dictionary<DataObject, UpdaterObject> updateList,
+            StringCollection updateTables,
+            SortedList tableOperations,
+            StringCollection updateQueries)
+        {
+            string nl = Environment.NewLine;
+            string nlk = ",";
+            foreach (var processingObject in alteredList.Keys)
+            {
+                var propsWithValues = alteredList[processingObject];
+                var updaterobject = updateList[processingObject];
+
+                Type typeOfProcessingObject = processingObject.GetType();
+                string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
+
+                if (propsWithValues.Count > 0)
+                {
+                    if (StorageType == StorageTypeEnum.HierarchicalStorage)
                     {
                         string[] cols = propsWithValues.GetAllKeys();
                         var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
@@ -5243,18 +5474,11 @@
                             AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
                             if (!updateQueries.Contains(query))
                             {
-                                updateFirstQueries.Add(query);
+                                updateQueries.Add(query);
                             }
                         }
                     }
-                }
-                else
-                {
-                    GetAlteredPropsWithValues(processingObject, checkLoadedProps, out propsWithValues, out detailsObjects, out mastersObjects, true);
-
-                    string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
-
-                    if (propsWithValues.Count > 0)
+                    else
                     {
                         string query = "UPDATE " + PutIdentifierIntoBrackets(mainTableName) + " SET " + nl;
                         string[] cols = propsWithValues.GetAllKeys();
@@ -5278,73 +5502,10 @@
                         AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
                         if (!updateQueries.Contains(query))
                         {
-                            updateFirstQueries.Add(query);
+                            updateQueries.Add(query);
                         }
                     }
                 }
-            }
-
-            List<Type> depList = GetOrderFromDependencies(dependencies);
-            foreach (DataObject processingObject in processingObjects)
-            {
-                if (depList.IndexOf(processingObject.GetType()) < 0)
-                {
-                    depList.Add(processingObject.GetType());
-                }
-            }
-
-            queryOrder.Clear();
-            foreach (Type t in depList)
-            {
-                string qry = Information.GetClassStorageName(t);
-                if (!queryOrder.Contains(qry))
-                {
-                    queryOrder.Add(qry);
-                }
-            }
-
-            deleteTables.Clear();
-            if (deleteList.Count > 0)
-            {
-                for (int j = 0; j < queryOrder.Count; j++)
-                {
-                    if (deleteDictionary[queryOrder[j]] != string.Empty)
-                    {
-                        if (deleteList.ContainsKey(queryOrder[j]))
-                        {
-                            FunctionalLanguage.Function func = (STORMFunction)deleteList[queryOrder[j]];
-                            string Query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " +
-                                           LimitFunction2SQLWhere(func);
-                            if (!deleteQueries.Contains(Query))
-                            {
-                                deleteTables.Add(queryOrder[j]);
-                                deleteQueries.Add(Query);
-                            }
-                        }
-
-                        if (deleteDictionary.ContainsKey(queryOrder[j]))
-                        {
-                            string[] sq = deleteDictionary[queryOrder[j]].Split((char)0);
-                            foreach (string s in sq)
-                            {
-                                string query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " + s;
-                                if (!deleteQueries.Contains(query))
-                                {
-                                    deleteTables.Add(queryOrder[j]);
-                                    deleteQueries.Add(query);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (AuditService.IsAuditEnabled && auditObjects != null)
-            {
-                List<DataObject> processingObjectsList =
-                    (from DataObject mi in processingObjects select mi).ToList();
-                auditObjects.AddRange(processingObjectsList);
-                auditObjects.AddRange(extraProcessingList.Where(dataObject => !ContainsKeyINProcessing(processingObjectsKeys, dataObject)));
             }
         }
 
@@ -5449,7 +5610,7 @@
             return ops & (~value);
         }
 
-        protected virtual System.Data.IDbTransaction CreateTransaction(System.Data.IDbConnection connection)
+        protected virtual IDbTransaction CreateTransaction(IDbConnection connection)
         {
             return connection.BeginTransaction();
         }
@@ -5465,28 +5626,24 @@
         /// </param>
         virtual public void UpdateObjectsOrdered(ref DataObject[] objects, bool alwaysThrowException = true)
         {
-            IDbConnection connection = GetConnection();
-            connection.Open();
-            IDbTransaction transaction = connection.BeginTransaction();
-            var dataObjectCache = new DataObjectCache();
-            try
+            using (var dbTransactionWrapper = new DbTransactionWrapper(this))
             {
-                foreach (DataObject dataObject in objects)
+                var dataObjectCache = new DataObjectCache();
+                try
                 {
-                    DataObject[] dObjs = new[] { dataObject };
-                    UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, connection, transaction);
-                }
+                    foreach (DataObject dataObject in objects)
+                    {
+                        DataObject[] dObjs = new[] { dataObject };
+                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    }
 
-                transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw;
-            }
-            finally
-            {
-                connection.Close();
+                    dbTransactionWrapper.CommitTransaction();
+                }
+                catch (Exception ex)
+                {
+                    dbTransactionWrapper.RollbackTransaction();
+                    throw;
+                }
             }
         }
 
@@ -5497,20 +5654,19 @@
         /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
         /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
         /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
-        /// TODO: Объединить код с UpdateObjects.
         /// </summary>
         /// <param name="objects">Объекты для обновления.</param>
         /// <param name="dataObjectCache">Кеш объектов.</param>
         /// <param name="alwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
-        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
-        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
-        public virtual void UpdateObjectsByExtConn(
-            ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
+        public virtual void UpdateObjectsByExtConn(ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbTransactionWrapper dbTransactionWrapper)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
+
             var deleteQueries = new StringCollection();
             var updateQueries = new StringCollection();
             var updateFirstQueries = new StringCollection();
+            var updateLastQueries = new StringCollection();
             var insertQueries = new StringCollection();
 
             var deleteTables = new StringCollection();
@@ -5519,17 +5675,23 @@
             var tableOperations = new SortedList();
             var queryOrder = new StringCollection();
 
-            var allQueriedObjects = new System.Collections.ArrayList();
+            var allQueriedObjects = new ArrayList();
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
-            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, transaction);
+            GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper);
 
             OnBeforeUpdateObjects(allQueriedObjects);
 
-            Exception ex = null;
+            // Сортируем объекты в порядке заданным графом связности.
+            extraProcessingList.Sort((x, y) =>
+            {
+                int indexX = queryOrder.IndexOf(Information.GetClassStorageName(x.GetType()));
+                int indexY = queryOrder.IndexOf(Information.GetClassStorageName(y.GetType()));
+                return indexX.CompareTo(indexY);
+            });
 
             /*access checks*/
 
@@ -5555,15 +5717,23 @@
 
             /*access checks*/
 
+            // Порядок выполнения запросов: delete, insert, update.
             if (deleteQueries.Count > 0 || updateQueries.Count > 0 || insertQueries.Count > 0)
             {
-                // порядок выполнения запросов: delete,insert,update
+                Guid? operationUniqueId = null;
+
+                if (NotifierUpdateObjects != null)
+                {
+                    operationUniqueId = Guid.NewGuid();
+                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                }
+
                 if (AuditService.IsAuditEnabled)
-                { // На этот момент транзакция уже открыта, поэтому нужно писать в транзакциях, иначе возникнут проблемы взаимоблокировок.
+                {
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
-                     * объекты находятся именно в том состоянии, в каком должны были пойти в базу.
+                     * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
                      */
-                    AuditOperation(extraProcessingList, auditOperationInfoList, transaction);
+                    AuditService.WriteCommonAuditOperationWithAutoFields(extraProcessingList, auditOperationInfoList, this, true, dbTransactionWrapper.Transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
                 }
 
                 string query = string.Empty;
@@ -5571,8 +5741,8 @@
                 object subTask = null;
                 try
                 {
-                    IDbCommand command = connection.CreateCommand();
-                    command.Transaction = transaction;
+                    Exception ex = null;
+                    IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     // прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -5586,15 +5756,12 @@
 
                         var ops = (OperationType)tableOperations[table];
 
-                        if ((ops & OperationType.Delete) != OperationType.Delete)
+                        if ((ops & OperationType.Delete) != OperationType.Delete && updateLastQueries.Count == 0)
                         {
-                            // смотрим есть ли Инсерты
+                            // Смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
                             {
-                                if (
-                                    (ex =
-                                     RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
                                     tableOperations[table] = ops;
@@ -5605,13 +5772,10 @@
                                 }
                             }
 
-                            // смотрим есть ли Update
+                            // Смотрим есть ли Update
                             if (go && ((ops & OperationType.Update) == OperationType.Update))
                             {
-                                if (
-                                    (ex =
-                                     RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Update);
                                     tableOperations[table] = ops;
@@ -5635,46 +5799,57 @@
                     }
                     while (go);
 
+                    if (ex != null)
+                    {
+                        throw ex;
+                    }
+
                     if (queryOrder.Count > 0)
                     {
                         // сзади чистые Update
                         go = true;
+                        int queryOrderIndex = queryOrder.Count - 1;
                         do
                         {
-                            string table = queryOrder[queryOrder.Count - 1];
-                            if (!tableOperations.ContainsKey(table))
+                            string table = queryOrder[queryOrderIndex];
+                            if (tableOperations.ContainsKey(table))
                             {
-                                tableOperations.Add(table, OperationType.None);
-                            }
+                                var ops = (OperationType)tableOperations[table];
 
-                            var ops = (OperationType)tableOperations[table];
-                            if (ops == OperationType.Update)
-                            {
-                                if (
-                                    (ex =
-                                     RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException))
-                                    == null)
+                                if (ops == OperationType.Update && updateLastQueries.Count == 0)
                                 {
-                                    ops = Minus(ops, OperationType.Update);
-                                    tableOperations[table] = ops;
+                                    if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
+                                    {
+                                        ops = Minus(ops, OperationType.Update);
+                                        tableOperations[table] = ops;
+                                    }
+                                    else
+                                    {
+                                        go = false;
+                                    }
+
+                                    if (go)
+                                    {
+                                        queryOrderIndex--;
+                                        go = queryOrderIndex >= 0;
+                                    }
                                 }
                                 else
                                 {
                                     go = false;
                                 }
-
-                                if (go)
-                                {
-                                    queryOrder.RemoveAt(queryOrder.Count - 1);
-                                    go = queryOrder.Count > 0;
-                                }
                             }
                             else
                             {
-                                go = false;
+                                queryOrderIndex--;
                             }
                         }
                         while (go);
+                    }
+
+                    if (ex != null)
+                    {
+                        throw ex;
                     }
 
                     foreach (string table in queryOrder)
@@ -5685,21 +5860,19 @@
                         }
                     }
 
-                    for (int i = deleteQueries.Count - 1; i >= 0; i--)
-                    {
-                        query = deleteQueries[i];
-                        command.CommandText = query;
-                        CustomizeCommand(command);
-                        subTask = BusinessTaskMonitor.BeginSubTask(query, id);
-                        command.ExecuteNonQuery();
-                        BusinessTaskMonitor.EndSubTask(subTask);
-                        prevQueries += query + "\n \n";
-                    }
-
-                    // а теперь опять с начала
-                    for (int i = 0; i < queryOrder.Count; i++)
+                    // Удаляем в обратном порядке.
+                    for (int i = queryOrder.Count - 1; i >= 0; i--)
                     {
                         string table = queryOrder[i];
+                        if ((ex = RunCommands(deleteQueries, deleteTables, table, command, id, alwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
+                    }
+
+                    // А теперь опять с начала
+                    foreach (string table in queryOrder)
+                    {
                         if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
@@ -5711,20 +5884,40 @@
                         }
                     }
 
+                    foreach (string table in queryOrder)
+                    {
+                        if ((ex = RunCommands(updateLastQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        {
+                            throw ex;
+                        }
+                    }
+
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(transaction, this, auditOperationInfoList),
+                            AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapper.Transaction, this, auditOperationInfoList),
                             this,
                             true);
+                    }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
                     }
                 }
                 catch (Exception excpt)
                 {
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
-                    { // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено)
+                    {
+                        // Нужно зафиксировать операции аудита (то есть сообщить, что всё было откачено).
                         AuditService.RatifyAuditOperationWithAutoFields(tExecutionVariant.Failed, auditOperationInfoList, this, false);
+                    }
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        NotifierUpdateObjects.AfterFailUpdateObjects(operationUniqueId.Value, this, objects);
                     }
 
                     BusinessTaskMonitor.EndSubTask(subTask);
@@ -5732,14 +5925,14 @@
                 }
 
                 var res = new ArrayList();
-                for (int i = 0; i < objects.Length; i++)
+                foreach (DataObject changedObject in objects)
                 {
-                    objects[i].ClearPrototyping(true);
+                    changedObject.ClearPrototyping(true);
 
-                    if (objects[i].GetStatus(false) != STORMDO.ObjectStatus.Deleted)
+                    if (changedObject.GetStatus(false) != STORMDO.ObjectStatus.Deleted)
                     {
-                        Utils.UpdateInternalDataInObjects(objects[i], true, dataObjectCache);
-                        res.Add(objects[i]);
+                        Utils.UpdateInternalDataInObjects(changedObject, true, dataObjectCache);
+                        res.Add(changedObject);
                     }
                 }
 
@@ -5752,8 +5945,14 @@
                     }
                 }
 
-                objects = new ICSSoft.STORMNET.DataObject[res.Count];
+                if (NotifierUpdateObjects != null)
+                {
+                    NotifierUpdateObjects.AfterSuccessUpdateObjects(operationUniqueId.Value, this, objects);
+                }
+
+                objects = new DataObject[res.Count];
                 res.CopyTo(objects);
+
                 BusinessTaskMonitor.EndTask(id);
             }
 
@@ -5761,6 +5960,26 @@
             {
                 AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
             }
+        }
+
+        /// <summary>
+        /// Обновить хранилище по объектам (есть параметр, указывающий, всегда ли необходимо взводить ошибку
+        /// и откатывать транзакцию при неудачном запросе в базу данных). Если
+        /// он true, всегда взводится ошибка. Иначе, выполнение продолжается.
+        /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
+        /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
+        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
+        /// </summary>
+        /// <param name="objects">Объекты для обновления.</param>
+        /// <param name="dataObjectCache">Кеш объектов.</param>
+        /// <param name="alwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
+        /// <param name="connection">Коннекция (не забудьте закрыть).</param>
+        /// <param name="transaction">Транзакция (не забудьте завершить).</param>
+        public virtual void UpdateObjectsByExtConn(
+            ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
+        {
+            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
+            UpdateObjectsByExtConn(ref objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
         }
 
         private void OnBeforeUpdateObjects(ArrayList allQueriedObjects)

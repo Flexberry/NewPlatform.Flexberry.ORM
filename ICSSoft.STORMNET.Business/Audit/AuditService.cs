@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Reflection;
     using System.Web;
 
     using ICSSoft.Services;
@@ -170,6 +169,12 @@
         public bool PersistUtcDates { get; set; }
 
         /// <summary>
+        /// Flag indicates that this service uses <see cref="LogService.LogInfo(object)" /> and <see cref="LogService.LogInfoFormat" /> to log audit operation information.
+        /// Default is <see langword="true" />.
+        /// </summary>
+        public bool DetailedLogEnabled { get; set; } = true;
+
+        /// <summary>
         /// Элемент, реализующий логику аудита.
         /// </summary>
         public IAudit Audit
@@ -195,19 +200,18 @@
 
         #region Доработки для записи аудита полей, которые получают своё значение только после сохранения объекта в БД.
 
-        /// <summary>
-        /// Сообщаем о совершении потенциально аудируемого действа.
-        /// </summary>
-        /// <param name="operationedObject">Объект, над которым выполняется операция.</param>
-        /// <param name="dataService">Сервис данных, который выполняет операцию.</param>
-        /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - <c>true</c>).</param>
-        /// <param name="transaction">
-        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
-        /// (при работе <see cref="AuditService"/> иногда необходимо дочитать объект или получить сохранённую копию,
-        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
-        /// По умолчанию - <c>null</c>.
-        /// </param>
-        /// <returns> Ответ о том, можно ли выполнять операцию (если null, то значит, что что-то пошло не так). </returns>
+        /// <inheritdoc cref="IAuditService" />
+        public virtual void WriteCommonAuditOperationWithAutoFields(
+            IEnumerable<DataObject> operationedObjects,
+            ICollection<AuditAdditionalInfo> auditOperationInfoList,
+            IDataService dataService,
+            bool throwExceptions = true,
+            IDbTransaction transaction = null)
+        {
+            WriteCommonAuditOperationWithAutoFieldsPrivate(operationedObjects, auditOperationInfoList, dataService, throwExceptions, transaction);
+        }
+
+        /// <inheritdoc cref="IAuditService" />
         public virtual AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(
             DataObject operationedObject,
             IDataService dataService,
@@ -217,17 +221,7 @@
             return WriteCommonAuditOperationPrivate(operationedObject, dataService, throwExceptions, transaction);
         }
 
-        /// <summary>
-        /// Подтверждение созданных ранее операций аудита (выполнение зависит от выбранного режима записи данных аудита)
-        /// (если аудит идёт в одну БД с приложением, то будет в сервис аудита передаваться имя строки соединения,
-        /// найденное в AuditService.Current.AppSetting.AuditDSSettings по параметрам переданного сервиса данных).
-        /// Также будут проверяться настройки класса на случай, если там заданы особые настройки класса.
-        /// </summary>
-        /// <param name="executionVariant">Какой статус будет присвоен операции.</param>
-        /// <param name="auditOperationInfoList">Дополнительная информация, которую необходимо передать в аудит.</param>
-        /// <param name="dataService">Сервис данных, по параметрам которого (строка соединения и тип) осуществляется поиск в AuditService.Current.AppSetting.AuditDSSettings.</param>
-        /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение.</param>
-        /// <returns> <c>True</c>, если всё закончилось без ошибок. </returns>
+        /// <inheritdoc cref="IAuditService" />
         public bool RatifyAuditOperationWithAutoFields(tExecutionVariant executionVariant, List<AuditAdditionalInfo> auditOperationInfoList, IDataService dataService, bool throwExceptions)
         {
             return RatifyAuditOperation(
@@ -454,6 +448,39 @@
         /// <summary>
         /// Сообщаем о совершении потенциально аудируемого действа.
         /// </summary>
+        /// <param name="operationedObjects"> Объекты, над которыми выполняется операция. </param>
+        /// <param name="auditOperationInfoList"> Дополнительная информация, которую необходимо передать в аудит. </param>
+        /// <param name="dataService"> Сервис данных, который выполянет операцию. </param>
+        /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - true).</param>
+        /// <param name="transaction">
+        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
+        /// (при работе AuditService иногда необходимо дочитать объект или получить сохранённую копию,
+        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
+        /// По умолчанию - null.
+        /// </param>
+        private void WriteCommonAuditOperationWithAutoFieldsPrivate(
+            IEnumerable<DataObject> operationedObjects,
+            ICollection<AuditAdditionalInfo> auditOperationInfoList,
+            IDataService dataService,
+            bool throwExceptions = true,
+            IDbTransaction transaction = null)
+        {
+            if (operationedObjects != null)
+            {
+                foreach (var operationedObject in operationedObjects)
+                {
+                    AuditAdditionalInfo auditAdditionalInfo = WriteCommonAuditOperationWithAutoFields(operationedObject, dataService, throwExceptions, transaction); // Если что, то исключение будет проброшено
+                    if (auditAdditionalInfo != null && auditAdditionalInfo.AuditRecordPrimaryKey != Guid.Empty)
+                    {
+                        auditOperationInfoList.Add(auditAdditionalInfo);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Сообщаем о совершении потенциально аудируемого действа.
+        /// </summary>
         /// <param name="operationedObject">Объект, над которым выполняется операция.</param>
         /// <param name="dataService">Сервис данных, который выполняет операцию.</param>
         /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - <c>true</c>).</param>
@@ -479,65 +506,108 @@
 
                 AuditAdditionalInfo auditAdditionalInfo = null;
                 Type dataObjectType = operationedObject.GetType();
-                if (_typeAuditSettingsLoader.HasSettings(dataObjectType) && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType))
+                var commonAuditParameters = GenerateCommonAuditParameters(operationedObject, dataService, throwExceptions, transaction);
+                if (commonAuditParameters != null)
                 {
-                    // Настройки вообще есть и аудит для приложения и для класса включён.
-                    var objectStatus = operationedObject.GetStatus(false);
-
-                    LogService.LogInfoFormat("AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}", operationedObject, objectStatus, operationedObject.__PrimaryKey);
-
-                    // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
-                    string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
-                    classConnectionStringName = CheckHelper.IsNullOrWhiteSpace(classConnectionStringName)
-                        ? classConnectionStringName
-                        : (AppSetting.IsDatabaseLocal ? GetConnectionStringName(dataService) : AppSetting.AuditConnectionStringName);
-
-                    CommonAuditParameters commonAuditParameters = GenerateBaseCommonAuditParameters(operationedObject, classConnectionStringName, throwExceptions);
-
-                    Guid? auditOperationId;
-                    switch (objectStatus)
+                    var operatedObject = commonAuditParameters.OldVersionOperatedObject ?? commonAuditParameters.OperatedObject; // для UPDATE нужно взять старую версию.
+                    if (operatedObject != null)
                     {
-                        case ObjectStatus.Deleted:
-                            if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, tTypeOfAuditOperation.DELETE))
-                            {
-                                var viewName = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, tTypeOfAuditOperation.DELETE);
-                                var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, tTypeOfAuditOperation.DELETE);
+                        // При удалении OperatedObject может быть null, если не удалось найти объект данных в БД.
+                        var auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
+                        auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(
+                            auditOperationId,
+                            operatedObject,
+                            ConvertTypeOfAudit(commonAuditParameters.TypeOfAuditOperation),
+                            commonAuditParameters.AuditView);
+                    }
+                }
 
+                return auditAdditionalInfo;
+            }
+            catch (Exception ex)
+            {
+                ErrorProcesser.ProcessAuditError(ex, "AuditService, WriteCommonAuditOperation", throwExceptions);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Сгенерировать общие параметры операции аудита.
+        /// </summary>
+        /// <param name="operationedObject">Объект, над которым выполняется операция.</param>
+        /// <param name="dataService">Сервис данных, который выполняет операцию.</param>
+        /// <param name="throwExceptions">Следует ли пробрасывать дальше возникшее исключение (по умолчанию - <c>true</c>).</param>
+        /// <param name="transaction">
+        /// Транзакция, через которую необходимо проводить выполнение зачиток из БД приложения аудиту
+        /// (при работе <see cref="AuditService"/> иногда необходимо дочитать объект или получить сохранённую копию,
+        /// а выполнение данного действия без транзакции может привести к взаимоблокировке).
+        /// По умолчанию - <c>null</c>.
+        /// </param>
+        /// <returns>Параметры операции аудита.</returns>
+        protected virtual CommonAuditParameters GenerateCommonAuditParameters(
+            DataObject operationedObject,
+            IDataService dataService,
+            bool throwExceptions = true,
+            IDbTransaction transaction = null)
+        {
+            try
+            {
+                if (AppSetting == null || !AppSetting.AuditEnabled)
+                {
+                    throw new DisabledAuditException();
+                }
+
+                CommonAuditParameters commonAuditParameters = null;
+                Type dataObjectType = operationedObject.GetType();
+                var objectStatus = operationedObject.GetStatus(false);
+                if (objectStatus != ObjectStatus.UnAltered
+                    && _typeAuditSettingsLoader.HasSettings(dataObjectType)
+                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType))
+                {
+                    var typeOfAudit = ConvertObjectStatus(objectStatus);
+                    if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
+                    {
+                        // Настройки вообще есть и аудит для приложения и для класса включён.
+                        if (DetailedLogEnabled)
+                        {
+                            LogService.LogInfoFormat(
+                                "AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}",
+                                operationedObject,
+                                objectStatus,
+                                operationedObject.__PrimaryKey);
+                        }
+
+                        // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
+                        string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
+                        classConnectionStringName = CheckHelper.IsNullOrWhiteSpace(classConnectionStringName)
+                            ? classConnectionStringName
+                            : (AppSetting.IsDatabaseLocal ? GetConnectionStringName(dataService) : AppSetting.AuditConnectionStringName);
+
+                        commonAuditParameters = GenerateBaseCommonAuditParameters(operationedObject, classConnectionStringName, throwExceptions);
+                        commonAuditParameters.AuditView = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, typeOfAudit);
+                        var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, typeOfAudit);
+
+                        switch (objectStatus)
+                        {
+                            case ObjectStatus.Deleted:
                                 var deletedObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
                                 if (deletedObject != null)
                                 {
                                     commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.DELETE;
                                     commonAuditParameters.OperatedObject = deletedObject;
-                                    commonAuditParameters.AuditView = viewName;
-
-                                    auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                                    auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(auditOperationId, deletedObject, ObjectStatus.Deleted, viewName);
                                 }
-                            }
 
-                            break;
+                                break;
 
-                        case ObjectStatus.Created:
-                            if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, tTypeOfAuditOperation.INSERT))
-                            {
+                            case ObjectStatus.Created:
                                 var createdObject = CopyNotSavedDataObject(operationedObject);
-                                var viewName = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, tTypeOfAuditOperation.INSERT);
 
                                 commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
                                 commonAuditParameters.OperatedObject = createdObject;
-                                commonAuditParameters.AuditView = viewName;
 
-                                auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                                auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(auditOperationId, createdObject, ObjectStatus.Created, viewName);
-                            }
+                                break;
 
-                            break;
-
-                        case ObjectStatus.Altered:
-                            if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, tTypeOfAuditOperation.UPDATE))
-                            {
-                                var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, tTypeOfAuditOperation.UPDATE);
-
+                            case ObjectStatus.Altered:
                                 // Текущая версия объекта.
                                 var newObject = CopyNotSavedDataObject(operationedObject);
 
@@ -549,39 +619,27 @@
                                     List<string> loadedProperties = CopyAlteredNotSavedDataObject(oldObject, newObject, curView, dataService, transaction);
 
                                     // Пишем аудит изменения.
-                                    var viewName = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, tTypeOfAuditOperation.UPDATE);
-
                                     commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.UPDATE;
                                     commonAuditParameters.OperatedObject = newObject;
-                                    commonAuditParameters.AuditView = viewName;
                                     commonAuditParameters.OldVersionOperatedObject = oldObject;
                                     commonAuditParameters.LoadedProperties = loadedProperties.ToArray();
-
-                                    auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                                    auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(auditOperationId, oldObject, ObjectStatus.Altered, viewName);
                                 }
                                 else
                                 {
-                                    var viewName = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, tTypeOfAuditOperation.UPDATE);
-
                                     commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
                                     commonAuditParameters.OperatedObject = newObject;
-                                    commonAuditParameters.AuditView = viewName;
-
-                                    auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                                    auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(auditOperationId, newObject, ObjectStatus.Created, viewName);
                                 }
-                            }
 
-                            break;
+                                break;
+                        }
                     }
                 }
 
-                return auditAdditionalInfo;
+                return commonAuditParameters;
             }
             catch (Exception ex)
             {
-                ErrorProcesser.ProcessAuditError(ex, "AuditService, WriteCommonAuditOperation", throwExceptions);
+                ErrorProcesser.ProcessAuditError(ex, "AuditService, GenerateCommonAuditParameters", throwExceptions);
                 return null;
             }
         }
@@ -654,11 +712,14 @@
 
             commonAuditParameters.WriteMode = currentWriteMode;
 
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
                     commonAuditParameters.OperatedObject.__PrimaryKey,
                     commonAuditParameters.OperatedObject,
                     currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            }
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -704,11 +765,14 @@
         {
             var currentWriteMode = checkedCustomAuditParameters.WriteMode;
 
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
                     checkedCustomAuditParameters.AuditObjectPrimaryKey,
                     checkedCustomAuditParameters.AuditObjectTypeOrDescription,
                     currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            }
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -748,11 +812,14 @@
         /// <param name="checkClassAuditSettings">Следует ли проверять настройки аудита в классах.</param>
         protected virtual void CheckAndSendToAudit(RatificationAuditParameters ratificationAuditParameters, bool checkClassAuditSettings)
         {
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0} отправляется {1} со статусом {2}",
                     string.Join(", ", ratificationAuditParameters.AuditOperationInfoList.Select(x => x.ToString()).ToArray()),
                     AppSetting.DefaultWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно",
                     ratificationAuditParameters.ExecutionResult);
+            }
 
             if (AppSetting.DefaultWriteMode == tWriteMode.Asynchronous)
             {
@@ -1018,7 +1085,7 @@
             if (dataObjectWithAuditFields != null)
             {
                 // Добавляем поля, кто же изменил объект. //TODO: определить эту запись в правильное место.
-                operationedObject.AddLoadedProperties(new List<string> { "EditTime", "Editor" });
+                operationedObject.AddLoadedProperties(nameof(IDataObjectWithAuditFields.EditTime), nameof(IDataObjectWithAuditFields.Editor));
                 dataObjectWithAuditFields.EditTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Editor = GetCurrentUserInfo(ApplicationMode, true);
             }
@@ -1360,6 +1427,7 @@
 
         /// <summary>
         /// Вычитать из базы соответствующий объекту объект.
+        /// TODO: в большинстве ситуаций достаточно проверить, что объект уже загружен необходимыми свойствами (рекурсия по детейлам).
         /// </summary>
         /// <param name="operationedObject">Объект, чью копию будем вычитывать из БД.</param>
         /// <param name="curView">Представление, по которому будем вычитывать из БД.</param>
@@ -1483,6 +1551,37 @@
             }
 
             throw new NotImplementedException("работа аудита в неподдерживаемом режиме");
+        }
+
+        private static ObjectStatus ConvertTypeOfAudit(tTypeOfAuditOperation typeOfAudit)
+        {
+            switch (typeOfAudit)
+            {
+                case tTypeOfAuditOperation.INSERT:
+                    return ObjectStatus.Created;
+                case tTypeOfAuditOperation.UPDATE:
+                    return ObjectStatus.Altered;
+                case tTypeOfAuditOperation.DELETE:
+                    return ObjectStatus.Deleted;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(typeOfAudit), typeOfAudit, null);
+            }
+        }
+
+        private static tTypeOfAuditOperation ConvertObjectStatus(ObjectStatus status)
+        {
+            switch (status)
+            {
+                case ObjectStatus.Created:
+                    return tTypeOfAuditOperation.INSERT;
+                case ObjectStatus.Deleted:
+                    return tTypeOfAuditOperation.DELETE;
+                case ObjectStatus.Altered:
+                    return tTypeOfAuditOperation.UPDATE;
+                case ObjectStatus.UnAltered:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(status), status, null);
+            }
         }
 
         #endregion Вспомогательные методы

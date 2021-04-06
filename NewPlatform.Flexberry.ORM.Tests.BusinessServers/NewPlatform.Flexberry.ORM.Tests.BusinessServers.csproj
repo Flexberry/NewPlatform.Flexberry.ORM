@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\Flexberry.ORM.Tests.BusinessServers.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\Flexberry.ORM.Tests.BusinessServers.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateObjectTestBS.cs" />
     <Compile Include="БерлогаБС.cs" />
+    <Compile Include="МедведьБС.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">

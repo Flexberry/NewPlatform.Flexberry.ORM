@@ -28,6 +28,11 @@
         public const string StormMainObjectKey = "STORMMainObjectKey";
 
         /// <summary>
+        /// Имя типа IDataService.
+        /// </summary>
+        private const string TypeNameForIDataService = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
+
+        /// <summary>
         /// Конструктор по-умолчанию (CaseInsensitive берётся из конфига с флагом CaseInsensitive).
         /// </summary>
         public SQLWhereLanguageDef()
@@ -383,13 +388,19 @@
         /// <param name="value"></param>
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
+        /// <param name="dataService"></param>
         /// <returns></returns>
         public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
+            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
+            {
+                throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
+            }
+
             if (value is Function)
             {
-                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier);
+                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier, dataService);
             }
 
             if (value is VariableDef)
@@ -431,15 +442,16 @@
         /// <param name="value">функция</param>
         /// <param name="convertValue">конвертилка выражений</param>
         /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
+        protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
             if (value.Parameters.Count == 2)
             {
                 if (value.FunctionDef.StringedView == "=" &&
                     ((value.Parameters[1] == null) || (value.Parameters[1].GetType() == typeof(string) && ((string)value.Parameters[1]) == string.Empty)))
                 {
-                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " IS NULL )";
+                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " IS NULL )";
                 }
             }
 
@@ -454,7 +466,7 @@
                 case "SQL":
                     return value.Parameters[0].ToString();
                 case "ISNULL":
-                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " IS NULL )";
+                    return "(" + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " IS NULL )";
                 case "NOT":
                     string result = string.Empty;
                     if (value.Parameters[0] is VariableDef)
@@ -479,15 +491,15 @@
 
                     if (result == string.Empty)
                     {
-                        result = "( NOT " + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " )";
+                        result = "( NOT " + SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " )";
                     }
 
                     return result;
                 case "LIKE":
                     string par1 = string.Empty, par2 = string.Empty;
 
-                    par1 = AddUpper(value.Parameters[0], convertValue, convertIdentifier);
-                    par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier);
+                    par1 = AddUpper(value.Parameters[0], convertValue, convertIdentifier, dataService);
+                    par2 = AddUpper(value.Parameters[1], convertValue, convertIdentifier, dataService);
 
                     if (value.Parameters[1] != null && value.Parameters[1].GetType() == typeof(string))
                     {
@@ -552,7 +564,7 @@
 
                         if (pars[i] == string.Empty)
                         {
-                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, dataService);
                         }
 
                         #region Обработка ситуации, когда операндом у функции "=" или "<>" идут функции.
@@ -596,26 +608,26 @@
                         pars = new string[value.Parameters.Count];
                         for (int i = 0; i < pars.Length; i++)
                         {
-                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                            pars[i] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, dataService);
                         }
 
                         return "( " + string.Join(" " + "=" + " ", pars) + ")";
                     }
                     else if (value.Parameters.Count == 1)
                     {
-                        return SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) + " is null";
+                        return SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, dataService) + " is null";
                     }
 
                     pars = new string[value.Parameters.Count - 1];
                     for (int i = 1; i < value.Parameters.Count; i++)
                     {
-                        pars[i - 1] = AddUpper(value.Parameters[i], convertValue, convertIdentifier);
+                        pars[i - 1] = AddUpper(value.Parameters[i], convertValue, convertIdentifier, dataService);
                     }
 
-                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier) + " in (" + string.Join(",", pars) + "))";
+                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier, dataService) + " in (" + string.Join(",", pars) + "))";
 
                 case "BETWEEN":
-                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier) + " between " + AddUpper(value.Parameters[1], convertValue, convertIdentifier) + " and " + AddUpper(value.Parameters[2], convertValue, convertIdentifier) + ")";
+                    return "( " + AddUpper(value.Parameters[0], convertValue, convertIdentifier, dataService) + " between " + AddUpper(value.Parameters[1], convertValue, convertIdentifier, dataService) + " and " + AddUpper(value.Parameters[2], convertValue, convertIdentifier, dataService) + ")";
                 default:
                     throw new Exception("Not found function :" + value.FunctionDef.StringedView);
             }
@@ -655,24 +667,25 @@
         /// <param name="value">Function.Parameters[i]</param>
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         protected string AddUpper(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
         {
             string retStr;
             if (CaseInsensitive && (value is VariableDef && ((VariableDef)value).Type.StringedView == "String"))
             {
-                retStr = "UPPER( " + SQLTranslSwitch(value, convertValue, convertIdentifier) + " )";
+                retStr = "UPPER( " + SQLTranslSwitch(value, convertValue, convertIdentifier, dataService) + " )";
                 return retStr;
             }
 
             if (CaseInsensitive && value is string)
             {
-                retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier);
+                retStr = SQLTranslSwitch(value.ToString().ToUpper(), convertValue, convertIdentifier, dataService);
                 return retStr;
             }
 
-            retStr = SQLTranslSwitch(value, convertValue, convertIdentifier);
+            retStr = SQLTranslSwitch(value, convertValue, convertIdentifier, dataService);
             return retStr;
         }
 
@@ -682,12 +695,19 @@
         /// <param name="function">Функция</param>
         /// <param name="convertValue">делегат для преобразования констант</param>
         /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         public static string ToSQLString(Function function,
             delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier)
+            delegatePutIdentifierToBrackets convertIdentifier,
+            object dataService = null)
         {
-            return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier);
+            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
+            {
+                throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
+            }
+
+            return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
         }
 
         /// <summary>

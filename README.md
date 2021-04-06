@@ -1,9 +1,5 @@
 # Flexberry ORM
 
-[![Build Status Master](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM.svg?branch=master)](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM)
-
-[![Build Status Develop](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM.svg?branch=develop)](https://travis-ci.org/Flexberry/NewPlatform.Flexberry.ORM)
-
 В этом репозитории располагается исходный код Flexberry ORM - фреймворка для [объектно-реляционного отображения](https://ru.wikipedia.org/wiki/ORM) для Microsoft .NET Framework.
 
 ## Ключевые особенности
@@ -19,7 +15,7 @@
 
 ## Использование
 
-Для работы с Flexberry ORM требуется определение классов объектов данных и готовая БД. Данные классы можно реализовать вручную, но более удобный способ - использовать подход [Model Driven Architecture](https://ru.wikipedia.org/wiki/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0,_%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D1%8F%D0%B5%D0%BC%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%D1%8E) и проектировать приложение в UML-редакторе [Flexberry Designer](http://flexberry.ru/Flexberry/ForDevelopers/FlexberryDesigner) с последующей генерацией полноценного кода на C# и SQL-скриптов для создания или модификации структуры таблиц БД. Данный подход не накладывает ограничений на разрабатываемые приложения, а напротив позволяет иметь хотя бы минимальное описание архитектуры приложения в виде UML-диаграмм.
+Для работы с Flexberry ORM требуется определение классов объектов данных и готовая БД. Данные классы можно реализовать вручную, но более удобный способ - использовать подход [Model Driven Architecture](https://ru.wikipedia.org/wiki/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0,_%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D1%8F%D0%B5%D0%BC%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%D1%8E) и проектировать приложение в UML-редакторе [Flexberry Designer](https://flexberry.net/ru/developers-flexberry-designer.html) с последующей генерацией полноценного кода на C# и SQL-скриптов для создания или модификации структуры таблиц БД. Данный подход не накладывает ограничений на разрабатываемые приложения, а напротив позволяет иметь хотя бы минимальное описание архитектуры приложения в виде UML-диаграмм.
 Для установки `Flexberry ORM` в проект следует воспользоваться [NuGet-пакетом](https://www.nuget.org/packages/NewPlatform.Flexberry.ORM/).
 
 ## Структура проекта
@@ -64,7 +60,7 @@
 ## Документация
 
 Документация разработчика размещается в разделе `Flexberry ORM` на сайте [https://flexberry.github.io](https://flexberry.github.io/ru/fo_landing_page.html).
-Автогенерируемая документация по API размещается в ветке `gh-pages` и доступна пользователям по адресу: [TODO: autodoc URL]()
+Автогенерируемая документация по API размещается в ветке `gh-pages` и доступна пользователям по адресу: https://flexberry.github.io/NewPlatform.Flexberry.ORM/autodoc/develop/
 
 ## Сообщество
 
@@ -72,7 +68,7 @@
 
 ### Доработка
 
-Исправление ошибок приветствуется, технические детали можно выяснить в [чате](https://gitter.im/Flexberry/PlatformDevelopment) или непосредственно в описании Issue.
+Исправление ошибок приветствуется, технические детали можно выяснить в [чате](https://t.me/flexberry) или непосредственно в описании Issue.
 Добавление новой функциональности рекомендуется согласовывать с авторами, поскольку принятие Pool Request в этом случае может быть затруднено.
 
 ### Техническая поддержка
@@ -81,10 +77,10 @@
 
 ## Ссылки
 
-* [Информация на официальном сайте](http://flexberry.ru/FlexberryORM)
+* [Информация на официальном сайте](https://flexberry.net/ru/developers-flexberry-orm.html)
 * [Документация](https://flexberry.github.io/ru/fo_landing_page.html)
 * [Лицензия (MIT)](LICENSE.md)
 * [Лог изменений](CHANGELOG.md)
 * [Установить через NuGet](https://www.nuget.org/packages/NewPlatform.Flexberry.ORM/)
-* [Gitter чат](https://gitter.im/Flexberry/PlatformDevelopment)
+* [Чат](https://t.me/flexberry)
 * [E-Mail](mailto:mail@flexberry.net)

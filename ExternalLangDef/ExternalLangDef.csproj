@@ -107,6 +107,7 @@
     <Compile Include="Interfaces\EventArgs\PrintPreviewEventArgs.cs" />
     <Compile Include="Interfaces\EventArgs\SaveEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\InternalsVisibleTo.cs" />
     <Compile Include="Properties\ResourceData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

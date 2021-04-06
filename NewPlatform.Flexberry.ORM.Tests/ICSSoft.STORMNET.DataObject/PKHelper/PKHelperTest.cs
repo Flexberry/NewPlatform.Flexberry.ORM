@@ -17,6 +17,8 @@
 
         private readonly Guid? ng1 = Guid.NewGuid();
 
+        private readonly Guid? ng2 = Guid.NewGuid();
+
         private readonly Guid g1 = Guid.NewGuid();
 
         private readonly Guid g2 = Guid.NewGuid();
@@ -624,6 +626,17 @@
         }
 
         [Fact]
+        public void GetKeysSimpleIEnumerableNullableGuid()
+        {
+            var list = new List<Guid?>
+            {
+                ng1,
+                ng2
+            };
+            Assert.Equal(PKHelper.GetKeys(list).Length, 2);
+        }
+
+        [Fact]
         public void GetKeysSimpleIEnumerableKeyGuid()
         {
             var list = new List<KeyGuid>
@@ -927,6 +940,17 @@
             {
                 listg,
                 listg
+            };
+
+            var listng = new List<Guid?>
+            {
+                ng1,
+                ng2
+            };
+            var listlistng = new List<List<Guid?>>
+            {
+                listng,
+                listng
             };
 
             var listkg = new List<KeyGuid>

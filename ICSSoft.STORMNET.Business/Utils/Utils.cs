@@ -1168,6 +1168,7 @@
         /// <param name="customizationStruct"></param>
         /// <param name="dataService"></param>
         /// <param name="TypesByKeys"></param>
+        /// <param name="DataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
         /// <param name="connection">Коннекция, через которую желательно выполнять все зачитки объектов.</param>
         /// <param name="transaction">Транзакция, через которую желательно выполнять все зачитки объектов.</param>

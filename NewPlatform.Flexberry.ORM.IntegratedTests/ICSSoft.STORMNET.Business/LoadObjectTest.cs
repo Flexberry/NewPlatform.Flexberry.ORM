@@ -181,6 +181,82 @@
         }
 
         /// <summary>
+        /// Test for paging with ordering with ColumnsSort.
+        /// </summary>
+        [Fact]
+        public void TestLoadingObjectByPageWithOrder()
+        {
+            var view = Медведь.Views.OrderNumberTest;
+            string sortPropertyName = Information.ExtractPropertyPath<Медведь>(x => x.ЦветГлаз);
+
+            view.AddProperty(sortPropertyName);
+
+            var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
+            lcs.ColumnsSort = new[] { new ColumnsSortDef(sortPropertyName, SortOrder.Asc) };
+
+            foreach (IDataService dataService in DataServices)
+            {
+                if (dataService is OracleDataService)
+                    continue;
+                else
+                    Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
+            }
+        }
+
+        /// <summary>
+        /// Test for paging with ordering without ColumnsSort.
+        /// </summary>
+        [Fact]
+        public void TestLoadingObjectByPageWithoutOrder()
+        {
+            var view = Медведь.Views.OrderNumberTest;
+            string sortPropertyName = Information.ExtractPropertyPath<Медведь>(x => x.ЦветГлаз);
+
+            view.AddProperty(sortPropertyName);
+
+            var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
+
+            foreach (IDataService dataService in DataServices)
+                Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
+        }
+
+        private int PageOrderingTest(SQLDataService ds, LoadingCustomizationStruct lcs)
+        {
+            var ldef = SQLWhereLanguageDef.LanguageDef;
+
+            var forest = new Лес();
+
+            int bearCount = 500;
+            int bearPerPage = 10;
+
+            var updateObjectsArray = new DataObject[bearCount];
+
+            for (int i = 0; i < bearCount; i++)
+            {
+                var bear = new Медведь() { ЛесОбитания = forest, ПорядковыйНомер = i + 1, ЦветГлаз = (i % 20).ToString() };
+                updateObjectsArray[i] = bear;
+            }
+
+            ds.UpdateObjects(ref updateObjectsArray);
+
+            var result = new List<int>();
+
+            for (int i = 1; i <= bearCount; i += bearPerPage)
+            {
+                lcs.RowNumber = new RowNumberDef(i, i + bearPerPage - 1);
+                var pagedBears = ds.LoadObjects(lcs).Cast<Медведь>().ToArray();
+                result.AddRange(pagedBears.Select(b => b.ПорядковыйНомер));
+            }
+
+            var query = result.GroupBy(x => x)
+                .Where(g => g.Count() > 1)
+                .Select(y => new { Element = y.Key, Counter = y.Count() })
+                .ToList();
+
+           return query.Count;
+        }
+
+        /// <summary>
         /// Тестовый метод для проверки получения индексов объектов данных с первичными ключами
         /// при нулевых (<c>null</c>) аргументах. Не должно быть выброшено исключений и должен 
         /// быть возвращен пустой список результатов.
@@ -651,6 +727,126 @@
                 .Where(w => w.PoleNullableDateTime <= (NullableDateTime)DateTime.Now
                 && w.PoleNullableDateTime >= gaugeNullableDateTime)
                 .ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод проверки вычитки объекта с нехранимым мастером без <see cref="DataServiceExpression"/> методом <see cref="SQLDataService.LoadObjects(LoadingCustomizationStruct)"/>.
+        /// </summary>
+        [Fact]
+        public void LoadObjectWithNotStoredMasterTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                SQLDataService ds = (SQLDataService)dataService;
+
+                try
+                {
+                    // Arrange.
+                    // Сначала создаём структуру данных, требуемую для теста.
+                    int top = 1;
+                    var state = new Страна() { Название = "zzz" };
+                    var forest = new Лес() { Название = "yyy", Страна = state };
+                    var updateObjectsArray = new DataObject[] { state, forest };
+
+                    ds.UpdateObjects(ref updateObjectsArray);
+
+                    var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Страна), Страна.Views.СтранаL);
+                    lcs.View.AddProperty(Information.ExtractPropertyPath<Страна>(s => s.Президент.__PrimaryKey));
+                    lcs.ReturnTop = top;
+
+                    View view = new View() { DefineClassType = typeof(Лес), Name = "yyy" };
+                    var lcsForest = LoadingCustomizationStruct.GetSimpleStruct(typeof(Лес), view);
+                    lcsForest.View.AddProperty(Information.ExtractPropertyPath<Лес>(f => f.Название));
+                    lcsForest.View.AddProperty(Information.ExtractPropertyPath<Лес>(f => f.Страна.Президент.__PrimaryKey));
+                    lcsForest.ReturnTop = top;
+
+                    // Выведем в консоль запрос, который генерируется данной операцией.
+                    ds.AfterGenerateSQLSelectQuery -= ds_AfterGenerateSQLSelectQuery;
+                    ds.AfterGenerateSQLSelectQuery += ds_AfterGenerateSQLSelectQuery;
+
+                    // Act.
+                    var dataObjects = ds.LoadObjects(lcs);
+                    var dataObjectsForest = ds.LoadObjects(lcsForest);
+
+                    // Assert.
+                    Assert.Equal(top, dataObjects.Length);
+                    Assert.Equal(top, dataObjectsForest.Length);
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Тест запущен");
+                    Debug.WriteLine(dataService.GetType().Name);
+                    Debug.WriteLine(dataService.CustomizationString);
+                    throw;
+                }
+                finally
+                {
+                    ds.AfterGenerateSQLSelectQuery -= ds_AfterGenerateSQLSelectQuery;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Метод для проверки логики зачитки строкового представления с сортировкой.
+        /// </summary>
+        [Fact]
+        public void OrderedLoadStringedObjectViewTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange
+                SQLDataService ds = (SQLDataService)dataService;
+
+                Random random = new Random();
+                List<Кошка> objectsToUpdate = new List<Кошка>();
+
+                int catCount = 1000;
+                for (int i = 0; i < catCount; i++)
+                {
+                    Кошка cat = new Кошка
+                    {
+                        ДатаРождения = (NullableDateTime)DateTime.Now.AddDays(random.Next(29)).AddMonths(random.Next(13)).AddYears(random.Next(catCount)),
+                        Тип = ТипКошки.Дикая,
+                        Порода = new Порода { Название = "Чеширская" + i },
+                        Кличка = "Мурка" + i
+                    };
+                    objectsToUpdate.Add(cat);
+                }
+
+                DataObject[] dataObjects = objectsToUpdate.ToArray();
+                ds.UpdateObjects(ref dataObjects);
+
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
+                lcs.ColumnsSort = new[] { new ColumnsSortDef(nameof(Кошка.ДатаРождения), SortOrder.Asc), new ColumnsSortDef(SQLWhereLanguageDef.StormMainObjectKey, SortOrder.Asc)};
+                int returnTop = catCount / 2;
+                lcs.ReturnTop = returnTop;
+                lcs.RowNumber = new RowNumberDef(1, returnTop);
+
+                // Act
+                ObjectStringDataView[] dataObjectDefs = ds.LoadStringedObjectView('|', lcs);
+
+                // Assert
+                Assert.Equal(returnTop, dataObjectDefs.Length);
+
+                bool ordered = true;
+
+                DateTime lastDate = DateTime.Now;
+
+                for (int i = 0; i < returnTop; i++)
+                {
+                    DateTime date = (DateTime)(dataObjectDefs[i].ObjectedData[1]);
+
+                    if (date < lastDate)
+                    {
+                        ordered = false;
+                        break;
+                    }
+
+                    lastDate = date;
+                }
+
+                Assert.True(ordered);
             }
         }
 

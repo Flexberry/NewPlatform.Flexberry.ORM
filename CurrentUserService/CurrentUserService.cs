@@ -49,7 +49,7 @@
         /// </summary>
         public static void Reset()
         {
-            _container = UnityFactory.CreateContainer();
+            _container = UnityFactory.GetContainer();
             _defaultUser = new CurrentUser();
         }
 

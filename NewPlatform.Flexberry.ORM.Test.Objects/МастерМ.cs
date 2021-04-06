@@ -31,10 +31,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
     public class МастерМ : ICSSoft.STORMNET.DataObject
     {
         
-        private string fName;
-        
-        private int fValue;
-        
         // *** Start programmer edit section *** (МастерМ CustomMembers)
 
         // *** End programmer edit section *** (МастерМ CustomMembers)
@@ -46,29 +42,21 @@ namespace NewPlatform.Flexberry.ORM.Tests
         // *** Start programmer edit section *** (МастерМ.Name CustomAttributes)
 
         // *** End programmer edit section *** (МастерМ.Name CustomAttributes)
+        [ICSSoft.STORMNET.NotStored()]
         [StrLen(255)]
         public virtual string Name
         {
             get
             {
-                // *** Start programmer edit section *** (МастерМ.Name Get start)
-
-                // *** End programmer edit section *** (МастерМ.Name Get start)
-                string result = this.fName;
-                // *** Start programmer edit section *** (МастерМ.Name Get end)
-
-                // *** End programmer edit section *** (МастерМ.Name Get end)
-                return result;
+                // *** Start programmer edit section *** (МастерМ.Name Get)
+                return null;
+                // *** End programmer edit section *** (МастерМ.Name Get)
             }
             set
             {
-                // *** Start programmer edit section *** (МастерМ.Name Set start)
+                // *** Start programmer edit section *** (МастерМ.Name Set)
 
-                // *** End programmer edit section *** (МастерМ.Name Set start)
-                this.fName = value;
-                // *** Start programmer edit section *** (МастерМ.Name Set end)
-
-                // *** End programmer edit section *** (МастерМ.Name Set end)
+                // *** End programmer edit section *** (МастерМ.Name Set)
             }
         }
         
@@ -78,28 +66,20 @@ namespace NewPlatform.Flexberry.ORM.Tests
         // *** Start programmer edit section *** (МастерМ.Value CustomAttributes)
 
         // *** End programmer edit section *** (МастерМ.Value CustomAttributes)
+        [ICSSoft.STORMNET.NotStored()]
         public virtual int Value
         {
             get
             {
-                // *** Start programmer edit section *** (МастерМ.Value Get start)
-
-                // *** End programmer edit section *** (МастерМ.Value Get start)
-                int result = this.fValue;
-                // *** Start programmer edit section *** (МастерМ.Value Get end)
-
-                // *** End programmer edit section *** (МастерМ.Value Get end)
-                return result;
+                // *** Start programmer edit section *** (МастерМ.Value Get)
+                return 0;
+                // *** End programmer edit section *** (МастерМ.Value Get)
             }
             set
             {
-                // *** Start programmer edit section *** (МастерМ.Value Set start)
+                // *** Start programmer edit section *** (МастерМ.Value Set)
 
-                // *** End programmer edit section *** (МастерМ.Value Set start)
-                this.fValue = value;
-                // *** Start programmer edit section *** (МастерМ.Value Set end)
-
-                // *** End programmer edit section *** (МастерМ.Value Set end)
+                // *** End programmer edit section *** (МастерМ.Value Set)
             }
         }
     }

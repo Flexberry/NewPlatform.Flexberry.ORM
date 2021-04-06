@@ -785,6 +785,70 @@
             return lp.Contains(propertyName);
         }
 
+        private GetHandler GetHandlerCached(Type thisType, FieldInfo fi)
+        {
+            if (thisType == null)
+            {
+                throw new ArgumentNullException(nameof(thisType));
+            }
+
+            if (fi == null)
+            {
+                throw new ArgumentNullException(nameof(fi));
+            }
+
+            GetHandler getHandler;
+            if (!cacheGetHandler.TryGetValue(fi, out getHandler))
+            {
+                lock (cacheGetHandler)
+                {
+                    if (!cacheGetHandler.ContainsKey(fi))
+                    {
+                        getHandler = DynamicMethodCompiler.CreateGetHandler(thisType, fi);
+                        cacheGetHandler.Add(fi, getHandler);
+                    }
+                    else
+                    {
+                        getHandler = cacheGetHandler[fi];
+                    }
+                }
+            }
+
+            return getHandler;
+        }
+
+        private SetHandler SetHandlerCached(Type thisType, FieldInfo fi)
+        {
+            if (thisType == null)
+            {
+                throw new ArgumentNullException(nameof(thisType));
+            }
+
+            if (fi == null)
+            {
+                throw new ArgumentNullException(nameof(fi));
+            }
+
+            SetHandler setHandler;
+            if (!cacheSetHandler.TryGetValue(fi, out setHandler))
+            {
+                lock (cacheSetHandler)
+                {
+                    if (!cacheSetHandler.ContainsKey(fi))
+                    {
+                        setHandler = DynamicMethodCompiler.CreateSetHandler(thisType, fi);
+                        cacheSetHandler.Add(fi, setHandler);
+                    }
+                    else
+                    {
+                        setHandler = cacheSetHandler[fi];
+                    }
+                }
+            }
+
+            return setHandler;
+        }
+
         private void prvCopyTo_initDataCopy(DataObject toObject, DataObjectCache DataObjectCache)
         {
             System.Type thisType = this.GetType();
@@ -811,32 +875,8 @@
                     continue;
                 }
 
-                GetHandler getHandler;
-                SetHandler setHandler;
-
-                if (!cacheSetHandler.TryGetValue(fi, out setHandler))
-                {
-                    lock (cacheSetHandler)
-                    {
-                        if (!cacheSetHandler.ContainsKey(fi))
-                        {
-                            setHandler = DynamicMethodCompiler.CreateSetHandler(thisType, fi);
-                            cacheSetHandler.Add(fi, setHandler);
-                        }
-                    }
-                }
-
-                if (!cacheGetHandler.TryGetValue(fi, out getHandler))
-                {
-                    lock (cacheGetHandler)
-                    {
-                        if (!cacheGetHandler.ContainsKey(fi))
-                        {
-                            getHandler = DynamicMethodCompiler.CreateGetHandler(thisType, fi);
-                            cacheGetHandler.Add(fi, getHandler);
-                        }
-                    }
-                }
+                GetHandler getHandler = GetHandlerCached(thisType, fi);
+                SetHandler setHandler = SetHandlerCached(thisType, fi);
 
                 // fieldval = fi.GetValue(this);
                 object fieldval;
@@ -928,6 +968,11 @@
                                         arobject.InitDataCopy(DataObjectCache);
                                         arobject.DynamicProperties.Remove("MasterInitDataCopy");
                                     }
+                                    else if (arobject.GetStatus(false) == ObjectStatus.UnAltered 
+                                        && arobject.GetLoadedProperties().Length != arobject.dataCopy.GetLoadedProperties().Length)
+                                    {
+                                        arobject.InitDataCopy(DataObjectCache);
+                                    }
 
                                     // arobject.InitDataCopy(DataObjectCache);
                                     // Братчиков
@@ -1006,32 +1051,8 @@
                 }
 
                 // object fieldval = fi.GetValue(this);
-                GetHandler getHandler;
-                SetHandler setHandler;
-
-                if (!cacheSetHandler.TryGetValue(fi, out setHandler))
-                {
-                    lock (cacheSetHandler)
-                    {
-                        if (!cacheSetHandler.ContainsKey(fi))
-                        {
-                            setHandler = DynamicMethodCompiler.CreateSetHandler(thisType, fi);
-                            cacheSetHandler.Add(fi, setHandler);
-                        }
-                    }
-                }
-
-                if (!cacheGetHandler.TryGetValue(fi, out getHandler))
-                {
-                    lock (cacheGetHandler)
-                    {
-                        if (!cacheGetHandler.ContainsKey(fi))
-                        {
-                            getHandler = DynamicMethodCompiler.CreateGetHandler(thisType, fi);
-                            cacheGetHandler.Add(fi, getHandler);
-                        }
-                    }
-                }
+                GetHandler getHandler = GetHandlerCached(thisType, fi);
+                SetHandler setHandler = SetHandlerCached(thisType, fi);
 
                 // fieldval = fi.GetValue(this);
                 object fieldval;
@@ -1212,32 +1233,8 @@
                 }
 
                 // object fieldval = fi.GetValue(this);
-                GetHandler getHandler;
-                SetHandler setHandler;
-
-                if (!cacheSetHandler.TryGetValue(fi, out setHandler))
-                {
-                    lock (cacheSetHandler)
-                    {
-                        if (!cacheSetHandler.ContainsKey(fi))
-                        {
-                            setHandler = DynamicMethodCompiler.CreateSetHandler(thisObjType, fi);
-                            cacheSetHandler.Add(fi, setHandler);
-                        }
-                    }
-                }
-
-                if (!cacheGetHandler.TryGetValue(fi, out getHandler))
-                {
-                    lock (cacheGetHandler)
-                    {
-                        if (!cacheGetHandler.ContainsKey(fi))
-                        {
-                            getHandler = DynamicMethodCompiler.CreateGetHandler(thisObjType, fi);
-                            cacheGetHandler.Add(fi, getHandler);
-                        }
-                    }
-                }
+                GetHandler getHandler = GetHandlerCached(thisObjType, fi);
+                SetHandler setHandler = SetHandlerCached(thisObjType, fi);
 
                 // fieldval = fi.GetValue(this);
                 object fieldval;
@@ -1421,32 +1418,8 @@
                     continue;
                 }
 
-                GetHandler getHandler;
-                SetHandler setHandler;
-
-                if (!cacheSetHandler.TryGetValue(fi, out setHandler))
-                {
-                    lock (cacheSetHandler)
-                    {
-                        if (!cacheSetHandler.ContainsKey(fi))
-                        {
-                            setHandler = DynamicMethodCompiler.CreateSetHandler(thisType, fi);
-                            cacheSetHandler.Add(fi, setHandler);
-                        }
-                    }
-                }
-
-                if (!cacheGetHandler.TryGetValue(fi, out getHandler))
-                {
-                    lock (cacheGetHandler)
-                    {
-                        if (!cacheGetHandler.ContainsKey(fi))
-                        {
-                            getHandler = DynamicMethodCompiler.CreateGetHandler(thisType, fi);
-                            cacheGetHandler.Add(fi, getHandler);
-                        }
-                    }
-                }
+                GetHandler getHandler = GetHandlerCached(thisType, fi);
+                SetHandler setHandler = SetHandlerCached(thisType, fi);
 
                 object fieldval;
                 try
@@ -1830,6 +1803,7 @@
         /// </summary>
         public virtual void Clear()
         {
+            System.Type thisType = this.GetType();
             FieldInfo[] fis = GetPrivateFields();
             foreach (FieldInfo fi in fis)
             {
@@ -1855,20 +1829,9 @@
                 {
                     try
                     {
-                        SetHandler fiSetValue;
-                        if (!cacheSetHandler.TryGetValue(fi, out fiSetValue))
-                        {
-                            lock (cacheSetHandler)
-                            {
-                                if (!cacheSetHandler.ContainsKey(fi))
-                                {
-                                    fiSetValue = DynamicMethodCompiler.CreateSetHandler(GetType(), fi);
-                                    cacheSetHandler.Add(fi, fiSetValue);
-                                }
-                            }
-                        }
+                        SetHandler setHandler = SetHandlerCached(thisType, fi);
 
-                        fiSetValue(this, null);
+                        setHandler.Invoke(this, null);
                     }
                     catch
                     {

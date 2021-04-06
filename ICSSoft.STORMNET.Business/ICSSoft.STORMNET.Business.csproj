@@ -138,8 +138,14 @@
     <Compile Include="CompositionRoot\IExportService\IExportParams.cs" />
     <Compile Include="CompositionRoot\IExportService\IHeaderCaption.cs" />
     <Compile Include="CompositionRoot\IODataExportService.cs" />
+    <Compile Include="CompositionRoot\IExportStringedObjectViewService.cs" />
     <Compile Include="ConfigResolver.cs" />
     <Compile Include="IConfigResolver.cs" />
+    <Compile Include="Interfaces\INotifyUpdatePropertyByType.cs" />
+    <Compile Include="Interfaces\INotifyUpdateProperty.cs" />
+    <Compile Include="Interfaces\INotifyUpdateObject.cs" />
+    <Compile Include="Interfaces\INotifyUpdateObjects.cs" />
+    <Compile Include="Notifiers\NotifierUpdateObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -212,6 +218,7 @@
     <Compile Include="LoadingCustomizationStruct.cs" />
     <Compile Include="MasterObjStruct.cs" />
     <Compile Include="ObjectStringDataView.cs" />
+    <Compile Include="Properties\InternalsVisibleTo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -220,6 +227,7 @@
     <Compile Include="RowNumberDef.cs" />
     <Compile Include="Audit\RemoteAuditController.cs" />
     <Compile Include="SortOrder.cs" />
+    <Compile Include="SQLDataService\DbTransactionWrapper.cs" />
     <Compile Include="SQLDataService\SQLDataService.cs">
       <SubType>Component</SubType>
     </Compile>

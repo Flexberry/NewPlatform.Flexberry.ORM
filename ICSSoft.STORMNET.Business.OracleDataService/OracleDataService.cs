@@ -38,12 +38,33 @@
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OracleDataService"/> class with specified converter.
+        /// </summary>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        public OracleDataService(IConverterToQueryValueString converterToQueryValueString)
+            : base(converterToQueryValueString)
+        {
+        }
+
+        /// <summary>
         /// Создание сервиса данных для Oracle с указанием настроек проверки полномочий.
         /// </summary>
         /// <param name="securityManager">Сенеджер полномочий.</param>
         /// <param name="auditService">Сервис аудита.</param>
         public OracleDataService(ISecurityManager securityManager, IAuditService auditService)
             : base(securityManager, auditService)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OracleDataService"/> class with specified security manager, audit service and converter.
+        /// </summary>
+        /// <param name="securityManager">The security manager instance.</param>
+        /// <param name="auditService">The audit service instance.</param>
+        /// <param name="converterToQueryValueString">The converter instance.</param>
+        /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
+        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+            : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
         {
         }
 
@@ -73,27 +94,27 @@
                 value.FunctionDef.StringedView == "DayPart")
             {
                 return string.Format("EXTRACT ({0} FROM {1})", value.FunctionDef.StringedView.Substring(0, value.FunctionDef.StringedView.Length - 4),
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (
                 value.FunctionDef.StringedView == "hhPart")
             {
                 return string.Format("TO_CHAR({1}, \'{0}\')", "HH24",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "miPart")
             {
                 return string.Format("TO_CHAR({1}, \'{0}\')", "MI",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 // здесь требуется преобразование из DATASERVICE
                 return string.Format("TO_CHAR({1}, \'{0}\')", "D",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
@@ -104,14 +125,14 @@
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
                 // здесь требуется преобразование из DATASERVICE
-                string.Format("to_char(last_day(to_date('01.'||{0}||'.'||{1},'dd.mm.yyyy')),'dd')", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
+                string.Format("to_char(last_day(to_date('01.'||{0}||'.'||{1},'dd.mm.yyyy')),'dd')", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this));
                 return string.Empty;
             }
 
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
                 return string.Format("TRUNC({0})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
@@ -119,47 +140,47 @@
                 return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
 
                 // у нее нет параметров
-                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
                 return string.Format("TRUNC({0})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "DATEDIFF")
             {
                 var ret = string.Empty;
-                if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Year")
+                if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Year")
                 {
                     ret = string.Format("EXTRACT (YEAR FROM {1}) - EXTRACT (YEAR FROM {0})",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Month")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Month")
                 {
                     ret = string.Format("(EXTRACT (YEAR FROM {1}) - EXTRACT (YEAR FROM {0})) * 12 + (EXTRACT (MONTH FROM {1}) - EXTRACT (MONTH FROM {0}))",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Week")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Week")
                 {
                     ret = string.Format("(TRUNC({1},'DAY') - TRUNC({0},'DAY'))/7",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Day")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Day")
                 {
                     ret = string.Format("TRUNC({1}) - TRUNC({0})",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "quarter")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "quarter")
                 {
                     ret = string.Format("(EXTRACT (YEAR FROM {1}) - EXTRACT (YEAR FROM {0})) * 4 + (TO_CHAR({1}, 'Q') - TO_CHAR({0}, 'Q'))",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
 
                 return ret;
@@ -190,7 +211,7 @@
 
                 // FunctionalLanguage.Function numFunc = (value.Parameters[1] as FunctionalLanguage.Function);
 
-                string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier);
+                string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier, this);
 
                 string res = string.Empty;
                 res = string.Format(
@@ -258,7 +279,7 @@
                 {
                     return string.Format(
                         "SUBSTR(TO_CHAR({0}), 1, {1})",
-                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
+                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1]);
                 }
 
@@ -266,7 +287,7 @@
                 {
                     return string.Format(
                         "SUBSTR(TO_CHAR({0}, {2}), 1, {1})",
-                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
+                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1],
                         DateFormats.GetOracleDateFormat((int)value.Parameters[2]));
                 }

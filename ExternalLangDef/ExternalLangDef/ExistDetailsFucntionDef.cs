@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ICSSoft.STORMNET.Business;
-using ICSSoft.STORMNET.FunctionalLanguage;
-using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-
-namespace ICSSoft.STORMNET.Windows.Forms
+﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
+    using System;
+    using System.Text;
+
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+
     public partial class ExternalLangDef
     {
-        private string GetConditionForExistDetails(Function func, delegateConvertValueToQueryValueString convertValue,
-                                                   delegatePutIdentifierToBrackets convertIdentifier)
+        private string GetConditionForExistDetails(
+            Function func,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            IDataService dataService)
         {
-            if (!(DataService is SQLDataService))
+            if (!(dataService is SQLDataService sqlDataService))
             {
                 throw new Exception(string.Format("Кострукция ограничения {0} поддерживает только SQL сервис данных.",
                                                   funcExistDetails));
@@ -49,9 +51,9 @@ namespace ICSSoft.STORMNET.Windows.Forms
                 throw new Exception(wrongParametersMessage);
             }
 
-            string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null);
+            string selectForDetail1 = GetSelectForDetailVariableDef(detail1, null, sqlDataService);
             selectForDetail1 = selectForDetail1.Replace("STORMMainObjectKey", "STORMMainObjectKey1");
-            string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null);
+            string selectForDetail2 = GetSelectForDetailVariableDef(detail2, null, sqlDataService);
             selectForDetail2 = selectForDetail2.Replace("STORMMainObjectKey", "STORMMainObjectKey2");
 
             // формируем условие для функции

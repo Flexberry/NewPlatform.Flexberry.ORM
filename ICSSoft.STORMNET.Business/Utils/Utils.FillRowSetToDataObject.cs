@@ -1,11 +1,12 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Linq;
+
     using ICSSoft.STORMNET.Security;
-    using STORMDO = ICSSoft.STORMNET;
-    using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
@@ -39,16 +40,20 @@
             // Заливаем данные в объект данных.
             int customizationStructViewPropertiesLength = customizationStruct.View.Properties.Length;
             int advColsLength = advCols.Length;
-            Information.SetPropValueByName(dobject, "__PrimaryKey", values[customizationStructViewPropertiesLength + advColsLength]);
+            Information.SetPropValueByName(dobject, nameof(DataObject.__PrimaryKey), values[customizationStructViewPropertiesLength + advColsLength]);
+
+            // Смирнов: Прочие свойства будут добавлены в методе ProcessPropertyValues.
+            // Необходимо для обработки ситуации, когда первичный ключ объекта не добавлен в представление.
+            dobject.AddLoadedProperties(nameof(DataObject.__PrimaryKey));
 
             // 1. создаем структуру мастеров(свойств-объектов данных).
-            System.Collections.SortedList assList = new System.Collections.SortedList();
+            SortedList assList = new SortedList();
             int index = customizationStructViewPropertiesLength + 1 + advColsLength;
             CreateMastersStruct(dobject, values, ref index, 0, storageStruct.sources, assList, typesByKeys, dataObjectCache);
             assList.Add(storageStruct.sources, new object[] { dobject, 0 });
 
             // 2. заливаем данные.
-            System.Collections.ArrayList properiesValues = new System.Collections.ArrayList();
+            ArrayList properiesValues = new ArrayList();
             StringCollection allAdvCols = new StringCollection();
 
             int masterPosition = index;
@@ -69,7 +74,11 @@
             for (int i = 0; i < customizationStructViewPropertiesLength; i++)
             {
                 StorageStructForView.PropStorage prop = storageStruct.props[i];
-                if (Information.IsStoredProperty(dobjectType, prop.Name) || prop.Expression != null)
+
+                // Information.IsStoredProperty for __PrimaryKey property always return true, but master may be NotStored then check it.
+                string propertyName = prop.Name.Replace("." + nameof(DataObject.__PrimaryKey), string.Empty);
+
+                if (Information.IsStoredProperty(dobjectType, propertyName) || prop.Expression != null)
                 {
                     if (prop.MastersTypes == null)
                     {
@@ -128,7 +137,8 @@
                             object tmp0 = tmp[0];
                             if (value != null)
                             {
-                                if (Information.GetPropValueByName((DataObject)tmp0, prop.simpleName) == null)
+                                var master = Information.GetPropValueByName((DataObject)tmp0, prop.simpleName);
+                                if (master == null)
                                 {
                                     DataObject no = dataObjectCache.CreateDataObject(prop.MastersTypes[tmp1][k], value);
                                     if (no.GetStatus(false) == ObjectStatus.Created)
@@ -144,7 +154,7 @@
                                 else
                                 {
                                     // changed by fat
-                                    properiesValues.Add(new[] { prop.simpleName, Information.GetPropValueByName((DataObject)tmp0, prop.simpleName), tmp0 });
+                                    properiesValues.Add(new[] { prop.simpleName, master, tmp0 });
                                 }
                             }
                             else
@@ -159,67 +169,100 @@
             }
 
             // 2.2 Записываем в объекты.
-            System.Collections.SortedList curObjProperiesValues = new System.Collections.SortedList();
             while (properiesValues.Count > 0)
             {
-                // a. Выбираем для текущего объекта все свойства.
-                object[] tmp = (object[])properiesValues[0];
-                DataObject curobj = (DataObject)tmp[2];
-                dobjectType = curobj.GetType();
-                curObjProperiesValues.Clear();
-
-                List<string> loadedPropsColl = curobj.GetLoadedPropertiesList();
-
-                for (int i = properiesValues.Count - 1; i >= 0; i--)
-                {
-                    tmp = (object[])properiesValues[i];
-                    if (tmp[2] == curobj)
-                    {
-                        object tmp0 = tmp[0];
-                        if (!curObjProperiesValues.ContainsKey(tmp0))
-                        {
-                            curObjProperiesValues.Add(tmp0, tmp[1]);
-                            if (!loadedPropsColl.Contains((string)tmp0))
-                            {
-                                loadedPropsColl.Add((string)tmp0);
-                            }
-                        }
-
-                        properiesValues.RemoveAt(i);
-                    }
-                }
-
-                // b. Раскидываем согласно LoadOrder;
-                string[] loadOrder = Information.GetLoadingOrder(dobjectType);
-                int loadOrderLength = loadOrder.Length;
-                for (int i = 0; i < loadOrderLength; i++)
-                {
-                    string propName = loadOrder[i];
-                    if (curObjProperiesValues.ContainsKey(propName))
-                    {
-                        Information.SetPropValueByName(curobj, propName, curObjProperiesValues[propName]);
-                        curObjProperiesValues.Remove(propName);
-                    }
-                }
-
-                int curObjPropertiesValuesCount = curObjProperiesValues.Count;
-                for (int i = 0; i < curObjPropertiesValuesCount; i++)
-                {
-                    Information.SetPropValueByName(curobj, (string)curObjProperiesValues.GetKey(i), curObjProperiesValues.GetByIndex(i));
-                }
-
-                if (loadedPropsColl.Count >= Information.GetAllPropertyNames(dobjectType).Length)
-                {
-                    curobj.SetLoadingState(LoadingState.Loaded);
-                }
-                else
-                {
-                    curobj.SetLoadingState(LoadingState.LightLoaded);
-                    curobj.AddLoadedProperties(loadedPropsColl);
-                }
-
-                curobj.SetStatus(ObjectStatus.UnAltered);
+                ProcessPropertyValues(properiesValues);
             }
+        }
+
+        internal static void ProcessPropertyValues(ArrayList properiesValues)
+        {
+            // a. Выбираем для текущего объекта все свойства.
+            object[] tmp = (object[])properiesValues[0];
+            DataObject curobj = (DataObject)tmp[2];
+            DataObject curobjCopy = curobj.GetDataCopy();
+            Type dobjectType = curobj.GetType();
+            SortedList curObjProperiesValues = new SortedList();
+
+            List<string> loadedPropsColl = curobj.GetLoadedPropertiesList();
+
+            for (int i = properiesValues.Count - 1; i >= 0; i--)
+            {
+                tmp = (object[])properiesValues[i];
+                if (tmp[2] == curobj)
+                {
+                    object tmp0 = tmp[0];
+                    if (!curObjProperiesValues.ContainsKey(tmp0))
+                    {
+                        curObjProperiesValues.Add(tmp0, tmp[1]);
+                        if (!loadedPropsColl.Contains((string)tmp0))
+                        {
+                            loadedPropsColl.Add((string)tmp0);
+                        }
+                    }
+
+                    properiesValues.RemoveAt(i);
+                }
+            }
+
+            // b. Раскидываем согласно LoadOrder;
+            string[] loadOrder = Information.GetLoadingOrder(dobjectType);
+            int loadOrderLength = loadOrder.Length;
+            for (int i = 0; i < loadOrderLength; i++)
+            {
+                string propName = loadOrder[i];
+                if (curObjProperiesValues.ContainsKey(propName))
+                {
+                    Information.SetPropValueByName(curobj, propName, curObjProperiesValues[propName]);
+                    curObjProperiesValues.Remove(propName);
+                }
+            }
+
+            int curObjPropertiesValuesCount = curObjProperiesValues.Count;
+            for (int i = 0; i < curObjPropertiesValuesCount; i++)
+            {
+                string propName = (string)curObjProperiesValues.GetKey(i);
+                object propValue = curObjProperiesValues.GetByIndex(i);
+                Information.SetPropValueByName(curobj, propName, propValue);
+
+                // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+                // Иначе свойство будет считаться измененным, т.к. в копии оно будет незаполнено.
+                if (curobjCopy != null)
+                {
+                    if (propValue is DataObject dobjProp)
+                    {
+                        // При заполнении копии данных необходимо помещать копию мастера в копию объекта.
+                        DataObject dobjPropCopy = dobjProp.GetDataCopy();
+                        Information.SetPropValueByName(curobjCopy, propName, dobjPropCopy);
+                    }
+                    else
+                    {
+                        Information.SetPropValueByName(curobjCopy, propName, propValue);
+                    }
+                }
+            }
+
+            // Проверим, что все свойства объекта данных содержатся в перечне загруженных свойств.
+            // Смирнов: для получения свойств объекта применяется метод, используемый в конструкторе `View(Type, ReadType)`.
+            string[] doProperties = Information.GetStorablePropertyNames(dobjectType);
+            if (loadedPropsColl.Count >= doProperties.Length
+                && doProperties.All(p => loadedPropsColl.Contains(p)))
+            {
+                curobj.SetLoadingState(LoadingState.Loaded);
+                curobjCopy?.SetLoadingState(LoadingState.Loaded);
+            }
+            else
+            {
+                curobj.SetLoadingState(LoadingState.LightLoaded);
+            }
+
+            // Смирнов: чтобы не сломать существующий код, загруженные свойства добавим в любом случае.
+            curobj.AddLoadedProperties(loadedPropsColl);
+
+            // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.
+            curobjCopy?.AddLoadedProperties(loadedPropsColl);
+
+            curobj.SetStatus(ObjectStatus.UnAltered);
         }
     }
 }

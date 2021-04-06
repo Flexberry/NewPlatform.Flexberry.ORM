@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSSoft.STORMNET.Business", "ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj", "{70245187-E302-4FA1-9725-0553C3B68BE5}"
 EndProject
@@ -62,7 +62,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source", "{B05C8E70-96B4-4227-A1D2-3A4565913340}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		.travis.yml = .travis.yml
+		.github\workflows\build.yml = .github\workflows\build.yml
 		CHANGELOG.md = CHANGELOG.md
 		ConfigTuner.ps1 = ConfigTuner.ps1
 		Flexberry.ruleset = Flexberry.ruleset

@@ -5,18 +5,16 @@
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// This is a test class for LinqToLcsTest and is intended
     /// to contain all LinqToLcsTest Unit Tests
     /// </summary>
-    
     public class LinqToLcsDetailsTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
-        private MSSQLDataService ds = (MSSQLDataService)DataServiceProvider.DataService;
 
         /// <summary>
         /// Все объекты с детейлами
@@ -130,20 +128,20 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var dvd = new DetailVariableDef
-                          {
-                              ConnectMasterPorp = "Кошка",
-                              OwnerConnectProp = new[] { "Кошка" },
-                              View = Information.GetView("ЛапаE", typeof(Лапа)),
-                              Type = this.ldef.GetObjectType("Details")
-                          };
+            {
+                ConnectMasterPorp = "Кошка",
+                OwnerConnectProp = new[] { "Кошка" },
+                View = Information.GetView("ЛапаE", typeof(Лапа)),
+                Type = this.ldef.GetObjectType("Details")
+            };
 
             var lf = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "ТипЛапы.Название"), "передняя");
 
             var expected = new LoadingCustomizationStruct(null)
-                               {
-                                   LimitFunction =
+            {
+                LimitFunction =
                                        this.ldef.GetFunction("Exist", dvd, lf)
-                               };
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Котенок)), new[] { Utils.GetDefaultView(typeof(Кошка)) });

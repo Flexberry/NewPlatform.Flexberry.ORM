@@ -36,12 +36,28 @@ namespace NewPlatform.Flexberry.ORM.Tests
     {
         
         private string fНазвание;
-        
+
         // *** Start programmer edit section *** (Страна CustomMembers)
+
+        /// <summary>
+        /// Вычислимый мастер без DataServiceExpression.
+        /// </summary>
+        [PropertyStorage(new string[] {"Президент"})]
+        [NotStored]
+        public virtual Личность Президент
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+            }
+        }
 
         // *** End programmer edit section *** (Страна CustomMembers)
 
-        
+
         /// <summary>
         /// Название.
         /// </summary>

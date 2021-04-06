@@ -12,6 +12,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Xml;
+    using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET;
     
     
@@ -26,6 +27,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     // *** Start programmer edit section *** (Медведь CustomAttributes)
 
     // *** End programmer edit section *** (Медведь CustomAttributes)
+    [BusinessServer("NewPlatform.Flexberry.ORM.Tests.МедведьБС, Flexberry.ORM.Tests.BusinessServers", ICSSoft.STORMNET.Business.DataServiceObjectEvents.OnAllEvents)]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("LoadTestView", new string[] {
@@ -94,9 +96,11 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Медведь fМама;
         
+        private NewPlatform.Flexberry.ORM.Tests.Лес fЛесОбитания;
+        
         private NewPlatform.Flexberry.ORM.Tests.Медведь fПапа;
         
-        private NewPlatform.Flexberry.ORM.Tests.Лес fЛесОбитания;
+        private NewPlatform.Flexberry.ORM.Tests.Медведь fДруг;
         
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfБерлога fБерлога;
         
@@ -347,6 +351,39 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <summary>
         /// Медведь.
         /// </summary>
+        // *** Start programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
+
+        // *** End programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
+        [PropertyStorage(new string[] {
+                "ЛесОбитания"})]
+        public virtual NewPlatform.Flexberry.ORM.Tests.Лес ЛесОбитания
+        {
+            get
+            {
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get start)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Get start)
+                NewPlatform.Flexberry.ORM.Tests.Лес result = this.fЛесОбитания;
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get end)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set start)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Set start)
+                this.fЛесОбитания = value;
+                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set end)
+
+                // *** End programmer edit section *** (Медведь.ЛесОбитания Set end)
+            }
+        }
+        
+        /// <summary>
+        /// Медведь.
+        /// </summary>
         // *** Start programmer edit section *** (Медведь.Папа CustomAttributes)
 
         // *** End programmer edit section *** (Медведь.Папа CustomAttributes)
@@ -380,33 +417,31 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <summary>
         /// Медведь.
         /// </summary>
-        // *** Start programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
+        // *** Start programmer edit section *** (Медведь.Друг CustomAttributes)
 
-        // *** End programmer edit section *** (Медведь.ЛесОбитания CustomAttributes)
-        [PropertyStorage(new string[] {
-                "ЛесОбитания"})]
-        public virtual NewPlatform.Flexberry.ORM.Tests.Лес ЛесОбитания
+        // *** End programmer edit section *** (Медведь.Друг CustomAttributes)
+        public virtual NewPlatform.Flexberry.ORM.Tests.Медведь Друг
         {
             get
             {
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get start)
+                // *** Start programmer edit section *** (Медведь.Друг Get start)
 
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Get start)
-                NewPlatform.Flexberry.ORM.Tests.Лес result = this.fЛесОбитания;
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Get end)
+                // *** End programmer edit section *** (Медведь.Друг Get start)
+                NewPlatform.Flexberry.ORM.Tests.Медведь result = this.fДруг;
+                // *** Start programmer edit section *** (Медведь.Друг Get end)
 
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Get end)
+                // *** End programmer edit section *** (Медведь.Друг Get end)
                 return result;
             }
             set
             {
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set start)
+                // *** Start programmer edit section *** (Медведь.Друг Set start)
 
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Set start)
-                this.fЛесОбитания = value;
-                // *** Start programmer edit section *** (Медведь.ЛесОбитания Set end)
+                // *** End programmer edit section *** (Медведь.Друг Set start)
+                this.fДруг = value;
+                // *** Start programmer edit section *** (Медведь.Друг Set end)
 
-                // *** End programmer edit section *** (Медведь.ЛесОбитания Set end)
+                // *** End programmer edit section *** (Медведь.Друг Set end)
             }
         }
         
