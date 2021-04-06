@@ -2,7 +2,7 @@
 
 namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
-#if NETCORE
+#if NETCOREAPP
     using System.Configuration;
     using System.IO;
     using System.Reflection;
@@ -23,7 +23,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         public XUnitTestRunnerInitializer(IMessageSink messageSink)
             : base(messageSink)
         {
-#if NETCORE
+#if NETCOREAPP
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string configFile = $"{Assembly.GetExecutingAssembly().Location}.config";
             string outputConfigFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;

@@ -1,6 +1,6 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
 {
-#if !NETCORE
+#if !NETCOREAPP
     using System;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
@@ -19,7 +19,7 @@
         private STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef _ldef =
             STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
 
-#if !NETCORE
+#if !NETCOREAPP
         [Fact]
         public void LcsSerializationTest()
         {
