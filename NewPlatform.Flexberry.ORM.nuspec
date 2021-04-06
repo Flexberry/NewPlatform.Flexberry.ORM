@@ -109,7 +109,5 @@
 
     <file src="config.install.xdt" target="content\app.config.install.xdt" />
     <file src="config.install.xdt" target="content\web.config.install.xdt" />
-    <file src="config.uninstall.xdt" target="content\app.config.uninstall.xdt" />
-    <file src="config.uninstall.xdt" target="content\web.config.uninstall.xdt" />
   </files>
 </package>
