@@ -1,8 +1,8 @@
 ﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Совместимость типов
@@ -30,7 +30,7 @@
     /// </summary>
     public static class CompatibilityTypeTest
     {
-        private static readonly ConcurrentDictionary<long, TypesCompatibilities> CacheCheck = new ConcurrentDictionary<long, TypesCompatibilities>();
+        private static readonly Dictionary<long, TypesCompatibilities> CacheCheck = new Dictionary<long, TypesCompatibilities>();
 
         private static readonly object LockConst = new object();
 
@@ -61,12 +61,7 @@
 
             ThisIsKnownType(systemtype);
 
-            if (!_canConvertTo.ContainsKey(systemtype.FullName))
-            {
-                _canConvertTo.Add(systemtype.FullName, new List<string>());
-            }
-
-            List<string> sl = _canConvertTo[systemtype.FullName];
+            List<string> sl = GetConvertToList(systemtype);
 
             for (int i = 0; i < to.Length; i++)
             {
@@ -80,12 +75,8 @@
             for (int i = 0; i < from.Length; i++)
             {
                 ThisIsKnownType(from[i]);
-                if (!_canConvertTo.ContainsKey(from[i].FullName))
-                {
-                    _canConvertTo.Add(from[i].FullName, new List<string>());
-                }
 
-                sl = _canConvertTo[from[i].FullName];
+                sl = GetConvertToList(from[i]);
 
                 if (!sl.Contains(systemtype.FullName))
                 {
@@ -107,18 +98,38 @@
                 {
                     Type f = mi.GetParameters()[0].ParameterType;
                     Type t = mi.ReturnType;
-                    if (!_canConvertTo.ContainsKey(f.FullName))
-                    {
-                        _canConvertTo.Add(f.FullName, new List<string>());
-                    }
-
-                    List<string> sl = _canConvertTo[f.FullName];
+                    List<string> sl = GetConvertToList(f);
                     if (!sl.Contains(t.FullName))
                     {
                         sl.Add(t.FullName);
                     }
                 }
             }
+        }
+
+        private static List<string> GetConvertToList(Type from)
+        {
+            if (from == null)
+            {
+                throw new ArgumentNullException(nameof(from));
+            }
+
+            return GetConvertToList(from.FullName);
+        }
+
+        private static List<string> GetConvertToList(string from)
+        {
+            if (from == null)
+            {
+                throw new ArgumentNullException(nameof(from));
+            }
+
+            if (!_canConvertTo.ContainsKey(from))
+            {
+                _canConvertTo.Add(from, new List<string>());
+            }
+
+            return _canConvertTo[from];
         }
 
         /// <summary>
@@ -131,28 +142,29 @@
         {
             stack ??= new List<string>();
 
-            bool res = false;
-
-            if (_canConvertTo.ContainsKey(from))
+            var toList = GetConvertToList(from);
+            if (!toList.Any())
             {
-                List<string> sl = _canConvertTo[from];
-                if (sl.Contains(to))
+                return false;
+            }
+
+            bool res = false;
+            if (toList.Contains(to))
+            {
+                res = true;
+            }
+            else
+            {
+                foreach (string k in toList)
                 {
-                    res = true;
-                }
-                else
-                {
-                    foreach (string k in sl)
+                    if (!stack.Contains(k))
                     {
-                        if (!stack.Contains(k))
+                        stack.Add(k);
+                        res = FoundTransform(k, to, stack);
+                        stack.RemoveAt(stack.Count - 1);
+                        if (res)
                         {
-                            stack.Add(k);
-                            res = FoundTransform(k, to, stack);
-                            stack.RemoveAt(stack.Count - 1);
-                            if (res)
-                            {
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
@@ -181,7 +193,18 @@
 
             long key = (((long)from.GetHashCode()) << 32) + to.GetHashCode();
 
-            return CacheCheck.GetOrAdd(key, k => CheckInternal(from, to));
+            lock (LockConst)
+            {
+                if (CacheCheck.ContainsKey(key))
+                {
+                    return CacheCheck[key];
+                }
+
+                var res = CheckInternal(from, to);
+                CacheCheck[key] = res;
+
+                return res;
+            }
         }
 
         internal static TypesCompatibilities CheckInternal(Type from, Type to)
@@ -231,10 +254,10 @@
                 AddType(to);
             }
 
-            if (_canConvertTo.ContainsKey(from.FullName))
+            var toList = GetConvertToList(from);
+            if (toList.Any())
             {
-                List<string> sl = _canConvertTo[from.FullName];
-                if (sl.Contains(to.FullName))
+                if (toList.Contains(to.FullName))
                 {
                     return TypesCompatibilities.Convertable;
                 }

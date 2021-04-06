@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release</Configurations>
-    <LangVersion>8</LangVersion>
+    <LangVersion>latest</LangVersion>
     <RootNamespace>ICSSoft.STORMNET.Business</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Business</AssemblyName>
     <SignAssembly>true</SignAssembly>
@@ -13,14 +13,6 @@
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.1</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

@@ -31,12 +31,15 @@
             Output = output;
         }
 
+        /// <summary>
+        /// Конкурентный тест сравнения функций.
+        /// </summary>
         [Fact]
-        public void GetFunctionDefConcurrentTest()
+        public void GetFunctionConcurrentTest()
         {
             // Arrange.
             const int length = 100;
-            var multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
+            var multiThreadingTestTool = new MultiThreadingTestTool(GetFunctionMultiThreadMethod);
             multiThreadingTestTool.StartThreads(length);
 
             // Assert.
@@ -53,7 +56,7 @@
             }
         }
 
-        private static void MultiThreadMethod(object sender)
+        private static void GetFunctionMultiThreadMethod(object sender)
         {
             var parametersDictionary = sender as Dictionary<string, object>;
             ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
@@ -62,8 +65,8 @@
             {
                 // Assert.
                 Assert.Equal(
-                    LangDef.GetFunction(LangDef.funcIsNull, IntGenVarDef),
-                    FunctionBuilder.BuildIsNull<TestDataObject>(x => x.Height));
+                    LangDef.GetFunction(LangDef.funcEQ, IntGenVarDef, 152),
+                    FunctionBuilder.BuildEquals<TestDataObject>(x => x.Height, 152));
             }
             catch (Exception exception)
             {
