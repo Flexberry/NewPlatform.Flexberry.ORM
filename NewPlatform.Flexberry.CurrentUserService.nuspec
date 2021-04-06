@@ -22,7 +22,7 @@
    </dependencies>
   </metadata>
   <files>
-    <file src="CurrentUserService\bin\Debug-Net45\ICSSoft.Services.CurrentUserService.dll" target="lib\net45\ICSSoft.Services.CurrentUserService.dll" />
-    <file src="CurrentUserService\bin\Debug-Net45\ICSSoft.Services.CurrentUserService.xml" target="lib\net45\ICSSoft.Services.CurrentUserService.xml" />
+    <file src="CurrentUserService\bin\Release-Net45\ICSSoft.Services.CurrentUserService.dll" target="lib\net45\ICSSoft.Services.CurrentUserService.dll" />
+    <file src="CurrentUserService\bin\Release-Net45\ICSSoft.Services.CurrentUserService.xml" target="lib\net45\ICSSoft.Services.CurrentUserService.xml" />
   </files>
 </package>
