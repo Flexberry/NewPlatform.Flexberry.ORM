@@ -5,6 +5,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
+## [6.0.0] - 2021-04-21
+
+### Added
 - .NET Standard 2.0 implementation
 
 ### Changed
@@ -14,8 +29,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `DataServiceProvider.IsWebApp` now always return `false`.
 - `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
 - `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
-
-### Deprecated
 
 ### Removed
 - `Information.GetPropertyDataFormat` method.
@@ -28,9 +41,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - `ControlProviderAttribute(string)` constructor ignores type loading error.
 - Multiple concurrency fixes.
-
-### Security
-
 
 ## [5.1.0] - 2021-04-06
 
