@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the develop-v5.2 branch
   push:
-    branches: [ develop ]
+    branches: [ develop-v6.0 ]
   pull_request:
-    branches: [ develop ]
+    branches: [ develop-v6.0 ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -54,9 +54,22 @@ jobs:
       - name: Compile code
         run:  msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln" 
 
+      - name: Test under dotnet
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test under dotnet
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
       - name: Test under mono
-        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/NewPlatform.Flexberry.ORM.Tests.dll
+        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Integration test under mono
-        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Update documentation
+        run: |
+          [ $GITHUB_EVENT_NAME == 'push' ] && 
+          ( [ $GITHUB_REF == "refs/heads/master" ] || [ $GITHUB_REF == "refs/heads/develop" ] ) &&
+          bash Doxygen/update-autodoc.sh
+          exit 0
         

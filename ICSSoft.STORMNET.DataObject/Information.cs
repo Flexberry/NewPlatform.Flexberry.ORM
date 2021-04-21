@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -22,7 +22,7 @@
     /// <summary>
     /// Доступ к метаданным
     /// </summary>
-    public sealed class Information
+    public static class Information
     {
         #region Информация о генераторе первичных ключей
 
@@ -56,17 +56,13 @@
         }
 
         #endregion
-        #region Конструкторы классов
-        private Information()
-        {
-        }
-        #endregion
+
         #region Доступ к свойствам класса
 
         /// <summary>
         /// кэш для делегатов получения значения свойств из объектов
         /// </summary>
-        private static Dictionary<long, GetHandler> cacheGetPropValueByNameHandler = new Dictionary<long, GetHandler>();
+        private static ConcurrentDictionary<long, GetHandler> cacheGetPropValueByName = new ConcurrentDictionary<long, GetHandler>();
 
         /// <summary>
         /// Получить значение свойства объекта данных по имени этого свойства
@@ -102,21 +98,11 @@
             else if (pi != null) // надо проверить что такое свойство есть
             {
                 long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-                if (!cacheGetPropValueByNameHandler.ContainsKey(key))
-                {
-                    lock (cacheGetPropValueByNameHandler)
-                    {
-                        if (!cacheGetPropValueByNameHandler.ContainsKey(key))
-                        {
-                            GetHandler getHandler = DynamicMethodCompiler.CreateGetHandler(tp, pi);
-                            cacheGetPropValueByNameHandler.Add(key, getHandler);
-                        }
-                    }
-                }
+                GetHandler getHandler = cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(tp, pi));
 
                 try
                 {
-                    value = cacheGetPropValueByNameHandler[key](obj);
+                    value = getHandler(obj);
                 }
                 catch (InvalidProgramException)
                 {
@@ -265,25 +251,18 @@
                     }
 
                     long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-
-                    if (!cacheSetPropValueByName.ContainsKey(key))
-                    {
-                        lock (cacheSetPropValueByName)
+                    SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(
+                        key,
+                        k =>
                         {
-                            if (!cacheSetPropValueByName.ContainsKey(key))
+                            SetHandler sh = null;
+                            if (pi != null && pi.CanWrite)
                             {
-                                SetHandler sh = null;
-                                if (pi != null && pi.CanWrite)
-                                {
-                                    sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
-                                }
-
-                                cacheSetPropValueByName.Add(key, sh);
+                                sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
                             }
-                        }
-                    }
 
-                    SetHandler setHandler = cacheSetPropValueByName[key];
+                            return sh;
+                        });
 
                     if (propType == typeof(string))
                     {
@@ -328,6 +307,7 @@
                                             setHandler(obj, dtVal1);
                                             return;
                                         }
+
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -424,7 +404,7 @@
             }
         }
 
-        private static Dictionary<long, SetHandler> cacheSetPropValueByName = new Dictionary<long, SetHandler>();
+        private static ConcurrentDictionary<long, SetHandler> cacheSetPropValueByName = new ConcurrentDictionary<long, SetHandler>();
 
         /// <summary>
         /// Установить значение свойства объекта данных по имени этого свойства,
@@ -485,20 +465,7 @@
                                 }
 
                                 long key = objType.GetHashCode() * 10000000000 + propName.GetHashCode();
-
-                                if (!cacheSetPropValueByName.ContainsKey(key))
-                                {
-                                    lock (cacheSetPropValueByName)
-                                    {
-                                        if (!cacheSetPropValueByName.ContainsKey(key))
-                                        {
-                                            SetHandler sh = DynamicMethodCompiler.CreateSetHandler(objType, propInfo);
-                                            cacheSetPropValueByName.Add(key, sh);
-                                        }
-                                    }
-                                }
-
-                                SetHandler setHandler = cacheSetPropValueByName[key];
+                                SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(objType, propInfo));
                                 if (propType.IsEnum && PropValue == null)
                                 {
                                     try
@@ -597,13 +564,15 @@
         }
 
         #endregion
+
         #region Работа с представлениями
+
         #region "View GetView(string ViewName,System.Type type)"
 
         /// <summary>
         /// кэш для функции GetView
         /// </summary>
-        private static Dictionary<long, View> cacheGetView = new Dictionary<long, View>();
+        private static ConcurrentDictionary<long, View> cacheGetView = new ConcurrentDictionary<long, View>();
 
         /// <summary>
         /// Делегат для настройки статических представлений.
@@ -611,64 +580,37 @@
         public static TuneStaticViewDelegate TuneStaticViewDelegate = null;
 
         /// <summary>
-        /// Получить представление по его имени и классу объекта данных.
+        /// Получить представление по его имени и классу объекта данных из кэша.
         /// </summary>
+        /// <param name="viewName">Имя статического представления.</param>
+        /// <param name="type">Тип данных.</param>
         /// <returns>Запрашиваемое представление, возможно из кеша.</returns>
         public static View GetView(string viewName, Type type)
         {
             if (string.IsNullOrEmpty(viewName))
             {
-                throw new ArgumentNullException("ViewName", "Не указано имя представления. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(viewName), "Не указано имя представления. Обратитесь к разработчику.");
             }
 
             if (type == null)
             {
-                throw new ArgumentNullException("type", "Не указан тип объекта. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(type), "Не указан тип объекта. Обратитесь к разработчику.");
             }
 
             long key = (((long)type.GetHashCode()) << 32) + viewName.GetHashCode();
+            var view = cacheGetView.GetOrAdd(key, k => GetViewInternal(viewName, type));
+            if (view == null)
             {
-                View view;
-                if (cacheGetView.TryGetValue(key, out view))
-                {
-                    View retView = view.Clone();
-                    if (TuneStaticViewDelegate != null)
-                    {
-                        retView = TuneStaticViewDelegate(viewName, type, retView);
-                    }
-
-                    return retView;
-                }
+                return null;
             }
 
-            var classAttributes = type.GetCustomAttributes(typeof(ViewAttribute), false);
-            for (int i = 0; i < classAttributes.Length; i++)
+            View retView = view.Clone();
+            if (TuneStaticViewDelegate != null)
             {
-                string sViewName = ((ViewAttribute)classAttributes[i]).Name;
-                if (sViewName == viewName)
-                {
-                    var view = new View((ViewAttribute)classAttributes[i], type);
-                    lock (cacheGetView)
-                    {
-                        if (!cacheGetView.ContainsKey(key))
-                        {
-                            cacheGetView.Add(key, view);
-                        }
-                    }
-
-                    View retView = view.Clone();
-                    if (TuneStaticViewDelegate != null)
-                    {
-                        retView = TuneStaticViewDelegate(viewName, type, retView);
-                    }
-
-                    return retView;
-                }
+                retView = TuneStaticViewDelegate(viewName, type, retView);
             }
 
-            return type.BaseType == null
-                       ? null
-                       : GetView(viewName, type.BaseType);
+            return retView;
         }
 
         /// <summary>
@@ -720,9 +662,33 @@
             }
         }
 
+        /// <summary>
+        /// Получить статическое представление по его имени и классу объекта данных.
+        /// </summary>
+        /// <param name="viewName">Имя статического представления.</param>
+        /// <param name="type">Тип данных.</param>
+        /// <returns>Представление.</returns>
+        internal static View GetViewInternal(string viewName, Type type)
+        {
+            var classAttributes = type.GetCustomAttributes<ViewAttribute>(false);
+            foreach (var attr in classAttributes)
+            {
+                string sViewName = attr.Name;
+                if (sViewName == viewName)
+                {
+                    return new View(attr, type);
+                }
+            }
+
+            return type.BaseType == null
+                ? null
+                : GetView(viewName, type.BaseType);
+        }
+
         #endregion
 
         #region "string[] AllViews(System.Type type)"
+
         static private TypeAtrValueCollection cacheAllViews = new TypeAtrValueCollection();
 
         /// <summary>
@@ -763,6 +729,7 @@
         }
 
         #endregion
+
         #region "string[] AllViews(params System.Type[] types)"
 
         /// <summary>
@@ -802,7 +769,9 @@
                 }
             }
         }
+
         #endregion
+
         #region "bool CheckViewForClasses(string ViewName,params System.Type[] types)"
 
         /// <summary>
@@ -840,6 +809,7 @@
 
             return true;
         }
+
         #endregion
 
         /// <summary>
@@ -913,6 +883,7 @@
         }
 
         #endregion
+
         #region Информация о свойствах
 
         static private TypeAtrValueCollection cacheGetTypeStorageName = new TypeAtrValueCollection();
@@ -1097,11 +1068,10 @@
                                     if (pars.Length == 1)
                                     {
                                         err += cci.ToString() + " " + Environment.NewLine +
-                                            pars[0].ParameterType.AssemblyQualifiedName + Environment.NewLine +
-                                            AgregatorType.AssemblyQualifiedName + Environment.NewLine +
-                                            (pars[0].ParameterType == AgregatorType).ToString() +
-
-                                            ";";
+                                           pars[0].ParameterType.AssemblyQualifiedName + Environment.NewLine +
+                                           AgregatorType.AssemblyQualifiedName + Environment.NewLine +
+                                           (pars[0].ParameterType == AgregatorType).ToString() +
+                                           ";";
                                         if ((pars[0].ParameterType == AgregatorType) || AgregatorType.IsSubclassOf(pars[0].ParameterType))
                                         {
                                             ci = cci;
@@ -3129,7 +3099,7 @@
             }
         }
 
-        static private Dictionary<string, bool> cacheIsStoredProp = new Dictionary<string, bool>();
+        static private ConcurrentDictionary<string, bool> cacheIsStoredProp = new ConcurrentDictionary<string, bool>();
 
         /// <summary>
         /// Хранимое ли свойство
@@ -3141,51 +3111,41 @@
         {
             string key = type.FullName + "." + propName;
 
-            if (cacheIsStoredProp.ContainsKey(key))
+            return cacheIsStoredProp.GetOrAdd(key, k => IsStoredPropertyInternal(type, propName));
+        }
+
+        private static bool IsStoredPropertyInternal(Type type, string propName)
+        {
+            bool bres;
+
+            int pointIndex = propName.IndexOf(".", StringComparison.InvariantCultureIgnoreCase);
+            if (pointIndex >= 0)
             {
-                return cacheIsStoredProp[key];
+                string masterName = propName.Substring(0, pointIndex);
+                string masterPropName = propName.Substring(pointIndex + 1);
+                bres = IsStoredPropertyInternal(GetPropertyType(type, masterName), masterPropName);
             }
-
-            lock (cacheIsStoredProp)
-
+            else
             {
-                if (cacheIsStoredProp.ContainsKey(key))
+                PropertyInfo prop = type.GetProperty(propName);
+                if (prop == null)
                 {
-                    return cacheIsStoredProp[key];
+                    throw new NoSuchPropertyException(type, propName);
                 }
 
-                bool bres;
-
-                int pointIndex = propName.IndexOf(".");
-                if (pointIndex >= 0)
+                var myAttributes = prop.GetCustomAttributes(typeof(NotStoredAttribute), true);
+                if (myAttributes.Length > 0)
                 {
-                    string masterName = propName.Substring(0, pointIndex);
-                    string masterPropName = propName.Substring(pointIndex + 1);
-                    bres = IsStoredProperty(GetPropertyType(type, masterName), masterPropName);
+                    var notStored = (NotStoredAttribute)myAttributes[0];
+                    bres = !notStored.Value;
                 }
                 else
                 {
-                    PropertyInfo prop = type.GetProperty(propName);
-                    if (prop == null)
-                    {
-                        throw new NoSuchPropertyException(type, propName);
-                    }
-
-                    var myAttributes = prop.GetCustomAttributes(typeof(NotStoredAttribute), true);
-                    if (myAttributes.Length > 0)
-                    {
-                        var notStored = (NotStoredAttribute)myAttributes[0];
-                        bres = !notStored.Value;
-                    }
-                    else
-                    {
-                        bres = true;
-                    }
+                    bres = true;
                 }
-
-                cacheIsStoredProp.Add(key, bres);
-                return bres;
             }
+
+            return bres;
         }
 
         static private TypeAtrValueCollection cacheIsStoredType = new TypeAtrValueCollection();
@@ -3487,7 +3447,11 @@
                         object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
                         foreach (DataServiceExpressionAttribute atr in myAttributes)
                         {
-                            res.Add(atr.TypeofDataService, atr.Expression);
+                            var key = atr.TypeofDataService;
+                            if (key != null)
+                            {
+                                res.Add(key, atr.Expression);
+                            }
                         }
 
                         cacheGetExpressionForProperty[type, propName] = res;
@@ -4168,45 +4132,6 @@
             }
 
             return result;
-        }
-
-        static private TypePropertyAtrValueCollection cacheGetPropertyDataFormat = new TypePropertyAtrValueCollection();
-
-        /// <summary>
-        /// Получить формат представления данных в свойстве
-        /// </summary>
-        /// <param name="type">Тип объекта</param>
-        /// <param name="property">Свойство, для которого ищется формат</param>
-        /// <returns>Формат данных</returns>
-        static public string GetPropertyDataFormat(Type type, string property)
-        {
-            lock (cacheGetPropertyDataFormat)
-            {
-                string res;
-                var pointIndex = property.IndexOf(".");
-                if (pointIndex >= 0)
-                {
-                    string masterName = property.Substring(0, pointIndex);
-                    string masterPropName = property.Substring(pointIndex + 1);
-                    res = GetPropertyDataFormat(GetPropertyType(type, masterName), masterPropName);
-                }
-                else
-                {
-                    var pi = type.GetProperty(property);
-                    if (pi == null)
-                    {
-                        throw new CantFindPropertyException(property, type);
-                    }
-
-                    var typeAttributes = pi.GetCustomAttributes(typeof(DisplayFormatAttribute), true);
-
-                    res = typeAttributes.Length == 0
-                              ? string.Empty
-                              : ((DisplayFormatAttribute)typeAttributes[0]).DataFormatString;
-                }
-
-                return res;
-            }
         }
 
         # region PropertySupport
