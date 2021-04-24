@@ -1186,7 +1186,7 @@
         /// <summary>
         /// Тест для проверки записи иерархической сущности. Проверяем, что нет лишних Update-запросов в БД.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Fix https://github.com/Flexberry/NewPlatform.Flexberry.ORM/pull/168 another way.")]
         public void InsertHierarchyTest()
         {
             foreach (IDataService dataService in DataServices)
