@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet Package Properties", 
 	ProjectSection(SolutionItems) = preProject
 		config.install.xdt = config.install.xdt
 		config.uninstall.xdt = config.uninstall.xdt
+		NewPlatform.Flexberry.ORM.LINQProvider.nuspec = NewPlatform.Flexberry.ORM.LINQProvider.nuspec
 		NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec = NewPlatform.Flexberry.ORM.MSSQLDataService.nuspec
 		NewPlatform.Flexberry.ORM.nuspec = NewPlatform.Flexberry.ORM.nuspec
 		NewPlatform.Flexberry.ORM.OracleDataService.nuspec = NewPlatform.Flexberry.ORM.OracleDataService.nuspec
