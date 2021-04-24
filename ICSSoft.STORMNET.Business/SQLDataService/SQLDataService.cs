@@ -5154,13 +5154,10 @@
                 }
             }
 
-            if (processingObjects.Count > 1)
+            foreach (DataObject processingObject in processingObjects)
             {
-                foreach (DataObject processingObject in processingObjects)
-                {
-                    // Включем текущий объект в граф зависимостей.
-                    GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
-                }
+                // Включем текущий объект в граф зависимостей.
+                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
             }
 
             // Поиск и разрешение циклов в зависимостях.
