@@ -1,9 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test =
-[
-    [ "GetLcsTestBooleanFalseFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html#abea85af1b75ebef94b99a55b32a5b7f3", null ],
-    [ "GetLcsTestBooleanNotFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html#a75fb9c8ad5b7beb220219d458f966f3e", null ],
-    [ "GetLcsTestBooleanNotVariableDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html#a880983d8c93b663cc21d2e776e468c91", null ],
-    [ "GetLcsTestBooleanTrueFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html#a82d8eeafe59e4749a4666d560e6a695b", null ],
-    [ "GetLcsTestBooleanVariableDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html#a5d19726873951a74509b0442b0298b4d", null ],
-    [ "GetLcsTestBooleanVariableDefExplicitComparison", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_boolean_test.html#a58b61ad080d6f6f39f5bffc34a4117a6", null ]
-];

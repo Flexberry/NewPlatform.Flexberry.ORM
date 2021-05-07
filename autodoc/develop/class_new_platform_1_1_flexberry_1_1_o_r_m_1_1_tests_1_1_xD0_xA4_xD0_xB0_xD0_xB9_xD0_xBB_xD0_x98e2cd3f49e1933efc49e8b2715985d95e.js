@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA4_xD0_xB0_xD0_xB9_xD0_xBB_xD0_x98e2cd3f49e1933efc49e8b2715985d95e =
-[
-    [ "ФайлE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA4_xD0_xB0_xD0_xB9_xD0_xBB_xD0_x98e2cd3f49e1933efc49e8b2715985d95e.html#a13864f876020ef3d9e2b76bf598e67a0", null ]
-];

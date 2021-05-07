@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x85_xD0_xBE_xD0_xB4a9177b17a78264ee055fe3da03955899 =
-[
-    [ "ИсходящийЗапросView", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x85_xD0_xBE_xD0_xB4a9177b17a78264ee055fe3da03955899.html#af5849f03fa1fa2a9b1fa177e77fe6cbc", null ]
-];

@@ -1,4 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_not_sortable_detail_array_exception =
-[
-    [ "NotSortableDetailArrayException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_not_sortable_detail_array_exception.html#aa25d97299aeab17ec500b2489be458b4", null ]
-];

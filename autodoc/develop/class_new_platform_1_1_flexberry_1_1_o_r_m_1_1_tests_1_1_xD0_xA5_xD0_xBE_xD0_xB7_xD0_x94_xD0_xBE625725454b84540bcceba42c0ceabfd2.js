@@ -1,5 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA5_xD0_xBE_xD0_xB7_xD0_x94_xD0_xBE625725454b84540bcceba42c0ceabfd2 =
-[
-    [ "ХозДоговорE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA5_xD0_xBE_xD0_xB7_xD0_x94_xD0_xBE625725454b84540bcceba42c0ceabfd2.html#af619fe137d23b13c9147b5ef0f0dcbce", null ],
-    [ "ХозДоговорL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA5_xD0_xBE_xD0_xB7_xD0_x94_xD0_xBE625725454b84540bcceba42c0ceabfd2.html#a5df6976cb4c4a1f26ac5993d081fe18e", null ]
-];

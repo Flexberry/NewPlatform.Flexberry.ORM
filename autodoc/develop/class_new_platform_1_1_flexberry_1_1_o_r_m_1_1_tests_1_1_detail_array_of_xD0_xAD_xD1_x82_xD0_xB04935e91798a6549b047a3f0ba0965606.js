@@ -1,6 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_xAD_xD1_x82_xD0_xB04935e91798a6549b047a3f0ba0965606 =
-[
-    [ "DetailArrayOfЭтапИсходящегоЗапроса", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_xAD_xD1_x82_xD0_xB04935e91798a6549b047a3f0ba0965606.html#a755d4b961e5e1bb2b11df1f48c51fad3", null ],
-    [ "Add", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_xAD_xD1_x82_xD0_xB04935e91798a6549b047a3f0ba0965606.html#afe597b6e37fa71081c0bb9c10ee72b35", null ],
-    [ "this[int index]", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_xAD_xD1_x82_xD0_xB04935e91798a6549b047a3f0ba0965606.html#aef0c3fe28eb65c7879c96b204fac0b37", null ]
-];

@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_default_order_tests_1_1_interface2_b_s =
-[
-    [ "OnUpdateInterface2", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_default_order_tests_1_1_interface2_b_s.html#a3eedd392a8d7e92d94d0e279598ba28f", null ]
-];

@@ -1,8 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values =
-[
-    [ "FieldValues", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values.html#ac6e36bbcb2c3c400cf668eb0376349d3", null ],
-    [ "FieldValues", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values.html#a88d361f4f8d00e733291733e4fa11a7f", null ],
-    [ "Clone", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values.html#a5ba81860cff0a33ab4308cb6bb9edede", null ],
-    [ "NewValue", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values.html#a0ec14502e31e70eb1f5d341735013553", null ],
-    [ "OldValue", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values.html#ae4e584273e8c61cc1d1b6d39400ac11a", null ]
-];

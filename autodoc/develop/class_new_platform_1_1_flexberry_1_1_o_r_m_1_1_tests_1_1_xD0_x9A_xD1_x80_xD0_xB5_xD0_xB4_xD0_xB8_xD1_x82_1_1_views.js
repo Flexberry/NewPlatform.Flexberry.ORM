@@ -1,6 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views =
-[
-    [ "C__КредитE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#ab20b53d8447564c6b8fe747ae7ccfb12", null ],
-    [ "КредитViewE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#ac34345e6acc36e17074390c64dea8766", null ],
-    [ "КредитViewL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9A_xD1_x80_xD0_xB5_xD0_xB4_xD0_xB8_xD1_x82_1_1_views.html#aa576d1d78084fb8a6990609e3e981855", null ]
-];

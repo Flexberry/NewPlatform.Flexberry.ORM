@@ -1,8 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_guid_test =
-[
-    [ "TestUseGuidProperty", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_guid_test.html#ae62b49183114798c20bb3e93f0f086d5", null ],
-    [ "TestUseKeyGuidProperty", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_guid_test.html#af34aa39c7195440f4ce762f0fabbde88", null ],
-    [ "TestUseMasterKeyGuidProperty", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_guid_test.html#add18aee75edfd1066886fc01d3ff12d6", null ],
-    [ "TestUseNullableGuidProperty", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_guid_test.html#aa93c1cafe26678e69b9a753f36ed2af9", null ],
-    [ "TestUseNullableGuidPropertyAsNull", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_guid_test.html#a30b42f9ce7e1e3013f68348554c49254", null ]
-];

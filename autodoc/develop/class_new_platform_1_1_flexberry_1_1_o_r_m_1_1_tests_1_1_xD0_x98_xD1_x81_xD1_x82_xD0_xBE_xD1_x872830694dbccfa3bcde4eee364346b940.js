@@ -1,5 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x82_xD0_xBE_xD1_x872830694dbccfa3bcde4eee364346b940 =
-[
-    [ "ИсточникФинансированияE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x82_xD0_xBE_xD1_x872830694dbccfa3bcde4eee364346b940.html#a2d21d501fb1f7d9e515f105ee14a75cc", null ],
-    [ "ИсточникФинансированияL", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x98_xD1_x81_xD1_x82_xD0_xBE_xD1_x872830694dbccfa3bcde4eee364346b940.html#aa0be582d4025b70cdc410c4ab4bda045", null ]
-];

@@ -1,8 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_type_usage_provider_test =
-[
-    [ "TypeUsageProviderGetCombinedTypeUsage1Test", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_type_usage_provider_test.html#a2fa584ff5bd577636ae4e075b6ebd960", null ],
-    [ "TypeUsageProviderGetCombinedTypeUsageTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_type_usage_provider_test.html#ac1aef9bc502616b4f27c430f3d09ff7d", null ],
-    [ "TypeUsageProviderGetUsageTypesTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_type_usage_provider_test.html#a866b259d7b1e954450d06441659a3c6f", null ],
-    [ "TypeUsageProviderGetUsageTypesTest1", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_type_usage_provider_test.html#a96837e8fe8e587b659691237296f562b", null ],
-    [ "TypeUsageProviderSetAndAddUseTypesTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_data_object_1_1_type_usage_provider_test.html#a8f11d42e2bdcbd715cdf50eba49116d4", null ]
-];

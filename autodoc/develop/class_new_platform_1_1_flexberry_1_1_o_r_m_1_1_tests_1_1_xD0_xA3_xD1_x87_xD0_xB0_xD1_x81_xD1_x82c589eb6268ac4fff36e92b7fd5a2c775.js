@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA3_xD1_x87_xD0_xB0_xD1_x81_xD1_x82c589eb6268ac4fff36e92b7fd5a2c775 =
-[
-    [ "УчастникХозДоговораE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xA3_xD1_x87_xD0_xB0_xD1_x81_xD1_x82c589eb6268ac4fff36e92b7fd5a2c775.html#a571092ffb4982c6f991d78e9456264bc", null ]
-];

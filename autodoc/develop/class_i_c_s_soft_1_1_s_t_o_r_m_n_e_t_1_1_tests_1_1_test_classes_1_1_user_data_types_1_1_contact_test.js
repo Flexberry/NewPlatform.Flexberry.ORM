@@ -1,6 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_contact_test =
-[
-    [ "ContactCompareTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_contact_test.html#a6d3286eaf5376989081d1dcf7bc90aa4", null ],
-    [ "ContactExplicitContactToStringTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_contact_test.html#aab018b1032046268ef73bef7f005d14f", null ],
-    [ "ContactExplicitStringToContactTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_user_data_types_1_1_contact_test.html#af1e555518b917193c246eee3742ecbc2", null ]
-];

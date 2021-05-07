@@ -1,5 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_disabled_audit_test =
-[
-    [ "GetAuditServiceForTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_disabled_audit_test.html#a96fe5caba68b5ce3a26d2f9df8d2a20d", null ],
-    [ "TestSettingAuditFieldsForTypeWithEnabledAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_integrated_tests_1_1_audit_service_with_disabled_audit_test.html#afe804065d215185ed1032548d6d54136", null ]
-];

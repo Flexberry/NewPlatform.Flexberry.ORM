@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71731e8cf31e1409b200f50ff4584f097 =
-[
-    [ "ПользовательE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9F_xD0_xBE_xD0_xBB_xD1_x8C_xD0_xB71731e8cf31e1409b200f50ff4584f097.html#a2ede9e34773c55eb851b3b8f4331e45d", null ]
-];

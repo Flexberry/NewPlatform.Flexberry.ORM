@@ -1,4 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_different_data_object_types_exception =
-[
-    [ "DifferentDataObjectTypesException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_different_data_object_types_exception.html#accd67c72f00637a6e13d7aedb8ba66b9", null ]
-];

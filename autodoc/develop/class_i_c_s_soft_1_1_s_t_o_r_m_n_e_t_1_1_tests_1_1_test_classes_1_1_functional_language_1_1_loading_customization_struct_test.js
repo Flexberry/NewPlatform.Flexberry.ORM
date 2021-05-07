@@ -1,4 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_loading_customization_struct_test =
-[
-    [ "LcsSerializationTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_loading_customization_struct_test.html#ac39178ca279077c8a310c9ef2c1244d7", null ]
-];

@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_update_object_test_1_1_views =
-[
-    [ "DetailUpdateObjectTestE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_update_object_test_1_1_views.html#a46f73d4ade53ed9f6b2461a0aa7d972e", null ]
-];

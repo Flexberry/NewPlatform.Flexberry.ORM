@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63 =
-[
-    [ "ДокументацияККонкурсуE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x94_xD0_xBE_xD0_xBA_xD1_x83_xD0_xBCffc498db50c96619e7380e29b04a8d63.html#a8023dfa586468de5dcf5e59f886fa867", null ]
-];

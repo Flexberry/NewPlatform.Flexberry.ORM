@@ -1,4 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_function_serialize_test =
-[
-    [ "TestExternalLangDefFunctionDeserialization", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tests_1_1_test_classes_1_1_functional_language_1_1_function_serialize_test.html#ae56bf2ad31526cb415d77f5009a342e0", null ]
-];

@@ -1,5 +1,0 @@
-var class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xD7ef5c4744abf816fe39256358d4d6d9d =
-[
-    [ "TestView1", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xD7ef5c4744abf816fe39256358d4d6d9d.html#a0bd43c5456aee027c3ce47e68f967275", null ],
-    [ "TestView2", "class_i_i_s_1_1_test_classes_for_postgres_1_1_xD0_x94_xD0_xBE_xD1_x87_xD0_xB5_xD1_x80_xD0_xBD_xD7ef5c4744abf816fe39256358d4d6d9d.html#ae53f69fd5cb2e8a181971d4ada39900b", null ]
-];

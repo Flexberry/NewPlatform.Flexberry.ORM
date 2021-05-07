@@ -1,6 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xAD_xD1_x82_xD0_xB0_xD0_xBF_xD0_x98aa3fc7cf012102d20ddd4c05947c9c16 =
-[
-    [ "Запросы", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xAD_xD1_x82_xD0_xB0_xD0_xBF_xD0_x98aa3fc7cf012102d20ddd4c05947c9c16.html#a28e75ab4fc21e568394edac4238cbd5c", null ],
-    [ "Конфигурация", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xAD_xD1_x82_xD0_xB0_xD0_xBF_xD0_x98aa3fc7cf012102d20ddd4c05947c9c16.html#af7bcabf3688f9c60a5ddfbdb795d92a7", null ],
-    [ "Статус", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_xAD_xD1_x82_xD0_xB0_xD0_xBF_xD0_x98aa3fc7cf012102d20ddd4c05947c9c16.html#ae84a53bb51faf5940722ad4251bdf627", null ]
-];

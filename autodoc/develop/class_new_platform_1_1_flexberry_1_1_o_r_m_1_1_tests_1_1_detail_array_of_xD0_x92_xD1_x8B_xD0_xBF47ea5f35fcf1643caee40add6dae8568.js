@@ -1,6 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_x92_xD1_x8B_xD0_xBF47ea5f35fcf1643caee40add6dae8568 =
-[
-    [ "DetailArrayOfВыплаты", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_x92_xD1_x8B_xD0_xBF47ea5f35fcf1643caee40add6dae8568.html#a71ef6106c6aab988cc5e5445b16c4332", null ],
-    [ "Add", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_x92_xD1_x8B_xD0_xBF47ea5f35fcf1643caee40add6dae8568.html#ac7ba2e420e87858e740df295dfe2a676", null ],
-    [ "this[int index]", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_detail_array_of_xD0_x92_xD1_x8B_xD0_xBF47ea5f35fcf1643caee40add6dae8568.html#a33d08e0f9a2d0f54c726c402698f1763", null ]
-];

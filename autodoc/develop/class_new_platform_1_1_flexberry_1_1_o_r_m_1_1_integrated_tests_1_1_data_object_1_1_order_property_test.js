@@ -1,5 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_data_object_1_1_order_property_test =
-[
-    [ "OrderPropertyTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_data_object_1_1_order_property_test.html#ae420464c6efca76b8f06f042baadf718", null ],
-    [ "RenumerateDetailsAfterDeleteTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_integrated_tests_1_1_data_object_1_1_order_property_test.html#ad05228b9e0a5561166baa0800fc5856b", null ]
-];

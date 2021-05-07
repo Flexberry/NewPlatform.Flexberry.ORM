@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_validation_exception =
-[
-    [ "ValidationException", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_validation_exception.html#aca06b9aa7f65ec1310ff85b8be47ccb6", null ]
-];

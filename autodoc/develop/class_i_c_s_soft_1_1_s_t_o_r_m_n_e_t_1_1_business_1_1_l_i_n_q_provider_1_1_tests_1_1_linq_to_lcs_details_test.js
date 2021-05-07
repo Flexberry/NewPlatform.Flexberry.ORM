@@ -1,8 +1,0 @@
-var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_details_test =
-[
-    [ "GetLcsTestAny", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_details_test.html#a3a8681fc4538f3f6518dd72c2c5e2a90", null ],
-    [ "GetLcsTestDetailAllWithLimit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_details_test.html#a575fbb00753ba49cbd69847c51b870d9", null ],
-    [ "GetLcsTestDetailAnyConjunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_details_test.html#af9a0572cf454d118c3329020298527da", null ],
-    [ "GetLcsTestDetailAnyWithLimit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_details_test.html#af6fdad6508dc47de9272f36ac28deb84", null ],
-    [ "GetLcsTestDetailWithCustomOwnerConnectProp", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_tests_1_1_linq_to_lcs_details_test.html#a7c69534a141755afd2048daf41bab89e", null ]
-];

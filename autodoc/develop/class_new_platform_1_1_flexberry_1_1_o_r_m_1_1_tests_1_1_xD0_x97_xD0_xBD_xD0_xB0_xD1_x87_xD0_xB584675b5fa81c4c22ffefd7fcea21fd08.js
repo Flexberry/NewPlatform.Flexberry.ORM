@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x97_xD0_xBD_xD0_xB0_xD1_x87_xD0_xB584675b5fa81c4c22ffefd7fcea21fd08 =
-[
-    [ "ЗначениеКритерияE", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x97_xD0_xBD_xD0_xB0_xD1_x87_xD0_xB584675b5fa81c4c22ffefd7fcea21fd08.html#a4e0d1d46694fde2926fae8984d7441db", null ]
-];

@@ -1,9 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28 =
-[
-    [ "Views", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA670967ed72484cb9ca9cb330c5117c21.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA670967ed72484cb9ca9cb330c5117c21" ],
-    [ "ЗначениеКритерия", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28.html#ab6ddc5ee5f8f44de273100fead2dab84", null ],
-    [ "ЗначениеОценки", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28.html#af32d080a198e2785adf8e887e1740afb", null ],
-    [ "Идея", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28.html#af0f3c0e53e3361af0d7630c1f9f5055a", null ],
-    [ "Комментарий", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28.html#ae1fe93b6dbfcf84b48a0093585273f43", null ],
-    [ "Эксперт", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9E_xD1_x86_xD0_xB5_xD0_xBD_xD0_xBA620c9922de0c568841066ec2ec1ead28.html#a8ce0cef0b4383966d1ccfeeec4aaa851", null ]
-];

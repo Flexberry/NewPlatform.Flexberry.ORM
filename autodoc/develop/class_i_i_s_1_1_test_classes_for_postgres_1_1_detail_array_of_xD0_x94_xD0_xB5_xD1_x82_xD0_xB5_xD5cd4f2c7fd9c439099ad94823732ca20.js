@@ -1,6 +1,0 @@
-var class_i_i_s_1_1_test_classes_for_postgres_1_1_detail_array_of_xD0_x94_xD0_xB5_xD1_x82_xD0_xB5_xD5cd4f2c7fd9c439099ad94823732ca20 =
-[
-    [ "DetailArrayOfДетейлКлассДлинноеИмя2", "class_i_i_s_1_1_test_classes_for_postgres_1_1_detail_array_of_xD0_x94_xD0_xB5_xD1_x82_xD0_xB5_xD5cd4f2c7fd9c439099ad94823732ca20.html#a0e6be3612b15c4de9b900799def78268", null ],
-    [ "Add", "class_i_i_s_1_1_test_classes_for_postgres_1_1_detail_array_of_xD0_x94_xD0_xB5_xD1_x82_xD0_xB5_xD5cd4f2c7fd9c439099ad94823732ca20.html#ac3c815d4f2d756eacca698f875f940f0", null ],
-    [ "this[int index]", "class_i_i_s_1_1_test_classes_for_postgres_1_1_detail_array_of_xD0_x94_xD0_xB5_xD1_x82_xD0_xB5_xD5cd4f2c7fd9c439099ad94823732ca20.html#ac4ec4688bfca9bcf8c5c69fbd9ae5c37", null ]
-];

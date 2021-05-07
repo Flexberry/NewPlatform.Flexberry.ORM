@@ -1,4 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB512c10484f76491f5e3188ee16bbf7761 =
-[
-    [ "OnUpdateМедведь", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_xD0_x9C_xD0_xB5_xD0_xB4_xD0_xB2_xD0_xB512c10484f76491f5e3188ee16bbf7761.html#ac4b4bc8c3da0dce5e558f1eb727696d2", null ]
-];

@@ -1,8 +1,0 @@
-var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_tests =
-[
-    [ "ObjectsToUpdateMultiThreadBS", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t1cba3ba528dd7b3bd4d1e2da27936a96.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t1cba3ba528dd7b3bd4d1e2da27936a96" ],
-    [ "ObjectsToUpdateMultiThreadClass", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_t4c3b33b4795e1116a3d915f4910a2e29.html", null ],
-    [ "BusinessServerProviderMultiThreadTests", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_tests.html#a91a65d8148c31c9a618d985d85565e79", null ],
-    [ "GetBusinessServerMultiThreadAsParallelTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_tests.html#aca68ab2ea226f3ff985c63be49c16128", null ],
-    [ "GetBusinessServerMultiThreadToolTest", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_tests_1_1_business_server_provider_multi_thread_tests.html#a54b764b75c4feef121407a45071b8369", null ]
-];
