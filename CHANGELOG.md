@@ -17,6 +17,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 
 
+## [5.1.1] - 2021-05-12
+
+### Fixed
+
+- Delete agregator with not loaded details.
+
 ## [5.1.0] - 2021-04-06
 
 ### Added
