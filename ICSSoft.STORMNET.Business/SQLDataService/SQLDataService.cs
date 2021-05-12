@@ -4844,15 +4844,19 @@
                             foreach (var propertyStorageName in propertyStorageNames)
                             {
                                 // Добавляем свойство в запрос на изменение объекта.
-                                if (alteredList.ContainsKey(createdObject))
+                                string propValue = propsCollection.Get(propertyStorageName);
+                                if (propValue != ConvertValueToQueryValueString(null))
                                 {
-                                    alteredList[createdObject].Add(propertyStorageName, propsCollection.Get(propertyStorageName));
-                                }
-                                else
-                                {
-                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                    alteredCollection.Add(propertyStorageName, propsCollection.Get(propertyStorageName));
-                                    alteredList.Add(createdObject, alteredCollection);
+                                    if (alteredList.ContainsKey(createdObject))
+                                    {
+                                        alteredList[createdObject].Add(propertyStorageName, propValue);
+                                    }
+                                    else
+                                    {
+                                        var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                        alteredCollection.Add(propertyStorageName, propValue);
+                                        alteredList.Add(createdObject, alteredCollection);
+                                    }
                                 }
 
                                 // Удаляем из списка свойств на изменение в запросе на создание объекта.
@@ -5154,13 +5158,10 @@
                 }
             }
 
-            if (processingObjects.Count > 1)
+            foreach (DataObject processingObject in processingObjects)
             {
-                foreach (DataObject processingObject in processingObjects)
-                {
-                    // Включем текущий объект в граф зависимостей.
-                    GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
-                }
+                // Включем текущий объект в граф зависимостей.
+                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
             }
 
             // Поиск и разрешение циклов в зависимостях.
