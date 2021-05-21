@@ -853,19 +853,6 @@
             string nl = Environment.NewLine;
             if (customizationStruct.RowNumber != null)
             {
-                int fromInd = resQuery.IndexOf("FROM (");
-                string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
-
-                if (!string.IsNullOrEmpty(orderByExpr))
-                {
-                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
-                }
-                else
-                {
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY STORMMainObjectKey ) as \"RowNumber\"" + nl);
-                }
-
                 long offset = long.MaxValue;
                 long limit = 0;
                 if (customizationStruct.RowNumber.StartRow == 0)
@@ -880,6 +867,23 @@
                     {
                         limit = customizationStruct.RowNumber.EndRow - customizationStruct.RowNumber.StartRow + 1;
                     }
+                }
+
+                int fromInd = resQuery.IndexOf("FROM (");
+                string селектСамогоВерхнегоУр = resQuery.Substring(0, fromInd);
+
+                if (!string.IsNullOrEmpty(orderByExpr))
+                {
+                    resQuery = resQuery.Replace(orderByExpr, string.Empty);
+
+                    if (!orderByExpr.Contains(SQLWhereLanguageDef.StormMainObjectKey))
+                    {
+                        orderByExpr += $", {SQLWhereLanguageDef.StormMainObjectKey}";
+                    }
+                }
+                else
+                {
+                    orderByExpr = $"{nl}ORDER BY {SQLWhereLanguageDef.StormMainObjectKey}";
                 }
 
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + orderByExpr + nl +
