@@ -66,6 +66,20 @@ jobs:
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
+      - name: Tune ssh-keys
+        env:
+            PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}      
+        run: |
+          set -x
+          export PRIVATE_KEY
+          # Setup SSH agent
+          export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          # Start ssh agent
+          ssh-agent -a $SSH_AUTH_SOCK #> /dev/null
+          ssh-add - <<< "${PRIVATE_KEY}"
+
       - name: Update documentation
         run: |
           [ $GITHUB_EVENT_NAME == 'push' ] && 
@@ -73,3 +87,7 @@ jobs:
           bash Doxygen/update-autodoc.sh
           exit 0
         
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -Rf .ssh .github *
