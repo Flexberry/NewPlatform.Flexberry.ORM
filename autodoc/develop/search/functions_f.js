@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['query_3c_20t_20_3e_2586',['Query&lt; T &gt;',['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a6e16910a98c3cd669913f868df8b0a0c',1,'ICSSoft.STORMNET.Business.LINQProvider.LinqToLcs.Query&lt; T &gt;(this IDataService ds, View view, IEnumerable&lt; View &gt; resolvingViews=null)'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a1c69789f9a8757a2d55e84aba81f3502',1,'ICSSoft.STORMNET.Business.LINQProvider.LinqToLcs.Query&lt; T &gt;(this IDataService ds)'],['../class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html#a768e9c9523d152cdee442a4a9e729c9a',1,'ICSSoft.STORMNET.Business.LINQProvider.LinqToLcs.Query&lt; T &gt;(this IDataService ds, string viewName)']]]
+];

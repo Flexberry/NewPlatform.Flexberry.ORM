@@ -1,0 +1,6 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info =
+[
+    [ "FormList", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info.html#a6296d105e881b63bfa1a9eff852f566a", null ],
+    [ "ReferenceProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info.html#ae775efa21ecd13534810b49ad371d99b", null ],
+    [ "TypeWithReference", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info.html#a34472631f3737019851b53747e22a7ca", null ]
+];

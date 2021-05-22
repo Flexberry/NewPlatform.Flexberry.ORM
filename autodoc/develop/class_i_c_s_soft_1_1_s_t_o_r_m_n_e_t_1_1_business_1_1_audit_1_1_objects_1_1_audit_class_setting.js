@@ -1,0 +1,25 @@
+var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting =
+[
+    [ "AuditAppSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aff58301db35b2f29a48b543a650e75fc", null ],
+    [ "AuditEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aaebbd36a1daad5da3e237e83b69ba9df", null ],
+    [ "AuditFieldSettings", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a41aa60194498c2ee7d4b014282ffb04c", null ],
+    [ "Compress", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a73293e7cfec45118a91217709ed596de", null ],
+    [ "DeleteAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a9788d8e9c92d4494f77ee93d87792f5a", null ],
+    [ "DeleteAuditViewName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#ac404cff036f1ec3b75f61cf7a4d3701c", null ],
+    [ "FormUrl", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aa7b567882c1a42983f4e09b352048a12", null ],
+    [ "InsertAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a8751cac13e1bd82870ace372ba4dbb1d", null ],
+    [ "InsertAuditViewName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#afe816ec82cc0c04d70fee40bc9248e02", null ],
+    [ "KeepAllValues", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a5a7f6ae4a9c8176c8b094ba94a91d05c", null ],
+    [ "KeepOldValue", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#ac98be3110e9c6831b1b2e177469bd47b", null ],
+    [ "LimitFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a64d50d191a699726bab8e4e3de4ff63e", null ],
+    [ "ObjectType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a85a891f7ef5010378a79ed3815513555", null ],
+    [ "PrunningLength", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#acdab237e02d4e09badcd3b45cd5091c6", null ],
+    [ "SelectAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#acd3fa1a431d7967808c195b826364d1e", null ],
+    [ "SelectAuditViewName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aa0ee664902af7cd261b19444ce839ef3", null ],
+    [ "ShowPrimaryKey", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a51183de0f05a863202fe29dbe90b8e8f", null ],
+    [ "UpdateAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aa538f7117059c1c4cedadbd98891b1d5", null ],
+    [ "UpdateAuditViewName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#ad1e337d48e54df9d07597ab0a00a1317", null ],
+    [ "UseDefaultView", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a3b664640db22ec87a54fd3e3113bd449", null ],
+    [ "View", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#aa04bbbc6ed264fbeddbb9bd7957133e3", null ],
+    [ "WriteMode", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a9d93cb4218461f6fcd8fc3556c6ef327", null ]
+];
