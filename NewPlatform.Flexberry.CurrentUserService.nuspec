@@ -15,7 +15,7 @@
     <copyright>Copyright New Platform Ltd 2018</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.UnityFactory" version="4.2.0-alpha02" />
+      <dependency id="NewPlatform.Flexberry.UnityFactory" version="5.0.0" />
    </dependencies>
   </metadata>
   <files>
