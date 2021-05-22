@@ -930,7 +930,7 @@
 
         private IDictionary<int, string> GetObjectIndexesWithPksImplementation(
             LoadingCustomizationStruct lcs,
-            FunctionalLanguage.Function limitFunction,
+            Function limitFunction,
             int? maxResults = null)
         {
             string nl = Environment.NewLine;
@@ -962,53 +962,31 @@
             }
 
             string innerQuery = GenerateSQLSelect(lcs, false);
-            string offset = null;
-            if (lcs.RowNumber != null)
-            {
-                int posOffset = innerQuery.LastIndexOf("OFFSET ");
-                offset = innerQuery.Substring(posOffset);
-                innerQuery = innerQuery.Substring(0, posOffset);
-
-                // + nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
-            }
-
-            // надо добавить RowNumber
-            // top int.MaxValue
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
-            string orderByExpr = string.Empty; // , nl = Environment.NewLine;
+            int posOffset = innerQuery.ToLower().LastIndexOf("offset ");
+            string orderByExpr = string.Empty;
             if (orderByIndex > -1)
             {
-                orderByExpr = innerQuery.Substring(orderByIndex);
+                orderByExpr = posOffset > -1 ? innerQuery.Substring(orderByIndex, posOffset - orderByIndex) : innerQuery.Substring(orderByIndex);
             }
+
+            var offset = lcs.RowNumber != null && lcs.RowNumber.StartRow > 0 ? lcs.RowNumber.StartRow - 1 : 0;
 
             int fromInd = innerQuery.ToLower().IndexOf("from");
 
             if (!string.IsNullOrEmpty(orderByExpr))
             {
-                innerQuery = innerQuery.Substring(0, innerQuery.Length - orderByExpr.Length);
-                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
+                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") - " + offset.ToString() + " as \"RowNumber\"" + nl);
             }
             else
             {
-                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " ) as \"RowNumber\"" + nl);
+                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " ) - " + offset.ToString() + " as \"RowNumber\"" + nl);
             }
+        
+            string query = $"SELECT \"RowNumber\", {PutIdentifierIntoBrackets("STORMMainObjectKey")} " +
+                $"FROM {nl}({innerQuery}) QueryForGettingIndex {nl} " +
+                $"WHERE ({LimitFunction2SQLWhere(limitFunction)}) ORDER BY \"RowNumber\" {(maxResults.HasValue ? (" LIMIT " + maxResults) : string.Empty)}";
 
-            if (lcs.RowNumber != null)
-            {
-                innerQuery += nl + "where \"RowNumber\" between " + lcs.RowNumber.StartRow.ToString() + " and " + lcs.RowNumber.EndRow.ToString() + nl;
-            }
-
-            string query = string.Format(
-            "SELECT{3} \"RowNumber\", {5} FROM {1}({0}) QueryForGettingIndex {1} WHERE ({2}) {4}",
-            innerQuery,
-            nl,
-            LimitFunction2SQLWhere(limitFunction),
-            maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
-            orderByExpr,
-            PutIdentifierIntoBrackets("STORMMainObjectKey"));
-
-            // if (offset != null)
-            //    query += nl + offset;
             object state = null;
             object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
             if (res != null)
