@@ -976,7 +976,6 @@
 
             if (!string.IsNullOrEmpty(orderByExpr))
             {
-                //innerQuery = innerQuery.Substring(0, innerQuery.Length - orderByExpr.Length);
                 innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") - " + offset.ToString() + " as \"RowNumber\"" + nl);
             }
             else
