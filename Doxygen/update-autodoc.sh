@@ -18,7 +18,7 @@ echo "Make directory autodoc. I am here:"
 
 pwd
 
-mkdir autodoc
+mkdir ../autodoc
 
 # Get version from nuspec.
 versionTag=$(grep -Eo "<version>.*</version>" ./NewPlatform.Flexberry.ORM.nuspec)
@@ -49,7 +49,7 @@ mkdir "${TRAVIS_BRANCH}"
 
 echo "Copy autodoc result into ${TRAVIS_BRANCH} directory."
 pwd
-cp -r ../../autodoc/html/* ${TRAVIS_BRANCH}
+cp -r ../../../autodoc/html/* ${TRAVIS_BRANCH}
 
 cd ..
 
