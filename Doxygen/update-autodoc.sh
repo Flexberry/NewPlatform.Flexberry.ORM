@@ -14,6 +14,10 @@ fi
 # Define repository relative GitHub address.
 repositoryRelativeGitHubAddress="Flexberry/NewPlatform.Flexberry.ORM"
 
+echo "Make directory autodoc. I am here:"
+
+pwd
+
 mkdir autodoc
 
 # Get version from nuspec.
@@ -44,6 +48,7 @@ rm -rf "${TRAVIS_BRANCH}"
 mkdir "${TRAVIS_BRANCH}"
 
 echo "Copy autodoc result into ${TRAVIS_BRANCH} directory."
+pwd
 cp -r ../../autodoc/html/* ${TRAVIS_BRANCH}
 
 cd ..
