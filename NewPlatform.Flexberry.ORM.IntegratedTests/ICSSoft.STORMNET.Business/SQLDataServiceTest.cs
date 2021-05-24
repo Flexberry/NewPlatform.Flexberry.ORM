@@ -347,6 +347,77 @@
         }
 
         /// <summary>
+        /// Проверка механизма удаления незагруженного агрегатора с детейлами.
+        /// </summary>
+        [Fact]
+        public void AggregatorWithDetailsNotLoadedDeleteTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var aggregator = new Кошка
+                {
+                    ДатаРождения = NullableDateTime.UtcNow,
+                    Тип = ТипКошки.Дикая,
+                    Порода = new Порода { Название = "Чеширская" },
+                };
+                var detail0 = new Лапа { Номер = 0, };
+                var detail1 = new Лапа { Номер = 1, };
+                aggregator.Лапа.Add(detail0);
+                aggregator.Лапа.Add(detail1);
+
+                dataService.UpdateObject(aggregator);
+
+                LoadingCustomizationStruct lcsCat = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
+
+                // Act.
+                var agrForDelete = PKHelper.CreateDataObject<Кошка>(aggregator);
+                agrForDelete.SetStatus(ObjectStatus.Deleted);
+                dataService.UpdateObject(agrForDelete);
+
+                // Assert.
+                int countCatAfter = dataService.GetObjectsCount(lcsCat);
+                Assert.Equal(0, countCatAfter);
+            }
+        }
+
+        /// <summary>
+        /// Проверка механизма удаления загруженного агрегатора с детейлами.
+        /// </summary>
+        [Fact]
+        public void AggregatorWithDetailsLoadedDeleteTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var aggregator = new Кошка
+                {
+                    ДатаРождения = NullableDateTime.UtcNow,
+                    Тип = ТипКошки.Дикая,
+                    Порода = new Порода { Название = "Чеширская" },
+                };
+                var detail0 = new Лапа { Номер = 0, };
+                var detail1 = new Лапа { Номер = 1, };
+                aggregator.Лапа.Add(detail0);
+                aggregator.Лапа.Add(detail1);
+
+                dataService.UpdateObject(aggregator);
+
+                LoadingCustomizationStruct lcsCat = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
+
+                // Act.
+                var agrForDelete = PKHelper.CreateDataObject<Кошка>(aggregator);
+                dataService.LoadObject(Кошка.Views.КошкаE, agrForDelete);
+                agrForDelete.SetStatus(ObjectStatus.Deleted);
+                dataService.UpdateObject(agrForDelete);
+
+                // Assert.
+                int countCatAfter = dataService.GetObjectsCount(lcsCat);
+                Assert.Equal(0, countCatAfter);
+            }
+        }
+
+        /// <summary>
         /// Тесты на формирование графа зависимостей методом <see cref="SQLDataService.GetDependencies"/>. 
         /// </summary>
         [Fact]

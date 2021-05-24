@@ -678,7 +678,7 @@
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang =
                     FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 var variable = new FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectType).KeyType),
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectType)),
                     FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.StormMainObjectKey);
                 object readingkey = dobject.__PrimaryKey;
                 object prevPrimaryKey = null;
@@ -791,7 +791,7 @@
 
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(doType).KeyType), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), "STORMMainObjectKey");
                 object readingkey = dobject.__PrimaryKey;
                 object prevPrimaryKey = null;
                 if (dobject.Prototyped)
@@ -1827,7 +1827,7 @@
 
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectView.DefineClassType).KeyType), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)), "STORMMainObjectKey");
                 object[] keys = new object[ALKeys.Count + 1];
                 ALKeys.CopyTo(keys, 1);
                 keys[0] = var;
@@ -4043,7 +4043,7 @@
                     FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
 
                     FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dobject.GetType()).KeyType), prkeyStorName);
+                        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dobject.GetType())), prkeyStorName);
                     FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, dobject.__PrimaryKey);
 
                     if (UpdaterFunction != null)
@@ -4119,7 +4119,7 @@
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
 
             FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(view.DefineClassType).KeyType), prkeyStorName);
+                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
             FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
 
             LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
@@ -4844,15 +4844,19 @@
                             foreach (var propertyStorageName in propertyStorageNames)
                             {
                                 // Добавляем свойство в запрос на изменение объекта.
-                                if (alteredList.ContainsKey(createdObject))
+                                string propValue = propsCollection.Get(propertyStorageName);
+                                if (propValue != ConvertValueToQueryValueString(null))
                                 {
-                                    alteredList[createdObject].Add(propertyStorageName, propsCollection.Get(propertyStorageName));
-                                }
-                                else
-                                {
-                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                    alteredCollection.Add(propertyStorageName, propsCollection.Get(propertyStorageName));
-                                    alteredList.Add(createdObject, alteredCollection);
+                                    if (alteredList.ContainsKey(createdObject))
+                                    {
+                                        alteredList[createdObject].Add(propertyStorageName, propValue);
+                                    }
+                                    else
+                                    {
+                                        var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                        alteredCollection.Add(propertyStorageName, propValue);
+                                        alteredList.Add(createdObject, alteredCollection);
+                                    }
                                 }
 
                                 // Удаляем из списка свойств на изменение в запросе на создание объекта.
@@ -5154,13 +5158,10 @@
                 }
             }
 
-            if (processingObjects.Count > 1)
+            foreach (DataObject processingObject in processingObjects)
             {
-                foreach (DataObject processingObject in processingObjects)
-                {
-                    // Включем текущий объект в граф зависимостей.
-                    GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
-                }
+                // Включем текущий объект в граф зависимостей.
+                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
             }
 
             // Поиск и разрешение циклов в зависимостях.
@@ -5463,7 +5464,7 @@
                             query += values + nl + " WHERE ";
                             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                             var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(t).KeyType), Information.GetPrimaryKeyStorageName(t));
+                                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(t)), Information.GetPrimaryKeyStorageName(t));
                             FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                             if (updaterobject != null)
                             {
@@ -5491,7 +5492,7 @@
                         query += values + nl + " WHERE ";
                         FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                         var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(processingObject.GetType()).KeyType), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
+                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(processingObject.GetType())), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
                         FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                         if (updaterobject != null)
                         {

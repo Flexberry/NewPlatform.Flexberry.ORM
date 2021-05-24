@@ -104,7 +104,7 @@
             if (type.IsSubclassOf(typeof(DataObject)))
             {
                 // подменяем типом первичного ключа
-                type = ((KeyGen.BaseKeyGenerator)Activator.CreateInstance(Information.GetKeyGeneratorType(type))).KeyType;
+                type = KeyGen.KeyGenerator.KeyType(type);
             }
 
             if (type.IsEnum)
