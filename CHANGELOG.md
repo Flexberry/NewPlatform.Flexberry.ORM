@@ -20,7 +20,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [6.0.0] - 2021-05-25
 
 ### Added
-- .NET Standard 2.0 implementation. NuGet package cantains `net45` and `netstandard2.0` targets.
+- .NET Standard 2.0 implementation. NuGet package contains `net45` and `netstandard2.0` targets.
 
 ### Changed
 - MSSQLDataService, PostgresDataService, OracleDataService in it's own NuGet packages.
