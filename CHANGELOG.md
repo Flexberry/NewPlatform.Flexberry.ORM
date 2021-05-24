@@ -17,10 +17,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 
 
-## [6.0.0] - 2021-04-21
+## [6.0.0] - 2021-05-25
 
 ### Added
-- .NET Standard 2.0 implementation
+- .NET Standard 2.0 implementation.
 
 ### Changed
 - MSSQLDataService, PostgresDataService, OracleDataService in it's own NuGet packages.
@@ -41,6 +41,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - `ControlProviderAttribute(string)` constructor ignores type loading error.
 - Multiple concurrency fixes.
+
+## [5.1.1] - 2021-05-17
+
+### Fixed
+
+- Delete agregator with not loaded details.
 
 ## [5.1.0] - 2021-04-06
 
