@@ -20,7 +20,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [6.0.0] - 2021-05-25
 
 ### Added
-- .NET Standard 2.0 implementation.
+- .NET Standard 2.0 implementation. NuGet package cantains `net45` and `netstandard2.0` targets.
 
 ### Changed
 - MSSQLDataService, PostgresDataService, OracleDataService in it's own NuGet packages.
@@ -29,6 +29,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `DataServiceProvider.IsWebApp` now always return `false`.
 - `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
 - `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
+- Assembly `ExternalLangDef` renamed to `ICSSoft.STORMNET.Business.ExternalLangDef`.
+- Assembly `CurrentUserService` renamed to `NewPlatform.Flexberry.ORM.CurrentUserService`.
+- Assembly `UnityFactory` renamed to `NewPlatform.Flexberry.ORM.UnityFactory`.
 
 ### Removed
 - `Information.GetPropertyDataFormat` method.
