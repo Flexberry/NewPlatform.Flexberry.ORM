@@ -296,7 +296,7 @@
                 var lc = new LoadingCustomizationStruct(GetInstanceId());
                 var lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 var var = new FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(doType).KeyType), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), "STORMMainObjectKey");
                 object prevPrimaryKey = null;
 
                 if (dobject.Prototyped)
@@ -513,7 +513,7 @@
 
                 var customizationStruct = new LoadingCustomizationStruct(_instanceId);
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                var var = new FunctionalLanguage.VariableDef(lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectView.DefineClassType).KeyType),
+                var var = new FunctionalLanguage.VariableDef(lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)),
                                                              "STORMMainObjectKey");
                 var keys = new object[alKeys.Count + 1];
                 alKeys.CopyTo(keys, 1);
@@ -1207,7 +1207,7 @@
             // string prevDicValue = "";
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
             var var = new FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(view.DefineClassType).KeyType), prkeyStorName);
+                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
             FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
             var cs = new LoadingCustomizationStruct(GetInstanceId());
             cs.Init(new ColumnsSortDef[0], func, new[] { view.DefineClassType }, view, new string[0]);

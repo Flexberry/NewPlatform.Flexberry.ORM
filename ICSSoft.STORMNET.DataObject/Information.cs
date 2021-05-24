@@ -1684,7 +1684,7 @@
 
                     if (propname == "__PrimaryKey")
                     {
-                        res = KeyGen.KeyGenerator.Generator(declarationType).KeyType;
+                        res = KeyGen.KeyGenerator.KeyType(declarationType);
                     }
                     else
                     {
@@ -1765,7 +1765,7 @@
 
                 if (propname == "__PrimaryKey")
                 {
-                    res = KeyGen.KeyGenerator.Generator(declarationType).KeyType;
+                    res = KeyGen.KeyGenerator.KeyType(declarationType);
                 }
                 else
                 {
