@@ -60,7 +60,7 @@
                         AuditConnectionStringName,
                         NeedSerialization)
             {
-                ThrowExceptions = ThrowExceptions
+                ThrowExceptions = ThrowExceptions,
             };
         }
     }

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Общий базовый класс для исключений подсистемы аудита
+    /// Общий базовый класс для исключений подсистемы аудита.
     /// </summary>
     public class AuditException : Exception
     {

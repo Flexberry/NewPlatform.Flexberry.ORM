@@ -7,7 +7,7 @@
     using ICSSoft.STORMNET.FunctionalLanguage;
 
     /// <summary>
-    /// настройка загрузки группы объектов
+    /// настройка загрузки группы объектов.
     /// </summary>
     [Serializable]
     public class LoadingCustomizationStruct : ISerializable
@@ -43,7 +43,8 @@
 
         public bool Distinct
         {
-            get { return fieldDistinct; } set { fieldDistinct = value; }
+            get { return fieldDistinct; }
+            set { fieldDistinct = value; }
         }
 
         public int ReturnTop
@@ -63,7 +64,8 @@
 
         public int LoadingBufferSize
         {
-            get { return fieldLoadingBufferSize; } set { fieldLoadingBufferSize = value; }
+            get { return fieldLoadingBufferSize; }
+            set { fieldLoadingBufferSize = value; }
         }
 
         public bool InitDataCopy
@@ -118,7 +120,7 @@
         }
 
         /// <summary>
-        /// Десереализация
+        /// Десереализация.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -233,7 +235,7 @@
         }
 
         /// <summary>
-        /// Cереализация
+        /// Cереализация.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -273,7 +275,7 @@
         }
 
         /// <summary>
-        /// кто его создал
+        /// кто его создал.
         /// </summary>
         public object CreatorKey
         {
@@ -284,7 +286,7 @@
         }
 
         /// <summary>
-        /// Дополнительные колонки
+        /// Дополнительные колонки.
         /// </summary>
         public AdvansedColumn[] AdvansedColumns
         {
@@ -300,43 +302,48 @@
         }
 
         /// <summary>
-        /// порядок колонок в выборке
+        /// порядок колонок в выборке.
         /// </summary>
         public string[] ColumnsOrder
         {
-            get { return fieldColumnsOrder; } set { fieldColumnsOrder = value; }
+            get { return fieldColumnsOrder; }
+            set { fieldColumnsOrder = value; }
         }
 
         /// <summary>
-        /// сортировка колонок
+        /// сортировка колонок.
         /// </summary>
         public ColumnsSortDef[] ColumnsSort
         {
-            get { return fieldColumnsSort; } set { fieldColumnsSort = value; }
+            get { return fieldColumnsSort; }
+            set { fieldColumnsSort = value; }
         }
 
         /// <summary>
-        /// ограничение на объекты
+        /// ограничение на объекты.
         /// </summary>
         public Function LimitFunction
         {
-            get { return fieldLimitFunction; } set { fieldLimitFunction = value; }
+            get { return fieldLimitFunction; }
+            set { fieldLimitFunction = value; }
         }
 
         /// <summary>
-        /// вычитываем эти типы
+        /// вычитываем эти типы.
         /// </summary>
         public System.Type[] LoadingTypes
         {
-            get { return fieldLoadingTypes; } set { fieldLoadingTypes = value; }
+            get { return fieldLoadingTypes; }
+            set { fieldLoadingTypes = value; }
         }
 
         /// <summary>
-        /// используемое представление
+        /// используемое представление.
         /// </summary>
         public View View
         {
-            get { return fieldView; } set { fieldView = value; }
+            get { return fieldView; }
+            set { fieldView = value; }
         }
 
         private View getDefView(Type dataObjectType)
@@ -350,9 +357,9 @@
         }
 
         /// <summary>
-        /// Добавить сортировку
+        /// Добавить сортировку.
         /// </summary>
-        /// <param name="csd">Сортировка</param>
+        /// <param name="csd">Сортировка.</param>
         public void AddColumnSort(ColumnsSortDef csd)
         {
             if (fieldColumnsSort == null)
@@ -368,7 +375,7 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="creatorKey">ключ для идентификации вызова</param>
+        /// <param name="creatorKey">ключ для идентификации вызова.</param>
         public LoadingCustomizationStruct(object creatorKey)
         {
             this.creatorKey = creatorKey;
@@ -400,7 +407,7 @@
         }
 
         /// <summary>
-        /// Получить часто используемую функцию по ограничению
+        /// Получить часто используемую функцию по ограничению.
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
@@ -417,11 +424,11 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="ldColumnsSort">сортировка</param>
-        /// <param name="ldLimitFunction">ограничение</param>
-        /// <param name="ldLoadingTypes">загружаемые типы</param>
-        /// <param name="ldView">представление</param>
-        /// <param name="ldColumnsOrder">порядочек колонок</param>
+        /// <param name="ldColumnsSort">сортировка.</param>
+        /// <param name="ldLimitFunction">ограничение.</param>
+        /// <param name="ldLoadingTypes">загружаемые типы.</param>
+        /// <param name="ldView">представление.</param>
+        /// <param name="ldColumnsOrder">порядочек колонок.</param>
         public void Init(
             ColumnsSortDef[] ldColumnsSort,
             Function ldLimitFunction,
@@ -435,12 +442,12 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="ldColumnsSort">сортировка</param>
-        /// <param name="ldLimitFunction">ограничение</param>
-        /// <param name="ldLoadingTypes">загружаемые типы</param>
-        /// <param name="ldView">представление</param>
-        /// <param name="ldAdvansedColumns">дополнительные колонки</param>
-        /// <param name="ldColumnsOrder">порядочек колонок</param>
+        /// <param name="ldColumnsSort">сортировка.</param>
+        /// <param name="ldLimitFunction">ограничение.</param>
+        /// <param name="ldLoadingTypes">загружаемые типы.</param>
+        /// <param name="ldView">представление.</param>
+        /// <param name="ldAdvansedColumns">дополнительные колонки.</param>
+        /// <param name="ldColumnsOrder">порядочек колонок.</param>
         public void Init(
             ColumnsSortDef[] ldColumnsSort,
             Function ldLimitFunction,
@@ -498,7 +505,7 @@
             // fieldAdvansedColumns = ldAdvansedColumns;
         }
 
-        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View)
+        public static LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View)
         {
             if (Information.GetView(View, DataObjectType) == null)
             {
@@ -510,14 +517,14 @@
             return lcs;
         }
 
-        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, View View)
+        public static LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, View View)
         {
             LoadingCustomizationStruct lcs = new LoadingCustomizationStruct(null);
             lcs.Init(null, null, new Type[] { DataObjectType }, View, null);
             return lcs;
         }
 
-        static public LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View, string propertyName, object limitValue)
+        public static LoadingCustomizationStruct GetSimpleStruct(Type DataObjectType, string View, string propertyName, object limitValue)
         {
             var lcs = new LoadingCustomizationStruct(null);
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef ldef =

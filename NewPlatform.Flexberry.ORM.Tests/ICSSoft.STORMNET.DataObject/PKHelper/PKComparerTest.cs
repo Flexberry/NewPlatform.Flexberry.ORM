@@ -50,7 +50,7 @@
         {
             var list = new List<DataObjectForTest>
             {
-                new DataObjectForTest()
+                new DataObjectForTest(),
             };
             Assert.True(list.Distinct(new PKComparer<DataObjectForTest>()).Count() == 1);
         }
@@ -61,7 +61,7 @@
             var list = new List<DataObjectForTest>
             {
                 new DataObjectForTest(),
-                new DataObjectForTest()
+                new DataObjectForTest(),
             };
             Assert.True(list.Distinct(new PKComparer<DataObjectForTest>()).Count() == 2);
         }
@@ -73,7 +73,7 @@
             {
                 new DataObjectForTest(),
                 new DataObjectForTest(),
-                null
+                null,
             };
             Assert.True(list.Distinct(new PKComparer<DataObjectForTest>()).Count() == 3);
         }
@@ -85,7 +85,7 @@
             var list = new List<DataObjectForTest>
             {
                 obj,
-                obj
+                obj,
             };
             Assert.True(list.Distinct(new PKComparer<DataObjectForTest>()).Count() == 1);
         }
@@ -99,7 +99,7 @@
                 obj,
                 obj,
                 null,
-                null
+                null,
             };
             Assert.True(list.Distinct(new PKComparer<DataObjectForTest>()).Count() == 2);
         }
@@ -114,7 +114,7 @@
                 obj,
                 new DataObjectForTest(),
                 null,
-                null
+                null,
             };
             Assert.True(list.Distinct(new PKComparer<DataObjectForTest>()).Count() == 3);
         }

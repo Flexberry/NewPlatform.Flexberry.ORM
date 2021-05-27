@@ -6,7 +6,7 @@
     using Xunit;
 
     /// <summary>
-    /// Тесты класса <see cref="BusinessServerProvider" /> для проверки порядка выполнения бизнес-серверов, если их порядок задается разработчиком. 
+    /// Тесты класса <see cref="BusinessServerProvider" /> для проверки порядка выполнения бизнес-серверов, если их порядок задается разработчиком.
     /// </summary>
     public class BusinessServerCustomOrderTests
     {

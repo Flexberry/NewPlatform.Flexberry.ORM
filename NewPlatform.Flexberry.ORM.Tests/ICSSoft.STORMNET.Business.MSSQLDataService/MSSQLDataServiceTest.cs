@@ -11,11 +11,10 @@
     /// <summary>
     /// Класс для проверки работы <see cref="MSSQLDataService"/>.
     /// </summary>
-    
     public class MSSQLDataServiceTest
     {
         /// <summary>
-        /// Метод для создания MSSQLDataService для целей тестирования. 
+        /// Метод для создания MSSQLDataService для целей тестирования.
         /// <remarks>Строка соединения не настоящая ("SERVER=server;Trusted_connection=yes;DATABASE=test;").</remarks>
         /// </summary>
         /// <returns>Сконструированный MSSQLDataService.</returns>

@@ -10,10 +10,9 @@
     /// <summary>
     /// Класс для проверки методов обновления объектов данных в сложной структуре.
     /// </summary>
-
     public class PrimaryKeyStorageTest : BaseIntegratedTest
     {
-        // <summary>
+        /// <summary>
         /// Конструктор.
         /// </summary>
         public PrimaryKeyStorageTest()

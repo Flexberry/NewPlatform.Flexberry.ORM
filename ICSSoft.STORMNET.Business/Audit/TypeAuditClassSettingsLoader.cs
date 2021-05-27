@@ -166,7 +166,7 @@
             { tTypeOfAuditOperation.DELETE, new SettingsClassDef(AuditConstants.DeleteAuditViewNameFieldName, AuditConstants.DeleteAuditFieldName) },
             { tTypeOfAuditOperation.INSERT, new SettingsClassDef(AuditConstants.InsertAuditViewNameFieldName, AuditConstants.InsertAuditFieldName) },
             { tTypeOfAuditOperation.SELECT, new SettingsClassDef(AuditConstants.SelectAuditViewNameFieldName, AuditConstants.SelectAuditFieldName) },
-            { tTypeOfAuditOperation.UPDATE, new SettingsClassDef(AuditConstants.UpdateAuditViewNameFieldName, AuditConstants.UpdateAuditFieldName) }
+            { tTypeOfAuditOperation.UPDATE, new SettingsClassDef(AuditConstants.UpdateAuditViewNameFieldName, AuditConstants.UpdateAuditFieldName) },
         };
 
         /// <summary>

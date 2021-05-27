@@ -14,7 +14,6 @@
     /// Класс для тестирования построения запросов при наличии псевдодетейлов
     /// (то есть когда классы связаны ассоциацией).
     /// </summary>
-    
     public class LinqToLcsWithPseudoDetailsTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
@@ -22,7 +21,7 @@
         #region Простейшие ограничения, ограничения с Any
 
         /// <summary>
-        /// Все объекты с псевдодетейлами (проверяется без наложения дополнительного условия)
+        /// Все объекты с псевдодетейлами (проверяется без наложения дополнительного условия).
         /// </summary>
         [Fact]
         public void GetLcsByPseudoDetailLimitTestSimpleAny()
@@ -45,9 +44,9 @@
                 new[] { SQLWhereLanguageDef.StormMainObjectKey });
 
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction = this.ldef.GetFunction("Exist", dvd, ldef.GetFunction(ldef.paramTrue))
-                };
+            {
+                LimitFunction = this.ldef.GetFunction("Exist", dvd, ldef.GetFunction(ldef.paramTrue)),
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));
             Assert.True(Equals(expected, actual));
@@ -158,7 +157,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = this.ldef.GetFunction("Exist", dvd, lf)
+                LimitFunction = this.ldef.GetFunction("Exist", dvd, lf),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));
@@ -313,7 +312,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = this.ldef.GetFunction(ldef.funcExistExact, dvd, lf)
+                LimitFunction = this.ldef.GetFunction(ldef.funcExistExact, dvd, lf),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));
@@ -373,7 +372,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = this.ldef.GetFunction("Exist", dvd, ldef.GetFunction(ldef.paramTrue))
+                LimitFunction = this.ldef.GetFunction("Exist", dvd, ldef.GetFunction(ldef.paramTrue)),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));
@@ -410,7 +409,7 @@
                 ldef.GetFunction(ldef.funcNEQ, new VariableDef(ldef.StringType, "Кличка"), "Мурзик"));
 
             var expected = new LoadingCustomizationStruct(null)
-                { LimitFunction = this.ldef.GetFunction(ldef.funcExistExact, dvd, lf) };
+            { LimitFunction = this.ldef.GetFunction(ldef.funcExistExact, dvd, lf) };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));
             Assert.True(Equals(expected, actual));
@@ -561,7 +560,7 @@
         public void CheckPseudoDetailConstructor3()
         { // Все породы, для которых определены кошки.
             const string masterToDetailPropertyName = "SomePropertyName";
-            var masterConnectProperties = new string[] {"Property1", "Property2"};
+            var masterConnectProperties = new string[] { "Property1", "Property2" };
 
             ComparePseudoDetailWithDetailVariableDef(
                 new PseudoDetail<Порода, Кошка>(
@@ -635,7 +634,7 @@
                                             Information.GetView("КошкаE", typeof(Кошка)),
                                             Information.ExtractPropertyPath<Кошка>(x => x.Порода),
                                             masterToDetailPropertyName,
-                                            new string[] {}),
+                                            new string[] { }),
                 new DetailVariableDef(
                     this.ldef.GetObjectType("Details"),
                     masterToDetailPropertyName,
@@ -648,7 +647,7 @@
         /// Проверяем генерацию <see cref="DetailVariableDef"/> из PseudoDetail.
         /// </summary>
         /// <param name="pseudoDetail">Псевдодетейл из linq.</param>
-        /// <param name="detailVariableDef">Детейл из lcs</param>
+        /// <param name="detailVariableDef">Детейл из lcs.</param>
         private void ComparePseudoDetailWithDetailVariableDef(PseudoDetail<Порода, Кошка> pseudoDetail, DetailVariableDef detailVariableDef)
         {
             CompareLcsWithLimitCommon(y => pseudoDetail.Any(), this.ldef.GetFunction(ldef.funcExist, detailVariableDef, true));
@@ -670,7 +669,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = limitFunction
+                LimitFunction = limitFunction,
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Порода)));

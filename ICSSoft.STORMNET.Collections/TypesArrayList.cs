@@ -4,7 +4,7 @@
     using System.Collections;
 
     /// <summary>
-    /// Список типов
+    /// Список типов.
     /// </summary>
     [Serializable]
     public class TypesArrayList : IEnumerable
@@ -72,15 +72,16 @@
         }
 
         /// <summary>
-        /// емкость
+        /// емкость.
         /// </summary>
         public virtual int Capacity
         {
-            get { return dataArray.Capacity; } set { dataArray.Capacity = value; }
+            get { return dataArray.Capacity; }
+            set { dataArray.Capacity = value; }
         }
 
         /// <summary>
-        /// количество элементов
+        /// количество элементов.
         /// </summary>
         public virtual int Count
         {
@@ -88,7 +89,7 @@
         }
 
         /// <summary>
-        /// вернуть по индексу
+        /// вернуть по индексу.
         /// </summary>
         public virtual Type this[int index]
         {
@@ -97,7 +98,7 @@
         }
 
         /// <summary>
-        /// объект для синхронизации доступа к массиву
+        /// объект для синхронизации доступа к массиву.
         /// </summary>
         public virtual object SyncRoot
         {
@@ -105,7 +106,7 @@
         }
 
         /// <summary>
-        /// Array wrapper
+        /// Array wrapper.
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
@@ -115,7 +116,7 @@
         }
 
         /// <summary>
-        /// добавить
+        /// добавить.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -125,7 +126,7 @@
         }
 
         /// <summary>
-        /// поиск
+        /// поиск.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -135,7 +136,7 @@
         }
 
         /// <summary>
-        /// поиск
+        /// поиск.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="count"></param>
@@ -150,7 +151,7 @@
         }
 
         /// <summary>
-        /// очистить
+        /// очистить.
         /// </summary>
         public virtual void Clear()
         {
@@ -158,7 +159,7 @@
         }
 
         /// <summary>
-        /// проверка на вхождение
+        /// проверка на вхождение.
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -169,7 +170,7 @@
         }
 
         /// <summary>
-        /// копирование
+        /// копирование.
         /// </summary>
         /// <param name="array"></param>
         public virtual void CopyTo(
@@ -179,7 +180,7 @@
         }
 
         /// <summary>
-        /// копирование
+        /// копирование.
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
@@ -191,7 +192,7 @@
         }
 
         /// <summary>
-        /// копирование
+        /// копирование.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="array"></param>
@@ -207,7 +208,7 @@
         }
 
         /// <summary>
-        /// проверка на равенство
+        /// проверка на равенство.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -225,7 +226,7 @@
         }
 
         /// <summary>
-        /// проверка на равенство
+        /// проверка на равенство.
         /// </summary>
         /// <param name="objA"></param>
         /// <param name="objB"></param>
@@ -238,7 +239,7 @@
         }
 
         /// <summary>
-        /// индекс объекта
+        /// индекс объекта.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -249,7 +250,7 @@
         }
 
         /// <summary>
-        /// индекс объекта
+        /// индекс объекта.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="startIndex"></param>
@@ -262,7 +263,7 @@
         }
 
         /// <summary>
-        /// индекс объекта
+        /// индекс объекта.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="startIndex"></param>
@@ -277,7 +278,7 @@
         }
 
         /// <summary>
-        /// Вставить объект
+        /// Вставить объект.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="value"></param>
@@ -289,7 +290,7 @@
         }
 
         /// <summary>
-        /// индекс объекта с конца
+        /// индекс объекта с конца.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -300,7 +301,7 @@
         }
 
         /// <summary>
-        /// индекс объекта с конца
+        /// индекс объекта с конца.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="startIndex"></param>
@@ -313,7 +314,7 @@
         }
 
         /// <summary>
-        /// индекс объекта с конца
+        /// индекс объекта с конца.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="startIndex"></param>
@@ -328,7 +329,7 @@
         }
 
         /// <summary>
-        /// удалить объект
+        /// удалить объект.
         /// </summary>
         /// <param name="obj"></param>
         public virtual void Remove(
@@ -338,7 +339,7 @@
         }
 
         /// <summary>
-        /// удалить по индексу
+        /// удалить по индексу.
         /// </summary>
         /// <param name="index"></param>
         public virtual void RemoveAt(
@@ -348,7 +349,7 @@
         }
 
         /// <summary>
-        /// удалить кучу
+        /// удалить кучу.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="count"></param>
@@ -375,7 +376,7 @@
         }
 
         /// <summary>
-        /// вывернуть
+        /// вывернуть.
         /// </summary>
         public virtual void Reverse()
         {
@@ -383,7 +384,7 @@
         }
 
         /// <summary>
-        /// вывернуть
+        /// вывернуть.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="count"></param>
@@ -395,7 +396,7 @@
         }
 
         /// <summary>
-        /// отсортировать
+        /// отсортировать.
         /// </summary>
         public virtual void Sort()
         {
@@ -403,7 +404,7 @@
         }
 
         /// <summary>
-        /// отсортировать
+        /// отсортировать.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="count"></param>
@@ -415,7 +416,7 @@
         }
 
         /// <summary>
-        /// преобразовать в массив
+        /// преобразовать в массив.
         /// </summary>
         /// <returns></returns>
         public virtual Type[] ToArray()
@@ -424,7 +425,7 @@
         }
 
         /// <summary>
-        /// в строку
+        /// в строку.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -433,7 +434,7 @@
         }
 
         /// <summary>
-        /// обрезать лишнее
+        /// обрезать лишнее.
         /// </summary>
         public virtual void TrimToSize()
         {

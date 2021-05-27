@@ -14,7 +14,6 @@
     /// <summary>
     /// Класс, содержащий тестовые методы для проверки корректности работы ORM с атрибутами порядка у детейлов.
     /// </summary>
-    
     public class OrderPropertyTest : BaseIntegratedTest
     {
         /// <summary>
@@ -33,7 +32,6 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-
                 const string First = "Первый";
                 const string Second = "Второй";
                 const string Third = "Третий";
@@ -45,13 +43,13 @@
                 {
                     ДатаРождения = NullableDateTime.Now,
                     Тип = ТипКошки.Дикая,
-                    Порода = new Порода()
+                    Порода = new Порода(),
                 };
                 aggregator.Лапа.AddRange(
-                    new Лапа {Цвет = First},
-                    new Лапа {Цвет = Second},
-                    new Лапа {Цвет = Third},
-                    new Лапа {Цвет = Fourth});
+                    new Лапа { Цвет = First },
+                    new Лапа { Цвет = Second },
+                    new Лапа { Цвет = Third },
+                    new Лапа { Цвет = Fourth });
                 ds.UpdateObject(aggregator);
 
                 // Для проверки того, что у свойства Номер есть атрибут Order.
@@ -64,7 +62,7 @@
                 ds.UpdateObject(aggregator);
 
                 // Новый элемент добавляется в конец массива.
-                aggregator.Лапа.Add(new Лапа {Цвет = Fifth});
+                aggregator.Лапа.Add(new Лапа { Цвет = Fifth });
                 ds.UpdateObject(aggregator);
 
                 Кошка loadedAggr = new Кошка();

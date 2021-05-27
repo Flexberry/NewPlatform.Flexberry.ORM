@@ -1,12 +1,12 @@
-﻿//namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage.LoadingData
-//{
+﻿// namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage.LoadingData
+// {
 //    using System;
 //    using System.Collections.Generic;
 //    using System.Configuration;
 //    using IIS.AMS02.Объекты;
 //    using STORMNET.Business;
 
-//    /// <summary>
+// /// <summary>
 //    /// Класс для получения сервиса данных. TODO: заменить это всё на LocalDB.
 //    /// </summary>
 //    public class DataServiceLoader
@@ -18,18 +18,18 @@
 //        /// </summary>
 //        public const int CountЗадержанный = 7;
 
-//        /// <summary>
+// /// <summary>
 //        /// Вспомогательная строка соединения.
 //        /// </summary>
 //        public const string NewCustomizationString = @"SERVER=storm\SQL2008R2;Trusted_connection=no;DATABASE=FilterTest;uid=CaseberryTestUser;pwd=testuser;";
 
-//        /// <summary>
+// /// <summary>
 //        /// Основная строка соединения.
 //        /// </summary>
 //        public static string BaseCustomizationString =
 //            ConfigurationManager.AppSettings["CustomizationStrings"];
 
-//        /// <summary>
+// /// <summary>
 //        /// Инициализировать сервис данных для проверки загрузки данных и БД.
 //        /// Настраивает на базу FilterTest.
 //        /// </summary>
@@ -41,7 +41,7 @@
 //            return InitializeDataSetvice(NewCustomizationString);
 //        }
 
-//        /// <summary>
+// /// <summary>
 //        /// Инициализировать сервис данных для проверки загрузки данных и БД.
 //        /// </summary>
 //        /// <param name="connectionString">
@@ -67,10 +67,10 @@
 //            };
 //            STORMNET.RightManager.SetAdditionalAccessTypes(addAccessTypes);
 
-//            var ds = new MSSQLDataService { CustomizationString = connectionString };
+// var ds = new MSSQLDataService { CustomizationString = connectionString };
 //            ds.UseCommandTimeout = true;
 //            ds.CommandTimeout = 100000;
 //            return ds;
 //        }
 //    }
-//}
+// }

@@ -20,22 +20,22 @@
         private ArrayList fieldParameters = new ArrayList();
 
         /// <summary>
-        /// Константа для сериализации
+        /// Константа для сериализации.
         /// </summary>
         private const string FuncName = "Function";
 
         /// <summary>
-        /// Пустой конструктор по-умолчанию
+        /// Пустой конструктор по-умолчанию.
         /// </summary>
         public Function()
         {
         }
 
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
-        /// <param name="functionDefinition">Определение функции</param>
-        /// <param name="parameters">Параметры</param>
+        /// <param name="functionDefinition">Определение функции.</param>
+        /// <param name="parameters">Параметры.</param>
         public Function(FunctionDef functionDefinition, params object[] parameters)
         {
             _fieldFunctionDef = functionDefinition;
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Конструктор для десереализации
+        /// Конструктор для десереализации.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="text"></param>
@@ -62,7 +62,7 @@
                 "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ICSSoft.STORMNET.Business.ExternalLangDef, Version=1.0.0.0, " +
                 "Culture=neutral, PublicKeyToken=50dc27591ed591e6",
                 false);
-            if(externalLangDef == null)
+            if (externalLangDef == null)
             {
                 externalLangDef = Type.GetType(
                     "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef, ICSSoft.STORMNET.UI, Version=1.0.0.1, " +
@@ -70,7 +70,7 @@
                     false);
             }
 
-            if(externalLangDef != null)
+            if (externalLangDef != null)
             {
                 MethodInfo functionFromSimpleStruct = externalLangDef.GetMethod("FunctionFromSimpleStruct");
                 PropertyInfo languageDef = externalLangDef.GetProperty("LanguageDef");
@@ -78,7 +78,7 @@
                                                     new object[]
                                                         {
                                                             Tools.ToolBinarySerializer.ObjectFromString(
-                                                                info.GetString(FuncName))
+                                                                info.GetString(FuncName)),
                                                         });
             }
             else
@@ -93,7 +93,7 @@
         }
 
         /// <summary>
-        /// Сериализация
+        /// Сериализация.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -105,9 +105,9 @@
         }
 
         /// <summary>
-        /// Получить свойства, участвующие в ограничении
+        /// Получить свойства, участвующие в ограничении.
         /// </summary>
-        /// <returns>Список свойств из ограничения</returns>
+        /// <returns>Список свойств из ограничения.</returns>
         public string[] GetLimitProperties()
         {
             var res = new List<string>();
@@ -134,15 +134,16 @@
         }
 
         /// <summary>
-        /// Определение функции
+        /// Определение функции.
         /// </summary>
         public FunctionDef FunctionDef
         {
-            get { return _fieldFunctionDef; } set { _fieldFunctionDef = value; }
+            get { return _fieldFunctionDef; }
+            set { _fieldFunctionDef = value; }
         }
 
         /// <summary>
-        /// Массив параметров
+        /// Массив параметров.
         /// </summary>
         public ArrayList Parameters
         {
@@ -222,7 +223,7 @@
         }
 
         /// <summary>
-        /// в строку
+        /// в строку.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -253,7 +254,7 @@
         }
 
         /// <summary>
-        /// Преобразование функции в строковое дружественное пользователю представление
+        /// Преобразование функции в строковое дружественное пользователю представление.
         /// </summary>
         /// <returns></returns>
         public string ToUserFriendlyString()
@@ -287,7 +288,7 @@
         }
 
         /// <summary>
-        /// Проверка с вложениями
+        /// Проверка с вложениями.
         /// </summary>
         public void CheckWithSubFolders()
         {
@@ -295,7 +296,7 @@
         }
 
         /// <summary>
-        /// Проверка без вложений
+        /// Проверка без вложений.
         /// </summary>
         public void CheckWithOutSubFolders()
         {
@@ -303,7 +304,7 @@
         }
 
         /// <summary>
-        /// Проверка совместимости функции и параметров без выбрасывания эксепшенов
+        /// Проверка совместимости функции и параметров без выбрасывания эксепшенов.
         /// </summary>
         /// <returns></returns>
         public bool CheckWithoutSubFoldersSafetly()
@@ -312,7 +313,7 @@
         }
 
         /// <summary>
-        /// Клонирование функции
+        /// Клонирование функции.
         /// </summary>
         /// <returns></returns>
         public Function Clone()
@@ -336,7 +337,7 @@
         }
 
         /// <summary>
-        /// Проверить соответствие функции и параметров без выбрасывания эксепшенов
+        /// Проверить соответствие функции и параметров без выбрасывания эксепшенов.
         /// </summary>
         /// <param name="checkSubFunctions"></param>
         /// <returns></returns>
@@ -397,7 +398,7 @@
         }
 
         /// <summary>
-        /// Проверка функции с выбросом эксепшенов
+        /// Проверка функции с выбросом эксепшенов.
         /// </summary>
         /// <param name="checkSubFunctions"></param>
         /// <exception cref="NullFunctionDefException"></exception>

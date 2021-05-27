@@ -5,7 +5,7 @@
     using ICSSoft.STORMNET.Business.Audit.Objects;
 
     /// <summary>
-    /// Параметры для ведения аудита через API
+    /// Параметры для ведения аудита через API.
     /// </summary>
     public class CustomAuditParameters
     { // TODO: для удобства можно выделить общие конструкторы
@@ -15,7 +15,7 @@
 
         /// <summary>
         /// Тип операции
-        /// (выбирается из списка, при инициализации означивает CustomOperation)
+        /// (выбирается из списка, при инициализации означивает CustomOperation).
         /// </summary>
         public tTypeOfAuditOperation CommonAuditOperation
         {
@@ -26,7 +26,7 @@
         }
 
         /// <summary>
-        /// Тип операции (задаётся любой, может определяться при инициализации CommonAuditOperation)
+        /// Тип операции (задаётся любой, может определяться при инициализации CommonAuditOperation).
         /// </summary>
         public string CustomAuditOperation
         {
@@ -49,7 +49,7 @@
 
         /// <summary>
         /// Объект, аудит которого проводится
-        /// (сам объект не сохраняется, вычленяется только его первичный ключ и AssemblyQualifiedName типа)
+        /// (сам объект не сохраняется, вычленяется только его первичный ключ и AssemblyQualifiedName типа).
         /// </summary>
         public DataObject AuditDataObject
         {
@@ -62,7 +62,7 @@
 
         /// <summary>
         /// Тип объекта, аудит которого проводится
-        /// (сам тип не сохраняется, вычленяется только его AssemblyQualifiedName)
+        /// (сам тип не сохраняется, вычленяется только его AssemblyQualifiedName).
         /// </summary>
         public Type AuditObjectType
         {
@@ -76,7 +76,7 @@
 
         /// <summary>
         /// Первичный ключ объекта, аудит которого проводится
-        /// (задание AuditDataObject автоматически означит это поле)
+        /// (задание AuditDataObject автоматически означит это поле).
         /// </summary>
         public object AuditObjectPrimaryKey
         {
@@ -95,7 +95,7 @@
 
         /// <summary>
         /// Тип (AssemblyQualifiedName) или описание объекта, аудит которого проводится
-        /// (задание AuditDataObject или AuditObjectType автоматически означит это поле)
+        /// (задание AuditDataObject или AuditObjectType автоматически означит это поле).
         /// </summary>
         public string AuditObjectTypeOrDescription
         {
@@ -117,13 +117,13 @@
         #region Определение параметров аудита
 
         /// <summary>
-        /// Время выполнения операции
+        /// Время выполнения операции.
         /// </summary>
         private DateTime? _operationTime = null;
 
         /// <summary>
         /// Время выполнения операции
-        /// (если время не задано, то будет возвращаться DateTime.Now, а при асинхронной записи это может быть критично)
+        /// (если время не задано, то будет возвращаться DateTime.Now, а при асинхронной записи это может быть критично).
         /// </summary>
         public DateTime OperationTime
         {
@@ -140,13 +140,13 @@
 
         /// <summary>
         /// Вариант выполнения операции
-        /// (см. варианты в типе ICSSoft.STORMNET.Business.Audit.Objects.tExecutionVariant)
+        /// (см. варианты в типе ICSSoft.STORMNET.Business.Audit.Objects.tExecutionVariant).
         /// </summary>
         private tExecutionVariant _executionResult = tExecutionVariant.Unknown;
 
         /// <summary>
         /// Вариант выполнения операции
-        /// (см. варианты в типе ICSSoft.STORMNET.Business.Audit.Objects.tExecutionVariant)
+        /// (см. варианты в типе ICSSoft.STORMNET.Business.Audit.Objects.tExecutionVariant).
         /// </summary>
         public tExecutionVariant ExecutionResult
         {
@@ -164,7 +164,7 @@
         private CustomAuditFieldList customAuditFieldList;
 
         /// <summary>
-        /// Список с изменениями объекта, которые необходимо записать в подсистему аудита
+        /// Список с изменениями объекта, которые необходимо записать в подсистему аудита.
         /// </summary>
         public CustomAuditFieldList CustomAuditFieldList
         {
@@ -180,7 +180,7 @@
         }
 
         /// <summary>
-        /// Режим записи данных аудита: синхронный или асинхронный
+        /// Режим записи данных аудита: синхронный или асинхронный.
         /// </summary>
         private tWriteMode _writeMode = tWriteMode.Synchronous;
 
@@ -204,7 +204,7 @@
 
         /// <summary>
         /// Режим записи данных аудита: синхронный или асинхронный
-        /// (если UseDefaultWriteMode = true, то этот параметр не учитывается)
+        /// (если UseDefaultWriteMode = true, то этот параметр не учитывается).
         /// </summary>
         public tWriteMode WriteMode
         {

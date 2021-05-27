@@ -8,7 +8,7 @@
         "Name",
         "Value",
         "File",
-        "TestDataObject"
+        "TestDataObject",
     })]
     public class TestDataObjectDetail : DataObject, IName
     {

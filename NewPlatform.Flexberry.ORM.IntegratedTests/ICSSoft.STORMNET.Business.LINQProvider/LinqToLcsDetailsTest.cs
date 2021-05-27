@@ -10,14 +10,14 @@
 
     /// <summary>
     /// This is a test class for LinqToLcsTest and is intended
-    /// to contain all LinqToLcsTest Unit Tests
+    /// to contain all LinqToLcsTest Unit Tests.
     /// </summary>
     public class LinqToLcsDetailsTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
 
         /// <summary>
-        /// Все объекты с детейлами
+        /// Все объекты с детейлами.
         /// </summary>
         [Fact]
         public void GetLcsTestAny()
@@ -33,7 +33,7 @@
                 ConnectMasterPorp = "Кошка",
                 OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
                 View = Information.GetView("ЛапаE", typeof(Лапа)),
-                Type = this.ldef.GetObjectType("Details")
+                Type = this.ldef.GetObjectType("Details"),
             };
 
             var expected = new LoadingCustomizationStruct(null) { LimitFunction = this.ldef.GetFunction("Exist", dvd, true) };
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Квантер существования
+        /// Квантер существования.
         /// </summary>
         [Fact]
         public void GetLcsTestDetailAnyWithLimit()
@@ -58,7 +58,7 @@
                 ConnectMasterPorp = "Кошка",
                 OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
                 View = Information.GetView("ЛапаE", typeof(Лапа)),
-                Type = this.ldef.GetObjectType("Details")
+                Type = this.ldef.GetObjectType("Details"),
             };
 
             var lf = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.BoolType, "БылиЛиПереломы"));
@@ -69,7 +69,7 @@
         }
 
         /// <summary>
-        /// Квантер общности
+        /// Квантер общности.
         /// </summary>
         [Fact]
         public void GetLcsTestDetailAllWithLimit()
@@ -84,7 +84,7 @@
                 ConnectMasterPorp = "Кошка",
                 OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
                 View = Information.GetView("ЛапаE", typeof(Лапа)),
-                Type = this.ldef.GetObjectType("Details")
+                Type = this.ldef.GetObjectType("Details"),
             };
 
             var lf = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.BoolType, "БылиЛиПереломы"));
@@ -106,7 +106,7 @@
                 ConnectMasterPorp = "Кошка",
                 OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
                 View = Information.GetView("ЛапаE", typeof(Лапа)),
-                Type = this.ldef.GetObjectType("Details")
+                Type = this.ldef.GetObjectType("Details"),
             };
 
             var lf = ldef.GetFunction(
@@ -132,7 +132,7 @@
                 ConnectMasterPorp = "Кошка",
                 OwnerConnectProp = new[] { "Кошка" },
                 View = Information.GetView("ЛапаE", typeof(Лапа)),
-                Type = this.ldef.GetObjectType("Details")
+                Type = this.ldef.GetObjectType("Details"),
             };
 
             var lf = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "ТипЛапы.Название"), "передняя");
@@ -140,7 +140,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                                       this.ldef.GetFunction("Exist", dvd, lf)
+                                       this.ldef.GetFunction("Exist", dvd, lf),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(

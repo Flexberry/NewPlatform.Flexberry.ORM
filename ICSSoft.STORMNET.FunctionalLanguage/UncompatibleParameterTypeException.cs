@@ -8,7 +8,7 @@
     public class UncompatibleParameterTypeException : Exception
     {
         /// <summary>
-        /// Номер параметра
+        /// Номер параметра.
         /// </summary>
         public int ParameterNum;
 

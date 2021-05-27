@@ -12,12 +12,12 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     public class FunctionForControls
     {
         /// <summary>
-        /// Имя
+        /// Имя.
         /// </summary>
         public string Name;
 
         /// <summary>
-        /// Функция
+        /// Функция.
         /// </summary>
         public ICSSoft.STORMNET.FunctionalLanguage.Function Function
         {
@@ -27,12 +27,12 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         private ICSSoft.STORMNET.FunctionalLanguage.Function function;
 
         /// <summary>
-        /// Представление
+        /// Представление.
         /// </summary>
         public View View = null;
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="view"></param>
         /// <param name="func"></param>
@@ -43,7 +43,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="View"></param>
         /// <param name="type"></param>
@@ -55,7 +55,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="def"></param>
         /// <param name="View"></param>
@@ -68,7 +68,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="view"></param>
         /// <param name="def"></param>
@@ -112,7 +112,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// В строку
+        /// В строку.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -149,31 +149,30 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
 
                         break;
                     case "Value":
-                    {
-                        string typename = subel.GetAttribute("ConstType");
-                        parameters[i] = null;
-                        foreach (ICSSoft.STORMNET.FunctionalLanguage.ObjectType ot in lang.Types)
                         {
-                            if (ot.StringedView == typename)
+                            string typename = subel.GetAttribute("ConstType");
+                            parameters[i] = null;
+                            foreach (ICSSoft.STORMNET.FunctionalLanguage.ObjectType ot in lang.Types)
                             {
-                                try
+                                if (ot.StringedView == typename)
                                 {
-                                    parameters[i] = Convert.ChangeType(subel.GetAttribute("Value"), ot.NetCompatibilityType);
-                                    break;
+                                    try
+                                    {
+                                        parameters[i] = Convert.ChangeType(subel.GetAttribute("Value"), ot.NetCompatibilityType);
+                                        break;
+                                    }
+                                    catch { }
                                 }
-                                catch { }
                             }
-                        }
 
-                        if (parameters[i] == null)
+                            if (parameters[i] == null)
                             {
                                 parameters[i] = subel.GetAttribute("Value");
                             }
 
                             break;
-                    }
+                        }
                 }
-;
             }
 
             if (funcname == null || funcname == string.Empty)
@@ -187,25 +186,25 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Разбор
+        /// Разбор.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <param name="viewname"></param>
         /// <returns></returns>
-        static public FunctionForControls Parse(string value, Type type, string viewname)
+        public static FunctionForControls Parse(string value, Type type, string viewname)
         {
             ICSSoft.STORMNET.View v = ICSSoft.STORMNET.Information.GetView(viewname, type);
             return Parse(value, v);
         }
 
         /// <summary>
-        /// Разбор
+        /// Разбор.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        static public FunctionForControls Parse(string value, ICSSoft.STORMNET.View v)
+        public static FunctionForControls Parse(string value, ICSSoft.STORMNET.View v)
         {
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.LoadXml(value);

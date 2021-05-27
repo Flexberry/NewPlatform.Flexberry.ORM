@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Неверное количество параметров
+    /// Неверное количество параметров.
     /// </summary>
     public class ParameterCountException : Exception
     {

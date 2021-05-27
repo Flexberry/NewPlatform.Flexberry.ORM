@@ -649,7 +649,7 @@
         {
             Assert.Equal(
                 LangDef.GetFunction(LangDef.funcBETWEEN, NumericVarDef, Int1, Decimal1),
-                FunctionBuilder.BuildBetween(NumericVarDef.Caption,  Int1, Decimal1));
+                FunctionBuilder.BuildBetween(NumericVarDef.Caption, Int1, Decimal1));
         }
 
         [Fact]

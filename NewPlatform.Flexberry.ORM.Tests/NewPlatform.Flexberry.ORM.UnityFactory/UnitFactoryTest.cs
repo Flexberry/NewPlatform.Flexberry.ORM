@@ -7,7 +7,6 @@
     /// <summary>
     /// Unit test class for <see cref="UnityFactory"/> class.
     /// </summary>
-    
     public class UnitFactoryTest
     {
         /// <summary>

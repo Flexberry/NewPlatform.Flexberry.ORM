@@ -15,7 +15,7 @@
     using Oracle.ManagedDataAccess.Client;
 
     /// <summary>
-    /// Сервис данных для доступа к данным Oracle
+    /// Сервис данных для доступа к данным Oracle.
     /// </summary>
     public class OracleDataService : ICSSoft.STORMNET.Business.SQLDataService
     {
@@ -69,11 +69,11 @@
         }
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public override string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -315,7 +315,7 @@
         /// <summary>
         /// Получить хэш-код идентификатора.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         public static int GetIdentifierHashCode(string identifier)
         {
             // В предыдущем варианте использовался  метод string.GetHashCode.
@@ -334,9 +334,9 @@
         }
 
         /// <summary>
-        /// Получить идентификатор, обработанный с учётом требований ORACLE на длину в 30 байт
+        /// Получить идентификатор, обработанный с учётом требований ORACLE на длину в 30 байт.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         public static string GenerateShortName(string identifier)
         {
             var encoding = Encoding.UTF8;
@@ -365,9 +365,9 @@
         }
 
         /// <summary>
-        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
+        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         public static string PrepareIdentifier(string identifier)
         {
             identifier = GenerateShortName(identifier);
@@ -375,9 +375,9 @@
         }
 
         /// <summary>
-        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
+        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         /// <returns></returns>
         public override string PutIdentifierIntoBrackets(string identifier)
         {
@@ -390,9 +390,9 @@
         }
 
         /// <summary>
-        /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL)
+        /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL).
         /// </summary>
-        /// <param name="identifiers">идентификаторы</param>
+        /// <param name="identifiers">идентификаторы.</param>
         /// <returns></returns>
         public override string GetIfNullExpression(params string[] identifiers)
         {
@@ -436,7 +436,7 @@
         /// <summary>
         /// Перегрузка GenerateSQLSelect, связанная с необходимостью в ORACLE заменить TOP на ограничение rownum.
         /// </summary>
-        /// <returns>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE</returns>
+        /// <returns>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE.</returns>
         public override string GenerateSQLSelect(LoadingCustomizationStruct customizationStruct, bool ForReadValues, out StorageStructForView[] StorageStruct, bool Optimized)
         {
             // В предыдущей реализации вызывалась генерация с TOP, после чего данная подстрока вырезалась.
@@ -469,12 +469,12 @@
             else if (valType == typeof(Guid))
             {
                 // 382c74c3-721d-4f34-80e5-57657b6cbc27
-//              string res=value.ToString();
-//              res=res.Remove(23,1);
-//              res=res.Remove(18,1);
-//              res=res.Remove(13,1);
-//              res=res.Remove(8,1);
-//              return String.Format("HEXTORAW('{0}')",res);
+                //              string res=value.ToString();
+                //              res=res.Remove(23,1);
+                //              res=res.Remove(18,1);
+                //              res=res.Remove(13,1);
+                //              res=res.Remove(8,1);
+                //              return String.Format("HEXTORAW('{0}')",res);
                 byte[] byteArrGuid = new Guid(value).ToByteArray();
                 string hexGuidString = string.Empty;
                 foreach (byte b in byteArrGuid)
@@ -496,7 +496,6 @@
         {
             if (value != null)
             {
-
                 if (value is DateTime dt)
                 {
                     return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", dt.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -543,7 +542,7 @@
 
         protected override void CustomizeCommand(System.Data.IDbCommand cmd)
         {
-            foreach(OracleParameter param in arParams)
+            foreach (OracleParameter param in arParams)
             {
                 (cmd as OracleCommand).Parameters.Add(param);
             }
@@ -552,84 +551,84 @@
             base.CustomizeCommand(cmd);
         }
 
-////		/// <summary>
-////		/// создать join соединения
-////		/// </summary>
-////		/// <param name="source">источник с которого формируется соединение</param>
-////		/// <param name="parentAlias">вышестоящий алиас</param>
-////		/// <param name="index">индекс источника</param>
-////		/// <param name="keysandtypes">ключи и типы</param>
-////		/// <param name="baseOutline">смещение в запросе</param>
-////		/// <param name="joinscount">количество соединений</param>
-////		/// <returns></returns>
-////		public override void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
-////			string parentAlias,int index,
-////			System.Collections.ArrayList  keysandtypes,
-////			string baseOutline,out int joinscount,
-////			out string FromPart, out string WherePart)
-////		{
-////			string nl = Environment.NewLine+baseOutline;
-////			string newOutLine = baseOutline+"\t";
-////			joinscount = 0;
-////			FromPart = "";
-////			WherePart = "";
-////			foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
-////			{
-////				for (int j=0;j<subSource.storage.Length;j++)
-////				{
-////					if (subSource.storage[j].parentStorageindex == index)
-////					{
-////						joinscount++;
-////						string curAlias = subSource.Name+j.ToString();
-////						keysandtypes.Add(
-////							new string[]{
-////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
-////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName)
-////										}
-////
-////							);
-////						string Link = PutIdentifierIntoBrackets(parentAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);//+"_M"+(locindex++).ToString());
-////						int subjoinscount;
-////						string subjoin = "";string temp;
-////						CreateJoins(subSource,curAlias,j,keysandtypes,newOutLine,out subjoinscount,out subjoin,out temp);
-////						string FromStr,WhereStr;
-////
-////						if (subSource.storage[j].nullableLink)
-////							GetLeftJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
-////						else
-////							GetInnerJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
-////						FromPart +=FromStr+")";
-////					}
-////				}
-////			}
-////		}
-////
-////		public override void GetLeftJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
-////		{
-////
-////			/*
-////			string nl = Environment.NewLine+baseOutline;
-////			FromPart = string.Concat(nl ," LEFT JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
-////				subJoins,
-////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
-////			WherePart = "";*/
-////			FromPart = "";
-////			WherePart = "";
-////
-////		}
-////
-////		public override void GetInnerJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
-////		{
-////			/*
-////			string nl = Environment.NewLine+baseOutline;
-////			FromPart = String.Concat(nl ," INNER JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
-////				subJoins,
-////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
-////			WherePart = "";*/
-////
-////			FromPart = "";
-////			WherePart = "";
-////
-////		}
+        ////		/// <summary>
+        ////		/// создать join соединения
+        ////		/// </summary>
+        ////		/// <param name="source">источник с которого формируется соединение</param>
+        ////		/// <param name="parentAlias">вышестоящий алиас</param>
+        ////		/// <param name="index">индекс источника</param>
+        ////		/// <param name="keysandtypes">ключи и типы</param>
+        ////		/// <param name="baseOutline">смещение в запросе</param>
+        ////		/// <param name="joinscount">количество соединений</param>
+        ////		/// <returns></returns>
+        ////		public override void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
+        ////			string parentAlias,int index,
+        ////			System.Collections.ArrayList  keysandtypes,
+        ////			string baseOutline,out int joinscount,
+        ////			out string FromPart, out string WherePart)
+        ////		{
+        ////			string nl = Environment.NewLine+baseOutline;
+        ////			string newOutLine = baseOutline+"\t";
+        ////			joinscount = 0;
+        ////			FromPart = "";
+        ////			WherePart = "";
+        ////			foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
+        ////			{
+        ////				for (int j=0;j<subSource.storage.Length;j++)
+        ////				{
+        ////					if (subSource.storage[j].parentStorageindex == index)
+        ////					{
+        ////						joinscount++;
+        ////						string curAlias = subSource.Name+j.ToString();
+        ////						keysandtypes.Add(
+        ////							new string[]{
+        ////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
+        ////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName)
+        ////										}
+        ////
+        ////							);
+        ////						string Link = PutIdentifierIntoBrackets(parentAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);//+"_M"+(locindex++).ToString());
+        ////						int subjoinscount;
+        ////						string subjoin = "";string temp;
+        ////						CreateJoins(subSource,curAlias,j,keysandtypes,newOutLine,out subjoinscount,out subjoin,out temp);
+        ////						string FromStr,WhereStr;
+        ////
+        ////						if (subSource.storage[j].nullableLink)
+        ////							GetLeftJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
+        ////						else
+        ////							GetInnerJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
+        ////						FromPart +=FromStr+")";
+        ////					}
+        ////				}
+        ////			}
+        ////		}
+        ////
+        ////		public override void GetLeftJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
+        ////		{
+        ////
+        ////			/*
+        ////			string nl = Environment.NewLine+baseOutline;
+        ////			FromPart = string.Concat(nl ," LEFT JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
+        ////				subJoins,
+        ////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
+        ////			WherePart = "";*/
+        ////			FromPart = "";
+        ////			WherePart = "";
+        ////
+        ////		}
+        ////
+        ////		public override void GetInnerJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
+        ////		{
+        ////			/*
+        ////			string nl = Environment.NewLine+baseOutline;
+        ////			FromPart = String.Concat(nl ," INNER JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
+        ////				subJoins,
+        ////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
+        ////			WherePart = "";*/
+        ////
+        ////			FromPart = "";
+        ////			WherePart = "";
+        ////
+        ////		}
     }
 }

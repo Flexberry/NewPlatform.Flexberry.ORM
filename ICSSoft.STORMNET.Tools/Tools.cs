@@ -15,7 +15,7 @@
     using ICSSoft.STORMNET.Collections;
 
     /// <summary>
-    /// Инструмент для сериализации-десериализации в XML
+    /// Инструмент для сериализации-десериализации в XML.
     /// </summary>
     public class ToolXML
     {
@@ -27,10 +27,10 @@
         }
 
         /// <summary>
-        /// Получение объекта данных из ранее полученного XML документа
+        /// Получение объекта данных из ранее полученного XML документа.
         /// </summary>
-        /// <param name="dataObject"> Объект данных, в который будем десериализовывать </param>
-        /// <param name="xmlDoc"> Сериализованный объект данных </param>
+        /// <param name="dataObject"> Объект данных, в который будем десериализовывать. </param>
+        /// <param name="xmlDoc"> Сериализованный объект данных. </param>
         public static void XMLDocument2DataObject(ref ICSSoft.STORMNET.DataObject dataObject, XmlDocument xmlDoc)
         {
             if (dataObject == null)
@@ -75,7 +75,7 @@
         }
 
         /// <summary>
-        /// Получение XML документа из объекта данных
+        /// Получение XML документа из объекта данных.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <returns></returns>
@@ -85,7 +85,7 @@
         }
 
         /// <summary>
-        /// Получение XML документа из объекта данных
+        /// Получение XML документа из объекта данных.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="serializeAggregators"></param>
@@ -96,7 +96,7 @@
         }
 
         /// <summary>
-        /// Получение XML документа из объекта данных
+        /// Получение XML документа из объекта данных.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="serializeAggregators"></param>
@@ -115,14 +115,14 @@
         }
 
         /// <summary>
-        /// Получение XML документа из объекта данных
+        /// Получение XML документа из объекта данных.
         /// </summary>
-        /// <param name="dataObject"> Сам объект данных </param>
-        /// <param name="serializeAggregators"> Следует ли сериализовать детейлы </param>
-        /// <param name="setObjectLoadingStateLoaded"> Установить LoadingState объекта в Loaded </param>
-        /// <param name="setObjectStatusCreated"> Установить ObjectStatus объекта в Created </param>
-        /// <param name="serializeMasters"> Проводить полную сериализацию мастеров объектов </param>
-        /// <returns> Сериализованное представление объекта </returns>
+        /// <param name="dataObject"> Сам объект данных. </param>
+        /// <param name="serializeAggregators"> Следует ли сериализовать детейлы. </param>
+        /// <param name="setObjectLoadingStateLoaded"> Установить LoadingState объекта в Loaded. </param>
+        /// <param name="setObjectStatusCreated"> Установить ObjectStatus объекта в Created. </param>
+        /// <param name="serializeMasters"> Проводить полную сериализацию мастеров объектов. </param>
+        /// <returns> Сериализованное представление объекта. </returns>
         public static XmlDocument DataObject2XMLDocument(
             ref ICSSoft.STORMNET.DataObject dataObject,
             bool serializeAggregators,
@@ -168,17 +168,17 @@
         }
 
         /// <summary>
-        /// Получение XML документа из объекта данных
+        /// Получение XML документа из объекта данных.
         /// </summary>
-        /// <param name="xmlEl"> Текущий XmlElement, куда записываются данные и от которого создаются потомки </param>
-        /// <param name="dataObject"> Сериализуемый объект данных </param>
-        /// <param name="assemblies"> Имена сборок (будут записаны в xml) </param>
-        /// <param name="serializeAggregators"> Следует ли сериализовать детейлы </param>
-        /// <param name="setObjectLoadingStateLoaded"> Установить LoadingState объекта в Loaded </param>
-        /// <param name="setObjectStatusCreated"> Установить ObjectStatus объекта в Created </param>
-        /// <param name="serializeMasters"> Сериализовать мастеров объектов </param>
-        /// <param name="usedPrimaryKeyList"> Вспомогательный список первичных ключей объектов, которые уже были сериализованы </param>
-        /// <returns> Сериализованное представление объекта </returns>
+        /// <param name="xmlEl"> Текущий XmlElement, куда записываются данные и от которого создаются потомки. </param>
+        /// <param name="dataObject"> Сериализуемый объект данных. </param>
+        /// <param name="assemblies"> Имена сборок (будут записаны в xml). </param>
+        /// <param name="serializeAggregators"> Следует ли сериализовать детейлы. </param>
+        /// <param name="setObjectLoadingStateLoaded"> Установить LoadingState объекта в Loaded. </param>
+        /// <param name="setObjectStatusCreated"> Установить ObjectStatus объекта в Created. </param>
+        /// <param name="serializeMasters"> Сериализовать мастеров объектов. </param>
+        /// <param name="usedPrimaryKeyList"> Вспомогательный список первичных ключей объектов, которые уже были сериализованы. </param>
+        /// <returns> Сериализованное представление объекта. </returns>
         private static void prv_DataObject2XmlElement(
             XmlElement xmlEl,
             ICSSoft.STORMNET.DataObject dataObject,
@@ -309,13 +309,13 @@
         }
 
         /// <summary>
-        /// Извлечение объекта данных из строки
+        /// Извлечение объекта данных из строки.
         /// </summary>
-        /// <param name="xmlEl"> Текущий элемент xml </param>
-        /// <param name="dataObject"> Текущий объект данных </param>
-        /// <param name="assemblies"> Необходимые сборки </param>
-        /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
+        /// <param name="xmlEl"> Текущий элемент xml. </param>
+        /// <param name="dataObject"> Текущий объект данных. </param>
+        /// <param name="assemblies"> Необходимые сборки. </param>
+        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_XmlElement2DataObject(
             XmlElement xmlEl,
             ICSSoft.STORMNET.DataObject dataObject,
@@ -397,14 +397,14 @@
         }
 
         /// <summary>
-        /// Прочитать свойство объекта (с целью его дальнейшей десериализации)
+        /// Прочитать свойство объекта (с целью его дальнейшей десериализации).
         /// </summary>
-        /// <param name="xmlEl"> Текущий элемент xml </param>
-        /// <param name="dataObject"> Текущий объект данных </param>
-        /// <param name="propname"> Читаемое свойство объекта </param>
-        /// <param name="assemblies"> Необходимые сборки </param>
-        /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
+        /// <param name="xmlEl"> Текущий элемент xml. </param>
+        /// <param name="dataObject"> Текущий объект данных. </param>
+        /// <param name="propname"> Читаемое свойство объекта. </param>
+        /// <param name="assemblies"> Необходимые сборки. </param>
+        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_ReadProperty(
             XmlElement xmlEl,
             ICSSoft.STORMNET.DataObject dataObject,
@@ -446,13 +446,13 @@
         }
 
         /// <summary>
-        /// Извлечение мастера из сериализованного представления
+        /// Извлечение мастера из сериализованного представления.
         /// </summary>
-        /// <param name="masternode"> Текущий элемент xml </param>
-        /// <param name="dataObject"> Текущий объект данных </param>
-        /// <param name="assemblies"> Необходимые сборки </param>
-        /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
+        /// <param name="masternode"> Текущий элемент xml. </param>
+        /// <param name="dataObject"> Текущий объект данных. </param>
+        /// <param name="assemblies"> Необходимые сборки. </param>
+        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_ReadMaster(
             XmlNode masternode,
             ICSSoft.STORMNET.DataObject dataObject,
@@ -485,13 +485,13 @@
         }
 
         /// <summary>
-        /// Извлечение детейла из сериализованного представления
+        /// Извлечение детейла из сериализованного представления.
         /// </summary>
-        /// <param name="xmldetailobjects"> Текущий элемент xml </param>
-        /// <param name="detail"> Текущий список детейлов </param>
-        /// <param name="assemblies"> Необходимые сборки </param>
-        /// <param name="DataObjectCache"> DataObjectCache </param>
-        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами </param>
+        /// <param name="xmldetailobjects"> Текущий элемент xml. </param>
+        /// <param name="detail"> Текущий список детейлов. </param>
+        /// <param name="assemblies"> Необходимые сборки. </param>
+        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_ReadDetail(
             XmlNodeList xmldetailobjects,
             DetailArray detail,
@@ -531,15 +531,15 @@
     /// <summary>
     /// Инструмент для бинарной сериализации-десериализации
     /// Используется для Function
-    /// Сериализованные байты конвертируются в ToBase64String
+    /// Сериализованные байты конвертируются в ToBase64String.
     /// </summary>
     public class ToolBinarySerializer
     {
         /// <summary>
-        /// Сериализация объекта при помощи BinaryFormatter
+        /// Сериализация объекта при помощи BinaryFormatter.
         /// </summary>
-        /// <param name="o">Объект</param>
-        /// <returns>Строка</returns>
+        /// <param name="o">Объект.</param>
+        /// <returns>Строка.</returns>
         public static string ObjectToString(object o)
         {
             MemoryStream strm = new MemoryStream();
@@ -554,25 +554,25 @@
             return Convert.ToBase64String(binData);
         }
 
-         /// <summary>
-        /// Десериализация объекта при помощи BinaryFormatter
+        /// <summary>
+        /// Десериализация объекта при помощи BinaryFormatter.
         /// </summary>
-        /// <param name="s">Сериализованный объект</param>
-        /// <returns>Востановленный объект</returns>
+        /// <param name="s">Сериализованный объект.</param>
+        /// <returns>Востановленный объект.</returns>
         public static object ObjectFromString(string s)
         {
             return ObjectFromString(s, null);
         }
 
         /// <summary>
-        /// Десериализация объекта при помощи BinaryFormatter
+        /// Десериализация объекта при помощи BinaryFormatter.
         /// </summary>
-        /// <param name="s">Сериализованный объект</param>
+        /// <param name="s">Сериализованный объект.</param>
         /// <param name="binder">
         /// Binder, который необходимо указать, если при десереализации
         /// необходимо реализовать собственную логику по поиску типов.
         /// </param>
-        /// <returns>Востановленный объект</returns>
+        /// <returns>Востановленный объект.</returns>
         public static object ObjectFromString(string s, SerializationBinder binder)
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -592,14 +592,14 @@
     }
 
     /// <summary>
-    /// Помощь при загрузке сборок, которые были подписаны
+    /// Помощь при загрузке сборок, которые были подписаны.
     /// </summary>
     public static class AssemblyLoader
     {
         /// <summary>
-        /// Загрузка сборки сначала по полному переданному пути, потом с обрезкой PublicKeyToken (Если не получилось, то Exception)
+        /// Загрузка сборки сначала по полному переданному пути, потом с обрезкой PublicKeyToken (Если не получилось, то Exception).
         /// </summary>
-        /// <param name="asmName">Полное имя сборки</param>
+        /// <param name="asmName">Полное имя сборки.</param>
         /// <returns></returns>
         public static Assembly LoadAssembly(string asmName)
         {
@@ -652,10 +652,10 @@
         }
 
         /// <summary>
-        /// Получить тип по имени с указанием сборки (должен работать, даже если изменился PublicKeyToken)
+        /// Получить тип по имени с указанием сборки (должен работать, даже если изменился PublicKeyToken).
         /// </summary>
-        /// <param name="assemblyQualifiedName">Полное имя типа</param>
-        /// <returns>Тип</returns>
+        /// <param name="assemblyQualifiedName">Полное имя типа.</param>
+        /// <returns>Тип.</returns>
         public static Type GetTypeWithAssemblyName(string assemblyQualifiedName)
         {
             if (string.IsNullOrEmpty(assemblyQualifiedName))
@@ -715,7 +715,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        /// <returns>null - если не нашлось ничего</returns>
+        /// <returns>null - если не нашлось ничего.</returns>
         public static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
             string asmName = args.Name;
@@ -742,7 +742,7 @@
         }
 
         /// <summary>
-        /// Разрешить тип
+        /// Разрешить тип.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
@@ -813,7 +813,7 @@
 
         public delegate object[] GetParametersForContructorDelegate(Type moduleType);
 
-        static public Type[] GetTypes(string filename, Type filter)
+        public static Type[] GetTypes(string filename, Type filter)
         {
             ArrayList arl = new ArrayList();
             if (System.IO.Path.GetDirectoryName(filename) == string.Empty)
@@ -845,17 +845,17 @@
             return (Type[])arl.ToArray(typeof(Type));
         }
 
-        static public Type[] GetTypes(string filename)
+        public static Type[] GetTypes(string filename)
         {
             return GetTypes(filename, typeof(object));
         }
 
-        static public object[] GetInstances(string filename, Type filter)
+        public static object[] GetInstances(string filename, Type filter)
         {
             return GetInstances(filename, filter, new object[0]);
         }
 
-        static public object[] GetInstances(string filename, Type filter, object[] parameters)
+        public static object[] GetInstances(string filename, Type filter, object[] parameters)
         {
             Type[] alltypes = GetTypes(filename, filter);
             object[] res = new object[alltypes.Length];
@@ -867,7 +867,7 @@
             return res;
         }
 
-        static public object[] GetInstances(string filename, Type filter, GetParametersForContructorDelegate parametersDelegate)
+        public static object[] GetInstances(string filename, Type filter, GetParametersForContructorDelegate parametersDelegate)
         {
             if (parametersDelegate == null)
             {
@@ -892,7 +892,7 @@
         // *** Start programmer edit section *** (Compressor CustomMembers)
 
         /// <summary>
-        /// Сжатие
+        /// Сжатие.
         /// </summary>
         /// <param name="ms"></param>
         /// <returns></returns>
@@ -924,7 +924,7 @@
         }
 
         /// <summary>
-        /// Разжатие
+        /// Разжатие.
         /// </summary>
         /// <param name="ms"></param>
         /// <returns></returns>
@@ -972,10 +972,10 @@
         }
 
         /// <summary>
-        /// Сжатие и кодирование в base64
+        /// Сжатие и кодирование в base64.
         /// </summary>
-        /// <param name="несжатаяСтрока">входная строчка</param>
-        /// <returns>сжатая строчка</returns>
+        /// <param name="несжатаяСтрока">входная строчка.</param>
+        /// <returns>сжатая строчка.</returns>
         public static string Compress(string несжатаяСтрока)
         {
             MemoryStream ms = new MemoryStream();
@@ -996,10 +996,10 @@
         }
 
         /// <summary>
-        /// Разжатие
+        /// Разжатие.
         /// </summary>
-        /// <param name="сжатаяСтрока">сжатая строчка</param>
-        /// <returns>исходная строка</returns>
+        /// <param name="сжатаяСтрока">сжатая строчка.</param>
+        /// <returns>исходная строка.</returns>
         public static string Decompress(string сжатаяСтрока)
         {
             MemoryStream ms = new MemoryStream();

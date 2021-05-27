@@ -12,7 +12,7 @@
     using Remotion.Linq.Clauses.ResultOperators;
 
     /// <summary>
-    /// Visitor, который обходит распарсенноое дерево (в большинстве случаев подходит эта реализация)
+    /// Visitor, который обходит распарсенноое дерево (в большинстве случаев подходит эта реализация).
     /// </summary>
     public class LcsGeneratorExpressionTreeVisitorCommon : LcsGeneratorExpressionTreeVisitorBase
     {

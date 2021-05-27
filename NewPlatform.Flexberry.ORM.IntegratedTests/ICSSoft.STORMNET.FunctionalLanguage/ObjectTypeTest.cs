@@ -7,18 +7,16 @@
     /// <summary>
     /// Проверка класса ObjectType.
     /// </summary>
-    
     public class ObjectTypeTest
     {
         /// <summary>
         /// Проверка совпадения типов.
         /// </summary>
-        
         [Fact]
         public void ObjectTypeCompatWithEqualTest()
         {
             var testObject = new ObjectType("objStringedView", "objCaption", typeof(Int32));
-            
+
             Assert.True(testObject.CompatWithEqual(testObject), "Сравнение с самим собой.");
             Assert.True(ObjectTypeCompatWithEqual(testObject, typeof(Int32)), "Сравнение одинаковых типов.");
             Assert.False(ObjectTypeCompatWithEqual(testObject, typeof(string)), "Сравнение разных типов.");
@@ -29,7 +27,6 @@
         /// <summary>
         /// Проверка метода ValueToSimpleValue значение в простое значение.
         /// </summary>
-        
         [Fact]
         public void ObjectTypeValueToSimpleValueTest()
         {
@@ -47,7 +44,6 @@
         /// <summary>
         /// Проверка метода SimpleValueToValue простое значение в значение.
         /// </summary>
-        
         [Fact]
         public void ObjectTypeSimpleValueToValueTest()
         {
@@ -66,7 +62,7 @@
         /// Проверка логики для ObjectTypeCompatWithEqualTest.
         /// </summary>
         /// <param name="obj">
-        /// Объект с которым производится сравнение. 
+        /// Объект с которым производится сравнение.
         /// </param>
         /// <param name="type">
         /// Сравниваемый Type, который сравнивается с ObjectType.

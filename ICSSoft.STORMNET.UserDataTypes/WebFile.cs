@@ -8,31 +8,31 @@
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Структура для хранения файлов в Web-приложении
+    /// Структура для хранения файлов в Web-приложении.
     /// </summary>
     [StoreInstancesInType(typeof(Business.SQLDataService), typeof(string))]
     [Serializable]
     public class WebFile
     {
         /// <summary>
-        /// Имя
+        /// Имя.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Url
+        /// Url.
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// Размер
+        /// Размер.
         /// </summary>
         public int Size { get; set; }
 
         private string _value;
 
         /// <summary>
-        /// Конструктор без параметров, нужен для Activator.CreateInstance
+        /// Конструктор без параметров, нужен для Activator.CreateInstance.
         /// </summary>
         public WebFile()
         {

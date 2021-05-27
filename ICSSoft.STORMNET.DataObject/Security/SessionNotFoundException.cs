@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Исключение, возникающее в случае, если нет ключа сессии даже после запроса авторизоваться
+    /// Исключение, возникающее в случае, если нет ключа сессии даже после запроса авторизоваться.
     /// </summary>
     public class SessionNotFoundException : Exception
     {
@@ -24,10 +24,10 @@
         }
 
         /// <summary>
-        /// Исключение о том, что сессия пользователя не была найдена
+        /// Исключение о том, что сессия пользователя не была найдена.
         /// </summary>
-        /// <param name="message">Сообщение</param>
-        /// <param name="innerException">Внутреннее исключение</param>
+        /// <param name="message">Сообщение.</param>
+        /// <param name="innerException">Внутреннее исключение.</param>
         public SessionNotFoundException(string message, Exception innerException)
             : base(message, innerException)
         {

@@ -12,17 +12,17 @@ namespace ICSSoft.STORMNET.Business
     using System;
 
     /// <summary>
-    /// Аргументы события с массивом объектов данных
+    /// Аргументы события с массивом объектов данных.
     /// </summary>
     public class DataObjectsEventArgs : EventArgs
     {
         /// <summary>
-        /// Массив объектов данных
+        /// Массив объектов данных.
         /// </summary>
         public DataObject[] DataObjects;
 
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
         /// <param name="dataObjects">
         /// </param>

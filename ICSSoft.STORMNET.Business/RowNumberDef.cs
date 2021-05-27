@@ -4,7 +4,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Структура для указания начала и конца страницы для вычитки
+    /// Структура для указания начала и конца страницы для вычитки.
     /// </summary>
     [Serializable]
     public class RowNumberDef : ISerializable
@@ -13,7 +13,7 @@
         private int _endRow;
 
         /// <summary>
-        /// Со строчки номер
+        /// Со строчки номер.
         /// </summary>
         public int StartRow
         {
@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// По строчку номер
+        /// По строчку номер.
         /// </summary>
         public int EndRow
         {
@@ -41,10 +41,10 @@
         #endregion
 
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
-        /// <param name="StartRow">Загрузим с объекта (включительно)</param>
-        /// <param name="EndRow">Загрузим до объекта (включительно)</param>
+        /// <param name="StartRow">Загрузим с объекта (включительно).</param>
+        /// <param name="EndRow">Загрузим до объекта (включительно).</param>
         public RowNumberDef(int StartRow, int EndRow)
         {
             _startRow = StartRow;
@@ -52,7 +52,7 @@
         }
 
         /// <summary>
-        /// Десереализация
+        /// Десереализация.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>

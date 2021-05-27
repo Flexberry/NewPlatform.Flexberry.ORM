@@ -83,7 +83,7 @@
             var view = new View
             {
                 DefineClassType = type,
-                Name = string.Format("DynamicViewFor{0}", type.FullName)
+                Name = string.Format("DynamicViewFor{0}", type.FullName),
             };
 
             return GetQueryModelVisitor<Q>(true, view, null).GenerateLcs(queryModel);
@@ -156,13 +156,13 @@
         }
 
         /// <summary>
-        /// Возвращает IQueryable, делающий запросы к SQLDataService
+        /// Возвращает IQueryable, делающий запросы к SQLDataService.
         /// </summary>
         /// <typeparam name="T">
-        /// Тип объектов для загрузки
+        /// Тип объектов для загрузки.
         /// </typeparam>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         /// <param name="view">
         /// The view.
@@ -171,7 +171,7 @@
         /// The resolving Views.
         /// </param>
         /// <returns>
-        /// IQueryable
+        /// IQueryable.
         /// </returns>
         public static IQueryable<T> Query<T>(this IDataService ds, View view, IEnumerable<View> resolvingViews = null)
             where T : DataObject
@@ -180,11 +180,11 @@
         }
 
         /// <summary>
-        /// Возвращает IQueryable, делающий запросы к SQLDataService, динамически формируя представление
+        /// Возвращает IQueryable, делающий запросы к SQLDataService, динамически формируя представление.
         /// </summary>
-        /// <typeparam name="T">Тип объектов для загрузки</typeparam>
-        /// <param name="ds">Сервис данных</param>
-        /// <returns>IQueryable</returns>
+        /// <typeparam name="T">Тип объектов для загрузки.</typeparam>
+        /// <param name="ds">Сервис данных.</param>
+        /// <returns>IQueryable.</returns>
         public static IQueryable<T> Query<T>(this IDataService ds) where T : DataObject
         {
             return new LcsQuery<T, LcsGeneratorQueryModelVisitor>(new LcsQueryProvider<T, LcsGeneratorQueryModelVisitor>(ds, null, null));
@@ -205,7 +205,7 @@
         /// The <see cref="IQueryable"/>.
         /// </returns>
         /// <exception cref="CantFindViewException">
-        /// Представление не может быть найдено
+        /// Представление не может быть найдено.
         /// </exception>
         public static IQueryable<T> Query<T>(this IDataService ds, string viewName) where T : DataObject
         {

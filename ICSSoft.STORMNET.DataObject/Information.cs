@@ -20,23 +20,23 @@
     #region class Information
 
     /// <summary>
-    /// Доступ к метаданным
+    /// Доступ к метаданным.
     /// </summary>
     public static class Information
     {
         #region Информация о генераторе первичных ключей
 
         /// <summary>
-        /// Получить .Net-тип генератора первичных ключей, указываемого атрибутом KeyGeneratorAttribute
+        /// Получить .Net-тип генератора первичных ключей, указываемого атрибутом KeyGeneratorAttribute.
         /// </summary>
-        static private TypeAtrValueCollection cacheGetKeyGeneratorType = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetKeyGeneratorType = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Получить тип генератора ключей
+        /// Получить тип генератора ключей.
         /// </summary>
-        /// <param name="typeofdataobject">для какого типа</param>
+        /// <param name="typeofdataobject">для какого типа.</param>
         /// <returns></returns>
-        static public System.Type GetKeyGeneratorType(System.Type typeofdataobject)
+        public static System.Type GetKeyGeneratorType(System.Type typeofdataobject)
         {
             lock (cacheGetKeyGeneratorType)
             {
@@ -60,14 +60,14 @@
         #region Доступ к свойствам класса
 
         /// <summary>
-        /// кэш для делегатов получения значения свойств из объектов
+        /// кэш для делегатов получения значения свойств из объектов.
         /// </summary>
         private static ConcurrentDictionary<long, GetHandler> cacheGetPropValueByName = new ConcurrentDictionary<long, GetHandler>();
 
         /// <summary>
-        /// Получить значение свойства объекта данных по имени этого свойства
+        /// Получить значение свойства объекта данных по имени этого свойства.
         /// </summary>
-        static public object GetPropValueByName(DataObject obj, string propName)
+        public static object GetPropValueByName(DataObject obj, string propName)
         {
             if (obj == null)
             {
@@ -122,15 +122,15 @@
             return value;
         }
 
-        static private TypePropertyAtrValueCollection cacheTrimmedStringStorage = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheTrimmedStringStorage = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Обрезать ли строки для данного свойства
+        /// Обрезать ли строки для данного свойства.
         /// </summary>
-        /// <param name="tp">тип</param>
-        /// <param name="propname">свойство</param>
+        /// <param name="tp">тип.</param>
+        /// <param name="propname">свойство.</param>
         /// <returns></returns>
-        static public bool TrimmedStringStorage(System.Type tp, string propname)
+        public static bool TrimmedStringStorage(System.Type tp, string propname)
         {
             lock (cacheTrimmedStringStorage)
             {
@@ -190,10 +190,10 @@
         /// в значение соответствующего типа путём вызова статического метода Parse(string)
         /// у этого типа.
         /// </summary>
-        /// <param name="obj">Объект данных, значение свойства которого кстанавливается данным методом </param>
-        /// <param name="propName">Имя свойства объекта данных, значение которого устанавливается данным методом</param>
-        /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом</param>
-        static public void SetPropValueByName(DataObject obj, string propName, string PropValue)
+        /// <param name="obj">Объект данных, значение свойства которого кстанавливается данным методом. </param>
+        /// <param name="propName">Имя свойства объекта данных, значение которого устанавливается данным методом.</param>
+        /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом.</param>
+        public static void SetPropValueByName(DataObject obj, string propName, string PropValue)
         {
             try
             {
@@ -388,7 +388,7 @@
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static private bool isSystemType(System.Type type)
+        private static bool isSystemType(System.Type type)
         {
             lock (stTypesList)
             {
@@ -411,7 +411,7 @@
         /// значение передаётся типизированно. Если попытка преобразования
         /// типа неудачна, возвращается сообщение об ошибке.
         /// </summary>
-        static public void SetPropValueByName(DataObject obj, string propName, object PropValue)
+        public static void SetPropValueByName(DataObject obj, string propName, object PropValue)
         {
             try
             {
@@ -570,7 +570,7 @@
         #region "View GetView(string ViewName,System.Type type)"
 
         /// <summary>
-        /// кэш для функции GetView
+        /// кэш для функции GetView.
         /// </summary>
         private static ConcurrentDictionary<long, View> cacheGetView = new ConcurrentDictionary<long, View>();
 
@@ -626,10 +626,10 @@
         /// Ищет общего предка, затем пытается взять у него указанное представление.
         /// Если представление не найдено, возвращается null.
         /// </summary>
-        /// <param name="ViewName">имя представления</param>
-        /// <param name="types">одномерный массив типов классов данных</param>
+        /// <param name="ViewName">имя представления.</param>
+        /// <param name="types">одномерный массив типов классов данных.</param>
         /// <returns></returns>
-        static public View GetCompatibleView(string ViewName, System.Type[] types)
+        public static View GetCompatibleView(string ViewName, System.Type[] types)
         {
             // ищем базовый класс
             System.Type testType = types[0];
@@ -688,15 +688,14 @@
         #endregion
 
         #region "string[] AllViews(System.Type type)"
-
-        static private TypeAtrValueCollection cacheAllViews = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheAllViews = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Получить список имён представлений для указанного класса объекта данных
+        /// Получить список имён представлений для указанного класса объекта данных.
         /// </summary>
-        /// <param name="type">Тип представления</param>
-        /// <returns>Массив строк, содержащих имена представлений для указанного типа</returns>
-        static public string[] AllViews(System.Type type)
+        /// <param name="type">Тип представления.</param>
+        /// <returns>Массив строк, содержащих имена представлений для указанного типа.</returns>
+        public static string[] AllViews(System.Type type)
         {
             lock (cacheAllViews)
             {
@@ -739,7 +738,7 @@
         /// общее для некоторого множества классов.
         /// Указывая в этот метод это множество классов, Вы и получите имена их общих представлений.
         /// </summary>
-        static public string[] AllViews(params System.Type[] types)
+        public static string[] AllViews(params System.Type[] types)
         {
             if (types.Length == 0)
             {
@@ -780,7 +779,7 @@
         /// имеют представления, что означает, что имеется множество представлений,
         /// общее для некоторого множества классов.
         /// </summary>
-        static public bool CheckViewForClasses(string ViewName, params System.Type[] types)
+        public static bool CheckViewForClasses(string ViewName, params System.Type[] types)
         {
             if (types.Length == 0)
             {
@@ -815,8 +814,8 @@
         /// <summary>
         /// Вернуть список всех встречающихся в представлении типов, включая детейлы.
         /// </summary>
-        /// <param name="view">Представление</param>
-        /// <returns>Спосок типов без дублей</returns>
+        /// <param name="view">Представление.</param>
+        /// <returns>Спосок типов без дублей.</returns>
         public static List<Type> GetAllTypesFromView(View view)
         {
             var result = new List<Type>();
@@ -886,14 +885,14 @@
 
         #region Информация о свойствах
 
-        static private TypeAtrValueCollection cacheGetTypeStorageName = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetTypeStorageName = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Имя хранилища для типа
+        /// Имя хранилища для типа.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static public string GetTypeStorageName(System.Type type)
+        public static string GetTypeStorageName(System.Type type)
         {
             lock (cacheGetTypeStorageName)
             {
@@ -921,14 +920,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheGetPrimaryKeyStorageName = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetPrimaryKeyStorageName = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Получить имя хранения первичного ключа, установленное атрибутом <see cref="PrimaryKeyStorageAttribute"/>
+        /// Получить имя хранения первичного ключа, установленное атрибутом <see cref="PrimaryKeyStorageAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>имя хранения первичного ключа</returns>
-        static public string GetPrimaryKeyStorageName(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>имя хранения первичного ключа.</returns>
+        public static string GetPrimaryKeyStorageName(System.Type type)
         {
             lock (cacheGetPrimaryKeyStorageName)
             {
@@ -956,15 +955,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetCompatibleTypesForProperty = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetCompatibleTypesForProperty = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Возвращает типы, совместимые с данным свойством(по TypeUsage)
+        /// Возвращает типы, совместимые с данным свойством(по TypeUsage).
         /// </summary>
         /// <param name="type"></param>
         /// <param name="property"></param>
         /// <returns></returns>
-        static public System.Type[] GetCompatibleTypesForProperty(System.Type type, string property)
+        public static System.Type[] GetCompatibleTypesForProperty(System.Type type, string property)
         {
             lock (cacheGetCompatibleTypesForProperty)
             {
@@ -1017,12 +1016,12 @@
         private static TypePropertyAtrValueCollection cacheGetItemType = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Возвращает тип элемента DetailArray
+        /// Возвращает тип элемента DetailArray.
         /// </summary>
-        /// <param name="AgregatorType">объект-владелец</param>
-        /// <param name="DetailPropertyName">свойство-DetailArray</param>
+        /// <param name="AgregatorType">объект-владелец.</param>
+        /// <param name="DetailPropertyName">свойство-DetailArray.</param>
         /// <returns></returns>
-        static public System.Type GetItemType(System.Type AgregatorType, string DetailPropertyName)
+        public static System.Type GetItemType(System.Type AgregatorType, string DetailPropertyName)
         {
             lock (cacheGetItemType)
             {
@@ -1116,15 +1115,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetCompatibleTypesForDetailProperty = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetCompatibleTypesForDetailProperty = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        ///  возвращает типы, совместимые с детейловым свойством(по TypeUsage)
+        ///  возвращает типы, совместимые с детейловым свойством(по TypeUsage).
         /// </summary>
         /// <param name="type"></param>
         /// <param name="property"></param>
         /// <returns></returns>
-        static public System.Type[] GetCompatibleTypesForDetailProperty(System.Type type, string property)
+        public static System.Type[] GetCompatibleTypesForDetailProperty(System.Type type, string property)
         {
             lock (cacheGetCompatibleTypesForDetailProperty)
             {
@@ -1177,15 +1176,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetPropertyDisableAutoViewing = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetPropertyDisableAutoViewing = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Вернуть является ли свойство автоматически включаемым в представления
+        /// Вернуть является ли свойство автоматически включаемым в представления.
         /// </summary>
-        /// <param name="type">тип</param>
-        /// <param name="property">свойство</param>
+        /// <param name="type">тип.</param>
+        /// <param name="property">свойство.</param>
         /// <returns></returns>
-        static public bool GetPropertyDisableAutoViewing(System.Type type, string property)
+        public static bool GetPropertyDisableAutoViewing(System.Type type, string property)
         {
             lock (cacheGetPropertyDisableAutoViewing)
             {
@@ -1232,15 +1231,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetPropertyStorageName = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetPropertyStorageName = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Получить имя хранения .Net-свойства, установленное атрибутом <see cref="PropertyStorageAttribute"/>
+        /// Получить имя хранения .Net-свойства, установленное атрибутом <see cref="PropertyStorageAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <param name="property">имя свойства</param>
-        /// <returns>имя хранения</returns>
-        static public string GetPropertyStorageName(System.Type type, string property)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <param name="property">имя свойства.</param>
+        /// <returns>имя хранения.</returns>
+        public static string GetPropertyStorageName(System.Type type, string property)
         {
             lock (cacheGetPropertyStorageName)
             {
@@ -1281,15 +1280,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetpropertyCaption = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetpropertyCaption = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Вернуть заголовок свойства
+        /// Вернуть заголовок свойства.
         /// </summary>
-        /// <param name="type">тип</param>
-        /// <param name="property">свойство</param>
+        /// <param name="type">тип.</param>
+        /// <param name="property">свойство.</param>
         /// <returns></returns>
-        static public string GetPropertyCaption(System.Type type, string property)
+        public static string GetPropertyCaption(System.Type type, string property)
         {
             lock (cacheGetpropertyCaption)
             {
@@ -1341,16 +1340,16 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cachePropertyStorageNameIndexed = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cachePropertyStorageNameIndexed = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Получить имя хранения .Net-свойства, установленное атрибутом <see cref="PropertyStorageAttribute"/>
+        /// Получить имя хранения .Net-свойства, установленное атрибутом <see cref="PropertyStorageAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <param name="property">имя свойства</param>
-        /// <param name="index">индекс в множественном</param>
-        /// <returns>имя хранения</returns>
-        static public string GetPropertyStorageName(System.Type type, string property, int index)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <param name="property">имя свойства.</param>
+        /// <param name="index">индекс в множественном.</param>
+        /// <returns>имя хранения.</returns>
+        public static string GetPropertyStorageName(System.Type type, string property, int index)
         {
             lock (cachePropertyStorageNameIndexed)
             {
@@ -1404,15 +1403,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetPropertyNotNull = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetPropertyNotNull = new TypePropertyAtrValueCollection();
 
         /// <summary>
         /// Проверить, установлен ли для указанного .Net-свойства атрибут <see cref="NotNullAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <param name="property">имя свойства</param>
-        /// <returns>true, если установлен, иначе false</returns>
-        static public bool GetPropertyNotNull(System.Type type, string property)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <param name="property">имя свойства.</param>
+        /// <returns>true, если установлен, иначе false.</returns>
+        public static bool GetPropertyNotNull(System.Type type, string property)
         {
             lock (cacheGetPropertyNotNull)
             {
@@ -1456,15 +1455,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetPropertyStrLen = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetPropertyStrLen = new TypePropertyAtrValueCollection();
 
         /// <summary>
         /// Получить для указанного .Net-свойства атрибут <see cref="StrLenAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <param name="property">имя свойства</param>
-        /// <returns>Значение установленного атрибута (-1 если не установлено)</returns>
-        static public int GetPropertyStrLen(System.Type type, string property)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <param name="property">имя свойства.</param>
+        /// <returns>Значение установленного атрибута (-1 если не установлено).</returns>
+        public static int GetPropertyStrLen(System.Type type, string property)
         {
             lock (cacheGetPropertyStrLen)
             {
@@ -1509,12 +1508,12 @@
         }
 
         /// <summary>
-        /// Проверить, нет ли непустых значений в NotNull .Net-свойствах
+        /// Проверить, нет ли непустых значений в NotNull .Net-свойствах.
         /// </summary>
-        /// <param name="dataObject">объект данных</param>
+        /// <param name="dataObject">объект данных.</param>
         /// <returns>возвращает null, если непустых значений нет,
-        /// иначе одномерный строковый массив с именами свойств, где значения есть</returns>
-        static public string[] CheckNotNullAttributes(DataObject dataObject)
+        /// иначе одномерный строковый массив с именами свойств, где значения есть.</returns>
+        public static string[] CheckNotNullAttributes(DataObject dataObject)
         {
             Type dataobjtype = dataObject.GetType();
             ArrayList result = new ArrayList();
@@ -1537,15 +1536,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheDefinePropertyClassType = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheDefinePropertyClassType = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Вернуть тип в котором определено свойство
+        /// Вернуть тип в котором определено свойство.
         /// </summary>
-        /// <param name="declarationType">исходный тип</param>
-        /// <param name="propname">исходное имя свойства</param>
-        /// <returns>тип в котором определено свойство</returns>
-        static public Type GetPropertyDefineClassType(System.Type declarationType, string propname)
+        /// <param name="declarationType">исходный тип.</param>
+        /// <param name="propname">исходное имя свойства.</param>
+        /// <returns>тип в котором определено свойство.</returns>
+        public static Type GetPropertyDefineClassType(System.Type declarationType, string propname)
         {
             lock (cacheDefinePropertyClassType)
             {
@@ -1602,14 +1601,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheGetCompatibleTypesForTypeConvertion = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetCompatibleTypesForTypeConvertion = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Куда можно мконвертировать тип
+        /// Куда можно мконвертировать тип.
         /// </summary>
-        /// <param name="type">из чего</param>
-        /// <returns>куда</returns>
-        static public Type[] GetCompatibleTypesForTypeConvertion(Type type)
+        /// <param name="type">из чего.</param>
+        /// <returns>куда.</returns>
+        public static Type[] GetCompatibleTypesForTypeConvertion(Type type)
         {
             lock (cacheGetCompatibleTypesForTypeConvertion)
             {
@@ -1636,15 +1635,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cachePropertyType = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cachePropertyType = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Получить .Net-тип свойства класса объекта данных по имени этого свойства
+        /// Получить .Net-тип свойства класса объекта данных по имени этого свойства.
         /// </summary>
-        /// <param name="declarationType">.Net-тип класса объекта данных</param>
-        /// <param name="propname">имя свойства</param>
-        /// <returns>.Net-тип свойства</returns>
-        static public Type GetPropertyType(System.Type declarationType, string propname)
+        /// <param name="declarationType">.Net-тип класса объекта данных.</param>
+        /// <param name="propname">имя свойства.</param>
+        /// <returns>.Net-тип свойства.</returns>
+        public static Type GetPropertyType(System.Type declarationType, string propname)
         {
             Type res = null;
             res = (System.Type)cachePropertyType[declarationType, propname];
@@ -1710,14 +1709,14 @@
         }
 
         /// <summary>
-        /// ??????????????????
+        /// ??????????????????.
         /// </summary>
         /// <param name="declarationType"></param>
         /// <param name="propname"></param>
         /// <param name="masterpref"></param>
         /// <param name="masterTypes"></param>
         /// <returns></returns>
-        static public Type GetPropertyType(System.Type declarationType, string propname, string masterpref, Collections.NameObjectCollection masterTypes)
+        public static Type GetPropertyType(System.Type declarationType, string propname, string masterpref, Collections.NameObjectCollection masterTypes)
         {
             int pointIndex = propname.IndexOf(".");
             if (masterTypes != null && masterTypes.Count > 0)
@@ -1778,20 +1777,20 @@
         }
 
         /// <summary>
-        /// Возвращает ???
+        /// Возвращает ???.
         /// </summary>
         public delegate string[] GetPropertiesInExpressionDelegate(string expression, string namespacewithpoint);
 
         /// <summary>
-        /// Вернуть структуру хранения для представления
+        /// Вернуть структуру хранения для представления.
         /// </summary>
-        /// <param name="view">Пердставление <see cref="View"/></param>
+        /// <param name="view">Пердставление <see cref="View"/>.</param>
         /// <param name="type"></param>
-        /// <param name="storageType">Тип хранилища <see cref="Business.StorageTypeEnum"/></param>
+        /// <param name="storageType">Тип хранилища <see cref="Business.StorageTypeEnum"/>.</param>
         /// <param name="getPropertiesInExpression"></param>
-        /// <param name="DataServiceType">Тип сервиса данных</param>
+        /// <param name="DataServiceType">Тип сервиса данных.</param>
         /// <returns></returns>
-        static public Business.StorageStructForView GetStorageStructForView(
+        public static Business.StorageStructForView GetStorageStructForView(
             View view,
             System.Type type,
             Business.StorageTypeEnum storageType,
@@ -1813,12 +1812,12 @@
         /// Получить структуру хранения данных в соответствии
         /// с указанным представлением указанного .Net-типа класса объекта данных.
         /// </summary>
-        /// <param name="view">представление</param>
-        /// <param name="type">.Net-тип класса объекта данных</param>
+        /// <param name="view">представление.</param>
+        /// <param name="type">.Net-тип класса объекта данных.</param>
         /// <param name="getPropertiesInExpression"></param>
-        /// <param name="DataServiceType">тип сервиса данных</param>
+        /// <param name="DataServiceType">тип сервиса данных.</param>
         /// <returns></returns>
-        static private Business.StorageStructForView GetSimpleStorageStructForView(View view, System.Type type, GetPropertiesInExpressionDelegate getPropertiesInExpression, System.Type DataServiceType)
+        private static Business.StorageStructForView GetSimpleStorageStructForView(View view, System.Type type, GetPropertiesInExpressionDelegate getPropertiesInExpression, System.Type DataServiceType)
         {
             if (type != view.DefineClassType && !type.IsSubclassOf(view.DefineClassType))
             {
@@ -2046,7 +2045,7 @@
             return retVal;
         }
 
-        static private Business.StorageStructForView.PropSource AddNewSourceForHierarch(
+        private static Business.StorageStructForView.PropSource AddNewSourceForHierarch(
             Business.StorageStructForView.PropSource curSource, string alias, Type propDefineType, string objectLink, bool HierLink)
         {
             var linkedSources = new ArrayList();
@@ -2067,7 +2066,7 @@
             return newSource;
         }
 
-        static private Business.StorageStructForView GetHierarchicalStorageStructForView(View view, System.Type type, GetPropertiesInExpressionDelegate getPropertiesInExpression, System.Type DataServiceType)
+        private static Business.StorageStructForView GetHierarchicalStorageStructForView(View view, System.Type type, GetPropertiesInExpressionDelegate getPropertiesInExpression, System.Type DataServiceType)
         {
             if (type != view.DefineClassType && !type.IsSubclassOf(view.DefineClassType))
             {
@@ -2207,27 +2206,27 @@
             return retVal;
         }
 
-        static private TypeAtrValueCollection cacheClassStorageName = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheClassStorageName = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Делегат для смены ClassStorageName (можно подставить имя_базы.dbo.имя_таблицы, например)
+        /// Делегат для смены ClassStorageName (можно подставить имя_базы.dbo.имя_таблицы, например).
         /// </summary>
-        /// <param name="classType">Тип класса</param>
-        /// <param name="originalStorageName">Оригинальный StorageName</param>
-        /// <returns>новый StorageName (если пустое или null, то возьмём оригинальное)</returns>
+        /// <param name="classType">Тип класса.</param>
+        /// <param name="originalStorageName">Оригинальный StorageName.</param>
+        /// <returns>новый StorageName (если пустое или null, то возьмём оригинальное).</returns>
         public delegate string ChangeClassStorageNameDelegate(Type classType, string originalStorageName);
 
         /// <summary>
-        /// Делегат для смены ClassStorageName (можно подставить имя_базы.dbo.имя_таблицы, например)
+        /// Делегат для смены ClassStorageName (можно подставить имя_базы.dbo.имя_таблицы, например).
         /// </summary>
         public static ChangeClassStorageNameDelegate ChangeClassStorageName = null;
 
         /// <summary>
-        /// Получить имя хранения для .Net-типа класса объекта данных, заданное атрибутом <see cref="ClassStorageAttribute"/>
+        /// Получить имя хранения для .Net-типа класса объекта данных, заданное атрибутом <see cref="ClassStorageAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>имя хранения в строке</returns>
-        static public string GetClassStorageName(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>имя хранения в строке.</returns>
+        public static string GetClassStorageName(System.Type type)
         {
             lock (cacheClassStorageName)
             {
@@ -2274,14 +2273,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheAutoAlteredClass = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheAutoAlteredClass = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Является ли класс AutoAltered
+        /// Является ли класс AutoAltered.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static public bool AutoAlteredClass(System.Type type)
+        public static bool AutoAlteredClass(System.Type type)
         {
             lock (cacheAutoAlteredClass)
             {
@@ -2309,14 +2308,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheAssemblyStorageName = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheAssemblyStorageName = new TypeAtrValueCollection();
 
         /// <summary>
         /// Получить имя хранения для сборки, заданное атрибутом <see cref="AssemblyStorageAttribute"/>.
         /// </summary>
-        /// <param name="type">.Net-тип сборки</param>
-        /// <returns>имя хранения</returns>
-        static public string GetAssemblyStorageName(System.Type type)
+        /// <param name="type">.Net-тип сборки.</param>
+        /// <returns>имя хранения.</returns>
+        public static string GetAssemblyStorageName(System.Type type)
         {
             lock (cacheAssemblyStorageName)
             {
@@ -2344,7 +2343,7 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheSortByLoadingOrder = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheSortByLoadingOrder = new TypePropertyAtrValueCollection();
 
         /// <summary>
         /// Отсортировать, согласно LoadingOrder для указанного класса.
@@ -2352,7 +2351,7 @@
         /// <param name="type"></param>
         /// <param name="props"></param>
         /// <returns></returns>
-        static public string[] SortByLoadingOrder(System.Type type, string[] props)
+        public static string[] SortByLoadingOrder(System.Type type, string[] props)
         {
             lock (cacheSortByLoadingOrder)
             {
@@ -2393,26 +2392,26 @@
         }
 
         /// <summary>
-        /// Используйте метод GetAlteredPropertyNames
+        /// Используйте метод GetAlteredPropertyNames.
         /// </summary>
         /// <param name="obj1"></param>
         /// <param name="obj2"></param>
         /// <param name="withDetailsComparing"></param>
         /// <returns></returns>
         [Obsolete]
-        static public string[] GetAlteredProperyNames(DataObject obj1, DataObject obj2, bool withDetailsComparing)
+        public static string[] GetAlteredProperyNames(DataObject obj1, DataObject obj2, bool withDetailsComparing)
         {
             return GetAlteredPropertyNames(obj1, obj2, withDetailsComparing);
         }
 
         /// <summary>
-        /// Сравнить два объекта данных и вернуть список различающихся .Net-свойств. (Объект или свойство с атрибутом NotStored проверяться не будет)
+        /// Сравнить два объекта данных и вернуть список различающихся .Net-свойств. (Объект или свойство с атрибутом NotStored проверяться не будет).
         /// </summary>
-        /// <param name="obj1">1-й объект данных</param>
-        /// <param name="obj2">2-й объект данных</param>
-        /// <param name="WithDetailsComparing">со сравниванием детейловах объектов</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public string[] GetAlteredPropertyNames(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
+        /// <param name="obj1">1-й объект данных.</param>
+        /// <param name="obj2">2-й объект данных.</param>
+        /// <param name="WithDetailsComparing">со сравниванием детейловах объектов.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static string[] GetAlteredPropertyNames(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
         {
             if (obj1 == null && obj2 == null)
             {
@@ -2536,13 +2535,13 @@
         }
 
         /// <summary>
-        /// Сравнить два объекта данных и вернуть список различающихся .Net-свойств. (NotStored-атрибуты не игнорируются и тоже проверяются вместе с остальными)
+        /// Сравнить два объекта данных и вернуть список различающихся .Net-свойств. (NotStored-атрибуты не игнорируются и тоже проверяются вместе с остальными).
         /// </summary>
-        /// <param name="obj1">1-й объект данных</param>
-        /// <param name="obj2">2-й объект данных</param>
-        /// <param name="WithDetailsComparing">со сравниванием детейловах объектов</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public string[] GetAlteredPropertyNamesWithNotStored(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
+        /// <param name="obj1">1-й объект данных.</param>
+        /// <param name="obj2">2-й объект данных.</param>
+        /// <param name="WithDetailsComparing">со сравниванием детейловах объектов.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static string[] GetAlteredPropertyNamesWithNotStored(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
         {
             if (obj1 == null && obj2 == null)
             {
@@ -2658,13 +2657,13 @@
         }
 
         /// <summary>
-        /// Сравнить два объекта данных и вернуть true - если объекты различаются
+        /// Сравнить два объекта данных и вернуть true - если объекты различаются.
         /// </summary>
-        /// <param name="obj1">1-й объект данных</param>
-        /// <param name="obj2">2-й объект данных</param>
-        /// <param name="WithDetailsComparing">со сравниванием детейловах объектов</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public bool ContainsAlteredProps(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
+        /// <param name="obj1">1-й объект данных.</param>
+        /// <param name="obj2">2-й объект данных.</param>
+        /// <param name="WithDetailsComparing">со сравниванием детейловах объектов.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static bool ContainsAlteredProps(DataObject obj1, DataObject obj2, bool WithDetailsComparing)
         {
             if (obj1 == null && obj2 == null)
             {
@@ -2703,7 +2702,6 @@
                             }
                             else if (val1 == null || val2 == null)
                             {
-
                                 // UnAltered = false;
                                 return true;
                             }
@@ -2791,14 +2789,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheAllPropertyNames = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheAllPropertyNames = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Вернуть все имена .Net-свойств для .Net-типа класса объекта данных
+        /// Вернуть все имена .Net-свойств для .Net-типа класса объекта данных.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public string[] GetAllPropertyNames(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static string[] GetAllPropertyNames(System.Type type)
         {
             lock (cacheAllPropertyNames)
             {
@@ -2823,12 +2821,12 @@
         }
 
         /// <summary>
-        /// Проверить есть ли такое свойство в указанном типе
+        /// Проверить есть ли такое свойство в указанном типе.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <param name="propName">Имя свойства</param>
-        /// <returns>true - свойство есть, false - нет</returns>
-        static public bool CheckPropertyExist(System.Type type, string propName)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <param name="propName">Имя свойства.</param>
+        /// <returns>true - свойство есть, false - нет.</returns>
+        public static bool CheckPropertyExist(System.Type type, string propName)
         {
             if (type == null)
             {
@@ -2839,15 +2837,15 @@
             return props.Contains(propName);
         }
 
-        static private TypeAtrValueCollection cacheAutoStoreMastersDisabled = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheAutoStoreMastersDisabled = new TypeAtrValueCollection();
 
         /// <summary>
         /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных, мастеровых,
-        /// для которых отключено автосохранение атрибутом <see cref="AutoStoreMasterDisabled"/>
+        /// для которых отключено автосохранение атрибутом <see cref="AutoStoreMasterDisabled"/>.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static public string[] GetAutoStoreMastersDisabled(System.Type type)
+        public static string[] GetAutoStoreMastersDisabled(System.Type type)
         {
             lock (cacheAutoStoreMastersDisabled)
             {
@@ -2893,15 +2891,15 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheStorablePropertyNames = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheStorablePropertyNames = new TypeAtrValueCollection();
 
         /// <summary>
         /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных,
-        /// которые хранятся (не содержат атрибут <see cref="NotStoredAttribute"/>)
+        /// которые хранятся (не содержат атрибут <see cref="NotStoredAttribute"/>).
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public string[] GetStorablePropertyNames(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static string[] GetStorablePropertyNames(System.Type type)
         {
             lock (cacheStorablePropertyNames)
             {
@@ -2951,14 +2949,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cachePropertyNamesForInsert = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cachePropertyNamesForInsert = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Получить все свойства объекта, которые являются хранимыми и требуются при создании экземпляра объекта в БД
+        /// Получить все свойства объекта, которые являются хранимыми и требуются при создании экземпляра объекта в БД.
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>Одномерный строковый массив имён свойств</returns>
-        static public string[] GetPropertyNamesForInsert(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>Одномерный строковый массив имён свойств.</returns>
+        public static string[] GetPropertyNamesForInsert(System.Type type)
         {
             lock (cachePropertyNamesForInsert)
             {
@@ -3031,7 +3029,7 @@
             }
         }
 
-        static private string[] CopyStringArray(string[] a)
+        private static string[] CopyStringArray(string[] a)
         {
             if (a == null)
             {
@@ -3043,7 +3041,7 @@
             }
         }
 
-        static private Type[] CopyTypeArray(Type[] a)
+        private static Type[] CopyTypeArray(Type[] a)
         {
             if (a == null)
             {
@@ -3055,15 +3053,15 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheGetNotStorablePropertyNames = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetNotStorablePropertyNames = new TypeAtrValueCollection();
 
         /// <summary>
         /// Вернуть имена .Net-свойств для .Net-типа класса объекта данных,
-        /// которые не хранятся (управление атрибутом <see cref="NotStoredAttribute"/>)
+        /// которые не хранятся (управление атрибутом <see cref="NotStoredAttribute"/>).
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public string[] GetNotStorablePropertyNames(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static string[] GetNotStorablePropertyNames(System.Type type)
         {
             lock (cacheGetNotStorablePropertyNames)
             {
@@ -3099,15 +3097,15 @@
             }
         }
 
-        static private ConcurrentDictionary<string, bool> cacheIsStoredProp = new ConcurrentDictionary<string, bool>();
+        private static ConcurrentDictionary<string, bool> cacheIsStoredProp = new ConcurrentDictionary<string, bool>();
 
         /// <summary>
-        /// Хранимое ли свойство
+        /// Хранимое ли свойство.
         /// </summary>
-        /// <param name="type">тип объекта данных</param>
-        /// <param name="propName">свойство</param>
+        /// <param name="type">тип объекта данных.</param>
+        /// <param name="propName">свойство.</param>
         /// <returns></returns>
-        static public bool IsStoredProperty(Type type, string propName)
+        public static bool IsStoredProperty(Type type, string propName)
         {
             string key = type.FullName + "." + propName;
 
@@ -3148,14 +3146,14 @@
             return bres;
         }
 
-        static private TypeAtrValueCollection cacheIsStoredType = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheIsStoredType = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Хранимый ли класс
+        /// Хранимый ли класс.
         /// </summary>
-        /// <param name="type">тип объекта данных</param>
+        /// <param name="type">тип объекта данных.</param>
         /// <returns></returns>
-        static public bool IsStoredType(Type type)
+        public static bool IsStoredType(Type type)
         {
             lock (cacheIsStoredType)
             {
@@ -3183,15 +3181,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheCanWriteProperty = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheCanWriteProperty = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Можно ли писать в это свойство
+        /// Можно ли писать в это свойство.
         /// </summary>
         /// <param name="type"></param>
         /// <param name="propName"></param>
         /// <returns></returns>
-        static public bool CanWriteProperty(System.Type type, string propName)
+        public static bool CanWriteProperty(System.Type type, string propName)
         {
             lock (cacheCanWriteProperty)
             {
@@ -3222,15 +3220,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheCanReadProperty = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheCanReadProperty = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Можно ли читать из этого свойства
+        /// Можно ли читать из этого свойства.
         /// </summary>
         /// <param name="type"></param>
         /// <param name="propName"></param>
         /// <returns></returns>
-        static public bool CanReadProperty(System.Type type, string propName)
+        public static bool CanReadProperty(System.Type type, string propName)
         {
             lock (cacheCanReadProperty)
             {
@@ -3261,15 +3259,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetPropertyNamesByType = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetPropertyNamesByType = new TypePropertyAtrValueCollection();
 
         /// <summary>
-        /// Возвращает список свойств указанного шаблонного типа для .Net-класса объекта данных
+        /// Возвращает список свойств указанного шаблонного типа для .Net-класса объекта данных.
         /// </summary>
-        /// <param name="typeofDataObject">.Net-тип класса объекта данных</param>
-        /// <param name="templatetype">шаблонный тип свойства</param>
-        /// <returns>одномерный строковый массив имён свойств</returns>
-        static public string[] GetPropertyNamesByType(System.Type typeofDataObject, System.Type templatetype)
+        /// <param name="typeofDataObject">.Net-тип класса объекта данных.</param>
+        /// <param name="templatetype">шаблонный тип свойства.</param>
+        /// <returns>одномерный строковый массив имён свойств.</returns>
+        public static string[] GetPropertyNamesByType(System.Type typeofDataObject, System.Type templatetype)
         {
             lock (cacheGetPropertyNamesByType)
             {
@@ -3307,14 +3305,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheGetAgregatePropertyName = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetAgregatePropertyName = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Получить имя свойства -- шапки, указанного атрибутом <see cref="AgregatorAttribute"/>)
+        /// Получить имя свойства -- шапки, указанного атрибутом <see cref="AgregatorAttribute"/>).
         /// </summary>
-        /// <param name="type">.Net-тип класса объекта данных</param>
-        /// <returns>имя свойства</returns>
-        static public string GetAgregatePropertyName(System.Type type)
+        /// <param name="type">.Net-тип класса объекта данных.</param>
+        /// <returns>имя свойства.</returns>
+        public static string GetAgregatePropertyName(System.Type type)
         {
             lock (cacheGetAgregatePropertyName)
             {
@@ -3369,7 +3367,7 @@
         /// <param name="attribute"></param>
         /// <param name="inherit"></param>
         /// <returns></returns>
-        static private string GetPropertyName(System.Type type, System.Type attribute, bool inherit)
+        private static string GetPropertyName(System.Type type, System.Type attribute, bool inherit)
         {
             PropertyInfo[] Properties = type.GetProperties();
             for (int i = 0; i < Properties.Length; i++)
@@ -3391,14 +3389,14 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheOrderPropertyType = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheOrderPropertyType = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Вернуть свойство, по которому нужно упорядочивать
+        /// Вернуть свойство, по которому нужно упорядочивать.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static public string GetOrderPropertyName(System.Type type)
+        public static string GetOrderPropertyName(System.Type type)
         {
             lock (cacheOrderPropertyType)
             {
@@ -3413,15 +3411,15 @@
             }
         }
 
-        static private TypePropertyAtrValueCollection cacheGetExpressionForProperty = new TypePropertyAtrValueCollection();
+        private static TypePropertyAtrValueCollection cacheGetExpressionForProperty = new TypePropertyAtrValueCollection();
 
         /// <summary>
         /// Вернуть выражения, указанные атрибутами <see cref="DataServiceExpressionAttribute"/> для свойства.
         /// </summary>
-        /// <param name="type">тип</param>
-        /// <param name="propName">свойство</param>
+        /// <param name="type">тип.</param>
+        /// <param name="propName">свойство.</param>
         /// <returns></returns>
-        static public ICSSoft.STORMNET.Collections.TypeBaseCollection GetExpressionForProperty(System.Type type, string propName)
+        public static ICSSoft.STORMNET.Collections.TypeBaseCollection GetExpressionForProperty(System.Type type, string propName)
         {
             lock (cacheGetExpressionForProperty)
             {
@@ -3497,12 +3495,12 @@
             return (string)GetExpressionForProperty(type, propertyName).GetMostCompatible(dataServiceType);
         }
 
-        static private TypeAtrValueCollection cacheLoadingOrder = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheLoadingOrder = new TypeAtrValueCollection();
 
         /// <summary>
         /// Вернуть порядок (установленный <see cref="LoadingOrderAttribute"/>), в соответствии с которым происходит загрузка свойств объекта данных.
         /// </summary>
-        static public string[] GetLoadingOrder(System.Type type)
+        public static string[] GetLoadingOrder(System.Type type)
         {
             lock (cacheLoadingOrder)
             {
@@ -3531,10 +3529,10 @@
 
         /// <summary>
         /// Проверка на совместимость объекта данных в  методе, или свойстве, откуда вызвано.
-        /// Проверяет мастеровые свойства объектов данных и детейлов
+        /// Проверяет мастеровые свойства объектов данных и детейлов.
         /// </summary>
         /// <param name="testObj"></param>
-        static public void CheckUsingType(DataObject testObj)
+        public static void CheckUsingType(DataObject testObj)
         {
             if (testObj == null)
             {
@@ -3595,7 +3593,6 @@
             if (CheckTypes != null)
             {
                 string allTypes = string.Empty;
-                ;
                 foreach (Type testType in CheckTypes)
                 {
                     if (testObj.GetType() == testType)
@@ -3611,7 +3608,7 @@
         }
 
         /// <summary>
-        /// По массиву нескольких описаний порядков возвращает общий порядок
+        /// По массиву нескольких описаний порядков возвращает общий порядок.
         /// </summary>
         private static string[] prv_MakeGraph(string[][] s)
         {
@@ -3703,10 +3700,10 @@
 
         #endregion
 
-        static private TypeAtrValueCollection cacheGetClassCaptionProperty = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetClassCaptionProperty = new TypeAtrValueCollection();
 
         /// <summary>
-        /// Вернуть свойство - заголовок, установленное атрибутом <see cref="InstanceCaptionPropertyAttribute"/>
+        /// Вернуть свойство - заголовок, установленное атрибутом <see cref="InstanceCaptionPropertyAttribute"/>.
         /// </summary>
         /// <param name="dataobjectType"></param>
         /// <returns></returns>
@@ -3739,7 +3736,7 @@
             }
         }
 
-        static private TypeAtrValueCollection cacheGetClassImageProperty = new TypeAtrValueCollection();
+        private static TypeAtrValueCollection cacheGetClassImageProperty = new TypeAtrValueCollection();
 
         /// <summary>
         /// Вернуть свойство-картинку, установленное атрибутом <see cref="ClassImagePropertyAttribute"/>.
@@ -3776,7 +3773,7 @@
         }
 
         /// <summary>
-        /// Получить информацию о всех кэшах Information
+        /// Получить информацию о всех кэшах Information.
         /// </summary>
         /// <returns></returns>
         public static string GetCachesInfo()
@@ -3983,7 +3980,7 @@
         }
 
         /// <summary>
-        /// Является ли значение пустым (null)
+        /// Является ли значение пустым (null).
         /// </summary>
         /// <returns></returns>
         public static bool IsEmptyPropertyValue(object value)
@@ -4015,7 +4012,7 @@
         }
 
         /// <summary>
-        /// Является ли значение перечислимого пустым (null)
+        /// Является ли значение перечислимого пустым (null).
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -4134,26 +4131,26 @@
             return result;
         }
 
-        # region PropertySupport
+        #region PropertySupport
 
         /// <summary>
-        /// Извлечение свойства внутри текущего класса
+        /// Извлечение свойства внутри текущего класса.
         /// <code>
         /// // Пример использования:
         /// ExtractPropertyName[T](() => objectInstance.Name); // вернет "Name", T - тип объекта objectInstance
         /// ExtractPropertyName[T](() => objectInstance.Master.Name); // вернет "Name", T - тип объекта objectInstance
         /// </code>
         /// </summary>
-        /// <typeparam name="TSource"> Тип класса - источника </typeparam>
-        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
-        /// <returns> Имя свойства (одиночное!) </returns>
+        /// <typeparam name="TSource"> Тип класса - источника. </typeparam>
+        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству. </param>
+        /// <returns> Имя свойства (одиночное!). </returns>
         public static string ExtractPropertyName<TSource>(Expression<Func<TSource>> propertyExpression)
         {
             return InternalExtractPropertyName(propertyExpression);
         }
 
         /// <summary>
-        /// Explicit извлечение свойства по типу
+        /// Explicit извлечение свойства по типу.
         /// <code>
         /// // Пример использования:
         /// ExtractPropertyName(a =&gt; a.Name); // вернет "Name"
@@ -4161,13 +4158,13 @@
         /// </code>
         /// </summary>
         /// <typeparam name="TSource">
-        /// Тип класса - источника
+        /// Тип класса - источника.
         /// </typeparam>
         /// <param name="propertyExpression">
-        /// Лямбда - выражение для доступа к свойству
+        /// Лямбда - выражение для доступа к свойству.
         /// </param>
         /// <returns>
-        /// Имя свойства (одиночное!)
+        /// Имя свойства (одиночное!).
         /// </returns>
         public static string ExtractPropertyName<TSource>(Expression<Func<TSource, object>> propertyExpression)
         {
@@ -4185,9 +4182,9 @@
         /// ExtractPropertyPath[T](() => objectInstance.Master.Name); // вернет "Master.Name", T - тип объекта objectInstance
         /// </code>
         /// </summary>
-        /// <typeparam name="TProperty"> Тип свойства </typeparam>
-        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
-        /// <returns> Полный путь к свойству (разделение через точку) </returns>
+        /// <typeparam name="TProperty"> Тип свойства. </typeparam>
+        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству. </param>
+        /// <returns> Полный путь к свойству (разделение через точку). </returns>
         public static string ExtractPropertyPath<TProperty>(Expression<Func<TProperty>> propertyExpression)
         {
             return InternalExtractPropertyPath(propertyExpression);
@@ -4202,10 +4199,10 @@
         /// ExtractPropertyPath(a => a.b.c.Name); // вернет "b.c.Name"
         /// </code>
         /// </summary>
-        /// <typeparam name="TSource"> Тип класса - источника </typeparam>
-        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
+        /// <typeparam name="TSource"> Тип класса - источника. </typeparam>
+        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству. </param>
         /// <returns>
-        /// Полный путь к свойству (разделение через точку)
+        /// Полный путь к свойству (разделение через точку).
         /// </returns>
         public static string ExtractPropertyPath<TSource>(Expression<Func<TSource, object>> propertyExpression)
         {
@@ -4223,8 +4220,8 @@
         /// ExtractPropertyPath[T](() => objectInstance.Master.Name); // вернет "Master.Name", T - тип объекта objectInstance
         /// </code>
         /// </summary>
-        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
-        /// <returns> Полный путь к свойству (разделение через точку) </returns>
+        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству. </param>
+        /// <returns> Полный путь к свойству (разделение через точку). </returns>
         private static string InternalExtractPropertyPath(LambdaExpression propertyExpression)
         {
             var body = ExtractMemberExpression(propertyExpression);
@@ -4236,8 +4233,8 @@
         /// Рекурсивный метод получения пути для свойства, заданного через вложенную лямбду.
         /// Лямбда-выражение может содержать вложенные обращения к мастерам.
         /// </summary>
-        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
-        /// <returns> Полный путь к свойству (разделение через точку) </returns>
+        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству. </param>
+        /// <returns> Полный путь к свойству (разделение через точку). </returns>
         private static string InternalExtractPropertyPath(MemberExpression propertyExpression)
         {
             if (propertyExpression == null)
@@ -4254,11 +4251,11 @@
         #endregion
 
         /// <summary>
-        /// Explicit извлечение свойства по типу
+        /// Explicit извлечение свойства по типу.
         /// </summary>
-        /// <typeparam name="TSource"> Тип класса - источника </typeparam>
-        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству </param>
-        /// <returns> <see cref="PropertyInfo"/> свойства (самого последнего) </returns>
+        /// <typeparam name="TSource"> Тип класса - источника. </typeparam>
+        /// <param name="propertyExpression"> Лямбда - выражение для доступа к свойству. </param>
+        /// <returns> <see cref="PropertyInfo"/> свойства (самого последнего). </returns>
         public static PropertyInfo ExtractPropertyInfo<TSource>(Expression<Func<TSource, object>> propertyExpression)
         {
             return InternalExtractPropertyInfo(propertyExpression);
@@ -4273,7 +4270,7 @@
         /// <returns>
         /// The <see cref="PropertyInfo"/>.
         /// </returns>
-        /// <exception cref="ArgumentException"> Выражение должно являться свойством </exception>
+        /// <exception cref="ArgumentException"> Выражение должно являться свойством. </exception>
         private static PropertyInfo InternalExtractPropertyInfo(LambdaExpression propertyExpression)
         {
             var body = ExtractMemberExpression(propertyExpression);
@@ -4287,10 +4284,10 @@
         }
 
         /// <summary>
-        /// Метод получения MemberExpression из лямбда-выражения
+        /// Метод получения MemberExpression из лямбда-выражения.
         /// </summary>
         /// <param name="propertyExpression"> Выражение для получения значения свойства. </param>
-        /// <returns> <see cref="MemberExpression"/> для получения значения </returns>
+        /// <returns> <see cref="MemberExpression"/> для получения значения. </returns>
         private static MemberExpression ExtractMemberExpression(LambdaExpression propertyExpression)
         {
             if (propertyExpression == null)
@@ -4314,7 +4311,7 @@
         }
 
         /// <summary>
-        /// Получение названия свойства по лямбде
+        /// Получение названия свойства по лямбде.
         /// </summary>
         /// <param name="propertyExpression">
         /// The property Expression.
@@ -4383,10 +4380,10 @@
         }
 
         /// <summary>
-        /// Получить описание лукапа из атрибутов объекта данных
+        /// Получить описание лукапа из атрибутов объекта данных.
         /// </summary>
-        /// <param name="view">Представление</param>
-        /// <param name="masterName">Имя мастера</param>
+        /// <param name="view">Представление.</param>
+        /// <param name="masterName">Имя мастера.</param>
         /// <returns></returns>
         public static MasterViewDefineAttribute GetLookupCustomizationString(View view, string masterName)
         {
@@ -4609,7 +4606,6 @@
                         // result+=PutIdentifierIntoBrackets(namespacewithpoint+expressarr[nextIndex]);
                         else
                         {
-
                             // result+=PutIdentifierIntoBrackets(expressarr[nextIndex]);
                             sc.Add(expressarr[nextIndex]);
                         }

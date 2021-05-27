@@ -18,7 +18,6 @@
     /// Тесты, которые проверяют расширение представления по функции.
     /// Используемые в функции свойства должны попасть в представление.
     /// </summary>
-
     public class EnrichViewWithPropertiesUsedInFunctionTest
     {
         /// <summary>

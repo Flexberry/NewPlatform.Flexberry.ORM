@@ -16,7 +16,7 @@ namespace ICSSoft.STORMNET.FileType
     using ICSSoft.STORMNET.Windows.Forms.Binders;
 
     /// <summary>
-    /// Тип данных File
+    /// Тип данных File.
     /// </summary>
     [ControlProvider("ICSSoft.STORMNET.FileType.FileControlProvider, ICSSoft.STORMNET.Windows.Forms")]
     [StoreInstancesInType(typeof(Business.SQLDataService), typeof(string))]
@@ -41,20 +41,20 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Из типа File в тип byte[]
+        /// Из типа File в тип byte[].
         /// </summary>
-        /// <param name="value"> Что нужно преобразовать </param>
-        /// <returns> Преобразованное значение </returns>
+        /// <param name="value"> Что нужно преобразовать. </param>
+        /// <returns> Преобразованное значение. </returns>
         public static explicit operator string(ICSSoft.STORMNET.FileType.File value)
         {
             return value._zippedValue;
         }
 
         /// <summary>
-        /// Из типа byte[] в тип File
+        /// Из типа byte[] в тип File.
         /// </summary>
-        /// <param name="value"> Что нужно преобразовать </param>
-        /// <returns> Преобразованное значение </returns>
+        /// <param name="value"> Что нужно преобразовать. </param>
+        /// <returns> Преобразованное значение. </returns>
         public static explicit operator File(string value)
         {
             File file = new File();
@@ -64,9 +64,9 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Инициализация по сериализованному значению
+        /// Инициализация по сериализованному значению.
         /// </summary>
-        /// <param name="value"> Сериализованное состояние </param>
+        /// <param name="value"> Сериализованное состояние. </param>
         public void InitializeByState(string value)
         {
             byte[] byteValue = Convert.FromBase64String(value);
@@ -85,7 +85,7 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Gets or sets: Имя выбранного файла
+        /// Gets or sets: Имя выбранного файла.
         /// </summary>
         public string Name
         {
@@ -101,7 +101,7 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Gets or sets: Сархивированное значение
+        /// Gets or sets: Сархивированное значение.
         /// </summary>
         public string ZippedValue
         {
@@ -117,7 +117,7 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        ///  Gets or sets: Размер выбранного файла
+        ///  Gets or sets: Размер выбранного файла.
         /// </summary>
         public long Size
         {
@@ -133,7 +133,7 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        ///  Gets or sets: Степень сжатия изменяется от 0 до 9 (9 - максимальная)
+        ///  Gets or sets: Степень сжатия изменяется от 0 до 9 (9 - максимальная).
         /// </summary>
         public int CompressionLevel
         {
@@ -149,9 +149,9 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Перевод с файла на диске во внутреннее представление в виде zip-архива
+        /// Перевод с файла на диске во внутреннее представление в виде zip-архива.
         /// </summary>
-        /// <param name="loadFilePath"> Путь к файлу</param>
+        /// <param name="loadFilePath"> Путь к файлу.</param>
         public void FromNormalToZip(string loadFilePath)
         {
             var fileStream = new FileStream(loadFilePath, FileMode.Open, FileAccess.Read);
@@ -160,10 +160,10 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Перевод с файла на диске во внутреннее представление в виде zip-архива
+        /// Перевод с файла на диске во внутреннее представление в виде zip-архива.
         /// </summary>
-        /// <param name="loadFilePath"> Путь к файлу</param>
-        /// <param name="fileName"> Имя файла</param>
+        /// <param name="loadFilePath"> Путь к файлу.</param>
+        /// <param name="fileName"> Имя файла.</param>
         public void FromNormalToZip(string loadFilePath, string fileName)
         {
             var fileStream = new FileStream(loadFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -194,9 +194,9 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Перевод с файла на диске во внутреннее представление в виде zip-архива
+        /// Перевод с файла на диске во внутреннее представление в виде zip-архива.
         /// </summary>
-        /// <param name="memoryStream"> Stream с файлом </param>
+        /// <param name="memoryStream"> Stream с файлом. </param>
         public void SetZippedValue(MemoryStream memoryStream)
         {
             if (memoryStream != null)
@@ -206,9 +206,9 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Перевод из внутреннего представления в виде zip-архива в файл на диске
+        /// Перевод из внутреннего представления в виде zip-архива в файл на диске.
         /// </summary>
-        /// <param name="saveFilePath"> Путь к файлу</param>
+        /// <param name="saveFilePath"> Путь к файлу.</param>
         public bool FromZipToNormal(string saveFilePath)
         {
             bool result;
@@ -224,9 +224,9 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Перевод из внутреннего представления в виде zip-архива в файл на диске
+        /// Перевод из внутреннего представления в виде zip-архива в файл на диске.
         /// </summary>
-        /// <returns> Stream с содержимым файла (без zip-архивации) </returns>
+        /// <returns> Stream с содержимым файла (без zip-архивации). </returns>
         public MemoryStream GetUnzippedFile()
         {
             MemoryStream memoryStream = new MemoryStream();
@@ -272,9 +272,9 @@ namespace ICSSoft.STORMNET.FileType
         }
 
         /// <summary>
-        /// Записать файл в массив байт
+        /// Записать файл в массив байт.
         /// </summary>
-        /// <param name="path">Путь к файлу</param>
+        /// <param name="path">Путь к файлу.</param>
         public void GetFile(string path)
         {
             FileInfo fileInfo = new FileInfo(path);

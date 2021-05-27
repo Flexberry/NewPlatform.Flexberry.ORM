@@ -4,26 +4,26 @@ using System.Runtime.Serialization;
 namespace ICSSoft.STORMNET.Exceptions
 {
     /// <summary>
-    /// Исключительная ситуация, возникающая при пустом значении в свойстве, которое должно быть заполнено
+    /// Исключительная ситуация, возникающая при пустом значении в свойстве, которое должно быть заполнено.
     /// </summary>
-    [ Serializable ]
-    public class PropertyCouldnotBeNullException: Exception, ISerializable
+    [Serializable]
+    public class PropertyCouldnotBeNullException : Exception, ISerializable
     {
         /// <summary>
-        /// Имя свойства
+        /// Имя свойства.
         /// </summary>
         public string propName = string.Empty;
 
         /// <summary>
-        /// объект
+        /// объект.
         /// </summary>
         public DataObject dataobject = null;
 
         /// <summary>
-        /// Исключительная ситуация, возникающая при пустом значении в свойстве, которое должно быть заполнено
+        /// Исключительная ситуация, возникающая при пустом значении в свойстве, которое должно быть заполнено.
         /// </summary>
-        /// <param name="prop">свойство</param>
-        /// <param name="obj">объект</param>
+        /// <param name="prop">свойство.</param>
+        /// <param name="obj">объект.</param>
         public PropertyCouldnotBeNullException(string prop, DataObject obj)
         {
             propName = prop;
@@ -64,8 +64,8 @@ namespace ICSSoft.STORMNET.Exceptions
     /// <summary>
     ///
     /// </summary>
-    [ Serializable ]
-    public class DataServiceNotFoundException: Exception, ISerializable
+    [Serializable]
+    public class DataServiceNotFoundException : Exception, ISerializable
     {
         /// <summary>
         ///
@@ -96,8 +96,8 @@ namespace ICSSoft.STORMNET.Exceptions
     /// <summary>
     ///
     /// </summary>
-    [ Serializable ]
-    public class ObjectNotAlteredException: Exception, ISerializable
+    [Serializable]
+    public class ObjectNotAlteredException : Exception, ISerializable
     {
         /// <summary>
         ///
@@ -126,18 +126,18 @@ namespace ICSSoft.STORMNET.Exceptions
     }
 
     /// <summary>
-    /// Все изменяемые поля должны быть первоначально загружены(исключительная ситуация)
+    /// Все изменяемые поля должны быть первоначально загружены(исключительная ситуация).
     /// </summary>
-    [ Serializable ]
-    public class CantUpdateNotLoadedPropertiesException: Exception, ISerializable
+    [Serializable]
+    public class CantUpdateNotLoadedPropertiesException : Exception, ISerializable
     {
         /// <summary>
-        /// объект данных
+        /// объект данных.
         /// </summary>
         public ICSSoft.STORMNET.DataObject dobject;
 
         /// <summary>
-        /// свойства
+        /// свойства.
         /// </summary>
         public string[] props;
 
@@ -196,10 +196,10 @@ namespace ICSSoft.STORMNET.Exceptions
     }
 
     /// <summary>
-    /// Исключение, которое возникает при отсутствии в хранилище данных объекта
+    /// Исключение, которое возникает при отсутствии в хранилище данных объекта.
     /// </summary>
-    [ Serializable ]
-    public class CantFindDataObjectException: Exception, ISerializable
+    [Serializable]
+    public class CantFindDataObjectException : Exception, ISerializable
     {
         private System.Type type;
         private object key;
@@ -207,8 +207,8 @@ namespace ICSSoft.STORMNET.Exceptions
         /// <summary>
         ///
         /// </summary>
-        /// <param name="doType">тип объекта</param>
-        /// <param name="doKey">ключ объекта</param>
+        /// <param name="doType">тип объекта.</param>
+        /// <param name="doKey">ключ объекта.</param>
         public CantFindDataObjectException(System.Type doType, object doKey)
         {
             type = doType;
@@ -216,7 +216,7 @@ namespace ICSSoft.STORMNET.Exceptions
         }
 
         /// <summary>
-        /// тип объекта
+        /// тип объекта.
         /// </summary>
         public System.Type DataObjectType
         {
@@ -224,7 +224,7 @@ namespace ICSSoft.STORMNET.Exceptions
         }
 
         /// <summary>
-        /// ключ объекта
+        /// ключ объекта.
         /// </summary>
         public object DataObjectKey
         {
@@ -245,7 +245,7 @@ namespace ICSSoft.STORMNET.Exceptions
         {
             get
             {
-                 return "Невозможно найти объект " + type.FullName + " с ключом " + key.ToString();
+                return "Невозможно найти объект " + type.FullName + " с ключом " + key.ToString();
             }
         }
 

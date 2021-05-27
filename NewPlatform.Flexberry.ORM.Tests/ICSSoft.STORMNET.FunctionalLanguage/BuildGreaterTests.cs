@@ -195,7 +195,6 @@
         [Fact]
         public void BuildGreaterTest74()
         {
-
             Assert.Equal(
                 LangDef.GetFunction(LangDef.funcG, StringGenVarDef, StringGenVarDef2),
                 FunctionBuilder.BuildGreater<TestDataObject>(x => x.Name, x => x.Hierarchy.Name));

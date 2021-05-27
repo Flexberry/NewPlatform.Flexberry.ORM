@@ -6,7 +6,7 @@
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Explicit interface implementation of IQueryable
+    /// Explicit interface implementation of IQueryable.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Query<T> : IOrderedQueryable<T> // where T : new()
@@ -17,7 +17,7 @@
         private Expression expression;
 
         /// <summary>
-        /// Выражение
+        /// Выражение.
         /// </summary>
         public Expression Expression
         {

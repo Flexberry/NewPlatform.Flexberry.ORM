@@ -28,7 +28,7 @@
         private static IBusinessTaskMonitor taskMonitor;
 
         /// <summary>
-        /// текущий монитор
+        /// текущий монитор.
         /// </summary>
         public static IBusinessTaskMonitor TaskMonitor
         {
@@ -44,10 +44,10 @@
         }
 
         /// <summary>
-        /// Задача начала выполняться
+        /// Задача начала выполняться.
         /// </summary>
-        /// <param name="TaskName">имя задачи</param>
-        /// <returns>некоторый идентификатор задачи в конкретном мониторе</returns>
+        /// <param name="TaskName">имя задачи.</param>
+        /// <returns>некоторый идентификатор задачи в конкретном мониторе.</returns>
         public static object BeginTask(string TaskName)
         {
             if (taskMonitor != null)
@@ -61,10 +61,10 @@
         }
 
         /// <summary>
-        /// Задача начала выполняться
+        /// Задача начала выполняться.
         /// </summary>
-        /// <param name="TaskName">имя задачи</param>
-        /// <param name="ID">некоторый идентификатор задачи в конкретном мониторе</param>
+        /// <param name="TaskName">имя задачи.</param>
+        /// <param name="ID">некоторый идентификатор задачи в конкретном мониторе.</param>
         public static void BeginTask(string TaskName, object ID)
         {
             if (ID != null && taskMonitor != null)
@@ -74,9 +74,9 @@
         }
 
         /// <summary>
-        /// Задача закончила выполняться
+        /// Задача закончила выполняться.
         /// </summary>
-        /// <param name="ID">некоторый идентификатор задачи в конкретном мониторе</param>
+        /// <param name="ID">некоторый идентификатор задачи в конкретном мониторе.</param>
         public static void EndTask(object ID)
         {
             if (taskMonitor != null)
@@ -86,11 +86,11 @@
         }
 
         /// <summary>
-        /// ПодЗадача начала выполняться
+        /// ПодЗадача начала выполняться.
         /// </summary>
-        /// <param name="SubTask">имя подзадачи</param>
-        /// <param name="TaskID">некоторый идентификатор задачи в конкретном мониторе</param>
-        /// <returns>некоторый идентификатор подзадачи в конкретном мониторе</returns>
+        /// <param name="SubTask">имя подзадачи.</param>
+        /// <param name="TaskID">некоторый идентификатор задачи в конкретном мониторе.</param>
+        /// <returns>некоторый идентификатор подзадачи в конкретном мониторе.</returns>
         public static object BeginSubTask(string SubTask, object TaskID)
         {
             if (taskMonitor != null)
@@ -104,9 +104,9 @@
         }
 
         /// <summary>
-        /// ПодЗадача закончила выполняться
+        /// ПодЗадача закончила выполняться.
         /// </summary>
-        /// <param name="SubTaskID">некоторый идентификатор подзадачи в конкретном мониторе</param>
+        /// <param name="SubTaskID">некоторый идентификатор подзадачи в конкретном мониторе.</param>
         public static void EndSubTask(object SubTaskID)
         {
             if (taskMonitor != null)

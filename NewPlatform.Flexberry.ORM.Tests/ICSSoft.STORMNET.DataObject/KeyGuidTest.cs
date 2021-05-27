@@ -6,7 +6,6 @@
     /// <summary>
     /// Тесты для класса <see cref="KeyGuid"/>.
     /// </summary>
-
     public class KeyGuidTest
     {
         /// <summary>

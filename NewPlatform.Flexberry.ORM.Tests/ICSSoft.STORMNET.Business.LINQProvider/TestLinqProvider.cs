@@ -14,7 +14,6 @@
     /// <summary>
     /// Проверка методов преобразования LINQ-выражений в LCS-структуры.
     /// </summary>
-    
     public class TestLinqProvider
     {
         /// <summary>
@@ -62,8 +61,7 @@
                 try
                 {
                     return
-                        (IQueryable)
-                        Activator.CreateInstance(
+                        (IQueryable)Activator.CreateInstance(
                             typeof(Query<>).MakeGenericType(elementType), this, expression);
                 }
                 catch (TargetInvocationException tie)

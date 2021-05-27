@@ -7,14 +7,12 @@
 
     using Xunit;
 
-
     using NewPlatform.Flexberry.ORM.Tests;
     using NewPlatform.Flexberry.ORM.IntegratedTests;
 
     /// <summary>
     /// Класс для тестирования динамических представлений при работе с LINQProvider'ом.
     /// </summary>
-
     public class TestDynamicView : BaseIntegratedTest
     {
         /// <summary>

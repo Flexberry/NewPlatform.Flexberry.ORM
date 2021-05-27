@@ -1,7 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.Audit.HelpStructures
 {
     /// <summary>
-    /// Класс, содержащий обшие полезные методы проверки данных
+    /// Класс, содержащий обшие полезные методы проверки данных.
     /// </summary>
     public static class CheckHelper
     {

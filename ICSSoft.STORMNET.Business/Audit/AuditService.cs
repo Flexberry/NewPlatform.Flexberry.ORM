@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web;
 
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
@@ -249,7 +248,7 @@
 
                 return _typeAuditSettingsLoader.GetAuditView(type, operation);
             }
-                catch (Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -341,7 +340,7 @@
                             FullUserLogin = GetCurrentUserInfo(ApplicationMode, false),
                             UserName = GetCurrentUserInfo(ApplicationMode, true),
                             OperationSource = GetSourceInfo(ApplicationMode),
-                            ThrowExceptions = throwExceptions
+                            ThrowExceptions = throwExceptions,
                         };
 
                 return CheckAndSendToAudit(checkedCustomAuditParameters);
@@ -677,7 +676,8 @@
                         AppSetting.IsDatabaseLocal
                                         ? GetConnectionStringName(dataServiceConnectionString, dataServiceType)
                                         : AppSetting.AuditConnectionStringName,
-                        IsAuditRemote) { ThrowExceptions = throwExceptions };
+                        IsAuditRemote)
+                    { ThrowExceptions = throwExceptions };
 
                     CheckAndSendToAudit(auditRatifyParameters, checkClassAuditSettings);
                 }
@@ -937,7 +937,7 @@
                 {
                     Audit = Audit,
                     ConnectionStringName = ratificationAuditParameters.AuditConnectionStringName,
-                    AuditAdditionalInfoList = standartAuditAdditionalInfos
+                    AuditAdditionalInfoList = standartAuditAdditionalInfos,
                 });
 
             foreach (ProperRatificationInfo properRatificationInfo in properRatificationInfos)
@@ -979,7 +979,7 @@
                 connectionStringName,
                 IsAuditRemote)
             {
-                ThrowExceptions = throwExceptions
+                ThrowExceptions = throwExceptions,
             };
         }
 
@@ -1033,17 +1033,17 @@
             {
                 resultConnectionStringName =
                     (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
-                        where CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
-                        select auditDsSetting.ConnStringName).FirstOrDefault();
+                     where CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
+                     select auditDsSetting.ConnStringName).FirstOrDefault();
             }
             else
             {
                 var auditDsSettingList = (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
-                    where
-                        string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
-                        && auditDsSetting.DataServiceType == dataServiceType
-                        && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
-                    select auditDsSetting.ConnStringName).ToList();
+                                          where
+                                              string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
+                                              && auditDsSetting.DataServiceType == dataServiceType
+                                              && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
+                                          select auditDsSetting.ConnStringName).ToList();
                 if (auditDsSettingList.Any())
                 {
                     resultConnectionStringName = auditDsSettingList[0];

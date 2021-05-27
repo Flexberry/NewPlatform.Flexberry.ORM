@@ -4,12 +4,12 @@
     using System;
 
     /// <summary>
-    /// Генератор ключей типа GUID
+    /// Генератор ключей типа GUID.
     /// </summary>
     public class SystemGuidGenerator : BaseKeyGenerator
     {
         /// <summary>
-        /// Генерировать Guid
+        /// Генерировать Guid.
         /// </summary>
         public override object Generate(Type dataObjectType)
         {
@@ -17,7 +17,7 @@
         }
 
         /// <summary>
-        /// Генерировать Guid
+        /// Генерировать Guid.
         /// </summary>
         public override object Generate(Type dataObjectType, object sds)
         {
@@ -25,7 +25,7 @@
         }
 
         /// <summary>
-        /// Генерировать Guid
+        /// Генерировать Guid.
         /// </summary>
         public override object GenerateUniqe(Type dataObjectType)
         {
@@ -33,7 +33,7 @@
         }
 
         /// <summary>
-        /// Генерировать Guid
+        /// Генерировать Guid.
         /// </summary>
         public override object GenerateUniqe(Type dataObjectType, object sds)
         {
@@ -41,7 +41,7 @@
         }
 
         /// <summary>
-        /// Вернуть тип ключа
+        /// Вернуть тип ключа.
         /// </summary>
         public override Type KeyType
         {
@@ -49,7 +49,7 @@
         }
 
         /// <summary>
-        /// Уникален ли первичный ключ
+        /// Уникален ли первичный ключ.
         /// </summary>
         public override bool Unique
         {

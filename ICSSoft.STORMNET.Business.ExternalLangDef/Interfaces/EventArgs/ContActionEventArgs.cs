@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Общий предок агрументов событий форм
+    /// Общий предок агрументов событий форм.
     /// </summary>
     [EventArgCatcherType("ICSSoft.STORMNET.UI.ContActionEventArgsCatcher, ICSSoft.STORMNET.UI, Version=1.0.0.1, Culture=neutral, PublicKeyToken=21ce651d390c1fa0")]
     public class ContActionEventArgs : System.EventArgs
@@ -13,7 +13,7 @@
         private string fcontpath;
 
         /// <summary>
-        /// Общий предок агрументов событий форм
+        /// Общий предок агрументов событий форм.
         /// </summary>
         /// <param name="contpath"></param>
         public ContActionEventArgs(string contpath)
@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// Общий предок агрументов событий форм
+        /// Общий предок агрументов событий форм.
         /// </summary>
         /// <param name="contpath"></param>
         /// <param name="tag"></param>
@@ -33,7 +33,7 @@
         }
 
         /// <summary>
-        /// путь на форме к контролу, который инициировал событие
+        /// путь на форме к контролу, который инициировал событие.
         /// </summary>
         public virtual string contpath
         {
@@ -50,7 +50,7 @@
         }
 
         /// <summary>
-        /// дополнительный параметр
+        /// дополнительный параметр.
         /// </summary>
         public virtual object tag
         {

@@ -14,7 +14,7 @@
     public partial class ExternalLangDef : SQLWhereLanguageDef
     {
         /// <summary>
-        /// Внимание, используйте конструктор только в исключительных ситуациях
+        /// Внимание, используйте конструктор только в исключительных ситуациях.
         /// </summary>
         public ExternalLangDef()
         {
@@ -22,7 +22,7 @@
             fieldDataObjectType.UnSimplificationValue = SimpleValueToDataObject;
         }
 
-        static private ExternalLangDef _lngDef = null;
+        private static ExternalLangDef _lngDef = null;
         private static string _objNull = "CONST";
 
         /// <summary>
@@ -45,12 +45,12 @@
         }
 
         /// <summary>
-        /// сервис данных для построения подзапросов
+        /// сервис данных для построения подзапросов.
         /// </summary>
         private Business.IDataService m_objDataService;
 
         /// <summary>
-        /// Сервис данных для построения подзапросов. Если не указан, используется DataServiceProvider.DataService
+        /// Сервис данных для построения подзапросов. Если не указан, используется DataServiceProvider.DataService.
         /// </summary>
         public Business.IDataService DataService
         {
@@ -125,7 +125,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая год от DateTime
+        /// Функция, возвращающая год от DateTime.
         /// </summary>
         public string funcYearPart
         {
@@ -133,7 +133,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая месяц(число) от DateTime
+        /// Функция, возвращающая месяц(число) от DateTime.
         /// </summary>
         public string funcMonthPart
         {
@@ -141,7 +141,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая день от DateTime
+        /// Функция, возвращающая день от DateTime.
         /// </summary>
         public string funcDayPart
         {
@@ -149,7 +149,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая часы от DateTime
+        /// Функция, возвращающая часы от DateTime.
         /// </summary>
         public string funcHHPart
         {
@@ -157,7 +157,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая минуты от DateTime
+        /// Функция, возвращающая минуты от DateTime.
         /// </summary>
         public string funcMIPart
         {
@@ -173,7 +173,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая только дату от DateTime
+        /// Функция, возвращающая только дату от DateTime.
         /// </summary>
         public string funcOnlyDate
         {
@@ -181,7 +181,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая день недели числом (1 = Понедельник, ..., 7 = Воскресенье)
+        /// Функция, возвращающая день недели числом (1 = Понедельник, ..., 7 = Воскресенье).
         /// </summary>
         public string funcDayOfWeek
         {
@@ -197,7 +197,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая имя текущего пользователя (FriendlyName)
+        /// Функция, возвращающая имя текущего пользователя (FriendlyName).
         /// </summary>
         public string funcCurrentUser
         {
@@ -205,7 +205,7 @@
         }
 
         /// <summary>
-        /// Функция, возвращающая только время в формате чч:мм:сс от DateTime
+        /// Функция, возвращающая только время в формате чч:мм:сс от DateTime.
         /// </summary>
         public string funcOnlyTime
         {
@@ -213,7 +213,7 @@
         }
 
         /// <summary>
-        /// Полный аналог SQL функции dateadd
+        /// Полный аналог SQL функции dateadd.
         /// </summary>
         public string funcDateAdd
         {
@@ -224,7 +224,7 @@
         }
 
         /// <summary>
-        /// Импликация (Если-то)
+        /// Импликация (Если-то).
         /// </summary>
         public string funcImplication
         {
@@ -273,7 +273,7 @@
         }
 
         /// <summary>
-        /// Максимальное значение в детейле с ограничением
+        /// Максимальное значение в детейле с ограничением.
         /// </summary>
         public string funcMaxWithLimit
         {
@@ -281,7 +281,7 @@
         }
 
         /// <summary>
-        /// Минимальное значение в детейле с ограничением
+        /// Минимальное значение в детейле с ограничением.
         /// </summary>
         public string funcMinWithLimit
         {
@@ -289,7 +289,7 @@
         }
 
         /// <summary>
-        /// Среднее значение в детейле с ограничением
+        /// Среднее значение в детейле с ограничением.
         /// </summary>
         public string funcAvgWithLimit
         {
@@ -297,7 +297,7 @@
         }
 
         /// <summary>
-        /// Сумма значений в детейле с ограничением
+        /// Сумма значений в детейле с ограничением.
         /// </summary>
         public string funcSumWithLimit
         {
@@ -305,7 +305,7 @@
         }
 
         /// <summary>
-        /// Количество значений в детейле с ограничением
+        /// Количество значений в детейле с ограничением.
         /// </summary>
         public string funcCountWithLimit
         {
@@ -313,7 +313,7 @@
         }
 
         /// <summary>
-        /// Количество
+        /// Количество.
         /// </summary>
         public string funcCount
         {
@@ -321,7 +321,7 @@
         }
 
         /// <summary>
-        /// Не пусто
+        /// Не пусто.
         /// </summary>
         public string funcNotIsNull
         {
@@ -329,7 +329,7 @@
         }
 
         /// <summary>
-        /// Количество дней в месяце
+        /// Количество дней в месяце.
         /// </summary>
         public string funcDaysInMonth
         {
@@ -337,7 +337,7 @@
         }
 
         /// <summary>
-        /// Привести строку к верхнему регистру
+        /// Привести строку к верхнему регистру.
         /// </summary>
         public string funcToUpper
         {
@@ -345,7 +345,7 @@
         }
 
         /// <summary>
-        /// Привести строку к нижнему регистру
+        /// Привести строку к нижнему регистру.
         /// </summary>
         public string funcToLower
         {
@@ -353,7 +353,7 @@
         }
 
         /// <summary>
-        /// Привести значение к строке
+        /// Привести значение к строке.
         /// </summary>
         public string funcToChar
         {
@@ -509,7 +509,7 @@
         }
 
         /// <summary>
-        /// Делегат для получения типа по его имени в методе SimpleValueToDataObject
+        /// Делегат для получения типа по его имени в методе SimpleValueToDataObject.
         /// </summary>
         public static TypeResolveDelegate ExtraTypeResolver = null;
 
@@ -945,8 +945,7 @@
                 new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
                     new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
                     new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
-                    new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType))
-                );
+                    new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType)));
 
             base.InitializeDefs();
         }
@@ -990,7 +989,7 @@
         }
 
         /// <summary>
-        /// Функция возвращает СУБД-зависимые выражения
+        /// Функция возвращает СУБД-зависимые выражения.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="convertValue"></param>
@@ -1013,7 +1012,7 @@
         public delegateUserSQLTranslFunction UserSQLTranslFunction;
 
         /// <summary>
-        /// Метод для обертки в "case when" IS NULL и NOT IS NULL, добавлен для иключения дублирования кода
+        /// Метод для обертки в "case when" IS NULL и NOT IS NULL, добавлен для иключения дублирования кода.
         /// </summary>
         /// <param name="param"></param>
         /// <param name="translSwitch"></param>

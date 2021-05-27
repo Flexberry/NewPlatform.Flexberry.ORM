@@ -154,7 +154,7 @@
                     ICSSoft.STORMNET.View pawView = new ICSSoft.STORMNET.View();
                     pawView.DefineClassType = typeof(Лапа);
 
-                    pawView.Properties = new PropertyInView[] 
+                    pawView.Properties = new PropertyInView[]
                     {
                         new PropertyInView("Размер", "Размер", true, string.Empty),
                     };
@@ -162,7 +162,7 @@
                     ICSSoft.STORMNET.View catView = new ICSSoft.STORMNET.View();
                     catView.DefineClassType = typeof(Кошка);
 
-                    catView.Properties = new PropertyInView[] 
+                    catView.Properties = new PropertyInView[]
                     {
                         new PropertyInView("Агрессивная", "Агрессивная", true, string.Empty),
                     };
@@ -176,7 +176,7 @@
                         Type = ldef.DetailsType,
                         View = pawView,
                         OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
-                        ConnectMasterPorp = "Кошка"
+                        ConnectMasterPorp = "Кошка",
                     };
 
                     var limitFunction1 = ldef.GetFunction(

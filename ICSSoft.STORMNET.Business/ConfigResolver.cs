@@ -1,6 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
-
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
 

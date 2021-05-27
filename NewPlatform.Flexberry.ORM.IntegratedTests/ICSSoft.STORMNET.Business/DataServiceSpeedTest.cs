@@ -11,7 +11,6 @@
     /// <summary>
     /// Тест скорости сервиса данных.
     /// </summary>
-    
     public class DataServiceSpeedTest : BaseIntegratedTest
     {
         /// <summary>

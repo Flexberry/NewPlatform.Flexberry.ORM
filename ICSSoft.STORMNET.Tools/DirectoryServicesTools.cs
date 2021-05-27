@@ -45,7 +45,7 @@ namespace ICSSoft.STORMNET.Tools
 
                 var directorySearcher = new DirectorySearcher(directoryEntry)
                 {
-                    Filter = string.Format("(SAMAccountName={0})", userLogin)
+                    Filter = string.Format("(SAMAccountName={0})", userLogin),
                 };
                 var resultCollection = directorySearcher.FindAll();
                 if (resultCollection.Count > 0)
@@ -57,7 +57,7 @@ namespace ICSSoft.STORMNET.Tools
             }
             catch (ActiveDirectoryObjectNotFoundException)
             {
-                // Если не нашли такую ActiveDirectory, 
+                // Если не нашли такую ActiveDirectory,
                 // то возможно мы в другой сети или она не верно задана.
                 return string.Empty;
             }

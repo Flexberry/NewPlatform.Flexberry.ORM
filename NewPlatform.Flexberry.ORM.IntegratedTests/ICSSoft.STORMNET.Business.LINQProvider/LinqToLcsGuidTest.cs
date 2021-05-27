@@ -11,7 +11,6 @@
     /// <summary>
     /// Тесты на работу провайдера со свойствами типа Guid.
     /// </summary>
-    
     public class LinqToLcsGuidTest
     {
         /// <summary>
@@ -81,7 +80,7 @@
                     this.ldef.GetFunction(
                         this.ldef.funcEQ,
                         new VariableDef(this.ldef.GuidType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleGuid)),
-                        eqGuid)
+                        eqGuid),
             };
 
             // Act.
@@ -109,7 +108,7 @@
                     this.ldef.GetFunction(
                         this.ldef.funcEQ,
                         new VariableDef(this.ldef.GuidType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleNullGuid)),
-                        eqGuid)
+                        eqGuid),
             };
 
             // Act.
@@ -134,7 +133,7 @@
                 LimitFunction =
                     this.ldef.GetFunction(
                         this.ldef.funcIsNull,
-                        new VariableDef(this.ldef.GuidType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleNullGuid)))
+                        new VariableDef(this.ldef.GuidType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleNullGuid))),
             };
 
             // Act.

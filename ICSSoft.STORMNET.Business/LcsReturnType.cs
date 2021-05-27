@@ -33,6 +33,6 @@
         /// <summary>
         /// Логический
         /// </summary>
-        All
+        All,
     }
 }

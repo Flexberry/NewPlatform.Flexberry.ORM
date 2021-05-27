@@ -3,7 +3,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Базовый класс, содержащий настройки БД, куда будет писаться аудит
+    /// Базовый класс, содержащий настройки БД, куда будет писаться аудит.
     /// </summary>
     [DataContract]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(ICSSoft.STORMNET.Business.Audit.AuditParameters))]
@@ -13,13 +13,13 @@
     public class DatabaseAuditParameters : AuditParametersBase
     {
         /// <summary>
-        /// Режим работы приложения: win или web
+        /// Режим работы приложения: win или web.
         /// </summary>
         [DataMember]
         public AppMode ApplicationMode;
 
         /// <summary>
-        /// Имя строки подключения к БД аудита
+        /// Имя строки подключения к БД аудита.
         /// </summary>
         [DataMember]
         public string AuditConnectionStringName = string.Empty;

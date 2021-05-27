@@ -4,17 +4,17 @@
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Вспомогательные методы для работы с параметрами
+    /// Вспомогательные методы для работы с параметрами.
     /// </summary>
     public static class ParamsUtils
     {
         /// <summary>
-        /// Сгенерировать выражение для доступа к параметру (например, параметру ограничения)
+        /// Сгенерировать выражение для доступа к параметру (например, параметру ограничения).
         /// </summary>
-        /// <param name="parameterType">Тип параметра</param>
-        /// <param name="parameterName">Название параметра</param>
+        /// <param name="parameterType">Тип параметра.</param>
+        /// <param name="parameterName">Название параметра.</param>
         /// <returns>Выражение для доступа к параметру. Результирующее значение выражения
-        /// будет иметь тип parameterType</returns>
+        /// будет иметь тип parameterType.</returns>
         public static Expression GenerateParameterAccess(Type parameterType, string parameterName)
         {
             var paramCall = Expression.Call(

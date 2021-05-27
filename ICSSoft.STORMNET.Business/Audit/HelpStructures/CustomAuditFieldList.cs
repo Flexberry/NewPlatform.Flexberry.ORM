@@ -4,7 +4,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Класс со списком данных аудита по полям объекта
+    /// Класс со списком данных аудита по полям объекта.
     /// </summary>
     public class CustomAuditFieldList
     {
@@ -19,9 +19,9 @@
         }
 
         /// <summary>
-        /// Добавление в список сведений об изменении поля в соответствии с аудитом
+        /// Добавление в список сведений об изменении поля в соответствии с аудитом.
         /// </summary>
-        /// <param name="customAuditField">Сведения об изменении поля в соответствии с аудитом</param>
+        /// <param name="customAuditField">Сведения об изменении поля в соответствии с аудитом.</param>
         public void AddCustomAuditField(CustomAuditField customAuditField)
         {
             if (!(from auditField in CustomAuditFieldsList
@@ -35,10 +35,10 @@
         }
 
         /// <summary>
-        /// Добавление в список сведений об изменении полей в соответствии с аудитом
+        /// Добавление в список сведений об изменении полей в соответствии с аудитом.
         /// </summary>
         /// <param name="customAuditFields">
-        /// Сведения об изменении полей в соответствии с аудитом
+        /// Сведения об изменении полей в соответствии с аудитом.
         /// </param>
         public void AddCustomAuditFields(IEnumerable<CustomAuditField> customAuditFields)
         {
@@ -49,7 +49,7 @@
         }
 
         /// <summary>
-        /// Очистка сведений об изменении полей
+        /// Очистка сведений об изменении полей.
         /// </summary>
         public void ClearCustomAuditFields()
         {
@@ -57,10 +57,10 @@
         }
 
         /// <summary>
-        /// Получение копии списка со сведениями об изменении полей в соответствии с аудитом
+        /// Получение копии списка со сведениями об изменении полей в соответствии с аудитом.
         /// </summary>
         /// <returns>
-        /// Копия списка со сведениями об изменении полей в соответствии с аудитом
+        /// Копия списка со сведениями об изменении полей в соответствии с аудитом.
         /// </returns>
         public List<CustomAuditField> GetCustomAuditFields()
         {

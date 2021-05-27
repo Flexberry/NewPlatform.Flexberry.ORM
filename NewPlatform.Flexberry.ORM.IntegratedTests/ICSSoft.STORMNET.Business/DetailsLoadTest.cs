@@ -74,7 +74,7 @@
                 медведь.SetExistObjectPrimaryKey(createdBear.__PrimaryKey);
                 медведь.Берлога.Add(new Берлога
                 {
-                    Наименование = "Новая"
+                    Наименование = "Новая",
                 });
 
                 ds.LoadObject(медведь, false, false);
@@ -99,7 +99,7 @@
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
                 lcs.ColumnsSort = new[]
                 {
-                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc)
+                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc),
                 };
 
                 lcs.InitDataCopy = true;
@@ -117,7 +117,7 @@
                 {
                     медведь.Берлога.Add(new Берлога
                     {
-                        Наименование = "Некий лес"
+                        Наименование = "Некий лес",
                     });
                     ds.UpdateObject(медведь);
                 }

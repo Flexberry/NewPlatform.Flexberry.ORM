@@ -8,9 +8,8 @@
     using NewPlatform.Flexberry.ORM.Tests;
 
     /// <summary>
-    /// В методах этого класса проверяется только формирование представлений, но не выражений
+    /// В методах этого класса проверяется только формирование представлений, но не выражений.
     /// </summary>
-    
     public class LinqToLcsDynamicViewTest
     {
         private static readonly string КличкаName = Information.ExtractPropertyName<Кошка>(x => x.Кличка);
@@ -133,7 +132,7 @@
         }
 
         /// <summary>
-        /// Самое простое ограничение
+        /// Самое простое ограничение.
         /// </summary>
         [Fact]
         public void LcsDynamicViewTestForSimpleFunction()
@@ -149,7 +148,7 @@
         }
 
         /// <summary>
-        /// Ограничение на детейлы 
+        /// Ограничение на детейлы.
         /// </summary>
         [Fact]
         public void LcsDynamicViewTestForDetail()
@@ -165,7 +164,7 @@
         }
 
         /// <summary>
-        /// Ограничение на детейлы второго уровня
+        /// Ограничение на детейлы второго уровня.
         /// </summary>
         [Fact]
         public void LcsDynamicViewTestForSecondaryDetail()

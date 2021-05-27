@@ -9,10 +9,9 @@
     /// <summary>
     /// Класс для проверки методов обновления объектов данных в сложной структуре.
     /// </summary>
-
     public class UpdateComplexObjectStructTest : BaseIntegratedTest
     {
-        // <summary>
+        /// <summary>
         /// Конструктор.
         /// </summary>
         public UpdateComplexObjectStructTest()
@@ -32,22 +31,21 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-
                 // Шаг 1. Создание экземпляра класса А хотя бы с одним детейлом класса В.
-                var берлога = new Берлога {Наименование = "У потапыча"};
-                var потапыч = new Медведь {ПорядковыйНомер = 5};
+                var берлога = new Берлога { Наименование = "У потапыча" };
+                var потапыч = new Медведь { ПорядковыйНомер = 5 };
                 потапыч.Берлога.Add(берлога);
                 dataService.UpdateObject(потапыч);
 
                 // Шаг 2. Создание другого экземпляра класса А с установкой первичного ключа первого экземпляра.
-                var pk = (KeyGuid) потапыч.__PrimaryKey;
-                var берёзыч = new Медведь {ПорядковыйНомер = 6};
+                var pk = (KeyGuid)потапыч.__PrimaryKey;
+                var берёзыч = new Медведь { ПорядковыйНомер = 6 };
                 берёзыч.SetExistObjectPrimaryKey(pk);
 
                 // Шаг 3. Допустимо пропустить.
 
                 // Шаг 4. Создание экземпляра класса С с установкой в качестве мастера второго экземпляра класса А.
-                var блоха = new Блоха {Кличка = "Попрыгушка", МедведьОбитания = берёзыч};
+                var блоха = new Блоха { Кличка = "Попрыгушка", МедведьОбитания = берёзыч };
 
                 // Шаг 5. Обновление экземпляра класса С в базу данных.
                 dataService.UpdateObject(блоха);
@@ -67,8 +65,8 @@
                 // Arrange.
                 string названиеЛеса = "Шишкин лес";
                 string новоеНазваниеЛеса = "Лисицын лес";
-                var лес = new Лес {Название = названиеЛеса};
-                var потапыч = new Медведь {ПорядковыйНомер = 5, ЛесОбитания = лес};
+                var лес = new Лес { Название = названиеЛеса };
+                var потапыч = new Медведь { ПорядковыйНомер = 5, ЛесОбитания = лес };
                 dataService.UpdateObject(потапыч);
 
                 View view = new View
@@ -76,8 +74,8 @@
                     DefineClassType = typeof(Медведь),
                     Properties = new[]
                     {
-                        new PropertyInView(nameof(Медведь.ЛесОбитания), string.Empty, true, string.Empty)
-                    }
+                        new PropertyInView(nameof(Медведь.ЛесОбитания), string.Empty, true, string.Empty),
+                    },
                 };
 
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);

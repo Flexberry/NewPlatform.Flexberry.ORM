@@ -14,7 +14,7 @@
     using Xunit.Abstractions;
 
     /// <summary>
-    /// Тесты <see cref="BusinessServerProvider" />
+    /// Тесты <see cref="BusinessServerProvider" />.
     /// </summary>
     public class BusinessServerProviderMultiThreadTests
     {
@@ -29,7 +29,7 @@
         }
 
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>.
         /// </summary>
         [Fact]
         public void GetBusinessServerMultiThreadAsParallelTest()
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>.
         /// </summary>
         [Fact]
         public void GetBusinessServerMultiThreadToolTest()

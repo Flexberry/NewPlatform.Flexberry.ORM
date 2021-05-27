@@ -13,13 +13,13 @@
 
     /// <summary>
     /// Указывает объект, являющийся частью вышестоящего объекта.
-    /// логика работы не реализована
+    /// логика работы не реализована.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class SubobjectAttribute : Attribute
     {
         /// <summary>
-        /// Возможно вам понадобится этот конструетор для создания экземпляра класса SubobjectAttribute
+        /// Возможно вам понадобится этот конструетор для создания экземпляра класса SubobjectAttribute.
         /// </summary>
         public SubobjectAttribute()
         {
@@ -27,13 +27,13 @@
     }
 
     /// <summary>
-    /// Указывает Агрегирующий объект для детейлового объекта
+    /// Указывает Агрегирующий объект для детейлового объекта.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class AgregatorAttribute : Attribute
     {
         /// <summary>
-        /// Возможно вам понадобится этот конструетор для создания экземпляра класса AgregatorAttribute
+        /// Возможно вам понадобится этот конструетор для создания экземпляра класса AgregatorAttribute.
         /// </summary>
         public AgregatorAttribute()
         {
@@ -43,7 +43,7 @@
     #region ..Значения свойств
 
     /// <summary>
-    /// Указывает, что данный атрибут не может принимать значения Null
+    /// Указывает, что данный атрибут не может принимать значения Null.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class NotNullAttribute : Attribute
@@ -51,7 +51,7 @@
         private bool bnotnull;
 
         /// <summary>
-        /// Используется для указания недопустимости пустого значения
+        /// Используется для указания недопустимости пустого значения.
         /// </summary>
         public NotNullAttribute()
         {
@@ -60,7 +60,7 @@
 
         /// <summary>
         /// Используется для отмены NotNull в наследнике для свойства, в предке указанного как NotNull.
-        /// Для отмены пишите false;
+        /// Для отмены пишите false;.
         /// </summary>
         public NotNullAttribute(bool value)
         {
@@ -81,7 +81,7 @@
 
     /// <summary>
     /// Указывает, что данный атрибут не может принимать значения длиннее явно определённого
-    /// (Проверка будет осуществляться при присваивании объекту)
+    /// (Проверка будет осуществляться при присваивании объекту).
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class StrLenAttribute : Attribute
@@ -89,7 +89,7 @@
         private int len;
 
         /// <summary>
-        /// Используется для указания отсутствия проверки на длину
+        /// Используется для указания отсутствия проверки на длину.
         /// </summary>
         public StrLenAttribute()
         {
@@ -98,7 +98,7 @@
 
         /// <summary>
         /// Используется для указания допустимой длины строки
-        /// Для отмены пишите -1;
+        /// Для отмены пишите -1;.
         /// </summary>
         public StrLenAttribute(int value)
         {
@@ -118,13 +118,13 @@
     }
 
     /// <summary>
-    /// Указывает порядок атрибутов, в соответствии с которым упорядочены объекты в свойстве-массиве объектов
+    /// Указывает порядок атрибутов, в соответствии с которым упорядочены объекты в свойстве-массиве объектов.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class OrderAttribute : Attribute
     {
         /// <summary>
-        /// Возможно вам понадобится этот конструетор для создания экземпляра класса OrderAttribute
+        /// Возможно вам понадобится этот конструетор для создания экземпляра класса OrderAttribute.
         /// </summary>
         public OrderAttribute()
         {
@@ -134,7 +134,7 @@
 
     /// <summary>
     /// Укеазывает допустимые по присваиванию объекты объектов данных
-    /// для мастеровых свойств и детайловых классов
+    /// для мастеровых свойств и детайловых классов.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
     public class TypeUsageAttribute : Attribute
@@ -142,10 +142,10 @@
         private Type[] usetypes;
 
         /// <summary>
-        /// Конструктор с именами типов в конкретной сборке
+        /// Конструктор с именами типов в конкретной сборке.
         /// </summary>
-        /// <param name="assemblyName">Имя сборки</param>
-        /// <param name="typeNames">Имена типов</param>
+        /// <param name="assemblyName">Имя сборки.</param>
+        /// <param name="typeNames">Имена типов.</param>
         public TypeUsageAttribute(string assemblyName, params string[] typeNames)
         {
             Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName == assemblyName);
@@ -163,9 +163,9 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструетор для создания экземпляра класса TypeUsageAttribute
+        /// Возможно вам понадобится этот конструетор для создания экземпляра класса TypeUsageAttribute.
         /// </summary>
-        /// <param name="types"> перечислим типы, допустимые по использованию</param>
+        /// <param name="types"> перечислим типы, допустимые по использованию.</param>
         public TypeUsageAttribute(params string[] types)
         {
             Type[] ts = new Type[types.Length];
@@ -196,9 +196,9 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструетор для создания экземпляра класса TypeUsageAttribute
+        /// Возможно вам понадобится этот конструетор для создания экземпляра класса TypeUsageAttribute.
         /// </summary>
-        /// <param name="types"> перечислим типы, допустимые по использованию</param>
+        /// <param name="types"> перечислим типы, допустимые по использованию.</param>
         public TypeUsageAttribute(params Type[] types)
         {
             usetypes = new Type[types.Length];
@@ -206,7 +206,7 @@
         }
 
         /// <summary>
-        /// список типов, используемых в свойстве
+        /// список типов, используемых в свойстве.
         /// </summary>
         public Type[] UseTypes
         {
@@ -220,7 +220,7 @@
     }
 
     /// <summary>
-    /// <see cref="TypeUsageAttribute"/>, только указывается не непосредственно у свойства,а у класса
+    /// <see cref="TypeUsageAttribute"/>, только указывается не непосредственно у свойства,а у класса.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class PropertyTypeUsageAttribute : TypeUsageAttribute
@@ -228,7 +228,7 @@
         private string property;
 
         /// <summary>
-        /// Свойство,для которого назначаются типы
+        /// Свойство,для которого назначаются типы.
         /// </summary>
         public string Property
         {
@@ -239,10 +239,10 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyTypeUsageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyTypeUsageAttribute.
         /// </summary>
-        /// <param name="propertyName">Свойство,для которого назначаются типы</param>
-        /// <param name="types">список типов, используемых в свойстве</param>
+        /// <param name="propertyName">Свойство,для которого назначаются типы.</param>
+        /// <param name="types">список типов, используемых в свойстве.</param>
         public PropertyTypeUsageAttribute(string propertyName, params Type[] types)
             : base(types)
         {
@@ -250,10 +250,10 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyTypeUsageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyTypeUsageAttribute.
         /// </summary>
-        /// <param name="propertyName">Свойство,для которого назначаются типы</param>
-        /// <param name="types">список типов, используемых в свойстве</param>
+        /// <param name="propertyName">Свойство,для которого назначаются типы.</param>
+        /// <param name="types">список типов, используемых в свойстве.</param>
         public PropertyTypeUsageAttribute(string propertyName, params string[] types)
             : base(types)
         {
@@ -271,7 +271,7 @@
     /// Место сохранения объектов данных в данной сборке.
     /// Указывается имя сервиса данных, использующихся для хранения
     /// и параметры к этому сервису данных.
-    /// Например, для реляционного сервиса данных -- это DSN
+    /// Например, для реляционного сервиса данных -- это DSN.
     /// </summary>
     [AttributeUsage(AttributeTargets.Assembly)]
     public class AssemblyStorageAttribute : Attribute
@@ -281,7 +281,7 @@
         private Type dataServiceType;
 
         /// <summary>
-        /// наименование хранилища
+        /// наименование хранилища.
         /// </summary>
         public string Name
         {
@@ -289,7 +289,7 @@
         }
 
         /// <summary>
-        /// сервис данных для работы с указанным хранилищем
+        /// сервис данных для работы с указанным хранилищем.
         /// </summary>
         public Type DataServiceType
         {
@@ -297,10 +297,10 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса AssemblyStorageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса AssemblyStorageAttribute.
         /// </summary>
-        /// <param name="StorageName">наименование хранилища</param>
-        /// <param name="StorageDataServiceName">сервис данных для работы с указанным хранилищем</param>
+        /// <param name="StorageName">наименование хранилища.</param>
+        /// <param name="StorageDataServiceName">сервис данных для работы с указанным хранилищем.</param>
         public AssemblyStorageAttribute(string StorageName, Type StorageDataServiceName)
         {
             name = StorageName;
@@ -325,7 +325,7 @@
         private string name;
 
         /// <summary>
-        /// Наименование хранилища для класса
+        /// Наименование хранилища для класса.
         /// </summary>
         public string Name
         {
@@ -333,9 +333,9 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса ClassStorageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса ClassStorageAttribute.
         /// </summary>
-        /// <param name="StorageName">Наименование хранилища для класса</param>
+        /// <param name="StorageName">Наименование хранилища для класса.</param>
         public ClassStorageAttribute(string StorageName)
         {
             name = StorageName;
@@ -343,7 +343,7 @@
     }
 
     /// <summary>
-    /// Прописывается тип(класс) генератора первичных ключей
+    /// Прописывается тип(класс) генератора первичных ключей.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class KeyGeneratorAttribute : System.Attribute
@@ -351,25 +351,25 @@
         private Type typeofgenerator;
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса KeyGeneratorAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса KeyGeneratorAttribute.
         /// </summary>
-        /// <param name="typeofgenerator">тип генератора ключей</param>
+        /// <param name="typeofgenerator">тип генератора ключей.</param>
         public KeyGeneratorAttribute(string typeofgenerator)
             : this(Type.GetType(typeofgenerator, true, true))
         {
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса KeyGeneratorAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса KeyGeneratorAttribute.
         /// </summary>
-        /// <param name="typeofgenerator">тип генератора ключей</param>
+        /// <param name="typeofgenerator">тип генератора ключей.</param>
         public KeyGeneratorAttribute(Type typeofgenerator)
         {
             this.typeofgenerator = typeofgenerator;
         }
 
         /// <summary>
-        /// тип генератора ключей
+        /// тип генератора ключей.
         /// </summary>
         public Type TypeOfGenerator
         {
@@ -390,7 +390,7 @@
         private string[] names = null;
 
         /// <summary>
-        /// наименование хранилища атрибута
+        /// наименование хранилища атрибута.
         /// </summary>
         public string Name
         {
@@ -398,7 +398,7 @@
         }
 
         /// <summary>
-        /// наименование хранилища для множественного связывания
+        /// наименование хранилища для множественного связывания.
         /// </summary>
         public string[] Names
         {
@@ -406,18 +406,18 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyStorageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyStorageAttribute.
         /// </summary>
-        /// <param name="StorageName">наименование хранилища атрибута</param>
+        /// <param name="StorageName">наименование хранилища атрибута.</param>
         public PropertyStorageAttribute(string StorageName)
         {
             name = StorageName;
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyStorageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PropertyStorageAttribute.
         /// </summary>
-        /// <param name="StorageNames">наименование хранилищ атрибута для классов, указанных в TypeUsage</param>
+        /// <param name="StorageNames">наименование хранилищ атрибута для классов, указанных в TypeUsage.</param>
         public PropertyStorageAttribute(string[] StorageNames)
         {
             names = StorageNames;
@@ -436,7 +436,7 @@
         private string name;
 
         /// <summary>
-        /// наименование хранилища первичного ключа
+        /// наименование хранилища первичного ключа.
         /// </summary>
         public string Name
         {
@@ -447,9 +447,9 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PrimaryKeyStorageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PrimaryKeyStorageAttribute.
         /// </summary>
-        /// <param name="StorageName">наименование хранилища первичного ключа</param>
+        /// <param name="StorageName">наименование хранилища первичного ключа.</param>
         public PrimaryKeyStorageAttribute(string StorageName)
         {
             name = StorageName;
@@ -462,14 +462,13 @@
     /// Некоторое логическое имя, под которым хранится тип,
     /// например, для реляционного хранения это -- имя таблицы.
     /// </summary>
-
     [AttributeUsage(AttributeTargets.Class)]
     public class TypeStorageAttribute : Attribute
     {
         private string name;
 
         /// <summary>
-        /// наименование хранилища для типа
+        /// наименование хранилища для типа.
         /// </summary>
         public string Name
         {
@@ -477,9 +476,9 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PrimaryKeyStorageAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса PrimaryKeyStorageAttribute.
         /// </summary>
-        /// <param name="StorageName">наименование хранилища первичного ключа</param>
+        /// <param name="StorageName">наименование хранилища первичного ключа.</param>
         public TypeStorageAttribute(string StorageName)
         {
             name = StorageName;
@@ -490,23 +489,23 @@
     #region Все хранится кроме ...(или хитро хранится)))
 
     /// <summary>
-    /// Отключить автоматическое сохранение мастерового объекта данных при сохранении основного объекта
+    /// Отключить автоматическое сохранение мастерового объекта данных при сохранении основного объекта.
     /// </summary>
     public class AutoStoreMasterDisabled : System.Attribute
     {
         private bool fAutoCreateMasterDisabled = true;
 
         /// <summary>
-        /// Отключить автоматическое сохранение мастерового объекта данных при сохранении основного объекта
+        /// Отключить автоматическое сохранение мастерового объекта данных при сохранении основного объекта.
         /// </summary>
-        /// <param name="fAutoCreateMasterDisabled">если false - обратно включить автосохранение</param>
+        /// <param name="fAutoCreateMasterDisabled">если false - обратно включить автосохранение.</param>
         public AutoStoreMasterDisabled(bool fAutoCreateMasterDisabled)
         {
             this.fAutoCreateMasterDisabled = fAutoCreateMasterDisabled;
         }
 
         /// <summary>
-        /// Отключить автоматическое сохранение мастерового объекта данных при сохранении основного объекта
+        /// Отключить автоматическое сохранение мастерового объекта данных при сохранении основного объекта.
         /// </summary>
         public AutoStoreMasterDisabled()
             : this(true)
@@ -528,7 +527,7 @@
     }
 
     /// <summary>
-    /// Указывает нехранимый(вычислимый) атрибут (то есть он не сохраняется)
+    /// Указывает нехранимый(вычислимый) атрибут (то есть он не сохраняется).
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
     public class NotStoredAttribute : System.Attribute
@@ -536,16 +535,16 @@
         private bool notstored;
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса NotStoredAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса NotStoredAttribute.
         /// </summary>
-        /// <param name="notStored">нехранимое-true,хранимое - false</param>
+        /// <param name="notStored">нехранимое-true,хранимое - false.</param>
         public NotStoredAttribute(bool notStored)
         {
             this.notstored = notStored;
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса NotStoredAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса NotStoredAttribute.
         /// </summary>
         public NotStoredAttribute()
         {
@@ -553,7 +552,7 @@
         }
 
         /// <summary>
-        /// нехранимое/хранимое
+        /// нехранимое/хранимое.
         /// </summary>
         public bool Value
         {
@@ -562,7 +561,7 @@
     }
 
     /// <summary>
-    /// Указывает формулу вычисления атрибута - для стрингованных данных (для конкретного типа сервиса данных)
+    /// Указывает формулу вычисления атрибута - для стрингованных данных (для конкретного типа сервиса данных).
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class DataServiceExpressionAttribute : System.Attribute
@@ -571,10 +570,10 @@
         private string storageExpression;
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса DataServiceExpressionAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса DataServiceExpressionAttribute.
         /// </summary>
-        /// <param name="DataServiceType">тип датасервиса</param>
-        /// <param name="StorageExpression">запрос-формула</param>
+        /// <param name="DataServiceType">тип датасервиса.</param>
+        /// <param name="StorageExpression">запрос-формула.</param>
         public DataServiceExpressionAttribute(Type DataServiceType, string StorageExpression)
         {
             this.dataServiceType = DataServiceType;
@@ -582,17 +581,17 @@
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса DataServiceExpressionAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса DataServiceExpressionAttribute.
         /// </summary>
-        /// <param name="DataServiceType">тип датасервиса</param>
-        /// <param name="StorageExpression">запрос-формула</param>
+        /// <param name="DataServiceType">тип датасервиса.</param>
+        /// <param name="StorageExpression">запрос-формула.</param>
         public DataServiceExpressionAttribute(string DataServiceType, string StorageExpression)
             : this(Type.GetType(DataServiceType, false, true), StorageExpression)
         {
         }
 
         /// <summary>
-        /// запрос-формула
+        /// запрос-формула.
         /// </summary>
         public string Expression
         {
@@ -600,7 +599,7 @@
         }
 
         /// <summary>
-        /// тип датасервиса
+        /// тип датасервиса.
         /// </summary>
         public Type TypeofDataService
         {
@@ -615,7 +614,7 @@
     /// Важно помнить, что принципиальный порядок загрузки остается следующим
     /// - вначале создаются мастера
     /// - затем заполняются свои-мастеровые атрибуты (В заданном порядке)
-    /// - заполняются детейлы(в порядке заданном во View)
+    /// - заполняются детейлы(в порядке заданном во View).
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class LoadingOrderAttribute : Attribute
@@ -623,7 +622,7 @@
         private string[] order;
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса LoadingOrderAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса LoadingOrderAttribute.
         /// </summary>
         /// <param name="order"></param>
         public LoadingOrderAttribute(string[] order)
@@ -632,11 +631,12 @@
         }
 
         /// <summary>
-        /// порядок загрузки атрибутов
+        /// порядок загрузки атрибутов.
         /// </summary>
         public string[] Order
         {
-            get { return order; } set { order = value; }
+            get { return order; }
+            set { order = value; }
         }
     }
     #endregion
@@ -649,31 +649,31 @@
     public class StoreInstancesInTypeAttribute : System.Attribute
     {
         /// <summary>
-        /// Тип сервиса данных
+        /// Тип сервиса данных.
         /// </summary>
         public System.Type DataServiceType;
 
         /// <summary>
-        /// Тип хранения
+        /// Тип хранения.
         /// </summary>
         public System.Type StorageType;
 
         /// <summary>
         /// Возможно вам понадобится этот конструктор для создания экземпляра класса StoreInstancesInTypeAttribute
-        /// Если тип сервиса не найден, исключение выброшено не будет
+        /// Если тип сервиса не найден, исключение выброшено не будет.
         /// </summary>
-        /// <param name="dataservice">тип сервиса данных</param>
-        /// <param name="type">как хранится</param>
+        /// <param name="dataservice">тип сервиса данных.</param>
+        /// <param name="type">как хранится.</param>
         public StoreInstancesInTypeAttribute(string dataservice, string stype)
             : this(Type.GetType(dataservice, false, true), Type.GetType(stype, false, true))
         {
         }
 
         /// <summary>
-        /// Возможно вам понадобится этот конструктор для создания экземпляра класса StoreInstancesInTypeAttribute
+        /// Возможно вам понадобится этот конструктор для создания экземпляра класса StoreInstancesInTypeAttribute.
         /// </summary>
-        /// <param name="dataservice">тип сервиса данных</param>
-        /// <param name="type">как хранится</param>
+        /// <param name="dataservice">тип сервиса данных.</param>
+        /// <param name="type">как хранится.</param>
         public StoreInstancesInTypeAttribute(System.Type dataservice, System.Type type)
         {
             DataServiceType = dataservice;
@@ -683,7 +683,7 @@
 
     /// <summary>
     /// происходит обрубание строк(применять функцию Trim()) при работе со строковыми данными через
-    /// <see cref="Information.GetPropValueByName"/>  и <see cref="Information.GetPropValueByName"/>
+    /// <see cref="Information.GetPropValueByName"/>  и <see cref="Information.GetPropValueByName"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     public class TrimmedStringStorageAttribute : System.Attribute
@@ -691,7 +691,7 @@
         private bool trimmedStrings;
 
         /// <summary>
-        /// обрубать строки,или нет
+        /// обрубать строки,или нет.
         /// </summary>
         public bool TrimmedStrings
         {
@@ -699,16 +699,16 @@
         }
 
         /// <summary>
-        /// обрубать строки,или нет
+        /// обрубать строки,или нет.
         /// </summary>
-        /// <param name="trimmedStrings">обрубать строки,или нет</param>
+        /// <param name="trimmedStrings">обрубать строки,или нет.</param>
         public TrimmedStringStorageAttribute(bool trimmedStrings)
         {
             this.trimmedStrings = trimmedStrings;
         }
 
         /// <summary>
-        /// обрубать строки
+        /// обрубать строки.
         /// </summary>
         public TrimmedStringStorageAttribute()
         {
@@ -724,7 +724,7 @@
     /// Указывает представление для класса объекта данных
     /// формат указания: [Имя мастера].[Имя мастера мастера].[Имя мастера мастера мастера ...].[Имя атрибута] as [пользовательское имя атрибута]
     /// Пользовательское имя атрибута может включать пробелы
-    /// В исходный код этот атрибут полностью генерируется CASE
+    /// В исходный код этот атрибут полностью генерируется CASE.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ViewAttribute : System.Attribute
@@ -736,8 +736,8 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="ViewName">имя представления</param>
-        /// <param name="properties">свойства в представлении</param>
+        /// <param name="ViewName">имя представления.</param>
+        /// <param name="properties">свойства в представлении.</param>
         public ViewAttribute(string ViewName, string[] properties)
         {
             if (ViewName == string.Empty)
@@ -751,7 +751,7 @@
         }
 
         /// <summary>
-        /// имя представления
+        /// имя представления.
         /// </summary>
         public string Name
         {
@@ -759,7 +759,7 @@
         }
 
         /// <summary>
-        /// состав атрибутов
+        /// состав атрибутов.
         /// </summary>
         public string[] Properties
         {
@@ -767,7 +767,7 @@
         }
 
         /// <summary>
-        /// невидимые атрибуты
+        /// невидимые атрибуты.
         /// </summary>
         public string[] Hidden
         {
@@ -801,24 +801,25 @@
         private bool detailUseAdaptiveViewsLoading = false;
 
         /// <summary>
-        /// использовать ли адаптивную вычитку
+        /// использовать ли адаптивную вычитку.
         /// </summary>
         public bool UseAdaptiveViewsLoading
         {
-            get { return detailUseAdaptiveViewsLoading; } set { detailUseAdaptiveViewsLoading = value; }
+            get { return detailUseAdaptiveViewsLoading; }
+            set { detailUseAdaptiveViewsLoading = value; }
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="viewname">представление шапки</param>
-        /// <param name="detailname">имя детейла</param>
-        /// <param name="detailviewname">представление детейла</param>
-        /// <param name="detailLoadOnLoadAgregator">читать ли детейл при чтении агрегирующего объекта</param>
-        /// <param name="detailPath">путь на форме</param>
-        /// <param name="detailCaption">заголовок</param>
-        /// <param name="detailVisible">видимость</param>
-        /// <param name="AggregateOperations">агр.функции</param>
+        /// <param name="viewname">представление шапки.</param>
+        /// <param name="detailname">имя детейла.</param>
+        /// <param name="detailviewname">представление детейла.</param>
+        /// <param name="detailLoadOnLoadAgregator">читать ли детейл при чтении агрегирующего объекта.</param>
+        /// <param name="detailPath">путь на форме.</param>
+        /// <param name="detailCaption">заголовок.</param>
+        /// <param name="detailVisible">видимость.</param>
+        /// <param name="AggregateOperations">агр.функции.</param>
         public AssociatedDetailViewAttribute(string viewname, string detailname, string detailviewname, bool detailLoadOnLoadAgregator, string detailPath, string detailCaption, bool detailVisible, string[] AggregateOperations)
         {
             this.detailName = detailname;
@@ -834,10 +835,10 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="viewname">представление</param>
-        /// <param name="detailname">имя детейла</param>
-        /// <param name="detailviewname">представление детейла</param>
-        /// <param name="detailLoadOnLoadAgregator">прочитывать ли при загрузке</param>
+        /// <param name="viewname">представление.</param>
+        /// <param name="detailname">имя детейла.</param>
+        /// <param name="detailviewname">представление детейла.</param>
+        /// <param name="detailLoadOnLoadAgregator">прочитывать ли при загрузке.</param>
         public AssociatedDetailViewAttribute(string viewname, string detailname, string detailviewname, bool detailLoadOnLoadAgregator)
             : this(viewname, detailname, detailviewname, detailLoadOnLoadAgregator, string.Empty, string.Empty, false, new string[0])
         {
@@ -846,16 +847,16 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="viewname">представление</param>
-        /// <param name="detailname">имя детейла</param>
-        /// <param name="detailviewname">представление детейла</param>
+        /// <param name="viewname">представление.</param>
+        /// <param name="detailname">имя детейла.</param>
+        /// <param name="detailviewname">представление детейла.</param>
         public AssociatedDetailViewAttribute(string viewname, string detailname, string detailviewname)
             : this(viewname, detailname, detailviewname, true)
         {
         }
 
         /// <summary>
-        /// имя детейла
+        /// имя детейла.
         /// </summary>
         public string DetailName
         {
@@ -863,7 +864,7 @@
         }
 
         /// <summary>
-        /// представление детейла
+        /// представление детейла.
         /// </summary>
         public string DetailViewName
         {
@@ -871,7 +872,7 @@
         }
 
         /// <summary>
-        /// представление шапки
+        /// представление шапки.
         /// </summary>
         public string ViewName
         {
@@ -879,50 +880,55 @@
         }
 
         /// <summary>
-        /// читать ли детейл при чтении агрегирующего объекта
+        /// читать ли детейл при чтении агрегирующего объекта.
         /// </summary>
         public bool LoadOnLoadAgregator
         {
-            get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; }
+            get { return detailLoadOnLoadAgregator; }
+            set { detailLoadOnLoadAgregator = value; }
         }
 
         /// <summary>
-        /// где располагается на форме
+        /// где располагается на форме.
         /// </summary>
         public string FormPath
         {
-            get { return detailPath; } set { detailPath = value; }
+            get { return detailPath; }
+            set { detailPath = value; }
         }
 
         /// <summary>
-        /// Заголовок на форме
+        /// Заголовок на форме.
         /// </summary>
         public string Caption
         {
-            get { return detailcaption; } set { detailcaption = value; }
+            get { return detailcaption; }
+            set { detailcaption = value; }
         }
 
         /// <summary>
-        /// видимость контрола на форме
+        /// видимость контрола на форме.
         /// </summary>
         public bool Visible
         {
-            get { return detailvisible; } set { detailvisible = value; }
+            get { return detailvisible; }
+            set { detailvisible = value; }
         }
 
         /// <summary>
-        /// аггрегирующие операции доступные в этом представлении
+        /// аггрегирующие операции доступные в этом представлении.
         /// </summary>
         public string[] AggregateOperations
         {
-            get { return (aggregateOperations == null) ? null : (string[])aggregateOperations.Clone(); } set { aggregateOperations = value; }
+            get { return (aggregateOperations == null) ? null : (string[])aggregateOperations.Clone(); }
+            set { aggregateOperations = value; }
         }
     }
     #endregion
     #region Контролы для представления
 
     /// <summary>
-    /// Указывает пользовательское имя для значения перечислимого типа, для класса данных, для свойства класса данных
+    /// Указывает пользовательское имя для значения перечислимого типа, для класса данных, для свойства класса данных.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Field)]
     public class CaptionAttribute : Attribute
@@ -930,7 +936,7 @@
         private string value;
 
         /// <summary>
-        /// заголовок
+        /// заголовок.
         /// </summary>
         public string Value
         {
@@ -940,7 +946,7 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="caption">заголовок</param>
+        /// <param name="caption">заголовок.</param>
         public CaptionAttribute(string caption)
         {
             value = caption;
@@ -958,7 +964,7 @@
         private bool value;
 
         /// <summary>
-        /// показывать только выделенное значение?
+        /// показывать только выделенное значение?.
         /// </summary>
         public bool Value
         {
@@ -966,9 +972,9 @@
         }
 
         /// <summary>
-        /// показывать только выделенное значение
+        /// показывать только выделенное значение.
         /// </summary>
-        /// <param name="showSelected">показывать только выделенное значение?</param>
+        /// <param name="showSelected">показывать только выделенное значение?.</param>
         public OnlyShowSelectedValueAttribute(bool showSelected)
         {
             value = showSelected;
@@ -976,7 +982,7 @@
     }
 
     /// <summary>
-    /// Атрибут, указывающий значение перечисления, рассматриваемое как незаполненное
+    /// Атрибут, указывающий значение перечисления, рассматриваемое как незаполненное.
     /// </summary>
     public class EmptyEnumValueAttribute : Attribute
     {
@@ -984,13 +990,13 @@
     #endregion
 
     /// <summary>
-    /// Помещать ли свойство в автоматически генерируемые прадставления
+    /// Помещать ли свойство в автоматически генерируемые прадставления.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class DisableAutoViewedAttribute : System.Attribute
     {
         /// <summary>
-        /// Значение (true/false)
+        /// Значение (true/false).
         /// </summary>
         public bool value = true;
 
@@ -1012,13 +1018,13 @@
     }
 
     /// <summary>
-    /// Помещать ли свойство в Insert-ы
+    /// Помещать ли свойство в Insert-ы.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class DisableInsertPropertyAttribute : System.Attribute
     {
         /// <summary>
-        /// Значение (true/false)
+        /// Значение (true/false).
         /// </summary>
         public bool Value = true;
 
@@ -1042,13 +1048,13 @@
     // Поведение объекта
 
     /// <summary>
-    /// Автоматическое вычисление статуса Altered
+    /// Автоматическое вычисление статуса Altered.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class AutoAlteredAttribute : Attribute
     {
         /// <summary>
-        /// автоматическое вычисление статуса Altered
+        /// автоматическое вычисление статуса Altered.
         /// </summary>
         public bool value = true;
 
@@ -1062,7 +1068,7 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="avalue">Если True, статус Altered вычисляется автоматически</param>
+        /// <param name="avalue">Если True, статус Altered вычисляется автоматически.</param>
         public AutoAlteredAttribute(bool avalue)
         {
             value = avalue;
@@ -1071,20 +1077,20 @@
 
     /// <summary>
     /// Картинка для класса.
-    /// Должна лежать в этой же сборке как embedded ресурс
+    /// Должна лежать в этой же сборке как embedded ресурс.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class ClassImageFileAttribute : System.Attribute
     {
         /// <summary>
-        /// Имя картинки
+        /// Имя картинки.
         /// </summary>
         public string fileName = string.Empty;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="fName">Имя картинки</param>
+        /// <param name="fName">Имя картинки.</param>
         public ClassImageFileAttribute(string fName)
         {
             fileName = fName;
@@ -1092,20 +1098,20 @@
     }
 
     /// <summary>
-    /// Свойство, предоставляющее картинку для экземпляров этого класса
+    /// Свойство, предоставляющее картинку для экземпляров этого класса.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class ClassImagePropertyAttribute : System.Attribute
     {
         /// <summary>
-        /// название свойства
+        /// название свойства.
         /// </summary>
         public string property = string.Empty;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="fproperty">название свойства</param>
+        /// <param name="fproperty">название свойства.</param>
         public ClassImagePropertyAttribute(string fproperty)
         {
             property = fproperty;
@@ -1113,20 +1119,20 @@
     }
 
     /// <summary>
-    /// Свойство, предоставляющее заголовок для экземпляров этого класса
+    /// Свойство, предоставляющее заголовок для экземпляров этого класса.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class InstanceCaptionPropertyAttribute : System.Attribute
     {
         /// <summary>
-        /// название свойства
+        /// название свойства.
         /// </summary>
         public string fieldCaptionProperty = string.Empty;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="CaptionProperty">название свойства</param>
+        /// <param name="CaptionProperty">название свойства.</param>
         public InstanceCaptionPropertyAttribute(string CaptionProperty)
         {
             fieldCaptionProperty = CaptionProperty;
@@ -1134,26 +1140,26 @@
     }
 
     /// <summary>
-    /// Агрегирующая функция в DetailArray
+    /// Агрегирующая функция в DetailArray.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class AggregationFunctionAttribute : System.Attribute
     {
         /// <summary>
-        /// как выводить результат ( типа "сумма = {0} или больше")
+        /// как выводить результат ( типа "сумма = {0} или больше").
         /// </summary>
         public string CaptionFormat;
 
         /// <summary>
-        /// под каким свойством выводить в табличных контролах
+        /// под каким свойством выводить в табличных контролах.
         /// </summary>
         public string PropertyName;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="captionFormat">как выводить результат ( типа "сумма = {0} или больше")</param>
-        /// <param name="propertyName">под каким свойством выводить в табличных контролах</param>
+        /// <param name="captionFormat">как выводить результат ( типа "сумма = {0} или больше").</param>
+        /// <param name="propertyName">под каким свойством выводить в табличных контролах.</param>
         public AggregationFunctionAttribute(string captionFormat, string propertyName)
         {
             CaptionFormat = captionFormat;
@@ -1162,7 +1168,7 @@
     }
 
     /// <summary>
-    /// Типы выбора связанного объекта
+    /// Типы выбора связанного объекта.
     /// </summary>
     public enum LookupTypeEnum
     {
@@ -1184,11 +1190,11 @@
         /// <summary>
         /// Другой, произвольный
         /// </summary>
-        Custom
+        Custom,
     }
 
     /// <summary>
-    /// Дополнительная настройка мастера в представлении
+    /// Дополнительная настройка мастера в представлении.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class MasterViewDefineAttribute : System.Attribute
@@ -1202,11 +1208,11 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="viewname">имя представления</param>
-        /// <param name="mastername">имя свойства - мастера</param>
-        /// <param name="lookuptype">тип лукапа</param>
-        /// <param name="customizationstring">настройка лукапа</param>
-        /// <param name="lookupProperty">отображаемое свойство</param>
+        /// <param name="viewname">имя представления.</param>
+        /// <param name="mastername">имя свойства - мастера.</param>
+        /// <param name="lookuptype">тип лукапа.</param>
+        /// <param name="customizationstring">настройка лукапа.</param>
+        /// <param name="lookupProperty">отображаемое свойство.</param>
         public MasterViewDefineAttribute(string viewname, string mastername, LookupTypeEnum lookuptype, string customizationstring, string lookupProperty)
         {
             viewName = viewname;
@@ -1228,7 +1234,7 @@
         }
 
         /// <summary>
-        /// имя представления
+        /// имя представления.
         /// </summary>
         public string ViewName
         {
@@ -1236,7 +1242,7 @@
         }
 
         /// <summary>
-        /// имя свойства - мастера
+        /// имя свойства - мастера.
         /// </summary>
         public string MasterName
         {
@@ -1244,7 +1250,7 @@
         }
 
         /// <summary>
-        /// настройка лукапа
+        /// настройка лукапа.
         /// </summary>
         public string CustomizationString
         {
@@ -1252,7 +1258,7 @@
         }
 
         /// <summary>
-        /// тип лукапа
+        /// тип лукапа.
         /// </summary>
         public LookupTypeEnum LookupType
         {
@@ -1260,7 +1266,7 @@
         }
 
         /// <summary>
-        /// отображаемое свойство
+        /// отображаемое свойство.
         /// </summary>
         public string LookupProperty
         {
@@ -1269,7 +1275,7 @@
     }
 
     /// <summary>
-    /// Тип для кэтчера
+    /// Тип для кэтчера.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class EventArgCatcherTypeAttribute : Attribute

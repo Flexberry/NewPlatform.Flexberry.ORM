@@ -7,7 +7,6 @@
 
     using Xunit;
 
-    
     public class CommonTest
     {
         [Fact]
@@ -32,8 +31,6 @@
             Assert.True(kg1 == "{01666FC6-4A58-4DB0-BE32-D47533F1E64A}");
             Guid guid = new Guid();
             Assert.False((Guid)kg1 == guid);
-
         }
-
     }
 }

@@ -6,14 +6,13 @@
     /// <summary>
     /// Класс для тестирования Contact.cs.
     /// </summary>
-    
     public class ContactTest
     {
         /// <summary>
         /// Проверка метода Compare.
         /// </summary>
         [Fact]
-        
+
         public void ContactCompareTest()
         {
             var contactPhone = new Contact { Name = "WorkPhone", Value = "1234567", ContactType = "Phone" };
@@ -31,7 +30,7 @@
         /// Проверка явного преобразования Contact в string.
         /// </summary>
         [Fact]
-        
+
         public void ContactExplicitContactToStringTest()
         {
             var contactPhone = new Contact();
@@ -51,7 +50,7 @@
         /// Проверка явного преобразования string в Contact.
         /// </summary>
         [Fact]
-        
+
         public void ContactExplicitStringToContactTest()
         {
             Assert.Null((Contact)string.Empty);

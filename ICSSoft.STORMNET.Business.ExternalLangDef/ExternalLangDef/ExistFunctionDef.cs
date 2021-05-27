@@ -44,13 +44,11 @@
             {
                 if (!(conditionFunc is Function))
                 {
-
                     // Если функция была задана переменной логического типа, то необходимо сформировать функцию
                     conditionFunc = GetFunction(funcAND, conditionFunc);
                 }
                 else
                 {
-
                     // Для случаев, когда для обработки детейлового атрибута применяется И, ИЛИ, НЕ из базового языка
                     ((Function)conditionFunc).FunctionDef.Language = this;
                 }
@@ -105,7 +103,7 @@
         /// <summary>
         /// Получить запрос по детейловому представлению с добавлением поля агригатора.
         /// </summary>
-        /// <param name="dvd">Детейл</param>
+        /// <param name="dvd">Детейл.</param>
         /// <param name="additionalProperties">
         /// Свойства, которые необходимо добавить в представление при вычитки детейлов.
         /// </param>
@@ -116,7 +114,7 @@
             var lcs = new LoadingCustomizationStruct(null)
             {
                 LoadingTypes = new[] { dvd.View.DefineClassType },
-                View = dvd.View.Clone()
+                View = dvd.View.Clone(),
             };
 
             // Чтобы при построении запроса можно было понять, что это ограничение на детейлы, мы зададим специальное имя представления.

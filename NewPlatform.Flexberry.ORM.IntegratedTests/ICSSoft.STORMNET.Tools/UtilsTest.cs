@@ -1,16 +1,16 @@
 ﻿// TODO: разобраться с этим классом.
-//namespace ICSSoft.STORMNET.Tests.TestClasses.Tools
-//{
+// namespace ICSSoft.STORMNET.Tests.TestClasses.Tools
+// {
 //    using System;
 //    using System.Windows.Forms;
 
-//    using ICSSoft.STORMNET.FunctionalLanguage;
+// using ICSSoft.STORMNET.FunctionalLanguage;
 //    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 //    using ICSSoft.STORMNET.Windows.Forms;
 
-//    using Xunit;
+// using Xunit;
 
-//    /// <summary>
+// /// <summary>
 //    ///This is a test class for UtilsTest and is intended
 //    ///to contain all UtilsTest Unit Tests
 //    ///</summary>
@@ -19,9 +19,9 @@
 //    {
 
 
-//        private TestContext testContextInstance;
+// private TestContext testContextInstance;
 
-//        /// <summary>
+// /// <summary>
 //        ///Gets or sets the test context which provides
 //        ///information about and functionality for the current test run.
 //        ///</summary>
@@ -37,7 +37,7 @@
 //            }
 //        }
 
-//        /// <summary>
+// /// <summary>
 //        ///A test for ObjectToString
 //        ///</summary>
 //        [Fact]
@@ -51,7 +51,7 @@
 //            Assert.Equal(expected, actual);
 //        }
 
-//        /// <summary>
+// /// <summary>
 //        ///A test for ObjectFromString
 //        ///</summary>
 //        [Fact]
@@ -65,8 +65,7 @@
 //            Assert.Equal(expected, actual);
 //        }
 
-//        [Fact]
-//        
+// [Fact]
 //        public void ObjectToAndFromStringTest()
 //        {
 //            SQLWhereLanguageDef ldef = SQLWhereLanguageDef.LanguageDef;
@@ -82,17 +81,17 @@
 //                )
 //                );
 
-//            string serializedFn = Windows.Forms.Utils.ObjectToString((new ExternalLangDef()).FunctionToSimpleStruct(fn));
+// string serializedFn = Windows.Forms.Utils.ObjectToString((new ExternalLangDef()).FunctionToSimpleStruct(fn));
 //            Assert.NotNull(serializedFn);
 //            Console.WriteLine(serializedFn);
 
-//            Function восставшийИзНебытия = (
+// Function восставшийИзНебытия = (
 //                                new ExternalLangDef()).FunctionFromSimpleStruct(Windows.Forms.Utils.ObjectFromString(serializedFn));
 //            Assert.NotNull(восставшийИзНебытия);
 //        }
 
 
-//        /// <summary>
+// /// <summary>
 //        ///A test for GetControlPath
 //        ///</summary>
 //        [Fact]
@@ -106,7 +105,7 @@
 //            Assert.Equal(expected, actual);
 //        }
 
-//        /// <summary>
+// /// <summary>
 //        ///A test for GetControl
 //        ///</summary>
 //        [Fact]
@@ -121,7 +120,7 @@
 //            Assert.Equal(expected, actual);
 //        }
 
-//        /// <summary>
+// /// <summary>
 //        ///A test for Utils Constructor
 //        ///</summary>
 //        [Fact]
@@ -133,4 +132,4 @@
 //                    "mbols.Assembly\' failed");
 //        }
 //    }
-//}
+// }

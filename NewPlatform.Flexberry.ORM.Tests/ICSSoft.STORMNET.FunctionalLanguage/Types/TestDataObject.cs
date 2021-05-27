@@ -12,7 +12,7 @@
         "Height",
         "Weight",
         "Photo",
-        "Hierarchy"
+        "Hierarchy",
     })]
     public class TestDataObject : DataObject, IName
     {

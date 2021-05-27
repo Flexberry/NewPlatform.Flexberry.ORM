@@ -10,7 +10,7 @@ namespace ICSSoft.STORMNET
     public interface ISpecialEmptyValue
     {
         /// <summary>
-        /// Является ли значение пустым
+        /// Является ли значение пустым.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

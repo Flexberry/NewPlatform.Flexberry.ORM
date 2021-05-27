@@ -13,25 +13,25 @@ namespace ICSSoft.STORMNET.UserDataTypes
     public class Contact : IComparableType
     {
         /// <summary>
-        /// Имя контакта (например, рабочий телефон)
+        /// Имя контакта (например, рабочий телефон).
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Значение контакта (например, номер телефона)
+        /// Значение контакта (например, номер телефона).
         /// </summary>
         public string Value { get; set; }
 
         /// <summary>
-        /// Имя контакта (например, телефон)
+        /// Имя контакта (например, телефон).
         /// </summary>
         public string ContactType { get; set; }
 
         /// <summary>
-        /// Сравнение объектов по содержанию, а не по ссылке
+        /// Сравнение объектов по содержанию, а не по ссылке.
         /// </summary>
-        /// <param name="obj">Контакт для сравнения с текущим</param>
-        /// <returns>Результат сравнения</returns>
+        /// <param name="obj">Контакт для сравнения с текущим.</param>
+        /// <returns>Результат сравнения.</returns>
         public int Compare(object obj)
         {
             var contact = (Contact)obj;

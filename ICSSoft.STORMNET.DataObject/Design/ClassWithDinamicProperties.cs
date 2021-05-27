@@ -5,7 +5,7 @@
 
     /// <summary>
     /// Абстрактный класс позволяющий потомкам иметь динамический состав
-    /// свойств отображаемый в PropertyEditor
+    /// свойств отображаемый в PropertyEditor.
     /// </summary>
     [Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -50,12 +50,12 @@
         }
 
         /// <summary>
-        /// коллекция динамических свойств
+        /// коллекция динамических свойств.
         /// </summary>
         protected PropertyDescriptorCollection properties;
 
         /// <summary>
-        /// Свойства соответствующие составу атрибутов
+        /// Свойства соответствующие составу атрибутов.
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
@@ -91,27 +91,27 @@
     }
 
     /// <summary>
-    /// Описатель динамического свойства
+    /// Описатель динамического свойства.
     /// </summary>
     public class DinamicPropertyDescriptor : PropertyDescriptor
     {
         /// <summary>
-        /// тип свойства
+        /// тип свойства.
         /// </summary>
         protected System.Type propertyType;
 
         /// <summary>
-        /// значение свойства
+        /// значение свойства.
         /// </summary>
         protected object value;
 
         /// <summary>
-        /// создаватель экземпляров класса DinamicPropertyDescriptor
+        /// создаватель экземпляров класса DinamicPropertyDescriptor.
         /// </summary>
-        /// <param name="name">имя свойства</param>
-        /// <param name="propType">тип свойства</param>
-        /// <param name="initValue">начальное значение</param>
-        /// <param name="attrs">атрибуты свойства</param>
+        /// <param name="name">имя свойства.</param>
+        /// <param name="propType">тип свойства.</param>
+        /// <param name="initValue">начальное значение.</param>
+        /// <param name="attrs">атрибуты свойства.</param>
         public DinamicPropertyDescriptor(string name, System.Type propType, object initValue, params Attribute[] attrs)
             : base(name, attrs)
         {
@@ -120,7 +120,7 @@
         }
 
         /// <summary>
-        /// Тип компонента
+        /// Тип компонента.
         /// </summary>
         public override Type ComponentType
         {
@@ -128,7 +128,7 @@
         }
 
         /// <summary>
-        /// Только на чтение ?
+        /// Только на чтение ?.
         /// </summary>
         public override bool IsReadOnly
         {
@@ -136,7 +136,7 @@
         }
 
         /// <summary>
-        /// Тип свойства
+        /// Тип свойства.
         /// </summary>
         public override Type PropertyType
         {
@@ -144,48 +144,48 @@
         }
 
         /// <summary>
-        /// можно ли вернуть начальные значения (False)
+        /// можно ли вернуть начальные значения (False).
         /// </summary>
         /// <param name="component"></param>
-        /// <returns>ложь</returns>
+        /// <returns>ложь.</returns>
         public override bool CanResetValue(object component)
         {
             return false;
         }
 
         /// <summary>
-        /// Взять значение
+        /// Взять значение.
         /// </summary>
-        /// <param name="component">компонент у которого берется значение</param>
-        /// <returns>значение</returns>
+        /// <param name="component">компонент у которого берется значение.</param>
+        /// <returns>значение.</returns>
         public override object GetValue(object component)
         {
             return value;
         }
 
         /// <summary>
-        /// Вернуть начальное значение
+        /// Вернуть начальное значение.
         /// </summary>
-        /// <param name="component">объект у которого устанавливается свойство</param>
+        /// <param name="component">объект у которого устанавливается свойство.</param>
         public override void ResetValue(object component)
         {
         }
 
         /// <summary>
-        /// Установить значение
+        /// Установить значение.
         /// </summary>
-        /// <param name="component">объект</param>
-        /// <param name="value">значение</param>
+        /// <param name="component">объект.</param>
+        /// <param name="value">значение.</param>
         public override void SetValue(object component, object value)
         {
             this.value = value;
         }
 
         /// <summary>
-        /// Можно ли сериализовать свойство
+        /// Можно ли сериализовать свойство.
         /// </summary>
-        /// <param name="component">объект</param>
-        /// <returns>ложь</returns>
+        /// <param name="component">объект.</param>
+        /// <returns>ложь.</returns>
         public override bool ShouldSerializeValue(object component)
         {
             return false;

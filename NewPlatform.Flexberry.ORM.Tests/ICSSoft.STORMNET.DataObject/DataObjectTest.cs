@@ -6,7 +6,6 @@
     /// <summary>
     /// Тесты для класса <see cref="DataObject"/>.
     /// </summary>
-    
     public class DataObjectTest
     {
         /// <summary>
@@ -39,7 +38,7 @@
             string propertyCaptionAdress = "SomeAdressCaption";
             string propertyValueAdress = "SomeAdressValue";
 
-            var client = new Клиент { ФИО = propertyValueFio, Прописка = propertyValueAdress};
+            var client = new Клиент { ФИО = propertyValueFio, Прописка = propertyValueAdress };
             var view = new View { DefineClassType = typeof(Клиент) };
             view.AddProperty(propertyNameFio, propertyCaptionFio, true, string.Empty);
             view.AddProperty(propertyNameAdress, propertyCaptionAdress, true, string.Empty);
@@ -66,7 +65,7 @@
             string expectedToString = string.Format("Клиент({0}={1})", propertyCaption, propertyValue);
 
             string resultToString = client.ToStringForAudit(view);
-            
+
             Assert.Equal(expectedToString, resultToString);
         }
     }

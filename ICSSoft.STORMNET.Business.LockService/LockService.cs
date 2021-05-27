@@ -10,7 +10,7 @@
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 
     /// <summary>
-    /// Классический сервис блокировок
+    /// Классический сервис блокировок.
     /// </summary>
     public class LockService
     {
@@ -47,12 +47,12 @@
         private static readonly TypeBaseCollection viewsbytypes = new TypeBaseCollection();
 
         /// <summary>
-        /// Кеш блокировок
+        /// Кеш блокировок.
         /// </summary>
         private readonly SortedList AllLocks = new SortedList();
 
         /// <summary>
-        /// Для совместимости
+        /// Для совместимости.
         /// </summary>
         private static string username = string.Empty;
 
@@ -61,7 +61,7 @@
         #region Public Properties
 
         /// <summary>
-        /// Использовать ли имя компьютера в блокировке
+        /// Использовать ли имя компьютера в блокировке.
         /// </summary>
         public static bool UseMachineNameInKey { get; set; }
 
@@ -112,7 +112,7 @@
         }
 
         /// <summary>
-        /// удалить все текущие блокировки (осуществимые текущим экземпляром сервиса)
+        /// удалить все текущие блокировки (осуществимые текущим экземпляром сервиса).
         /// </summary>
         public void ClearAllLocks()
         {
@@ -125,7 +125,7 @@
         }
 
         /// <summary>
-        /// Очистить блокировку
+        /// Очистить блокировку.
         /// </summary>
         /// <param name="LockKey">
         /// </param>
@@ -151,7 +151,7 @@
         }
 
         /// <summary>
-        /// Очистить блокировку
+        /// Очистить блокировку.
         /// </summary>
         /// <param name="dobj">
         /// </param>
@@ -163,7 +163,7 @@
         }
 
         /// <summary>
-        /// Очистить блокировку
+        /// Очистить блокировку.
         /// </summary>
         /// <param name="LockKey">
         /// </param>
@@ -173,7 +173,7 @@
         }
 
         /// <summary>
-        /// Очистить блокировку
+        /// Очистить блокировку.
         /// </summary>
         /// <param name="dobj">
         /// </param>
@@ -183,13 +183,13 @@
         }
 
         /// <summary>
-        /// Снять блокировку с объекта для текущего пользователя
+        /// Снять блокировку с объекта для текущего пользователя.
         /// </summary>
         /// <param name="dobj">
-        /// Объект данных
+        /// Объект данных.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         public void ClearWebLock(DataObject dobj, IDataService ds)
         {
@@ -197,16 +197,16 @@
         }
 
         /// <summary>
-        /// Снять блокировку с объекта для указанного пользователя
+        /// Снять блокировку с объекта для указанного пользователя.
         /// </summary>
         /// <param name="dobj">
-        /// Объект данных
+        /// Объект данных.
         /// </param>
         /// <param name="userName">
-        /// Пользователь
+        /// Пользователь.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         public void ClearWebLock(DataObject dobj, string userName, IDataService ds)
         {
@@ -214,16 +214,16 @@
         }
 
         /// <summary>
-        /// Снять блокировку по ключу для указанного пользователя
+        /// Снять блокировку по ключу для указанного пользователя.
         /// </summary>
         /// <param name="LockKey">
-        /// ключ блокировки
+        /// ключ блокировки.
         /// </param>
         /// <param name="userName">
-        /// пользователь
+        /// пользователь.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         public void ClearWebLock(string LockKey, string userName, IDataService ds)
         {
@@ -243,7 +243,7 @@
         }
 
         /// <summary>
-        /// Получить блокировку
+        /// Получить блокировку.
         /// </summary>
         /// <param name="dobj">
         /// </param>
@@ -287,10 +287,10 @@
         }
 
         /// <summary>
-        /// Получить блокировки
+        /// Получить блокировки.
         /// </summary>
         /// <param name="dobj">
-        /// Для какого объекта спрашиваем блокировку
+        /// Для какого объекта спрашиваем блокировку.
         /// </param>
         /// <param name="retdailscontains">
         /// </param>
@@ -329,13 +329,13 @@
         }
 
         /// <summary>
-        /// Получить блокировку
+        /// Получить блокировку.
         /// </summary>
         /// <param name="dobj">
-        /// Объект данных, для которого получаем блокировку
+        /// Объект данных, для которого получаем блокировку.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         /// <returns>
         /// The get web lock.
@@ -449,17 +449,17 @@
         }
 
         /// <summary>
-        /// Установить блокировку на объект
+        /// Установить блокировку на объект.
         /// </summary>
         /// <param name="dobj">
-        /// Объект данны
+        /// Объект данны.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         /// <returns>
         /// Имя пользователя, под которым блокировка находится,
-        /// string.Empty - если блокировки не было и мы её только поставили
+        /// string.Empty - если блокировки не было и мы её только поставили.
         /// </returns>
         public string SetWebLock(DataObject dobj, IDataService ds)
         {
@@ -467,20 +467,20 @@
         }
 
         /// <summary>
-        /// Установить блокировку на объект для указанного пользователя
+        /// Установить блокировку на объект для указанного пользователя.
         /// </summary>
         /// <param name="dobj">
-        /// Объект данных
+        /// Объект данных.
         /// </param>
         /// <param name="userName">
-        /// Пользователь
+        /// Пользователь.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         /// <returns>
         /// Имя пользователя, под которым блокировка находится,
-        /// string.Empty - если блокировки не было и мы её только поставили
+        /// string.Empty - если блокировки не было и мы её только поставили.
         /// </returns>
         public string SetWebLock(DataObject dobj, string userName, IDataService ds)
         {
@@ -488,20 +488,20 @@
         }
 
         /// <summary>
-        /// Установить блокировку
+        /// Установить блокировку.
         /// </summary>
         /// <param name="LockKey">
-        /// Ключ
+        /// Ключ.
         /// </param>
         /// <param name="userName">
-        /// Пользователь
+        /// Пользователь.
         /// </param>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         /// <returns>
         /// Имя пользователя, под которым блокировка находится,
-        /// string.Empty - если блокировки не было и мы её только поставили
+        /// string.Empty - если блокировки не было и мы её только поставили.
         /// </returns>
         public string SetWebLock(string LockKey, string userName, IDataService ds)
         {

@@ -36,8 +36,7 @@
             try
             {
                 return
-                    (IQueryable)
-                    Activator.CreateInstance(
+                    (IQueryable)Activator.CreateInstance(
                         typeof(Query<>).MakeGenericType(elementType), new object[] { this, expression });
             }
             catch (TargetInvocationException tie)

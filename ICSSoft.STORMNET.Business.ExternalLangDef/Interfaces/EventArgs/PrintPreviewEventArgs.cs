@@ -3,28 +3,28 @@
     using System;
 
     /// <summary>
-    /// Аргументы события предварительного просмотра
+    /// Аргументы события предварительного просмотра.
     /// </summary>
     [EventArgCatcherType("ICSSoft.STORMNET.UI.PrintPreviewEventArgsCatcher, ICSSoft.STORMNET.UI, Version=1.0.0.1, Culture=neutral, PublicKeyToken=21ce651d390c1fa0")]
     public class PrintPreviewEventArgs : System.EventArgs
     {
         /// <summary>
-        /// объекты данных для печати
+        /// объекты данных для печати.
         /// </summary>
         private DataObject[] m_arrObjects;
 
         /// <summary>
-        /// путь к контролу на форме, который инициировал печать
+        /// путь к контролу на форме, который инициировал печать.
         /// </summary>
         private string m_sContPath;
 
         /// <summary>
-        /// имя свойства
+        /// имя свойства.
         /// </summary>
         private string m_sPropertyName;
 
         /// <summary>
-        /// Аргументы события предварительного просмотра
+        /// Аргументы события предварительного просмотра.
         /// </summary>
         /// <param name="objects"></param>
         /// <param name="contpath"></param>
@@ -39,7 +39,7 @@
         }
 
         /// <summary>
-        /// объекты данных для печати
+        /// объекты данных для печати.
         /// </summary>
         public DataObject[] objects
         {
@@ -55,7 +55,7 @@
         }
 
         /// <summary>
-        /// путь к контролу на форме, который инициировал печать
+        /// путь к контролу на форме, который инициировал печать.
         /// </summary>
         public string contpath
         {
@@ -71,7 +71,7 @@
         }
 
         /// <summary>
-        /// имя свойства
+        /// имя свойства.
         /// </summary>
         public string propertyname
         {
@@ -88,7 +88,7 @@
     }
 
     /// <summary>
-    /// Делегат для событий предварительного просмотра
+    /// Делегат для событий предварительного просмотра.
     /// </summary>
     public delegate void PrintPreviewEventArgsHandler(object sender, ICSSoft.STORMNET.UI.PrintPreviewEventArgs e);
 }

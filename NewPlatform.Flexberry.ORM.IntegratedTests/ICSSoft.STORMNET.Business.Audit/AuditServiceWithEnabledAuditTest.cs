@@ -9,7 +9,6 @@
     /// <summary>
     /// ORM-integrated unit test class for <see cref="AuditService"/> with enabled audit.
     /// </summary>
-    
     public class AuditServiceWithEnabledAuditTest : BaseAuditServiceTest
     {
         /// <summary>
@@ -78,7 +77,7 @@
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = true },
                 ApplicationMode = AppMode.Win,
-                Audit = new EmptyAudit()
+                Audit = new EmptyAudit(),
             };
         }
     }

@@ -1,7 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     /// <summary>
-    /// Нехранимая реализация DataObject с полями Caption и StringedView для различных классов языка задания ограничений
+    /// Нехранимая реализация DataObject с полями Caption и StringedView для различных классов языка задания ограничений.
     /// </summary>
     [NotStored]
     public abstract class ViewedObject : ICSSoft.STORMNET.DataObject
@@ -12,15 +12,16 @@
         // public Image ImagedView{get{return fieldImagedView;}set{fieldImagedView=value;}}
 
         /// <summary>
-        /// Строковое представление
+        /// Строковое представление.
         /// </summary>
         public virtual string StringedView
         {
-            get { return fieldStringedView; } set { fieldStringedView = value; }
+            get { return fieldStringedView; }
+            set { fieldStringedView = value; }
         }
 
         /// <summary>
-        /// Заголовок
+        /// Заголовок.
         /// </summary>
         public virtual string Caption
         {
@@ -29,14 +30,14 @@
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         public ViewedObject()
         {
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="objStringedView"></param>
         /// <param name="objImagedView"></param>

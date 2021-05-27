@@ -10,15 +10,14 @@
     using NewPlatform.Flexberry.ORM.Tests;
 
     /// <summary>
-    ///This is a test class for ToolXMLTest and is intended
-    ///to contain all ToolXMLTest Unit Tests
-    ///</summary>
-
+    /// This is a test class for ToolXMLTest and is intended
+    /// to contain all ToolXMLTest Unit Tests.
+    /// </summary>
     public class ToolXMLTest
     {
         /// <summary>
-        ///A test for ToolXML Constructor
-        ///</summary>
+        /// A test for ToolXML Constructor.
+        /// </summary>
         [Fact]
 
         public void ToolXMLConstructorTest()
@@ -72,6 +71,7 @@
             {
                 babah = true;
             }
+
             Assert.True(babah);
 
             SimpleDataObject simpleDataObjectFromXML = new SimpleDataObject();
@@ -86,7 +86,7 @@
         [Fact]
         public void AssemblyLoadTest()
         {
-            string asmName = "ICSSoft.STORMNET.DataObject, Version=1.0.0.1, Culture=neutral";//typeof(DataObject).Assembly.FullName;
+            string asmName = "ICSSoft.STORMNET.DataObject, Version=1.0.0.1, Culture=neutral"; // typeof(DataObject).Assembly.FullName;
             Console.WriteLine(asmName);
             Assembly asm = null;
             AssemblyName asmN = new AssemblyName(asmName);
@@ -94,7 +94,7 @@
             Assert.NotNull(asm);
             try
             {
-                //asm = Assembly.Load(asmName);
+                // asm = Assembly.Load(asmName);
             }
             catch { }
             if (asm == null && asmName.IndexOf("PublicKeyToken=") > -1)
@@ -116,7 +116,7 @@
         }
 
         /// <summary>
-        /// Тестирование сериализации в xml объекта данных вместе с его мастерами (и его десериализации)
+        /// Тестирование сериализации в xml объекта данных вместе с его мастерами (и его десериализации).
         /// </summary>
         [Fact]
 
@@ -155,7 +155,7 @@
                 Assert.True(false, "Не удалось сериализовать/десериализовать объект вместе с его мастерами: " + ex.Message);
             }
 
-            //Тестируем десериализацию из строки в формате xml
+            // Тестируем десериализацию из строки в формате xml
             string innerXml = "<STORMNETXMLDataService><IIS.TestAuditPr.Клиент CreateTime=\"\" Creator=\"\" EditTime=\"\" Editor=\"\" ФИО=\"TestWCFService\" Прописка=\"TestWCFService\" __PrimaryKey=\"{266c89c9-a3fe-4183-8d9b-79f290057f22}\" DynamicProperties=\"\" /><Assemblies /></STORMNETXMLDataService>";
             var credit3 = new Клиент();
             var dataObject3 = (ICSSoft.STORMNET.DataObject)credit3;
@@ -168,7 +168,7 @@
 
         /// <summary>
         /// Тест десериализации наследника класса <see cref="ICSSoft.STORMNET.DataObject"/>
-        /// с полем типа <see cref="ICSSoft.STORMNET.FileType.File"/> 
+        /// с полем типа <see cref="ICSSoft.STORMNET.FileType.File"/>
         /// при значении этого поля - <c>null</c>.
         /// </summary>
         [Fact(Skip = "Раскоментить после исправления ошибки 94794")]
@@ -184,7 +184,6 @@
 
             // Act.
             ToolXML.XMLDocument2DataObject(ref deserializedObject, serializedObj);
-
         }
 
         /// <summary>
@@ -205,12 +204,11 @@
 
             // Act.
             ToolXML.XMLDocument2DataObject(ref deserializedObject, serializedObj);
-
         }
 
         /// <summary>
         /// Тест десериализации наследника класса <see cref="ICSSoft.STORMNET.DataObject"/>
-        /// с полем типа <see cref="ICSSoft.STORMNET.UserDataTypes.NullableDateTime"/> 
+        /// с полем типа <see cref="ICSSoft.STORMNET.UserDataTypes.NullableDateTime"/>
         /// при значении этого поля - <c>null</c>.
         /// </summary>
         [Fact]

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Тип проверки полномочий для объекта
+    /// Тип проверки полномочий для объекта.
     /// </summary>
     public enum AccessType
     {
@@ -25,17 +25,17 @@
         /// <summary>
         /// производится проверка как для базового класса, так и для текущего
         /// </summary>
-        @this_and_base
+        @this_and_base,
     }
 
     /// <summary>
-    /// Помещать ли свойство в автоматически генерируемые прадставления
+    /// Помещать ли свойство в автоматически генерируемые прадставления.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AccessTypeAttribute : System.Attribute
     {
         /// <summary>
-        /// Значение (true/false)
+        /// Значение (true/false).
         /// </summary>
         public AccessType value = AccessType.none;
 

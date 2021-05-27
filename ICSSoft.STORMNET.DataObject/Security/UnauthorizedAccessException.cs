@@ -5,27 +5,27 @@
     using ICSSoft.STORMNET.Collections;
 
     /// <summary>
-    /// Исключение неавторизованного доступа
+    /// Исключение неавторизованного доступа.
     /// </summary>
     public sealed class UnauthorizedAccessException : Exception
     {
         /// <summary>
-        /// конвертер имён ошибок
+        /// конвертер имён ошибок.
         /// </summary>
         public static IAccessErrorNameConverter ErrorNameConverter { get; set; }
 
         /// <summary>
-        /// Тип
+        /// Тип.
         /// </summary>
         public Type Tp { get; set; }
 
         /// <summary>
-        /// Имя операции
+        /// Имя операции.
         /// </summary>
         public string OperationName { get; set; }
 
         /// <summary>
-        /// конструктор с параметрами
+        /// конструктор с параметрами.
         /// </summary>
         /// <param name="sOperationName"></param>
         /// <param name="tp"></param>
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// Сообщение
+        /// Сообщение.
         /// </summary>
         public override string Message
         {
@@ -50,7 +50,7 @@
                     { "Update", "обновления" },
                     { "Delete", "удаления" },
                     { "Insert", "вставки" },
-                    { "Print", "печати" }
+                    { "Print", "печати" },
                 };
 
                 string sop = OperationName;

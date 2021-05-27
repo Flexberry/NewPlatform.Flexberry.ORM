@@ -21,7 +21,7 @@
         /// The from expr.
         /// </param>
         /// <returns>
-        /// The <see cref="string[]"/>.
+        /// The <see cref="string" />[].
         /// </returns>
         public static string[] GetOwnerConnectProp(Expression fromExpr)
         {
@@ -42,7 +42,7 @@
         }
 
         /// <summary>
-        /// Ищет View для типа
+        /// Ищет View для типа.
         /// </summary>
         /// <param name="type">
         /// The type.

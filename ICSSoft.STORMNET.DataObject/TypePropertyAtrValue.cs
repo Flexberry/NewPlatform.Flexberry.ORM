@@ -4,7 +4,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// коллекция с доступом по типу-свойству
+    /// коллекция с доступом по типу-свойству.
     /// </summary>
     public class TypePropertyAtrValueCollection
     {
@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Количество элементов в коллекции
+        /// Количество элементов в коллекции.
         /// </summary>
         public int Count
         {
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// свойство-доступ
+        /// свойство-доступ.
         /// </summary>
         public object this[Type tp, string propname]
         {
@@ -70,7 +70,7 @@
     }
 
     /// <summary>
-    /// коллекция с доступом по типу
+    /// коллекция с доступом по типу.
     /// </summary>
     public class TypeAtrValueCollection
     {
@@ -85,7 +85,7 @@
         }
 
         /// <summary>
-        /// Количество элементов в коллекции
+        /// Количество элементов в коллекции.
         /// </summary>
         public int Count
         {
@@ -93,7 +93,7 @@
         }
 
         /// <summary>
-        /// свойство-доступ
+        /// свойство-доступ.
         /// </summary>
         public object this[Type tp]
         {

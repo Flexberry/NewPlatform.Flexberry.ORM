@@ -14,8 +14,9 @@
     /// </summary>
     /// <typeparam name="T"> Тип мастера. </typeparam>
     /// <typeparam name="TP"> Тип детейла. </typeparam>
+    /// <remarks>Большое число конструкторов обусловлено тем, что в Linq-выражении сложности с использованием конструкторов со значением по умолчанию.</remarks>
     public class PseudoDetail<T, TP>
-    { // Большое число конструкторов обусловлено тем, что в Linq-выражении сложности с использованием конструкторов со значением по умолчанию.
+    {
         /// <summary>
         /// Представление псевдодетейла.
         /// </summary>
@@ -254,7 +255,7 @@
         /// <summary>
         /// Вспомогательный метод, который для настоящего детейла определяет имя свойства, по которому он связывается с мастером.
         /// </summary>
-        /// <returns> Имя свойства, по которому детейл связывается с мастером </returns>
+        /// <returns> Имя свойства, по которому детейл связывается с мастером. </returns>
         private static string GetMasterLinkNameForRealDetail()
         {
             var masterLinkName = Information.GetAgregatePropertyName(typeof(TP));

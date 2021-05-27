@@ -22,17 +22,20 @@
 
         public View View
         {
-            get { return fView; } set { fView = value; }
+            get { return fView; }
+            set { fView = value; }
         }
 
         public string ConnectMasterPorp
         {
-            get { return fConnectMasterPorp; } set { fConnectMasterPorp = value; }
+            get { return fConnectMasterPorp; }
+            set { fConnectMasterPorp = value; }
         }
 
         public string[] OwnerConnectProp
         {
-            get { return fownerConnectProp; } set { fownerConnectProp = value; }
+            get { return fownerConnectProp; }
+            set { fownerConnectProp = value; }
         }
 
         public DetailVariableDef(ICSSoft.STORMNET.FunctionalLanguage.ObjectType type, string name, View v, string cmp, params string[] ocp)
@@ -87,7 +90,7 @@
                 fView.DefineClassType.AssemblyQualifiedName,
                 ConnectMasterPorp,
                 OwnerConnectProp,
-                base.ToSimpleValue()
+                base.ToSimpleValue(),
             };
         }
 

@@ -39,7 +39,7 @@
                 LoadingBufferSize = 1000,
                 RowNumber = new RowNumberDef(9, 89),
                 Distinct = true,
-                ReturnType = LcsReturnType.Object
+                ReturnType = LcsReturnType.Object,
             };
 
             var lcsStr = ToolBinarySerializer.ObjectToString(lcs);

@@ -17,7 +17,8 @@
         /// </summary>
         public string Name
         {
-            get { return colName; } set { colName = value; }
+            get { return colName; }
+            set { colName = value; }
         }
 
         /// <summary>
@@ -25,14 +26,15 @@
         /// </summary>
         public SortOrder Sort
         {
-            get { return colSort; } set { colSort = value; }
+            get { return colSort; }
+            set { colSort = value; }
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="name">Имя колонки в педставлении</param>
-        /// <param name="sort">как сортировать</param>
+        /// <param name="name">Имя колонки в педставлении.</param>
+        /// <param name="sort">как сортировать.</param>
         public ColumnsSortDef(string name, SortOrder sort)
         {
             colName = name;

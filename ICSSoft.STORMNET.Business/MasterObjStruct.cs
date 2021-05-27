@@ -5,7 +5,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Структура мастеров в выборке
+    /// Структура мастеров в выборке.
     /// </summary>
     [Serializable]
     public class MasterObjStruct : ISerializable
@@ -17,9 +17,9 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="key">ключ мастера</param>
-        /// <param name="objectType">тип мастера</param>
-        /// <param name="propName">имя роли(свойства)</param>
+        /// <param name="key">ключ мастера.</param>
+        /// <param name="objectType">тип мастера.</param>
+        /// <param name="propName">имя роли(свойства).</param>
         public MasterObjStruct(object key, Type objectType, string propName)
         {
             this.key = key;
@@ -68,27 +68,30 @@
         }
 
         /// <summary>
-        /// Ключ мастера
+        /// Ключ мастера.
         /// </summary>
         public object Key
         {
-            get { return key; } set { key = value; }
+            get { return key; }
+            set { key = value; }
         }
 
         /// <summary>
-        /// Тип мастера
+        /// Тип мастера.
         /// </summary>
         public Type ObjectType
         {
-            get { return objectType; } set { objectType = value; }
+            get { return objectType; }
+            set { objectType = value; }
         }
 
         /// <summary>
-        /// Имя роли мастера(наименование свойства)
+        /// Имя роли мастера(наименование свойства).
         /// </summary>
         public string PropertyName
         {
-            get { return propertyName; } set { propertyName = value; }
+            get { return propertyName; }
+            set { propertyName = value; }
         }
     }
 }

@@ -6,10 +6,8 @@
 
     using Xunit;
 
-    
     public class BusinessServerOrderTest
     {
-        
         [Fact]
         public void TestMethod1()
         {
@@ -33,6 +31,7 @@
                 {
                     usedOrderInd.Add(cls.Order);
                 }
+
                 cls.Order += step;
             }
 
@@ -76,7 +75,6 @@
             }
         }
 
-        
         [Fact]
         public void TestMethod2()
         {
@@ -98,7 +96,6 @@
             }
         }
 
-        
         [Fact]
         public void TestMethod3()
         {
@@ -117,7 +114,7 @@
             var cls5 = new OrderedCls { Order = 1, Name = "E" };
             bss.Add(cls5);
 
-            //bss.Sort(new OrderedClsComparer());
+            // bss.Sort(new OrderedClsComparer());
             var sortedArList = new ArrayList();
             var sl = new SortedList();
             foreach (OrderedCls cls in bss)
@@ -126,6 +123,7 @@
                 {
                     sl.Add(cls.Order, new ArrayList());
                 }
+
                 ((ArrayList)sl[cls.Order]).Add(cls);
             }
 
@@ -134,6 +132,7 @@
                 var arl = (ArrayList)entry.Value;
                 sortedArList.AddRange(arl);
             }
+
             bss = sortedArList;
             foreach (OrderedCls cls in bss)
             {
@@ -149,12 +148,12 @@
         }
 
         /// <summary>
-        ///     Класс для сортировки бизнес-серверов
+        ///     Класс для сортировки бизнес-серверов.
         /// </summary>
         public class OrderedClsComparer : IComparer
         {
             /// <summary>
-            ///     Сравнить
+            ///     Сравнить.
             /// </summary>
             /// <param name="x"></param>
             /// <param name="y"></param>
@@ -167,7 +166,7 @@
         }
 
         /// <summary>
-        ///     Класс для сортировки бизнес-серверов
+        ///     Класс для сортировки бизнес-серверов.
         /// </summary>
         public class OrderedClsComparerG : IComparer<OrderedCls>
         {

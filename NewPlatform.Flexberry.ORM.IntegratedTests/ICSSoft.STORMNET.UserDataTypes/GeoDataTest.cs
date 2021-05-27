@@ -6,14 +6,13 @@
     /// <summary>
     /// Проверка класса GeoData.cs.
     /// </summary>
-    
     public class GeoDataTest
     {
         /// <summary>
         /// Проверка явного преобразования GeoData в string.
         /// </summary>
         [Fact]
-        
+
         public void GeoDataExplicitGeoDataToStringTest()
         {
             var testGeoData = new GeoData();
@@ -33,7 +32,7 @@
         /// Проверка явного преобразования string в GeoData.
         /// </summary>
         [Fact]
-        
+
         public void GeoDataExplicitStringToGeoDataTest()
         {
             Assert.Null((GeoData)string.Empty);

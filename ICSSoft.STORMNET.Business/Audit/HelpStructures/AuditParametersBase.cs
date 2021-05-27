@@ -3,7 +3,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Базовый класс для установки в очередь сообщений при асинхронной записи аудита
+    /// Базовый класс для установки в очередь сообщений при асинхронной записи аудита.
     /// </summary>
     [DataContract]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(ICSSoft.STORMNET.Business.Audit.DatabaseAuditParameters))]

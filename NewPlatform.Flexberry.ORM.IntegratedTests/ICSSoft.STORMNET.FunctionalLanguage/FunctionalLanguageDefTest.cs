@@ -10,7 +10,6 @@
     /// <summary>
     /// Класс для тестирования FunctionalLanguageDef.
     /// </summary>
-    
     public class FunctionalLanguageDefTest
     {
         /// <summary>
@@ -49,7 +48,7 @@
         /// Тест для метода GetObjectTypeForNetType.
         /// </summary>
         [Fact]
-        
+
         public void FunctionalLanguageDefGetObjectTypeForNetTypeTest()
         {
             FunctionalLanguageDef langDef = new SQLWhereLanguageDef();
@@ -62,7 +61,7 @@
         /// Тест для метода GetObjectTypeForNetType.
         /// </summary>
         [Fact]
-        
+
         public void FunctionalLanguageDefGetObjectTypeForNetType1Test()
         {
             FunctionalLanguageDef langDef = new SQLWhereLanguageDef();
