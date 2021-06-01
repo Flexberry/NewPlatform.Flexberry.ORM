@@ -4699,6 +4699,87 @@
         }
 
         /// <summary>
+        /// Метод находит вложенные циклические зависимости на основе объектов зависимостей.
+        /// </summary>
+        /// <param name="objectsList">
+        /// Список объектов, находящихся в обработке.
+        /// </param>
+        /// <param name="dependencie">
+        /// Тип зависимости по которой искать цилические ссылки внутри списка объектов.
+        /// </param>
+        /// <returns>
+        /// True если цикл среди объектов найден.
+        /// </returns>
+        private bool FindRealCyclesWithObjects(List<DataObject> objectsList, Type dependencie)
+        {
+            bool cycleExist = false;
+
+            foreach (DataObject parentObject in objectsList)
+            {
+                List<object> primaryKeys = new List<object> { parentObject.__PrimaryKey };
+
+                cycleExist = CheckCycleInNested(parentObject, dependencie, ref primaryKeys);
+
+                if (cycleExist)
+                {
+                    break;
+                }
+            }
+
+            return cycleExist;
+        }
+
+        /// <summary>
+        /// Метод находит вложенные циклические зависимости на основе объектов зависимостей.
+        /// </summary>
+        /// <param name="currentParent">
+        /// Родительский объект внутри которого будут искаться циклы.
+        /// </param>
+        /// <param name="dependencie">
+        /// Тип зависимости по которой искать цилические ссылки внутри объекта.
+        /// </param>
+        /// <param name="primaryKeys">
+        /// Цепочка ключей зависимостей.
+        /// </param>
+        /// <returns>
+        /// True если цикл среди объектов найден.
+        /// </returns>
+        private bool CheckCycleInNested(DataObject currentParent, Type dependencie, ref List<object> primaryKeys)
+        {
+            bool isFinding = false;
+            string[] props = Information.GetAllPropertyNames(currentParent.GetType());
+
+            // Поиск свойства, в нужном типе.
+            var filterProps = props
+                .Where(t => Information.GetPropertyType(currentParent.GetType(), t).FullName == dependencie.FullName)
+                .ToList();
+
+            if (filterProps.Count != 0)
+            {
+                foreach (string property in filterProps)
+                {
+                    DataObject child = Information.GetPropValueByName(currentParent, property) as DataObject;
+
+                    if (child != null)
+                    {
+                        if (primaryKeys.Contains(child.__PrimaryKey))
+                        {
+                            isFinding = true;
+                            break;
+                        }
+                        else
+                        {
+                            primaryKeys.Add(child.__PrimaryKey);
+                            isFinding = CheckCycleInNested(child, dependencie, ref primaryKeys);
+                        }
+                    }
+                }
+            }
+
+            return isFinding;
+        }
+
+        /// <summary>
         /// Поиск циклов в графе зависимостей.
         /// </summary>
         /// <param name="grafDependencies">Граф полученный в результате обхода графа зависимостей.</param>
@@ -4729,6 +4810,14 @@
                     var processingObjectsList = processingObjects.Cast<DataObject>().Where(t => t.GetType() == dependencie && t.GetStatus() == ObjectStatus.Created).ToList();
                     if (processingObjectsList.Count > 0)
                     {
+
+                        bool isRealCyclesExist = FindRealCyclesWithObjects(processingObjectsList, dependencie);
+
+                        if (!isRealCyclesExist)
+                        {
+                            return false;
+                        }
+
                         // Проверяется создает ли цикл зависимость.
                         if (!grafDependencies.Contains(dependencie))
                         {
@@ -4822,53 +4911,45 @@
             {
                 foreach (string prop in filterProps)
                 {
-                    // Проверяется свойство на NotNull.
-                    if (!Information.GetPropertyNotNull(currentType, prop))
+                    dependencies.Remove(dependencie);
+                    var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
+
+                    Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
+                    string[] propertyStorageNames = new string[types.Length];
+                    string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
+                    for (int i = 0; i < types.Length; i++)
                     {
-                        dependencies.Remove(dependencie);
-                        var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
+                        string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
+                        propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
+                    }
 
-                        Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
-                        string[] propertyStorageNames = new string[types.Length];
-                        string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
-                        for (int i = 0; i < types.Length; i++)
+                    // Изменяем значения в объектах, для устранения цикла.
+                    foreach (var createdObject in createdObjects)
+                    {
+                        Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
+                        foreach (var propertyStorageName in propertyStorageNames)
                         {
-                            string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
-                            propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
-                        }
-
-                        // Изменяем значения в объектах, для устранения цикла.
-                        foreach (var createdObject in createdObjects)
-                        {
-                            Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
-                            foreach (var propertyStorageName in propertyStorageNames)
+                            // Учитываем только непустые свойства в статусе Created.
+                            object propValue = Information.GetPropValueByName(createdObject, prop);
+                            if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
                             {
-                                // Учитываем только непустые свойства в статусе Created.
-                                object propValue = Information.GetPropValueByName(createdObject, prop);
-                                if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
+                                // Добавляем свойство в запрос на изменение объекта.
+                                string propQueryValue = propsCollection.Get(propertyStorageName);
+                                if (alteredList.ContainsKey(createdObject))
                                 {
-                                    // Добавляем свойство в запрос на изменение объекта.
-                                    string propQueryValue = propsCollection.Get(propertyStorageName);
-                                    if (alteredList.ContainsKey(createdObject))
-                                    {
-                                        alteredList[createdObject].Add(propertyStorageName, propQueryValue);
-                                    }
-                                    else
-                                    {
-                                        var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                        alteredCollection.Add(propertyStorageName, propQueryValue);
-                                        alteredList.Add(createdObject, alteredCollection);
-                                    }
-
-                                    // Удаляем из списка свойств на изменение в запросе на создание объекта.
-                                    propsCollection.Remove(propertyStorageName);
+                                    alteredList[createdObject].Add(propertyStorageName, propQueryValue);
                                 }
+                                else
+                                {
+                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                    alteredCollection.Add(propertyStorageName, propQueryValue);
+                                    alteredList.Add(createdObject, alteredCollection);
+                                }
+
+                                // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                                propsCollection.Remove(propertyStorageName);
                             }
                         }
-                    }
-                    else
-                    {
-                        return false;
                     }
                 }
 
@@ -5169,6 +5250,7 @@
             // Поиск и разрешение циклов в зависимостях.
             List<Type> grafDependencies = new List<Type>();
             List<Dictionary<Type, List<Type>>> dependenciesList = new List<Dictionary<Type, List<Type>>>();
+
             dependenciesList.Add(dependencies);
             for (int i = 0; i < dependenciesList.Count; i++)
             {
@@ -5234,73 +5316,116 @@
 
             if (createdList.Count > 0)
             {
+                List<object> insertedRecordKeys = new List<object>();
+                List<object> allRecordKeysInTransaction = new List<object>();
+
                 foreach (var processingObject in createdList.Keys)
                 {
-                    var propsWithValues = createdList[processingObject];
+                    allRecordKeysInTransaction.Add(processingObject.__PrimaryKey);
+                }
 
-                    Type typeOfProcessingObject = processingObject.GetType();
-                    string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
-
-                    if (propsWithValues.Count > 0)
+                while (insertedRecordKeys.Count < createdList.Keys.Count)
+                {
+                    foreach (var processingObject in createdList.Keys)
                     {
-                        if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                        if (insertedRecordKeys.Contains(processingObject.__PrimaryKey))
                         {
-                            string[] cols = propsWithValues.GetAllKeys();
-                            var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                            foreach (string col in cols)
-                            {
-                                Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
-                                StringCollection propsInTable = null;
-                                if (valuesByTables.Contains(defType))
-                                {
-                                    propsInTable = (StringCollection)valuesByTables[defType];
-                                }
-                                else
-                                {
-                                    propsInTable = new StringCollection();
-                                    propsInTable.Add("__PrimaryKey");
-                                    valuesByTables.Add(defType, propsInTable);
-                                }
+                            continue;
+                        }
 
-                                propsInTable.Add(col);
+                        var propsWithValues = createdList[processingObject];
+
+                        Type typeOfProcessingObject = processingObject.GetType();
+                        string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
+
+                        if (propsWithValues.Count > 0)
+                        {
+                            bool isBreak = false;
+
+                            foreach (string property in propsWithValues)
+                            {
+                                string propertyName = property;
+                                int nonStoredPostfix = propertyName.IndexOf("_m");
+                                propertyName = nonStoredPostfix != -1 ? propertyName.Remove(nonStoredPostfix, propertyName.Length - nonStoredPostfix) : propertyName;
+
+                                DataObject childObject = Information.GetPropValueByName(processingObject, propertyName) as DataObject;
+
+                                if (childObject != null)
+                                {
+                                    bool keyFromThisTransaction = allRecordKeysInTransaction.Contains(childObject.__PrimaryKey);
+                                    bool childInserted = insertedRecordKeys.Contains(childObject.__PrimaryKey);
+
+                                    if (keyFromThisTransaction && !childInserted)
+                                    {
+                                        isBreak = true;
+                                        break;
+                                    }
+                                }
                             }
 
-                            for (int k = 0; k < valuesByTables.Count; k++)
+                            if (isBreak) continue;
+
+                            if (StorageType == StorageTypeEnum.HierarchicalStorage)
                             {
-                                Type t = valuesByTables.Key(k);
-                                string tableName =
-                                    Information.GetClassStorageName(t);
-                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
-                                var propsInTable = (StringCollection)valuesByTables[t];
-                                string columns = propsInTable[0];
-                                string values = propsWithValues[propsInTable[0]];
-                                for (int j = 1; j < propsInTable.Count; j++)
+                                string[] cols = propsWithValues.GetAllKeys();
+                                var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                                foreach (string col in cols)
                                 {
-                                    columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
-                                    values += nlk + propsWithValues[propsInTable[j]];
+                                    Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
+                                    StringCollection propsInTable = null;
+                                    if (valuesByTables.Contains(defType))
+                                    {
+                                        propsInTable = (StringCollection)valuesByTables[defType];
+                                    }
+                                    else
+                                    {
+                                        propsInTable = new StringCollection();
+                                        propsInTable.Add("__PrimaryKey");
+                                        valuesByTables.Add(defType, propsInTable);
+                                    }
+
+                                    propsInTable.Add(col);
+                                }
+
+                                for (int k = 0; k < valuesByTables.Count; k++)
+                                {
+                                    Type t = valuesByTables.Key(k);
+                                    string tableName =
+                                        Information.GetClassStorageName(t);
+                                    string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
+                                    var propsInTable = (StringCollection)valuesByTables[t];
+                                    string columns = propsInTable[0];
+                                    string values = propsWithValues[propsInTable[0]];
+                                    for (int j = 1; j < propsInTable.Count; j++)
+                                    {
+                                        columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
+                                        values += nlk + propsWithValues[propsInTable[j]];
+                                    }
+
+                                    query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
+                                    AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
+                                    insertQueries.Add(query);
+                                }
+                            }
+                            else
+                            {
+                                string[] cols = propsWithValues.GetAllKeys();
+                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
+                                string columns = cols[0];
+                                string values = propsWithValues[cols[0]];
+                                for (int j = 1; j < propsWithValues.Count; j++)
+                                {
+                                    columns += nlk + cols[j];
+                                    values += nlk + propsWithValues[cols[j]];
                                 }
 
                                 query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
-                                AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
+                                AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
                                 insertQueries.Add(query);
                             }
                         }
-                        else
-                        {
-                            string[] cols = propsWithValues.GetAllKeys();
-                            string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
-                            string columns = cols[0];
-                            string values = propsWithValues[cols[0]];
-                            for (int j = 1; j < propsWithValues.Count; j++)
-                            {
-                                columns += nlk + cols[j];
-                                values += nlk + propsWithValues[cols[j]];
-                            }
 
-                            query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
-                            AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
-                            insertQueries.Add(query);
-                        }
+                        insertedRecordKeys.Add(processingObject.__PrimaryKey);
                     }
                 }
             }
@@ -5357,6 +5482,19 @@
                     (from DataObject mi in processingObjects select mi).ToList();
                 auditObjects.AddRange(processingObjectsList);
                 auditObjects.AddRange(extraProcessingList.Where(dataObject => !ContainsKeyINProcessing(processingObjectsKeys, dataObject)));
+            }
+        }
+
+        private void OrderCreatedListForInsert(ref Dictionary<DataObject, Collections.CaseSensivityStringDictionary> createdList)
+        {
+            List<DataObject> dataObjects = createdList.Keys.ToList();
+
+            foreach (DataObject dataObject in dataObjects)
+            {
+                List<DataObject> extraUpdateList = new List<DataObject>();
+                Dictionary<Type, List<Type>> dependencies = new Dictionary<Type, List<Type>>();
+
+                GetDependencies(dataObject, dataObject.GetType(), dependencies, extraUpdateList);
             }
         }
 
