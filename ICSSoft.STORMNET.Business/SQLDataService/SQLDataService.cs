@@ -4843,18 +4843,20 @@
                             Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
                             foreach (var propertyStorageName in propertyStorageNames)
                             {
-                                // Добавляем свойство в запрос на изменение объекта.
-                                string propValue = propsCollection.Get(propertyStorageName);
-                                if (propValue != ConvertValueToQueryValueString(null))
+                                // Учитываем только непустые свойства в статусе Created.
+                                var propValue = Information.GetPropValueByName(createdObject, prop);
+                                if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
                                 {
+                                    // Добавляем свойство в запрос на изменение объекта.
+                                    string propQueryValue = propsCollection.Get(propertyStorageName);
                                     if (alteredList.ContainsKey(createdObject))
                                     {
-                                        alteredList[createdObject].Add(propertyStorageName, propValue);
+                                        alteredList[createdObject].Add(propertyStorageName, propQueryValue);
                                     }
                                     else
                                     {
                                         var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                        alteredCollection.Add(propertyStorageName, propValue);
+                                        alteredCollection.Add(propertyStorageName, propQueryValue);
                                         alteredList.Add(createdObject, alteredCollection);
                                     }
                                 }
