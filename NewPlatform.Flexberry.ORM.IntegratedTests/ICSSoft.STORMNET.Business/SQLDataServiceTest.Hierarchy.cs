@@ -23,7 +23,7 @@
                 // Arrange.
                 if (dataService is SQLDataService sqlDataService)
                 {
-                    sqlDataService.OnCreateCommand += (object sender, CreateCommandEventArgs e) =>
+                    sqlDataService.OnCreateCommand += (sender, e) =>
                     {
                         if (e.Command.CommandText.StartsWith("UPDATE"))
                         {
@@ -37,8 +37,14 @@
                 // Act.
                 dataService.UpdateObject(master);
 
+                var loadedMaster = PKHelper.CreateDataObject<Медведь>(master);
+                dataService.LoadObject(loadedMaster);
+
                 // Assert.
-                Assert.Equal(1, master.ПорядковыйНомер);
+                Assert.Equal(1, loadedMaster.ПорядковыйНомер);
+                Assert.Null(loadedMaster.Папа);
+                Assert.Null(loadedMaster.Мама);
+                Assert.Null(loadedMaster.Друг);
             }
         }
 
@@ -57,8 +63,21 @@
                 // Act.
                 dataService.UpdateObject(child);
 
+                var loadedParent = PKHelper.CreateDataObject<Медведь>(parent);
+                dataService.LoadObject(loadedParent);
+
+                var loadedChild = PKHelper.CreateDataObject<Медведь>(child);
+                dataService.LoadObject(loadedChild);
+
                 // Assert.
-                Assert.Equal(2, child.ПорядковыйНомер);
+                Assert.Equal(1, loadedParent.ПорядковыйНомер);
+                Assert.Null(loadedParent.Папа);
+                Assert.Null(loadedParent.Мама);
+                Assert.Null(loadedParent.Друг);
+                Assert.Equal(2, loadedChild.ПорядковыйНомер);
+                Assert.NotNull(loadedChild.Папа);
+                Assert.Null(loadedChild.Мама);
+                Assert.Null(loadedChild.Друг);
             }
         }
 
@@ -81,8 +100,21 @@
                 // Act.
                 dataService.UpdateObject(child);
 
+                var loadedFather = PKHelper.CreateDataObject<Медведь>(fatherBear);
+                dataService.LoadObject(loadedFather);
+
+                var loadedChild = PKHelper.CreateDataObject<Медведь>(child);
+                dataService.LoadObject(loadedChild);
+
                 // Assert.
-                Assert.Equal(3, child.ПорядковыйНомер);
+                Assert.Equal(2, loadedFather.ПорядковыйНомер);
+                Assert.Null(loadedFather.Папа);
+                Assert.Null(loadedFather.Мама);
+                Assert.Null(loadedFather.Друг);
+                Assert.Equal(3, loadedChild.ПорядковыйНомер);
+                Assert.NotNull(loadedChild.Папа);
+                Assert.NotNull(loadedChild.Мама);
+                Assert.Null(loadedChild.Друг);
             }
         }
 
@@ -106,10 +138,28 @@
                 // Act.
                 dataService.UpdateObjects(ref objsToUpdate);
 
+                var loadedFather = PKHelper.CreateDataObject<Медведь>(father);
+                dataService.LoadObject(loadedFather);
+
+                var loadedChild1 = PKHelper.CreateDataObject<Медведь>(child1);
+                dataService.LoadObject(loadedChild1);
+
+                var loadedChild2 = PKHelper.CreateDataObject<Медведь>(child2);
+                dataService.LoadObject(loadedChild2);
+
                 // Assert.
-                Assert.Equal(1, father.ПорядковыйНомер);
-                Assert.Equal(2, child1.ПорядковыйНомер);
-                Assert.Equal(3, child2.ПорядковыйНомер);
+                Assert.Equal(1, loadedFather.ПорядковыйНомер);
+                Assert.Null(loadedFather.Папа);
+                Assert.Null(loadedFather.Мама);
+                Assert.Null(loadedFather.Друг);
+                Assert.Equal(2, loadedChild1.ПорядковыйНомер);
+                Assert.NotNull(loadedChild1.Папа);
+                Assert.Null(loadedChild1.Мама);
+                Assert.Null(loadedChild1.Друг);
+                Assert.Equal(3, loadedChild2.ПорядковыйНомер);
+                Assert.NotNull(loadedChild2.Папа);
+                Assert.Null(loadedChild2.Мама);
+                Assert.Null(loadedChild2.Друг);
             }
         }
 
@@ -125,7 +175,7 @@
                 // Arrange.
                 if (dataService is SQLDataService sqlDataService)
                 {
-                    sqlDataService.OnCreateCommand += (object sender, CreateCommandEventArgs e) =>
+                    sqlDataService.OnCreateCommand += (sender, e) =>
                     {
                         if (e.Command.CommandText.StartsWith("UPDATE"))
                         {
@@ -142,8 +192,14 @@
                 // Act.
                 dataService.UpdateObject(child);
 
+                var loadedChild = PKHelper.CreateDataObject<Медведь>(child);
+                dataService.LoadObject(loadedChild);
+
                 // Assert.
-                Assert.Equal(2, child.ПорядковыйНомер);
+                Assert.Equal(2, loadedChild.ПорядковыйНомер);
+                Assert.NotNull(loadedChild.Папа);
+                Assert.Null(loadedChild.Мама);
+                Assert.Null(loadedChild.Друг);
             }
         }
 
@@ -160,7 +216,7 @@
                 // Arrange.
                 if (dataService is SQLDataService sqlDataService)
                 {
-                    sqlDataService.OnCreateCommand += (object sender, CreateCommandEventArgs e) =>
+                    sqlDataService.OnCreateCommand += (sender, e) =>
                     {
                         if (e.Command.CommandText.StartsWith("UPDATE"))
                         {
@@ -181,8 +237,14 @@
                 // Act.
                 dataService.UpdateObject(child);
 
+                var loadedChild = PKHelper.CreateDataObject<Медведь>(child);
+                dataService.LoadObject(loadedChild);
+
                 // Assert.
-                Assert.Equal(2, child.ПорядковыйНомер);
+                Assert.Equal(2, loadedChild.ПорядковыйНомер);
+                Assert.NotNull(loadedChild.Папа);
+                Assert.Null(loadedChild.Мама);
+                Assert.Null(loadedChild.Друг);
             }
         }
 
@@ -206,8 +268,42 @@
                 // Act.
                 dataService.UpdateObject(child4);
 
+                var loadedParent = PKHelper.CreateDataObject<Медведь>(parent);
+                dataService.LoadObject(loadedParent);
+
+                var loadedChild1 = PKHelper.CreateDataObject<Медведь>(child1);
+                dataService.LoadObject(loadedChild1);
+
+                var loadedChild2 = PKHelper.CreateDataObject<Медведь>(child2);
+                dataService.LoadObject(loadedChild2);
+
+                var loadedChild3 = PKHelper.CreateDataObject<Медведь>(child3);
+                dataService.LoadObject(loadedChild3);
+
+                var loadedChild4 = PKHelper.CreateDataObject<Медведь>(child4);
+                dataService.LoadObject(loadedChild4);
+
                 // Assert.
-                Assert.Equal(5, child4.ПорядковыйНомер);
+                Assert.Equal(1, loadedParent.ПорядковыйНомер);
+                Assert.Null(loadedParent.Папа);
+                Assert.Null(loadedParent.Мама);
+                Assert.Null(loadedParent.Друг);
+                Assert.Equal(2, loadedChild1.ПорядковыйНомер);
+                Assert.NotNull(loadedChild1.Папа);
+                Assert.NotNull(loadedChild1.Мама);
+                Assert.Null(loadedChild1.Друг);
+                Assert.Equal(3, loadedChild2.ПорядковыйНомер);
+                Assert.NotNull(loadedChild2.Папа);
+                Assert.Null(loadedChild2.Мама);
+                Assert.Null(loadedChild2.Друг);
+                Assert.Equal(4, loadedChild3.ПорядковыйНомер);
+                Assert.NotNull(loadedChild3.Папа);
+                Assert.Null(loadedChild3.Мама);
+                Assert.Null(loadedChild3.Друг);
+                Assert.Equal(5, loadedChild4.ПорядковыйНомер);
+                Assert.NotNull(loadedChild4.Папа);
+                Assert.Null(loadedChild4.Мама);
+                Assert.Null(loadedChild4.Друг);
             }
         }
 
@@ -231,8 +327,42 @@
                 // Act.
                 dataService.UpdateObject(child4);
 
+                var loadedParent = PKHelper.CreateDataObject<Медведь>(parent);
+                dataService.LoadObject(loadedParent);
+
+                var loadedChild1 = PKHelper.CreateDataObject<Медведь>(child1);
+                dataService.LoadObject(loadedChild1);
+
+                var loadedChild2 = PKHelper.CreateDataObject<Медведь>(child2);
+                dataService.LoadObject(loadedChild2);
+
+                var loadedChild3 = PKHelper.CreateDataObject<Медведь>(child3);
+                dataService.LoadObject(loadedChild3);
+
+                var loadedChild4 = PKHelper.CreateDataObject<Медведь>(child4);
+                dataService.LoadObject(loadedChild4);
+
                 // Assert.
-                Assert.Equal(5, child4.ПорядковыйНомер);
+                Assert.Equal(1, loadedParent.ПорядковыйНомер);
+                Assert.NotNull(loadedParent.Папа);
+                Assert.Null(loadedParent.Мама);
+                Assert.Null(loadedParent.Друг);
+                Assert.Equal(2, loadedChild1.ПорядковыйНомер);
+                Assert.NotNull(loadedChild1.Папа);
+                Assert.Null(loadedChild1.Мама);
+                Assert.Null(loadedChild1.Друг);
+                Assert.Equal(3, loadedChild2.ПорядковыйНомер);
+                Assert.NotNull(loadedChild2.Папа);
+                Assert.Null(loadedChild2.Мама);
+                Assert.Null(loadedChild2.Друг);
+                Assert.Equal(4, loadedChild3.ПорядковыйНомер);
+                Assert.NotNull(loadedChild3.Папа);
+                Assert.Null(loadedChild3.Мама);
+                Assert.Null(loadedChild3.Друг);
+                Assert.Equal(5, loadedChild4.ПорядковыйНомер);
+                Assert.NotNull(loadedChild4.Папа);
+                Assert.Null(loadedChild4.Мама);
+                Assert.Null(loadedChild4.Друг);
             }
         }
 
@@ -255,10 +385,28 @@
                 // Act.
                 dataService.UpdateObjects(ref objsToUpdate);
 
+                var loadedFather = PKHelper.CreateDataObject<Медведь>(father);
+                dataService.LoadObject(loadedFather);
+
+                var loadedChild1 = PKHelper.CreateDataObject<Медведь>(child1);
+                dataService.LoadObject(loadedChild1);
+
+                var loadedChild2 = PKHelper.CreateDataObject<Медведь>(child2);
+                dataService.LoadObject(loadedChild2);
+
                 // Assert.
-                Assert.Equal(1, father.ПорядковыйНомер);
-                Assert.Equal(2, child1.ПорядковыйНомер);
-                Assert.Equal(3, child2.ПорядковыйНомер);
+                Assert.Equal(1, loadedFather.ПорядковыйНомер);
+                Assert.NotNull(loadedFather.Папа);
+                Assert.Null(loadedFather.Мама);
+                Assert.Null(loadedFather.Друг);
+                Assert.Equal(2, loadedChild1.ПорядковыйНомер);
+                Assert.NotNull(loadedChild1.Папа);
+                Assert.Null(loadedChild1.Мама);
+                Assert.Null(loadedChild1.Друг);
+                Assert.Equal(3, loadedChild2.ПорядковыйНомер);
+                Assert.NotNull(loadedChild2.Папа);
+                Assert.Null(loadedChild2.Мама);
+                Assert.Null(loadedChild2.Друг);
             }
         }
 
@@ -271,6 +419,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
+                // Arrange.
                 var parent = new Медведь { ПорядковыйНомер = 1 };
                 dataService.UpdateObject(parent);
 
@@ -282,8 +431,21 @@
                 // Act.
                 dataService.UpdateObject(parent);
 
+                var loadedParent = PKHelper.CreateDataObject<Медведь>(parent);
+                dataService.LoadObject(loadedParent);
+
+                var loadedChild = PKHelper.CreateDataObject<Медведь>(child);
+                dataService.LoadObject(loadedChild);
+
                 // Assert.
-                Assert.Equal(1, parent.ПорядковыйНомер);
+                Assert.Equal(1, loadedParent.ПорядковыйНомер);
+                Assert.NotNull(loadedParent.Папа);
+                Assert.Null(loadedParent.Мама);
+                Assert.Null(loadedParent.Друг);
+                Assert.Equal(2, loadedChild.ПорядковыйНомер);
+                Assert.NotNull(loadedChild.Папа);
+                Assert.Null(loadedChild.Мама);
+                Assert.Null(loadedChild.Друг);
             }
         }
     }

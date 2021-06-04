@@ -4844,7 +4844,7 @@
                             foreach (var propertyStorageName in propertyStorageNames)
                             {
                                 // Учитываем только непустые свойства в статусе Created.
-                                var propValue = Information.GetPropValueByName(createdObject, prop);
+                                object propValue = Information.GetPropValueByName(createdObject, prop);
                                 if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
                                 {
                                     // Добавляем свойство в запрос на изменение объекта.
@@ -4859,10 +4859,10 @@
                                         alteredCollection.Add(propertyStorageName, propQueryValue);
                                         alteredList.Add(createdObject, alteredCollection);
                                     }
-                                }
 
-                                // Удаляем из списка свойств на изменение в запросе на создание объекта.
-                                propsCollection.Remove(propertyStorageName);
+                                    // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                                    propsCollection.Remove(propertyStorageName);
+                                }
                             }
                         }
                     }

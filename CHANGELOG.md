@@ -13,13 +13,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+- Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 
 ### Security
-
-## [6.0.1] - 2021-06-03
-
-### Fixed
-- Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 
 ## [6.0.0] - 2021-05-25
 
