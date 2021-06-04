@@ -9,6 +9,9 @@
 
     using Xunit;
 
+    /// <summary>
+    /// Тесты иерархической вставки данных.
+    /// </summary>
     public partial class SQLDataServiceTest
     {
         /// <summary>
@@ -257,6 +260,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
+                // Arrange.
                 var parent = new Медведь { ПорядковыйНомер = 1 };
                 var child1 = new Медведь { ПорядковыйНомер = 2, Папа = parent };
                 var child2 = new Медведь { ПорядковыйНомер = 3, Папа = child1 };
@@ -316,6 +320,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
+                // Arrange.
                 var parent = new Медведь { ПорядковыйНомер = 1 };
                 var child1 = new Медведь { ПорядковыйНомер = 2, Папа = parent };
                 var child2 = new Медведь { ПорядковыйНомер = 3, Папа = child1 };
@@ -375,6 +380,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
+                // Arrange.
                 var father = new Медведь { ПорядковыйНомер = 1 };
                 var child1 = new Медведь { ПорядковыйНомер = 2, Папа = father };
                 var child2 = new Медведь { ПорядковыйНомер = 3, Папа = child1 };
