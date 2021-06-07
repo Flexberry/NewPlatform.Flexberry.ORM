@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.1</version>
+    <version>5.1.2</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,8 +13,8 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
 
-      Fixed
-      1. Delete agregator with not loaded details.
+      Added
+      1. IComparableType implementation to WebFile class.
       
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2021</copyright>

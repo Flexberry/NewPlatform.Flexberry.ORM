@@ -17,6 +17,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 
 
+## [5.1.2] - 2021-06-07
+
+### Added
+
+- IComparableType implementation to WebFile class.
+
 ## [5.1.1] - 2021-05-17
 
 ### Fixed

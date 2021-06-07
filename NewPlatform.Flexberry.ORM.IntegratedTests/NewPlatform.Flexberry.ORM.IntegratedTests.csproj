@@ -240,6 +240,7 @@
     <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\МастерКлассДлинноеИмя2.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\Objects\РодительскийКлассДлинноеИмя.cs" />
     <Compile Include="ICSSoft.STORMNET.Business.PostgresDataService\PostgresDataServiceTest.cs" />
+    <Compile Include="ICSSoft.STORMNET.UserDataTypes\WebFileTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
