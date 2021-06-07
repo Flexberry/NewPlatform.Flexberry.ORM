@@ -1,288 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <ProjectType>Local</ProjectType>
-    <ProjectGuid>{3839079F-72FF-4038-82EB-BD49712418F4}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <AssemblyName>NewPlatform.Flexberry.ORM.Tests.Objects</AssemblyName>
-    <OutputType>Library</OutputType>
-    <RootNamespace>NewPlatform.Flexberry.ORM.Test</RootNamespace>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Configurations>Debug;Release</Configurations>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>NewPlatform.Flexberry.ORM.Tests</RootNamespace>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test.Objects.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Debug\NewPlatform.Flexberry.ORM.Tests.Objects.xml</DocumentationFile>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>full</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.ORM.Tests.Objects.xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Release\NewPlatform.Flexberry.ORM.Tests.Objects.xml</DocumentationFile>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System">
-      <HintPath>System.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Adress2.cs" />
-    <Compile Include="AggregatorUpdateObjectTest.cs" />
-    <Compile Include="Apparatus2.cs" />
-    <Compile Include="AuditAgregatorObject.cs" />
-    <Compile Include="AuditClassWithDisabledAudit.cs" />
-    <Compile Include="AuditClassWithoutSettings.cs" />
-    <Compile Include="AuditClassWithSettings.cs" />
-    <Compile Include="AuditMasterMasterObject.cs" />
-    <Compile Include="AuditMasterObject.cs" />
-    <Compile Include="CaseSensitiveEnum.cs" />
-    <Compile Include="ComputedDetail.cs" />
-    <Compile Include="ComputedMaster.cs" />
-    <Compile Include="DataObjectWithKeyGuid.cs" />
-    <Compile Include="Cabbage2.cs" />
-    <Compile Include="CabbagePart2.cs" />
-    <Compile Include="CabbageSalad.cs" />
-    <Compile Include="cla.cs" />
-    <Compile Include="ClassWithCaptions.cs" />
-    <Compile Include="clb.cs" />
-    <Compile Include="CombinedTypesUsageProviderTestClass.cs" />
-    <Compile Include="Country2.cs" />
-    <Compile Include="DataObjectForTest.cs" />
-    <Compile Include="DetailClass.cs" />
-    <Compile Include="DetailUpdateObjectTest.cs" />
-    <Compile Include="Dish2.cs" />
-    <Compile Include="FileForTests.cs" />
-    <Compile Include="ForKeyStorageTest.cs" />
-    <Compile Include="FullTypesDetail1.cs" />
-    <Compile Include="FullTypesDetail2.cs" />
-    <Compile Include="FullTypesMainAgregator.cs" />
-    <Compile Include="FullTypesMaster1.cs" />
-    <Compile Include="Homer.cs" />
-    <Compile Include="Human2.cs" />
-    <Compile Include="InformationTestClass.cs" />
-    <Compile Include="InformationTestClass2.cs" />
-    <Compile Include="InformationTestClass3.cs" />
-    <Compile Include="InformationTestClass4.cs" />
-    <Compile Include="InformationTestClass6.cs" />
-    <Compile Include="InformationTestClassChild.cs" />
-    <Compile Include="InheritedMasterClass.cs" />
-    <Compile Include="Mailman.cs" />
-    <Compile Include="MasterClass.cs" />
-    <Compile Include="MasterUpdateObjectTest.cs" />
-    <Compile Include="NotifyUpdateObjectsGeneratedMock.cs" />
-    <Compile Include="NotifyUpdatePropertyByTypeGeneratedMock.cs" />
-    <Compile Include="NotStoredClass.cs" />
-    <Compile Include="NullFileField.cs" />
-    <Compile Include="NumberCaption.cs" />
-    <Compile Include="NumberedYear.cs" />
-    <Compile Include="Parcel.cs" />
-    <Compile Include="Place2.cs" />
-    <Compile Include="Plant2.cs" />
-    <Compile Include="PoleEnum.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Region.cs" />
-    <Compile Include="Salad2.cs" />
-    <Compile Include="SimpleDataObject.cs" />
-    <Compile Include="SomeDetailClass.cs" />
-    <Compile Include="SomeMasterClass.cs" />
-    <Compile Include="Soup2.cs" />
-    <Compile Include="StoredClass.cs" />
-    <Compile Include="SwappedEnum.cs" />
-    <Compile Include="Territory2.cs" />
-    <Compile Include="TestClassA.cs" />
-    <Compile Include="TypeNameUsageProviderTestClass.cs" />
-    <Compile Include="TypeUsageProviderTestClass.cs" />
-    <Compile Include="TypeUsageProviderTestClassChildClass.cs" />
-    <Compile Include="tСтатусИсполнителяХозДоговора.cs" />
-    <Compile Include="Берлога.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Блоха.cs" />
-    <Compile Include="ДокументацияККонкурсу.cs" />
-    <Compile Include="Запрос.cs" />
-    <Compile Include="ЗначениеКритерия.cs" />
-    <Compile Include="Идея.cs" />
-    <Compile Include="ИсточникФинансирования.cs" />
-    <Compile Include="ИсходящийЗапрос.cs" />
-    <Compile Include="ИФХозДоговора.cs" />
-    <Compile Include="Конкурс.cs" />
-    <Compile Include="КонфигурацияЗапроса.cs" />
-    <Compile Include="КонфигурацияЭтапа.cs" />
-    <Compile Include="Кредит.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="КритерийОценки.cs" />
-    <Compile Include="Личность.cs" />
-    <Compile Include="МастерМ.cs" />
-    <Compile Include="НаследникМ1.cs" />
-    <Compile Include="НаследникМ2.cs" />
-    <Compile Include="ОценкаЭксперта.cs" />
-    <Compile Include="DateField.cs" />
-    <Compile Include="Перелом.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Пользователь.cs" />
-    <Compile Include="Состояние.cs" />
-    <Compile Include="СтатусЗапроса.cs" />
-    <Compile Include="Сторона.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ИнспекторПоКредиту.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Медведь.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Пол.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ВидКредита.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Клиент.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Выплаты.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ТипПерелома.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Лес.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ТипКошки.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Кошка.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ТипЛапы.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Страна.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Порода.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Котенок.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Лапа.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ТипПороды.cs" />
-    <Compile Include="УчастникХозДоговора.cs" />
-    <Compile Include="ФайлИдеи.cs" />
-    <Compile Include="ХозДоговор.cs" />
-    <Compile Include="Этап.cs" />
-    <Compile Include="ЭтапИсходящегоЗапроса.cs" />
+    <None Remove="StyleCop.Cache" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="NewPlatform.Flexberry.ORM.Test.Objects.snk" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.MSSQLDataService\ICSSoft.STORMNET.Business.MSSQLDataService.csproj">
-      <Project>{64e6f763-3ed4-479d-a767-ad9f475aa8e1}</Project>
-      <Name>ICSSoft.STORMNET.Business.MSSQLDataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.OracleDataService\ICSSoft.STORMNET.Business.OracleDataService.csproj">
-      <Project>{5e29de24-8237-428e-bf7c-b5cfed45860a}</Project>
-      <Name>ICSSoft.STORMNET.Business.OracleDataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business.PostgresDataService\ICSSoft.STORMNET.Business.PostgresDataService.csproj">
-      <Project>{e9f19c18-6a48-4354-a4fb-1b610243592f}</Project>
-      <Name>ICSSoft.STORMNET.Business.PostgresDataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj">
-      <Project>{70245187-e302-4fa1-9725-0553c3b68be5}</Project>
-      <Name>ICSSoft.STORMNET.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
-      <Name>ICSSoft.STORMNET.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
-      <Project>{3d5d3908-bcb7-4f22-a5b0-bd626d67d1ae}</Project>
-      <Name>ICSSoft.STORMNET.DataObject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
-      <Project>{d58c2e43-59ef-4d6f-b006-1a7bb6508689}</Project>
-      <Name>ICSSoft.STORMNET.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.UserDataTypes\ICSSoft.STORMNET.UserDataTypes.csproj">
-      <Project>{52e5ba46-979d-4c9d-8704-183a9ca0eb40}</Project>
-      <Name>ICSSoft.STORMNET.UserDataTypes</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
 </Project>

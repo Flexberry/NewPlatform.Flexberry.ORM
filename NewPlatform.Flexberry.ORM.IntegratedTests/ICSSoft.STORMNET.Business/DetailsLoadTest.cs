@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Business
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Threading;
 
@@ -164,7 +165,7 @@
                 ds.UpdateObject(кошка);
 
                 MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
-                multiThreadingTestTool.StartThreads(150, ds);
+                multiThreadingTestTool.StartThreads(50, ds);
 
                 var exception = multiThreadingTestTool.GetExceptions();
 
@@ -231,7 +232,7 @@
         {
             var parametersDictionary = sender as Dictionary<string, object>;
             IDataService ds = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as SQLDataService;
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             ExternalLangDef langdef = ExternalLangDef.LanguageDef;
             langdef.DataService = ds;
@@ -257,7 +258,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }

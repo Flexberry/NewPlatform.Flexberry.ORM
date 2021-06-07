@@ -19,7 +19,7 @@
     /// Тестовый класс для <see cref="SQLDataService"/>.
     /// </summary>
 
-    public class SQLDataServiceTest : BaseIntegratedTest
+    public partial class SQLDataServiceTest : BaseIntegratedTest
     {
         /// <summary>
         /// Конструктор.
@@ -430,7 +430,7 @@
 
                 НаследникМ1 testDate = new НаследникМ1();
                 testDate.Name = "test1";
-                             
+
                 TestClassA testDate2 = new TestClassA();
                 testDate2.Мастер = testDate;
                 testDate2.Name = "test2";
@@ -1180,34 +1180,6 @@
                 Assert.Equal(2, loadedObjects.Length);
 
                 Assert.True((loadedObjects[0] as Медведь).Друг == (loadedObjects[1] as Медведь) || (loadedObjects[1] as Медведь).Друг == (loadedObjects[0] as Медведь));
-            }
-        }
-
-        /// <summary>
-        /// Тест для проверки записи иерархической сущности. Проверяем, что нет лишних Update-запросов в БД.
-        /// </summary>
-        [Fact]
-        public void InsertHierarchyTest()
-        {
-            foreach (IDataService dataService in DataServices)
-            {
-                // Arrange.
-                SQLDataService sqlDataService = (dataService as SQLDataService);
-                sqlDataService.OnCreateCommand += (object sender, CreateCommandEventArgs e) =>
-                {
-                    if (e.Command.CommandText.StartsWith("UPDATE"))
-                    {
-                        throw new Exception("Unnecessary update");
-                    }
-                };
-
-                var master = new Медведь { ПорядковыйНомер = 1 };
-
-                // Act.
-                dataService.UpdateObject(master);
-
-                // Assert.
-                Assert.Equal(1, master.ПорядковыйНомер);
             }
         }
     }

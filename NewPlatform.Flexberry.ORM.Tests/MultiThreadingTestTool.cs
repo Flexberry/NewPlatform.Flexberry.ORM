@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Threading;
 
@@ -53,7 +54,7 @@
         /// </summary>
         public ParameterizedThreadStart WorkerMethod = null;
 
-        private Dictionary<string, Exception> exceptions = new Dictionary<string, Exception>();
+        private ConcurrentDictionary<string, Exception> exceptions = new ConcurrentDictionary<string, Exception>();
 
         /// <summary>
         /// Получить коллекцию исключений.
@@ -160,14 +161,14 @@
             /// <summary>
             /// Вложенные исключения.
             /// </summary>
-            public Dictionary<string, Exception> InnerExceptions { get; set; } = null;
+            public ConcurrentDictionary<string, Exception> InnerExceptions { get; set; } = null;
 
             /// <summary>
             /// Создание исключения с вложением.
             /// </summary>
             /// <param name="exceptionMesage">Сообщение об исключении.</param>
             /// <param name="exceptions">Словарь исключений, возникших в потоках. В качестве ключа рекомендуется использовать имя потока.</param>
-            public ExceptionInThreads(string exceptionMesage, Dictionary<string, Exception> exceptions)
+            public ExceptionInThreads(string exceptionMesage, ConcurrentDictionary<string, Exception> exceptions)
                 : base(exceptionMesage, exceptions.Count > 0 ? exceptions.GetEnumerator().Current.Value : null)
             {
                 InnerExceptions = exceptions;

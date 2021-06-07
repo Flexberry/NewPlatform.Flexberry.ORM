@@ -13,9 +13,43 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+- Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 
 ### Security
 
+## [6.0.0] - 2021-05-25
+
+### Added
+- .NET Standard 2.0 implementation. NuGet package contains `net45` and `netstandard2.0` targets.
+
+### Changed
+- MSSQLDataService, PostgresDataService, OracleDataService in it's own NuGet packages.
+- `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+- `CurrentUserService` support only windows users.
+- `DataServiceProvider.IsWebApp` now always return `false`.
+- `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
+- `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
+- Assembly `ExternalLangDef` renamed to `ICSSoft.STORMNET.Business.ExternalLangDef`.
+- Assembly `CurrentUserService` renamed to `NewPlatform.Flexberry.ORM.CurrentUserService`.
+- Assembly `UnityFactory` renamed to `NewPlatform.Flexberry.ORM.UnityFactory`.
+
+### Removed
+- `Information.GetPropertyDataFormat` method.
+- `CurrentWebHttpUser` class.
+- `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
+- `RemoteAuditController` class.
+- `CurrentUserFromLockService` class.
+- `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
+
+### Fixed
+- `ControlProviderAttribute(string)` constructor ignores type loading error.
+- Multiple concurrency fixes.
+
+## [5.1.1] - 2021-05-17
+
+### Fixed
+
+- Delete agregator with not loaded details.
 
 ## [5.1.2] - 2021-06-07
 
