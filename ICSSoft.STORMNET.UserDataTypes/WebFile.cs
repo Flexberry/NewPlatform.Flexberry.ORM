@@ -61,6 +61,7 @@
             }
         }
 
+        /// <inheritdoc />
         public int Compare(object x)
         {
             if (x != null && x is WebFile file)
