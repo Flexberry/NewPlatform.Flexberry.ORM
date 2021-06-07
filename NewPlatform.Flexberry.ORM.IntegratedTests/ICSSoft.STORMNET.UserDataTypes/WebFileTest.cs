@@ -5,7 +5,7 @@
     using Xunit;
 
     /// <summary>
-    /// Проверка класса WebFile.cs .
+    /// Проверка класса <see cref="WebFile" />.
     /// </summary>
     public class WebFileTest
     {
