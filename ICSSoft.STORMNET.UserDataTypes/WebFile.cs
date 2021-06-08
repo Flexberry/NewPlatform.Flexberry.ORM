@@ -12,7 +12,7 @@
     /// </summary>
     [StoreInstancesInType(typeof(Business.SQLDataService), typeof(string))]
     [Serializable]
-    public class WebFile
+    public class WebFile : IComparableType
     {
         /// <summary>
         /// Имя
@@ -59,6 +59,27 @@
                 stream.Seek(0, SeekOrigin.Begin);
                 return (WebFile)formatter.Deserialize(stream);
             }
+        }
+
+        /// <inheritdoc />
+        public int Compare(object x)
+        {
+            if (x != null && x is WebFile file)
+            {
+                if (file.Url == null && Url == null)
+                {
+                    if (file.Name == Name)
+                    {
+                        return 0;
+                    }
+                }
+                else if (file.Url == Url)
+                {
+                    return 0;
+                }
+            }
+
+            return -1;
         }
 
         public override string ToString()

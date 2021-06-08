@@ -51,6 +51,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Delete agregator with not loaded details.
 
+## [5.1.2] - 2021-06-07
+
+### Added
+
+- IComparableType implementation to WebFile class.
+
+## [5.1.1] - 2021-05-17
+
+### Fixed
+
+- Delete agregator with not loaded details.
+
 ## [5.1.0] - 2021-04-06
 
 ### Added
