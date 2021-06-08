@@ -1,5 +1,6 @@
 var NAVTREEINDEX10 =
 {
+"class_new_platform_1_1_flexberry_1_1_export_params.html#acd92429a6750697e68d55248526fc04e":[1,0,3,0,2,6],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#af0f6978fd1e275fae2e7fd970fb29584":[1,0,3,0,2,2],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#af34c47cfa09c71031cd784328af37edd":[1,0,3,0,2,5],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#af5be956b38ec78ed776a6ffb1dac66d7":[1,0,3,0,2,0],
@@ -27,8 +28,8 @@ var NAVTREEINDEX10 =
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aa691571e768d110e73dfcdad6b1638dc":[1,0,3,0,0,0,0,0],
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aaed4338a4a6cbe0f762c935d99ed20d1":[1,0,3,0,0,0,0,1],
 "classes.html":[1,1],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_a.html":[1,3,0,1],
 "functions_b.html":[1,3,0,2],
 "functions_c.html":[1,3,0,3],
@@ -37,8 +38,8 @@ var NAVTREEINDEX10 =
 "functions_enum.html":[1,3,3],
 "functions_evnt.html":[1,3,5],
 "functions_f.html":[1,3,0,6],
-"functions_func.html":[1,3,1],
 "functions_func.html":[1,3,1,0],
+"functions_func.html":[1,3,1],
 "functions_func_b.html":[1,3,1,1],
 "functions_func_c.html":[1,3,1,2],
 "functions_func_d.html":[1,3,1,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX10 =
 "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property_by_type.html#ace070378411861a95dff4f13febf89fb":[1,0,2,1,49,0],
 "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_special_empty_value.html":[1,0,2,1,52],
 "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_special_empty_value.html#a4e01912b220fb24f1ab2ab56cc8c7240":[1,0,2,1,52,0],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_manager.html":[1,0,2,1,8,1],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_manager.html#a07d261e9bf190984ce63005a8f143988":[1,0,2,1,8,1,4]
+"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_manager.html":[1,0,2,1,8,1]
 };

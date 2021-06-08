@@ -252,7 +252,8 @@ var hierarchy =
       [ "ICSSoft.STORMNET.UserDataTypes.Contact", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_contact.html", null ],
       [ "ICSSoft.STORMNET.UserDataTypes.Image", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_image.html", null ],
       [ "ICSSoft.STORMNET.UserDataTypes.NullableDateTime", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html", null ],
-      [ "ICSSoft.STORMNET.UserDataTypes.NullableDecimal", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html", null ]
+      [ "ICSSoft.STORMNET.UserDataTypes.NullableDecimal", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html", null ],
+      [ "ICSSoft.STORMNET.UserDataTypes.WebFile", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_web_file.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.IConfigResolver", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_config_resolver.html", [
       [ "ICSSoft.STORMNET.Business.ConfigResolver", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver.html", null ]
@@ -437,7 +438,6 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Business.LINQProvider.UtilsDetail", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_detail.html", null ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.UtilsLcs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_utils_lcs.html", null ],
     [ "AdvLimit.ExternalLangDef.ViewPropertyAppender", "class_adv_limit_1_1_external_lang_def_1_1_view_property_appender.html", null ],
-    [ "ICSSoft.STORMNET.UserDataTypes.WebFile", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_web_file.html", null ],
     [ "ICSSoft.STORMNET.Tools.XMLManager", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_x_m_l_manager.html", null ],
     [ "ICSSoft.STORMNET.Tools.XmlTools", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_xml_tools.html", null ]
 ];

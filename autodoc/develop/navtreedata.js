@@ -22,7 +22,7 @@ for the JavaScript code in this file
 */
 var NAVTREE =
 [
-  [ "Flexberry ORM 6.0.1-beta01", "index.html", [
+  [ "Flexberry ORM 6.0.1-beta02", "index.html", [
     [ "Пространства имен", "namespaces.html", [
       [ "Пространства имен", "namespaces.html", "namespaces_dup" ],
       [ "Члены пространств имен", "namespacemembers.html", [
@@ -59,8 +59,8 @@ var NAVTREEINDEX =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#abaa0c3634668d88f352bdaf84a8f73fe",
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_x_m_l_manager.html#afb957f07e28023efedae328790c10eef",
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a7fcc44effc4106857620a5a2514d0728",
-"class_new_platform_1_1_flexberry_1_1_export_params.html#af0f6978fd1e275fae2e7fd970fb29584",
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_manager.html#a1f681613be550318a7bf24f0ecef879a"
+"class_new_platform_1_1_flexberry_1_1_export_params.html#acd92429a6750697e68d55248526fc04e",
+"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_manager.html#a07d261e9bf190984ce63005a8f143988"
 ];
 
 var SYNCONMSG = 'нажмите на выключить для синхронизации панелей';
