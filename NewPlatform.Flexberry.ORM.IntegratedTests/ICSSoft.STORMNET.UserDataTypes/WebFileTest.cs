@@ -21,22 +21,28 @@
             const string File1 = "file1";
             const string File2 = "file2";
 
-            var file = new WebFile()
+            var file00 = new WebFile()
             { Name = File1, Url = GetFileUrl(Dir1, File1) };
-            var file1 = new WebFile()
-            { Name = File1, Url = GetFileUrl(Dir1, File1) };
-            var file2 = new WebFile()
+            var file01 = new WebFile()
             { Name = File2, Url = GetFileUrl(Dir1, File2) };
-            var file3 = new WebFile()
+            var file02 = new WebFile()
             { Name = File1, Url = GetFileUrl(Dir2, File1) };
-            var file4 = new WebFile()
+            var file03 = new WebFile()
             { Name = File2, Url = GetFileUrl(Dir2, File2) };
+            var file10 = new WebFile()
+            { Name = File1 };
+            var file11 = new WebFile()
+            { Name = File2 };
 
-            Assert.Equal(0, file.Compare(file));
-            Assert.Equal(0, file.Compare(file1));
-            Assert.NotEqual(0, file.Compare(file2));
-            Assert.NotEqual(0, file.Compare(file3));
-            Assert.NotEqual(0, file.Compare(file4));
+            Assert.Equal(0, file00.Compare(file00));
+            Assert.NotEqual(0, file00.Compare(file01));
+            Assert.NotEqual(0, file00.Compare(file02));
+            Assert.NotEqual(0, file00.Compare(file03));
+
+            Assert.NotEqual(0, file00.Compare(file10));
+
+            Assert.Equal(0, file10.Compare(file10));
+            Assert.NotEqual(0, file10.Compare(file11));
         }
 
         private string GetFileUrl(string dirName, string fileName)
