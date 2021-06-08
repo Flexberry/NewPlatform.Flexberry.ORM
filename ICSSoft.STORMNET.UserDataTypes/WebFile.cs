@@ -66,7 +66,14 @@
         {
             if (x != null && x is WebFile file)
             {
-                if (file.Url == Url)
+                if (file.Url == null && Url == null)
+                {
+                    if (file.Name == Name)
+                    {
+                        return 0;
+                    }
+                }
+                else if (file.Url == Url)
                 {
                     return 0;
                 }
