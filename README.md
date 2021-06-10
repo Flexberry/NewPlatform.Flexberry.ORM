@@ -1,5 +1,7 @@
 # Flexberry ORM
 
+[![CI](https://github.com/Flexberry/NewPlatform.Flexberry.ORM/actions/workflows/build.yml/badge.svg)](https://github.com/Flexberry/NewPlatform.Flexberry.ORM/actions/workflows/build.yml)
+
 В этом репозитории располагается исходный код `Flexberry ORM` - фреймворка для [объектно-реляционного отображения](https://ru.wikipedia.org/wiki/ORM) для Microsoft .NET.
 
 ## Ключевые особенности
