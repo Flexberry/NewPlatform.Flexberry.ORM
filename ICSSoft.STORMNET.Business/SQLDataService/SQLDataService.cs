@@ -4710,15 +4710,15 @@
         /// <returns>
         /// True если цикл среди объектов найден.
         /// </returns>
-        private bool FindRealCyclesWithObjects(List<DataObject> objectsList, Type dependencie)
+        private static bool FindRealCyclesWithObjects(List<DataObject> objectsList, Type dependencie)
         {
             bool cycleExist = false;
 
             foreach (DataObject parentObject in objectsList)
             {
-                List<object> primaryKeys = new List<object> { parentObject.__PrimaryKey };
+                List<DataObject> dependencieObjects = new List<DataObject> { parentObject };
 
-                cycleExist = CheckCycleInNested(parentObject, dependencie, ref primaryKeys);
+                cycleExist = CheckCycleInNested(parentObject, dependencie, dependencieObjects);
 
                 if (cycleExist)
                 {
@@ -4738,20 +4738,21 @@
         /// <param name="dependencie">
         /// Тип зависимости по которой искать цилические ссылки внутри объекта.
         /// </param>
-        /// <param name="primaryKeys">
+        /// <param name="dependencieObjects">
         /// Цепочка ключей зависимостей.
         /// </param>
         /// <returns>
         /// True если цикл среди объектов найден.
         /// </returns>
-        private bool CheckCycleInNested(DataObject currentParent, Type dependencie, ref List<object> primaryKeys)
+        private static bool CheckCycleInNested(DataObject currentParent, Type dependencie, List<DataObject> dependencieObjects)
         {
             bool isFinding = false;
-            string[] props = Information.GetAllPropertyNames(currentParent.GetType());
+            var currentParentType = currentParent.GetType();
+            string[] props = Information.GetAllPropertyNames(currentParentType);
 
             // Поиск свойства, в нужном типе.
             var filterProps = props
-                .Where(t => Information.GetPropertyType(currentParent.GetType(), t).FullName == dependencie.FullName)
+                .Where(t => Information.GetPropertyType(currentParentType, t) == dependencie)
                 .ToList();
 
             if (filterProps.Count != 0)
@@ -4762,16 +4763,14 @@
 
                     if (child != null)
                     {
-                        if (primaryKeys.Contains(child.__PrimaryKey))
+                        if (dependencieObjects.Any(d => PKHelper.EQDataObject(d, child)))
                         {
                             isFinding = true;
                             break;
                         }
-                        else
-                        {
-                            primaryKeys.Add(child.__PrimaryKey);
-                            isFinding = CheckCycleInNested(child, dependencie, ref primaryKeys);
-                        }
+
+                        dependencieObjects.Add(child);
+                        isFinding = CheckCycleInNested(child, dependencie, dependencieObjects);
                     }
                 }
             }
@@ -4810,7 +4809,6 @@
                     var processingObjectsList = processingObjects.Cast<DataObject>().Where(t => t.GetType() == dependencie && t.GetStatus() == ObjectStatus.Created).ToList();
                     if (processingObjectsList.Count > 0)
                     {
-
                         bool isRealCyclesExist = FindRealCyclesWithObjects(processingObjectsList, dependencie);
 
                         if (!isRealCyclesExist)
@@ -4904,52 +4902,60 @@
 
             // Поиск свойства, в нужном типе.
             var filterProps = props
-                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
+                .Where(t => Information.GetPropertyType(currentType, t) == dependencie)
                 .ToList();
 
             if (filterProps.Count > 0)
             {
                 foreach (string prop in filterProps)
                 {
-                    dependencies.Remove(dependencie);
-                    var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
-
-                    Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
-                    string[] propertyStorageNames = new string[types.Length];
-                    string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
-                    for (int i = 0; i < types.Length; i++)
+                    // Проверяется свойство на NotNull.
+                    if (!Information.GetPropertyNotNull(currentType, prop))
                     {
-                        string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
-                        propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
-                    }
+                        dependencies.Remove(dependencie);
+                        var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
 
-                    // Изменяем значения в объектах, для устранения цикла.
-                    foreach (var createdObject in createdObjects)
-                    {
-                        Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
-                        foreach (var propertyStorageName in propertyStorageNames)
+                        Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
+                        string[] propertyStorageNames = new string[types.Length];
+                        string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
+                        for (int i = 0; i < types.Length; i++)
                         {
-                            // Учитываем только непустые свойства в статусе Created.
-                            object propValue = Information.GetPropValueByName(createdObject, prop);
-                            if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
-                            {
-                                // Добавляем свойство в запрос на изменение объекта.
-                                string propQueryValue = propsCollection.Get(propertyStorageName);
-                                if (alteredList.ContainsKey(createdObject))
-                                {
-                                    alteredList[createdObject].Add(propertyStorageName, propQueryValue);
-                                }
-                                else
-                                {
-                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                    alteredCollection.Add(propertyStorageName, propQueryValue);
-                                    alteredList.Add(createdObject, alteredCollection);
-                                }
+                            string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
+                            propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
+                        }
 
-                                // Удаляем из списка свойств на изменение в запросе на создание объекта.
-                                propsCollection.Remove(propertyStorageName);
+                        // Изменяем значения в объектах, для устранения цикла.
+                        foreach (var createdObject in createdObjects)
+                        {
+                            Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
+                            foreach (var propertyStorageName in propertyStorageNames)
+                            {
+                                // Учитываем только непустые свойства в статусе Created.
+                                object propValue = Information.GetPropValueByName(createdObject, prop);
+                                if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
+                                {
+                                    // Добавляем свойство в запрос на изменение объекта.
+                                    string propQueryValue = propsCollection.Get(propertyStorageName);
+                                    if (alteredList.ContainsKey(createdObject))
+                                    {
+                                        alteredList[createdObject].Add(propertyStorageName, propQueryValue);
+                                    }
+                                    else
+                                    {
+                                        var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                        alteredCollection.Add(propertyStorageName, propQueryValue);
+                                        alteredList.Add(createdObject, alteredCollection);
+                                    }
+
+                                    // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                                    propsCollection.Remove(propertyStorageName);
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
 
