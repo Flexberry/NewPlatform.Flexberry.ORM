@@ -86,9 +86,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         {
             // ADO.NET doesn't close the connection with pooling. We have to disable it explicitly.
             // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
-            connectionStringPostgres = $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringPostgres"]}";
-            connectionStringMssql = $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringMssql"]}";
-            connectionStringOracle = $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringOracle"]}";
+            connectionStringPostgres = $"{poolingFalseConst}{GetConnectionString("ConnectionStringPostgres")}";
+            connectionStringMssql = $"{poolingFalseConst}{GetConnectionString("ConnectionStringMssql")}";
+            connectionStringOracle = $"{poolingFalseConst}{GetConnectionString("ConnectionStringOracle")}";
         }
 
         /// <summary>
@@ -366,6 +366,11 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
                 return $"{poolingFalseConst}{dataSource};";
             }
+        }
+
+        private static string GetConnectionString(string name)
+        {
+            return Environment.GetEnvironmentVariable(name) ?? ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
 }
