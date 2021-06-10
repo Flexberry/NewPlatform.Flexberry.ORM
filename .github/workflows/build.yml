@@ -37,6 +37,22 @@ jobs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
+      mssql:
+        # Docker Hub image
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        # Provide the password for mssql
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: p@ssw0rd
+        # Set health checks to wait until mssql has started
+        options: >-
+          --health-cmd /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${SA_PASSWORD} -Q "SELECT 1" -b -o /dev/null #https://github.com/microsoft/mssql-docker/issues/133#issuecomment-796472416
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 1433 on service container to the host
+          - 1433:1433
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
