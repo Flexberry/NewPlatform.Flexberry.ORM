@@ -14,7 +14,7 @@
     /// </summary>
     public partial class SQLDataServiceTest
     {
-        /// <summary>
+                /// <summary>
         /// Тест для проверки записи иерархической сущности.
         /// Проверяем, что нет лишних Update-запросов в БД, когда объект зависимости пустой.
         /// </summary>
@@ -52,7 +52,9 @@
         }
 
         /// <summary>
-        /// В случае, когда объект зависимоти и основной объект создаются в одной транзакции (объекта зависимости предварительно нет в БД).
+        /// Тест для проверки записи иерархической сущности.
+        /// Проверяем, что нет лишних Update-запросов в БД.
+        /// В случае, когда объект зависимоcти и основной объект создаются в одной транзакции (объекта зависимости предварительно нет в БД).
         /// </summary>
         [Fact]
         public void InsertHierarchyOneTransactionTest()
@@ -60,6 +62,17 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
+                if (dataService is SQLDataService sqlDataService)
+                {
+                    sqlDataService.OnCreateCommand += (sender, e) =>
+                    {
+                        if (e.Command.CommandText.StartsWith("UPDATE"))
+                        {
+                            throw new Exception("Unnecessary update");
+                        }
+                    };
+                }
+
                 var parent = new Медведь { ПорядковыйНомер = 1 };
                 var child = new Медведь { ПорядковыйНомер = 2, Папа = parent };
 
@@ -86,7 +99,8 @@
 
         /// <summary>
         /// Тест для проверки записи иерархической сущности.
-        /// В случае, когда объект зависимоти и основной объект создаются в одной транзакции (объекта зависимости предварительно нет в БД).
+        /// Проверяем, что нет лишних Update-запросов в БД.
+        /// В случае, когда объект зависимоcти и основной объект создаются в одной транзакции (объекта зависимости предварительно нет в БД).
         /// </summary>
         [Fact]
         public void InsertHierarchyOneTransactionTest2()
@@ -94,6 +108,17 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
+                if (dataService is SQLDataService sqlDataService)
+                {
+                    sqlDataService.OnCreateCommand += (sender, e) =>
+                    {
+                        if (e.Command.CommandText.StartsWith("UPDATE"))
+                        {
+                            throw new Exception("Unnecessary update");
+                        }
+                    };
+                }
+
                 var motherBear = new Медведь { ПорядковыйНомер = 1 };
                 dataService.UpdateObject(motherBear);
 
@@ -123,7 +148,8 @@
 
         /// <summary>
         /// Тест для проверки записи иерархической сущности.
-        /// В случае, когда объект зависимоти и основной объект создаются в одной транзакции (объекта зависимости предварительно нет в БД).
+        /// Проверяем, что нет лишних Update-запросов в БД.
+        /// В случае, когда объект зависимоcти и основной объект создаются в одной транзакции (объекта зависимости предварительно нет в БД).
         /// </summary>
         [Fact]
         public void InsertHierarchyOneTransactionTest3()
@@ -131,6 +157,17 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
+                if (dataService is SQLDataService sqlDataService)
+                {
+                    sqlDataService.OnCreateCommand += (sender, e) =>
+                    {
+                        if (e.Command.CommandText.StartsWith("UPDATE"))
+                        {
+                            throw new Exception("Unnecessary update");
+                        }
+                    };
+                }
+
                 var father = new Медведь { ПорядковыйНомер = 1 };
 
                 var child1 = new Медведь { ПорядковыйНомер = 2, Папа = father };
