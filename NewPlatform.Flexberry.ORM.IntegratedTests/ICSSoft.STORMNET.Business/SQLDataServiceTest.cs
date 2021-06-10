@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Data.SqlTypes;
     using System.Linq;
     using ICSSoft.STORMNET;
@@ -1120,32 +1119,6 @@
                 Assert.Equal(0, countDetail1After);
                 Assert.Equal(0, countDetail2After);
                 Assert.Equal(0, countDetail3After);
-            }
-        }
-
-        /// <summary>
-        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
-        /// </summary>
-        [Fact]
-        public void CustomizationStringNameTest()
-        {
-            foreach (IDataService dataService in DataServices)
-            {
-                // Arrange.
-                string connectionStringName = "TestConnStr";
-                string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
-                SQLDataService ds = dataService as SQLDataService;
-                if (ds == null)
-                {
-                    continue;
-                }
-
-                // Act.
-                ds.CustomizationStringName = connectionStringName;
-                string actualResult = dataService.CustomizationString;
-
-                // Assert.
-                Assert.Equal(expectedResult, actualResult);
             }
         }
 

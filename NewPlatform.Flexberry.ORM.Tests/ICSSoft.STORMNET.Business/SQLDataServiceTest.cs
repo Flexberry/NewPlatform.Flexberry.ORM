@@ -1,5 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
+    using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
 
     using ICSSoft.STORMNET;
@@ -219,6 +221,38 @@
             mockConverter.Verify(m => m.IsSupported(typeof(object)), Times.Once);
             mockConverter.Verify(m => m.IsSupported(typeof(int)), Times.Once);
             mockConverter.Verify(m => m.ConvertToQueryValueString(supportedValue), Times.Once);
+        }
+
+        /// <summary>
+        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
+        /// </summary>
+        [Fact]
+        public void CustomizationStringNameTest()
+        {
+            var configResolver = new ConfigResolver();
+
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            var dataServices = new List<SQLDataService>
+            {
+                new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+                new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+                new OracleDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+            };
+
+            foreach (var dataService in dataServices)
+            {
+                // Arrange.
+                const string connectionStringName = "TestConnStr";
+                string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
+
+                // Act.
+                dataService.CustomizationStringName = connectionStringName;
+                string actualResult = dataService.CustomizationString;
+
+                // Assert.
+                Assert.Equal(expectedResult, actualResult);
+            }
         }
     }
 }
