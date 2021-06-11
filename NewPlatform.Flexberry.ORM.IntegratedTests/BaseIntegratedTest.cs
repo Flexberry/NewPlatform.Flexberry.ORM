@@ -247,7 +247,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 }
             }
 
-            Assert.True(watchdogEmptyTest);
+            AssertWatchdog(watchdogEmptyTest);
         }
 
         /// <summary>
@@ -354,6 +354,15 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         public void Dispose()
         {
             Dispose(true);
+        }
+
+        /// <summary>
+        /// Проверить создание сервисов данных.
+        /// </summary>
+        /// <param name="notEmpty"><see langword="true"/> если сервисы данных созданы.</param>
+        protected virtual void AssertWatchdog(bool notEmpty)
+        {
+            Assert.True(notEmpty);
         }
 
         private static string ConnectionStringOracleDataSource

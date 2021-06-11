@@ -1,10 +1,6 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 {
     using System;
-    using System.Configuration;
-    using System.IO;
-    using System.Text.RegularExpressions;
-    using System.Xml;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
@@ -27,15 +23,17 @@
         /// </summary>
         protected PostgresDataService DataService;
 
-        public PostgresDataServiceTest() : base("test")
+        public PostgresDataServiceTest()
+            : base("test")
         {
             foreach (var ds in DataServices)
             {
-                if(ds is PostgresDataService)
-                    DataService=ds as PostgresDataService;
+                if (ds is PostgresDataService)
+                    DataService = ds as PostgresDataService;
             }
         }
 
+        /// <inheritdoc />
         protected override string MssqlScript
         {
             get
@@ -44,6 +42,7 @@
             }
         }
 
+        /// <inheritdoc />
         protected override string PostgresScript
         {
             get
@@ -52,6 +51,7 @@
             }
         }
 
+        /// <inheritdoc />
         protected override string OracleScript
         {
             get
@@ -60,17 +60,27 @@
             }
         }
 
+        /// <inheritdoc />
+        protected override void AssertWatchdog(bool notEmpty)
+        {
+        }
+
         /// <summary>
         /// Выполняется тестирование сохранения и сравнения строки, если в ней присутствует символ '\'.
         /// </summary>
         [Fact]
         public void TestForwardSlash()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_string { Attr = "abc\\de" };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_string { __PrimaryKey = clazz.__PrimaryKey };
             DataService.LoadObject(clazz2);
-            Assert.True(clazz.Attr == clazz2.Attr);
+            Assert.Equal(clazz.Attr, clazz2.Attr);
         }
 
         /// <summary>
@@ -79,6 +89,11 @@
         [Fact]
         public void TestString()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_string { Attr = "abc" };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_string { __PrimaryKey = clazz.__PrimaryKey };
@@ -92,14 +107,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_string { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -108,6 +118,11 @@
         [Fact]
         public void TestChar()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_char { Attr = 'a' };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_char { __PrimaryKey = clazz.__PrimaryKey };
@@ -121,14 +136,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_char { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -137,6 +147,11 @@
         [Fact]
         public void TestDateTime()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_DateTime { Attr = DateTime.Now };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_DateTime { __PrimaryKey = clazz.__PrimaryKey };
@@ -150,14 +165,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_DateTime { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -166,6 +176,11 @@
         [Fact]
         public void TestNullableDateTime()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_NullableDateTime { Attr = (NullableDateTime)DateTime.Now };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_NullableDateTime { __PrimaryKey = clazz.__PrimaryKey };
@@ -179,14 +194,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_NullableDateTime { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -195,6 +205,11 @@
         [Fact]
         public void TestNullableDecimal()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_NullableDecimal { Attr = (NullableDecimal)new decimal(12345.6789) };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_NullableDecimal { __PrimaryKey = clazz.__PrimaryKey };
@@ -208,14 +223,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_NullableDecimal { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -224,6 +234,11 @@
         [Fact]
         public void TestNullableInt()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_NullableInt { Attr = 1111 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_NullableInt { __PrimaryKey = clazz.__PrimaryKey };
@@ -237,14 +252,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_NullableInt { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -253,6 +263,11 @@
         [Fact]
         public void TestWebFile()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_WebFile { Attr = new WebFile { Name = "Test1" } };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_WebFile { __PrimaryKey = clazz.__PrimaryKey };
@@ -266,14 +281,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_WebFile { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -282,6 +292,11 @@
         [Fact]
         public void TestBool()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_bool { Attr = true };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_bool { __PrimaryKey = clazz.__PrimaryKey };
@@ -295,14 +310,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_bool { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -311,6 +321,11 @@
         [Fact]
         public void TestByte()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_byte { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_byte { __PrimaryKey = clazz.__PrimaryKey };
@@ -324,14 +339,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_byte { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -340,6 +350,11 @@
         [Fact]
         public void TestDecimal()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_decimal { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_decimal { __PrimaryKey = clazz.__PrimaryKey };
@@ -353,14 +368,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_decimal { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -369,6 +379,11 @@
         [Fact]
         public void TestDouble()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_double { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_double { __PrimaryKey = clazz.__PrimaryKey };
@@ -382,14 +397,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_double { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -398,6 +408,11 @@
         [Fact]
         public void TestFloat()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_float { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_float { __PrimaryKey = clazz.__PrimaryKey };
@@ -411,14 +426,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_float { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -427,6 +437,11 @@
         [Fact]
         public void TestGuid()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_guid { Attr = Guid.NewGuid() };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_guid { __PrimaryKey = clazz.__PrimaryKey };
@@ -440,14 +455,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_guid { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -456,6 +466,11 @@
         [Fact]
         public void TestInt()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_int { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_int { __PrimaryKey = clazz.__PrimaryKey };
@@ -469,14 +484,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_int { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -485,6 +495,11 @@
         [Fact]
         public void TestLong()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_long { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_long { __PrimaryKey = clazz.__PrimaryKey };
@@ -498,14 +513,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_long { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -514,6 +524,11 @@
         [Fact]
         public void TestObject()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var b1 = new byte[] { 1, 2, 3 };
             var b2 = new byte[] { 3, 2, 1 };
             var clazz = new Class_object { Attr = b1 };
@@ -531,14 +546,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_object { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -547,6 +557,11 @@
         [Fact]
         public void TestSbyte()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_sbyte { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_sbyte { __PrimaryKey = clazz.__PrimaryKey };
@@ -560,14 +575,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_sbyte { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -576,6 +586,11 @@
         [Fact]
         public void TestShort()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_short { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_short { __PrimaryKey = clazz.__PrimaryKey };
@@ -589,14 +604,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_short { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -605,6 +615,11 @@
         [Fact]
         public void TestUint()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_uint { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_uint { __PrimaryKey = clazz.__PrimaryKey };
@@ -618,14 +633,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_uint { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -634,6 +644,11 @@
         [Fact]
         public void TestUlong()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_ulong { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_ulong { __PrimaryKey = clazz.__PrimaryKey };
@@ -647,14 +662,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_ulong { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -663,6 +673,11 @@
         [Fact]
         public void TestUshort()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var clazz = new Class_ushort { Attr = 11 };
             DataService.UpdateObject(clazz);
             var clazz2 = new Class_ushort { __PrimaryKey = clazz.__PrimaryKey };
@@ -676,14 +691,9 @@
             clazz2.SetStatus(ObjectStatus.Deleted);
             DataService.UpdateObject(clazz2);
             clazz2 = new Class_ushort { __PrimaryKey = clazz.__PrimaryKey };
-            try
-            {
-                DataService.LoadObject(clazz2);
-                Assert.True(false, "Object not deleted.");
-            }
-            catch (CantFindDataObjectException)
-            {
-            }
+
+            // Assert.
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
         }
 
         /// <summary>
@@ -692,15 +702,20 @@
         [Fact]
         public void LongNamesTest()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var masterRoot = new MasterRoot { MasterAttr = 234 };
 
             var мастерКласс01 = new МастерКлассДлинноеИмя { MasterAttr2 = true, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var мастерКласс02 = new МастерКлассДлинноеИмя { MasterAttr2 = false, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var мастерКласс2 = new МастерКлассДлинноеИмя2 { MasterAttr2 = true, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var класс = new ДочернийКлассДлинноеИмя { MasterClass = мастерКласс01, МастерКлассДлинноеИмя01 = мастерКласс01, МастерКлассДлинноеИмя02 = мастерКласс2, Attr1 = "123", Attr2 = 55, Атрибут3 = true };
-            
+
             ////var класс2 = new ДочернийКлассДлинноеИмя2 { MasterClass = мастерКласс, МастерКлассДлинноеИмя = мастерКласс, МастерКлассДлинноеИмя2 = мастерКласс2, Attr1 = "abc", Attr2 = 55, Атрибут3 = true };
-            
+
             var objsToUpdate = new DataObject[] { мастерКласс01, класс, мастерКласс02, masterRoot };
             DataService.UpdateObjects(ref objsToUpdate, new DataObjectCache(), true);
 
@@ -719,6 +734,11 @@
         [Fact]
         public void InheritanceTest()
         {
+            if (DataService == null)
+            {
+                return;
+            }
+
             var masterRoot = new MasterRoot { MasterAttr = 234 };
             var master = new MasterClass { MasterAttr2 = true, MasterAttr1 = DateTime.Now, MasterRoot = masterRoot };
             var clazz = new MyClass { MasterClass = master, Attr1 = "abc", Attr2 = 1 };
