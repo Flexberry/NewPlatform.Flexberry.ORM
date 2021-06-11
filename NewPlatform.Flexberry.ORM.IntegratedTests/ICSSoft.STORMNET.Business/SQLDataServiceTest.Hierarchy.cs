@@ -16,7 +16,7 @@
     /// </summary>
     public partial class SQLDataServiceTest
     {
-                /// <summary>
+        /// <summary>
         /// Тест для проверки записи иерархической сущности.
         /// Проверяем, что нет лишних Update-запросов в БД, когда объект зависимости пустой.
         /// </summary>
