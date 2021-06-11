@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Text;
@@ -151,7 +152,8 @@
         /// </summary>
         public string CustomizationString
         {
-            get { return customizationString; } set { customizationString = value; }
+            get { return customizationString; }
+            set { customizationString = value; }
         }
 
         /// <summary>
@@ -4699,7 +4701,7 @@
         }
 
         /// <summary>
-        /// Метод находит вложенные циклические зависимости на основе объектов зависимостей.
+        /// Метод определяет возможность реальных циклов.
         /// </summary>
         /// <param name="objectsList">
         /// Список объектов, находящихся в обработке.
@@ -4708,74 +4710,85 @@
         /// Тип зависимости по которой искать цилические ссылки внутри списка объектов.
         /// </param>
         /// <returns>
-        /// True если цикл среди объектов найден.
+        /// True если цикл возможен.
         /// </returns>
-        private static bool FindRealCyclesWithObjects(List<DataObject> objectsList, Type dependencie)
+        private static bool FindRealCyclesWarning(List<DataObject> objectsList, Type dependencie)
         {
-            bool cycleExist = false;
+            bool cycleWarningExist = false;
+
+            // Получаем словарь содержащий данные об иерархических зависимостях по каждому объекту.
+            Dictionary<object, List<object>> primaryKeysGraph = new Dictionary<object, List<object>>();
 
             foreach (DataObject parentObject in objectsList)
             {
-                List<DataObject> dependencieObjects = new List<DataObject> { parentObject };
+                List<object> dependeciesKeys = new List<object>();
 
-                cycleExist = CheckCycleInNested(parentObject, dependencie, dependencieObjects);
+                var currentParentType = parentObject.GetType();
+                string[] props = Information.GetAllPropertyNames(currentParentType);
 
-                if (cycleExist)
+                var filterProps = props
+                .Where(t => Information.GetPropertyType(currentParentType, t).FullName == dependencie.FullName)
+                .ToList();
+
+                if (filterProps.Count != 0)
                 {
-                    break;
+                    foreach (string property in filterProps)
+                    {
+                        DataObject child = Information.GetPropValueByName(parentObject, property) as DataObject;
+
+                        if (child != null)
+                        {
+                            dependeciesKeys.Add(child.__PrimaryKey);
+                        }
+                    }
                 }
+
+                primaryKeysGraph.Add(parentObject.__PrimaryKey, dependeciesKeys);
             }
 
-            return cycleExist;
+            // Определяем, в парвильном ли порядке идут объекты.
+            bool isBadOrder = FindBadOrderForInsert(primaryKeysGraph);
+
+            // Если порядок объектов нелинейный, то он может содержать реальную опасность цикла.
+            cycleWarningExist = isBadOrder;
+
+            return cycleWarningExist;
         }
 
         /// <summary>
-        /// Метод находит вложенные циклические зависимости на основе объектов зависимостей.
+        /// Метод определяет последовательность в которой идут объекты.
         /// </summary>
-        /// <param name="currentParent">
-        /// Родительский объект внутри которого будут искаться циклы.
-        /// </param>
-        /// <param name="dependencie">
-        /// Тип зависимости по которой искать цилические ссылки внутри объекта.
-        /// </param>
-        /// <param name="dependencieObjects">
-        /// Цепочка ключей зависимостей.
+        /// <param name="primaryKeysGraph">
+        /// Список объектов, находящихся в обработке.
         /// </param>
         /// <returns>
-        /// True если цикл среди объектов найден.
+        /// True если объекты идут не в линейной последовательнсоти.
         /// </returns>
-        private static bool CheckCycleInNested(DataObject currentParent, Type dependencie, List<DataObject> dependencieObjects)
+        private static bool FindBadOrderForInsert(Dictionary<object, List<object>> primaryKeysGraph)
         {
-            bool isFinding = false;
-            var currentParentType = currentParent.GetType();
-            string[] props = Information.GetAllPropertyNames(currentParentType);
+            bool isBadOrder = false;
+            List<object> insertedKeys = new List<object>();
 
-            // Поиск свойства, в нужном типе.
-            var filterProps = props
-                .Where(t => Information.GetPropertyType(currentParentType, t) == dependencie)
-                .ToList();
-
-            if (filterProps.Count != 0)
+            foreach (KeyValuePair<object, List<object>> primaryKey in primaryKeysGraph)
             {
-                foreach (string property in filterProps)
+                foreach (object key in primaryKey.Value)
                 {
-                    DataObject child = Information.GetPropValueByName(currentParent, property) as DataObject;
-
-                    if (child != null)
+                    if (primaryKeysGraph.ContainsKey(key) && !insertedKeys.Any(d => PKHelper.EQPK(d, key)))
                     {
-                        if (dependencieObjects.Any(d => PKHelper.EQDataObject(d, child)))
-                        {
-                            isFinding = true;
-                            break;
-                        }
-
-                        dependencieObjects.Add(child);
-                        isFinding = CheckCycleInNested(child, dependencie, dependencieObjects);
+                        isBadOrder = true;
+                        break;
                     }
                 }
+
+                if (isBadOrder)
+                {
+                    break;
+                }
+
+                insertedKeys.Add(primaryKey.Key);
             }
 
-            return isFinding;
+            return isBadOrder;
         }
 
         /// <summary>
@@ -4809,9 +4822,10 @@
                     var processingObjectsList = processingObjects.Cast<DataObject>().Where(t => t.GetType() == dependencie && t.GetStatus() == ObjectStatus.Created).ToList();
                     if (processingObjectsList.Count > 0)
                     {
-                        bool isRealCyclesExist = FindRealCyclesWithObjects(processingObjectsList, dependencie);
 
-                        if (!isRealCyclesExist)
+                        bool isRealCyclesWarningExist = FindRealCyclesWarning(processingObjectsList, dependencie);
+
+                        if (!isRealCyclesWarningExist)
                         {
                             return false;
                         }
@@ -4902,60 +4916,51 @@
 
             // Поиск свойства, в нужном типе.
             var filterProps = props
-                .Where(t => Information.GetPropertyType(currentType, t) == dependencie)
+                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
                 .ToList();
 
             if (filterProps.Count > 0)
             {
                 foreach (string prop in filterProps)
                 {
-                    // Проверяется свойство на NotNull.
-                    if (!Information.GetPropertyNotNull(currentType, prop))
+                    dependencies.Remove(dependencie);
+                    var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
+
+                    Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
+                    string[] propertyStorageNames = new string[types.Length];
+                    string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
+                    for (int i = 0; i < types.Length; i++)
                     {
-                        dependencies.Remove(dependencie);
-                        var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
+                        string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
+                        propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
+                    }
 
-                        Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
-                        string[] propertyStorageNames = new string[types.Length];
-                        string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
-                        for (int i = 0; i < types.Length; i++)
-                        {
-                            string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
-                            propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
-                        }
+                    // Изменяем значения в объектах, для устранения цикла.
+                    foreach (var createdObject in createdObjects)
+                    {
+                        Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
 
-                        // Изменяем значения в объектах, для устранения цикла.
-                        foreach (var createdObject in createdObjects)
+                        foreach (var propertyStorageName in propertyStorageNames)
                         {
-                            Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
-                            foreach (var propertyStorageName in propertyStorageNames)
+                            // Добавляем свойство в запрос на изменение объекта.
+                            string propValue = propsCollection.Get(propertyStorageName);
+                            if (propValue != ConvertValueToQueryValueString(null))
                             {
-                                // Учитываем только непустые свойства в статусе Created.
-                                object propValue = Information.GetPropValueByName(createdObject, prop);
-                                if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
+                                if (alteredList.ContainsKey(createdObject))
                                 {
-                                    // Добавляем свойство в запрос на изменение объекта.
-                                    string propQueryValue = propsCollection.Get(propertyStorageName);
-                                    if (alteredList.ContainsKey(createdObject))
-                                    {
-                                        alteredList[createdObject].Add(propertyStorageName, propQueryValue);
-                                    }
-                                    else
-                                    {
-                                        var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                        alteredCollection.Add(propertyStorageName, propQueryValue);
-                                        alteredList.Add(createdObject, alteredCollection);
-                                    }
-
-                                    // Удаляем из списка свойств на изменение в запросе на создание объекта.
-                                    propsCollection.Remove(propertyStorageName);
+                                    alteredList[createdObject].Add(propertyStorageName, propValue);
+                                }
+                                else
+                                {
+                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                    alteredCollection.Add(propertyStorageName, propValue);
+                                    alteredList.Add(createdObject, alteredCollection);
                                 }
                             }
+
+                            // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                            propsCollection.Remove(propertyStorageName);
                         }
-                    }
-                    else
-                    {
-                        return false;
                     }
                 }
 
@@ -5322,116 +5327,73 @@
 
             if (createdList.Count > 0)
             {
-                List<object> insertedRecordKeys = new List<object>();
-                List<object> allRecordKeysInTransaction = new List<object>();
-
                 foreach (var processingObject in createdList.Keys)
                 {
-                    allRecordKeysInTransaction.Add(processingObject.__PrimaryKey);
-                }
+                    var propsWithValues = createdList[processingObject];
 
-                while (insertedRecordKeys.Count < createdList.Keys.Count)
-                {
-                    foreach (var processingObject in createdList.Keys)
+                    Type typeOfProcessingObject = processingObject.GetType();
+                    string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
+
+                    if (propsWithValues.Count > 0)
                     {
-                        if (insertedRecordKeys.Contains(processingObject.__PrimaryKey))
+                        if (StorageType == StorageTypeEnum.HierarchicalStorage)
                         {
-                            continue;
-                        }
-
-                        var propsWithValues = createdList[processingObject];
-
-                        Type typeOfProcessingObject = processingObject.GetType();
-                        string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
-
-                        if (propsWithValues.Count > 0)
-                        {
-                            bool isBreak = false;
-
-                            foreach (string property in propsWithValues)
+                            string[] cols = propsWithValues.GetAllKeys();
+                            var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                            foreach (string col in cols)
                             {
-                                string propertyName = property;
-                                int nonStoredPostfix = propertyName.IndexOf("_m");
-                                propertyName = nonStoredPostfix != -1 ? propertyName.Remove(nonStoredPostfix, propertyName.Length - nonStoredPostfix) : propertyName;
-
-                                DataObject childObject = Information.GetPropValueByName(processingObject, propertyName) as DataObject;
-
-                                if (childObject != null)
+                                Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
+                                StringCollection propsInTable = null;
+                                if (valuesByTables.Contains(defType))
                                 {
-                                    bool keyFromThisTransaction = allRecordKeysInTransaction.Contains(childObject.__PrimaryKey);
-                                    bool childInserted = insertedRecordKeys.Contains(childObject.__PrimaryKey);
-
-                                    if (keyFromThisTransaction && !childInserted)
-                                    {
-                                        isBreak = true;
-                                        break;
-                                    }
+                                    propsInTable = (StringCollection)valuesByTables[defType];
                                 }
+                                else
+                                {
+                                    propsInTable = new StringCollection();
+                                    propsInTable.Add("__PrimaryKey");
+                                    valuesByTables.Add(defType, propsInTable);
+                                }
+
+                                propsInTable.Add(col);
                             }
 
-                            if (isBreak) continue;
-
-                            if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                            for (int k = 0; k < valuesByTables.Count; k++)
                             {
-                                string[] cols = propsWithValues.GetAllKeys();
-                                var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                                foreach (string col in cols)
+                                Type t = valuesByTables.Key(k);
+                                string tableName =
+                                    Information.GetClassStorageName(t);
+                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
+                                var propsInTable = (StringCollection)valuesByTables[t];
+                                string columns = propsInTable[0];
+                                string values = propsWithValues[propsInTable[0]];
+                                for (int j = 1; j < propsInTable.Count; j++)
                                 {
-                                    Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
-                                    StringCollection propsInTable = null;
-                                    if (valuesByTables.Contains(defType))
-                                    {
-                                        propsInTable = (StringCollection)valuesByTables[defType];
-                                    }
-                                    else
-                                    {
-                                        propsInTable = new StringCollection();
-                                        propsInTable.Add("__PrimaryKey");
-                                        valuesByTables.Add(defType, propsInTable);
-                                    }
-
-                                    propsInTable.Add(col);
-                                }
-
-                                for (int k = 0; k < valuesByTables.Count; k++)
-                                {
-                                    Type t = valuesByTables.Key(k);
-                                    string tableName =
-                                        Information.GetClassStorageName(t);
-                                    string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
-                                    var propsInTable = (StringCollection)valuesByTables[t];
-                                    string columns = propsInTable[0];
-                                    string values = propsWithValues[propsInTable[0]];
-                                    for (int j = 1; j < propsInTable.Count; j++)
-                                    {
-                                        columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
-                                        values += nlk + propsWithValues[propsInTable[j]];
-                                    }
-
-                                    query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
-                                    AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
-                                    insertQueries.Add(query);
-                                }
-                            }
-                            else
-                            {
-                                string[] cols = propsWithValues.GetAllKeys();
-                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
-                                string columns = cols[0];
-                                string values = propsWithValues[cols[0]];
-                                for (int j = 1; j < propsWithValues.Count; j++)
-                                {
-                                    columns += nlk + cols[j];
-                                    values += nlk + propsWithValues[cols[j]];
+                                    columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
+                                    values += nlk + propsWithValues[propsInTable[j]];
                                 }
 
                                 query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
-                                AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
+                                AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
                                 insertQueries.Add(query);
                             }
                         }
+                        else
+                        {
+                            string[] cols = propsWithValues.GetAllKeys();
+                            string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
+                            string columns = cols[0];
+                            string values = propsWithValues[cols[0]];
+                            for (int j = 1; j < propsWithValues.Count; j++)
+                            {
+                                columns += nlk + cols[j];
+                                values += nlk + propsWithValues[cols[j]];
+                            }
 
-                        insertedRecordKeys.Add(processingObject.__PrimaryKey);
+                            query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
+                            AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
+                            insertQueries.Add(query);
+                        }
                     }
                 }
             }
