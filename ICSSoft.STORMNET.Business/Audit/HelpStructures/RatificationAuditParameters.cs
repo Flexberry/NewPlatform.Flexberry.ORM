@@ -26,7 +26,6 @@
         /// <param name="currentTime">Текущее время.</param>
         /// <param name="auditOperationInfoList">Информация, которую необходимо дописать в аудит (с указанием идентификаторов записей аудита).</param>
         /// <param name="writeMode">Режим записи: синхронный или асинхронный.</param>
-        /// <param name="applicationMode">Режим работы аудита: под win или web.</param>
         /// <param name="auditConnectionStringName">Имя строки соединения с БД, куда идут записи аудита.</param>
         /// <param name="needSerialization">Нужна ли сериализация (на случай передачи по wcf).</param>
         public RatificationAuditParameters(
@@ -34,10 +33,9 @@
             DateTime currentTime,
             List<AuditAdditionalInfo> auditOperationInfoList,
             tWriteMode writeMode,
-            AppMode applicationMode,
             string auditConnectionStringName,
             bool needSerialization)
-            : base(executionVariant, currentTime, applicationMode, auditConnectionStringName, needSerialization)
+            : base(executionVariant, currentTime, auditConnectionStringName, needSerialization)
         {
             ExecutionResult = executionVariant;
             CurrentTime = currentTime;
@@ -56,7 +54,6 @@
                         CurrentTime,
                         null,
                         WriteMode,
-                        ApplicationMode,
                         AuditConnectionStringName,
                         NeedSerialization)
             {

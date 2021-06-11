@@ -13,23 +13,15 @@
     public class DatabaseAuditParameters : AuditParametersBase
     {
         /// <summary>
-        /// Режим работы приложения: win или web.
-        /// </summary>
-        [DataMember]
-        public AppMode ApplicationMode;
-
-        /// <summary>
         /// Имя строки подключения к БД аудита.
         /// </summary>
         [DataMember]
         public string AuditConnectionStringName = string.Empty;
 
         public DatabaseAuditParameters(
-            string auditConnectionStringName,
-            AppMode applicationMode)
+            string auditConnectionStringName)
         {
             AuditConnectionStringName = auditConnectionStringName;
-            ApplicationMode = applicationMode;
         }
     }
 }

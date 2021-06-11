@@ -70,11 +70,6 @@
         /// </summary>
         IAudit Audit { get; set; }
 
-        /// <summary>
-        /// Режим, в котором работает приложение: win или web.
-        /// </summary>
-        AppMode ApplicationMode { get; set; }
-
         #endregion Разное
 
         #region Основные методы, используемый для аудита

@@ -86,7 +86,6 @@
             return new AuditService(mockCurrentUserAccessor.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = true },
-                ApplicationMode = AppMode.Win,
                 Audit = new EmptyAudit(),
             };
         }
