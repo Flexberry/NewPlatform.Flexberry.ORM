@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Text;
@@ -151,7 +152,8 @@
         /// </summary>
         public string CustomizationString
         {
-            get { return customizationString; } set { customizationString = value; }
+            get { return customizationString; }
+            set { customizationString = value; }
         }
 
         /// <summary>
@@ -4699,6 +4701,97 @@
         }
 
         /// <summary>
+        /// Метод определяет возможность реальных циклов.
+        /// </summary>
+        /// <param name="objectsList">
+        /// Список объектов, находящихся в обработке.
+        /// </param>
+        /// <param name="dependencie">
+        /// Тип зависимости по которой искать цилические ссылки внутри списка объектов.
+        /// </param>
+        /// <returns>
+        /// True если цикл возможен.
+        /// </returns>
+        private static bool FindRealCyclesWarning(List<DataObject> objectsList, Type dependencie)
+        {
+            bool cycleWarningExist = false;
+
+            // Получаем словарь содержащий данные об иерархических зависимостях по каждому объекту.
+            Dictionary<object, List<object>> primaryKeysGraph = new Dictionary<object, List<object>>();
+
+            foreach (DataObject parentObject in objectsList)
+            {
+                List<object> dependeciesKeys = new List<object>();
+
+                var currentParentType = parentObject.GetType();
+                string[] props = Information.GetAllPropertyNames(currentParentType);
+
+                var filterProps = props
+                .Where(t => Information.GetPropertyType(currentParentType, t) == dependencie)
+                .ToList();
+
+                if (filterProps.Count != 0)
+                {
+                    foreach (string property in filterProps)
+                    {
+                        DataObject child = Information.GetPropValueByName(parentObject, property) as DataObject;
+
+                        if (child != null)
+                        {
+                            dependeciesKeys.Add(child.__PrimaryKey);
+                        }
+                    }
+                }
+
+                primaryKeysGraph.Add(parentObject.__PrimaryKey, dependeciesKeys);
+            }
+
+            // Определяем, в парвильном ли порядке идут объекты.
+            bool isBadOrder = FindBadOrderForInsert(primaryKeysGraph);
+
+            // Если порядок объектов нелинейный, то он может содержать реальную опасность цикла.
+            cycleWarningExist = isBadOrder;
+
+            return cycleWarningExist;
+        }
+
+        /// <summary>
+        /// Метод определяет последовательность в которой идут объекты.
+        /// </summary>
+        /// <param name="primaryKeysGraph">
+        /// Список объектов, находящихся в обработке.
+        /// </param>
+        /// <returns>
+        /// True если объекты идут не в линейной последовательнсоти.
+        /// </returns>
+        private static bool FindBadOrderForInsert(Dictionary<object, List<object>> primaryKeysGraph)
+        {
+            bool isBadOrder = false;
+            List<object> insertedKeys = new List<object>();
+
+            foreach (KeyValuePair<object, List<object>> primaryKey in primaryKeysGraph)
+            {
+                foreach (object key in primaryKey.Value)
+                {
+                    if (primaryKeysGraph.ContainsKey(key) && !insertedKeys.Any(d => PKHelper.EQPK(d, key)))
+                    {
+                        isBadOrder = true;
+                        break;
+                    }
+                }
+
+                if (isBadOrder)
+                {
+                    break;
+                }
+
+                insertedKeys.Add(primaryKey.Key);
+            }
+
+            return isBadOrder;
+        }
+
+        /// <summary>
         /// Поиск циклов в графе зависимостей.
         /// </summary>
         /// <param name="grafDependencies">Граф полученный в результате обхода графа зависимостей.</param>
@@ -4729,6 +4822,14 @@
                     var processingObjectsList = processingObjects.Cast<DataObject>().Where(t => t.GetType() == dependencie && t.GetStatus() == ObjectStatus.Created).ToList();
                     if (processingObjectsList.Count > 0)
                     {
+
+                        bool isRealCyclesWarningExist = FindRealCyclesWarning(processingObjectsList, dependencie);
+
+                        if (!isRealCyclesWarningExist)
+                        {
+                            return false;
+                        }
+
                         // Проверяется создает ли цикл зависимость.
                         if (!grafDependencies.Contains(dependencie))
                         {
@@ -4815,7 +4916,7 @@
 
             // Поиск свойства, в нужном типе.
             var filterProps = props
-                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
+                .Where(t => Information.GetPropertyType(currentType, t) == dependencie)
                 .ToList();
 
             if (filterProps.Count > 0)
@@ -5169,6 +5270,7 @@
             // Поиск и разрешение циклов в зависимостях.
             List<Type> grafDependencies = new List<Type>();
             List<Dictionary<Type, List<Type>>> dependenciesList = new List<Dictionary<Type, List<Type>>>();
+
             dependenciesList.Add(dependencies);
             for (int i = 0; i < dependenciesList.Count; i++)
             {
