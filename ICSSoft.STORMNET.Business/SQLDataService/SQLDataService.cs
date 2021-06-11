@@ -4727,7 +4727,7 @@
                 string[] props = Information.GetAllPropertyNames(currentParentType);
 
                 var filterProps = props
-                .Where(t => Information.GetPropertyType(currentParentType, t).FullName == dependencie.FullName)
+                .Where(t => Information.GetPropertyType(currentParentType, t) == dependencie)
                 .ToList();
 
                 if (filterProps.Count != 0)
@@ -4916,51 +4916,60 @@
 
             // Поиск свойства, в нужном типе.
             var filterProps = props
-                .Where(t => Information.GetPropertyType(currentType, t).FullName == dependencie.FullName)
+                .Where(t => Information.GetPropertyType(currentType, t) == dependencie)
                 .ToList();
 
             if (filterProps.Count > 0)
             {
                 foreach (string prop in filterProps)
                 {
-                    dependencies.Remove(dependencie);
-                    var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
-
-                    Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
-                    string[] propertyStorageNames = new string[types.Length];
-                    string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
-                    for (int i = 0; i < types.Length; i++)
+                    // Проверяется свойство на NotNull.
+                    if (!Information.GetPropertyNotNull(currentType, prop))
                     {
-                        string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
-                        propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
-                    }
+                        dependencies.Remove(dependencie);
+                        var createdObjects = createdList.Keys.Where(t => t.GetType() == currentType);
 
-                    // Изменяем значения в объектах, для устранения цикла.
-                    foreach (var createdObject in createdObjects)
-                    {
-                        Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
-
-                        foreach (var propertyStorageName in propertyStorageNames)
+                        Type[] types = TypeUsage.GetUsageTypes(currentType, prop);
+                        string[] propertyStorageNames = new string[types.Length];
+                        string defaultStorageName = Information.GetPropertyStorageName(currentType, prop);
+                        for (int i = 0; i < types.Length; i++)
                         {
-                            // Добавляем свойство в запрос на изменение объекта.
-                            string propValue = propsCollection.Get(propertyStorageName);
-                            if (propValue != ConvertValueToQueryValueString(null))
+                            string storageName = defaultStorageName == string.Empty ? Information.GetPropertyStorageName(currentType, prop, i) : $"{defaultStorageName}_m{i}";
+                            propertyStorageNames[i] = PutIdentifierIntoBrackets(storageName);
+                        }
+
+                        // Изменяем значения в объектах, для устранения цикла.
+                        foreach (var createdObject in createdObjects)
+                        {
+                            Collections.CaseSensivityStringDictionary propsCollection = createdList[createdObject];
+                            foreach (var propertyStorageName in propertyStorageNames)
                             {
-                                if (alteredList.ContainsKey(createdObject))
+                                // Учитываем только непустые свойства в статусе Created.
+                                object propValue = Information.GetPropValueByName(createdObject, prop);
+                                if (propValue is DataObject propObj && propObj.GetStatus(false) == ObjectStatus.Created)
                                 {
-                                    alteredList[createdObject].Add(propertyStorageName, propValue);
-                                }
-                                else
-                                {
-                                    var alteredCollection = new Collections.CaseSensivityStringDictionary();
-                                    alteredCollection.Add(propertyStorageName, propValue);
-                                    alteredList.Add(createdObject, alteredCollection);
+                                    // Добавляем свойство в запрос на изменение объекта.
+                                    string propQueryValue = propsCollection.Get(propertyStorageName);
+                                    if (alteredList.ContainsKey(createdObject))
+                                    {
+                                        alteredList[createdObject].Add(propertyStorageName, propQueryValue);
+                                    }
+                                    else
+                                    {
+                                        var alteredCollection = new Collections.CaseSensivityStringDictionary();
+                                        alteredCollection.Add(propertyStorageName, propQueryValue);
+                                        alteredList.Add(createdObject, alteredCollection);
+                                    }
+
+                                    // Удаляем из списка свойств на изменение в запросе на создание объекта.
+                                    propsCollection.Remove(propertyStorageName);
                                 }
                             }
-
-                            // Удаляем из списка свойств на изменение в запросе на создание объекта.
-                            propsCollection.Remove(propertyStorageName);
                         }
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
 
@@ -5450,19 +5459,6 @@
                     (from DataObject mi in processingObjects select mi).ToList();
                 auditObjects.AddRange(processingObjectsList);
                 auditObjects.AddRange(extraProcessingList.Where(dataObject => !ContainsKeyINProcessing(processingObjectsKeys, dataObject)));
-            }
-        }
-
-        private void OrderCreatedListForInsert(ref Dictionary<DataObject, Collections.CaseSensivityStringDictionary> createdList)
-        {
-            List<DataObject> dataObjects = createdList.Keys.ToList();
-
-            foreach (DataObject dataObject in dataObjects)
-            {
-                List<DataObject> extraUpdateList = new List<DataObject>();
-                Dictionary<Type, List<Type>> dependencies = new Dictionary<Type, List<Type>>();
-
-                GetDependencies(dataObject, dataObject.GetType(), dependencies, extraUpdateList);
             }
         }
 
