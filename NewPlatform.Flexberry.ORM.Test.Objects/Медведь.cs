@@ -103,12 +103,19 @@ namespace NewPlatform.Flexberry.ORM.Tests
         private NewPlatform.Flexberry.ORM.Tests.Медведь fДруг;
         
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfБерлога fБерлога;
-        
-        // *** Start programmer edit section *** (Медведь CustomMembers)
 
+        // *** Start programmer edit section *** (Медведь CustomMembers)
+        [NotStored()]
+        public static NewPlatform.Flexberry.ORM.Tests.Медведь ТекущийМедведь
+        {
+            get
+            {
+                return null;
+            }
+        }
         // *** End programmer edit section *** (Медведь CustomMembers)
 
-        
+
         /// <summary>
         /// ПорядковыйНомер.
         /// </summary>
