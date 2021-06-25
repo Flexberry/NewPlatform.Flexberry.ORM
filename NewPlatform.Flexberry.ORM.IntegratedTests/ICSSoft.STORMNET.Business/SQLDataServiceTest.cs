@@ -19,7 +19,7 @@
     /// Тестовый класс для <see cref="SQLDataService"/>.
     /// </summary>
 
-    public class SQLDataServiceTest : BaseIntegratedTest
+    public partial class SQLDataServiceTest : BaseIntegratedTest
     {
         /// <summary>
         /// Конструктор.
@@ -430,7 +430,7 @@
 
                 НаследникМ1 testDate = new НаследникМ1();
                 testDate.Name = "test1";
-                             
+
                 TestClassA testDate2 = new TestClassA();
                 testDate2.Мастер = testDate;
                 testDate2.Name = "test2";

@@ -501,29 +501,6 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyDataFormat()"/>, получающего формат представления данных в свойстве.
-        /// </summary>
-        [Fact]
-        public void GetPropertyDataFormatTest()
-        {
-            // Ожидаемый результат: пустая строка.
-            var expected = string.Empty;
-
-            // Входные параметры: Тип данных: InformationTestClass, имя свойства: "stringPropertyForInformationTestClass".
-            var actual = Information.GetPropertyDataFormat(
-                typeof(InformationTestClass), Information.ExtractPropertyPath<InformationTestClass>(c => c.StringPropertyForInformationTestClass));
-            Assert.Equal(expected, actual);
-
-            // Ожидаемый результат: пустая строка.
-            var expected1 = string.Empty;
-
-            // Входные параметры: Тип данных: InformationTestClass2, имя свойства: "InformationTestClass.stringPropertyForInformationTestClass".
-            var actual1 = Information.GetPropertyDataFormat(
-                typeof(InformationTestClass2), Information.ExtractPropertyPath<InformationTestClass2>(c => c.InformationTestClass.StringPropertyForInformationTestClass));
-            Assert.Equal(expected1, actual1);
-        }
-
-        /// <summary>
         /// Тест метода <see cref="GetAlteredPropertyNamesWithNotStored()"/>, сравнивающего два объекта данных
         /// и возвращающего список различающихся .Net-свойств. (NotStored-атрибуты не игнорируются и тоже проверяются вместе с остальными).
         /// </summary>
@@ -963,21 +940,6 @@
             // Проверим нехранимое поле
             var actual3 = Information.IsStoredProperty(typeof(StoredClass), "NotStoredProperty");
             Assert.False(actual3);
-        }
-
-        /// <summary>
-        /// Тест выпадения исключения CantFindPropertyExceptionв методе GetPropertyDataFormat()
-        /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
-        /// </summary>
-        [Fact]
-        public void GetPropertyDataFormatExceptionTest()
-        {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.GetPropertyDataFormat(
-                    typeof(InformationTestClass2), Information.ExtractPropertyName<InformationTestClass2>(c => c.InformationTestClass.StringPropertyForInformationTestClass));
-            });
-            Assert.IsType(typeof(CantFindPropertyException), exception);
         }
 
         /// <summary>

@@ -621,7 +621,9 @@
                     return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
                 }
 
-                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                Type valueType = value.GetType();
+
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
                 {
                     return $"date '{value.ToString()}'";
                 }
@@ -893,18 +895,23 @@
                     }
                 }
 
+                string query = resQuery;
                 string orderByExprForPaging = orderByExpr;
 
                 // It is necessary to add primary key field for maintaining rows order while ordering field contains similar values.
-                if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains("STORMMainObjectKey"))
-                    orderByExprForPaging += ", STORMMainObjectKey";
-                else if (!string.IsNullOrEmpty(orderByExprForPaging))
-                    orderByExprForPaging = orderByExpr;
-                else
-                    orderByExprForPaging = $"{nl}ORDER BY STORMMainObjectKey";
+                if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains(SQLWhereLanguageDef.StormMainObjectKey))
+                {
+                    orderByExprForPaging += $", {SQLWhereLanguageDef.StormMainObjectKey}";
+                    query = query.Replace(orderByExpr, orderByExprForPaging);
+                }
+                else if (string.IsNullOrEmpty(orderByExprForPaging))
+                {
+                    orderByExprForPaging = $"{nl}ORDER BY {SQLWhereLanguageDef.StormMainObjectKey}";
+                    query += orderByExprForPaging;
+                }
 
                 resQuery =
-                    $"{селектСамогоВерхнегоУр}{nl} FROM ({nl}{resQuery}) rn{nl}{orderByExprForPaging}{nl} OFFSET {offset} LIMIT {limit}";
+                    $"{селектСамогоВерхнегоУр}FROM ({nl}{query}) rn{nl}{orderByExprForPaging}{nl} OFFSET {offset} LIMIT {limit}";
             }
         }
 
