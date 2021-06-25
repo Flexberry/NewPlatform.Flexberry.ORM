@@ -1182,5 +1182,70 @@
                 Assert.True((loadedObjects[0] as Медведь).Друг == (loadedObjects[1] as Медведь) || (loadedObjects[1] as Медведь).Друг == (loadedObjects[0] as Медведь));
             }
         }
+
+        /// <summary>
+        /// Тест для проверки записи иерархической сущности. Проверяем, что нет лишних Update-запросов в БД.
+        /// </summary>
+        [Fact]
+        public void InsertHierarchyTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                SQLDataService sqlDataService = (dataService as SQLDataService);
+                sqlDataService.OnCreateCommand += (object sender, CreateCommandEventArgs e) =>
+                {
+                    if (e.Command.CommandText.StartsWith("UPDATE"))
+                    {
+                        throw new Exception("Unnecessary update");
+                    }
+                };
+
+                var master = new Медведь { ПорядковыйНомер = 1 };
+
+                // Act.
+                dataService.UpdateObject(master);
+
+                // Assert.
+                Assert.Equal(1, master.ПорядковыйНомер);
+            }
+        }
+
+        [Fact]
+        public void UpdateObjectByStaticPropertyTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                SQLDataService ds = dataService as SQLDataService;
+
+                Медведь bear = new Медведь
+                {
+                    ЦветГлаз = "Карие",
+                    Вес = 50,
+                    Друг = new Медведь { ЦветГлаз = "Серые", Вес = 60, }
+                };
+
+                var masterForest = new Лес { Название = "лес1" };
+                var detailDen = new Берлога { Наименование = "берлога1", ЛесРасположения = masterForest };
+                bear.Берлога.Add(detailDen);
+
+                DataObject[] dataObjectsForUpdate = new DataObject[]
+                {
+                    bear
+                };
+
+                Exception updateException = null;
+                try
+                {
+                    ds.UpdateObjectsOrdered(ref dataObjectsForUpdate);
+                }
+                catch (Exception ex)
+                {
+                    updateException = ex;
+                }
+
+                Assert.True(updateException == null, "При создании через UpdateObjectsOrdered не возникло исключений");
+            }
+        }
     }
 }

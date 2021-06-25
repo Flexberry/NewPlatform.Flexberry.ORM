@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- IComparableType implementation to WebFile class.
+
 ### Changed
 
 ### Deprecated
@@ -13,7 +15,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+
 - Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
+- Update data objects with static properties inherited from DataObject.
 
 ### Security
 
@@ -44,6 +48,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - `ControlProviderAttribute(string)` constructor ignores type loading error.
 - Multiple concurrency fixes.
+
+## [5.1.3] - 2021-06-25
+
+### Fixed
+
+- Update data objects with static properties inherited from DataObject.
 
 ## [5.1.2] - 2021-06-07
 

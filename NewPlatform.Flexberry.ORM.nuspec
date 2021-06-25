@@ -16,6 +16,8 @@
       1. IComparableType implementation to WebFile class.
       Fixed
       1. Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
+      2. Update data objects with static properties inherited from DataObject.
+
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>

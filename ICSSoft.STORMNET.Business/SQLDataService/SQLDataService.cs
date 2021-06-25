@@ -4811,7 +4811,7 @@
             Dictionary<DataObject, Collections.CaseSensivityStringDictionary> createdList,
             Dictionary<DataObject, Collections.CaseSensivityStringDictionary> alteredList)
         {
-            string[] props = Information.GetAllPropertyNames(currentType);
+            string[] props = Information.GetAllPropertyNames(currentType).Where(prop => currentType.GetProperty(prop)?.GetGetMethod()?.IsStatic != true).ToArray();
 
             // Поиск свойства, в нужном типе.
             var filterProps = props
