@@ -1,4 +1,4 @@
-﻿[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+﻿[assembly: Xunit.CollectionBehavior(MaxParallelThreads = 1, DisableTestParallelization = true)]
 
 namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {

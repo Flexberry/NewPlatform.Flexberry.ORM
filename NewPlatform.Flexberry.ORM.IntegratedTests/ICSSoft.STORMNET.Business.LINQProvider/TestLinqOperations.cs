@@ -41,7 +41,7 @@
             }
 
             MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadWorkLinqWithTake);
-            multiThreadingTestTool.StartThreads(150, DataServices);
+            multiThreadingTestTool.StartThreads(50, DataServices);
 
             var exception = multiThreadingTestTool.GetExceptions();
 
@@ -110,7 +110,7 @@
             }
 
             MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadWorkLcsWithReturnTop);
-            multiThreadingTestTool.StartThreads(150, DataServices);
+            multiThreadingTestTool.StartThreads(50, DataServices);
 
             var exception = multiThreadingTestTool.GetExceptions();
 

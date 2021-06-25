@@ -272,6 +272,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ICSSoft.STORMNET.Business.PostgresDataService\PostgresDataServiceTestScript.crp" />
+    <None Include="xunit.runner.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CurrentUserService\CurrentUserService.csproj">
