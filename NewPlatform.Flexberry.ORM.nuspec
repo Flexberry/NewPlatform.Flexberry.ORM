@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>5.1.2</version>
+    <version>5.1.3</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,9 +13,10 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
 
-      Added
-      1. IComparableType implementation to WebFile class.
-      
+      Fixed
+
+      1. Update data objects with static properties inherited from DataObject.
+
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
