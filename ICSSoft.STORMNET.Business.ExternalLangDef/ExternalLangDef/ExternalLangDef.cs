@@ -109,6 +109,22 @@
         }
 
         /// <summary>
+        /// Функция, возвращает расстояние между двумя объектами гео-данных.
+        /// </summary>
+        public string funcGeoDistance
+        {
+            get { return "GeoDistance"; }
+        }
+
+        /// <summary>
+        /// Функция, возвращает расстояние между двумя объектами гео-данных.
+        /// </summary>
+        public string funcGeomDistance
+        {
+            get { return "GeomDistance"; }
+        }
+
+        /// <summary>
         /// Функция, возвращает истину, если гео-данные пересекаются.
         /// </summary>
         public string funcGeoIntersects
@@ -943,10 +959,12 @@
                     new FunctionParameterDef(NumericType),
                     new FunctionParameterDef(NumericType)),
                 new FunctionDef(MaxFuncID + 51, BoolType, "GeoIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
-                    new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
-                    new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
-                    new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType))
-                );
+                new FunctionDef(MaxFuncID + 52, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeographyType)),
+                new FunctionDef(MaxFuncID + 53, BoolType, "GeomIntersects", "Пересечение гео-данных", "({0} пересекает {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType)),
+                new FunctionDef(MaxFuncID + 54, BoolType, "ISNULL", "НЕ ЗАПОЛНЕНО", "({0} не заполнено)", new FunctionParameterDef(GeometryType)),
+                new FunctionDef(MaxFuncID + 55, NumericType, "GeoDistance", "Расстояние между двумя объектами гео-данных", "(Расстояние между {0} и {1})", new FunctionParameterDef(GeographyType), new FunctionParameterDef(GeographyType)),
+                new FunctionDef(MaxFuncID + 56, NumericType, "GeomDistance", "Пересечение между двумя объектами гео-данных", "(Расстояние между {0} и {1})", new FunctionParameterDef(GeometryType), new FunctionParameterDef(GeometryType))
+            );
 
             base.InitializeDefs();
         }
@@ -1346,6 +1364,11 @@
             }
 
             if (value.FunctionDef.StringedView == funcToChar)
+            {
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
+            }
+
+            if (value.FunctionDef.StringedView == funcGeoDistance || value.FunctionDef.StringedView == funcGeomDistance)
             {
                 return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
