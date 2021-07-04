@@ -2,7 +2,9 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_e
 [
     [ "CreateGeography", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a202b7580d1e2d75788ac68e0188f9aa6", null ],
     [ "CreateGeometry", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a991e0b38d08c7ff93f02657295132924", null ],
+    [ "GeoDistance", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#ae3ad48aaecf609a9d95fa0fd837ea912", null ],
     [ "GeoIntersects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a3e9662d31d3c5c0125fb282b385aaa90", null ],
+    [ "GeomDistance", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a7b3abd5dd0e3c9190b2a35259fd8129d", null ],
     [ "GeomIntersects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a61e42d41f74b3863c9378dc4ce8b496a", null ],
     [ "GetEWKT", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a70083e1de7f264262b31a7b46f572084", null ],
     [ "GetEWKT", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_extensions_1_1_gis_extensions.html#a00f2995d7de7c5058d6c17fef7af528c", null ],
