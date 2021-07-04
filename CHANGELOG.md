@@ -6,7 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- IComparableType implementation to WebFile class.
+- `IComparableType` implementation to `WebFile` class.
+- Feature GeoDistance is implemented.
 
 ### Changed
 
