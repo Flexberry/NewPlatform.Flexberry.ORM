@@ -594,30 +594,63 @@
             string methodName = expression.Method.Name;
             switch (methodName)
             {
+                case "GeoDistance":
+                case "Distance":
+                    {
+                        UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geography), typeof(Geography) });
+
+                        Visit(expression.Arguments[0]);
+                        Visit(expression.Arguments[1]);
+                        var arg2 = _stacksHolder.PopParam();
+                        var arg1 = _stacksHolder.PopParam();
+
+                        _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeoDistance, arg1, arg2));
+
+                        return expression;
+                    }
+
+                case "GeomDistance":
+                    {
+                        UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geometry), typeof(Geometry) });
+
+                        Visit(expression.Arguments[0]);
+                        Visit(expression.Arguments[1]);
+                        var arg_2 = _stacksHolder.PopParam();
+                        var arg_1 = _stacksHolder.PopParam();
+
+                        _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeomDistance, arg_1, arg_2));
+
+                        return expression;
+                    }
+
                 case "GeoIntersects":
                 case "Intersects":
-                    UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geography), typeof(Geography) });
+                    {
+                        UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geography), typeof(Geography) });
 
-                    Visit(expression.Arguments[0]);
-                    Visit(expression.Arguments[1]);
-                    var arg2 = _stacksHolder.PopParam();
-                    var arg1 = _stacksHolder.PopParam();
+                        Visit(expression.Arguments[0]);
+                        Visit(expression.Arguments[1]);
+                        var arg2 = _stacksHolder.PopParam();
+                        var arg1 = _stacksHolder.PopParam();
 
-                    _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeoIntersects, arg1, arg2));
+                        _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeoIntersects, arg1, arg2));
 
-                    return expression;
+                        return expression;
+                    }
 
                 case "GeomIntersects":
-                    UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geometry), typeof(Geometry) });
+                    {
+                        UtilsLcs.CheckMethodArguments(expression, new[] { typeof(Geometry), typeof(Geometry) });
 
-                    Visit(expression.Arguments[0]);
-                    Visit(expression.Arguments[1]);
-                    var arg_2 = _stacksHolder.PopParam();
-                    var arg_1 = _stacksHolder.PopParam();
+                        Visit(expression.Arguments[0]);
+                        Visit(expression.Arguments[1]);
+                        var arg_2 = _stacksHolder.PopParam();
+                        var arg_1 = _stacksHolder.PopParam();
 
-                    _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeomIntersects, arg_1, arg_2));
+                        _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcGeomIntersects, arg_1, arg_2));
 
-                    return expression;
+                        return expression;
+                    }
 
                 case "Get":
                     // Обработка параметров
@@ -640,6 +673,7 @@
                     }
 
                     return expression;
+
                 case "ToString":
                     // Для Nullable-типов проверка CheckMethodArguments не срабатывает, поскольку используется чуть другой ToString.
                     if (!(expression.Object != null

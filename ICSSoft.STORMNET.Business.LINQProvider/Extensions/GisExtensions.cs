@@ -10,6 +10,30 @@
     public static class GisExtensions
     {
         /// <summary>
+        /// Вычисляет расстояние между двумя объектами Geography.
+        /// Метод может использоваться только в запросе к LINQProvider. В остальных случаях всегда будет возвращать 0.0 .
+        /// </summary>
+        /// <param name="geo1">Объект 1 Geography.</param>
+        /// <param name="geo2">Объект 2 Geography.</param>
+        /// <returns>Возвращает минимальное расстояние между двумя объектами.</returns>
+        public static double GeoDistance(this Geography geo1, Geography geo2)
+        {
+            return 0.0;
+        }
+
+        /// <summary>
+        /// Вычисляет расстояние между двумя объектами Geometry.
+        /// Метод может использоваться только в запросе к LINQProvider. В остальных случаях всегда будет возвращать 0.0 .
+        /// </summary>
+        /// <param name="geo1">Объект 1 Geometry.</param>
+        /// <param name="geo2">Объект 2 Geometry.</param>
+        /// <returns>Возвращает минимальное расстояние между двумя объектами.</returns>
+        public static double GeomDistance(this Geometry geo1, Geometry geo2)
+        {
+            return 0.0;
+        }
+
+        /// <summary>
         /// Тестирует пересечение двух объектов Geography.
         /// Метод может использоваться только в запросе к LINQProvider. В остальных случаях всегда будет возвращать false.
         /// </summary>
