@@ -14,8 +14,9 @@
     <releaseNotes>
       Added
       1. IComparableType implementation to WebFile class.
+      2. Feature GeoDistance is implemented.
       Fixed
-      1. Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
+      1. Resolve hierarchy references for Created master only (removed excess UPDATE).
       2. Update data objects with static properties inherited from DataObject.
 
     </releaseNotes>
