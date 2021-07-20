@@ -18,7 +18,7 @@
         /// <param name="geo1">Объект 1 Geography.</param>
         /// <param name="geo2">Объект 2 Geography.</param>
         /// <returns>Возвращает минимальное расстояние между двумя объектами.</returns>
-        public static double GeoDistance(this Geography geo1, Geography geo2)
+        public static double? GeoDistance(this Geography geo1, Geography geo2)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +31,7 @@
         /// <param name="geo1">Объект 1 Geometry.</param>
         /// <param name="geo2">Объект 2 Geometry.</param>
         /// <returns>Возвращает минимальное расстояние между двумя объектами.</returns>
-        public static double GeomDistance(this Geometry geo1, Geometry geo2)
+        public static double? GeomDistance(this Geometry geo1, Geometry geo2)
         {
             throw new NotImplementedException();
         }
