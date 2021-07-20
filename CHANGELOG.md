@@ -18,7 +18,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 - Update data objects with static properties inherited from DataObject.
 - Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
-
+- Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
+    
 ### Security
 
 ## [6.0.0] - 2021-05-25
