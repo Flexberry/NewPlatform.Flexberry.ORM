@@ -60,7 +60,7 @@
                 case LcsReturnType.Count:
                     return _ds.GetObjectsCount(lcs);
                 default:
-                    throw new Exception("Linq провайдер не поддрживает тип: " + lcs.ReturnType);
+                    throw new Exception("Linq провайдер не поддерживает тип: " + lcs.ReturnType);
             }
         }
 
