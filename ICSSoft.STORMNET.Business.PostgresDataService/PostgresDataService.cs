@@ -545,34 +545,7 @@
         /// <returns>Identifier with brackets.</returns>
         public override string PutIdentifierIntoBrackets(string identifier)
         {
-            string postgresIdentifier = PrepareIdentifier(identifier);
-
-            // Multithreading app with single DS may be failed.
-            if (!isGenerateSqlSelect)
-            {
-                return postgresIdentifier;
-            }
-
-            if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
-            {
-                dictionaryShortNames[postgresIdentifier] = null;
-            }
-
-            if (postgresIdentifier.IndexOf(".", StringComparison.Ordinal) != -1)
-            {
-                postgresIdentifier = "\"" + GenerateShortName(postgresIdentifier) + "\"";
-            }
-            else
-            {
-                if (dictionaryShortNames[postgresIdentifier] == null)
-                {
-                    dictionaryShortNames[postgresIdentifier] = GenerateShortName(postgresIdentifier);
-                }
-
-                postgresIdentifier = dictionaryShortNames[postgresIdentifier];
-            }
-
-            return postgresIdentifier;
+            return PutIdentifierIntoBrackets(identifier, isGenerateSqlSelect);
         }
 
         /// <summary>
@@ -907,6 +880,7 @@
                 else if (string.IsNullOrEmpty(orderByExprForPaging))
                 {
                     orderByExprForPaging = $"{nl}ORDER BY {SQLWhereLanguageDef.StormMainObjectKey}";
+                    query += orderByExprForPaging;
                 }
 
                 resQuery =
@@ -949,6 +923,44 @@
             }
 
             return ret;
+        }
+
+        /// <summary>
+        /// Put identifier into brackets.
+        /// </summary>
+        /// <param name="identifier">Identifier in query.</param>
+        /// <param name="generateSqlSelectFlag">A flag, indicating that a call is made from GenerateSQLSelect() method.</param>
+        /// <returns>Identifier with brackets.</returns>
+        protected string PutIdentifierIntoBrackets(string identifier, bool generateSqlSelectFlag)
+        {
+            string postgresIdentifier = PrepareIdentifier(identifier);
+
+            // Multithreading app with single DS may be failed.
+            if (!generateSqlSelectFlag)
+            {
+                return postgresIdentifier;
+            }
+
+            if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
+            {
+                dictionaryShortNames[postgresIdentifier] = null;
+            }
+
+            if (postgresIdentifier.IndexOf(".", StringComparison.Ordinal) != -1)
+            {
+                postgresIdentifier = "\"" + GenerateShortName(postgresIdentifier) + "\"";
+            }
+            else
+            {
+                if (dictionaryShortNames[postgresIdentifier] == null)
+                {
+                    dictionaryShortNames[postgresIdentifier] = GenerateShortName(postgresIdentifier);
+                }
+
+                postgresIdentifier = dictionaryShortNames[postgresIdentifier];
+            }
+
+            return postgresIdentifier;
         }
 
         private IDictionary<int, string> GetObjectIndexesWithPksImplementation(
