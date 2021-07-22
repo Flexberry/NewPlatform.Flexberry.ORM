@@ -20,6 +20,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0" />
+    <PackageReference Include="SharpZipLib" Version="1.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,19 +30,6 @@
 
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0" />
-    <PackageReference Include="SharpZipLib" Version="1.2.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System.DirectoryServices" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

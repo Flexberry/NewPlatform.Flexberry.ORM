@@ -4,8 +4,12 @@
     using System.Data;
     using System.Globalization;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Security;
     using ICSSoft.STORMNET.UserDataTypes;
+
+    using Moq;
+
     using Xunit;
 
     /// <summary>
@@ -21,7 +25,9 @@
         /// <returns>Сконструированный MSSQLDataService.</returns>
         public static MSSQLDataService CreateMSSQLDataServiceForTests()
         {
-            var ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             ds.CustomizationString = "SERVER=server;Trusted_connection=yes;DATABASE=test;";
             return ds;
         }
@@ -32,7 +38,7 @@
         [Fact]
         public void GetConnectionTest()
         {
-            MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+            using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
             IDbConnection conn = ds.GetConnection();
             Assert.NotNull(conn);
         }
@@ -43,7 +49,7 @@
         [Fact]
         public void GetIfNullExpressionTest()
         {
-            MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+            using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
 
             string exp = ds.GetIfNullExpression("identifier1", "identifier2");
             Assert.Equal("ISNULL(identifier1, identifier2)", exp);
@@ -66,7 +72,7 @@
         {
             var exception = Xunit.Record.Exception(() =>
             {
-                MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+                using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
                 ds.GetIfNullExpression(null);
             });
             Assert.IsType(typeof(ArgumentNullException), exception);
@@ -80,7 +86,7 @@
         {
             var exception = Xunit.Record.Exception(() =>
             {
-                MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+                using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
                 ds.GetIfNullExpression(new string[] { });
             });
             Assert.IsType(typeof(ArgumentException), exception);
@@ -92,7 +98,7 @@
         [Fact]
         public void ConvertSimpleValueToQueryValueStringTest()
         {
-            MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+            using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
 
             string val = ds.ConvertSimpleValueToQueryValueString(null);
             Assert.Equal("NULL", val);
@@ -120,18 +126,6 @@
             int intVal = 5;
             val = ds.ConvertSimpleValueToQueryValueString(intVal);
             Assert.Equal(intVal.ToString(CultureInfo.InvariantCulture), val);
-        }
-
-        /// <summary>
-        /// Тестирование конструктора <see cref="MSSQLDataService(ISecurityManager)"/> с передачей сервиса полномочий <see cref="ISecurityManager"/>.
-        /// </summary>
-        [Fact]
-        public void ConstructorMSSQLDataServiceWithSecurityManagerTest()
-        {
-            ISecurityManager securityManager = new EmptySecurityManager();
-            var dataService = new MSSQLDataService(securityManager);
-
-            Assert.NotNull(dataService);
         }
     }
 }

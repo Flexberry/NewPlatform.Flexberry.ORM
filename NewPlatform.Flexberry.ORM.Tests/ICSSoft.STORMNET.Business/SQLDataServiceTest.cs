@@ -1,9 +1,13 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
+    using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Security;
 
     using Moq;
     using Xunit;
@@ -20,7 +24,9 @@
         public void TranslateExpressionTest()
         {
             // Arrange.
-            SQLDataService ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             bool pointExistInSourceIdentifier;
 
             string expectedResult =
@@ -44,7 +50,9 @@
         public void TranslateExpressionForXmlPathTest()
         {
             // Arrange.
-            SQLDataService ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             bool pointExistInSourceIdentifier;
             string expectedResult = "(select '' as [@caption], [KP].[ФИО] as [@value] For XML PATH ('element'), TYPE)";
 
@@ -62,7 +70,9 @@
         public void AddPripertiesFromDataServiceExpressionToDynamicView1()
         {
             // Arrange.
-            var ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             ds.AfterGenerateSQLSelectQuery += (sender, e) =>
             {
                 // Assert.
@@ -83,7 +93,9 @@
         public void AddPripertiesFromDataServiceExpressionToDynamicView2()
         {
             // Arrange.
-            var ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             ds.AfterGenerateSQLSelectQuery += (sender, e) =>
             {
                 // Assert.
@@ -105,7 +117,9 @@
         public void AddPripertiesFromDataServiceExpressionToDynamicView3()
         {
             // Arrange.
-            var ds = new MSSQLDataService();
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
             ds.AfterGenerateSQLSelectQuery += (sender, e) =>
             {
                 // Assert.
@@ -167,10 +181,12 @@
         public void TestConvertibleToQueryValueString()
         {
             // Arrange.
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
             var mock = new Mock<IConvertibleToQueryValueString>();
             mock.Setup(m => m.ConvertToQueryValueString()).Returns(string.Empty);
 
-            var dataService = new MSSQLDataService();
+            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
 
             // Act.
             dataService.ConvertSimpleValueToQueryValueString(mock.Object);
@@ -188,21 +204,55 @@
             // Arrange.
             object supportedValue = new object();
 
-            var mock = new Mock<IConverterToQueryValueString>();
-            mock.Setup(m => m.IsSupported(typeof(object))).Returns(true);
-            mock.Setup(m => m.IsSupported(typeof(int))).Returns(false);
-            mock.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(string.Empty);
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            var mockConverter = new Mock<IConverterToQueryValueString>();
+            mockConverter.Setup(m => m.IsSupported(typeof(object))).Returns(true);
+            mockConverter.Setup(m => m.IsSupported(typeof(int))).Returns(false);
+            mockConverter.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(string.Empty);
 
-            var dataService = new MSSQLDataService(mock.Object);
+            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockConverter.Object);
 
             // Act.
             dataService.ConvertSimpleValueToQueryValueString(supportedValue);
             dataService.ConvertSimpleValueToQueryValueString(0);
 
             // Assert.
-            mock.Verify(m => m.IsSupported(typeof(object)), Times.Once);
-            mock.Verify(m => m.IsSupported(typeof(int)), Times.Once);
-            mock.Verify(m => m.ConvertToQueryValueString(supportedValue), Times.Once);
+            mockConverter.Verify(m => m.IsSupported(typeof(object)), Times.Once);
+            mockConverter.Verify(m => m.IsSupported(typeof(int)), Times.Once);
+            mockConverter.Verify(m => m.ConvertToQueryValueString(supportedValue), Times.Once);
+        }
+
+        /// <summary>
+        /// Тест для проверки установки строки соединения через свойство <see cref="SQLDataService.CustomizationStringName"/>.
+        /// </summary>
+        [Fact]
+        public void CustomizationStringNameTest()
+        {
+            var configResolver = new ConfigResolver();
+
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            var dataServices = new List<SQLDataService>
+            {
+                new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+                new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+                new OracleDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+            };
+
+            foreach (var dataService in dataServices)
+            {
+                // Arrange.
+                const string connectionStringName = "TestConnStr";
+                string expectedResult = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
+
+                // Act.
+                dataService.CustomizationStringName = connectionStringName;
+                string actualResult = dataService.CustomizationString;
+
+                // Assert.
+                Assert.Equal(expectedResult, actualResult);
+            }
         }
     }
 }

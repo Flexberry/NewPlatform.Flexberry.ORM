@@ -4,7 +4,7 @@
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release</Configurations>
     <LangVersion>latest</LangVersion>
-    <RootNamespace>ICSSoft.Services</RootNamespace>
+    <RootNamespace>NewPlatform.Flexberry.ORM.CurrentUserService</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.CurrentUserService</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -13,6 +13,7 @@
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.1</FileVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,18 +25,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Unity.Abstractions" Version="5.11.6" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
 
 </Project>

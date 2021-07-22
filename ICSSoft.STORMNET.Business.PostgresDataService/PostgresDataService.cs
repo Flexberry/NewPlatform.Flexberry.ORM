@@ -7,14 +7,14 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using FunctionalLanguage;
-    using FunctionalLanguage.SQLWhere;
+
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
     using Npgsql;
-    using Services;
-    using Windows.Forms;
-    using static Windows.Forms.ExternalLangDef;
 
     /// <summary>
     /// DataService for PostgreSQL.
@@ -174,31 +174,6 @@
         }
 
         /// <summary>
-        /// Создание сервиса данных для PostgreSQL без параметров.
-        /// </summary>
-        public PostgresDataService()
-        {
-        }
-
-        /// <summary>
-        /// Создание сервиса данных для PostgreSQL с указанием настроек проверки полномочий.
-        /// </summary>
-        /// <param name="securityManager">Сконструированный менеджер полномочий.</param>
-        public PostgresDataService(ISecurityManager securityManager)
-            : base(securityManager)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PostgresDataService"/> class with specified converter.
-        /// </summary>
-        /// <param name="converterToQueryValueString">The converter instance.</param>
-        public PostgresDataService(IConverterToQueryValueString converterToQueryValueString)
-            : base(converterToQueryValueString)
-        {
-        }
-
-        /// <summary>
         /// Создание сервиса данных для PostgreSQL с указанием настроек проверки полномочий.
         /// </summary>
         /// <param name="securityManager">Сенеджер полномочий.</param>
@@ -215,7 +190,7 @@
         /// <param name="auditService">The audit service instance.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        public PostgresDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+        public PostgresDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
             : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
         {
         }
@@ -374,7 +349,8 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+                // return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+                throw new NotImplementedException("Не реализована поддержка текущего пользователя");
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
@@ -521,7 +497,7 @@
                         "(to_char({0}, '{2}')::varchar({1}))",
                         langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1],
-                        DateFormats.GetPostgresDateFormat((int)value.Parameters[2]));
+                        ExternalLangDef.DateFormats.GetPostgresDateFormat((int)value.Parameters[2]));
                 }
             }
 

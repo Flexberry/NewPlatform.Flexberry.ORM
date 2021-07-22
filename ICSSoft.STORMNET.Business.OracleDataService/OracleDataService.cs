@@ -1,17 +1,16 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Security.Cryptography;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using static Windows.Forms.ExternalLangDef;
-    using Services;
-    using System.Collections;
-    using Security;
-    using Audit;
+
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
     using Oracle.ManagedDataAccess.Client;
 
     /// <summary>
@@ -20,31 +19,6 @@
     public class OracleDataService : ICSSoft.STORMNET.Business.SQLDataService
     {
         public const int MaxBytes = 30;
-
-        /// <summary>
-        /// Создание сервиса данных для Oracle без параметров.
-        /// </summary>
-        public OracleDataService()
-        {
-        }
-
-        /// <summary>
-        /// Создание сервиса данных для Oracle с указанием настроек проверки полномочий.
-        /// </summary>
-        /// <param name="securityManager">Сконструированный менеджер полномочий.</param>
-        public OracleDataService(ISecurityManager securityManager)
-            : base(securityManager)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OracleDataService"/> class with specified converter.
-        /// </summary>
-        /// <param name="converterToQueryValueString">The converter instance.</param>
-        public OracleDataService(IConverterToQueryValueString converterToQueryValueString)
-            : base(converterToQueryValueString)
-        {
-        }
 
         /// <summary>
         /// Создание сервиса данных для Oracle с указанием настроек проверки полномочий.
@@ -63,7 +37,7 @@
         /// <param name="auditService">The audit service instance.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
+        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
             : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
         {
         }
@@ -137,10 +111,8 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
-
-                // у нее нет параметров
-                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+                // return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
+                throw new NotImplementedException("Не реализована поддержка текущего пользователя");
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
@@ -289,7 +261,7 @@
                         "SUBSTR(TO_CHAR({0}, {2}), 1, {1})",
                         langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1],
-                        DateFormats.GetOracleDateFormat((int)value.Parameters[2]));
+                        ExternalLangDef.DateFormats.GetOracleDateFormat((int)value.Parameters[2]));
                 }
             }
             else

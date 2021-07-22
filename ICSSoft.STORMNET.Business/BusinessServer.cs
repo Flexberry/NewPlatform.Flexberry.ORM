@@ -14,52 +14,20 @@
         /// </summary>
         private ObjectCreator m_objObjectCreator = new ObjectCreator();
 
-        private IDataService m_objDataService;
-
-        private System.Collections.ArrayList m_arrObjectsToUpdate;
-
-        private int _order = 0;
-
         /// <summary>
         /// Упорядочение бизнес-серверов. 0 - выполнится раньше остальных, int.MaxValue - выполнится последним. По-умолчанию: 0.
         /// </summary>
-        public int Order
-        {
-            get { return _order; }
-            set { _order = value; }
-        }
+        public int Order { get; set; }
 
         /// <summary>
         /// Ссылка на обновляемые объекты (устанавливается сервисом данных).
         /// </summary>
-        public System.Collections.ArrayList ObjectsToUpdate
-        {
-            get
-            {
-                return m_arrObjectsToUpdate;
-            }
-
-            set
-            {
-                m_arrObjectsToUpdate = value;
-            }
-        }
+        public System.Collections.ArrayList ObjectsToUpdate { get; set; }
 
         /// <summary>
         /// Сервис данных, на котором сработает этот Бизнес-сервер.
         /// </summary>
-        public virtual IDataService DataService
-        {
-            get
-            {
-                return m_objDataService ?? DataServiceProvider.DataService;
-            }
-
-            set
-            {
-                m_objDataService = value;
-            }
-        }
+        public virtual IDataService DataService { get; set; }
 
         /// <summary>
         /// Установить "создаватель" объектов.
@@ -101,10 +69,6 @@
                     Method = methodInfo;
                 }
             }
-        }
-
-        public BusinessServer()
-        {
         }
 
         /// <summary>
