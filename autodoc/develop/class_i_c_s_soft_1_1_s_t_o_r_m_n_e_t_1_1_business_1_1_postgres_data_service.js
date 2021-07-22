@@ -18,6 +18,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service 
     [ "IsTypesEquals", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1551d001b9079bfbff8f341862f07e37", null ],
     [ "PrepareIdentifier", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#aede3380d4b0abb8a8f3a7603837e2553", null ],
     [ "PutIdentifierIntoBrackets", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a6e2f88172fbdc775200cc5e7e004e219", null ],
+    [ "PutIdentifierIntoBrackets", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1da7896902be8a5bf177f1f2c9e1b924", null ],
     [ "ReadFirst", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a773b1b61869eb5e0f9aac6522490fd48", null ],
     [ "MaxNameLength", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#af7152b53889aabe5b5220cbbaeb77035", null ]
 ];

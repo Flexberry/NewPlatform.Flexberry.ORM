@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flexberry ORM 6.0.1-beta02: Класс ICSSoft.STORMNET.Business.PostgresDataService</title>
+<title>Flexberry ORM 6.0.1-beta03: Класс ICSSoft.STORMNET.Business.PostgresDataService</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 6.0.1-beta02
+   <div id="projectname">Flexberry ORM 6.0.1-beta03
    </div>
   </td>
  </tr>
@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="#pub-static-methods">Открытые статические члены</a> &#124;
 <a href="#pub-static-attribs">Статические открытые данные</a> &#124;
+<a href="#pro-methods">Защищенные члены</a> &#124;
 <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
 <div class="title">Класс ICSSoft.STORMNET.Business.PostgresDataService</div>  </div>
@@ -441,16 +442,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateObjects</b> (re
 <tr class="memdesc:a9783670c2f65c62268deb6740263391d inherit pub_static_attribs_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Делегат для смены строки соединения  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a9783670c2f65c62268deb6740263391d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a9783670c2f65c62268deb6740263391d inherit pub_static_attribs_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Дополнительные унаследованные члены</h2></td></tr>
-<tr class="inherit_header pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service')"><img src="closed.png" alt="-"/>&#160;Защищенные типы унаследованные от <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html">ICSSoft.STORMNET.Business.SQLDataService</a></td></tr>
-<tr class="memitem:a39340c0ec65973cfc52faca25aec6887 inherit pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">OperationType</a> : short { <b>None</b> = 0, 
-<b>Update</b> = 1, 
-<b>Delete</b> = 2, 
-<b>Insert</b> = 4
- }</td></tr>
-<tr class="memdesc:a39340c0ec65973cfc52faca25aec6887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The operation type.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">Подробнее...</a><br /></td></tr>
-<tr class="separator:a39340c0ec65973cfc52faca25aec6887 inherit pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Защищенные члены</h2></td></tr>
+<tr class="memitem:a1da7896902be8a5bf177f1f2c9e1b924"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1da7896902be8a5bf177f1f2c9e1b924">PutIdentifierIntoBrackets</a> (string identifier, bool isGenerateSqlSelectMode)</td></tr>
+<tr class="memdesc:a1da7896902be8a5bf177f1f2c9e1b924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put identifier into brackets.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1da7896902be8a5bf177f1f2c9e1b924">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1da7896902be8a5bf177f1f2c9e1b924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service')"><img src="closed.png" alt="-"/>&#160;Защищенные члены унаследованные от <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html">ICSSoft.STORMNET.Business.SQLDataService</a></td></tr>
 <tr class="memitem:a650972bd437559d1d78f4e277b7b3224 inherit pro_methods_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top"><a id="a650972bd437559d1d78f4e277b7b3224"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>prv_AddMasterObjectsToCache</b> (DataObject dataobject, System.Collections.ArrayList arrl, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a> <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object_cache.html">DataObjectCache</a>)</td></tr>
@@ -479,6 +475,17 @@ virtual Exception&#160;</td><td class="memItemRight" valign="bottom"><b>RunComma
 <tr class="memitem:ab729e055cefa9cf8b7f957dc9b3d6dda inherit pro_methods_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top"><a id="ab729e055cefa9cf8b7f957dc9b3d6dda"></a>
 virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>CreateTransaction</b> (IDbConnection connection)</td></tr>
 <tr class="separator:ab729e055cefa9cf8b7f957dc9b3d6dda inherit pro_methods_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Дополнительные унаследованные члены</h2></td></tr>
+<tr class="inherit_header pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service')"><img src="closed.png" alt="-"/>&#160;Защищенные типы унаследованные от <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html">ICSSoft.STORMNET.Business.SQLDataService</a></td></tr>
+<tr class="memitem:a39340c0ec65973cfc52faca25aec6887 inherit pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">OperationType</a> : short { <b>None</b> = 0, 
+<b>Update</b> = 1, 
+<b>Delete</b> = 2, 
+<b>Insert</b> = 4
+ }</td></tr>
+<tr class="memdesc:a39340c0ec65973cfc52faca25aec6887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The operation type.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a39340c0ec65973cfc52faca25aec6887">Подробнее...</a><br /></td></tr>
+<tr class="separator:a39340c0ec65973cfc52faca25aec6887 inherit pro_types_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td colspan="2" onclick="javascript:toggleInherit('properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service')"><img src="closed.png" alt="-"/>&#160;Свойства унаследованные от <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html">ICSSoft.STORMNET.Business.SQLDataService</a></td></tr>
 <tr class="memitem:a69684a7af442289d64a0bc95c1dd51a6 inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a6777f5318e4032f2091be8cca300ea87">StorageTypeEnum</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a69684a7af442289d64a0bc95c1dd51a6">StorageType</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a69684a7af442289d64a0bc95c1dd51a6 inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип хранилища  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a69684a7af442289d64a0bc95c1dd51a6">Подробнее...</a><br /></td></tr>
@@ -1285,7 +1292,7 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 </div>
 </div>
 <a id="a6e2f88172fbdc775200cc5e7e004e219"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e2f88172fbdc775200cc5e7e004e219">&#9670;&nbsp;</a></span>PutIdentifierIntoBrackets()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2f88172fbdc775200cc5e7e004e219">&#9670;&nbsp;</a></span>PutIdentifierIntoBrackets() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1318,6 +1325,52 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 <dl class="section return"><dt>Возвращает</dt><dd>Identifier with brackets.</dd></dl>
 
 <p>Переопределяет метод предка <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a74bb5837d5f18935f80ece8e02ba1083">ICSSoft.STORMNET.Business.SQLDataService</a>.</p>
+
+</div>
+</div>
+<a id="a1da7896902be8a5bf177f1f2c9e1b924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da7896902be8a5bf177f1f2c9e1b924">&#9670;&nbsp;</a></span>PutIdentifierIntoBrackets() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ICSSoft.STORMNET.Business.PostgresDataService.PutIdentifierIntoBrackets </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>identifier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isGenerateSqlSelectMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Put identifier into brackets. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">identifier</td><td>Identifier in query.</td></tr>
+    <tr><td class="paramname">isGenerateSqlSelectMode</td><td>The flag, indicating that generate SQL select mode is on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Identifier with brackets.</dd></dl>
 
 </div>
 </div>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a6fc02a0235a6e29cd956e36575eec540":[1,0,2,1,11,7,18],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a719a7efff016f4f9ad0e67fcf9848d8a":[1,0,2,1,11,7,21],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a756135126f43443f8ceafbcd24e31261":[1,0,2,1,11,7,23],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a7fcc44effc4106857620a5a2514d0728":[1,0,2,1,11,7,40],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "class_new_platform_1_1_flexberry_1_1_export_params.html":[1,0,3,0,2],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#a5415efecadb4b8ecff5aa5d684ff2144":[1,0,3,0,2,11],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#a593da8637b5364f596bfe4dfddd30548":[1,0,3,0,2,10],
-"class_new_platform_1_1_flexberry_1_1_export_params.html#a661b614a487700f2efc4448fdf338bb1":[1,0,3,0,2,7],
-"class_new_platform_1_1_flexberry_1_1_export_params.html#a6e76af037c82bc5a499cf7a108636c72":[1,0,3,0,2,4]
+"class_new_platform_1_1_flexberry_1_1_export_params.html#a661b614a487700f2efc4448fdf338bb1":[1,0,3,0,2,7]
 };
