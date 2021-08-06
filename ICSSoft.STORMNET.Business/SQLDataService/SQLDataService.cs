@@ -4075,7 +4075,7 @@
         /// <param name="view">
         /// Представление, соответствующее детейлу.
         /// </param>
-        /// <param name="DeleteDictionary">
+        /// <param name="deleteDictionary">
         /// The delete dictionary.
         /// </param>
         /// <param name="mainkey">
@@ -4100,7 +4100,7 @@
         /// </returns>
         private IEnumerable<DataObject> AddDeletedViewToDeleteDictionary(
             STORMDO.View view,
-            ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary DeleteDictionary,
+            IDictionary<string, List<string>> deleteDictionary,
             object mainkey,
             out DataObject[] updateobjects,
             StringCollection DeleteTables,
@@ -4110,9 +4110,7 @@
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
-            string tableName = Information.GetClassStorageName(view.DefineClassType);
             string prkeyStorName = view.Properties[1].Name;
-            string prevDicValue = string.Empty;
 
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
 
@@ -4123,84 +4121,62 @@
             LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
 
             cs.Init(new ColumnsSortDef[0], func, new Type[] { view.DefineClassType }, view, new string[0]);
-            string sq = GenerateSQLSelect(cs, false);
-
-            if (sq != string.Empty)
+            object state = null;
+            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
+            if (bs != null && bs.Length > 0)
+            { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
+                updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+            }
+            else
             {
-                object state = null;
-                BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
-                if (bs != null && bs.Length > 0)
-                { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                    updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                if (AuditService.IsTypeAuditable(view.DefineClassType))
+                { /* Аудиту необходимо зафиксировать удаление детейлов.
+                   * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
+                   * а бизнес-сервера основного объекта уже выполнились.
+                   */
+                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    if (detailObjects != null)
+                    {
+                        foreach (var detailObject in detailObjects)
+                        {// Мы будем сии детейлы удалять, поэтому им необходимо проставить соответствующий статус
+                            detailObject.SetStatus(ObjectStatus.Deleted);
+                        }
+
+                        extraProcessingObjects.AddRange(detailObjects.ToList());
+                    }
+                }
+
+                string sq = GenerateSQLSelect(cs, false);
+
+                if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                {
+                    Type[] types = Information.GetCompatibleTypesForTypeConvertion(view.DefineClassType);
+                    for (int i = 0; i < types.Length; i++)
+                    {
+                        string tableName = Information.GetClassStorageName(types[i]);
+                        string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " FROM (" + sq + " ) a )";
+                        if (!deleteDictionary.ContainsKey(tableName))
+                        {
+                            deleteDictionary.Add(tableName, new List<string>());
+                            AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
+                        }
+
+                        var prevDicValue = deleteDictionary[tableName];
+                        prevDicValue.Add(selectQuery);
+                    }
                 }
                 else
                 {
-                    if (AuditService.IsTypeAuditable(view.DefineClassType))
-                    { /* Аудиту необходимо зафиксировать удаление детейлов.
-                       * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
-                       * а бизнес-сервера основного объекта уже выполнились.
-                       */
-                        DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
-                        if (detailObjects != null)
-                        {
-                            foreach (var detailObject in detailObjects)
-                            {// Мы будем сии детейлы удалять, поэтому им необходимо проставить соответствующий статус
-                                detailObject.SetStatus(ObjectStatus.Deleted);
-                            }
-
-                            extraProcessingObjects.AddRange(detailObjects.ToList());
-                        }
-                    }
-
-                    if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                    string tableName = Information.GetClassStorageName(view.DefineClassType);
+                    string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " FROM (" + sq + " ) a )";
+                    if (!deleteDictionary.ContainsKey(tableName))
                     {
-                        Type[] types = Information.GetCompatibleTypesForTypeConvertion(view.DefineClassType);
-                        for (int i = 0; i < types.Length; i++)
-                        {
-                            tableName = Information.GetClassStorageName(types[i]);
-                            prevDicValue = string.Empty;
-                            if (!DeleteDictionary.ContainsKey(tableName))
-                            {
-                                DeleteDictionary.Add(tableName, string.Empty);
-                                AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
-                            }
-                            else
-                            {
-                                prevDicValue = DeleteDictionary[tableName] + " OR ";
-                            }
-
-                            string selectQuery = " IN ( SELECT " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " FROM (" + sq + " ) a )";
-                            DeleteDictionary[tableName] = prevDicValue + PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + selectQuery;
-                        }
+                        deleteDictionary.Add(tableName, new List<string>());
+                        AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
                     }
-                    else
-                    {
-                        string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " FROM (" + sq + " ) a )";
-                        if (!DeleteDictionary.ContainsKey(tableName))
-                        {
-                            DeleteDictionary.Add(tableName, string.Empty);
-                            AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
-                            DeleteDictionary[tableName] = prevDicValue + selectQuery;
-                        }
-                        else
-                        {
-                            prevDicValue = DeleteDictionary[tableName];
-                            if (prevDicValue.IndexOf(selectQuery) < 0)
-                            {
-                                int index0 = prevDicValue.LastIndexOf((char)0);
-                                if (prevDicValue.Length - index0 > 5000)
-                                {
-                                    prevDicValue = DeleteDictionary[tableName] + ((char)0).ToString();
-                                }
-                                else
-                                {
-                                    prevDicValue = DeleteDictionary[tableName] + " OR ";
-                                }
 
-                                DeleteDictionary[tableName] = prevDicValue + selectQuery;
-                            }
-                        }
-                    }
+                    var prevDicValue = deleteDictionary[tableName];
+                    prevDicValue.Add(selectQuery);
                 }
             }
 
@@ -4921,7 +4897,7 @@
             string nl = Environment.NewLine;
             string nlk = ",";
             var deleteList = new System.Collections.SortedList();
-            var deleteDictionary = new ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary();
+            var deleteDictionary = new Dictionary<string, List<string>>();
             var extraProcessingList = new List<DataObject>();
             var createdList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
             var alteredList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
@@ -5320,31 +5296,29 @@
             {
                 for (int j = 0; j < queryOrder.Count; j++)
                 {
-                    if (deleteDictionary[queryOrder[j]] != string.Empty)
+                    string identifier = queryOrder[j];
+                    if (deleteList.ContainsKey(identifier))
                     {
-                        if (deleteList.ContainsKey(queryOrder[j]))
+                        FunctionalLanguage.Function func = (STORMFunction)deleteList[identifier];
+                        string Query = "DELETE FROM " + PutIdentifierIntoBrackets(identifier) + " WHERE " +
+                                       LimitFunction2SQLWhere(func);
+                        if (!deleteQueries.Contains(Query))
                         {
-                            FunctionalLanguage.Function func = (STORMFunction)deleteList[queryOrder[j]];
-                            string Query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " +
-                                           LimitFunction2SQLWhere(func);
-                            if (!deleteQueries.Contains(Query))
-                            {
-                                deleteTables.Add(queryOrder[j]);
-                                deleteQueries.Add(Query);
-                            }
+                            deleteTables.Add(identifier);
+                            deleteQueries.Add(Query);
                         }
+                    }
 
-                        if (deleteDictionary.ContainsKey(queryOrder[j]))
+                    if (deleteDictionary.ContainsKey(identifier))
+                    {
+                        var deleteDetailQueries = deleteDictionary[identifier];
+                        foreach (string s in deleteDetailQueries)
                         {
-                            string[] sq = deleteDictionary[queryOrder[j]].Split((char)0);
-                            foreach (string s in sq)
+                            string query = "DELETE FROM " + PutIdentifierIntoBrackets(identifier) + " WHERE " + s;
+                            if (!deleteQueries.Contains(query))
                             {
-                                string query = "DELETE FROM " + PutIdentifierIntoBrackets(queryOrder[j]) + " WHERE " + s;
-                                if (!deleteQueries.Contains(query))
-                                {
-                                    deleteTables.Add(queryOrder[j]);
-                                    deleteQueries.Add(query);
-                                }
+                                deleteTables.Add(identifier);
+                                deleteQueries.Add(query);
                             }
                         }
                     }

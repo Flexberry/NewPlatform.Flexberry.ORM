@@ -8,24 +8,30 @@
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
+    using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
-    using Xunit;
+
     using NewPlatform.Flexberry.ORM.Tests;
-    using ICSSoft.STORMNET.Exceptions;
+
+    using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тестовый класс для <see cref="SQLDataService"/>.
     /// </summary>
     public partial class SQLDataServiceTest : BaseIntegratedTest
     {
+        private readonly ITestOutputHelper output;
+
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public SQLDataServiceTest()
+        public SQLDataServiceTest(ITestOutputHelper output)
             : base("SQLDS")
         {
+            this.output = output ?? throw new ArgumentNullException(nameof(output));
         }
 
         /// <summary>
@@ -180,7 +186,7 @@
                 Assert.Equal(1, result.Count);
                 Assert.True(result[1].IndexOf("{") > -1);
 
-                Console.WriteLine(result[1]);
+                output.WriteLine(result[1]);
             }
         }
 
