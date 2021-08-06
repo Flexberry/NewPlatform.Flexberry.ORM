@@ -9,7 +9,6 @@
     /// <summary>
     /// Тестовый класс для DataObject.
     /// </summary>
-    
     public class DataObjectTest
     {
         /// <summary>
@@ -17,7 +16,7 @@
         /// чьи значения изменились по сравнению с внутренней копией.
         /// </summary>
         [Fact]
-        
+
         public void IsAlteredPropertyTest()
         {
             var target = CreateDataObject(); // TODO: Initialize to an appropriate value
@@ -35,7 +34,7 @@
         /// Тест копирования объектов без применения кэширования.
         /// </summary>
         [Fact]
-        
+
         public void CopyToObjectWithoutCacheTest1()
         {
             // Входной параметр: новый объект класса DataObjectForTest().
@@ -56,7 +55,7 @@
         /// Тест метода  <see cref="CopyTo()"/>, Создающего копию этого объекта данных.
         /// </summary>
         [Fact]
-        
+
         public void CopyToObjectDataCopyTest()
         {
             // Входные параметры: два объекта класса DataObjectForTest.
@@ -77,7 +76,7 @@
         /// Проверка переключения статусов из статуса Created.
         /// </summary>
         [Fact]
-        
+
         public void SetStatusFromCreatedTest()
         {
             // Входной параметр: новый объкт класса DataObjectForTest.
@@ -100,9 +99,9 @@
         /// Проверяем делегат на PresentationValue.
         /// </summary>
         [Fact]
-        
+
         public void GetPresentationValueDelegateTest()
-        {            
+        {
             const string Expected = "MySuperPuperPresentationValue";
 
             // Установим делегат для предоставления презентационного значения для объекта
@@ -114,14 +113,14 @@
             Assert.Equal(Expected, actual);
 
             // Вернем на исходную делегат для предоставления презентационного значения для объекта
-            STORMNET.DataObject.GetPresentationValueDelegate = null;            
+            STORMNET.DataObject.GetPresentationValueDelegate = null;
         }
 
         /// <summary>
         /// Тест метода <see cref="CopyToObjectWithoutCache()"/>, Копирующего объекты без применения кэширования.
         /// </summary>
         [Fact]
-        
+
         public void CopyToObjectWithoutCacheTest2()
         {
             // Входной параметр: новый объект классса clb.
@@ -143,7 +142,7 @@
         /// Тест метода <see cref="CopyToObjectWithoutCache()"/>, Копирующего объекты без применения кэширования.
         /// </summary>
         [Fact]
-        
+
         public void CopyToObjectWithoutCacheTest3()
         {
             // Входные параметры: новые объекты классов cla и clb.
@@ -165,7 +164,7 @@
         /// Тест метода <see cref="CopyToObjectWithoutCache()"/>, Копирующего объекты без применения кэширования.
         /// </summary>
         [Fact]
-        
+
         public void CopyToObjectWithoutCacheTest4()
         {
             // Входные параметры: новые объекты классов cla и clb.
@@ -189,7 +188,7 @@
         /// Проверка переключения статусов из статуса Created.
         /// </summary>
         [Fact]
-        
+
         public void DynamicPropertiesTest()
         {
             // Входные параметры: новый объект типа DataObjectForTest, новый гуид.
@@ -208,7 +207,7 @@
         /// Тест функции <see cref="GetPresentationValue()"/>, получающей презентационное значение для объекта.
         /// </summary>
         [Fact]
-        
+
         public void GetPresentationValueTest()
         {
             // Входной параметр: новый объект типа DataObjectForTest.
@@ -228,7 +227,7 @@
         /// Тест метода <see cref="LockObject()"/>, блокирующего объект.
         /// </summary>
         [Fact]
-        
+
         public void LockObjectTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -250,7 +249,7 @@
         /// Тест проверки что объект залочен.
         /// </summary>
         [Fact]
-        
+
         public void IsReadOnlyTest()
         {
             // Входной параметр: новый объект класса DataObjec4Test.
@@ -269,7 +268,7 @@
         /// Тест метода <see cref="UnLockObject()"/>, разблокирующего объект.
         /// </summary>
         [Fact]
-        
+
         public void UnLockObjectTest()
         {
             // Входной параметр: новый объект класса DataObjec4Test.
@@ -287,7 +286,7 @@
         /// при несовпадении ключей, использовавшихся при установке и снятии блокировки.
         /// </summary>
         [Fact]
-        
+
         public void UnlockObjectDifferentKeyExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -303,7 +302,7 @@
         /// Тест метода <see cref="DataObject.GetInitializedProperties()"/>, получающий проинициализированные свойства, собственные и мастеровые (загруженные+означенные).
         /// </summary>
         [Fact]
-        
+
         public void GetInitializedPropertiesTest()
         {
             var dObj = new DataObjectForTest { Name = "Вася" };
@@ -313,7 +312,7 @@
                 Information.ExtractPropertyPath<DataObjectForTest>(x => x.Height),
                 Information.ExtractPropertyPath<DataObjectForTest>(x => x.BirthDate),
                 Information.ExtractPropertyPath<DataObjectForTest>(x => x.Gender),
-                Information.ExtractPropertyPath<DataObjectForTest>(x => x.__PrimaryKey)
+                Information.ExtractPropertyPath<DataObjectForTest>(x => x.__PrimaryKey),
             };
 
             string[] actual = dObj.GetInitializedProperties();
@@ -323,7 +322,7 @@
             string[] expected1 =
             {
                 Information.ExtractPropertyPath<ClassWithCaptions>(x => x.InformationTestClass4),
-                Information.ExtractPropertyPath<ClassWithCaptions>(x => x.__PrimaryKey)
+                Information.ExtractPropertyPath<ClassWithCaptions>(x => x.__PrimaryKey),
             };
 
             string[] actual1 = obj.GetInitializedProperties();
@@ -334,15 +333,15 @@
         /// Тест метода <see cref="GetInitializedProperties(bool)"/>, получающий проинициализированные свойства (загруженные+означенные).
         /// </summary>
         [Fact]
-        
+
         public void GetInitializedPropertiesWithMasterTest()
-        {            
+        {
             // Входной параметр: объект класса DataObjectForTest.
             var dObj = new DataObjectForTest();
             var actual = dObj.GetInitializedProperties(true);
 
             // Ожидаемый результат: массив строк {"Name", "Height", "BirthDate", "Gender", "_PrimaryKey"}.
-            var expected = new string[] {"Name", "Height", "BirthDate", "Gender", "__PrimaryKey"};
+            var expected = new string[] { "Name", "Height", "BirthDate", "Gender", "__PrimaryKey" };
             Assert.True(EquivalenceMethods.EqualStringArrays(actual, expected));
             var actual1 = dObj.GetInitializedProperties(false);
             Assert.True(EquivalenceMethods.EqualStringArrays(actual1, expected));
@@ -352,18 +351,18 @@
         /// Тест метода <see cref="CopySysProps()"/>, копирующего только системные свойства ("primaryKey", "prototypeKey", "readKey", "CheckDetail", "state", "DisabledInitDataCopy").
         /// </summary>
         [Fact]
-        
+
         public void CopySysPropsTest()
         {
             // Входной параметр: новый объект класса DataObjectForTest().
             var dObj = new DataObjectForTest { Name = "Вася", __PrimaryKey = "C2EE01FC-1664-4005-AADB-968809E32E33" };
             var result = new DataObjectForTest();
-            dObj.CopySysProps(result);     
+            dObj.CopySysProps(result);
             result.GetInitializedProperties();
 
             // Ожидаемый результат: значения поля __PrimaryKey у исходного и скопированого объектов совпадают, а значения поля Name - нет.
             Assert.Equal(dObj.__PrimaryKey, result.__PrimaryKey);
-            Assert.NotEqual(dObj.Name, result.Name);          
+            Assert.NotEqual(dObj.Name, result.Name);
         }
 
         /// <summary>
@@ -371,7 +370,7 @@
         ///  если не указан объект данных для копирования.
         /// </summary>
         [Fact]
-        
+
         public void CopySysPropsArgumentExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -386,7 +385,7 @@
         /// Тест метода <see cref="ClearPrototyping()"/>, сбрасывающего прототипизацию объекта.
         /// </summary>
         [Fact]
-        
+
         public void ClearPrototypingTest()
         {
             // Входные параметры: два объекта класса DataObjectForTest.
@@ -404,7 +403,7 @@
         /// Тест метода <see cref="DisableInitDataCopy()"/>, отключающего инициализацию копии данных объекта при зачитке.
         /// </summary>
         [Fact]
-        
+
         public void DisableInitDataCopyTest()
         {
             // Входной параметр: новый объект класса DataObjectForTest().
@@ -421,7 +420,7 @@
         /// Тест метода <see cref="EnableInitDataCopy()"/>, включающего инициализацию копии данных объекта при зачитке.
         /// </summary>
         [Fact]
-        
+
         public void EnableInitDataCopyTest()
         {
             // Входной параметр: новый объект класса DataObjectForTest().
@@ -439,7 +438,7 @@
         /// Тест метода <see cref="FullClearDataCopy()"/>, очищающего внутренней копии данных в собственном объекте, а также рекурсивно копии мастеровых и детейловых объектов.
         /// </summary>
         [Fact]
-        
+
         public void FullClearDataCopyTest()
         {
             // Входные параметры: объекты данных классов MasterClass и DetailClass.
@@ -460,7 +459,7 @@
         /// Тест метода <see cref="SetDataCopy()"/>, Устанавливающго внутреннюю копию объекта данных.
         /// </summary>
         [Fact]
-        
+
         public void SetDataCopyTest()
         {
             // Входной параметр: новый объект класса DataObjectForTest.
@@ -477,7 +476,7 @@
         /// Тест метода <see cref="CheckNotNullProperties(Dictionary detailSkip)"/>, ищущего незаполненные поля.
         /// </summary>
         [Fact]
-        
+
         public void CheckNotNullPropertiesTest()
         {
             // Входной параметр: новый объект класса MasterClass.
@@ -494,10 +493,10 @@
 
         /// <summary>
         /// Тест метода <see cref="CheckNotNullProperties(View view, bool returnCaptions, Dictionary detailSkip)"/>,
-        /// ищущего незаполненные поля и возвращающего заголовки по представлению. 
+        /// ищущего незаполненные поля и возвращающего заголовки по представлению.
         /// </summary>
         [Fact]
-        
+
         public void CheckNotNullPropertiesTest1()
         {
             // Входной параметр: новый объект класса MasterClass.
@@ -515,10 +514,10 @@
 
         /// <summary>
         /// Тест метода <see cref="CheckNotNullProperties(View view, bool returnCaptions)"/>,
-        /// ищущего незаполненные поля и возвращающего заголовки по представлению. 
+        /// ищущего незаполненные поля и возвращающего заголовки по представлению.
         /// </summary>
         [Fact]
-        
+
         public void CheckNotNullPropertiesTest2()
         {
             // Входной параметр: новый объект класса MasterClass.
@@ -533,10 +532,10 @@
         /// Тест метода <see cref="Insert()"/>, вставляющего объект на определённое место.
         /// </summary>
         [Fact]
-        
+
         public void InsertTest()
         {
-            // Строки, содержащие значения свойств Detailproperty детейловых объектов из массива детейловых объектов до и после вставки. 
+            // Строки, содержащие значения свойств Detailproperty детейловых объектов из массива детейловых объектов до и после вставки.
             var expected = string.Empty;
             var actual = string.Empty;
 
@@ -552,9 +551,16 @@
             var objectForInsert = new DetailClass { Detailproperty = "влез без очереди" };
             dArr.Insert(0, дObj1);
             dArr.Insert(1, дObj2);
-            for (var i = 0; i < 2; i++) expected += dArr[i].Detailproperty;
+            for (var i = 0; i < 2; i++)
+            {
+                expected += dArr[i].Detailproperty;
+            }
+
             dArr.Insert(1, objectForInsert);
-            for (var i = 0; i < 2; i++) actual += dArr[i].Detailproperty;
+            for (var i = 0; i < 2; i++)
+            {
+                actual += dArr[i].Detailproperty;
+            }
 
             // Ожидаемый результат: строки со значениями Детейлproperty различны.
             Assert.NotEqual(expected, actual);
@@ -564,10 +570,10 @@
         /// Тест метода <see cref="Move()"/>, перемещающего объект внутри массива.
         /// </summary>
         [Fact]
-        
+
         public void MoveTest()
         {
-            // Строки, содержащие значения свойств Detailproperty детейловых объектов из массива детейловых объектов до и после перемещения. 
+            // Строки, содержащие значения свойств Detailproperty детейловых объектов из массива детейловых объектов до и после перемещения.
             var expected = string.Empty;
             var actual = string.Empty;
 
@@ -582,9 +588,16 @@
             var дObj2 = new DetailClass() { Detailproperty = "второй" };
             dArr.Insert(0, дObj1);
             dArr.Insert(1, дObj2);
-            for (var i = 0; i < 2; i++) expected += dArr[i].Detailproperty;
+            for (var i = 0; i < 2; i++)
+            {
+                expected += dArr[i].Detailproperty;
+            }
+
             dArr.Move(0, 1);
-            for (var i = 0; i < 2; i++) actual += dArr[i].Detailproperty;
+            for (var i = 0; i < 2; i++)
+            {
+                actual += dArr[i].Detailproperty;
+            }
 
             // Ожидаемый результат: строки со значениями Детейлproperty различны.
             Assert.NotEqual(expected, actual);
@@ -594,7 +607,7 @@
         /// Тест выпадения ArgumentOutOfRangeException в методе Insert, при указании некорректного индекса.
         /// </summary>
         [Fact]
-        
+
         public void InsertArgumentOutOfRangeExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -615,7 +628,7 @@
         /// Тест выпадения исключения в методе Insert при добавлении объекта равного null.
         /// </summary>
         [Fact]
-        
+
         public void InsertNullReferenceExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -631,7 +644,7 @@
         /// Тест создания нового экземпляра DetailArray.
         /// </summary>
         [Fact]
-        
+
         public void DetailArrayTest()
         {
             var myArray = new DetailArray();
@@ -642,7 +655,7 @@
         /// Тест выпадения исключения при попытке создания объекта данных с первичным ключом равным null.
         /// </summary>
         [Fact]
-        
+
         public void PrimaryKeyTypeExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -656,7 +669,7 @@
         /// Тест выпадения DetailArrayAlreadyContainsObjectWithThatKeyException при попытке добавить в DetailArray два одинаковых объекта.
         /// </summary>
         [Fact]
-        
+
         public void AddObjectDetailArrayAlreadyContainsObjectWithThatKeyExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -673,7 +686,7 @@
         /// Тест метода <see cref="SetStatus()"/>, устанавливающего статус объекта данных.
         /// </summary>
         [Fact]
-        
+
         public void SetStatusTest()
         {
             // Входной параметр: новый объект класса DataObjectForTest.
@@ -692,7 +705,7 @@
         /// Тест метода <see cref="SetLoadingState()"/>, устанавливающего состояние загрузки.
         /// </summary>
         [Fact]
-        
+
         public void SetLoadingStateTest()
         {
             // Входной параметр: новый объект класса DataObjectForTest.
@@ -708,7 +721,7 @@
         /// Тест выпадения NullReferenceException в том случае, если список добавляемых свойств равен null.
         /// </summary>
         [Fact]
-        
+
         public void AddLoadedPropertiesNullReferenceExceptionTest()
         {
             var exception = Xunit.Record.Exception(() =>
@@ -724,7 +737,7 @@
         /// Тест метода <see cref="Prototyping()"/>, Прототипизирующего объект.
         /// </summary>
         [Fact]
-        
+
         public void ProtoypingTest()
         {
             // Входной параметр: новый объект класса MasterClass.
@@ -737,7 +750,7 @@
         /// Тест метода <see cref="InitDataCopy()"/>, инициализирующего копию данных.
         /// </summary>
         [Fact]
-        
+
         public void InitDataCopyTest()
         {
             try
@@ -759,25 +772,25 @@
         /// Тест метода <see cref="ToString()"/>, переводящего DataObject в строковое представление.
         /// </summary>
         [Fact]
-        
+
         public void ToStringTest()
         {
             // Входной параметр: объект класса DataObjectForTest со свойствами Name = Кеша, Gender = false, Height = 170.
             var obj = new DataObjectForTest { Name = "Кеша", Gender = false, Height = 170 };
             string actual = obj.ToString();
 
-            // Ожидаемый результат: строка "DataObjectForTest(Name=Кеша, Gender=False, Height=170)"           
+            // Ожидаемый результат: строка "DataObjectForTest(Name=Кеша, Gender=False, Height=170)"
             Assert.Equal("DataObjectForTest(Gender=False, Height=170, Name=Кеша)", actual);
 
             // Добавляем объекту динамичемкие свойства.
             obj.DynamicProperties.Add("property1", new DataObjectForTest());
             obj.DynamicProperties.Add("IntMasterProperty", "some string");
 
-            // Ожидаемый результат: строка "DataObjectForTest(Name=Кеша, Gender=False, Height=170,property1={ef52b97-dd64-4cf2-a5a8-2aed7a074420}, property3=somestring)"           
+            // Ожидаемый результат: строка "DataObjectForTest(Name=Кеша, Gender=False, Height=170,property1={ef52b97-dd64-4cf2-a5a8-2aed7a074420}, property3=somestring)"
             string actual1 = obj.ToString();
 
             // Однакоко строки не эквиваленты засчёт того, что свойство property1 формируется динамически.
-            Assert.NotEqual("DataObjectForTest(Name=Кеша, Gender=False, Height=170,property1={ef52b97-dd64-4cf2-a5a8-2aed7a074420}, property3=somestring)", actual1);            
+            Assert.NotEqual("DataObjectForTest(Name=Кеша, Gender=False, Height=170,property1={ef52b97-dd64-4cf2-a5a8-2aed7a074420}, property3=somestring)", actual1);
 
             // Берём метод ToString с параметрами Name, Height.
             string actual2 = obj.ToString(new[] { "Name", "Height" });

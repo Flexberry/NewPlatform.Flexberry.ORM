@@ -306,7 +306,6 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         {
             if (lcs.LimitFunction != null)
             {
-
                 // Для поддержки цепочного вызова Where необходимо объединить переданное ограничение с уже существующим.
                 lcs.LimitFunction = langdef.GetFunction(langdef.funcAND, lcs.LimitFunction, limitFunction);
             }
@@ -324,7 +323,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
         /// </param>
         private void FillLcsLimitFunction(Expression expression)
         {
-             SetLimitFuncion(GetExpressionTreeVisitor(_viewIsDynamic, View, _resolvingViews).GetLcsExpression(expression), _resultLcs);
+            SetLimitFuncion(GetExpressionTreeVisitor(_viewIsDynamic, View, _resolvingViews).GetLcsExpression(expression), _resultLcs);
         }
     }
 }

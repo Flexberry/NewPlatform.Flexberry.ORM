@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// соединить массивы
+        /// соединить массивы.
         /// </summary>
         /// <param name="elementType"></param>
         /// <param name="arrays"></param>

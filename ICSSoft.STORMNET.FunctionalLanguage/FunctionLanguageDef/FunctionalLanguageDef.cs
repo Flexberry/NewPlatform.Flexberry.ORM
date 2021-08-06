@@ -6,7 +6,7 @@
     using System.Text;
 
     /// <summary>
-    /// Определение языка ограничений для конструирования ограничивающих функций
+    /// Определение языка ограничений для конструирования ограничивающих функций.
     /// </summary>
     [NotStored]
     public abstract class FunctionalLanguageDef : DataObject
@@ -26,7 +26,7 @@
         private const string ExternalLangDefLibraryName = "ExternalLangDef";
 
         /// <summary>
-        /// Индекс последней функции в списке
+        /// Индекс последней функции в списке.
         /// </summary>
         public virtual int MaxFuncID
         {
@@ -34,7 +34,7 @@
         }
 
         /// <summary>
-        /// Получить определение функции
+        /// Получить определение функции.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -53,9 +53,9 @@
         }
 
         /// <summary>
-        /// Получить определение функции по его строковому представлению
+        /// Получить определение функции по его строковому представлению.
         /// </summary>
-        /// <param name="stringedView">Строковое представление идентифицирующие определение функции</param>
+        /// <param name="stringedView">Строковое представление идентифицирующие определение функции.</param>
         /// <returns>Найденное строковое представление. Выдает исключение в случае неудачи, поэтому результат не может быть пустым.</returns>
         public virtual FunctionDef GetFunctionDefByStringedView(string stringedView)
         {
@@ -72,9 +72,9 @@
         }
 
         /// <summary>
-        /// Получить наше описание типа по имени
+        /// Получить наше описание типа по имени.
         /// </summary>
-        /// <param name="typeName">Имя типа</param>
+        /// <param name="typeName">Имя типа.</param>
         /// <returns></returns>
         public virtual ObjectType GetObjectType(string typeName)
         {
@@ -90,10 +90,10 @@
         }
 
         /// <summary>
-        /// Разбор функции "по-косточкам" в специальный массив
+        /// Разбор функции "по-косточкам" в специальный массив.
         /// </summary>
-        /// <param name="f">функция</param>
-        /// <returns>new object[] { f.FunctionDef.ID, pars, types }</returns>
+        /// <param name="f">функция.</param>
+        /// <returns>new object[] { f.FunctionDef.ID, pars, types }.</returns>
         public object FunctionToSimpleStruct(Function f)
         {
             var pars = new ArrayList();
@@ -126,7 +126,7 @@
         }
 
         /// <summary>
-        /// Восстановление функции из простой структуры
+        /// Восстановление функции из простой структуры.
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -238,36 +238,39 @@
         }
 
         /// <summary>
-        /// Тип функции для возврата значения
+        /// Тип функции для возврата значения.
         /// </summary>
         protected ObjectType fieldUpFunctionType;
 
         /// <summary>
-        /// Типы (Детейл)
+        /// Типы (Детейл).
         /// </summary>
         public DetailArrayOfObjectType Types
         {
-            get { return _fieldTypes; } set { _fieldTypes = value; }
+            get { return _fieldTypes; }
+            set { _fieldTypes = value; }
         }
 
         /// <summary>
-        /// Переменные (Детейл)
+        /// Переменные (Детейл).
         /// </summary>
         public DetailArrayOfVariableDef Variables
         {
-            get { return _fieldVariables; } set { _fieldVariables = value; }
+            get { return _fieldVariables; }
+            set { _fieldVariables = value; }
         }
 
         /// <summary>
-        /// Функции (Детейл)
+        /// Функции (Детейл).
         /// </summary>
         public DetailArrayOfFunctionDef Functions
         {
-            get { return _fieldFunctions; } set { _fieldFunctions = value; }
+            get { return _fieldFunctions; }
+            set { _fieldFunctions = value; }
         }
 
         /// <summary>
-        /// Тип функции для возврата значения
+        /// Тип функции для возврата значения.
         /// </summary>
         public ObjectType UpFunctionType
         {
@@ -275,10 +278,10 @@
         }
 
         /// <summary>
-        /// Получатель ObjectType по .NET-типу (для DataObject возвращается тип первичного ключа)
+        /// Получатель ObjectType по .NET-типу (для DataObject возвращается тип первичного ключа).
         /// </summary>
-        /// <param name="type">.NET-тип</param>
-        /// <returns>ObjectType-тип</returns>
+        /// <param name="type">.NET-тип.</param>
+        /// <returns>ObjectType-тип.</returns>
         public virtual ObjectType GetObjectTypeForNetType(Type type)
         {
             foreach (ObjectType t in Types)
@@ -301,7 +304,7 @@
         }
 
         /// <summary>
-        /// Конструктор (вызывается InitializeDefs())
+        /// Конструктор (вызывается InitializeDefs()).
         /// </summary>
         public FunctionalLanguageDef()
         {
@@ -312,12 +315,12 @@
         }
 
         /// <summary>
-        /// Инициализация определений функций языка (для определения связки количества и типов параметров)
+        /// Инициализация определений функций языка (для определения связки количества и типов параметров).
         /// </summary>
-        abstract protected void InitializeDefs();
+        protected abstract void InitializeDefs();
 
         /// <summary>
-        /// Не найдена функция по сигнатуре
+        /// Не найдена функция по сигнатуре.
         /// </summary>
         public class NotFoundFunctionBySignatureException : Exception
         {
@@ -330,7 +333,7 @@
         }
 
         /// <summary>
-        /// Не найден параметр функции
+        /// Не найден параметр функции.
         /// </summary>
         public class NotFoundFunctionParametersException : Exception
         {
@@ -343,14 +346,14 @@
         }
 
         /// <summary>
-        /// Список функций с ключом в виде строкового определения
+        /// Список функций с ключом в виде строкового определения.
         /// </summary>
         public SortedList FunctionsByStringedViewList = new SortedList();
 
         private static string m_objNull = "CONST";
 
         /// <summary>
-        /// Инициализировать массив функции с ключом в виде строкового определения
+        /// Инициализировать массив функции с ключом в виде строкового определения.
         /// </summary>
         public void InitFunctionsByStringedViewList()
         {
@@ -375,11 +378,11 @@
         private readonly ConcurrentDictionary<string, FunctionDef> FunctionsByParametersTypes = new ConcurrentDictionary<string, FunctionDef>();
 
         /// <summary>
-        /// Создание ограничивающей функции
+        /// Создание ограничивающей функции.
         /// </summary>
-        /// <param name="functionString">Функция (langdef.funcEQ, например)</param>
-        /// <param name="parameters">Параметры. Например, new VariableDef(langdef.StringType, "Фамилия"), "Иванов"</param>
-        /// <returns>Ограничивающая функция</returns>
+        /// <param name="functionString">Функция (langdef.funcEQ, например).</param>
+        /// <param name="parameters">Параметры. Например, new VariableDef(langdef.StringType, "Фамилия"), "Иванов".</param>
+        /// <returns>Ограничивающая функция.</returns>
         public virtual Function GetFunction(string functionString, params object[] parameters)
         {
             InitFunctionsByStringedViewList();
@@ -470,12 +473,12 @@
     }
 
     /// <summary>
-    /// DetailArray Of VariableDef
+    /// DetailArray Of VariableDef.
     /// </summary>
     public class DetailArrayOfVariableDef : DetailArray
     {
         /// <summary>
-        /// constructor
+        /// constructor.
         /// </summary>
         /// <param name="masterObj"></param>
         public DetailArrayOfVariableDef(FunctionalLanguageDef masterObj)
@@ -484,7 +487,7 @@
         }
 
         /// <summary>
-        /// return (VariableDef)ItemByIndex(index);
+        /// return (VariableDef)ItemByIndex(index);.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -495,12 +498,12 @@
     }
 
     /// <summary>
-    /// DetailArray Of FunctionDef
+    /// DetailArray Of FunctionDef.
     /// </summary>
     public class DetailArrayOfFunctionDef : DetailArray
     {
         /// <summary>
-        /// constructor
+        /// constructor.
         /// </summary>
         /// <param name="masterObj"></param>
         public DetailArrayOfFunctionDef(FunctionalLanguageDef masterObj)
@@ -509,7 +512,7 @@
         }
 
         /// <summary>
-        /// return (FunctionDef)ItemByIndex(index);
+        /// return (FunctionDef)ItemByIndex(index);.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -520,12 +523,12 @@
     }
 
     /// <summary>
-    /// DetailArray Of ObjectType
+    /// DetailArray Of ObjectType.
     /// </summary>
     public class DetailArrayOfObjectType : DetailArray
     {
         /// <summary>
-        /// constructor
+        /// constructor.
         /// </summary>
         /// <param name="masterObj"></param>
         public DetailArrayOfObjectType(FunctionalLanguageDef masterObj)
@@ -534,7 +537,7 @@
         }
 
         /// <summary>
-        ///  return (ObjectType)ItemByIndex(index);
+        ///  return (ObjectType)ItemByIndex(index);.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>

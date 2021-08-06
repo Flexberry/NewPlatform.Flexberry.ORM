@@ -4,7 +4,7 @@ using ICSSoft.STORMNET.FunctionalLanguage;
 namespace ICSSoft.STORMNET.Windows.Forms
 {
     /// <summary>
-    /// Определение параметра
+    /// Определение параметра.
     /// </summary>
     [Serializable]
     public class ParameterDef : ICSSoft.STORMNET.FunctionalLanguage.VariableDef
@@ -29,12 +29,14 @@ namespace ICSSoft.STORMNET.Windows.Forms
 
         public string Adv
         {
-            get { return fAdv; } set { fAdv = value; }
+            get { return fAdv; }
+            set { fAdv = value; }
         }
 
         public bool Multiply
         {
-            get { return fMultiply; } set { fMultiply = value; }
+            get { return fMultiply; }
+            set { fMultiply = value; }
         }
 
         public ParameterDef(string ParamName, ICSSoft.STORMNET.FunctionalLanguage.ObjectType type, bool Multiply, string Advansed)

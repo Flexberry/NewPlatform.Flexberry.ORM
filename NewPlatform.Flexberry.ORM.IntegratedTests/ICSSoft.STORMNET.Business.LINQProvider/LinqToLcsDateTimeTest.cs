@@ -10,18 +10,17 @@
     using NewPlatform.Flexberry.ORM.Tests;
 
     /// <summary>
-    /// Тесты поддержки типа DateTime
+    /// Тесты поддержки типа DateTime.
     /// </summary>
-    
     public class LinqToLcsTodayTest
     {
         /// <summary>
-        /// LanguageDef
+        /// LanguageDef.
         /// </summary>
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
 
         /// <summary>
-        /// Только сегодняшняя дата
+        /// Только сегодняшняя дата.
         /// </summary>
         [Fact]
         public void GetLcsTestDateTimeNow()
@@ -32,20 +31,20 @@
 
             Expression queryExpression = testProvider.InnerExpression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         ldef.GetFunction(
                             ldef.funcLEQ,
                             new VariableDef(ldef.DateTimeType, "Дата"),
-                            ldef.GetFunction("TODAY"))
-                };
+                            ldef.GetFunction("TODAY")),
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Перелом)));
             Assert.True(Equals(expected, actual));
         }
 
         /// <summary>
-        /// Тест функции только дата
+        /// Тест функции только дата.
         /// </summary>
         [Fact]
         public void GetLcsTestDateTimeOnlyDate()
@@ -61,7 +60,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcOnlyDate, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcOnlyDate, ldef.GetFunction("TODAY")))
+                        ldef.GetFunction(ldef.funcOnlyDate, ldef.GetFunction("TODAY"))),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -69,7 +68,7 @@
         }
 
         /// <summary>
-        /// Тест константы "воскресение"
+        /// Тест константы "воскресение".
         /// </summary>
         [Fact]
         public void GetLcsTestSunday()
@@ -85,14 +84,14 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         ldef.GetFunction(ldef.funcDayOfWeekZeroBased, new VariableDef(ldef.DateTimeType, "Дата")),
-                        0)
+                        0),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Перелом)));
             Assert.True(Equals(expected, actual));
         }
 
         /// <summary>
-        /// Тест проверки на воскресение  в другу сторону
+        /// Тест проверки на воскресение  в другу сторону.
         /// </summary>
         [Fact]
         public void GetLcsTestSundayReverse()
@@ -100,7 +99,7 @@
             var testProvider = new TestLcsQueryProvider<Перелом>();
             var predicate1 = (Expression<Func<Перелом, bool>>)(o => DayOfWeek.Sunday == o.Дата.DayOfWeek);
             new Query<Перелом>(testProvider).Where(predicate1).ToArray();
-            Expression queryExpression = testProvider.InnerExpression; ;
+            Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
             {
@@ -108,14 +107,14 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         0,
-                        ldef.GetFunction(ldef.funcDayOfWeekZeroBased, new VariableDef(ldef.DateTimeType, "Дата")))
+                        ldef.GetFunction(ldef.funcDayOfWeekZeroBased, new VariableDef(ldef.DateTimeType, "Дата"))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Перелом)));
             Assert.True(Equals(expected, actual));
         }
 
         /// <summary>
-        /// день недели
+        /// день недели.
         /// </summary>
         [Fact]
         public void GetLcsTestDayOfWeek()
@@ -131,14 +130,14 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         ldef.GetFunction(ldef.funcDayOfWeekZeroBased, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcDayOfWeekZeroBased, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcDayOfWeekZeroBased, ldef.GetFunction(ldef.paramTODAY))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Перелом)));
             Assert.True(Equals(expected, actual));
         }
 
         /// <summary>
-        /// AddDays - исключение
+        /// AddDays - исключение.
         /// </summary>
         [Fact]
         public void GetLcsTestDaysAdd()
@@ -156,7 +155,7 @@
                         ldef.GetFunction(
                             ldef.funcEQ,
                             ldef.GetFunction(ldef.funcDayOfWeekZeroBased, new VariableDef(ldef.DateTimeType, "Дата")),
-                            ldef.GetFunction(ldef.funcDayOfWeekZeroBased, ldef.GetFunction("TODAY")))
+                            ldef.GetFunction(ldef.funcDayOfWeekZeroBased, ldef.GetFunction("TODAY"))),
                 };
                 LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Перелом)));
                 Assert.True(Equals(expected, actual));
@@ -165,7 +164,7 @@
         }
 
         /// <summary>
-        /// сегодня
+        /// сегодня.
         /// </summary>
         [Fact]
         public void GetLcsTestDateToday()
@@ -181,7 +180,7 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         ldef.GetFunction(ldef.funcOnlyDate, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcOnlyDate, ldef.GetFunction("TODAY")))
+                        ldef.GetFunction(ldef.funcOnlyDate, ldef.GetFunction("TODAY"))),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
@@ -190,7 +189,7 @@
         }
 
         /// <summary>
-        /// только время
+        /// только время.
         /// </summary>
         [Fact]
         public void GetLcsTestOnlyTime()
@@ -206,7 +205,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcOnlyTime, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcOnlyTime, ldef.GetFunction("TODAY")))
+                        ldef.GetFunction(ldef.funcOnlyTime, ldef.GetFunction("TODAY"))),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
@@ -215,15 +214,15 @@
         }
 
         /// <summary>
-        /// сравнение с перееменной
+        /// сравнение с перееменной.
         /// </summary>
         [Fact]
         public void GetLcsTestVarDateTime()
         {
             var testProvider = new TestLcsQueryProvider<Перелом>();
-             DateTime moment = DateTime.Now;
-             var predicate1 = (Expression<Func<Перелом, bool>>)(o => o.Дата <= moment);
-             new Query<Перелом>(testProvider).Where(predicate1).ToArray();
+            DateTime moment = DateTime.Now;
+            var predicate1 = (Expression<Func<Перелом, bool>>)(o => o.Дата <= moment);
+            new Query<Перелом>(testProvider).Where(predicate1).ToArray();
 
             Expression queryExpression = testProvider.InnerExpression;
             var expected = new LoadingCustomizationStruct(null)
@@ -232,7 +231,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         new VariableDef(ldef.DateTimeType, "Дата"),
-                        moment)
+                        moment),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -240,7 +239,7 @@
         }
 
         /// <summary>
-        /// сравнение с константой с помощью Parse
+        /// сравнение с константой с помощью Parse.
         /// </summary>
         [Fact]
         public void GetLcsTestParseDateTime()
@@ -256,7 +255,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         new VariableDef(ldef.DateTimeType, "Дата"),
-                        DateTime.Parse("18:00:00"))
+                        DateTime.Parse("18:00:00")),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -264,7 +263,7 @@
         }
 
         /// <summary>
-        /// номер месяца
+        /// номер месяца.
         /// </summary>
         [Fact]
         public void GetLcsTestMonthPart()
@@ -280,7 +279,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcMonthPart, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcMonthPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcMonthPart, ldef.GetFunction(ldef.paramTODAY))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -288,7 +287,7 @@
         }
 
         /// <summary>
-        /// номер дня в месяце
+        /// номер дня в месяце.
         /// </summary>
         [Fact]
         public void GetLcsTestDayPart()
@@ -304,7 +303,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcDayPart, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -312,7 +311,7 @@
         }
 
         /// <summary>
-        /// номер года
+        /// номер года.
         /// </summary>
         [Fact]
         public void GetLcsTestYearPart()
@@ -328,7 +327,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcYearPart, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcYearPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcYearPart, ldef.GetFunction(ldef.paramTODAY))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -336,7 +335,7 @@
         }
 
         /// <summary>
-        /// часы
+        /// часы.
         /// </summary>
         [Fact]
         public void GetLcsTestHourPart()
@@ -352,7 +351,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcHHPart, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcHHPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcHHPart, ldef.GetFunction(ldef.paramTODAY))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -360,7 +359,7 @@
         }
 
         /// <summary>
-        /// минуты
+        /// минуты.
         /// </summary>
         [Fact]
         public void GetLcsTestMinPart()
@@ -376,7 +375,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcMIPart, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcMIPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcMIPart, ldef.GetFunction(ldef.paramTODAY))),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -384,7 +383,7 @@
         }
 
         /// <summary>
-        /// свойства переменной
+        /// свойства переменной.
         /// </summary>
         [Fact]
         public void GetLcsTestMinPartVar()
@@ -401,7 +400,7 @@
                     ldef.GetFunction(
                         ldef.funcLEQ,
                         ldef.GetFunction(ldef.funcMIPart, new VariableDef(ldef.DateTimeType, "Дата")),
-                        ldef.GetFunction(ldef.funcMIPart, moment))
+                        ldef.GetFunction(ldef.funcMIPart, moment)),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -409,7 +408,7 @@
         }
 
         /// <summary>
-        /// Другие свойства переменной
+        /// Другие свойства переменной.
         /// </summary>
         [Fact]
         public void GetLcsTestOnlyDateVar()
@@ -426,7 +425,7 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         new VariableDef(ldef.DateTimeType, "Дата"),
-                        ldef.GetFunction(ldef.funcOnlyDate, moment))
+                        ldef.GetFunction(ldef.funcOnlyDate, moment)),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(
                 queryExpression, Utils.GetDefaultView(typeof(Перелом)));
@@ -434,7 +433,7 @@
         }
 
         /// <summary>
-        /// Ticks, Second, Millisecond, DayOfYear приводят к исключению
+        /// Ticks, Second, Millisecond, DayOfYear приводят к исключению.
         /// </summary>
         [Fact]
         public void GetLcsTestTicksException()
@@ -454,7 +453,7 @@
         }
 
         /// <summary>
-        /// Тест на AddYear
+        /// Тест на AddYear.
         /// </summary>
         [Fact]
         public void GetLcsTestAddYear()

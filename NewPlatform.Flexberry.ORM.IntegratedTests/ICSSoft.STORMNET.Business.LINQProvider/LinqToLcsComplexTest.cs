@@ -12,15 +12,14 @@
 
     /// <summary>
     /// This is a test class for LinqToLcsTest and is intended
-    /// to contain all LinqToLcsTest Unit Tests
+    /// to contain all LinqToLcsTest Unit Tests.
     /// </summary>
-    
     public class LinqToLcsComplexTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
 
         /// <summary>
-        /// A test for GetLcs
+        /// A test for GetLcs.
         /// </summary>
         [Fact]
         public void GetLcsTestPrimaryKey()
@@ -30,11 +29,11 @@
             IQueryable<DataObject> query = from pn in queryList where pn.__PrimaryKey == Guid select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         this.ldef.GetFunction(
-                            this.ldef.funcEQ, new VariableDef(this.ldef.GuidType, SQLWhereLanguageDef.StormMainObjectKey), Guid)
-                };
+                            this.ldef.funcEQ, new VariableDef(this.ldef.GuidType, SQLWhereLanguageDef.StormMainObjectKey), Guid),
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -48,10 +47,10 @@
             IQueryable<Лапа> query = from pn in queryList where pn.Номер > Number select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
-                        this.ldef.GetFunction(this.ldef.funcG, new VariableDef(this.ldef.NumericType, "Номер"), Number)
-                };
+            {
+                LimitFunction =
+                        this.ldef.GetFunction(this.ldef.funcG, new VariableDef(this.ldef.NumericType, "Номер"), Number),
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Лапа)));
             Assert.True(Equals(expected, actual));
         }
@@ -64,10 +63,10 @@
             IQueryable<Лапа> query = from pn in queryList where pn.Номер < Age select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
-                        this.ldef.GetFunction(this.ldef.funcL, new VariableDef(this.ldef.NumericType, "Номер"), Age)
-                };
+            {
+                LimitFunction =
+                        this.ldef.GetFunction(this.ldef.funcL, new VariableDef(this.ldef.NumericType, "Номер"), Age),
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Лапа)));
             Assert.True(Equals(expected, actual));
         }
@@ -80,10 +79,10 @@
             IQueryable<Лапа> query = from pn in queryList where pn.Номер >= Age select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
-                        this.ldef.GetFunction(this.ldef.funcGEQ, new VariableDef(this.ldef.NumericType, "Номер"), Age)
-                };
+            {
+                LimitFunction =
+                        this.ldef.GetFunction(this.ldef.funcGEQ, new VariableDef(this.ldef.NumericType, "Номер"), Age),
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Лапа)));
             Assert.True(Equals(expected, actual));
         }
@@ -96,10 +95,10 @@
             IQueryable<Лапа> query = from pn in queryList where pn.Номер <= Age select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
-                        this.ldef.GetFunction(this.ldef.funcLEQ, new VariableDef(this.ldef.NumericType, "Номер"), Age)
-                };
+            {
+                LimitFunction =
+                        this.ldef.GetFunction(this.ldef.funcLEQ, new VariableDef(this.ldef.NumericType, "Номер"), Age),
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Лапа)));
             Assert.True(Equals(expected, actual));
         }
@@ -111,18 +110,18 @@
             const string ldefPattern = "%ош%";
             IQueryable<Кошка> queryList = new List<Кошка>().AsQueryable();
             IQueryable<Кошка> query = from pn in queryList
-                                                        where pn.Кличка.Contains(Pattern) && pn.Кличка != "кошка"
-                                                        select pn;
+                                      where pn.Кличка.Contains(Pattern) && pn.Кличка != "кошка"
+                                      select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         ldef.GetFunction(
                             ldef.funcAND,
                             ldef.GetFunction(
                                 this.ldef.funcLike, new VariableDef(this.ldef.StringType, "Кличка"), ldefPattern),
-                            ldef.GetFunction(this.ldef.funcNEQ, new VariableDef(this.ldef.StringType, "Кличка"), "кошка"))
-                };
+                            ldef.GetFunction(this.ldef.funcNEQ, new VariableDef(this.ldef.StringType, "Кличка"), "кошка")),
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
         }
@@ -134,18 +133,18 @@
             const string ldefPattern = "%ош%";
             IQueryable<Кошка> queryList = new List<Кошка>().AsQueryable();
             IQueryable<Кошка> query = from pn in queryList
-                                                        where pn.Кличка.Contains(Pattern) || pn.Кличка != "кошка"
-                                                        select pn;
+                                      where pn.Кличка.Contains(Pattern) || pn.Кличка != "кошка"
+                                      select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         ldef.GetFunction(
                             ldef.funcOR,
                             ldef.GetFunction(
                                 this.ldef.funcLike, new VariableDef(this.ldef.StringType, "Кличка"), ldefPattern),
-                            ldef.GetFunction(this.ldef.funcNEQ, new VariableDef(this.ldef.StringType, "Кличка"), "кошка"))
-                };
+                            ldef.GetFunction(this.ldef.funcNEQ, new VariableDef(this.ldef.StringType, "Кличка"), "кошка")),
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
         }
@@ -166,17 +165,17 @@
         {
             IQueryable<Кошка> queryList = new List<Кошка>().AsQueryable();
             IOrderedQueryable<Кошка> query = from pn in queryList
-                                                        orderby pn.Кличка ascending , pn.Порода descending
-                                                        select pn;
+                                             orderby pn.Кличка ascending, pn.Порода descending
+                                             select pn;
             Expression queryExpression = query.Expression;
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    ColumnsSort =
+            {
+                ColumnsSort =
                         new[]
                             {
-                                new ColumnsSortDef("Кличка", SortOrder.Asc), new ColumnsSortDef("Порода", SortOrder.Desc)
-                            }
-                };
+                                new ColumnsSortDef("Кличка", SortOrder.Asc), new ColumnsSortDef("Порода", SortOrder.Desc),
+                            },
+            };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
         }
@@ -194,10 +193,10 @@
                 ColumnsSort =
                         new[]
                             {
-                                new ColumnsSortDef(Information.ExtractPropertyPath<Кошка>(c => c.Порода.Название), SortOrder.Asc)
-                            }
+                                new ColumnsSortDef(Information.ExtractPropertyPath<Кошка>(c => c.Порода.Название), SortOrder.Asc),
+                            },
             };
-            
+
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Кошка.Views.КошкаE);
             Assert.True(Equals(expected, actual));
 
@@ -220,7 +219,7 @@
             {
                 ColumnsSort = new[]
                 {
-                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.Мама.Мама.Вес), SortOrder.Asc)
+                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.Мама.Мама.Вес), SortOrder.Asc),
                 },
             };
 
@@ -229,7 +228,7 @@
         }
 
         /// <summary>
-        /// Проверка поддержки для Nullable<DateTime> и NullableDateTime при обработке свойств DateTime (Day, Month, Year и т.д.).
+        /// Проверка поддержки для Nullable.<DateTime> и NullableDateTime при обработке свойств DateTime (Day, Month, Year и т.д.).
         /// </summary>
         [Fact]
         public void GetLcsTestFilterNullableTypes()
@@ -244,7 +243,7 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         ldef.GetFunction(ldef.funcDayPart, new VariableDef(ldef.DateTimeType, "PoleNullableDateTime")),
-                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY))),
             };
 
             LoadingCustomizationStruct actual1 = LinqToLcs.GetLcs(query1.Expression, FullTypesMainAgregator.Views.FullView);
@@ -258,7 +257,7 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         ldef.GetFunction(ldef.funcDayPart, new VariableDef(ldef.DateTimeType, "PoleNullDateTime")),
-                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY)))
+                        ldef.GetFunction(ldef.funcDayPart, ldef.GetFunction(ldef.paramTODAY))),
             };
 
             LoadingCustomizationStruct actual2 = LinqToLcs.GetLcs(query2.Expression, FullTypesMainAgregator.Views.FullView);
@@ -303,12 +302,12 @@
             Expression queryExpression = testProvider.InnerExpression;
 
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         this.ldef.GetFunction(
                             this.ldef.funcLike, new VariableDef(this.ldef.StringType, "Кличка"), "%ош%"),
-                    ReturnType = LcsReturnType.Any
-                };
+                ReturnType = LcsReturnType.Any,
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -326,7 +325,7 @@
                 LimitFunction =
                     this.ldef.GetFunction(
                         this.ldef.funcLike, new VariableDef(this.ldef.StringType, "Кличка"), "%ош%"),
-                ReturnType = LcsReturnType.Count
+                ReturnType = LcsReturnType.Count,
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -343,11 +342,11 @@
             Expression queryExpression = query.Expression;
 
             var expected = new LoadingCustomizationStruct(null)
-                {
-                    LimitFunction =
+            {
+                LimitFunction =
                         this.ldef.GetFunction(
-                            this.ldef.funcEQ, new VariableDef(this.ldef.GuidType, SQLWhereLanguageDef.StormMainObjectKey), кошка.__PrimaryKey)
-                };
+                            this.ldef.funcEQ, new VariableDef(this.ldef.GuidType, SQLWhereLanguageDef.StormMainObjectKey), кошка.__PrimaryKey),
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -366,7 +365,7 @@
             {
                 LimitFunction =
                     this.ldef.GetFunction(
-                        this.ldef.funcEQ, кошка.__PrimaryKey, new VariableDef(this.ldef.GuidType, SQLWhereLanguageDef.StormMainObjectKey))
+                        this.ldef.funcEQ, кошка.__PrimaryKey, new VariableDef(this.ldef.GuidType, SQLWhereLanguageDef.StormMainObjectKey)),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -374,8 +373,8 @@
         }
 
         /// <summary>
-        /// Тест для преобразования вызова метода Contains у 
-        /// массива в функцию IN
+        /// Тест для преобразования вызова метода Contains у
+        /// массива в функцию IN.
         /// </summary>
         [Fact]
         public void GetLcsTestInNewArrayInitialization()
@@ -387,14 +386,14 @@
             Expression queryExpression = query.Expression;
 
             var expected = new LoadingCustomizationStruct(null)
-                               {
-                                   LimitFunction =
+            {
+                LimitFunction =
                                        ldef.GetFunction(
                                            ldef.funcIN,
                                            new VariableDef(ldef.StringType, "Кличка"),
                                            pattern,
-                                           pattern)
-                               };
+                                           pattern),
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -413,9 +412,9 @@
             queryCollection.AddRange(list);
 
             var expected = new LoadingCustomizationStruct(null)
-                               {
-                                   LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray())
-                               };
+            {
+                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray()),
+            };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -435,7 +434,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray())
+                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray()),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -456,7 +455,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray())
+                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray()),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -477,7 +476,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray())
+                LimitFunction = ldef.GetFunction(ldef.funcIN, queryCollection.ToArray()),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -486,7 +485,7 @@
 
         /// <summary>
         /// Тест для выражения “строка-константа”.StartsWith([выражение])
-        /// (должно бросаться исключение)
+        /// (должно бросаться исключение).
         /// </summary>
         [Fact]
         public void GetLcsStartsWithExpr()
@@ -540,7 +539,7 @@
                 LimitFunction = ldef.GetFunction(
                                         ldef.funcEQ,
                                         new VariableDef(this.ldef.StringType, "Кличка"),
-                                        prefix + postfix)
+                                        prefix + postfix),
             };
 
             Assert.Equal(expected.ToString(), actual.ToString());
@@ -565,7 +564,7 @@
                 LimitFunction = ldef.GetFunction(
                                         ldef.funcEQ,
                                         new VariableDef(this.ldef.NumericType, "Размер"),
-                                        6)
+                                        6),
             };
 
             Assert.Equal(expected.ToString(), actual.ToString());

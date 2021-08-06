@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Совместимость типов
+    /// Совместимость типов.
     /// </summary>
     public enum TypesCompatibilities
     {
@@ -22,11 +22,11 @@
         /// <summary>
         /// Равны
         /// </summary>
-        Equal
+        Equal,
     }
 
     /// <summary>
-    /// Класс для проверки совместимости типов
+    /// Класс для проверки совместимости типов.
     /// </summary>
     public static class CompatibilityTypeTest
     {
@@ -133,7 +133,7 @@
         }
 
         /// <summary>
-        /// Найти преобразование
+        /// Найти преобразование.
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -174,7 +174,7 @@
         }
 
         /// <summary>
-        /// Проверка на совместимость типов
+        /// Проверка на совместимость типов.
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -283,12 +283,16 @@
         internal static void Init()
         {
             if (_initialized)
+            {
                 return;
+            }
 
             lock (LockConst)
             {
                 if (_initialized)
+                {
                     return;
+                }
 
                 _checkedTypes = new List<string>();
                 _canConvertTo = new Dictionary<string, List<string>>();
@@ -309,7 +313,7 @@
                     {
                         typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long),
                         typeof(ulong),
-                        typeof(float), typeof(double), typeof(decimal)
+                        typeof(float), typeof(double), typeof(decimal),
                     });
 
                 // typeof(sbyte)
@@ -319,7 +323,7 @@
                     new[]
                     {
                         typeof(short), typeof(int), typeof(long), typeof(float), typeof(double),
-                        typeof(decimal)
+                        typeof(decimal),
                     });
 
                 // typeof(char)
@@ -330,7 +334,7 @@
                     {
                         typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong),
                         typeof(float),
-                        typeof(double), typeof(decimal)
+                        typeof(double), typeof(decimal),
                     });
 
                 // typeof(int)
@@ -352,7 +356,7 @@
                     {
                         typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int),
                         typeof(uint),
-                        typeof(char)
+                        typeof(char),
                     },
                     new[] { typeof(float), typeof(double), typeof(decimal) });
 
@@ -376,7 +380,7 @@
                     {
                         typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float),
                         typeof(double),
-                        typeof(decimal)
+                        typeof(decimal),
                     });
 
                 // typeof(string)
@@ -385,7 +389,7 @@
                     new[]
                     {
                         typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float),
-                        typeof(double), typeof(decimal)
+                        typeof(double), typeof(decimal),
                     },
                     new Type[] { });
 

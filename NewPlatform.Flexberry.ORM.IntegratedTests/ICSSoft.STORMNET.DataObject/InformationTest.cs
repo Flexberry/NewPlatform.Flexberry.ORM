@@ -1072,7 +1072,7 @@
             var obj = new MasterClass
             {
                 InformationTestClass = new InformationTestClass { StringPropertyForInformationTestClass = "Ололо", PublicStringProperty = "Атата" },
-                InformationTestClass2 = new InformationTestClass2 { StringPropertyForInformationTestClass2 = "Ороро", InformationTestClass = new InformationTestClass { PublicStringProperty = "TTT" } }
+                InformationTestClass2 = new InformationTestClass2 { StringPropertyForInformationTestClass2 = "Ороро", InformationTestClass = new InformationTestClass { PublicStringProperty = "TTT" } },
             };
 
             var actual2 = Information.GetMastersForDataObjectByView(obj, "MasterClassL").ToList<object>();
@@ -1151,7 +1151,7 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="ExtractPropertyName"/>, извлекающего свойства внутри текущего класса. 
+        /// Тест метода <see cref="ExtractPropertyName"/>, извлекающего свойства внутри текущего класса.
         /// Входные параметры: Тип класса: InformationTestClass, лямбда выражение: () =&gt; obj.stringPropertyForInformationTestClass.
         /// Ожидаемое значение: "stringPropertyForInformationTestClass".
         /// </summary>
@@ -1225,7 +1225,7 @@
             // Assert.
             // Строка-значение должна быть без оконечных пробелов.
             Assert.Equal("Test Value", obj.StringPropertyForInformationTestClass);
-         }
+        }
 
         /// <summary>
         /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
@@ -1564,7 +1564,7 @@
             var list = new ArrayList
                            {
                                new PseudoDetailInExtendedView(
-                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty)
+                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty),
                            };
 
             list.AddRange(MasterClass.Views.MasterClassL.Properties);
@@ -1585,7 +1585,7 @@
                            {
                                MasterClass.Views.MasterClassL.Properties[0],
                                new PseudoDetailInExtendedView(
-                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty)
+                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty),
                            };
             list.AddRange(MasterClass.Views.MasterClassE.Details);
 
@@ -1729,7 +1729,7 @@
 
             [Caption("Val")]
             [EmptyEnumValue]
-            SwappedVal
+            SwappedVal,
         }
 
         /// <summary>
@@ -1749,7 +1749,7 @@
             [Caption("")]
             CaseINSENSITIVEVAL,
 
-            CASEINSENSITIVEVAL
+            CASEINSENSITIVEVAL,
         }
 
         /// <summary>
@@ -1767,7 +1767,7 @@
             Year2013,
 
             [Caption("")]
-            Year2014
+            Year2014,
         }
     }
 }

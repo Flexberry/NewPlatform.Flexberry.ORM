@@ -5,7 +5,6 @@
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
 
-    
     public class LinqToLcsParametersTest
     {
         [Fact]

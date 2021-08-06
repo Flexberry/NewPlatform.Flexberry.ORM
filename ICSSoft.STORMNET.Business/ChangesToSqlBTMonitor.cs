@@ -88,8 +88,8 @@
         /// <summary>
         /// Фильтровать лишние события, а не лишние записывать.
         /// </summary>
-        /// <param name="input">входная строка</param>
-        /// <param name="id">id задачи</param>
+        /// <param name="input">входная строка.</param>
+        /// <param name="id">id задачи.</param>
         private void Print(string input, object id)
         {
             foreach (string filter in Filters)

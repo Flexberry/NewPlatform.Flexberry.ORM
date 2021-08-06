@@ -13,7 +13,7 @@
         private bool fPublished;
 
         /// <summary>
-        /// Опубликовано ли
+        /// Опубликовано ли.
         /// </summary>
         public virtual bool Published
         {

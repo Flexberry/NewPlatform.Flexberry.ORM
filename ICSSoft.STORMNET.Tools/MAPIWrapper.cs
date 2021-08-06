@@ -7,7 +7,7 @@ namespace ICSSoft.STORMNET.Tools
 {
     /// <summary>
     /// Класс для отправки писем с вложением. Поддерживается функция открытия почтового клиента.
-    /// Основано на http://www.codeproject.com/KB/IP/SendFileToNET.aspx
+    /// Основано на http://www.codeproject.com/KB/IP/SendFileToNET.aspx.
     /// </summary>
     public class MAPIWrapper
     {
@@ -196,7 +196,7 @@ namespace ICSSoft.STORMNET.Tools
                 "A recipient was specified ambiguously [21]",
                 "Message in use [22]", "Network failure [23]",
         "Invalid edit fields [24]", "Invalid recipients [25]",
-                "Not supported [26]"
+                "Not supported [26]",
         };
 
         List<MapiRecipDesc> m_recipients = new
@@ -211,9 +211,8 @@ namespace ICSSoft.STORMNET.Tools
 
         enum HowTo
         {
-            MAPI_ORIG = 0, MAPI_TO, MAPI_CC, MAPI_BCC
+            MAPI_ORIG = 0, MAPI_TO, MAPI_CC, MAPI_BCC,
         }
-;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]

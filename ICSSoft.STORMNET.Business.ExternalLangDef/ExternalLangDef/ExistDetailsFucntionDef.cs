@@ -38,7 +38,7 @@
             string agregatorPropName1 = convertIdentifier(detail1.ConnectMasterPorp);
             string agregatorPropName2 = convertIdentifier(detail2.ConnectMasterPorp);
             string[] agregatorKeys1 = detail1.OwnerConnectProp.Length == 0
-                                          ? new [] { "STORMMainObjectKey" }
+                                          ? new[] { "STORMMainObjectKey" }
                                           : detail1.OwnerConnectProp;
             string[] agregatorKeys2 = detail2.OwnerConnectProp.Length == 0
                                           ? new[] { "STORMMainObjectKey" }
@@ -59,14 +59,14 @@
             // формируем условие для функции
             string propName1 = ((VariableDef)conditionParameters[0]).StringedView;
 
-            if(propName1.StartsWith(detail1.StringedView + "."))
+            if (propName1.StartsWith(detail1.StringedView + "."))
             {
                 propName1 = propName1.Remove(0, detail1.StringedView.Length + 1);
             }
 
             string propName2 = ((VariableDef)conditionParameters[1]).StringedView;
 
-            if(propName2.StartsWith(detail2.StringedView + "."))
+            if (propName2.StartsWith(detail2.StringedView + "."))
             {
                 propName2 = propName2.Remove(0, detail2.StringedView.Length + 1);
             }

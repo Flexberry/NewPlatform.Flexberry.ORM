@@ -13,17 +13,17 @@ namespace ICSSoft.STORMNET.UserDataTypes
     public class GeoData
     {
         /// <summary>
-        /// Имя объекта
+        /// Имя объекта.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Система координат
+        /// Система координат.
         /// </summary>
         public string AxesSystem { get; set; }
 
         /// <summary>
-        /// Полигоны в формате WKT (см. http://en.wikipedia.org/wiki/Well-known_text)
+        /// Полигоны в формате WKT (см. http://en.wikipedia.org/wiki/Well-known_text).
         /// </summary>
         public string Poligons { get; set; }
 

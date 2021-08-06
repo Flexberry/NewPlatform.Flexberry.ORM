@@ -10,14 +10,14 @@
 
     /// <summary>
     /// This is a test class for LinqToLcsTest and is intended
-    /// to contain all LinqToLcsTest Unit Tests
+    /// to contain all LinqToLcsTest Unit Tests.
     /// </summary>
     public class LinqToLcsMasterTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
 
         /// <summary>
-        /// A test for GetLcs
+        /// A test for GetLcs.
         /// </summary>
         [Fact]
         public void GetLcsTestDataObject()
@@ -30,7 +30,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = ldef.GetFunction(ldef.funcEQ, порода, new VariableDef(ldef.DataObjectType, "Порода"))
+                LimitFunction = ldef.GetFunction(ldef.funcEQ, порода, new VariableDef(ldef.DataObjectType, "Порода")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -42,7 +42,7 @@
         {
             var порода = new Порода
             {
-                Название = "тест"
+                Название = "тест",
             };
 
             var testProvider = new TestLcsQueryProvider<Кошка>();
@@ -54,7 +54,7 @@
             {
                 LimitFunction =
                         ldef.GetFunction(
-                            ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.Название"), порода.Название)
+                            ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.Название"), порода.Название),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -73,7 +73,7 @@
             {
                 LimitFunction =
                     ldef.GetFunction(
-                        ldef.funcLike, new VariableDef(ldef.StringType, "Порода.Название"), "%ки%")
+                        ldef.funcLike, new VariableDef(ldef.StringType, "Порода.Название"), "%ки%"),
             };
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
             Assert.True(Equals(expected, actual));
@@ -92,7 +92,7 @@
             {
                 LimitFunction = ldef.GetFunction(ldef.funcOR,
                     ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1),
-                    ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.Название"), "тест1"))
+                    ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.Название"), "тест1")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -114,7 +114,7 @@
                         ldef.GetFunction(
                             ldef.funcOR,
                             ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1),
-                            ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1))
+                            ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1)),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -132,7 +132,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                   ldef.GetFunction(ldef.funcIsNull, new VariableDef(ldef.DataObjectType, "Порода"))
+                   ldef.GetFunction(ldef.funcIsNull, new VariableDef(ldef.DataObjectType, "Порода")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -150,7 +150,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                   ldef.GetFunction(ldef.funcNotIsNull, new VariableDef(ldef.DataObjectType, "Порода"))
+                   ldef.GetFunction(ldef.funcNotIsNull, new VariableDef(ldef.DataObjectType, "Порода")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -168,7 +168,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                   ldef.GetFunction(ldef.funcNotIsNull, new VariableDef(ldef.DataObjectType, "Порода"))
+                   ldef.GetFunction(ldef.funcNotIsNull, new VariableDef(ldef.DataObjectType, "Порода")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -186,7 +186,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                   ldef.GetFunction(ldef.funcIsNull, new VariableDef(ldef.DataObjectType, "Порода"))
+                   ldef.GetFunction(ldef.funcIsNull, new VariableDef(ldef.DataObjectType, "Порода")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -208,7 +208,7 @@
                     ldef.GetFunction(
                         ldef.funcAND,
                         ldef.GetFunction(ldef.funcNotIsNull, new VariableDef(ldef.DataObjectType, "Порода")),
-                        ldef.GetFunction(ldef.funcNEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1))
+                        ldef.GetFunction(ldef.funcNEQ, new VariableDef(ldef.DataObjectType, "Порода"), порода1)),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -226,7 +226,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                        ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода.Название"), new VariableDef(ldef.DataObjectType, "Порода.Название"))
+                        ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.DataObjectType, "Порода.Название"), new VariableDef(ldef.DataObjectType, "Порода.Название")),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -244,7 +244,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                        ldef.GetFunction(ldef.paramTrue)
+                        ldef.GetFunction(ldef.paramTrue),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -269,7 +269,7 @@
                         ldef.GetFunction(
                             ldef.funcEQ,
                             new VariableDef(ldef.DataObjectType, Information.ExtractPropertyPath<Кошка>(x => x.Порода.ТипПороды)),
-                            breedType)
+                            breedType),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -287,7 +287,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                        ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.ТипПороды.Название"), "Блатная порода")
+                        ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.StringType, "Порода.ТипПороды.Название"), "Блатная порода"),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -305,7 +305,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                        ldef.GetFunction(ldef.funcLike, new VariableDef(ldef.StringType, "Порода.ТипПороды.Название"), "Блат%")
+                        ldef.GetFunction(ldef.funcLike, new VariableDef(ldef.StringType, "Порода.ТипПороды.Название"), "Блат%"),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -329,7 +329,7 @@
                             ldef.GetFunction(
                                 ldef.funcOnlyDate,
                                 new VariableDef(ldef.DateTimeType, "Порода.ТипПороды.ДатаРегистрации")),
-                            ldef.GetFunction(ldef.funcOnlyDate, ldef.GetFunction("TODAY")))
+                            ldef.GetFunction(ldef.funcOnlyDate, ldef.GetFunction("TODAY"))),
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -347,7 +347,7 @@
 
             var expected = new LoadingCustomizationStruct(null)
             {
-                LimitFunction = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), strGuid)
+                LimitFunction = ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), strGuid),
             };
             expected.ReturnType = LcsReturnType.Object;
 
@@ -371,7 +371,7 @@
                                            ldef.funcEQ,
                                            new VariableDef(ldef.GuidType, "Порода"),
                                            strGuid),
-                ReturnType = LcsReturnType.Object
+                ReturnType = LcsReturnType.Object,
             };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, Utils.GetDefaultView(typeof(Кошка)));
@@ -395,7 +395,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                    ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), guid)
+                    ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), guid),
             };
 
             Assert.True(Equals(expected, actual));
@@ -418,7 +418,7 @@
             var expected = new LoadingCustomizationStruct(null)
             {
                 LimitFunction =
-                    ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), null)
+                    ldef.GetFunction(ldef.funcEQ, new VariableDef(ldef.GuidType, "Порода"), null),
             };
 
             Assert.True(Equals(expected, actual));

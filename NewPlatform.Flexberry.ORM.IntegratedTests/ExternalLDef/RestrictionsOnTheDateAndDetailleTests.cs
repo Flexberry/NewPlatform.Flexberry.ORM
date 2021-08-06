@@ -15,7 +15,6 @@
     /// <summary>
     /// Класс для тестирования функций ограничения на даты и детейлы.
     /// </summary>
-    
     public class RestrictionsOnTheDateAndDetailleTests : BaseIntegratedTest
     {
         /// <summary>
@@ -45,14 +44,14 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
-                // Контрольные значене.             
+                // Контрольные значене.
                 const int firstMonday = 1;
                 const int secondMonday = 3;
-                var controlValue = new List<int>() {firstMonday, secondMonday};
+                var controlValue = new List<int>() { firstMonday, secondMonday };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Понедельник.
@@ -60,7 +59,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 1, 11, 10, 37, 44),
                     PoleInt = firstMonday,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Пятница.
@@ -76,19 +75,19 @@
                 {
                     PoleDateTime = new DateTime(2015, 12, 28, 10, 37, 44),
                     PoleInt = secondMonday,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
-                var updateObjectsArray = new DataObject[] {testMasterObject, monday1, friday1, monday2};
+                var updateObjectsArray = new DataObject[] { testMasterObject, monday1, friday1, monday2 };
 
                 // Сохранение данных.
                 ds.UpdateObjects(ref updateObjectsArray);
 
                 // Выбор представления.
                 var view = FullTypesMainAgregator.Views.FullView;
-                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof (FullTypesMainAgregator), view);
+                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMainAgregator), view);
 
-                // Функция ограничения.   
+                // Функция ограничения.
                 // Применение функции ограничения.
                 lcs.LimitFunction = _ldef.GetFunction(
                     _ldef.funcEQ,
@@ -122,10 +121,10 @@
             // IDataService dataService = DataServices[0];
 
             // TODO Вернуть данную строчку, как исправят баг 94309.
-             foreach (IDataService dataService in DataServices)
+            foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
                 // Контрольные значене.
                 DateTime controlDate = new DateTime(2016, 2, 2);
@@ -133,7 +132,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -141,7 +140,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 12, 2),
                     PoleInt = firstDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -157,7 +156,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 1, 1),
                     PoleInt = secondDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -165,7 +164,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 2, 2),
                     PoleInt = 4,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 var updateObjectsArray = new DataObject[] { testMasterObject, firstDateTrue, firstDateFalse, secondDateTrue, secondDateFalse };
@@ -211,7 +210,7 @@
             // IDataService dataService = DataServices[0];
 
             // TODO Вернуть данную строчку, как исправят баг 94309.
-             foreach (IDataService dataService in DataServices)
+            foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
@@ -222,7 +221,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -230,7 +229,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 1, 25),
                     PoleInt = firstDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -246,7 +245,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 12, 1),
                     PoleInt = secondDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -254,7 +253,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 2, 1),
                     PoleInt = 4,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 var updateObjectsArray = new DataObject[] { testMasterObject, firstDateTrue, firstDateFalse, secondDateTrue, secondDateFalse };
@@ -300,7 +299,7 @@
             // IDataService dataService = DataServices[0];
 
             // TODO Вернуть данную строчку, как исправят баг 94309.
-             foreach (IDataService dataService in DataServices)
+            foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
@@ -311,7 +310,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -319,7 +318,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 11, 1),
                     PoleInt = firstDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -335,7 +334,7 @@
                 {
                     PoleDateTime = new DateTime(2014, 11, 2),
                     PoleInt = secondDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -343,7 +342,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 11, 2),
                     PoleInt = 4,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 var updateObjectsArray = new DataObject[] { testMasterObject, firstDateTrue, firstDateFalse, secondDateTrue, secondDateFalse };
@@ -400,7 +399,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -408,7 +407,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 11, 1),
                     PoleInt = firstDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -424,7 +423,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 1, 29),
                     PoleInt = secondDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -432,7 +431,7 @@
                 {
                     PoleDateTime = new DateTime(2016, 2, 2),
                     PoleInt = 4,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 var updateObjectsArray = new DataObject[] { testMasterObject, firstDateTrue, firstDateFalse, secondDateTrue, secondDateFalse };
@@ -489,7 +488,7 @@
                 const int secondDate = 3;
                 var controlValue = new List<int>() { firstDate, secondDate };
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 // Дата, которая будет подходить под условия ограничения.
@@ -497,7 +496,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 2, 1),
                     PoleInt = firstDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -513,7 +512,7 @@
                 {
                     PoleDateTime = new DateTime(2014, 2, 2),
                     PoleInt = secondDate,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Дата, которая не будет подходить под условия ограничения.
@@ -521,7 +520,7 @@
                 {
                     PoleDateTime = new DateTime(2015, 2, 2),
                     PoleInt = 4,
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 var updateObjectsArray = new DataObject[] { testMasterObject, firstDateTrue, firstDateFalse, secondDateTrue, secondDateFalse };
@@ -564,10 +563,10 @@
         public void Test_funcExistAllExact()
         {
             // TODO Удалить данную строчку, как исправят баг 94309.
-           //  IDataService dataService = DataServices[0];
+            //  IDataService dataService = DataServices[0];
 
             // TODO Вернуть данную строчку, как исправят баг 94309.
-             foreach (IDataService dataService in DataServices)
+            foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
@@ -576,12 +575,12 @@
                 const int controlInt = 1;
                 const bool controlBool = true;
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
-                
+
                 var testFullTypesMainAgregator = new FullTypesMainAgregator
-                {                   
-                    FullTypesMaster1 = testMasterObject
+                {
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Создание детейла, который подходит под условие ограничения.
@@ -597,7 +596,7 @@
                 var view2 = FullTypesDetail1.Views.FullDetailView;
                 var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMainAgregator), view);
 
-                string cmp = Information.ExtractPropertyPath<FullTypesDetail1>(x => x.FullTypesMainAgregator); 
+                string cmp = Information.ExtractPropertyPath<FullTypesDetail1>(x => x.FullTypesMainAgregator);
                 string name = Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.FullTypesDetail1);
 
                 // Описание детейла.
@@ -657,12 +656,12 @@
                 const int controlInt = 1;
                 const bool controlBool = true;
 
-                // Сначала создаём структуру данных, требуемую для теста.     
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 var testFullTypesMainAgregator = new FullTypesMainAgregator
                 {
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Создание детейла, который не подходит под условие ограничения.
@@ -695,7 +694,7 @@
                         new VariableDef(_ldef.BoolType,
                             Information.ExtractPropertyPath<FullTypesDetail1>(x => x.PoleBool)),
                         controlBool));
-                        
+
                 // Act.
                 var dos = ds.LoadObjects(lcs);
 
@@ -727,32 +726,32 @@
             // IDataService dataService = DataServices[0];
 
             // TODO Вернуть данную строчку, как исправят баг 94309.
-             foreach (IDataService dataService in DataServices)
+            foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
 
                 // Контрольные значене.
                 const int controlInt = 1;
-   
-                // Сначала создаём структуру данных, требуемую для теста.     
+
+                // Сначала создаём структуру данных, требуемую для теста.
                 var testMasterObject = new FullTypesMaster1();
 
                 var testFullTypesMainAgregator = new FullTypesMainAgregator
                 {
-                    FullTypesMaster1 = testMasterObject
+                    FullTypesMaster1 = testMasterObject,
                 };
 
                 // Создание детейлов, которые не подходят под условие ограничения.
-                testFullTypesMainAgregator.FullTypesDetail1.Add(new FullTypesDetail1 { PoleInt = controlInt});
-                testFullTypesMainAgregator.FullTypesDetail2.Add(new FullTypesDetail2 { PoleInt = 2});
+                testFullTypesMainAgregator.FullTypesDetail1.Add(new FullTypesDetail1 { PoleInt = controlInt });
+                testFullTypesMainAgregator.FullTypesDetail2.Add(new FullTypesDetail2 { PoleInt = 2 });
 
                 var updateObjectsArray = new DataObject[] { testMasterObject, testFullTypesMainAgregator };
 
                 // Сохранение данных.
                 ds.UpdateObjects(ref updateObjectsArray);
 
-                // Выбор представления.     
+                // Выбор представления.
                 var view = FullTypesMainAgregator.Views.FullViewWithDetail1;
                 var view2 = FullTypesDetail1.Views.FullDetailView;
                 var view3 = FullTypesDetail2.Views.FullTypesDetail2E;
@@ -783,7 +782,7 @@
                 Assert.Equal(dos.Length, 0);
 
                 // Создание детейла, который подходит под условте ограничения.
-                testFullTypesMainAgregator.FullTypesDetail2.Add(new FullTypesDetail2 { PoleInt = controlInt});
+                testFullTypesMainAgregator.FullTypesDetail2.Add(new FullTypesDetail2 { PoleInt = controlInt });
 
                 // Сохранение новых данных.
                 ds.UpdateObjects(ref updateObjectsArray);
@@ -800,7 +799,7 @@
         /// Экземпляр ExternalLangDef для тестов.
         /// </summary>
         private readonly ExternalLangDef langDef = ExternalLangDef.LanguageDef;
-        
+
         /// <summary>
         /// Метод для создания тестовых данных.
         /// </summary>
@@ -809,24 +808,24 @@
         {
             var aggregator1 = new ХозДоговор()
             {
-                НомерХозДоговора = 1
+                НомерХозДоговора = 1,
             };
 
             var aggregator2 = new ХозДоговор()
             {
-                НомерХозДоговора = 3
+                НомерХозДоговора = 3,
             };
-            
+
             var detail1 = new DetailArrayOfУчастникХозДоговора(aggregator1)
             {
                 new УчастникХозДоговора() { НомерУчастникаХозДоговора = 3, Личность = new Личность() },
-                new УчастникХозДоговора() { НомерУчастникаХозДоговора = 5, Личность = new Личность() }
+                new УчастникХозДоговора() { НомерУчастникаХозДоговора = 5, Личность = new Личность() },
             };
-            
+
             var detail2 = new DetailArrayOfИФХозДоговора(aggregator1)
             {
                 new ИФХозДоговора { НомерИФХозДоговора = 3, ИсточникФинансирования = new ИсточникФинансирования() },
-                new ИФХозДоговора { НомерИФХозДоговора = 5, ИсточникФинансирования = new ИсточникФинансирования() }
+                new ИФХозДоговора { НомерИФХозДоговора = 5, ИсточникФинансирования = new ИсточникФинансирования() },
             };
 
             aggregator1.УчастникХозДоговора = detail1;
@@ -849,7 +848,7 @@
             IDataService dataService = DataServices.First();
 
             // TODO Вернуть данную строчку, как исправят баг 94309.
-            //foreach (IDataService dataService in DataServices)
+            // foreach (IDataService dataService in DataServices)
             {
                 SQLDataService ds = (SQLDataService)dataService;
 
@@ -860,7 +859,7 @@
                     Type = langDef.DetailsType,
                     View = ИФХозДоговора.Views.ИФХозДоговораE,
                     OwnerConnectProp = new[] { Information.ExtractPropertyName<УчастникХозДоговора>(x => x.ХозДоговор) },
-                    ConnectMasterPorp = Information.ExtractPropertyName<ИФХозДоговора>(x => x.ХозДоговор)
+                    ConnectMasterPorp = Information.ExtractPropertyName<ИФХозДоговора>(x => x.ХозДоговор),
                 };
 
                 var func = langDef.GetFunction(
@@ -880,7 +879,7 @@
                     Type = langDef.DetailsType,
                     View = УчастникХозДоговора.Views.УчастникХозДоговораE,
                     OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
-                    ConnectMasterPorp = Information.ExtractPropertyName<УчастникХозДоговора>(x => x.Личность)
+                    ConnectMasterPorp = Information.ExtractPropertyName<УчастникХозДоговора>(x => x.Личность),
                 };
 
                 lcs.LimitFunction = langDef.GetFunction(langDef.funcExist, dvd, func);

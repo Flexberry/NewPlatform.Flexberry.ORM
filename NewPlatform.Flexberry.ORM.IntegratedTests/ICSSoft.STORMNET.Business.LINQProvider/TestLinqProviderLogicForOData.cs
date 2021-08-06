@@ -16,7 +16,6 @@
     /// <summary>
     /// Класс для проверки доработок в провайдер, сделанных для взаимодействия с ODataService.
     /// </summary>
-    
     public class TestLinqProviderLogicForOData
     {
         /// <summary>
@@ -42,7 +41,7 @@
                     this.ldef.GetFunction(
                         this.ldef.funcLike,
                         new VariableDef(this.ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleString)),
-                        "%test%")
+                        "%test%"),
             };
 
             // Act.
@@ -71,7 +70,7 @@
                     this.ldef.GetFunction(
                         this.ldef.funcLike,
                         new VariableDef(this.ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleString)),
-                        "%test%")
+                        "%test%"),
             };
 
             // Act.
@@ -101,7 +100,7 @@
                     this.ldef.GetFunction(
                         this.ldef.funcLike,
                         new VariableDef(this.ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleString)),
-                        "%test%")
+                        "%test%"),
             };
 
             // Act.
@@ -136,7 +135,7 @@
                         this.ldef.GetFunction(
                             this.ldef.funcEQ,
                             new VariableDef(this.ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.FullTypesMaster1.PoleString)),
-                            "test"))
+                            "test")),
             };
 
             // Act.

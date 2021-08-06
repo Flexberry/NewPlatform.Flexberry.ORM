@@ -13,16 +13,16 @@
         private const string StormJoinedMasterKey = "STORMJoinedMasterKey";
 
         /// <summary>
-        /// Константа для STORMMainObjectKey
+        /// Константа для STORMMainObjectKey.
         /// </summary>
         private const string StormMainObjectKey = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.StormMainObjectKey;
 
         private const string StormDataObjectType = "STORMNETDATAOBJECTTYPE";
 
         /// <summary>
-        /// Возвращает сформированную таблицу данных для указанного запроса в виде lcs
+        /// Возвращает сформированную таблицу данных для указанного запроса в виде lcs.
         /// </summary>
-        /// <param name="customizationStruct">lcs для формирования запроса данных</param>
+        /// <param name="customizationStruct">lcs для формирования запроса данных.</param>
         /// <param name="storageStructs">Структуры хранения, которые будут получены из lcs.</param>
         /// <param name="maxCountKeys">Максимальное колличество ключей для структур хранения.</param>
         /// <returns></returns>
@@ -33,7 +33,7 @@
             maxCountKeys = 0;
             storageStructs = new StorageStructForView[customizationStruct.LoadingTypes.Length];
 
-            if(customizationStruct.LoadingTypes.Length == 0)
+            if (customizationStruct.LoadingTypes.Length == 0)
             {
                 return resData;
             }
@@ -66,7 +66,7 @@
         }
 
         /// <summary>
-        /// Добавляет в таблицу новые строки с заполненными данными для указанной структуры
+        /// Добавляет в таблицу новые строки с заполненными данными для указанной структуры.
         /// </summary>
         /// <param name="dt">Таблица, в которую добавляются строки.</param>
         /// <param name="storageStruct">Структура хранения на основе которой будут добавлять строки.</param>
@@ -103,7 +103,7 @@
                                                                  : columnInfo.PropSources[structIndex];
 
                 // Если это свойство хранимое
-                if(propStorage != null && propStorage.Stored && !columnInfo.IsStormDataObjectType
+                if (propStorage != null && propStorage.Stored && !columnInfo.IsStormDataObjectType
                     && !columnInfo.IsStormJoinedMasterKey && !columnInfo.IsStormMainObjectKey)
                 {
                     // Если это свойство является собственным для основного объекта данных, то ищем в основной таблице.
@@ -114,7 +114,7 @@
                             dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][propStorage.Name];
                         }
                     }
-                    else if(masterTables.ContainsKey(propSource))
+                    else if (masterTables.ContainsKey(propSource))
                     {
                         // иначе это свойство мастера и надо брать его из таблицы мастеров после соединения
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
@@ -126,7 +126,7 @@
                 }
                 else
                 {
-                    if(columnInfo.IsStormMainObjectKey)
+                    if (columnInfo.IsStormMainObjectKey)
                     {
                         // в эту колонку записываются первичные ключи основного объекта данных
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
@@ -135,7 +135,7 @@
                                 mainDataTable.Rows[i][storageStruct.sources.storage[0].PrimaryKeyStorageName];
                         }
                     }
-                    else if(columnInfo.IsStormDataObjectType)
+                    else if (columnInfo.IsStormDataObjectType)
                     {
                         // В эту колонку записывается номер типа для загрузки данных.
                         // Он необходим когда читаются наследники через базовый класс.
@@ -154,7 +154,6 @@
                         // в эти колонки записываются первичные ключи мастеров
                         for (int i = 0; i < mainDataTable.Rows.Count; i++)
                         {
-
                             // Ключ мастера храниться в таблице мастера
                             if (masterTables.ContainsKey(propSource))
                             {
@@ -163,7 +162,6 @@
                             }
                             else
                             {
-
                                 // или его можно взять сразу из таблицы основного объекта данных
                                 dt.Rows[i + startRowsIndex][columnInfo.ColumnName] = mainDataTable.Rows[i][simpleName];
                             }
@@ -176,10 +174,10 @@
         /// <summary>
         /// Возвращает все таблицы мастеров после соединения.
         /// </summary>
-        /// <param name="propSource">Базовый источник данных в котором будут искаться мастера</param>
+        /// <param name="propSource">Базовый источник данных в котором будут искаться мастера.</param>
         /// <param name="mainTable">Таблица основного объекта данных.</param>
         /// <param name="result">Результат выполнения метода. Необходим для выполнения рекурсии.</param>
-        /// <returns>Таблицы мастеров после соединения</returns>
+        /// <returns>Таблицы мастеров после соединения.</returns>
         private void SetAllMasterTables(StorageStructForView.PropSource propSource, DataTable mainTable,
                                         Dictionary<StorageStructForView.PropSource, DataTable> result)
         {
@@ -209,7 +207,7 @@
         /// </summary>
         /// <param name="dt1">
         /// Таблица которую будут соединять.
-        /// В этой таблице будет искаться свойство, в котором храниться ключ мастера
+        /// В этой таблице будет искаться свойство, в котором храниться ключ мастера.
         /// </param>
         /// <param name="dt2">
         /// Таблица с которой будут соединять (таблица мастера).
@@ -241,7 +239,7 @@
         /// </summary>
         /// <param name="dt1">
         /// Таблица которую будут соединять.
-        /// В этой таблице будет искаться свойство, в котором храниться ключ мастера
+        /// В этой таблице будет искаться свойство, в котором храниться ключ мастера.
         /// </param>
         /// <param name="dt2">
         /// Таблица с которой будут соединять (таблица мастера).
@@ -317,10 +315,10 @@
         }
 
         /// <summary>
-        /// Возвращает все источники мастеров по иерархии для указанного источника данных
+        /// Возвращает все источники мастеров по иерархии для указанного источника данных.
         /// </summary>
-        /// <param name="propSource">Источник данных от которого начнется проход по иерархии мастеров</param>
-        /// <returns>Список всех источников мастеров, полученных по иерархии</returns>
+        /// <param name="propSource">Источник данных от которого начнется проход по иерархии мастеров.</param>
+        /// <returns>Список всех источников мастеров, полученных по иерархии.</returns>
         private List<StorageStructForView.PropSource> GetAllLinkedStoragesFroPropSource(StorageStructForView.PropSource propSource)
         {
             if (propSource.LinckedStorages == null || propSource.LinckedStorages.Length == 0)
@@ -345,7 +343,7 @@
         /// Добавление колонок в таблицу.
         /// метод необходим при формировании DataSet'а при запросе данных.
         /// </summary>
-        /// <param name="dt">Таблица в которой будут созданы колонки</param>
+        /// <param name="dt">Таблица в которой будут созданы колонки.</param>
         /// <param name="storageStructs">
         /// Структуры хранения, по которым будут сформированы колонки в таблице.
         /// </param>
@@ -366,7 +364,7 @@
             // так как для всех последующих их набор не изменится
             foreach (var prop in storageStructs[0].props)
             {
-                if(prop.Name == "__PrimaryKey")
+                if (prop.Name == "__PrimaryKey")
                 {
                     continue;
                 }
@@ -400,7 +398,7 @@
                 dt.Columns.Add(prop.Name, colType);
                 columnsInfo.Add(new ColumnInfo(prop.Name, prop));
 
-                if(prop.MastersTypesCount > 0)
+                if (prop.MastersTypesCount > 0)
                 {
                     listMasters.Add(new List<StorageStructForView.PropStorage> { prop });
                 }
@@ -612,7 +610,7 @@
             public List<StorageStructForView.PropStorage> PropStorages { get; set; }
 
             /// <summary>
-            /// Конструктор для вспомогательных колонок StormDataObjectType и StormMainObjectKey
+            /// Конструктор для вспомогательных колонок StormDataObjectType и StormMainObjectKey.
             /// </summary>
             public ColumnInfo(string columnName)
             {
@@ -634,7 +632,7 @@
             /// <summary>
             /// Конструктор для вспомогательной колонки StormJoinedMasterKey,
             /// котороя необходима для проставления ссылок на мастера
-            /// (не только те мастера, которые указаны в представлении)
+            /// (не только те мастера, которые указаны в представлении).
             /// </summary>
             public ColumnInfo(string columnName, StorageStructForView.PropSource propSource)
             {

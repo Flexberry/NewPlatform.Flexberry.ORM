@@ -15,7 +15,6 @@
     /// <summary>
     /// Проверка перевода из Linq в LCS.
     /// </summary>
-    
     public class LinqToLcsEnumTest
     {
         /// <summary>
@@ -31,23 +30,7 @@
             /// <summary>
             /// Поле системного перечислимого типа.
             /// </summary>
-            private DayOfWeek poleEnum;
-
-            /// <summary>
-            /// Поле системного перечислимого типа.
-            /// </summary>
-            public DayOfWeek PoleEnum
-            {
-                get
-                {
-                    DayOfWeek result = this.poleEnum;
-                    return result;
-                }
-                set
-                {
-                    this.poleEnum = value;
-                }
-            }
+            public DayOfWeek PoleEnum { get; set; }
 
             /// <summary>
             /// Получение представления для данного вспомогательного типа.
@@ -80,7 +63,7 @@
                     ldef.GetFunction(
                         ldef.funcEQ,
                         new VariableDef(ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleEnum)),
-                        EnumCaption.GetCaptionFor(PoleEnum.Attribute1))
+                        EnumCaption.GetCaptionFor(PoleEnum.Attribute1)),
             };
 
             // Act.
@@ -112,7 +95,7 @@
                         ldef.GetFunction(
                             ldef.funcEQ,
                             new VariableDef(ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleEnum)),
-                            EnumCaption.GetCaptionFor(PoleEnum.Attribute1))
+                            EnumCaption.GetCaptionFor(PoleEnum.Attribute1)),
                 };
 
                 // Act.

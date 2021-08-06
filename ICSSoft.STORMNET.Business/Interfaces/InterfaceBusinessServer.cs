@@ -72,10 +72,10 @@
             }
 
             var resultView = new View()
-                                 {
-                                     DefineClassType = referencePropertyInfo.TypeWithReference,
-                                     Name = referencePropertyInfo.TypeWithReference.FullName + "View"
-                                 };
+            {
+                DefineClassType = referencePropertyInfo.TypeWithReference,
+                Name = referencePropertyInfo.TypeWithReference.FullName + "View",
+            };
             foreach (string referenceProperty in referencePropertyInfo.ReferenceProperties)
             {
                 resultView.AddProperty(referenceProperty);
@@ -149,11 +149,11 @@
 
                 DataObject currentDataObject = dataObject;
                 List<string> filteredProperties = (from possibleProperty in referencePropertyInfo.ReferenceProperties
-                                                    let propertyValue = Information.GetPropValueByName(currentDataObject, possibleProperty)
-                                                    where propertyValue is DataObject
-                                                          && propertyValue != null
-                                                          && ((DataObject)propertyValue).__PrimaryKey.Equals(masterDataObject.__PrimaryKey)
-                                                    select possibleProperty).ToList();
+                                                   let propertyValue = Information.GetPropValueByName(currentDataObject, possibleProperty)
+                                                   where propertyValue is DataObject
+                                                         && propertyValue != null
+                                                         && ((DataObject)propertyValue).__PrimaryKey.Equals(masterDataObject.__PrimaryKey)
+                                                   select possibleProperty).ToList();
 
                 foreach (string possibleProperty in filteredProperties)
                 {

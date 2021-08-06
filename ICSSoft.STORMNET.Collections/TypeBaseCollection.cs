@@ -5,7 +5,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// коллекция со Type -  ключами
+    /// коллекция со Type -  ключами.
     /// </summary>
     [Serializable]
     public class TypeBaseCollection : ISerializable
@@ -60,7 +60,7 @@
         }
 
         /// <summary>
-        /// содержит ли ключ
+        /// содержит ли ключ.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -73,7 +73,7 @@
         }
 
         /// <summary>
-        /// почистить
+        /// почистить.
         /// </summary>
         public void Clear()
         {
@@ -89,7 +89,7 @@
         }
 
         /// <summary>
-        /// количество
+        /// количество.
         /// </summary>
         public int Count
         {
@@ -97,7 +97,7 @@
         }
 
         /// <summary>
-        /// добавить элемент
+        /// добавить элемент.
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -122,7 +122,7 @@
         }
 
         /// <summary>
-        /// доступ по ключу
+        /// доступ по ключу.
         /// </summary>
         public object this[Type key]
         {
@@ -165,7 +165,7 @@
         }
 
         /// <summary>
-        /// доступ по индексу
+        /// доступ по индексу.
         /// </summary>
         public object this[int index]
         {
@@ -207,7 +207,7 @@
         }
 
         /// <summary>
-        /// вставить элемент
+        /// вставить элемент.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="key"></param>
@@ -245,7 +245,7 @@
         }
 
         /// <summary>
-        /// удалить по индексу
+        /// удалить по индексу.
         /// </summary>
         /// <param name="index"></param>
         public void Remove(int index)
@@ -268,7 +268,7 @@
         }
 
         /// <summary>
-        /// удалить по ключу
+        /// удалить по ключу.
         /// </summary>
         /// <param name="key"></param>
         public void Remove(Type key)
@@ -280,7 +280,7 @@
         }
 
         /// <summary>
-        /// ключ по индексу
+        /// ключ по индексу.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -303,7 +303,7 @@
         }
 
         /// <summary>
-        /// вернуть по шаблону(наиболее подходящий)
+        /// вернуть по шаблону(наиболее подходящий).
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -330,7 +330,7 @@
         }
 
         /// <summary>
-        /// вернуть по шаблону
+        /// вернуть по шаблону.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -356,7 +356,7 @@
         /// <summary>
         /// Вернуть элементы коллекции в виде стандартного словаря.
         /// </summary>
-        /// <returns>Объект словаря System.Collections.Generic.Dictionary</returns>
+        /// <returns>Объект словаря System.Collections.Generic.Dictionary.</returns>
         public Dictionary<Type, object> ToDictionary()
         {
             var result = new Dictionary<Type, object>();
