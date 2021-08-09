@@ -441,11 +441,11 @@
             if (!string.IsNullOrEmpty(orderByExpr))
             {
                 innerQuery = innerQuery.Substring(0, innerQuery.Length - orderByExpr.Length);
-                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
+                innerQuery = innerQuery.Insert(fromInd, $",{nl}row_number() over ({orderByExpr}) as \"RowNumber\"{nl}");
             }
             else
             {
-                innerQuery = innerQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " ) as \"RowNumber\"" + nl);
+                innerQuery = innerQuery.Insert(fromInd, $",{nl}row_number() over (ORDER BY {PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey)} ) as \"RowNumber\"{nl}");
             }
 
             string query = string.Format(
@@ -455,7 +455,7 @@
                 LimitFunction2SQLWhere(limitFunction),
                 maxResults.HasValue ? (" TOP " + maxResults) : string.Empty,
                 orderByExpr,
-                PutIdentifierIntoBrackets("STORMMainObjectKey"));
+                PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey));
 
             object state = null;
             object[][] res = ReadFirst(query, ref state, lcs.LoadingBufferSize);
@@ -762,12 +762,14 @@
         {
             if (dataObjectView == null)
             {
-                throw new ArgumentNullException("dataObjectView", "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
             }
+
+            Type doType = dobject.GetType();
 
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
-                string cs = ChangeCustomizationString(new Type[] { dobject.GetType() });
+                string cs = ChangeCustomizationString(new Type[] { doType });
                 customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
             }
 
@@ -786,13 +788,11 @@
                     prv_AddMasterObjectsToCache(dobject, new System.Collections.ArrayList(), DataObjectCache);
                 }
 
-                System.Type doType = dobject.GetType();
-
                 LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
 
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), SQLWhereLanguageDef.StormMainObjectKey);
                 object readingkey = dobject.__PrimaryKey;
                 object prevPrimaryKey = null;
                 if (dobject.Prototyped)
@@ -890,12 +890,12 @@
         {
             if (dataObjectView == null)
             {
-                throw new ArgumentNullException("dataObjectView", "Не указано представление для дозагрузки объекта. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для дозагрузки объекта. Обратитесь к разработчику.");
             }
 
             if (dataObject == null)
             {
-                throw new ArgumentNullException("dataObject", "Не указан объект для дозагрузки. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для дозагрузки. Обратитесь к разработчику.");
             }
 
             Type doType = dataObject.GetType();
@@ -1198,10 +1198,10 @@
 
             foreach (object par in func.Parameters)
             {
-                if (par is ICSSoft.STORMNET.FunctionalLanguage.VariableDef)
+                if (par is VariableDef varDef)
                 {
-                    string n = (par as ICSSoft.STORMNET.FunctionalLanguage.VariableDef).StringedView;
-                    if (n != null && n.ToLower() == "stormmainobjectkey")
+                    string n = varDef.StringedView;
+                    if (n != null && string.Equals(n, SQLWhereLanguageDef.StormMainObjectKey, StringComparison.OrdinalIgnoreCase))
                     {
                         continue;
                     }
@@ -1457,7 +1457,7 @@
 
                 if (!ForReadValues)
                 {
-                    props.Add(PutIdentifierIntoBrackets("STORMMainObjectKey"));
+                    props.Add(PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey));
                     for (int i = 0; i < MaxCountKeys; i++)
                     {
                         if (StorageType == StorageTypeEnum.HierarchicalStorage)
@@ -1472,8 +1472,8 @@
                 }
                 #endregion
 
-                string colsPart = Query.Substring(Query.IndexOf(System.Text.RegularExpressions.Regex.Match(Query,
-                    @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets("STORMMainObjectKey")).Value));
+                string colsPart = Query.Substring(Query.IndexOf(Regex.Match(Query,
+                    @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey)).Value));
                 if (mustNewgenerate)
                 {
                     Query = "SELECT ";
@@ -1722,11 +1722,11 @@
                 if (!string.IsNullOrEmpty(orderByExpr))
                 {
                     resQuery = resQuery.Replace(orderByExpr, string.Empty);
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (" + orderByExpr + ") as \"RowNumber\"" + nl);
+                    resQuery = resQuery.Insert(fromInd, $",{nl}row_number() over ({orderByExpr}) as \"RowNumber\"{nl}");
                 }
                 else
                 {
-                    resQuery = resQuery.Insert(fromInd, "," + nl + "row_number() over (ORDER BY \"STORMMainObjectKey\") as \"RowNumber\"" + nl);
+                    resQuery = resQuery.Insert(fromInd, $",{nl}row_number() over (ORDER BY \"{SQLWhereLanguageDef.StormMainObjectKey}\") as \"RowNumber\"{nl}");
                 }
 
                 resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow.ToString() + " and " + customizationStruct.RowNumber.EndRow.ToString() + nl +
@@ -1828,7 +1828,7 @@
 
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
                 object[] keys = new object[ALKeys.Count + 1];
                 ALKeys.CopyTo(keys, 1);
                 keys[0] = var;
@@ -2908,16 +2908,16 @@
                                 out pointExist) + " as " + brackedIdent;
 
                             if (!string.IsNullOrEmpty(namespacewithpoint)
-                                && translatedExpression.ToLower().Contains("stormmainobjectkey"))
+                                && translatedExpression.IndexOf(SQLWhereLanguageDef.StormMainObjectKey, StringComparison.OrdinalIgnoreCase) >= 0)
                             {
-                                string mainObjectKeyReplace = "{" + namespacewithpoint + "STORMMainObjectKey}";
+                                string mainObjectKeyReplace = $"{{{namespacewithpoint}{SQLWhereLanguageDef.StormMainObjectKey}}}";
 
                                 if (!mainKeyByNamespace.ContainsKey(prop.source.Name))
                                 {
                                     mainKeyByNamespace.Add(prop.source.Name, mainObjectKeyReplace);
                                 }
 
-                                var regex = new Regex("\"?STORMMainObjectKey\"?", RegexOptions.IgnoreCase);
+                                var regex = new Regex($"\"?{SQLWhereLanguageDef.StormMainObjectKey}\"?", RegexOptions.IgnoreCase);
                                 translatedExpression = regex.Replace(translatedExpression, mainObjectKeyReplace);
                             }
                         }
@@ -2942,7 +2942,7 @@
                 firstSelectPartFields = false;
             }
 
-            string MainKeyBracked = PutIdentifierIntoBrackets("STORMMainObjectKey");
+            string MainKeyBracked = PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey);
             string MainKey = PutIdentifierIntoBrackets(storageStruct.sources.Name + "0") + "." + PutIdentifierIntoBrackets(storageStruct.sources.storage[0].PrimaryKeyStorageName) + " as " + MainKeyBracked;
 
             string MainStor = storageStruct.sources.storage[0].Storage;
@@ -3093,7 +3093,9 @@
                 return "NULL";
             }
 
-            if (ConverterToQueryValueString?.IsSupported(value.GetType()) == true)
+            Type valType = value.GetType();
+
+            if (ConverterToQueryValueString?.IsSupported(valType) == true)
             {
                 return ConverterToQueryValueString.ConvertToQueryValueString(value);
             }
@@ -3103,7 +3105,6 @@
                 return convertibleValue.ConvertToQueryValueString();
             }
 
-            System.Type valType = value.GetType();
             if (valType == typeof(string))
             {
                 if ((string)value == string.Empty)
@@ -3392,13 +3393,13 @@
                 if (!bExistsFounded)
                 {
                     sw = System.Text.RegularExpressions.Regex.Replace(sw,
-                        PutIdentifierIntoBrackets("STORMMainObjectKey"),
+                        PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey),
                         PutIdentifierIntoBrackets(StorageStruct[0].sources.Name + "0") + "." +
                         PutIdentifierIntoBrackets(StorageStruct[0].sources.storage[0].PrimaryKeyStorageName),
                         System.Text.RegularExpressions.RegexOptions.IgnoreCase);
                 }
 
-                string sPK = PutIdentifierIntoBrackets("STORMGENERATEDQUERY") + "." + PutIdentifierIntoBrackets("STORMMainObjectKey");
+                string sPK = PutIdentifierIntoBrackets("STORMGENERATEDQUERY") + "." + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey);
                 int k = -1;
                 while (sw.IndexOf(sPK, k + 1) > 0)
                 {
@@ -4029,9 +4030,10 @@
             StringCollection DeleteTables,
             SortedList TableOperations)
         {
+            var doType = dobject.GetType();
             System.Type[] dots = (StorageType == StorageTypeEnum.HierarchicalStorage)
-                ? Information.GetCompatibleTypesForTypeConvertion(dobject.GetType())
-                : new Type[] { dobject.GetType() };
+                ? Information.GetCompatibleTypesForTypeConvertion(doType)
+                : new Type[] { doType };
             for (int i = 0; i < dots.Length; i++)
             {
                 string tableName = Information.GetClassStorageName(dots[i]);
@@ -4041,7 +4043,7 @@
                     FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
 
                     FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dobject.GetType())), prkeyStorName);
+                        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), prkeyStorName);
                     FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, dobject.__PrimaryKey);
 
                     if (UpdaterFunction != null)
@@ -4124,25 +4126,28 @@
             object state = null;
             BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
             if (bs != null && bs.Length > 0)
-            { // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
+            {
+                // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
                 updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
             }
             else
             {
                 if (AuditService.IsTypeAuditable(view.DefineClassType))
-                { /* Аудиту необходимо зафиксировать удаление детейлов.
-                   * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
-                   * а бизнес-сервера основного объекта уже выполнились.
-                   */
+                {
+                    /* Аудиту необходимо зафиксировать удаление детейлов.
+                    * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
+                    * а бизнес-сервера основного объекта уже выполнились.
+                    */
                     DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                     if (detailObjects != null)
                     {
                         foreach (var detailObject in detailObjects)
-                        {// Мы будем сии детейлы удалять, поэтому им необходимо проставить соответствующий статус
+                        {
+                            // Мы будем сии детейлы удалять, поэтому им необходимо проставить соответствующий статус
                             detailObject.SetStatus(ObjectStatus.Deleted);
                         }
 
-                        extraProcessingObjects.AddRange(detailObjects.ToList());
+                        extraProcessingObjects.AddRange(detailObjects);
                     }
                 }
 
@@ -4154,7 +4159,7 @@
                     for (int i = 0; i < types.Length; i++)
                     {
                         string tableName = Information.GetClassStorageName(types[i]);
-                        string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " FROM (" + sq + " ) a )";
+                        string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey) + " FROM (" + sq + " ) a )";
                         if (!deleteDictionary.ContainsKey(tableName))
                         {
                             deleteDictionary.Add(tableName, new List<string>());
@@ -4168,7 +4173,7 @@
                 else
                 {
                     string tableName = Information.GetClassStorageName(view.DefineClassType);
-                    string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets("STORMMainObjectKey") + " FROM (" + sq + " ) a )";
+                    string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey) + " FROM (" + sq + " ) a )";
                     if (!deleteDictionary.ContainsKey(tableName))
                     {
                         deleteDictionary.Add(tableName, new List<string>());
@@ -4970,7 +4975,7 @@
                                 }
                             }
 
-                            string thisTable = Information.GetClassStorageName(processingObject.GetType());
+                            string thisTable = Information.GetClassStorageName(typeOfProcessingObject);
                             foreach (DataObject detobj in smastersObj)
                             {
                                 if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
@@ -5008,7 +5013,7 @@
 
                     case STORMDO.ObjectStatus.Created:
                         {
-                            if (AuditService.IsTypeAuditable(processingObject.GetType()))
+                            if (AuditService.IsTypeAuditable(typeOfProcessingObject))
                             {
                                 AuditService.AddCreateAuditInformation(processingObject);
                             }
@@ -5074,7 +5079,7 @@
 
                     case STORMDO.ObjectStatus.Altered:
                         {
-                            if (AuditService.IsTypeAuditable(processingObject.GetType()))
+                            if (AuditService.IsTypeAuditable(typeOfProcessingObject))
                             {
                                 AuditService.AddEditAuditInformation(processingObject);
                             }
@@ -5192,9 +5197,10 @@
             List<Type> depList = GetOrderFromDependencies(dependencies);
             foreach (DataObject processingObject in processingObjects)
             {
-                if (depList.IndexOf(processingObject.GetType()) < 0)
+                Type typeOfProcessingObject = processingObject.GetType();
+                if (depList.IndexOf(typeOfProcessingObject) < 0)
                 {
-                    depList.Add(processingObject.GetType());
+                    depList.Add(typeOfProcessingObject);
                 }
             }
 
@@ -5300,12 +5306,11 @@
                     if (deleteList.ContainsKey(identifier))
                     {
                         FunctionalLanguage.Function func = (STORMFunction)deleteList[identifier];
-                        string Query = "DELETE FROM " + PutIdentifierIntoBrackets(identifier) + " WHERE " +
-                                       LimitFunction2SQLWhere(func);
-                        if (!deleteQueries.Contains(Query))
+                        string query = $"DELETE FROM {PutIdentifierIntoBrackets(identifier)} WHERE {LimitFunction2SQLWhere(func)}";
+                        if (!deleteQueries.Contains(query))
                         {
                             deleteTables.Add(identifier);
-                            deleteQueries.Add(Query);
+                            deleteQueries.Add(query);
                         }
                     }
 
@@ -5314,7 +5319,7 @@
                         var deleteDetailQueries = deleteDictionary[identifier];
                         foreach (string s in deleteDetailQueries)
                         {
-                            string query = "DELETE FROM " + PutIdentifierIntoBrackets(identifier) + " WHERE " + s;
+                            string query = $"DELETE FROM {PutIdentifierIntoBrackets(identifier)} WHERE {s}";
                             if (!deleteQueries.Contains(query))
                             {
                                 deleteTables.Add(identifier);
@@ -5468,7 +5473,7 @@
                         query += values + nl + " WHERE ";
                         FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                         var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(processingObject.GetType())), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
+                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(typeOfProcessingObject)), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
                         FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                         if (updaterobject != null)
                         {
