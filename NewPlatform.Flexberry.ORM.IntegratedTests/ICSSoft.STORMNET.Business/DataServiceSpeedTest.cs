@@ -67,7 +67,7 @@
                     dataService.UpdateObject(медведь);
                     i++;
                 }
-                while (stopwatch.ElapsedMilliseconds < 10000);
+                while (stopwatch.ElapsedMilliseconds < 1000);
 
                 stopwatch.Stop();
                 testOutputHelper.WriteLine($"{nameof(InsertSelectUpdateDeleteSpeedTest)}@{dataService.GetType().Name}: {i} iterations");
