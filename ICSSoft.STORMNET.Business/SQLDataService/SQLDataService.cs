@@ -1344,13 +1344,14 @@
 
                 if (mustNewgenerate)
                 {
-                    var propStorages = StorageStruct[0].props;
+                    StorageStructForView.PropStorage[] propStorages = StorageStruct[0].props;
                     for (int i = 0; i < propStorages.Length; i++)
                     {
-                        var propStorage = propStorages[i];
+                        StorageStructForView.PropStorage propStorage = propStorages[i];
                         asnameprop[i] = propStorage.Name;
-                        if (propStorage.storage[0][0] != null) // не вычислимое св-во
+                        if (propStorage.storage[0][0] != null)
                         {
+                            // не вычислимое св-во
                             propStorage.Name = propStorage.source.Name + "0." + propStorage.storage[0][0];
                         }
                     }
@@ -1521,8 +1522,9 @@
                                     altnameprop[j] = this.GetIfNullExpression(names);
                                     selectF = altnameprop[j] + " as " + prop;
                                 }
-                                else if (propStorage.storage[0][0] != null) // не вычислимое св-во
+                                else if (propStorage.storage[0][0] != null)
                                 {
+                                    // не вычислимое св-во
                                     altnameprop[j] = PutIdentifierIntoBrackets(propStorage.source.Name + "0") + "." +
                                         PutIdentifierIntoBrackets(propStorage.storage[0][0]);
                                     selectF = altnameprop[j] + " as " + prop;
@@ -1586,8 +1588,9 @@
                     for (int i = 0; i < StorageStruct[0].props.Length; i++)
                     {
                         StorageStructForView.PropStorage propStorage = StorageStruct[0].props[i];
-                        if (propStorage.storage[0][0] != null) // не вычислимое св-во
+                        if (propStorage.storage[0][0] != null)
                         {
+                            // не вычислимое св-во
                             Query = Regex.Replace(
                                 Query,
                                 propStorage.source.Name + "0." + propStorage.storage[0][0],
