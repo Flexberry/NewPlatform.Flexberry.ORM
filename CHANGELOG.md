@@ -22,6 +22,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     
 ### Security
 
+### Performance
+- Optimize query (select, update, delete) generation.
+
 ## [6.0.0] - 2021-05-25
 
 ### Added

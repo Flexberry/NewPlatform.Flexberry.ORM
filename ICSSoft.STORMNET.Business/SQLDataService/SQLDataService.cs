@@ -963,9 +963,9 @@
             foreach (PropertyInView propertyInView in dataObjectView.Properties)
             {
                 string name = propertyInView.Name;
-                if (name.IndexOf(".") > -1)
+                int indexOfDot = name.IndexOf('.');
+                if (indexOfDot > -1)
                 {
-                    int indexOfDot = name.IndexOf('.');
                     string masterName = name.Substring(0, indexOfDot);
                     string propForMaster = name.Substring(indexOfDot + 1);
                     Type masterType = Information.GetPropertyType(doType, masterName);
@@ -1152,8 +1152,9 @@
 
                             if (var.IndexOf(".") != -1)
                             {
-                                sPrefix = var.Substring(0, var.LastIndexOf("."));
-                                new_var = var.Substring(var.LastIndexOf(".") + 1);
+                                int lastDotIndex = var.LastIndexOf(".");
+                                sPrefix = var.Substring(0, lastDotIndex);
+                                new_var = var.Substring(lastDotIndex + 1);
 
                                 tp = Information.GetPropertyType(tp, sPrefix);
                             }
@@ -1217,8 +1218,9 @@
 
                         if (n.IndexOf(".") != -1)
                         {
-                            sPrefix = n.Substring(0, n.LastIndexOf("."));
-                            new_var = n.Substring(n.LastIndexOf(".") + 1);
+                            int lastDotIndex = n.LastIndexOf(".");
+                            sPrefix = n.Substring(0, lastDotIndex);
+                            new_var = n.Substring(lastDotIndex + 1);
 
                             tp = Information.GetPropertyType(tp, sPrefix);
                         }
@@ -1342,13 +1344,15 @@
 
                 if (mustNewgenerate)
                 {
-                    for (int i = 0; i < StorageStruct[0].props.Length; i++)
+                    StorageStructForView.PropStorage[] propStorages = StorageStruct[0].props;
+                    for (int i = 0; i < propStorages.Length; i++)
                     {
-                        asnameprop[i] = StorageStruct[0].props[i].Name;
-                        if (StorageStruct[0].props[i].storage[0][0] != null) // не вычислимое св-во
+                        StorageStructForView.PropStorage propStorage = propStorages[i];
+                        asnameprop[i] = propStorage.Name;
+                        if (propStorage.storage[0][0] != null)
                         {
-                            StorageStruct[0].props[i].Name = StorageStruct[0].props[i].source.Name + "0." +
-                                StorageStruct[0].props[i].storage[0][0];
+                            // не вычислимое св-во
+                            propStorage.Name = propStorage.source.Name + "0." + propStorage.storage[0][0];
                         }
                     }
                 }
@@ -1397,10 +1401,8 @@
 
                 if (customizationStruct.ReturnTop > 0)
                 {
-                    resQuery += "TOP " + customizationStruct.ReturnTop.ToString() + " ";
+                    resQuery += "TOP " + customizationStruct.ReturnTop + " ";
                 }
-
-                string resStart = resQuery;
 
                 #region задаем порядок колонок в запросе - результат в props : StringCollection
 
@@ -1462,10 +1464,10 @@
                     {
                         if (StorageType == StorageTypeEnum.HierarchicalStorage)
                         {
-                            props.Add(PutIdentifierIntoBrackets("STORMJoinedMasterType" + i.ToString()));
+                            props.Add(PutIdentifierIntoBrackets("STORMJoinedMasterType" + i));
                         }
 
-                        props.Add(PutIdentifierIntoBrackets("STORMJoinedMasterKey" + i.ToString()));
+                        props.Add(PutIdentifierIntoBrackets("STORMJoinedMasterKey" + i));
                     }
 
                     props.Add(PutIdentifierIntoBrackets("STORMNETDATAOBJECTTYPE"));
@@ -1484,29 +1486,33 @@
 
                     if (customizationStruct.ReturnTop > 0)
                     {
-                        Query += "TOP " + customizationStruct.ReturnTop.ToString() + " ";
+                        Query += "TOP " + customizationStruct.ReturnTop + " ";
                     }
                 }
 
+                var propStatements = new List<string>();
                 for (int i = 0; i < props.Count; i++)
                 {
                     if (mustNewgenerate)
                     {
                         string selectF = string.Empty;
-                        for (int j = 0; j < StorageStruct[0].props.Length; j++)
+                        StorageStructForView.PropStorage[] propStorages = StorageStruct[0].props;
+                        for (int j = 0; j < propStorages.Length; j++)
                         {
-                            if (PutIdentifierIntoBrackets(asnameprop[j]) == props[i])
+                            string prop = props[i];
+                            if (PutIdentifierIntoBrackets(asnameprop[j]) == prop)
                             {
-                                if (StorageStruct[0].props[j].MastersTypesCount > 0)
+                                StorageStructForView.PropStorage propStorage = propStorages[j];
+                                if (propStorage.MastersTypesCount > 0)
                                 {
-                                    string[] names = new string[StorageStruct[0].props[j].storage.Length];
-                                    for (int jj = 0; jj < StorageStruct[0].props[j].storage.Length; jj++)
+                                    string[] names = new string[propStorage.storage.Length];
+                                    for (int jj = 0; jj < propStorage.storage.Length; jj++)
                                     {
-                                        string[] namesM = new string[StorageStruct[0].props[j].MastersTypes[jj].Length];
-                                        for (int k = 0; k < StorageStruct[0].props[j].MastersTypes[jj].Length; k++)
+                                        string[] namesM = new string[propStorage.MastersTypes[jj].Length];
+                                        for (int k = 0; k < propStorage.MastersTypes[jj].Length; k++)
                                         {
-                                            string curName = PutIdentifierIntoBrackets(StorageStruct[0].props[j].source.Name + jj.ToString()) + "." +
-                                                PutIdentifierIntoBrackets(StorageStruct[0].props[j].storage[jj][k]);
+                                            string curName = PutIdentifierIntoBrackets(propStorage.source.Name + jj) + "." +
+                                                PutIdentifierIntoBrackets(propStorage.storage[jj][k]);
                                             namesM[k] = curName;
                                         }
 
@@ -1514,40 +1520,50 @@
                                     }
 
                                     altnameprop[j] = this.GetIfNullExpression(names);
-                                    selectF = altnameprop[j] + " as " + props[i];
+                                    selectF = altnameprop[j] + " as " + prop;
                                 }
-                                else if (StorageStruct[0].props[j].storage[0][0] != null) // не вычислимое св-во
+                                else if (propStorage.storage[0][0] != null)
                                 {
-                                    altnameprop[j] = PutIdentifierIntoBrackets(StorageStruct[0].props[j].source.Name + "0") + "." +
-                                        PutIdentifierIntoBrackets(StorageStruct[0].props[j].storage[0][0]);
-                                    selectF = altnameprop[j] + " as " + props[i];
+                                    // не вычислимое св-во
+                                    altnameprop[j] = PutIdentifierIntoBrackets(propStorage.source.Name + "0") + "." +
+                                        PutIdentifierIntoBrackets(propStorage.storage[0][0]);
+                                    selectF = altnameprop[j] + " as " + prop;
                                     break;
                                 }
                                 else
                                 {
                                     bool PointExist = false;
                                     altnameprop[j] = "NULL";
-                                    if (StorageStruct[0].props[j].Expression != null)
+                                    if (propStorage.Expression != null)
                                     {
-                                        altnameprop[j] = TranslateExpression(StorageStruct[0].props[j].Expression, string.Empty,
-                                            PutIdentifierIntoBrackets(StorageStruct[0].props[j].source.Name + "0") + ".", out PointExist);
+                                        altnameprop[j] = TranslateExpression(propStorage.Expression, string.Empty,
+                                            PutIdentifierIntoBrackets(propStorage.source.Name + "0") + ".", out PointExist);
                                     }
 
-                                    selectF = altnameprop[j] + " as " + props[i];
+                                    selectF = altnameprop[j] + " as " + prop;
                                     break;
                                 }
                             }
                         }
 
-                        if (selectF != string.Empty)
+                        if (!string.IsNullOrEmpty(selectF))
                         {
-                            Query += ((i > 0) ? "," : string.Empty) + nl + selectF;
+                            propStatements.Add(selectF);
                         }
                     }
                     else
                     {
-                        resQuery += ((i > 0) ? "," : string.Empty) + nl + props[i];
+                        propStatements.Add(props[i]);
                     }
+                }
+
+                if (mustNewgenerate)
+                {
+                    Query += string.Join("," + nl, propStatements);
+                }
+                else
+                {
+                    resQuery += string.Join("," + nl, propStatements);
                 }
 
                 // colsPart = resQuery;
@@ -1560,7 +1576,7 @@
                     for (int j = 0; j < customizationStruct.AdvansedColumns.Length; j++)
                     {
                         AdvansedColumn ac = customizationStruct.AdvansedColumns[j];
-                        if (ac.StorageSourceModification != null && ac.StorageSourceModification != string.Empty)
+                        if (!string.IsNullOrEmpty(ac.StorageSourceModification))
                         {
                             resQuery += nl + "\t" + ac.StorageSourceModification;
                         }
@@ -1571,19 +1587,23 @@
                 {
                     for (int i = 0; i < StorageStruct[0].props.Length; i++)
                     {
-                        if (StorageStruct[0].props[i].storage[0][0] != null) // не вычислимое св-во
+                        StorageStructForView.PropStorage propStorage = StorageStruct[0].props[i];
+                        if (propStorage.storage[0][0] != null)
                         {
-                            Query = System.Text.RegularExpressions.Regex.Replace(Query,
-                                StorageStruct[0].props[i].source.Name + "0." + StorageStruct[0].props[i].storage[0][0],
+                            // не вычислимое св-во
+                            Query = Regex.Replace(
+                                Query,
+                                propStorage.source.Name + "0." + propStorage.storage[0][0],
                                 asnameprop[i]);
                         }
                     }
 
-                    Query = System.Text.RegularExpressions.Regex.Replace(Query,
+                    Query = Regex.Replace(
+                        Query,
                         @"\""?STORMMAINObjectKey\""?",
                         PutIdentifierIntoBrackets(StorageStruct[0].sources.Name + "0") + "." +
                         PutIdentifierIntoBrackets(StorageStruct[0].sources.storage[0].PrimaryKeyStorageName),
-                        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                        RegexOptions.IgnoreCase);
                     Query += ((Query == "SELECT ") ? string.Empty : ",") + colsPart;
                 }
 
@@ -1632,46 +1652,27 @@
                             }
                         }
 
-                        bool notfirst = false;
+                        var orderByParts = new List<string>();
                         for (int i = 0; i < sorts.Length; i++)
                         {
+                            ColumnsSortDef sortDef = sorts[i];
                             if (mustNewgenerate)
                             {
-                                if (notfirst)
-                                {
-                                    resQuery += ", ";
-                                    orderByExpr += ", ";
-                                }
-                                else
-                                {
-                                    resQuery += nl + "ORDER BY ";
-                                    orderByExpr += nl + "ORDER BY ";
-                                }
-
-                                string addStr = sorts[i].Name + AscDesc[(int)sorts[i].Sort];
-                                resQuery += addStr;
-                                orderByExpr += addStr;
-                                notfirst = true;
+                                string addStr = sortDef.Name + AscDesc[(int)sortDef.Sort];
+                                orderByParts.Add(addStr);
                             }
-                            else if (props.Contains(PutIdentifierIntoBrackets(sorts[i].Name)))
+                            else if (props.Contains(PutIdentifierIntoBrackets(sortDef.Name)))
                             {
-                                if (notfirst)
-                                {
-                                    resQuery += ", ";
-                                    orderByExpr += ", ";
-                                }
-                                else
-                                {
-                                    resQuery += nl + "ORDER BY ";
-                                    orderByExpr += nl + "ORDER BY ";
-                                }
-
-                                sorts[i].Name = PutIdentifierIntoBrackets(sorts[i].Name);
-                                string addStr = sorts[i].Name + AscDesc[(int)sorts[i].Sort];
-                                resQuery += addStr;
-                                orderByExpr += addStr;
-                                notfirst = true;
+                                sortDef.Name = PutIdentifierIntoBrackets(sortDef.Name);
+                                string addStr = sortDef.Name + AscDesc[(int)sortDef.Sort];
+                                orderByParts.Add(addStr);
                             }
+                        }
+
+                        if (orderByParts.Any())
+                        {
+                            orderByExpr = nl + "ORDER BY " + string.Join(", ", orderByParts);
+                            resQuery += orderByExpr;
                         }
                     }
 
@@ -1729,7 +1730,7 @@
                     resQuery = resQuery.Insert(fromInd, $",{nl}row_number() over (ORDER BY \"{SQLWhereLanguageDef.StormMainObjectKey}\") as \"RowNumber\"{nl}");
                 }
 
-                resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow.ToString() + " and " + customizationStruct.RowNumber.EndRow.ToString() + nl +
+                resQuery = селектСамогоВерхнегоУр + nl + "FROM (" + nl + resQuery + ") rn" + nl + "where \"RowNumber\" between " + customizationStruct.RowNumber.StartRow + " and " + customizationStruct.RowNumber.EndRow + nl +
                     orderByExpr;
             }
 
@@ -2401,8 +2402,8 @@
         {
             string nl = Environment.NewLine + baseOutline;
             string subTableKeyField = PutIdentifierIntoBrackets(subTableAlias) + "." + PutIdentifierIntoBrackets(subTableKey);
-            string joinCondition = !string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".") ?
-                string.Concat(parentAliasWithKey, " = ", subTableKeyField)
+            string joinCondition = !string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".")
+                ? string.Concat(parentAliasWithKey, " = ", subTableKeyField)
                 : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey);
 
             FromPart = string.Concat(nl, " LEFT JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
@@ -2428,8 +2429,8 @@
         {
             string nl = Environment.NewLine + baseOutline;
             string subTableKeyField = PutIdentifierIntoBrackets(subTableAlias) + "." + PutIdentifierIntoBrackets(subTableKey);
-            string joinCondition = !string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".") ?
-                string.Concat(parentAliasWithKey, " = ", subTableKeyField)
+            string joinCondition = !string.IsNullOrEmpty(parentAliasWithKey) && parentAliasWithKey.Contains(".")
+                ? string.Concat(parentAliasWithKey, " = ", subTableKeyField)
                 : string.Format("{0} = {1}", subTableKeyField, parentAliasWithKey);
 
             FromPart = string.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
@@ -2545,27 +2546,27 @@
             string baseOutline, out int joinscount,
             out string FromPart, out string WherePart)
         {
-            string nl = Environment.NewLine + baseOutline;
             string newOutLine = baseOutline + "\t";
             joinscount = 0;
-            FromPart = string.Empty;
+            var fromParts = new List<string>();
             WherePart = string.Empty;
             foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
                 for (int j = 0; j < subSource.storage.Length; j++)
                 {
-                    if (subSource.storage[j].parentStorageindex == index)
+                    StorageStructForView.ClassStorageDef classStorageDef = subSource.storage[j];
+                    if (classStorageDef.parentStorageindex == index)
                     {
                         joinscount++;
-                        string curAlias = subSource.Name + j.ToString();
+                        string curAlias = subSource.Name + j;
                         keysandtypes.Add(
                             new string[]
                             {
-                                        PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
-                                        PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
-                                            subSource.Name,
-                                    });
-                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName); // +"_M"+(locindex++).ToString());
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.PrimaryKeyStorageName),
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.TypeStorageName),
+                                subSource.Name,
+                            });
+                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.objectLinkStorageName); // +"_M"+(locindex++).ToString());
                         int subjoinscount;
                         string subjoin = string.Empty;
                         string temp;
@@ -2592,20 +2593,22 @@
                         string subTable = string.Concat(
                             GenString("(", subjoinscount),
                             " ",
-                            GetTableStorageExpression(subSource.storage[j].Storage, true));
-                        if (subSource.storage[j].nullableLink)
+                            GetTableStorageExpression(classStorageDef.Storage, true));
+                        if (classStorageDef.nullableLink)
                         {
-                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, classStorageDef.PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, classStorageDef.PrimaryKeyStorageName, subjoin, baseOutline, out FromStr, out WhereStr);
                         }
 
-                        FromPart += FromStr + ")";
+                        fromParts.Add(FromStr + ")");
                     }
                 }
             }
+
+            FromPart = string.Join(string.Empty, fromParts);
         }
 
         /// <summary>
@@ -2630,51 +2633,53 @@
                 return;
             }
 
-            string nl = Environment.NewLine + baseOutline;
             string newOutLine = baseOutline + "\t";
             joinscount = 0;
-            FromPart = string.Empty;
+            var fromParts = new List<string>();
             WherePart = string.Empty;
             foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
                 for (int j = 0; j < subSource.storage.Length; j++)
                 {
-                    if (subSource.storage[j].parentStorageindex == index)
+                    StorageStructForView.ClassStorageDef classStorageDef = subSource.storage[j];
+                    if (classStorageDef.parentStorageindex == index)
                     {
                         joinscount++;
-                        string curAlias = subSource.Name + j.ToString();
+                        string curAlias = subSource.Name + j;
                         keysandtypes.Add(
                             new string[]
                             {
-                                            PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
-                                            PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName),
-                                            subSource.Name,
-                                        });
-                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName); // +"_M"+(locindex++).ToString());
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.PrimaryKeyStorageName),
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.TypeStorageName),
+                                subSource.Name,
+                            });
+                        string Link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.objectLinkStorageName); // +"_M"+(locindex++).ToString());
                         string subjoin = string.Empty;
                         string temp;
                         int subjoinscount = 0;
                         string FromStr, WhereStr;
 
                         CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
-                        string subTable = GetTableStorageExpression(subSource.storage[j].Storage, true);
-                        if (subSource.storage[j].nullableLink)
+                        string subTable = GetTableStorageExpression(classStorageDef.Storage, true);
+                        if (classStorageDef.nullableLink)
                         {
-                            GetLeftJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetLeftJoinExpression(subTable, curAlias, Link, classStorageDef.PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
                         else
                         {
-                            GetInnerJoinExpression(subTable, curAlias, Link, subSource.storage[j].PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
+                            GetInnerJoinExpression(subTable, curAlias, Link, classStorageDef.PrimaryKeyStorageName, string.Empty, baseOutline, out FromStr, out WhereStr);
                         }
 
-                        FromPart += FromStr;
-                        if (subjoin != string.Empty)
+                        fromParts.Add(FromStr);
+                        if (!string.IsNullOrEmpty(subjoin))
                         {
-                            FromPart += subjoin;
+                            fromParts.Add(subjoin);
                         }
                     }
                 }
             }
+
+            FromPart = string.Join(string.Empty, fromParts);
         }
 
         /// <summary>
@@ -2686,58 +2691,61 @@
         public virtual string TranslateExpression(string expression, string namespacewithpoint, string exteranlnamewithpoint, out bool PointExistInSourceIdentifier)
         {
             string[] expressarr = expression.Split('@');
-            string result = string.Empty;
+            var resultParts = new List<string>();
             int nextIndex = 1;
             PointExistInSourceIdentifier = false;
             for (int i = 0; i < expressarr.Length; i++)
             {
                 if (i != nextIndex)
                 {
-                    result += expressarr[i];
+                    resultParts.Add(expressarr[i]);
                 }
                 else
                 {
-                    if (expressarr[nextIndex] == string.Empty)
+                    string nextIdentifier = expressarr[nextIndex];
+                    if (nextIdentifier == string.Empty)
                     {
-                        result += "@";
+                        resultParts.Add("@");
                         nextIndex++;
                     }
 
                     // Обработка псевдонимов полей вида [@имяТега] для поддержки представления результата запроса в виде XML.
-                    else if (Regex.IsMatch(expressarr[nextIndex], @"^\w+\]"))
+                    else if (Regex.IsMatch(nextIdentifier, @"^\w+\]"))
                     {
-                        result += "@" + expressarr[i];
+                        resultParts.Add("@" + expressarr[i]);
                         nextIndex++;
                     }
                     else
                     {
-                        if (!PointExistInSourceIdentifier && expressarr[nextIndex].IndexOf(".") >= 0)
+                        int dotIndex = nextIdentifier.IndexOf(".");
+                        if (!PointExistInSourceIdentifier && dotIndex >= 0)
                         {
                             PointExistInSourceIdentifier = true;
                         }
 
                         if (namespacewithpoint != string.Empty)
                         {
-                            result += exteranlnamewithpoint + PutIdentifierIntoBrackets(namespacewithpoint + expressarr[nextIndex]);
+                            resultParts.Add(exteranlnamewithpoint + PutIdentifierIntoBrackets(namespacewithpoint + nextIdentifier));
                         }
 
                         string st1 = exteranlnamewithpoint.Trim('.', '"');
-                        if ((st1.IndexOf(".") == -1) && (expressarr[nextIndex].IndexOf(".") > 0))
+                        if ((st1.IndexOf(".") == -1) && (dotIndex > 0))
                         {
                             st1 = st1.Substring(0, st1.Length - 1);
                             string st2 = string.Empty;
                             string st3 = string.Empty;
-                            if (expressarr[nextIndex].LastIndexOf(".") != expressarr[nextIndex].IndexOf("."))
+                            int lastDotIndex = nextIdentifier.LastIndexOf(".");
+                            if (lastDotIndex != dotIndex)
                             {
-                                st3 = expressarr[nextIndex].Substring(expressarr[nextIndex].LastIndexOf(".") + 1);
-                                st2 = expressarr[nextIndex].Substring(0, expressarr[nextIndex].LastIndexOf(".")).Replace(".", string.Empty);
+                                st3 = nextIdentifier.Substring(lastDotIndex + 1);
+                                st2 = nextIdentifier.Substring(0, lastDotIndex).Replace(".", string.Empty);
                             }
 
-                            result += PutIdentifierIntoBrackets(st1 + st2 + "0") + "." + PutIdentifierIntoBrackets(st3);
+                            resultParts.Add(PutIdentifierIntoBrackets(st1 + st2 + "0") + "." + PutIdentifierIntoBrackets(st3));
                         }
                         else if (namespacewithpoint == string.Empty)
                         {
-                            result += exteranlnamewithpoint + PutIdentifierIntoBrackets(expressarr[nextIndex]);
+                            resultParts.Add(exteranlnamewithpoint + PutIdentifierIntoBrackets(nextIdentifier));
                         }
 
                         nextIndex += 2;
@@ -2745,7 +2753,7 @@
                 }
             }
 
-            return "(" + result + ")";
+            return "(" + string.Join(string.Empty, resultParts) + ")";
         }
 
         public virtual string GetConvertToTypeExpression(Type valType, string value)
@@ -2788,13 +2796,11 @@
         {
             string nl = Environment.NewLine;
             string nlk = "," + nl;
-            string selectPartFields = string.Empty;
-            string superSelectPartFileds = string.Empty;
+            var selectPartFields = new List<string>();
+            var superSelectPartFileds = new List<string>();
 
-            bool firstSelectPartFields = true;
-
-            System.Collections.Specialized.StringCollection SelectMasterFields = new System.Collections.Specialized.StringCollection();
-            bool HasExpresions = false;
+            var selectMasterFields = new List<string>();
+            bool hasExpresions = false;
 
             var mainKeyByNamespace = new Dictionary<string, string>();
 
@@ -2807,14 +2813,6 @@
                 }
 
                 string brackedIdent = PutIdentifierIntoBrackets(prop.Name);
-                if (!firstSelectPartFields)
-                {
-                    selectPartFields += nlk;
-                    if (!prop.AdditionalProp)
-                    {
-                        superSelectPartFileds += nlk;
-                    }
-                }
 
                 bool propStored = prop.Stored;
 
@@ -2836,9 +2834,9 @@
                             string[] namesM = new string[prop.MastersTypes[j].Length];
                             for (int k = 0; k < prop.MastersTypes[j].Length; k++)
                             {
-                                string curName = isAccessDenied ? deniedAccessValue : PutIdentifierIntoBrackets(prop.source.Name + j.ToString()) + "." + PutIdentifierIntoBrackets(prop.storage[j][k]);
+                                string curName = isAccessDenied ? deniedAccessValue : PutIdentifierIntoBrackets(prop.source.Name + j) + "." + PutIdentifierIntoBrackets(prop.storage[j][k]);
                                 namesM[k] = curName;
-                                SelectMasterFields.Add(curName);
+                                selectMasterFields.Add(curName);
                             }
 
                             names[j] = this.GetIfNullExpression(namesM);
@@ -2846,10 +2844,10 @@
 
                         string field = isAccessDenied ? deniedAccessValue : this.GetIfNullExpression(names);
 
-                        selectPartFields += field + " as " + brackedIdent;
+                        selectPartFields.Add(field + " as " + brackedIdent);
                         if (!prop.AdditionalProp)
                         {
-                            superSelectPartFileds += brackedIdent;
+                            superSelectPartFileds.Add(brackedIdent);
                         }
                     }
                     else
@@ -2857,7 +2855,7 @@
                         string[] names = new string[prop.storage.Length];
                         for (int j = 0; j < prop.storage.Length; j++)
                         {
-                            names[j] = PutIdentifierIntoBrackets(prop.source.Name + j.ToString()) + "." + PutIdentifierIntoBrackets(prop.storage[j][0]);
+                            names[j] = PutIdentifierIntoBrackets(prop.source.Name + j) + "." + PutIdentifierIntoBrackets(prop.storage[j][0]);
                         }
 
                         string field = this.GetIfNullExpression(names);
@@ -2872,10 +2870,10 @@
                             field = deniedAccessValue;
                         }
 
-                        selectPartFields += field + " as " + brackedIdent;
+                        selectPartFields.Add(field + " as " + brackedIdent);
                         if (!prop.AdditionalProp)
                         {
-                            superSelectPartFileds += brackedIdent;
+                            superSelectPartFileds.Add(brackedIdent);
                         }
                     }
                 }
@@ -2922,24 +2920,22 @@
                             }
                         }
 
-                        selectPartFields += "NULL as " + brackedIdent;
-                        HasExpresions = true;
+                        selectPartFields.Add("NULL as " + brackedIdent);
+                        hasExpresions = true;
                         if (!prop.AdditionalProp)
                         {
-                            superSelectPartFileds += translatedExpression;
+                            superSelectPartFileds.Add(translatedExpression);
                         }
                     }
                     else
                     {
-                        selectPartFields += "NULL as " + brackedIdent;
+                        selectPartFields.Add("NULL as " + brackedIdent);
                         if (!prop.AdditionalProp)
                         {
-                            superSelectPartFileds += brackedIdent;
+                            superSelectPartFileds.Add(brackedIdent);
                         }
                     }
                 }
-
-                firstSelectPartFields = false;
             }
 
             string MainKeyBracked = PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey);
@@ -2971,17 +2967,12 @@
 
                 if (!string.IsNullOrEmpty(wherepar))
                 {
-                    if (wherestring != string.Empty)
-                    {
-                        wherestring += " and ";
-                    }
-
-                    wherestring += wherepar;
+                    wherestring = wherepar;
                 }
             }
 
-            string selectKeyFields = MainKey;
-            string superSelectKeyFields = MainKeyBracked;
+            var selectKeyFields = new List<string> { MainKey, };
+            var superSelectKeyFields = new List<string> { MainKeyBracked, };
 
             if (addNotMainKeys)
             {
@@ -2989,91 +2980,65 @@
                 {
                     string[] keyandtype = (string[])keysandtypes[i];
 
-                    string MasterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + i.ToString());
-                    selectKeyFields += nlk + keyandtype[0] + " as " + MasterKeyBracked;
-                    superSelectKeyFields += nlk + MasterKeyBracked;
+                    string masterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + i);
+                    selectKeyFields.Add(keyandtype[0] + " as " + masterKeyBracked);
+                    superSelectKeyFields.Add(masterKeyBracked);
 
                     if (SelectTypesIds)
                     {
-                        string TypeKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterType" + i.ToString());
-                        selectKeyFields += nlk + keyandtype[1] + " as " + TypeKeyBracked;
-                        superSelectKeyFields += nlk + TypeKeyBracked;
+                        string typeKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterType" + i);
+                        selectKeyFields.Add(keyandtype[1] + " as " + typeKeyBracked);
+                        superSelectKeyFields.Add(typeKeyBracked);
                     }
 
                     string replace;
                     if (mainKeyByNamespace.TryGetValue(keyandtype[2], out replace))
                     {
-                        superSelectPartFileds =
-                            superSelectPartFileds.Replace(replace, MasterKeyBracked);
+                        superSelectPartFileds = superSelectPartFileds.Select(s => s.Replace(replace, masterKeyBracked)).ToList();
                     }
                 }
             }
 
             int keyIndex = keysandtypes.Count;
-            if (addMasterFieldsCustomizer && (SelectMasterFields.Count > 0))
+            if (addMasterFieldsCustomizer)
             {
-                for (int i = 0; i < SelectMasterFields.Count; i++)
+                for (int i = 0; i < selectMasterFields.Count; i++)
                 {
-                    string MasterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + keyIndex.ToString());
-                    selectKeyFields += nlk + SelectMasterFields[i] + " as " + MasterKeyBracked;
-                    superSelectKeyFields += nlk + MasterKeyBracked;
+                    string masterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + keyIndex);
+                    selectKeyFields.Add(selectMasterFields[i] + " as " + masterKeyBracked);
+                    superSelectKeyFields.Add(masterKeyBracked);
                     keyIndex++;
                 }
             }
 
             for (int i = 0; i < AddingKeysCount; i++)
             {
-                string MasterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + keyIndex.ToString());
-
-                if (selectKeyFields != string.Empty)
-                {
-                    selectKeyFields += ", ";
-                }
-
-                selectKeyFields += GetConvertToTypeExpression(typeof(Guid), "null") + " as " + MasterKeyBracked;
-                if (superSelectKeyFields != string.Empty)
-                {
-                    superSelectKeyFields += ", ";
-                }
-
-                superSelectKeyFields += MasterKeyBracked;
-
+                string masterKeyBracked = PutIdentifierIntoBrackets("STORMJoinedMasterKey" + keyIndex);
+                selectKeyFields.Add(GetConvertToTypeExpression(typeof(Guid), "null") + " as " + masterKeyBracked);
+                superSelectKeyFields.Add(masterKeyBracked);
                 keyIndex++;
             }
 
             if (AddingAdvansedField != string.Empty)
             {
-                if (selectKeyFields != string.Empty)
-                {
-                    selectKeyFields += ", ";
-                }
-
-                selectKeyFields += AddingAdvansedField;
-                if (superSelectKeyFields != string.Empty)
-                {
-                    superSelectKeyFields += ", ";
-                }
-
-                superSelectKeyFields += AddingAdvansedField;
+                selectKeyFields.Add(AddingAdvansedField);
+                superSelectKeyFields.Add(AddingAdvansedField);
             }
 
             string MainSelect =
                 "SELECT " + nl
-                + ((selectPartFields == string.Empty) ? string.Empty : selectPartFields + "," + nl)
-                + selectKeyFields + nl
+                + (!selectPartFields.Any() ? string.Empty : string.Join(nlk, selectPartFields) + nlk)
+                + string.Join(nlk, selectKeyFields) + nl
                 + "FROM " + nl
-                + fromstring;
-            if (wherestring != string.Empty)
-            {
-                MainSelect += nl + "WHERE " + nl + wherestring;
-            }
+                + fromstring
+                + (string.IsNullOrEmpty(wherestring) ? string.Empty : $"{nl}WHERE {nl}{wherestring}");
 
-            if (HasExpresions && MustDopSelect)
+            if (hasExpresions && MustDopSelect)
             {
                 MainSelect =
                     "SELECT " + nl
-                    + superSelectPartFileds + nlk
-                    + superSelectKeyFields + nl
+                    + string.Join(nlk, superSelectPartFileds) + nlk
+                    + string.Join(nlk, superSelectKeyFields) + nl
                     + "FROM " + nl +
                     "( " + MainSelect + ")" + PutIdentifierIntoBrackets(storageStruct.sources.storage[0].ownerType.FullName);
             }
@@ -3293,16 +3258,17 @@
 
                 // заменим алиасы на нужные значения
                 rexst = string.Empty;
-                string[] names = new string[StorageStruct[0].props[i].storage.Length];
-                if (StorageStruct[0].props[i].MastersTypesCount > 0)
+                StorageStructForView.PropStorage prop = StorageStruct[0].props[i];
+                string[] names = new string[prop.storage.Length];
+                if (prop.MastersTypesCount > 0)
                 {
                     for (int jj = 0; jj < names.Length; jj++)
                     {
-                        string[] namesM = new string[StorageStruct[0].props[i].MastersTypes[jj].Length];
+                        string[] namesM = new string[prop.MastersTypes[jj].Length];
                         for (int k = 0; k < namesM.Length; k++)
                         {
-                            string curName = PutIdentifierIntoBrackets(StorageStruct[0].props[i].source.Name + jj.ToString()) + "." +
-                                PutIdentifierIntoBrackets(StorageStruct[0].props[i].storage[jj][k]);
+                            string curName = PutIdentifierIntoBrackets(prop.source.Name + jj) + "." +
+                                PutIdentifierIntoBrackets(prop.storage[jj][k]);
                             namesM[k] = curName;
                         }
 
@@ -3313,21 +3279,21 @@
 
                     // doprst = GetValueForLimitParam(LimitFunction, asname);
                 }
-                else if (StorageStruct[0].props[i].storage[0][0] != null)
+                else if (prop.storage[0][0] != null)
                 {
                     for (int jj = 0; jj < names.Length; jj++)
                     {
-                        names[jj] = PutIdentifierIntoBrackets(StorageStruct[0].props[i].source.Name + jj.ToString()) + "." +
-                                PutIdentifierIntoBrackets(StorageStruct[0].props[i].storage[jj][0]);
+                        names[jj] = PutIdentifierIntoBrackets(prop.source.Name + jj) + "." +
+                                PutIdentifierIntoBrackets(prop.storage[jj][0]);
                     }
 
                     rexst = this.GetIfNullExpression(names);
                 }
-                else if (StorageStruct[0].props[i].Expression != null)
+                else if (prop.Expression != null)
                 {
                     bool PointExist = false;
-                    rexst = TranslateExpression(StorageStruct[0].props[i].Expression, string.Empty,
-                        PutIdentifierIntoBrackets(StorageStruct[0].props[i].source.Name + "0") + ".", out PointExist);
+                    rexst = TranslateExpression(prop.Expression, string.Empty,
+                        PutIdentifierIntoBrackets(prop.source.Name + "0") + ".", out PointExist);
                 }
                 else { }
                 sw = System.Text.RegularExpressions.Regex.Replace(sw,
@@ -3910,7 +3876,7 @@
                             }
                             else
                             {
-                                realpropname = PutIdentifierIntoBrackets(propstor + "_m" + i.ToString());
+                                realpropname = PutIdentifierIntoBrackets(propstor + "_m" + i);
                             }
 
                             if (!Information.CheckCompatiblePropertyStorageTypes(type, realpropname, propValType, mastertypes[i]))
@@ -4024,9 +3990,9 @@
         /// The table operations.
         /// </param>
         private void AddDeletedObjectToDeleteDictionary(
-            STORMDO.DataObject dobject,
-            FunctionalLanguage.Function UpdaterFunction,
-            System.Collections.SortedList DeleteList,
+            DataObject dobject,
+            Function UpdaterFunction,
+            SortedList DeleteList,
             StringCollection DeleteTables,
             SortedList TableOperations)
         {
@@ -4037,14 +4003,12 @@
             for (int i = 0; i < dots.Length; i++)
             {
                 string tableName = Information.GetClassStorageName(dots[i]);
-                string prkeyStorName = Information.GetPrimaryKeyStorageName(dots[i]);
+                SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
                 if (!DeleteList.ContainsKey(tableName))
                 {
-                    FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-
-                    FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                        lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), prkeyStorName);
-                    FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, dobject.__PrimaryKey);
+                    string prkeyStorName = Information.GetPrimaryKeyStorageName(dots[i]);
+                    VariableDef var = new VariableDef(lang.GetObjectTypeForNetType(KeyGenerator.KeyType(doType)), prkeyStorName);
+                    Function func = lang.GetFunction(lang.funcEQ, var, dobject.__PrimaryKey);
 
                     if (UpdaterFunction != null)
                     {
@@ -4056,8 +4020,7 @@
                 }
                 else
                 {
-                    FunctionalLanguage.Function func = (FunctionalLanguage.Function)DeleteList[tableName];
-                    FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+                    Function func = (Function)DeleteList[tableName];
                     if (func.FunctionDef.StringedView == lang.funcEQ)
                     {
                         func = lang.GetFunction(lang.funcIN, func.Parameters[0], func.Parameters[1]);
@@ -4975,7 +4938,6 @@
                                 }
                             }
 
-                            string thisTable = Information.GetClassStorageName(typeOfProcessingObject);
                             foreach (DataObject detobj in smastersObj)
                             {
                                 if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
@@ -5221,65 +5183,51 @@
                     var propsWithValues = createdList[processingObject];
 
                     Type typeOfProcessingObject = processingObject.GetType();
-                    string mainTableName = STORMDO.Information.GetClassStorageName(typeOfProcessingObject);
 
                     if (propsWithValues.Count > 0)
                     {
                         if (StorageType == StorageTypeEnum.HierarchicalStorage)
                         {
                             string[] cols = propsWithValues.GetAllKeys();
-                            var valuesByTables = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
+                            var valuesByTables = new Dictionary<Type, List<string>>();
                             foreach (string col in cols)
                             {
                                 Type defType = Information.GetPropertyDefineClassType(typeOfProcessingObject, col);
-                                StringCollection propsInTable = null;
-                                if (valuesByTables.Contains(defType))
+                                List<string> propsInTable;
+                                if (valuesByTables.ContainsKey(defType))
                                 {
-                                    propsInTable = (StringCollection)valuesByTables[defType];
+                                    propsInTable = valuesByTables[defType];
                                 }
                                 else
                                 {
-                                    propsInTable = new StringCollection();
-                                    propsInTable.Add("__PrimaryKey");
+                                    propsInTable = new List<string> { "__PrimaryKey", };
                                     valuesByTables.Add(defType, propsInTable);
                                 }
 
                                 propsInTable.Add(col);
                             }
 
-                            for (int k = 0; k < valuesByTables.Count; k++)
+                            foreach (var valueByTable in valuesByTables)
                             {
-                                Type t = valuesByTables.Key(k);
-                                string tableName =
-                                    Information.GetClassStorageName(t);
-                                string query = "INSERT INTO " + PutIdentifierIntoBrackets(tableName) + nl;
-                                var propsInTable = (StringCollection)valuesByTables[t];
-                                string columns = propsInTable[0];
-                                string values = propsWithValues[propsInTable[0]];
-                                for (int j = 1; j < propsInTable.Count; j++)
-                                {
-                                    columns += nlk + PutIdentifierIntoBrackets(propsInTable[j]);
-                                    values += nlk + propsWithValues[propsInTable[j]];
-                                }
+                                Type t = valueByTable.Key;
+                                string tableName = Information.GetClassStorageName(t);
+                                var propsInTable = valueByTable.Value;
+                                string columns = string.Join(nlk, propsInTable.Select(PutIdentifierIntoBrackets));
+                                string values = string.Join(nlk, propsInTable.Select(p => propsWithValues[p]));
 
-                                query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
+                                string query = $"INSERT INTO {PutIdentifierIntoBrackets(tableName)}{nl} ( {nl}{columns}{nl} ) {nl} VALUES ({nl}{values}{nl})";
                                 AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
                                 insertQueries.Add(query);
                             }
                         }
                         else
                         {
+                            string mainTableName = Information.GetClassStorageName(typeOfProcessingObject);
                             string[] cols = propsWithValues.GetAllKeys();
-                            string query = "INSERT INTO " + PutIdentifierIntoBrackets(mainTableName) + nl;
-                            string columns = cols[0];
-                            string values = propsWithValues[cols[0]];
-                            for (int j = 1; j < propsWithValues.Count; j++)
-                            {
-                                columns += nlk + cols[j];
-                                values += nlk + propsWithValues[cols[j]];
-                            }
+                            string columns = string.Join(nlk, cols);
+                            string values = string.Join(nlk, cols.Select(p => propsWithValues[p]));
 
-                            query += " ( " + nl + columns + nl + " ) " + nl + " VALUES (" + nl + values + nl + ")";
+                            string query = $"INSERT INTO {PutIdentifierIntoBrackets(mainTableName)}{nl} ( {nl}{columns}{nl} ) {nl} VALUES ({nl}{values}{nl})";
                             AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
                             insertQueries.Add(query);
                         }
@@ -5434,25 +5382,17 @@
                             Type t = valuesByTables.Key(k);
                             var propsInTable = (StringCollection)valuesByTables[t];
                             string tableName = Information.GetClassStorageName(t);
-                            string query = "UPDATE " + PutIdentifierIntoBrackets(tableName) + " SET " + nl;
 
-                            string values = propsInTable[0] + " = " + propsWithValues[propsInTable[0]];
-                            for (int j = 1; j < propsInTable.Count; j++)
-                            {
-                                values += nlk + PutIdentifierIntoBrackets(propsInTable[j]) + " = " + propsWithValues[propsInTable[j]];
-                            }
-
-                            query += values + nl + " WHERE ";
-                            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                            var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(t)), Information.GetPrimaryKeyStorageName(t));
-                            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
+                            string values = string.Join(nlk, propsInTable.Cast<string>().Select(p => PutIdentifierIntoBrackets(p) + " = " + propsWithValues[p]));
+                            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
+                            var var = new VariableDef(lang.GetObjectTypeForNetType(KeyGenerator.KeyType(t)), Information.GetPrimaryKeyStorageName(t));
+                            Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                             if (updaterobject != null)
                             {
                                 func = updaterobject.Function;
                             }
 
-                            query += LimitFunction2SQLWhere(func);
+                            string query = $"UPDATE {PutIdentifierIntoBrackets(tableName)} SET {nl}{values}{nl} WHERE {LimitFunction2SQLWhere(func)}";
                             AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
                             if (!updateQueries.Contains(query))
                             {
@@ -5462,25 +5402,16 @@
                     }
                     else
                     {
-                        string query = "UPDATE " + PutIdentifierIntoBrackets(mainTableName) + " SET " + nl;
-                        string[] cols = propsWithValues.GetAllKeys();
-                        string values = cols[0] + " = " + propsWithValues[cols[0]];
-                        for (int j = 1; j < propsWithValues.Count; j++)
-                        {
-                            values += nlk + cols[j] + " = " + propsWithValues[cols[j]];
-                        }
-
-                        query += values + nl + " WHERE ";
-                        FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                        var var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                            lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(typeOfProcessingObject)), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
-                        FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
+                        string values = string.Join(nlk, propsWithValues.GetAllKeys().Select(p => p + " = " + propsWithValues[p]));
+                        SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
+                        var var = new VariableDef(lang.GetObjectTypeForNetType(KeyGenerator.KeyType(typeOfProcessingObject)), Information.GetPrimaryKeyStorageName(typeOfProcessingObject));
+                        Function func = lang.GetFunction(lang.funcEQ, var, processingObject.__PrimaryKey);
                         if (updaterobject != null)
                         {
                             func = updaterobject.Function;
                         }
 
-                        query += LimitFunction2SQLWhere(func);
+                        string query = $"UPDATE {PutIdentifierIntoBrackets(mainTableName)} SET {nl}{values}{nl} WHERE {LimitFunction2SQLWhere(func)}";
                         AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
                         if (!updateQueries.Contains(query))
                         {

@@ -379,7 +379,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
 
         private static string GetConnectionString(string name)
         {
-            return Environment.GetEnvironmentVariable(name) ?? ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.User) ?? Environment.GetEnvironmentVariable(name) ?? ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
 }
