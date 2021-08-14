@@ -54,6 +54,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="CodeGen\NewPlatform.Flexberry.ORM.Tests.crp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.LINQProvider\ICSSoft.STORMNET.Business.LINQProvider.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.LockService\ICSSoft.STORMNET.Business.LockService.csproj" />

@@ -31,5 +31,5 @@ Tests projects use objects from project `NewPlatform.Flexberry.ORM.Tests.Objects
 Modification test objects made in Flexberry Designer and save into file `NewPlatform.Flexberry.ORM.Tests.crp` and run code generation by command:
 
 ```
-start-code-gen.cmd
+.\CodeGen\start-code-gen.cmd
 ```

@@ -1,1 +1,0 @@
-docker run --name codegen -ti --rm -v %cd%/..:/src flexberry/mono-xsp bash /src/NewPlatform.Flexberry.ORM.IntegratedTests/generate-code.sh
