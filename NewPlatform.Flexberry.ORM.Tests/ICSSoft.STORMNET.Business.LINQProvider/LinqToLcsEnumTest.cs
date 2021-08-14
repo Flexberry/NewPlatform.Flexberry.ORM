@@ -8,8 +8,8 @@
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.Business.LINQProvider.Tests;
     using ICSSoft.STORMNET.FunctionalLanguage;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
     using ExternalLangDef = ICSSoft.STORMNET.Windows.Forms.ExternalLangDef;
 
     /// <summary>

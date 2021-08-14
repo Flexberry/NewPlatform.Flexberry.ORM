@@ -661,9 +661,14 @@
         /// <param name="viewIsDynamic">Является ли представление динамическим (если да, то в него можно добавлять недостающие свойства).</param>
         public static void AddPropertyToView(View view, string propertyName, bool viewIsDynamic)
         {
+            if (view == null)
+            {
+                throw new ArgumentNullException(nameof(view));
+            }
+
             if (string.IsNullOrEmpty(propertyName))
             {
-                throw new ArgumentNullException("propertyName");
+                throw new ArgumentNullException(nameof(propertyName));
             }
 
             // Если свойство содержит точки, то нужно проверить по всем уровням.

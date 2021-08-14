@@ -2,10 +2,9 @@
 {
     using System;
     using System.Linq;
-    using Xunit;
-
-    using NewPlatform.Flexberry.ORM.Tests;
     using NewPlatform.Flexberry.ORM.IntegratedTests;
+    using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Тесты на работу провайдера с ограничением вида:

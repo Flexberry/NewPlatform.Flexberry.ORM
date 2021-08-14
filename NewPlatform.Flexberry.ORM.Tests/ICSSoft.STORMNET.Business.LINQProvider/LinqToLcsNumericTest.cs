@@ -6,8 +6,8 @@
     using System.Linq.Expressions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     public class LinqToLcsNumericTest
     {

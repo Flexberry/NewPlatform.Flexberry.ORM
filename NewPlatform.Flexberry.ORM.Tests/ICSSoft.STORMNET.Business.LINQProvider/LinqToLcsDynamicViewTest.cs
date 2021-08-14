@@ -4,8 +4,8 @@
     using System.Linq;
     using System.Linq.Expressions;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// В методах этого класса проверяется только формирование представлений, но не выражений.

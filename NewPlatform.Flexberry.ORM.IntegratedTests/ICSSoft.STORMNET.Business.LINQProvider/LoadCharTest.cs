@@ -1,16 +1,13 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.FunctionalLanguage
 {
-    using System;
     using System.Linq;
-    using Xunit;
-
-    using System.Configuration;
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
-    using NewPlatform.Flexberry.ORM.Tests;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-    using ICSSoft.STORMNET;
+    using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Тестирование разных вариантов загрузки char из БД.

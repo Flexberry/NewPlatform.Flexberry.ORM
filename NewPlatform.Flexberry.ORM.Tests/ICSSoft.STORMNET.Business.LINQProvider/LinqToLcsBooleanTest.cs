@@ -4,9 +4,12 @@
     using System.Linq.Expressions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
+    /// <summary>
+    /// Tests for <see cref="LinqToLcs"/> and <see cref="bool"/> type.
+    /// </summary>
     public class LinqToLcsBooleanTest
     {
         private readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;

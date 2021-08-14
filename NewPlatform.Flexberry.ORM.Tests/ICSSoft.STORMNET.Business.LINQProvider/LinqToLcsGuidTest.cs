@@ -3,10 +3,10 @@
     using System;
     using System.Linq;
     using System.Linq.Expressions;
-    using Xunit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.Windows.Forms;
     using NewPlatform.Flexberry.ORM.Tests;
-    using Windows.Forms;
-    using FunctionalLanguage;
+    using Xunit;
 
     /// <summary>
     /// Тесты на работу провайдера со свойствами типа Guid.
