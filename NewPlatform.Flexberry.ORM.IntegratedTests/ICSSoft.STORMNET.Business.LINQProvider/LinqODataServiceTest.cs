@@ -1,15 +1,14 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.LINQProvider
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.UserDataTypes;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
-
-    using System.Collections.Generic;
-    using ICSSoft.STORMNET;
 
     /// <summary>
     /// Проверка цепочного вызова Where при LINQ-запросах к сервису данных.

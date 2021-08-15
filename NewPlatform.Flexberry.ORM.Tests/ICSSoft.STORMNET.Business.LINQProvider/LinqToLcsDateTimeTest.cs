@@ -6,8 +6,8 @@
     using ICSSoft.STORMNET.Business.LINQProvider.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Тесты поддержки типа DateTime.

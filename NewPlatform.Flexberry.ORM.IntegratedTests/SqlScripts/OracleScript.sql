@@ -941,7 +941,7 @@ CREATE TABLE "Конкурс"
 
 	"ОкончаниеОценки" DATE NULL,
 
-	"Состоятие" NVARCHAR2(16) NULL,
+	"Состояние" NVARCHAR2(16) NULL,
 
 	"Организатор_m0" RAW(16) NOT NULL,
 
@@ -1135,6 +1135,8 @@ CREATE TABLE "AuditClassWithSettings"
 
 	"primaryKey" RAW(16) NOT NULL,
 
+	"Name" NVARCHAR2(255) NULL,
+
 	"CreateTime" DATE NULL,
 
 	"Creator" NVARCHAR2(255) NULL,
@@ -1142,8 +1144,6 @@ CREATE TABLE "AuditClassWithSettings"
 	"EditTime" DATE NULL,
 
 	"Editor" NVARCHAR2(255) NULL,
-
-	"Name" NVARCHAR2(255) NULL,
 
 	 PRIMARY KEY ("primaryKey")
 ) ;

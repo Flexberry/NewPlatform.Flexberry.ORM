@@ -2,16 +2,14 @@
 {
     using System.Linq;
     using System.Linq.Expressions;
-
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.Business.LINQProvider.Tests;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-
-    using Xunit;
     using Tests;
+    using Xunit;
 
     /// <summary>
     /// Класс для проверки доработок в провайдер, сделанных для взаимодействия с ODataService.

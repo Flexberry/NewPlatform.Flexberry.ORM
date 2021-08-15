@@ -854,6 +854,49 @@
         }
 
         /// <summary>
+        /// Проверка зачитки объекта по ограничению с Nullable атрибутами.
+        /// </summary>
+        [Fact]
+        public void NullableLimitLoadingTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                string[] props = new[]
+                {
+                    Information.ExtractPropertyPath<FullTypesMaster1>(x => x.PoleNullChar),
+                    Information.ExtractPropertyPath<FullTypesMaster1>(x => x.PoleInt),
+                };
+
+                var view = new View();
+                view.DefineClassType = typeof(FullTypesMaster1);
+                foreach (string prop in props)
+                {
+                    view.AddProperty(prop);
+                }
+
+                DataObject[] objectsForUpdate = new DataObject[]
+                {
+                    new FullTypesMaster1() { PoleNullChar = 'W', PoleInt = 1 },
+                    new FullTypesMaster1() { PoleNullChar = null, PoleInt = 2 },
+                };
+                dataService.UpdateObjects(ref objectsForUpdate);
+
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMaster1), view);
+
+                SQLWhereLanguageDef langDef = SQLWhereLanguageDef.LanguageDef;
+                lcs.LimitFunction = langDef.GetFunction(langDef.funcIsNull, new VariableDef(langDef.BoolType, nameof(FullTypesMaster1.PoleNullChar)));
+
+                // Act.
+                DataObject[] loadedObjects = dataService.LoadObjects(lcs);
+
+                // Assert.
+                Assert.Single(loadedObjects);
+                Assert.Equal(2, (loadedObjects[0] as FullTypesMaster1).PoleInt);
+            }
+        }
+
+        /// <summary>
         /// Обработчик события генерации SQL-запроса.
         /// </summary>
         /// <param name="sender">Инициатор события.</param>

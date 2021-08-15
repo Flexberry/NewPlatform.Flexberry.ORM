@@ -83,32 +83,6 @@ CREATE TABLE [Блоха] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [Этап] (
-
-	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [Статус] VARCHAR(78)  NULL,
-
-	 [КонфигурацияЭтапа_m0] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [Запрос] UNIQUEIDENTIFIER  NOT NULL,
-
-	 PRIMARY KEY ([primaryKey]))
-
-
-CREATE TABLE [ИсходящийЗапрос] (
-
-	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [ПервоеДлинноеПолеДляПроверки] BIT  NULL,
-
-	 [ВтороеДлинноеПолеДляПроверки] VARCHAR(78)  NULL,
-
-	 [ПятоеДлинноеПолеДляПроверки] INT  NULL,
-
-	 PRIMARY KEY ([primaryKey]))
-
-
 CREATE TABLE [AuditMasterObject] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -329,17 +303,6 @@ CREATE TABLE [Parcel] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [КонфигурацияЭтапа] (
-
-	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [ТретьеДлинноеПолеДляПроверки] BIT  NULL,
-
-	 [ЧетвертоеДлинноеПолеДляПроверки] INT  NULL,
-
-	 PRIMARY KEY ([primaryKey]))
-
-
 CREATE TABLE [TestClassA] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -414,17 +377,6 @@ CREATE TABLE [AggregatorUpdateObjectTest] (
 	 [AggregatorName] VARCHAR(255)  NULL,
 
 	 [Detail] UNIQUEIDENTIFIER  NULL,
-
-	 PRIMARY KEY ([primaryKey]))
-
-
-CREATE TABLE [КонфигурацияЗапроса] (
-
-	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [ТретьеДлинноеПолеДляПроверки] BIT  NULL,
-
-	 [ЧетвертоеДлинноеПолеДляПроверки] INT  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -829,19 +781,6 @@ CREATE TABLE [InformationTestClass] (
 	 PRIMARY KEY ([primaryKey]))
 
 
-CREATE TABLE [ЭтапИсходящегоЗапроса] (
-
-	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [Статус] VARCHAR(78)  NULL,
-
-	 [Конфигурация] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [Запросы] UNIQUEIDENTIFIER  NOT NULL,
-
-	 PRIMARY KEY ([primaryKey]))
-
-
 CREATE TABLE [cla] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
@@ -889,7 +828,7 @@ CREATE TABLE [Конкурс] (
 
 	 [ОкончаниеОценки] DATETIME  NULL,
 
-	 [Состоятие] VARCHAR(16)  NULL,
+	 [Состояние] VARCHAR(16)  NULL,
 
 	 [Организатор_m0] UNIQUEIDENTIFIER  NOT NULL,
 
@@ -1059,6 +998,8 @@ CREATE TABLE [AuditClassWithSettings] (
 
 	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
 
+	 [Name] VARCHAR(255)  NULL,
+
 	 [CreateTime] DATETIME  NULL,
 
 	 [Creator] VARCHAR(255)  NULL,
@@ -1066,8 +1007,6 @@ CREATE TABLE [AuditClassWithSettings] (
 	 [EditTime] DATETIME  NULL,
 
 	 [Editor] VARCHAR(255)  NULL,
-
-	 [Name] VARCHAR(255)  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1154,19 +1093,6 @@ CREATE TABLE [Порода] (
 	 [ТипПороды] UNIQUEIDENTIFIER  NULL,
 
 	 [Иерархия] UNIQUEIDENTIFIER  NULL,
-
-	 PRIMARY KEY ([primaryKey]))
-
-
-CREATE TABLE [Запрос] (
-
-	 [primaryKey] UNIQUEIDENTIFIER  NOT NULL,
-
-	 [ПервоеДлинноеПолеДляПроверки] BIT  NULL,
-
-	 [ВтороеДлинноеПолеДляПроверки] VARCHAR(78)  NULL,
-
-	 [ПятоеДлинноеПолеДляПроверки] INT  NULL,
 
 	 PRIMARY KEY ([primaryKey]))
 
@@ -1672,12 +1598,6 @@ CREATE INDEX Выплаты_IКредит1 on [Выплаты] ([Кредит1])
  ALTER TABLE [Блоха] ADD CONSTRAINT [Блоха_FМедведь_0] FOREIGN KEY ([МедведьОбитания]) REFERENCES [Медведь]
 CREATE INDEX Блоха_IМедведьОбитания on [Блоха] ([МедведьОбитания])
 
- ALTER TABLE [Этап] ADD CONSTRAINT [Этап_FКонфигурацияЭтапа_0] FOREIGN KEY ([КонфигурацияЭтапа_m0]) REFERENCES [КонфигурацияЭтапа]
-CREATE INDEX Этап_IКонфигурацияЭтапа_m0 on [Этап] ([КонфигурацияЭтапа_m0])
-
- ALTER TABLE [Этап] ADD CONSTRAINT [Этап_FЗапрос_0] FOREIGN KEY ([Запрос]) REFERENCES [Запрос]
-CREATE INDEX Этап_IЗапрос on [Этап] ([Запрос])
-
  ALTER TABLE [AuditMasterObject] ADD CONSTRAINT [AuditMasterObject_FAuditMasterMasterObject_0] FOREIGN KEY ([MasterObject]) REFERENCES [AuditMasterMasterObject]
 CREATE INDEX AuditMasterObject_IMasterObject on [AuditMasterObject] ([MasterObject])
 
@@ -1830,12 +1750,6 @@ CREATE INDEX ФайлИдеи_IВладелец_m0 on [ФайлИдеи] ([Вл�
 
  ALTER TABLE [ФайлИдеи] ADD CONSTRAINT [ФайлИдеи_FИдея_0] FOREIGN KEY ([Идея_m0]) REFERENCES [Идея]
 CREATE INDEX ФайлИдеи_IИдея_m0 on [ФайлИдеи] ([Идея_m0])
-
- ALTER TABLE [ЭтапИсходящегоЗапроса] ADD CONSTRAINT [ЭтапИсходящегоЗапроса_FКонфигурацияЗапроса_0] FOREIGN KEY ([Конфигурация]) REFERENCES [КонфигурацияЗапроса]
-CREATE INDEX ЭтапИсходящегоЗапроса_IКонфигурация on [ЭтапИсходящегоЗапроса] ([Конфигурация])
-
- ALTER TABLE [ЭтапИсходящегоЗапроса] ADD CONSTRAINT [ЭтапИсходящегоЗапроса_FИсходящийЗапрос_0] FOREIGN KEY ([Запросы]) REFERENCES [ИсходящийЗапрос]
-CREATE INDEX ЭтапИсходящегоЗапроса_IЗапросы on [ЭтапИсходящегоЗапроса] ([Запросы])
 
  ALTER TABLE [cla] ADD CONSTRAINT [cla_Fclb_0] FOREIGN KEY ([parent]) REFERENCES [clb]
 CREATE INDEX cla_Iparent on [cla] ([parent])

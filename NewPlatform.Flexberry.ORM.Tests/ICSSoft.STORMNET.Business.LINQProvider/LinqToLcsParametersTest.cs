@@ -2,8 +2,8 @@
 {
     using System.Linq;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     public class LinqToLcsParametersTest
     {
