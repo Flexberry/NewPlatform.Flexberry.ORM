@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Страна.
     /// </summary>
-    //  *** Start programmer edit section *** (Страна CustomAttributes)
+    // *** Start programmer edit section *** (Страна CustomAttributes)
 
-    //  *** End programmer edit section *** (Страна CustomAttributes)
+    // *** End programmer edit section *** (Страна CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("СтранаE", new string[] {
@@ -37,7 +37,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fНазвание;
         
-        //  *** Start programmer edit section *** (Страна CustomMembers)
+        // *** Start programmer edit section *** (Страна CustomMembers)
         /// <summary>
         /// Вычислимый мастер без DataServiceExpression.
         /// </summary>
@@ -54,38 +54,38 @@ namespace NewPlatform.Flexberry.ORM.Tests
             }
         }
 
-        //  *** End programmer edit section *** (Страна CustomMembers)
+        // *** End programmer edit section *** (Страна CustomMembers)
 
         
         /// <summary>
         /// Название.
         /// </summary>
-        //  *** Start programmer edit section *** (Страна.Название CustomAttributes)
+        // *** Start programmer edit section *** (Страна.Название CustomAttributes)
 
-        //  *** End programmer edit section *** (Страна.Название CustomAttributes)
+        // *** End programmer edit section *** (Страна.Название CustomAttributes)
         [StrLen(255)]
         public virtual string Название
         {
             get
             {
-                //  *** Start programmer edit section *** (Страна.Название Get start)
+                // *** Start programmer edit section *** (Страна.Название Get start)
 
-                //  *** End programmer edit section *** (Страна.Название Get start)
+                // *** End programmer edit section *** (Страна.Название Get start)
                 string result = this.fНазвание;
-                //  *** Start programmer edit section *** (Страна.Название Get end)
+                // *** Start programmer edit section *** (Страна.Название Get end)
 
-                //  *** End programmer edit section *** (Страна.Название Get end)
+                // *** End programmer edit section *** (Страна.Название Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Страна.Название Set start)
+                // *** Start programmer edit section *** (Страна.Название Set start)
 
-                //  *** End programmer edit section *** (Страна.Название Set start)
+                // *** End programmer edit section *** (Страна.Название Set start)
                 this.fНазвание = value;
-                //  *** Start programmer edit section *** (Страна.Название Set end)
+                // *** Start programmer edit section *** (Страна.Название Set end)
 
-                //  *** End programmer edit section *** (Страна.Название Set end)
+                // *** End programmer edit section *** (Страна.Название Set end)
             }
         }
         

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// SomeDetailClass.
     /// </summary>
-    //  *** Start programmer edit section *** (SomeDetailClass CustomAttributes)
+    // *** Start programmer edit section *** (SomeDetailClass CustomAttributes)
 
-    //  *** End programmer edit section *** (SomeDetailClass CustomAttributes)
+    // *** End programmer edit section *** (SomeDetailClass CustomAttributes)
     [AutoAltered()]
     [Caption("Class B")]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -44,49 +44,49 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.SomeMasterClass fSomeMasterClass;
         
-        //  *** Start programmer edit section *** (SomeDetailClass CustomMembers)
+        // *** Start programmer edit section *** (SomeDetailClass CustomMembers)
 
-        //  *** End programmer edit section *** (SomeDetailClass CustomMembers)
+        // *** End programmer edit section *** (SomeDetailClass CustomMembers)
 
         
         /// <summary>
         /// FieldB.
         /// </summary>
-        //  *** Start programmer edit section *** (SomeDetailClass.FieldB CustomAttributes)
+        // *** Start programmer edit section *** (SomeDetailClass.FieldB CustomAttributes)
 
-        //  *** End programmer edit section *** (SomeDetailClass.FieldB CustomAttributes)
+        // *** End programmer edit section *** (SomeDetailClass.FieldB CustomAttributes)
         [StrLen(255)]
         public virtual string FieldB
         {
             get
             {
-                //  *** Start programmer edit section *** (SomeDetailClass.FieldB Get start)
+                // *** Start programmer edit section *** (SomeDetailClass.FieldB Get start)
 
-                //  *** End programmer edit section *** (SomeDetailClass.FieldB Get start)
+                // *** End programmer edit section *** (SomeDetailClass.FieldB Get start)
                 string result = this.fFieldB;
-                //  *** Start programmer edit section *** (SomeDetailClass.FieldB Get end)
+                // *** Start programmer edit section *** (SomeDetailClass.FieldB Get end)
 
-                //  *** End programmer edit section *** (SomeDetailClass.FieldB Get end)
+                // *** End programmer edit section *** (SomeDetailClass.FieldB Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (SomeDetailClass.FieldB Set start)
+                // *** Start programmer edit section *** (SomeDetailClass.FieldB Set start)
 
-                //  *** End programmer edit section *** (SomeDetailClass.FieldB Set start)
+                // *** End programmer edit section *** (SomeDetailClass.FieldB Set start)
                 this.fFieldB = value;
-                //  *** Start programmer edit section *** (SomeDetailClass.FieldB Set end)
+                // *** Start programmer edit section *** (SomeDetailClass.FieldB Set end)
 
-                //  *** End programmer edit section *** (SomeDetailClass.FieldB Set end)
+                // *** End programmer edit section *** (SomeDetailClass.FieldB Set end)
             }
         }
         
         /// <summary>
         /// SomeDetailClass.
         /// </summary>
-        //  *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass CustomAttributes)
+        // *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass CustomAttributes)
 
-        //  *** End programmer edit section *** (SomeDetailClass.SomeMasterClass CustomAttributes)
+        // *** End programmer edit section *** (SomeDetailClass.SomeMasterClass CustomAttributes)
         [PropertyStorage(new string[] {
                 "ClassA"})]
         [NotNull()]
@@ -94,24 +94,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Get start)
+                // *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Get start)
 
-                //  *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Get start)
+                // *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Get start)
                 NewPlatform.Flexberry.ORM.Tests.SomeMasterClass result = this.fSomeMasterClass;
-                //  *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Get end)
+                // *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Get end)
 
-                //  *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Get end)
+                // *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Set start)
+                // *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Set start)
 
-                //  *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Set start)
+                // *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Set start)
                 this.fSomeMasterClass = value;
-                //  *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Set end)
+                // *** Start programmer edit section *** (SomeDetailClass.SomeMasterClass Set end)
 
-                //  *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Set end)
+                // *** End programmer edit section *** (SomeDetailClass.SomeMasterClass Set end)
             }
         }
         

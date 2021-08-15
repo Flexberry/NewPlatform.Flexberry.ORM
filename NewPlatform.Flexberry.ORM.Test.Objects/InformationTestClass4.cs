@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// InformationTestClass4.
     /// </summary>
-    //  *** Start programmer edit section *** (InformationTestClass4 CustomAttributes)
+    // *** Start programmer edit section *** (InformationTestClass4 CustomAttributes)
 
-    //  *** End programmer edit section *** (InformationTestClass4 CustomAttributes)
+    // *** End programmer edit section *** (InformationTestClass4 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class InformationTestClass4 : ICSSoft.STORMNET.DataObject
@@ -35,50 +35,50 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.InformationTestClass3 fMasterOfInformationTestClass3;
         
-        //  *** Start programmer edit section *** (InformationTestClass4 CustomMembers)
+        // *** Start programmer edit section *** (InformationTestClass4 CustomMembers)
 
-        //  *** End programmer edit section *** (InformationTestClass4 CustomMembers)
+        // *** End programmer edit section *** (InformationTestClass4 CustomMembers)
 
         
         /// <summary>
         /// StringPropertyForInformationTestClass4.
         /// </summary>
-        //  *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 CustomAttributes)
+        // *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 CustomAttributes)
 
-        //  *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 CustomAttributes)
+        // *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 CustomAttributes)
         [PropertyStorage("StringPropForInfTestClass4")]
         [StrLen(255)]
         public virtual string StringPropertyForInformationTestClass4
         {
             get
             {
-                //  *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get start)
+                // *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get start)
 
-                //  *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get start)
+                // *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get start)
                 string result = this.fStringPropertyForInformationTestClass4;
-                //  *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get end)
+                // *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get end)
 
-                //  *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get end)
+                // *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set start)
+                // *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set start)
 
-                //  *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set start)
+                // *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set start)
                 this.fStringPropertyForInformationTestClass4 = value;
-                //  *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set end)
+                // *** Start programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set end)
 
-                //  *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set end)
+                // *** End programmer edit section *** (InformationTestClass4.StringPropertyForInformationTestClass4 Set end)
             }
         }
         
         /// <summary>
         /// InformationTestClass4.
         /// </summary>
-        //  *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 CustomAttributes)
+        // *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 CustomAttributes)
 
-        //  *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 CustomAttributes)
+        // *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 CustomAttributes)
         [PropertyStorage(new string[] {
                 "MasterOfInformationTestClass3"})]
         [NotNull()]
@@ -86,24 +86,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get start)
+                // *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get start)
 
-                //  *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get start)
+                // *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get start)
                 NewPlatform.Flexberry.ORM.Tests.InformationTestClass3 result = this.fMasterOfInformationTestClass3;
-                //  *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get end)
+                // *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get end)
 
-                //  *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get end)
+                // *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set start)
+                // *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set start)
 
-                //  *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set start)
+                // *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set start)
                 this.fMasterOfInformationTestClass3 = value;
-                //  *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set end)
+                // *** Start programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set end)
 
-                //  *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set end)
+                // *** End programmer edit section *** (InformationTestClass4.MasterOfInformationTestClass3 Set end)
             }
         }
     }

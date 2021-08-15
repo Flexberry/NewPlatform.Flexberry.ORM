@@ -15,26 +15,26 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// NotStoredClass.
     /// </summary>
-    //  *** Start programmer edit section *** (NotStoredClass CustomAttributes)
+    // *** Start programmer edit section *** (NotStoredClass CustomAttributes)
 
-    //  *** End programmer edit section *** (NotStoredClass CustomAttributes)
+    // *** End programmer edit section *** (NotStoredClass CustomAttributes)
     [AutoAltered()]
     [ICSSoft.STORMNET.NotStored()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class NotStoredClass : ICSSoft.STORMNET.DataObject
     {
         
-        //  *** Start programmer edit section *** (NotStoredClass CustomMembers)
+        // *** Start programmer edit section *** (NotStoredClass CustomMembers)
 
-        //  *** End programmer edit section *** (NotStoredClass CustomMembers)
+        // *** End programmer edit section *** (NotStoredClass CustomMembers)
 
     }
 }

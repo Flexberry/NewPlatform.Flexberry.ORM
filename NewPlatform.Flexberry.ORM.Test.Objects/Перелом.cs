@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Перелом.
     /// </summary>
-    //  *** Start programmer edit section *** (Перелом CustomAttributes)
+    // *** Start programmer edit section *** (Перелом CustomAttributes)
 
-    //  *** End programmer edit section *** (Перелом CustomAttributes)
+    // *** End programmer edit section *** (Перелом CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("k_ПереломE", new string[] {
@@ -46,103 +46,103 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Лапа fЛапа;
         
-        //  *** Start programmer edit section *** (Перелом CustomMembers)
+        // *** Start programmer edit section *** (Перелом CustomMembers)
 
-        //  *** End programmer edit section *** (Перелом CustomMembers)
+        // *** End programmer edit section *** (Перелом CustomMembers)
 
         
         /// <summary>
         /// Дата.
         /// </summary>
-        //  *** Start programmer edit section *** (Перелом.Дата CustomAttributes)
+        // *** Start programmer edit section *** (Перелом.Дата CustomAttributes)
 
-        //  *** End programmer edit section *** (Перелом.Дата CustomAttributes)
+        // *** End programmer edit section *** (Перелом.Дата CustomAttributes)
         public virtual System.DateTime Дата
         {
             get
             {
-                //  *** Start programmer edit section *** (Перелом.Дата Get start)
+                // *** Start programmer edit section *** (Перелом.Дата Get start)
 
-                //  *** End programmer edit section *** (Перелом.Дата Get start)
+                // *** End programmer edit section *** (Перелом.Дата Get start)
                 System.DateTime result = this.fДата;
-                //  *** Start programmer edit section *** (Перелом.Дата Get end)
+                // *** Start programmer edit section *** (Перелом.Дата Get end)
 
-                //  *** End programmer edit section *** (Перелом.Дата Get end)
+                // *** End programmer edit section *** (Перелом.Дата Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Перелом.Дата Set start)
+                // *** Start programmer edit section *** (Перелом.Дата Set start)
 
-                //  *** End programmer edit section *** (Перелом.Дата Set start)
+                // *** End programmer edit section *** (Перелом.Дата Set start)
                 this.fДата = value;
-                //  *** Start programmer edit section *** (Перелом.Дата Set end)
+                // *** Start programmer edit section *** (Перелом.Дата Set end)
 
-                //  *** End programmer edit section *** (Перелом.Дата Set end)
+                // *** End programmer edit section *** (Перелом.Дата Set end)
             }
         }
         
         /// <summary>
         /// Тип.
         /// </summary>
-        //  *** Start programmer edit section *** (Перелом.Тип CustomAttributes)
+        // *** Start programmer edit section *** (Перелом.Тип CustomAttributes)
 
-        //  *** End programmer edit section *** (Перелом.Тип CustomAttributes)
+        // *** End programmer edit section *** (Перелом.Тип CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.ТипПерелома Тип
         {
             get
             {
-                //  *** Start programmer edit section *** (Перелом.Тип Get start)
+                // *** Start programmer edit section *** (Перелом.Тип Get start)
 
-                //  *** End programmer edit section *** (Перелом.Тип Get start)
+                // *** End programmer edit section *** (Перелом.Тип Get start)
                 NewPlatform.Flexberry.ORM.Tests.ТипПерелома result = this.fТип;
-                //  *** Start programmer edit section *** (Перелом.Тип Get end)
+                // *** Start programmer edit section *** (Перелом.Тип Get end)
 
-                //  *** End programmer edit section *** (Перелом.Тип Get end)
+                // *** End programmer edit section *** (Перелом.Тип Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Перелом.Тип Set start)
+                // *** Start programmer edit section *** (Перелом.Тип Set start)
 
-                //  *** End programmer edit section *** (Перелом.Тип Set start)
+                // *** End programmer edit section *** (Перелом.Тип Set start)
                 this.fТип = value;
-                //  *** Start programmer edit section *** (Перелом.Тип Set end)
+                // *** Start programmer edit section *** (Перелом.Тип Set end)
 
-                //  *** End programmer edit section *** (Перелом.Тип Set end)
+                // *** End programmer edit section *** (Перелом.Тип Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.Лапа.
         /// </summary>
-        //  *** Start programmer edit section *** (Перелом.Лапа CustomAttributes)
+        // *** Start programmer edit section *** (Перелом.Лапа CustomAttributes)
 
-        //  *** End programmer edit section *** (Перелом.Лапа CustomAttributes)
+        // *** End programmer edit section *** (Перелом.Лапа CustomAttributes)
         [Agregator()]
         [NotNull()]
         public virtual NewPlatform.Flexberry.ORM.Tests.Лапа Лапа
         {
             get
             {
-                //  *** Start programmer edit section *** (Перелом.Лапа Get start)
+                // *** Start programmer edit section *** (Перелом.Лапа Get start)
 
-                //  *** End programmer edit section *** (Перелом.Лапа Get start)
+                // *** End programmer edit section *** (Перелом.Лапа Get start)
                 NewPlatform.Flexberry.ORM.Tests.Лапа result = this.fЛапа;
-                //  *** Start programmer edit section *** (Перелом.Лапа Get end)
+                // *** Start programmer edit section *** (Перелом.Лапа Get end)
 
-                //  *** End programmer edit section *** (Перелом.Лапа Get end)
+                // *** End programmer edit section *** (Перелом.Лапа Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Перелом.Лапа Set start)
+                // *** Start programmer edit section *** (Перелом.Лапа Set start)
 
-                //  *** End programmer edit section *** (Перелом.Лапа Set start)
+                // *** End programmer edit section *** (Перелом.Лапа Set start)
                 this.fЛапа = value;
-                //  *** Start programmer edit section *** (Перелом.Лапа Set end)
+                // *** Start programmer edit section *** (Перелом.Лапа Set end)
 
-                //  *** End programmer edit section *** (Перелом.Лапа Set end)
+                // *** End programmer edit section *** (Перелом.Лапа Set end)
             }
         }
         
@@ -190,15 +190,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of Перелом.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfПерелом CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfПерелом CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfПерелом CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfПерелом CustomAttributes)
     public class DetailArrayOfПерелом : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfПерелом members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfПерелом members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfПерелом members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfПерелом members)
 
         
         /// <summary>

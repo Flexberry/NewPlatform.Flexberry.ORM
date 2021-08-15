@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// DateField.
     /// </summary>
-    //  *** Start programmer edit section *** (DateField CustomAttributes)
+    // *** Start programmer edit section *** (DateField CustomAttributes)
 
-    //  *** End programmer edit section *** (DateField CustomAttributes)
+    // *** End programmer edit section *** (DateField CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("DateFieldD", new string[] {
@@ -37,39 +37,39 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private System.DateTime fDate;
         
-        //  *** Start programmer edit section *** (DateField CustomMembers)
+        // *** Start programmer edit section *** (DateField CustomMembers)
 
-        //  *** End programmer edit section *** (DateField CustomMembers)
+        // *** End programmer edit section *** (DateField CustomMembers)
 
         
         /// <summary>
         /// Date.
         /// </summary>
-        //  *** Start programmer edit section *** (DateField.Date CustomAttributes)
+        // *** Start programmer edit section *** (DateField.Date CustomAttributes)
 
-        //  *** End programmer edit section *** (DateField.Date CustomAttributes)
+        // *** End programmer edit section *** (DateField.Date CustomAttributes)
         public virtual System.DateTime Date
         {
             get
             {
-                //  *** Start programmer edit section *** (DateField.Date Get start)
+                // *** Start programmer edit section *** (DateField.Date Get start)
 
-                //  *** End programmer edit section *** (DateField.Date Get start)
+                // *** End programmer edit section *** (DateField.Date Get start)
                 System.DateTime result = this.fDate;
-                //  *** Start programmer edit section *** (DateField.Date Get end)
+                // *** Start programmer edit section *** (DateField.Date Get end)
 
-                //  *** End programmer edit section *** (DateField.Date Get end)
+                // *** End programmer edit section *** (DateField.Date Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (DateField.Date Set start)
+                // *** Start programmer edit section *** (DateField.Date Set start)
 
-                //  *** End programmer edit section *** (DateField.Date Set start)
+                // *** End programmer edit section *** (DateField.Date Set start)
                 this.fDate = value;
-                //  *** Start programmer edit section *** (DateField.Date Set end)
+                // *** Start programmer edit section *** (DateField.Date Set end)
 
-                //  *** End programmer edit section *** (DateField.Date Set end)
+                // *** End programmer edit section *** (DateField.Date Set end)
             }
         }
         

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// MasterClass.
     /// </summary>
-    //  *** Start programmer edit section *** (MasterClass CustomAttributes)
+    // *** Start programmer edit section *** (MasterClass CustomAttributes)
 
-    //  *** End programmer edit section *** (MasterClass CustomAttributes)
+    // *** End programmer edit section *** (MasterClass CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("MasterClassE", new string[] {
@@ -61,72 +61,72 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailClass fDetailClass;
         
-        //  *** Start programmer edit section *** (MasterClass CustomMembers)
+        // *** Start programmer edit section *** (MasterClass CustomMembers)
 
-        //  *** End programmer edit section *** (MasterClass CustomMembers)
+        // *** End programmer edit section *** (MasterClass CustomMembers)
 
         
         /// <summary>
         /// StringMasterProperty.
         /// </summary>
-        //  *** Start programmer edit section *** (MasterClass.StringMasterProperty CustomAttributes)
+        // *** Start programmer edit section *** (MasterClass.StringMasterProperty CustomAttributes)
 
-        //  *** End programmer edit section *** (MasterClass.StringMasterProperty CustomAttributes)
+        // *** End programmer edit section *** (MasterClass.StringMasterProperty CustomAttributes)
         [StrLen(255)]
         public virtual string StringMasterProperty
         {
             get
             {
-                //  *** Start programmer edit section *** (MasterClass.StringMasterProperty Get start)
+                // *** Start programmer edit section *** (MasterClass.StringMasterProperty Get start)
 
-                //  *** End programmer edit section *** (MasterClass.StringMasterProperty Get start)
+                // *** End programmer edit section *** (MasterClass.StringMasterProperty Get start)
                 string result = this.fStringMasterProperty;
-                //  *** Start programmer edit section *** (MasterClass.StringMasterProperty Get end)
+                // *** Start programmer edit section *** (MasterClass.StringMasterProperty Get end)
 
-                //  *** End programmer edit section *** (MasterClass.StringMasterProperty Get end)
+                // *** End programmer edit section *** (MasterClass.StringMasterProperty Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (MasterClass.StringMasterProperty Set start)
+                // *** Start programmer edit section *** (MasterClass.StringMasterProperty Set start)
 
-                //  *** End programmer edit section *** (MasterClass.StringMasterProperty Set start)
+                // *** End programmer edit section *** (MasterClass.StringMasterProperty Set start)
                 this.fStringMasterProperty = value;
-                //  *** Start programmer edit section *** (MasterClass.StringMasterProperty Set end)
+                // *** Start programmer edit section *** (MasterClass.StringMasterProperty Set end)
 
-                //  *** End programmer edit section *** (MasterClass.StringMasterProperty Set end)
+                // *** End programmer edit section *** (MasterClass.StringMasterProperty Set end)
             }
         }
         
         /// <summary>
         /// IntMasterProperty.
         /// </summary>
-        //  *** Start programmer edit section *** (MasterClass.IntMasterProperty CustomAttributes)
+        // *** Start programmer edit section *** (MasterClass.IntMasterProperty CustomAttributes)
 
-        //  *** End programmer edit section *** (MasterClass.IntMasterProperty CustomAttributes)
+        // *** End programmer edit section *** (MasterClass.IntMasterProperty CustomAttributes)
         [ICSSoft.STORMNET.NotStored()]
         public virtual int IntMasterProperty
         {
             get
             {
-                //  *** Start programmer edit section *** (MasterClass.IntMasterProperty Get)
+                // *** Start programmer edit section *** (MasterClass.IntMasterProperty Get)
                 return 0;
-                //  *** End programmer edit section *** (MasterClass.IntMasterProperty Get)
+                // *** End programmer edit section *** (MasterClass.IntMasterProperty Get)
             }
             set
             {
-                //  *** Start programmer edit section *** (MasterClass.IntMasterProperty Set)
+                // *** Start programmer edit section *** (MasterClass.IntMasterProperty Set)
 
-                //  *** End programmer edit section *** (MasterClass.IntMasterProperty Set)
+                // *** End programmer edit section *** (MasterClass.IntMasterProperty Set)
             }
         }
         
         /// <summary>
         /// MasterClass.
         /// </summary>
-        //  *** Start programmer edit section *** (MasterClass.InformationTestClass CustomAttributes)
+        // *** Start programmer edit section *** (MasterClass.InformationTestClass CustomAttributes)
 
-        //  *** End programmer edit section *** (MasterClass.InformationTestClass CustomAttributes)
+        // *** End programmer edit section *** (MasterClass.InformationTestClass CustomAttributes)
         [PropertyStorage("InformationTestClass")]
         [TypeUsage(new string[] {
                 "NewPlatform.Flexberry.ORM.Tests.InformationTestClass",
@@ -135,123 +135,123 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass Get start)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass Get start)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass Get start)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass Get start)
                 NewPlatform.Flexberry.ORM.Tests.InformationTestClass result = this.fInformationTestClass;
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass Get end)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass Get end)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass Get end)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass Set start)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass Set start)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass Set start)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass Set start)
                 this.fInformationTestClass = value;
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass Set end)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass Set end)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass Set end)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass Set end)
             }
         }
         
         /// <summary>
         /// MasterClass.
         /// </summary>
-        //  *** Start programmer edit section *** (MasterClass.InformationTestClass2 CustomAttributes)
+        // *** Start programmer edit section *** (MasterClass.InformationTestClass2 CustomAttributes)
 
-        //  *** End programmer edit section *** (MasterClass.InformationTestClass2 CustomAttributes)
+        // *** End programmer edit section *** (MasterClass.InformationTestClass2 CustomAttributes)
         [PropertyStorage(new string[] {
                 "InformationTestClass2"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.InformationTestClass2 InformationTestClass2
         {
             get
             {
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass2 Get start)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass2 Get start)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass2 Get start)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass2 Get start)
                 NewPlatform.Flexberry.ORM.Tests.InformationTestClass2 result = this.fInformationTestClass2;
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass2 Get end)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass2 Get end)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass2 Get end)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass2 Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass2 Set start)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass2 Set start)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass2 Set start)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass2 Set start)
                 this.fInformationTestClass2 = value;
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass2 Set end)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass2 Set end)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass2 Set end)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass2 Set end)
             }
         }
         
         /// <summary>
         /// MasterClass.
         /// </summary>
-        //  *** Start programmer edit section *** (MasterClass.InformationTestClass3 CustomAttributes)
+        // *** Start programmer edit section *** (MasterClass.InformationTestClass3 CustomAttributes)
 
-        //  *** End programmer edit section *** (MasterClass.InformationTestClass3 CustomAttributes)
+        // *** End programmer edit section *** (MasterClass.InformationTestClass3 CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.InformationTestClass3 InformationTestClass3
         {
             get
             {
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass3 Get start)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass3 Get start)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass3 Get start)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass3 Get start)
                 NewPlatform.Flexberry.ORM.Tests.InformationTestClass3 result = this.fInformationTestClass3;
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass3 Get end)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass3 Get end)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass3 Get end)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass3 Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass3 Set start)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass3 Set start)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass3 Set start)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass3 Set start)
                 this.fInformationTestClass3 = value;
-                //  *** Start programmer edit section *** (MasterClass.InformationTestClass3 Set end)
+                // *** Start programmer edit section *** (MasterClass.InformationTestClass3 Set end)
 
-                //  *** End programmer edit section *** (MasterClass.InformationTestClass3 Set end)
+                // *** End programmer edit section *** (MasterClass.InformationTestClass3 Set end)
             }
         }
         
         /// <summary>
         /// MasterClass.
         /// </summary>
-        //  *** Start programmer edit section *** (MasterClass.DetailClass CustomAttributes)
+        // *** Start programmer edit section *** (MasterClass.DetailClass CustomAttributes)
 
-        //  *** End programmer edit section *** (MasterClass.DetailClass CustomAttributes)
+        // *** End programmer edit section *** (MasterClass.DetailClass CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailClass DetailClass
         {
             get
             {
-                //  *** Start programmer edit section *** (MasterClass.DetailClass Get start)
+                // *** Start programmer edit section *** (MasterClass.DetailClass Get start)
 
-                //  *** End programmer edit section *** (MasterClass.DetailClass Get start)
+                // *** End programmer edit section *** (MasterClass.DetailClass Get start)
                 if ((this.fDetailClass == null))
                 {
                     this.fDetailClass = new NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailClass(this);
                 }
                 NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailClass result = this.fDetailClass;
-                //  *** Start programmer edit section *** (MasterClass.DetailClass Get end)
+                // *** Start programmer edit section *** (MasterClass.DetailClass Get end)
 
-                //  *** End programmer edit section *** (MasterClass.DetailClass Get end)
+                // *** End programmer edit section *** (MasterClass.DetailClass Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (MasterClass.DetailClass Set start)
+                // *** Start programmer edit section *** (MasterClass.DetailClass Set start)
 
-                //  *** End programmer edit section *** (MasterClass.DetailClass Set start)
+                // *** End programmer edit section *** (MasterClass.DetailClass Set start)
                 this.fDetailClass = value;
-                //  *** Start programmer edit section *** (MasterClass.DetailClass Set end)
+                // *** Start programmer edit section *** (MasterClass.DetailClass Set end)
 
-                //  *** End programmer edit section *** (MasterClass.DetailClass Set end)
+                // *** End programmer edit section *** (MasterClass.DetailClass Set end)
             }
         }
         

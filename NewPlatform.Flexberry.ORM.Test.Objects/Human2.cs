@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Human2.
     /// </summary>
-    //  *** Start programmer edit section *** (Human2 CustomAttributes)
+    // *** Start programmer edit section *** (Human2 CustomAttributes)
 
-    //  *** End programmer edit section *** (Human2 CustomAttributes)
+    // *** End programmer edit section *** (Human2 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("Human2E", new string[] {
@@ -42,49 +42,49 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Territory2 fTodayHome;
         
-        //  *** Start programmer edit section *** (Human2 CustomMembers)
+        // *** Start programmer edit section *** (Human2 CustomMembers)
 
-        //  *** End programmer edit section *** (Human2 CustomMembers)
+        // *** End programmer edit section *** (Human2 CustomMembers)
 
         
         /// <summary>
         /// HumanName.
         /// </summary>
-        //  *** Start programmer edit section *** (Human2.HumanName CustomAttributes)
+        // *** Start programmer edit section *** (Human2.HumanName CustomAttributes)
 
-        //  *** End programmer edit section *** (Human2.HumanName CustomAttributes)
+        // *** End programmer edit section *** (Human2.HumanName CustomAttributes)
         [StrLen(255)]
         public virtual string HumanName
         {
             get
             {
-                //  *** Start programmer edit section *** (Human2.HumanName Get start)
+                // *** Start programmer edit section *** (Human2.HumanName Get start)
 
-                //  *** End programmer edit section *** (Human2.HumanName Get start)
+                // *** End programmer edit section *** (Human2.HumanName Get start)
                 string result = this.fHumanName;
-                //  *** Start programmer edit section *** (Human2.HumanName Get end)
+                // *** Start programmer edit section *** (Human2.HumanName Get end)
 
-                //  *** End programmer edit section *** (Human2.HumanName Get end)
+                // *** End programmer edit section *** (Human2.HumanName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Human2.HumanName Set start)
+                // *** Start programmer edit section *** (Human2.HumanName Set start)
 
-                //  *** End programmer edit section *** (Human2.HumanName Set start)
+                // *** End programmer edit section *** (Human2.HumanName Set start)
                 this.fHumanName = value;
-                //  *** Start programmer edit section *** (Human2.HumanName Set end)
+                // *** Start programmer edit section *** (Human2.HumanName Set end)
 
-                //  *** End programmer edit section *** (Human2.HumanName Set end)
+                // *** End programmer edit section *** (Human2.HumanName Set end)
             }
         }
         
         /// <summary>
         /// Human2.
         /// </summary>
-        //  *** Start programmer edit section *** (Human2.TodayHome CustomAttributes)
+        // *** Start programmer edit section *** (Human2.TodayHome CustomAttributes)
 
-        //  *** End programmer edit section *** (Human2.TodayHome CustomAttributes)
+        // *** End programmer edit section *** (Human2.TodayHome CustomAttributes)
         [TypeUsage(new string[] {
                 "NewPlatform.Flexberry.ORM.Tests.Country2",
                 "NewPlatform.Flexberry.ORM.Tests.Territory2"})]
@@ -92,24 +92,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (Human2.TodayHome Get start)
+                // *** Start programmer edit section *** (Human2.TodayHome Get start)
 
-                //  *** End programmer edit section *** (Human2.TodayHome Get start)
+                // *** End programmer edit section *** (Human2.TodayHome Get start)
                 NewPlatform.Flexberry.ORM.Tests.Territory2 result = this.fTodayHome;
-                //  *** Start programmer edit section *** (Human2.TodayHome Get end)
+                // *** Start programmer edit section *** (Human2.TodayHome Get end)
 
-                //  *** End programmer edit section *** (Human2.TodayHome Get end)
+                // *** End programmer edit section *** (Human2.TodayHome Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Human2.TodayHome Set start)
+                // *** Start programmer edit section *** (Human2.TodayHome Set start)
 
-                //  *** End programmer edit section *** (Human2.TodayHome Set start)
+                // *** End programmer edit section *** (Human2.TodayHome Set start)
                 this.fTodayHome = value;
-                //  *** Start programmer edit section *** (Human2.TodayHome Set end)
+                // *** Start programmer edit section *** (Human2.TodayHome Set end)
 
-                //  *** End programmer edit section *** (Human2.TodayHome Set end)
+                // *** End programmer edit section *** (Human2.TodayHome Set end)
             }
         }
         

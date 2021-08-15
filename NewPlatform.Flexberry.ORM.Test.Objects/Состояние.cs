@@ -14,43 +14,43 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Состояние.
     /// </summary>
-    //  *** Start programmer edit section *** (Состояние CustomAttributes)
+    // *** Start programmer edit section *** (Состояние CustomAttributes)
 
-    //  *** End programmer edit section *** (Состояние CustomAttributes)
+    // *** End programmer edit section *** (Состояние CustomAttributes)
     public enum Состояние
     {
         
-        //  *** Start programmer edit section *** (Состояние.НеНачат CustomAttributes)
+        // *** Start programmer edit section *** (Состояние.НеНачат CustomAttributes)
 
-        //  *** End programmer edit section *** (Состояние.НеНачат CustomAttributes)
+        // *** End programmer edit section *** (Состояние.НеНачат CustomAttributes)
         НеНачат,
         
-        //  *** Start programmer edit section *** (Состояние.СборИдей CustomAttributes)
+        // *** Start programmer edit section *** (Состояние.СборИдей CustomAttributes)
 
-        //  *** End programmer edit section *** (Состояние.СборИдей CustomAttributes)
+        // *** End programmer edit section *** (Состояние.СборИдей CustomAttributes)
         СборИдей,
         
-        //  *** Start programmer edit section *** (Состояние.ЭкспертнаяОценка CustomAttributes)
+        // *** Start programmer edit section *** (Состояние.ЭкспертнаяОценка CustomAttributes)
 
-        //  *** End programmer edit section *** (Состояние.ЭкспертнаяОценка CustomAttributes)
+        // *** End programmer edit section *** (Состояние.ЭкспертнаяОценка CustomAttributes)
         ЭкспертнаяОценка,
         
-        //  *** Start programmer edit section *** (Состояние.Завершён CustomAttributes)
+        // *** Start programmer edit section *** (Состояние.Завершён CustomAttributes)
 
-        //  *** End programmer edit section *** (Состояние.Завершён CustomAttributes)
+        // *** End programmer edit section *** (Состояние.Завершён CustomAttributes)
         Завершён,
         
-        //  *** Start programmer edit section *** (Состояние.Отменён CustomAttributes)
+        // *** Start programmer edit section *** (Состояние.Отменён CustomAttributes)
 
-        //  *** End programmer edit section *** (Состояние.Отменён CustomAttributes)
+        // *** End programmer edit section *** (Состояние.Отменён CustomAttributes)
         Отменён,
     }
 }

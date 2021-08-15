@@ -15,18 +15,18 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
     using System.Collections.Generic;
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Homer.
     /// </summary>
-    //  *** Start programmer edit section *** (Homer CustomAttributes)
+    // *** Start programmer edit section *** (Homer CustomAttributes)
 
-    //  *** End programmer edit section *** (Homer CustomAttributes)
+    // *** End programmer edit section *** (Homer CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class Homer : ICSSoft.STORMNET.DataObject, INotifyUpdateObject
@@ -34,7 +34,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fName;
         
-        //  *** Start programmer edit section *** (Homer CustomMembers)
+        // *** Start programmer edit section *** (Homer CustomMembers)
         /// <inheritdoc cref="INotifyUpdateObject"/>
         public void BeforeUpdateObject(DataObject dataObject, ObjectStatus status, IEnumerable<DataObject> dataObjects)
         {
@@ -59,38 +59,38 @@ namespace NewPlatform.Flexberry.ORM.Tests
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateObject), new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects));
         }
 
-        //  *** End programmer edit section *** (Homer CustomMembers)
+        // *** End programmer edit section *** (Homer CustomMembers)
 
         
         /// <summary>
         /// Name.
         /// </summary>
-        //  *** Start programmer edit section *** (Homer.Name CustomAttributes)
+        // *** Start programmer edit section *** (Homer.Name CustomAttributes)
 
-        //  *** End programmer edit section *** (Homer.Name CustomAttributes)
+        // *** End programmer edit section *** (Homer.Name CustomAttributes)
         [StrLen(255)]
         public virtual string Name
         {
             get
             {
-                //  *** Start programmer edit section *** (Homer.Name Get start)
+                // *** Start programmer edit section *** (Homer.Name Get start)
 
-                //  *** End programmer edit section *** (Homer.Name Get start)
+                // *** End programmer edit section *** (Homer.Name Get start)
                 string result = this.fName;
-                //  *** Start programmer edit section *** (Homer.Name Get end)
+                // *** Start programmer edit section *** (Homer.Name Get end)
 
-                //  *** End programmer edit section *** (Homer.Name Get end)
+                // *** End programmer edit section *** (Homer.Name Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Homer.Name Set start)
+                // *** Start programmer edit section *** (Homer.Name Set start)
 
-                //  *** End programmer edit section *** (Homer.Name Set start)
+                // *** End programmer edit section *** (Homer.Name Set start)
                 this.fName = value;
-                //  *** Start programmer edit section *** (Homer.Name Set end)
+                // *** Start programmer edit section *** (Homer.Name Set end)
 
-                //  *** End programmer edit section *** (Homer.Name Set end)
+                // *** End programmer edit section *** (Homer.Name Set end)
             }
         }
     }

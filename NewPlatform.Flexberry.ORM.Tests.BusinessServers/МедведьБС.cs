@@ -14,35 +14,35 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
     using System.Linq;
     using System.Collections.Generic;
 
     using ICSSoft.STORMNET;
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// МедведьБС.
     /// </summary>
-    //  *** Start programmer edit section *** (МедведьБС CustomAttributes)
+    // *** Start programmer edit section *** (МедведьБС CustomAttributes)
 
-    //  *** End programmer edit section *** (МедведьБС CustomAttributes)
+    // *** End programmer edit section *** (МедведьБС CustomAttributes)
     [ICSSoft.STORMNET.AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class МедведьБС : ICSSoft.STORMNET.Business.BusinessServer
     {
         
-        //  *** Start programmer edit section *** (МедведьБС CustomMembers)
+        // *** Start programmer edit section *** (МедведьБС CustomMembers)
 
-        //  *** End programmer edit section *** (МедведьБС CustomMembers)
+        // *** End programmer edit section *** (МедведьБС CustomMembers)
 
         
-        //  *** Start programmer edit section *** (OnUpdateМедведь CustomAttributes)
+        // *** Start programmer edit section *** (OnUpdateМедведь CustomAttributes)
 
-        //  *** End programmer edit section *** (OnUpdateМедведь CustomAttributes)
+        // *** End programmer edit section *** (OnUpdateМедведь CustomAttributes)
         public virtual ICSSoft.STORMNET.DataObject[] OnUpdateМедведь(NewPlatform.Flexberry.ORM.Tests.Медведь UpdatedObject)
         {
-            //  *** Start programmer edit section *** (OnUpdateМедведь)
+            // *** Start programmer edit section *** (OnUpdateМедведь)
             var updatedObjects = new List<DataObject>();
             IEnumerable<Берлога> берлоги = UpdatedObject.Берлога.GetAllObjects().Cast<Берлога>();
 
@@ -88,7 +88,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
             }
 
             return updatedObjects.Distinct().ToArray();
-            //  *** End programmer edit section *** (OnUpdateМедведь)
+            // *** End programmer edit section *** (OnUpdateМедведь)
         }
     }
 }

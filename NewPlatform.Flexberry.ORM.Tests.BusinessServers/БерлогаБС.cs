@@ -14,34 +14,34 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// БерлогаБС.
     /// </summary>
-    //  *** Start programmer edit section *** (БерлогаБС CustomAttributes)
+    // *** Start programmer edit section *** (БерлогаБС CustomAttributes)
 
-    //  *** End programmer edit section *** (БерлогаБС CustomAttributes)
+    // *** End programmer edit section *** (БерлогаБС CustomAttributes)
     [ICSSoft.STORMNET.AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class БерлогаБС : ICSSoft.STORMNET.Business.BusinessServer
     {
         
-        //  *** Start programmer edit section *** (БерлогаБС CustomMembers)
+        // *** Start programmer edit section *** (БерлогаБС CustomMembers)
 
-        //  *** End programmer edit section *** (БерлогаБС CustomMembers)
+        // *** End programmer edit section *** (БерлогаБС CustomMembers)
 
         
-        //  *** Start programmer edit section *** (OnUpdateБерлога CustomAttributes)
+        // *** Start programmer edit section *** (OnUpdateБерлога CustomAttributes)
 
-        //  *** End programmer edit section *** (OnUpdateБерлога CustomAttributes)
+        // *** End programmer edit section *** (OnUpdateБерлога CustomAttributes)
         public virtual ICSSoft.STORMNET.DataObject[] OnUpdateБерлога(NewPlatform.Flexberry.ORM.Tests.Берлога UpdatedObject)
         {
-            //  *** Start programmer edit section *** (OnUpdateБерлога)
+            // *** Start programmer edit section *** (OnUpdateБерлога)
             return new ICSSoft.STORMNET.DataObject[0];
-            //  *** End programmer edit section *** (OnUpdateБерлога)
+            // *** End programmer edit section *** (OnUpdateБерлога)
         }
     }
 }

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Клиент.
     /// </summary>
-    //  *** Start programmer edit section *** (Клиент CustomAttributes)
+    // *** Start programmer edit section *** (Клиент CustomAttributes)
 
-    //  *** End programmer edit section *** (Клиент CustomAttributes)
+    // *** End programmer edit section *** (Клиент CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("TestNotStoredGuid", new string[] {
@@ -45,81 +45,81 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fПрописка;
         
-        //  *** Start programmer edit section *** (Клиент CustomMembers)
+        // *** Start programmer edit section *** (Клиент CustomMembers)
 
-        //  *** End programmer edit section *** (Клиент CustomMembers)
+        // *** End programmer edit section *** (Клиент CustomMembers)
 
         
         /// <summary>
         /// ФИО.
         /// </summary>
-        //  *** Start programmer edit section *** (Клиент.ФИО CustomAttributes)
+        // *** Start programmer edit section *** (Клиент.ФИО CustomAttributes)
 
-        //  *** End programmer edit section *** (Клиент.ФИО CustomAttributes)
+        // *** End programmer edit section *** (Клиент.ФИО CustomAttributes)
         [StrLen(255)]
         public virtual string ФИО
         {
             get
             {
-                //  *** Start programmer edit section *** (Клиент.ФИО Get start)
+                // *** Start programmer edit section *** (Клиент.ФИО Get start)
 
-                //  *** End programmer edit section *** (Клиент.ФИО Get start)
+                // *** End programmer edit section *** (Клиент.ФИО Get start)
                 string result = this.fФИО;
-                //  *** Start programmer edit section *** (Клиент.ФИО Get end)
+                // *** Start programmer edit section *** (Клиент.ФИО Get end)
 
-                //  *** End programmer edit section *** (Клиент.ФИО Get end)
+                // *** End programmer edit section *** (Клиент.ФИО Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Клиент.ФИО Set start)
+                // *** Start programmer edit section *** (Клиент.ФИО Set start)
 
-                //  *** End programmer edit section *** (Клиент.ФИО Set start)
+                // *** End programmer edit section *** (Клиент.ФИО Set start)
                 this.fФИО = value;
-                //  *** Start programmer edit section *** (Клиент.ФИО Set end)
+                // *** Start programmer edit section *** (Клиент.ФИО Set end)
 
-                //  *** End programmer edit section *** (Клиент.ФИО Set end)
+                // *** End programmer edit section *** (Клиент.ФИО Set end)
             }
         }
         
         /// <summary>
         /// Прописка.
         /// </summary>
-        //  *** Start programmer edit section *** (Клиент.Прописка CustomAttributes)
+        // *** Start programmer edit section *** (Клиент.Прописка CustomAttributes)
 
-        //  *** End programmer edit section *** (Клиент.Прописка CustomAttributes)
+        // *** End programmer edit section *** (Клиент.Прописка CustomAttributes)
         [StrLen(255)]
         public virtual string Прописка
         {
             get
             {
-                //  *** Start programmer edit section *** (Клиент.Прописка Get start)
+                // *** Start programmer edit section *** (Клиент.Прописка Get start)
 
-                //  *** End programmer edit section *** (Клиент.Прописка Get start)
+                // *** End programmer edit section *** (Клиент.Прописка Get start)
                 string result = this.fПрописка;
-                //  *** Start programmer edit section *** (Клиент.Прописка Get end)
+                // *** Start programmer edit section *** (Клиент.Прописка Get end)
 
-                //  *** End programmer edit section *** (Клиент.Прописка Get end)
+                // *** End programmer edit section *** (Клиент.Прописка Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Клиент.Прописка Set start)
+                // *** Start programmer edit section *** (Клиент.Прописка Set start)
 
-                //  *** End programmer edit section *** (Клиент.Прописка Set start)
+                // *** End programmer edit section *** (Клиент.Прописка Set start)
                 this.fПрописка = value;
-                //  *** Start programmer edit section *** (Клиент.Прописка Set end)
+                // *** Start programmer edit section *** (Клиент.Прописка Set end)
 
-                //  *** End programmer edit section *** (Клиент.Прописка Set end)
+                // *** End programmer edit section *** (Клиент.Прописка Set end)
             }
         }
         
         /// <summary>
         /// NotStoredGuid.
         /// </summary>
-        //  *** Start programmer edit section *** (Клиент.NotStoredGuid CustomAttributes)
+        // *** Start programmer edit section *** (Клиент.NotStoredGuid CustomAttributes)
 
-        //  *** End programmer edit section *** (Клиент.NotStoredGuid CustomAttributes)
+        // *** End programmer edit section *** (Клиент.NotStoredGuid CustomAttributes)
         [ICSSoft.STORMNET.NotStored()]
         [StrLen(255)]
         [DataServiceExpression(typeof(ICSSoft.STORMNET.Business.SQLDataService), "select newid()")]
@@ -130,15 +130,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (Клиент.NotStoredGuid Get)
+                // *** Start programmer edit section *** (Клиент.NotStoredGuid Get)
                 return null;
-                //  *** End programmer edit section *** (Клиент.NotStoredGuid Get)
+                // *** End programmer edit section *** (Клиент.NotStoredGuid Get)
             }
             set
             {
-                //  *** Start programmer edit section *** (Клиент.NotStoredGuid Set)
+                // *** Start programmer edit section *** (Клиент.NotStoredGuid Set)
 
-                //  *** End programmer edit section *** (Клиент.NotStoredGuid Set)
+                // *** End programmer edit section *** (Клиент.NotStoredGuid Set)
             }
         }
         

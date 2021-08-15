@@ -14,28 +14,28 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// tСтатусИсполнителяХозДоговора.
     /// </summary>
-    //  *** Start programmer edit section *** (tСтатусИсполнителяХозДоговора CustomAttributes)
+    // *** Start programmer edit section *** (tСтатусИсполнителяХозДоговора CustomAttributes)
 
-    //  *** End programmer edit section *** (tСтатусИсполнителяХозДоговора CustomAttributes)
+    // *** End programmer edit section *** (tСтатусИсполнителяХозДоговора CustomAttributes)
     public enum tСтатусИсполнителяХозДоговора
     {
         
-        //  *** Start programmer edit section *** (tСтатусИсполнителяХозДоговора.Руководитель CustomAttributes)
+        // *** Start programmer edit section *** (tСтатусИсполнителяХозДоговора.Руководитель CustomAttributes)
 
-        //  *** End programmer edit section *** (tСтатусИсполнителяХозДоговора.Руководитель CustomAttributes)
+        // *** End programmer edit section *** (tСтатусИсполнителяХозДоговора.Руководитель CustomAttributes)
         Руководитель,
         
-        //  *** Start programmer edit section *** (tСтатусИсполнителяХозДоговора.Никто CustomAttributes)
+        // *** Start programmer edit section *** (tСтатусИсполнителяХозДоговора.Никто CustomAttributes)
 
-        //  *** End programmer edit section *** (tСтатусИсполнителяХозДоговора.Никто CustomAttributes)
+        // *** End programmer edit section *** (tСтатусИсполнителяХозДоговора.Никто CustomAttributes)
         Никто,
     }
 }

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// ИнспекторПоКредиту.
     /// </summary>
-    //  *** Start programmer edit section *** (ИнспекторПоКредиту CustomAttributes)
+    // *** Start programmer edit section *** (ИнспекторПоКредиту CustomAttributes)
 
-    //  *** End programmer edit section *** (ИнспекторПоКредиту CustomAttributes)
+    // *** End programmer edit section *** (ИнспекторПоКредиту CustomAttributes)
     [ClassStorage("ИнспПоКредиту")]
     [AutoAltered()]
     [Caption("Инспектор по кредиту")]
@@ -39,40 +39,40 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fФИО;
         
-        //  *** Start programmer edit section *** (ИнспекторПоКредиту CustomMembers)
+        // *** Start programmer edit section *** (ИнспекторПоКредиту CustomMembers)
 
-        //  *** End programmer edit section *** (ИнспекторПоКредиту CustomMembers)
+        // *** End programmer edit section *** (ИнспекторПоКредиту CustomMembers)
 
         
         /// <summary>
         /// ФИО.
         /// </summary>
-        //  *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО CustomAttributes)
+        // *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО CustomAttributes)
 
-        //  *** End programmer edit section *** (ИнспекторПоКредиту.ФИО CustomAttributes)
+        // *** End programmer edit section *** (ИнспекторПоКредиту.ФИО CustomAttributes)
         [StrLen(255)]
         public virtual string ФИО
         {
             get
             {
-                //  *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Get start)
+                // *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Get start)
 
-                //  *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Get start)
+                // *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Get start)
                 string result = this.fФИО;
-                //  *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Get end)
+                // *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Get end)
 
-                //  *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Get end)
+                // *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Set start)
+                // *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Set start)
 
-                //  *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Set start)
+                // *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Set start)
                 this.fФИО = value;
-                //  *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Set end)
+                // *** Start programmer edit section *** (ИнспекторПоКредиту.ФИО Set end)
 
-                //  *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Set end)
+                // *** End programmer edit section *** (ИнспекторПоКредиту.ФИО Set end)
             }
         }
         

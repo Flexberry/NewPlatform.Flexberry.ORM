@@ -14,25 +14,25 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// FileForTests.
     /// </summary>
-    //  *** Start programmer edit section *** (FileForTests CustomAttributes)
+    // *** Start programmer edit section *** (FileForTests CustomAttributes)
 
-    //  *** End programmer edit section *** (FileForTests CustomAttributes)
+    // *** End programmer edit section *** (FileForTests CustomAttributes)
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.SQLDataService), typeof(string))]
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.PostgresDataService), typeof(string))]
     public class FileForTests : IComparableType, INotifyUpdateProperty
     {
         
-        //  *** Start programmer edit section *** (FileForTests CustomMembers)
+        // *** Start programmer edit section *** (FileForTests CustomMembers)
         /// <summary>
         /// Store for value of type.
         /// </summary>
@@ -73,7 +73,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
             throw new Exception($"Incompatible object type for compare with {nameof(FileForTests)}.");
         }
 
-        //  *** End programmer edit section *** (FileForTests CustomMembers)
+        // *** End programmer edit section *** (FileForTests CustomMembers)
 
     }
 }

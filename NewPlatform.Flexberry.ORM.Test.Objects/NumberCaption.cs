@@ -15,35 +15,35 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Класс для проверки сохранения объектов с Caption, на-ся с числа. Эталон: Attribute1 (нач-ся с символа, сохраняется успешно). Attribute2 и Attribute3 нач-ся с числа, при сохранении возникают проблемы.
     /// </summary>
-    //  *** Start programmer edit section *** (NumberCaption CustomAttributes)
+    // *** Start programmer edit section *** (NumberCaption CustomAttributes)
 
-    //  *** End programmer edit section *** (NumberCaption CustomAttributes)
+    // *** End programmer edit section *** (NumberCaption CustomAttributes)
     public enum NumberCaption
     {
         
-        //  *** Start programmer edit section *** (NumberCaption.Attribute1 CustomAttributes)
+        // *** Start programmer edit section *** (NumberCaption.Attribute1 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberCaption.Attribute1 CustomAttributes)
+        // *** End programmer edit section *** (NumberCaption.Attribute1 CustomAttributes)
         [Caption("Attribute 1")]
         Attribute1,
         
-        //  *** Start programmer edit section *** (NumberCaption.Attribute2 CustomAttributes)
+        // *** Start programmer edit section *** (NumberCaption.Attribute2 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberCaption.Attribute2 CustomAttributes)
+        // *** End programmer edit section *** (NumberCaption.Attribute2 CustomAttributes)
         [Caption("2 attribute")]
         Attribute2,
         
-        //  *** Start programmer edit section *** (NumberCaption.Attribute3 CustomAttributes)
+        // *** Start programmer edit section *** (NumberCaption.Attribute3 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberCaption.Attribute3 CustomAttributes)
+        // *** End programmer edit section *** (NumberCaption.Attribute3 CustomAttributes)
         [Caption("3attribute")]
         Attribute3,
     }

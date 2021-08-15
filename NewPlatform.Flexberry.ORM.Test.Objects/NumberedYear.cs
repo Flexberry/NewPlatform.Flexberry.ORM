@@ -15,41 +15,41 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// NumberedYear.
     /// </summary>
-    //  *** Start programmer edit section *** (NumberedYear CustomAttributes)
+    // *** Start programmer edit section *** (NumberedYear CustomAttributes)
 
-    //  *** End programmer edit section *** (NumberedYear CustomAttributes)
+    // *** End programmer edit section *** (NumberedYear CustomAttributes)
     public enum NumberedYear
     {
         
-        //  *** Start programmer edit section *** (NumberedYear.Year2011 CustomAttributes)
+        // *** Start programmer edit section *** (NumberedYear.Year2011 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberedYear.Year2011 CustomAttributes)
+        // *** End programmer edit section *** (NumberedYear.Year2011 CustomAttributes)
         [Caption("2011")]
         Year2011,
         
-        //  *** Start programmer edit section *** (NumberedYear.Year2012 CustomAttributes)
+        // *** Start programmer edit section *** (NumberedYear.Year2012 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberedYear.Year2012 CustomAttributes)
+        // *** End programmer edit section *** (NumberedYear.Year2012 CustomAttributes)
         [Caption("2012")]
         Year2012,
         
-        //  *** Start programmer edit section *** (NumberedYear.Year2013 CustomAttributes)
+        // *** Start programmer edit section *** (NumberedYear.Year2013 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberedYear.Year2013 CustomAttributes)
+        // *** End programmer edit section *** (NumberedYear.Year2013 CustomAttributes)
         [Caption("2013")]
         Year2013,
         
-        //  *** Start programmer edit section *** (NumberedYear.Year2014 CustomAttributes)
+        // *** Start programmer edit section *** (NumberedYear.Year2014 CustomAttributes)
 
-        //  *** End programmer edit section *** (NumberedYear.Year2014 CustomAttributes)
+        // *** End programmer edit section *** (NumberedYear.Year2014 CustomAttributes)
         [Caption("")]
         Year2014,
     }

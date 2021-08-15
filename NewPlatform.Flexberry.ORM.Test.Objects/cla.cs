@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// cla.
     /// </summary>
-    //  *** Start programmer edit section *** (cla CustomAttributes)
+    // *** Start programmer edit section *** (cla CustomAttributes)
 
-    //  *** End programmer edit section *** (cla CustomAttributes)
+    // *** End programmer edit section *** (cla CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class cla : ICSSoft.STORMNET.DataObject
@@ -35,73 +35,73 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.clb fparent;
         
-        //  *** Start programmer edit section *** (cla CustomMembers)
+        // *** Start programmer edit section *** (cla CustomMembers)
 
-        //  *** End programmer edit section *** (cla CustomMembers)
+        // *** End programmer edit section *** (cla CustomMembers)
 
         
         /// <summary>
         /// info.
         /// </summary>
-        //  *** Start programmer edit section *** (cla.info CustomAttributes)
+        // *** Start programmer edit section *** (cla.info CustomAttributes)
 
-        //  *** End programmer edit section *** (cla.info CustomAttributes)
+        // *** End programmer edit section *** (cla.info CustomAttributes)
         [StrLen(255)]
         public virtual string info
         {
             get
             {
-                //  *** Start programmer edit section *** (cla.info Get start)
+                // *** Start programmer edit section *** (cla.info Get start)
 
-                //  *** End programmer edit section *** (cla.info Get start)
+                // *** End programmer edit section *** (cla.info Get start)
                 string result = this.finfo;
-                //  *** Start programmer edit section *** (cla.info Get end)
+                // *** Start programmer edit section *** (cla.info Get end)
 
-                //  *** End programmer edit section *** (cla.info Get end)
+                // *** End programmer edit section *** (cla.info Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (cla.info Set start)
+                // *** Start programmer edit section *** (cla.info Set start)
 
-                //  *** End programmer edit section *** (cla.info Set start)
+                // *** End programmer edit section *** (cla.info Set start)
                 this.finfo = value;
-                //  *** Start programmer edit section *** (cla.info Set end)
+                // *** Start programmer edit section *** (cla.info Set end)
 
-                //  *** End programmer edit section *** (cla.info Set end)
+                // *** End programmer edit section *** (cla.info Set end)
             }
         }
         
         /// <summary>
         /// cla.
         /// </summary>
-        //  *** Start programmer edit section *** (cla.parent CustomAttributes)
+        // *** Start programmer edit section *** (cla.parent CustomAttributes)
 
-        //  *** End programmer edit section *** (cla.parent CustomAttributes)
+        // *** End programmer edit section *** (cla.parent CustomAttributes)
         [PropertyStorage(new string[] {
                 "parent"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.clb parent
         {
             get
             {
-                //  *** Start programmer edit section *** (cla.parent Get start)
+                // *** Start programmer edit section *** (cla.parent Get start)
 
-                //  *** End programmer edit section *** (cla.parent Get start)
+                // *** End programmer edit section *** (cla.parent Get start)
                 NewPlatform.Flexberry.ORM.Tests.clb result = this.fparent;
-                //  *** Start programmer edit section *** (cla.parent Get end)
+                // *** Start programmer edit section *** (cla.parent Get end)
 
-                //  *** End programmer edit section *** (cla.parent Get end)
+                // *** End programmer edit section *** (cla.parent Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (cla.parent Set start)
+                // *** Start programmer edit section *** (cla.parent Set start)
 
-                //  *** End programmer edit section *** (cla.parent Set start)
+                // *** End programmer edit section *** (cla.parent Set start)
                 this.fparent = value;
-                //  *** Start programmer edit section *** (cla.parent Set end)
+                // *** Start programmer edit section *** (cla.parent Set end)
 
-                //  *** End programmer edit section *** (cla.parent Set end)
+                // *** End programmer edit section *** (cla.parent Set end)
             }
         }
     }

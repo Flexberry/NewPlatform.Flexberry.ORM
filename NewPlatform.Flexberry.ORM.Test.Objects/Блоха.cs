@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Блоха.
     /// </summary>
-    //  *** Start programmer edit section *** (Блоха CustomAttributes)
+    // *** Start programmer edit section *** (Блоха CustomAttributes)
 
-    //  *** End programmer edit section *** (Блоха CustomAttributes)
+    // *** End programmer edit section *** (Блоха CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class Блоха : ICSSoft.STORMNET.DataObject
@@ -35,73 +35,73 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Медведь fМедведьОбитания;
         
-        //  *** Start programmer edit section *** (Блоха CustomMembers)
+        // *** Start programmer edit section *** (Блоха CustomMembers)
 
-        //  *** End programmer edit section *** (Блоха CustomMembers)
+        // *** End programmer edit section *** (Блоха CustomMembers)
 
         
         /// <summary>
         /// Кличка.
         /// </summary>
-        //  *** Start programmer edit section *** (Блоха.Кличка CustomAttributes)
+        // *** Start programmer edit section *** (Блоха.Кличка CustomAttributes)
 
-        //  *** End programmer edit section *** (Блоха.Кличка CustomAttributes)
+        // *** End programmer edit section *** (Блоха.Кличка CustomAttributes)
         [StrLen(255)]
         public virtual string Кличка
         {
             get
             {
-                //  *** Start programmer edit section *** (Блоха.Кличка Get start)
+                // *** Start programmer edit section *** (Блоха.Кличка Get start)
 
-                //  *** End programmer edit section *** (Блоха.Кличка Get start)
+                // *** End programmer edit section *** (Блоха.Кличка Get start)
                 string result = this.fКличка;
-                //  *** Start programmer edit section *** (Блоха.Кличка Get end)
+                // *** Start programmer edit section *** (Блоха.Кличка Get end)
 
-                //  *** End programmer edit section *** (Блоха.Кличка Get end)
+                // *** End programmer edit section *** (Блоха.Кличка Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Блоха.Кличка Set start)
+                // *** Start programmer edit section *** (Блоха.Кличка Set start)
 
-                //  *** End programmer edit section *** (Блоха.Кличка Set start)
+                // *** End programmer edit section *** (Блоха.Кличка Set start)
                 this.fКличка = value;
-                //  *** Start programmer edit section *** (Блоха.Кличка Set end)
+                // *** Start programmer edit section *** (Блоха.Кличка Set end)
 
-                //  *** End programmer edit section *** (Блоха.Кличка Set end)
+                // *** End programmer edit section *** (Блоха.Кличка Set end)
             }
         }
         
         /// <summary>
         /// Блоха.
         /// </summary>
-        //  *** Start programmer edit section *** (Блоха.МедведьОбитания CustomAttributes)
+        // *** Start programmer edit section *** (Блоха.МедведьОбитания CustomAttributes)
 
-        //  *** End programmer edit section *** (Блоха.МедведьОбитания CustomAttributes)
+        // *** End programmer edit section *** (Блоха.МедведьОбитания CustomAttributes)
         [PropertyStorage(new string[] {
                 "МедведьОбитания"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.Медведь МедведьОбитания
         {
             get
             {
-                //  *** Start programmer edit section *** (Блоха.МедведьОбитания Get start)
+                // *** Start programmer edit section *** (Блоха.МедведьОбитания Get start)
 
-                //  *** End programmer edit section *** (Блоха.МедведьОбитания Get start)
+                // *** End programmer edit section *** (Блоха.МедведьОбитания Get start)
                 NewPlatform.Flexberry.ORM.Tests.Медведь result = this.fМедведьОбитания;
-                //  *** Start programmer edit section *** (Блоха.МедведьОбитания Get end)
+                // *** Start programmer edit section *** (Блоха.МедведьОбитания Get end)
 
-                //  *** End programmer edit section *** (Блоха.МедведьОбитания Get end)
+                // *** End programmer edit section *** (Блоха.МедведьОбитания Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Блоха.МедведьОбитания Set start)
+                // *** Start programmer edit section *** (Блоха.МедведьОбитания Set start)
 
-                //  *** End programmer edit section *** (Блоха.МедведьОбитания Set start)
+                // *** End programmer edit section *** (Блоха.МедведьОбитания Set start)
                 this.fМедведьОбитания = value;
-                //  *** Start programmer edit section *** (Блоха.МедведьОбитания Set end)
+                // *** Start programmer edit section *** (Блоха.МедведьОбитания Set end)
 
-                //  *** End programmer edit section *** (Блоха.МедведьОбитания Set end)
+                // *** End programmer edit section *** (Блоха.МедведьОбитания Set end)
             }
         }
     }

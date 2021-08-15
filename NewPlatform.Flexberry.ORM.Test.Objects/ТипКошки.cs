@@ -15,35 +15,35 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Тип кошки.
     /// </summary>
-    //  *** Start programmer edit section *** (ТипКошки CustomAttributes)
+    // *** Start programmer edit section *** (ТипКошки CustomAttributes)
 
-    //  *** End programmer edit section *** (ТипКошки CustomAttributes)
+    // *** End programmer edit section *** (ТипКошки CustomAttributes)
     public enum ТипКошки
     {
         
-        //  *** Start programmer edit section *** (ТипКошки.НетЗначения CustomAttributes)
+        // *** Start programmer edit section *** (ТипКошки.НетЗначения CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипКошки.НетЗначения CustomAttributes)
+        // *** End programmer edit section *** (ТипКошки.НетЗначения CustomAttributes)
         [Caption("")]
         НетЗначения,
         
-        //  *** Start programmer edit section *** (ТипКошки.Дикая CustomAttributes)
+        // *** Start programmer edit section *** (ТипКошки.Дикая CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипКошки.Дикая CustomAttributes)
+        // *** End programmer edit section *** (ТипКошки.Дикая CustomAttributes)
         [Caption("Дикая")]
         Дикая,
         
-        //  *** Start programmer edit section *** (ТипКошки.Домашняя CustomAttributes)
+        // *** Start programmer edit section *** (ТипКошки.Домашняя CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипКошки.Домашняя CustomAttributes)
+        // *** End programmer edit section *** (ТипКошки.Домашняя CustomAttributes)
         [Caption("Домашняя")]
         Домашняя,
     }

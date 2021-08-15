@@ -15,57 +15,57 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// InformationTestClassChild.
     /// </summary>
-    //  *** Start programmer edit section *** (InformationTestClassChild CustomAttributes)
+    // *** Start programmer edit section *** (InformationTestClassChild CustomAttributes)
 
-    //  *** End programmer edit section *** (InformationTestClassChild CustomAttributes)
+    // *** End programmer edit section *** (InformationTestClassChild CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class InformationTestClassChild : NewPlatform.Flexberry.ORM.Tests.InformationTestClass
     {
         
-        //  *** Start programmer edit section *** (InformationTestClassChild CustomMembers)
+        // *** Start programmer edit section *** (InformationTestClassChild CustomMembers)
 
-        //  *** End programmer edit section *** (InformationTestClassChild CustomMembers)
+        // *** End programmer edit section *** (InformationTestClassChild CustomMembers)
 
         
         /// <summary>
         /// PublicStringProperty.
         /// </summary>
-        //  *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty CustomAttributes)
+        // *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty CustomAttributes)
 
-        //  *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty CustomAttributes)
+        // *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty CustomAttributes)
         [StrLen(255)]
         [DataServiceExpression(typeof(ICSSoft.STORMNET.Business.MSSQLDataService), "TestDataServiceExpressionChild")]
         public override string PublicStringProperty
         {
             get
             {
-                //  *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Get start)
+                // *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Get start)
 
-                //  *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Get start)
+                // *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Get start)
                 string result = base.PublicStringProperty;
-                //  *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Get end)
+                // *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Get end)
 
-                //  *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Get end)
+                // *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Set start)
+                // *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Set start)
 
-                //  *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Set start)
+                // *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Set start)
                 base.PublicStringProperty = value;
-                //  *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Set end)
+                // *** Start programmer edit section *** (InformationTestClassChild.PublicStringProperty Set end)
 
-                //  *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Set end)
+                // *** End programmer edit section *** (InformationTestClassChild.PublicStringProperty Set end)
             }
         }
     }

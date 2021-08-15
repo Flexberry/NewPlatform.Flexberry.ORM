@@ -14,33 +14,33 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Сторона.
     /// </summary>
-    //  *** Start programmer edit section *** (Сторона CustomAttributes)
+    // *** Start programmer edit section *** (Сторона CustomAttributes)
 
-    //  *** End programmer edit section *** (Сторона CustomAttributes)
+    // *** End programmer edit section *** (Сторона CustomAttributes)
     public enum Сторона
     {
         
-        //  *** Start programmer edit section *** (Сторона.НетЗначения CustomAttributes)
+        // *** Start programmer edit section *** (Сторона.НетЗначения CustomAttributes)
 
-        //  *** End programmer edit section *** (Сторона.НетЗначения CustomAttributes)
+        // *** End programmer edit section *** (Сторона.НетЗначения CustomAttributes)
         НетЗначения,
         
-        //  *** Start programmer edit section *** (Сторона.Левая CustomAttributes)
+        // *** Start programmer edit section *** (Сторона.Левая CustomAttributes)
 
-        //  *** End programmer edit section *** (Сторона.Левая CustomAttributes)
+        // *** End programmer edit section *** (Сторона.Левая CustomAttributes)
         Левая,
         
-        //  *** Start programmer edit section *** (Сторона.Правая CustomAttributes)
+        // *** Start programmer edit section *** (Сторона.Правая CustomAttributes)
 
-        //  *** End programmer edit section *** (Сторона.Правая CustomAttributes)
+        // *** End programmer edit section *** (Сторона.Правая CustomAttributes)
         Правая,
     }
 }

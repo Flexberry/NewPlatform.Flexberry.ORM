@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// clb.
     /// </summary>
-    //  *** Start programmer edit section *** (clb CustomAttributes)
+    // *** Start programmer edit section *** (clb CustomAttributes)
 
-    //  *** End programmer edit section *** (clb CustomAttributes)
+    // *** End programmer edit section *** (clb CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class clb : ICSSoft.STORMNET.DataObject
@@ -35,74 +35,74 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.cla fref2;
         
-        //  *** Start programmer edit section *** (clb CustomMembers)
+        // *** Start programmer edit section *** (clb CustomMembers)
 
-        //  *** End programmer edit section *** (clb CustomMembers)
+        // *** End programmer edit section *** (clb CustomMembers)
 
         
         /// <summary>
         /// clb.
         /// </summary>
-        //  *** Start programmer edit section *** (clb.ref1 CustomAttributes)
+        // *** Start programmer edit section *** (clb.ref1 CustomAttributes)
 
-        //  *** End programmer edit section *** (clb.ref1 CustomAttributes)
+        // *** End programmer edit section *** (clb.ref1 CustomAttributes)
         [PropertyStorage(new string[] {
                 "ref1"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.cla ref1
         {
             get
             {
-                //  *** Start programmer edit section *** (clb.ref1 Get start)
+                // *** Start programmer edit section *** (clb.ref1 Get start)
 
-                //  *** End programmer edit section *** (clb.ref1 Get start)
+                // *** End programmer edit section *** (clb.ref1 Get start)
                 NewPlatform.Flexberry.ORM.Tests.cla result = this.fref1;
-                //  *** Start programmer edit section *** (clb.ref1 Get end)
+                // *** Start programmer edit section *** (clb.ref1 Get end)
 
-                //  *** End programmer edit section *** (clb.ref1 Get end)
+                // *** End programmer edit section *** (clb.ref1 Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (clb.ref1 Set start)
+                // *** Start programmer edit section *** (clb.ref1 Set start)
 
-                //  *** End programmer edit section *** (clb.ref1 Set start)
+                // *** End programmer edit section *** (clb.ref1 Set start)
                 this.fref1 = value;
-                //  *** Start programmer edit section *** (clb.ref1 Set end)
+                // *** Start programmer edit section *** (clb.ref1 Set end)
 
-                //  *** End programmer edit section *** (clb.ref1 Set end)
+                // *** End programmer edit section *** (clb.ref1 Set end)
             }
         }
         
         /// <summary>
         /// clb.
         /// </summary>
-        //  *** Start programmer edit section *** (clb.ref2 CustomAttributes)
+        // *** Start programmer edit section *** (clb.ref2 CustomAttributes)
 
-        //  *** End programmer edit section *** (clb.ref2 CustomAttributes)
+        // *** End programmer edit section *** (clb.ref2 CustomAttributes)
         [PropertyStorage(new string[] {
                 "ref2"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.cla ref2
         {
             get
             {
-                //  *** Start programmer edit section *** (clb.ref2 Get start)
+                // *** Start programmer edit section *** (clb.ref2 Get start)
 
-                //  *** End programmer edit section *** (clb.ref2 Get start)
+                // *** End programmer edit section *** (clb.ref2 Get start)
                 NewPlatform.Flexberry.ORM.Tests.cla result = this.fref2;
-                //  *** Start programmer edit section *** (clb.ref2 Get end)
+                // *** Start programmer edit section *** (clb.ref2 Get end)
 
-                //  *** End programmer edit section *** (clb.ref2 Get end)
+                // *** End programmer edit section *** (clb.ref2 Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (clb.ref2 Set start)
+                // *** Start programmer edit section *** (clb.ref2 Set start)
 
-                //  *** End programmer edit section *** (clb.ref2 Set start)
+                // *** End programmer edit section *** (clb.ref2 Set start)
                 this.fref2 = value;
-                //  *** Start programmer edit section *** (clb.ref2 Set end)
+                // *** Start programmer edit section *** (clb.ref2 Set end)
 
-                //  *** End programmer edit section *** (clb.ref2 Set end)
+                // *** End programmer edit section *** (clb.ref2 Set end)
             }
         }
     }

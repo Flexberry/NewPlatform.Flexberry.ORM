@@ -15,29 +15,29 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// SwappedEnum.
     /// </summary>
-    //  *** Start programmer edit section *** (SwappedEnum CustomAttributes)
+    // *** Start programmer edit section *** (SwappedEnum CustomAttributes)
 
-    //  *** End programmer edit section *** (SwappedEnum CustomAttributes)
+    // *** End programmer edit section *** (SwappedEnum CustomAttributes)
     public enum SwappedEnum
     {
         
-        //  *** Start programmer edit section *** (SwappedEnum.Val CustomAttributes)
+        // *** Start programmer edit section *** (SwappedEnum.Val CustomAttributes)
 
-        //  *** End programmer edit section *** (SwappedEnum.Val CustomAttributes)
+        // *** End programmer edit section *** (SwappedEnum.Val CustomAttributes)
         [Caption("SwappedVal")]
         Val,
         
-        //  *** Start programmer edit section *** (SwappedEnum.SwappedVal CustomAttributes)
+        // *** Start programmer edit section *** (SwappedEnum.SwappedVal CustomAttributes)
 
-        //  *** End programmer edit section *** (SwappedEnum.SwappedVal CustomAttributes)
+        // *** End programmer edit section *** (SwappedEnum.SwappedVal CustomAttributes)
         [Caption("Val")]
         SwappedVal,
     }

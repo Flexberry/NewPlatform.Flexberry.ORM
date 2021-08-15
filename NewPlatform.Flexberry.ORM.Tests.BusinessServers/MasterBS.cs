@@ -14,24 +14,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// MasterBS.
     /// </summary>
-    //  *** Start programmer edit section *** (MasterBS CustomAttributes)
+    // *** Start programmer edit section *** (MasterBS CustomAttributes)
 
-    //  *** End programmer edit section *** (MasterBS CustomAttributes)
+    // *** End programmer edit section *** (MasterBS CustomAttributes)
     [ICSSoft.STORMNET.AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class MasterBS : ICSSoft.STORMNET.Business.BusinessServer
     {
         
-        //  *** Start programmer edit section *** (MasterBS CustomMembers)
+        // *** Start programmer edit section *** (MasterBS CustomMembers)
 
-        //  *** End programmer edit section *** (MasterBS CustomMembers)
+        // *** End programmer edit section *** (MasterBS CustomMembers)
 
     }
 }

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// ИФХозДоговора.
     /// </summary>
-    //  *** Start programmer edit section *** (ИФХозДоговора CustomAttributes)
+    // *** Start programmer edit section *** (ИФХозДоговора CustomAttributes)
 
-    //  *** End programmer edit section *** (ИФХозДоговора CustomAttributes)
+    // *** End programmer edit section *** (ИФХозДоговора CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("ИФХозДоговораE", new string[] {
@@ -42,49 +42,49 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.ХозДоговор fХозДоговор;
         
-        //  *** Start programmer edit section *** (ИФХозДоговора CustomMembers)
+        // *** Start programmer edit section *** (ИФХозДоговора CustomMembers)
 
-        //  *** End programmer edit section *** (ИФХозДоговора CustomMembers)
+        // *** End programmer edit section *** (ИФХозДоговора CustomMembers)
 
         
         /// <summary>
         /// НомерИФХозДоговора.
         /// </summary>
-        //  *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора CustomAttributes)
+        // *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора CustomAttributes)
 
-        //  *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора CustomAttributes)
+        // *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора CustomAttributes)
         [PropertyStorage("НомерИФХозДогов")]
         public virtual int НомерИФХозДоговора
         {
             get
             {
-                //  *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get start)
+                // *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get start)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get start)
+                // *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get start)
                 int result = this.fНомерИФХозДоговора;
-                //  *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get end)
+                // *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get end)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get end)
+                // *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set start)
+                // *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set start)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set start)
+                // *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set start)
                 this.fНомерИФХозДоговора = value;
-                //  *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set end)
+                // *** Start programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set end)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set end)
+                // *** End programmer edit section *** (ИФХозДоговора.НомерИФХозДоговора Set end)
             }
         }
         
         /// <summary>
         /// ИФХозДоговора.
         /// </summary>
-        //  *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования CustomAttributes)
+        // *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования CustomAttributes)
 
-        //  *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования CustomAttributes)
+        // *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования CustomAttributes)
         [PropertyStorage(new string[] {
                 "ИсточникФинан"})]
         [NotNull()]
@@ -92,57 +92,57 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get start)
+                // *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get start)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get start)
+                // *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get start)
                 NewPlatform.Flexberry.ORM.Tests.ИсточникФинансирования result = this.fИсточникФинансирования;
-                //  *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get end)
+                // *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get end)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get end)
+                // *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set start)
+                // *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set start)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set start)
+                // *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set start)
                 this.fИсточникФинансирования = value;
-                //  *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set end)
+                // *** Start programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set end)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set end)
+                // *** End programmer edit section *** (ИФХозДоговора.ИсточникФинансирования Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.ХозДоговор.
         /// </summary>
-        //  *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор CustomAttributes)
+        // *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор CustomAttributes)
 
-        //  *** End programmer edit section *** (ИФХозДоговора.ХозДоговор CustomAttributes)
+        // *** End programmer edit section *** (ИФХозДоговора.ХозДоговор CustomAttributes)
         [Agregator()]
         [NotNull()]
         public virtual NewPlatform.Flexberry.ORM.Tests.ХозДоговор ХозДоговор
         {
             get
             {
-                //  *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Get start)
+                // *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Get start)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Get start)
+                // *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Get start)
                 NewPlatform.Flexberry.ORM.Tests.ХозДоговор result = this.fХозДоговор;
-                //  *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Get end)
+                // *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Get end)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Get end)
+                // *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Set start)
+                // *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Set start)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Set start)
+                // *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Set start)
                 this.fХозДоговор = value;
-                //  *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Set end)
+                // *** Start programmer edit section *** (ИФХозДоговора.ХозДоговор Set end)
 
-                //  *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Set end)
+                // *** End programmer edit section *** (ИФХозДоговора.ХозДоговор Set end)
             }
         }
         
@@ -168,15 +168,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of ИФХозДоговора.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfИФХозДоговора CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfИФХозДоговора CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfИФХозДоговора CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfИФХозДоговора CustomAttributes)
     public class DetailArrayOfИФХозДоговора : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfИФХозДоговора members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfИФХозДоговора members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfИФХозДоговора members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfИФХозДоговора members)
 
         
         /// <summary>

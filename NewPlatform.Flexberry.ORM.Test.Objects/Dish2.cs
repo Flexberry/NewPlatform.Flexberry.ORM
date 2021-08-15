@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Dish2.
     /// </summary>
-    //  *** Start programmer edit section *** (Dish2 CustomAttributes)
+    // *** Start programmer edit section *** (Dish2 CustomAttributes)
 
-    //  *** End programmer edit section *** (Dish2 CustomAttributes)
+    // *** End programmer edit section *** (Dish2 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("Dish2E", new string[] {
@@ -42,49 +42,49 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Plant2 fMainIngridient;
         
-        //  *** Start programmer edit section *** (Dish2 CustomMembers)
+        // *** Start programmer edit section *** (Dish2 CustomMembers)
 
-        //  *** End programmer edit section *** (Dish2 CustomMembers)
+        // *** End programmer edit section *** (Dish2 CustomMembers)
 
         
         /// <summary>
         /// DishName.
         /// </summary>
-        //  *** Start programmer edit section *** (Dish2.DishName CustomAttributes)
+        // *** Start programmer edit section *** (Dish2.DishName CustomAttributes)
 
-        //  *** End programmer edit section *** (Dish2.DishName CustomAttributes)
+        // *** End programmer edit section *** (Dish2.DishName CustomAttributes)
         [StrLen(255)]
         public virtual string DishName
         {
             get
             {
-                //  *** Start programmer edit section *** (Dish2.DishName Get start)
+                // *** Start programmer edit section *** (Dish2.DishName Get start)
 
-                //  *** End programmer edit section *** (Dish2.DishName Get start)
+                // *** End programmer edit section *** (Dish2.DishName Get start)
                 string result = this.fDishName;
-                //  *** Start programmer edit section *** (Dish2.DishName Get end)
+                // *** Start programmer edit section *** (Dish2.DishName Get end)
 
-                //  *** End programmer edit section *** (Dish2.DishName Get end)
+                // *** End programmer edit section *** (Dish2.DishName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Dish2.DishName Set start)
+                // *** Start programmer edit section *** (Dish2.DishName Set start)
 
-                //  *** End programmer edit section *** (Dish2.DishName Set start)
+                // *** End programmer edit section *** (Dish2.DishName Set start)
                 this.fDishName = value;
-                //  *** Start programmer edit section *** (Dish2.DishName Set end)
+                // *** Start programmer edit section *** (Dish2.DishName Set end)
 
-                //  *** End programmer edit section *** (Dish2.DishName Set end)
+                // *** End programmer edit section *** (Dish2.DishName Set end)
             }
         }
         
         /// <summary>
         /// Dish2.
         /// </summary>
-        //  *** Start programmer edit section *** (Dish2.MainIngridient CustomAttributes)
+        // *** Start programmer edit section *** (Dish2.MainIngridient CustomAttributes)
 
-        //  *** End programmer edit section *** (Dish2.MainIngridient CustomAttributes)
+        // *** End programmer edit section *** (Dish2.MainIngridient CustomAttributes)
         [PropertyStorage("MainIngridient")]
         [TypeUsage(new string[] {
                 "NewPlatform.Flexberry.ORM.Tests.Cabbage2",
@@ -93,24 +93,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (Dish2.MainIngridient Get start)
+                // *** Start programmer edit section *** (Dish2.MainIngridient Get start)
 
-                //  *** End programmer edit section *** (Dish2.MainIngridient Get start)
+                // *** End programmer edit section *** (Dish2.MainIngridient Get start)
                 NewPlatform.Flexberry.ORM.Tests.Plant2 result = this.fMainIngridient;
-                //  *** Start programmer edit section *** (Dish2.MainIngridient Get end)
+                // *** Start programmer edit section *** (Dish2.MainIngridient Get end)
 
-                //  *** End programmer edit section *** (Dish2.MainIngridient Get end)
+                // *** End programmer edit section *** (Dish2.MainIngridient Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Dish2.MainIngridient Set start)
+                // *** Start programmer edit section *** (Dish2.MainIngridient Set start)
 
-                //  *** End programmer edit section *** (Dish2.MainIngridient Set start)
+                // *** End programmer edit section *** (Dish2.MainIngridient Set start)
                 this.fMainIngridient = value;
-                //  *** Start programmer edit section *** (Dish2.MainIngridient Set end)
+                // *** Start programmer edit section *** (Dish2.MainIngridient Set end)
 
-                //  *** End programmer edit section *** (Dish2.MainIngridient Set end)
+                // *** End programmer edit section *** (Dish2.MainIngridient Set end)
             }
         }
         

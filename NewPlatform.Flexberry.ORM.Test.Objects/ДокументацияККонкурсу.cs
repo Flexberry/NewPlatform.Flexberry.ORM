@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// ДокументацияККонкурсу.
     /// </summary>
-    //  *** Start programmer edit section *** (ДокументацияККонкурсу CustomAttributes)
+    // *** Start programmer edit section *** (ДокументацияККонкурсу CustomAttributes)
 
-    //  *** End programmer edit section *** (ДокументацияККонкурсу CustomAttributes)
+    // *** End programmer edit section *** (ДокументацияККонкурсу CustomAttributes)
     [ClassStorage("ДокККонкурсу")]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -38,72 +38,72 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Конкурс fКонкурс;
         
-        //  *** Start programmer edit section *** (ДокументацияККонкурсу CustomMembers)
+        // *** Start programmer edit section *** (ДокументацияККонкурсу CustomMembers)
 
-        //  *** End programmer edit section *** (ДокументацияККонкурсу CustomMembers)
+        // *** End programmer edit section *** (ДокументацияККонкурсу CustomMembers)
 
         
         /// <summary>
         /// Файл.
         /// </summary>
-        //  *** Start programmer edit section *** (ДокументацияККонкурсу.Файл CustomAttributes)
+        // *** Start programmer edit section *** (ДокументацияККонкурсу.Файл CustomAttributes)
 
-        //  *** End programmer edit section *** (ДокументацияККонкурсу.Файл CustomAttributes)
+        // *** End programmer edit section *** (ДокументацияККонкурсу.Файл CustomAttributes)
         public virtual ICSSoft.STORMNET.UserDataTypes.WebFile Файл
         {
             get
             {
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Get start)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Get start)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Файл Get start)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Файл Get start)
                 ICSSoft.STORMNET.UserDataTypes.WebFile result = this.fФайл;
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Get end)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Get end)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Файл Get end)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Файл Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Set start)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Set start)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Файл Set start)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Файл Set start)
                 this.fФайл = value;
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Set end)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Файл Set end)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Файл Set end)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Файл Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.Конкурс.
         /// </summary>
-        //  *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс CustomAttributes)
+        // *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс CustomAttributes)
 
-        //  *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс CustomAttributes)
+        // *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс CustomAttributes)
         [Agregator()]
         [NotNull()]
         public virtual NewPlatform.Flexberry.ORM.Tests.Конкурс Конкурс
         {
             get
             {
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Get start)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Get start)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Get start)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Get start)
                 NewPlatform.Flexberry.ORM.Tests.Конкурс result = this.fКонкурс;
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Get end)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Get end)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Get end)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Set start)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Set start)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Set start)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Set start)
                 this.fКонкурс = value;
-                //  *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Set end)
+                // *** Start programmer edit section *** (ДокументацияККонкурсу.Конкурс Set end)
 
-                //  *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Set end)
+                // *** End programmer edit section *** (ДокументацияККонкурсу.Конкурс Set end)
             }
         }
         
@@ -129,15 +129,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of ДокументацияККонкурсу.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfДокументацияККонкурсу CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfДокументацияККонкурсу CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfДокументацияККонкурсу CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfДокументацияККонкурсу CustomAttributes)
     public class DetailArrayOfДокументацияККонкурсу : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfДокументацияККонкурсу members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfДокументацияККонкурсу members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfДокументацияККонкурсу members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfДокументацияККонкурсу members)
 
         
         /// <summary>

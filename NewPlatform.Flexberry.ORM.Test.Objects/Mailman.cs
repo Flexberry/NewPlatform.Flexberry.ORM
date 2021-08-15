@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Mailman.
     /// </summary>
-    //  *** Start programmer edit section *** (Mailman CustomAttributes)
+    // *** Start programmer edit section *** (Mailman CustomAttributes)
 
-    //  *** End programmer edit section *** (Mailman CustomAttributes)
+    // *** End programmer edit section *** (Mailman CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class Mailman : ICSSoft.STORMNET.DataObject
@@ -35,71 +35,71 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.FileForTests fPhoto;
         
-        //  *** Start programmer edit section *** (Mailman CustomMembers)
+        // *** Start programmer edit section *** (Mailman CustomMembers)
 
-        //  *** End programmer edit section *** (Mailman CustomMembers)
+        // *** End programmer edit section *** (Mailman CustomMembers)
 
         
         /// <summary>
         /// Name.
         /// </summary>
-        //  *** Start programmer edit section *** (Mailman.Name CustomAttributes)
+        // *** Start programmer edit section *** (Mailman.Name CustomAttributes)
 
-        //  *** End programmer edit section *** (Mailman.Name CustomAttributes)
+        // *** End programmer edit section *** (Mailman.Name CustomAttributes)
         [StrLen(255)]
         public virtual string Name
         {
             get
             {
-                //  *** Start programmer edit section *** (Mailman.Name Get start)
+                // *** Start programmer edit section *** (Mailman.Name Get start)
 
-                //  *** End programmer edit section *** (Mailman.Name Get start)
+                // *** End programmer edit section *** (Mailman.Name Get start)
                 string result = this.fName;
-                //  *** Start programmer edit section *** (Mailman.Name Get end)
+                // *** Start programmer edit section *** (Mailman.Name Get end)
 
-                //  *** End programmer edit section *** (Mailman.Name Get end)
+                // *** End programmer edit section *** (Mailman.Name Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Mailman.Name Set start)
+                // *** Start programmer edit section *** (Mailman.Name Set start)
 
-                //  *** End programmer edit section *** (Mailman.Name Set start)
+                // *** End programmer edit section *** (Mailman.Name Set start)
                 this.fName = value;
-                //  *** Start programmer edit section *** (Mailman.Name Set end)
+                // *** Start programmer edit section *** (Mailman.Name Set end)
 
-                //  *** End programmer edit section *** (Mailman.Name Set end)
+                // *** End programmer edit section *** (Mailman.Name Set end)
             }
         }
         
         /// <summary>
         /// Photo.
         /// </summary>
-        //  *** Start programmer edit section *** (Mailman.Photo CustomAttributes)
+        // *** Start programmer edit section *** (Mailman.Photo CustomAttributes)
 
-        //  *** End programmer edit section *** (Mailman.Photo CustomAttributes)
+        // *** End programmer edit section *** (Mailman.Photo CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.FileForTests Photo
         {
             get
             {
-                //  *** Start programmer edit section *** (Mailman.Photo Get start)
+                // *** Start programmer edit section *** (Mailman.Photo Get start)
 
-                //  *** End programmer edit section *** (Mailman.Photo Get start)
+                // *** End programmer edit section *** (Mailman.Photo Get start)
                 NewPlatform.Flexberry.ORM.Tests.FileForTests result = this.fPhoto;
-                //  *** Start programmer edit section *** (Mailman.Photo Get end)
+                // *** Start programmer edit section *** (Mailman.Photo Get end)
 
-                //  *** End programmer edit section *** (Mailman.Photo Get end)
+                // *** End programmer edit section *** (Mailman.Photo Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Mailman.Photo Set start)
+                // *** Start programmer edit section *** (Mailman.Photo Set start)
 
-                //  *** End programmer edit section *** (Mailman.Photo Set start)
+                // *** End programmer edit section *** (Mailman.Photo Set start)
                 this.fPhoto = value;
-                //  *** Start programmer edit section *** (Mailman.Photo Set end)
+                // *** Start programmer edit section *** (Mailman.Photo Set end)
 
-                //  *** End programmer edit section *** (Mailman.Photo Set end)
+                // *** End programmer edit section *** (Mailman.Photo Set end)
             }
         }
     }

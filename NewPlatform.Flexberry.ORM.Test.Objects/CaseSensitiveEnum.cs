@@ -15,47 +15,47 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// CaseSensitiveEnum.
     /// </summary>
-    //  *** Start programmer edit section *** (CaseSensitiveEnum CustomAttributes)
+    // *** Start programmer edit section *** (CaseSensitiveEnum CustomAttributes)
 
-    //  *** End programmer edit section *** (CaseSensitiveEnum CustomAttributes)
+    // *** End programmer edit section *** (CaseSensitiveEnum CustomAttributes)
     public enum CaseSensitiveEnum
     {
         
-        //  *** Start programmer edit section *** (CaseSensitiveEnum.Year9998 CustomAttributes)
+        // *** Start programmer edit section *** (CaseSensitiveEnum.Year9998 CustomAttributes)
 
-        //  *** End programmer edit section *** (CaseSensitiveEnum.Year9998 CustomAttributes)
+        // *** End programmer edit section *** (CaseSensitiveEnum.Year9998 CustomAttributes)
         [Caption("LAST DAY")]
         Year9998,
         
-        //  *** Start programmer edit section *** (CaseSensitiveEnum.Year9999 CustomAttributes)
+        // *** Start programmer edit section *** (CaseSensitiveEnum.Year9999 CustomAttributes)
 
-        //  *** End programmer edit section *** (CaseSensitiveEnum.Year9999 CustomAttributes)
+        // *** End programmer edit section *** (CaseSensitiveEnum.Year9999 CustomAttributes)
         [Caption("Last day")]
         Year9999,
         
-        //  *** Start programmer edit section *** (CaseSensitiveEnum.CaseInsensitive CustomAttributes)
+        // *** Start programmer edit section *** (CaseSensitiveEnum.CaseInsensitive CustomAttributes)
 
-        //  *** End programmer edit section *** (CaseSensitiveEnum.CaseInsensitive CustomAttributes)
+        // *** End programmer edit section *** (CaseSensitiveEnum.CaseInsensitive CustomAttributes)
         [Caption("CasEinSenSitiVe")]
         CaseInsensitive,
         
-        //  *** Start programmer edit section *** (CaseSensitiveEnum.CaseINSENSITIVEVAL CustomAttributes)
+        // *** Start programmer edit section *** (CaseSensitiveEnum.CaseINSENSITIVEVAL CustomAttributes)
 
-        //  *** End programmer edit section *** (CaseSensitiveEnum.CaseINSENSITIVEVAL CustomAttributes)
+        // *** End programmer edit section *** (CaseSensitiveEnum.CaseINSENSITIVEVAL CustomAttributes)
         [Caption("")]
         CaseINSENSITIVEVAL,
         
-        //  *** Start programmer edit section *** (CaseSensitiveEnum.CASEINSENSITIVEVAL CustomAttributes)
+        // *** Start programmer edit section *** (CaseSensitiveEnum.CASEINSENSITIVEVAL CustomAttributes)
 
-        //  *** End programmer edit section *** (CaseSensitiveEnum.CASEINSENSITIVEVAL CustomAttributes)
+        // *** End programmer edit section *** (CaseSensitiveEnum.CASEINSENSITIVEVAL CustomAttributes)
         CASEINSENSITIVEVAL,
     }
 }

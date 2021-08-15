@@ -15,33 +15,33 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Пол.
     /// </summary>
-    //  *** Start programmer edit section *** (Пол CustomAttributes)
+    // *** Start programmer edit section *** (Пол CustomAttributes)
 
-    //  *** End programmer edit section *** (Пол CustomAttributes)
+    // *** End programmer edit section *** (Пол CustomAttributes)
     public enum Пол
     {
         
-        //  *** Start programmer edit section *** (Пол.Мужской CustomAttributes)
+        // *** Start programmer edit section *** (Пол.Мужской CustomAttributes)
 
-        //  *** End programmer edit section *** (Пол.Мужской CustomAttributes)
+        // *** End programmer edit section *** (Пол.Мужской CustomAttributes)
         Мужской,
         
-        //  *** Start programmer edit section *** (Пол.Женский CustomAttributes)
+        // *** Start programmer edit section *** (Пол.Женский CustomAttributes)
 
-        //  *** End programmer edit section *** (Пол.Женский CustomAttributes)
+        // *** End programmer edit section *** (Пол.Женский CustomAttributes)
         Женский,
         
-        //  *** Start programmer edit section *** (Пол.НеПонятно CustomAttributes)
+        // *** Start programmer edit section *** (Пол.НеПонятно CustomAttributes)
 
-        //  *** End programmer edit section *** (Пол.НеПонятно CustomAttributes)
+        // *** End programmer edit section *** (Пол.НеПонятно CustomAttributes)
         [Caption("")]
         НеПонятно,
     }

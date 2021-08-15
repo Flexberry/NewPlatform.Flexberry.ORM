@@ -14,23 +14,23 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
     using ICSSoft.STORMNET;
     using System.Collections.Generic;
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// NotifyUpdatePropertyByTypeGeneratedMock.
     /// </summary>
-    //  *** Start programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomAttributes)
+    // *** Start programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomAttributes)
 
-    //  *** End programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomAttributes)
+    // *** End programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomAttributes)
     public class NotifyUpdatePropertyByTypeGeneratedMock : INotifyUpdatePropertyByType
     {
         
-        //  *** Start programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomMembers)
+        // *** Start programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomMembers)
         /// <inheritdoc cref="INotifyUpdatePropertyByType"/>
         public IDictionary<Type, IEnumerable<string>> GetSubscribedProperties()
         {
@@ -61,7 +61,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
         }
 
-        //  *** End programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomMembers)
+        // *** End programmer edit section *** (NotifyUpdatePropertyByTypeGeneratedMock CustomMembers)
 
     }
 }

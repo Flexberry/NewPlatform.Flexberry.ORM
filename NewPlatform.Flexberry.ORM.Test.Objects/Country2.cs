@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Country2.
     /// </summary>
-    //  *** Start programmer edit section *** (Country2 CustomAttributes)
+    // *** Start programmer edit section *** (Country2 CustomAttributes)
 
-    //  *** End programmer edit section *** (Country2 CustomAttributes)
+    // *** End programmer edit section *** (Country2 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("Country2E", new string[] {
@@ -45,75 +45,75 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfRegion fRegion;
         
-        //  *** Start programmer edit section *** (Country2 CustomMembers)
+        // *** Start programmer edit section *** (Country2 CustomMembers)
 
-        //  *** End programmer edit section *** (Country2 CustomMembers)
+        // *** End programmer edit section *** (Country2 CustomMembers)
 
         
         /// <summary>
         /// CountryName.
         /// </summary>
-        //  *** Start programmer edit section *** (Country2.CountryName CustomAttributes)
+        // *** Start programmer edit section *** (Country2.CountryName CustomAttributes)
 
-        //  *** End programmer edit section *** (Country2.CountryName CustomAttributes)
+        // *** End programmer edit section *** (Country2.CountryName CustomAttributes)
         [StrLen(255)]
         public virtual string CountryName
         {
             get
             {
-                //  *** Start programmer edit section *** (Country2.CountryName Get start)
+                // *** Start programmer edit section *** (Country2.CountryName Get start)
 
-                //  *** End programmer edit section *** (Country2.CountryName Get start)
+                // *** End programmer edit section *** (Country2.CountryName Get start)
                 string result = this.fCountryName;
-                //  *** Start programmer edit section *** (Country2.CountryName Get end)
+                // *** Start programmer edit section *** (Country2.CountryName Get end)
 
-                //  *** End programmer edit section *** (Country2.CountryName Get end)
+                // *** End programmer edit section *** (Country2.CountryName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Country2.CountryName Set start)
+                // *** Start programmer edit section *** (Country2.CountryName Set start)
 
-                //  *** End programmer edit section *** (Country2.CountryName Set start)
+                // *** End programmer edit section *** (Country2.CountryName Set start)
                 this.fCountryName = value;
-                //  *** Start programmer edit section *** (Country2.CountryName Set end)
+                // *** Start programmer edit section *** (Country2.CountryName Set end)
 
-                //  *** End programmer edit section *** (Country2.CountryName Set end)
+                // *** End programmer edit section *** (Country2.CountryName Set end)
             }
         }
         
         /// <summary>
         /// Country2.
         /// </summary>
-        //  *** Start programmer edit section *** (Country2.Region CustomAttributes)
+        // *** Start programmer edit section *** (Country2.Region CustomAttributes)
 
-        //  *** End programmer edit section *** (Country2.Region CustomAttributes)
+        // *** End programmer edit section *** (Country2.Region CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.DetailArrayOfRegion Region
         {
             get
             {
-                //  *** Start programmer edit section *** (Country2.Region Get start)
+                // *** Start programmer edit section *** (Country2.Region Get start)
 
-                //  *** End programmer edit section *** (Country2.Region Get start)
+                // *** End programmer edit section *** (Country2.Region Get start)
                 if ((this.fRegion == null))
                 {
                     this.fRegion = new NewPlatform.Flexberry.ORM.Tests.DetailArrayOfRegion(this);
                 }
                 NewPlatform.Flexberry.ORM.Tests.DetailArrayOfRegion result = this.fRegion;
-                //  *** Start programmer edit section *** (Country2.Region Get end)
+                // *** Start programmer edit section *** (Country2.Region Get end)
 
-                //  *** End programmer edit section *** (Country2.Region Get end)
+                // *** End programmer edit section *** (Country2.Region Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Country2.Region Set start)
+                // *** Start programmer edit section *** (Country2.Region Set start)
 
-                //  *** End programmer edit section *** (Country2.Region Set start)
+                // *** End programmer edit section *** (Country2.Region Set start)
                 this.fRegion = value;
-                //  *** Start programmer edit section *** (Country2.Region Set end)
+                // *** Start programmer edit section *** (Country2.Region Set end)
 
-                //  *** End programmer edit section *** (Country2.Region Set end)
+                // *** End programmer edit section *** (Country2.Region Set end)
             }
         }
         

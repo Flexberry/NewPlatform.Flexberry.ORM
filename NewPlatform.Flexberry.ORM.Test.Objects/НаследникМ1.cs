@@ -15,25 +15,25 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// НаследникМ1.
     /// </summary>
-    //  *** Start programmer edit section *** (НаследникМ1 CustomAttributes)
+    // *** Start programmer edit section *** (НаследникМ1 CustomAttributes)
 
-    //  *** End programmer edit section *** (НаследникМ1 CustomAttributes)
+    // *** End programmer edit section *** (НаследникМ1 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class НаследникМ1 : NewPlatform.Flexberry.ORM.Tests.МастерМ
     {
         
-        //  *** Start programmer edit section *** (НаследникМ1 CustomMembers)
+        // *** Start programmer edit section *** (НаследникМ1 CustomMembers)
 
-        //  *** End programmer edit section *** (НаследникМ1 CustomMembers)
+        // *** End programmer edit section *** (НаследникМ1 CustomMembers)
 
     }
 }

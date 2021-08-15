@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// SimpleDataObject.
     /// </summary>
-    //  *** Start programmer edit section *** (SimpleDataObject CustomAttributes)
+    // *** Start programmer edit section *** (SimpleDataObject CustomAttributes)
 
-    //  *** End programmer edit section *** (SimpleDataObject CustomAttributes)
+    // *** End programmer edit section *** (SimpleDataObject CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class SimpleDataObject : ICSSoft.STORMNET.DataObject
@@ -35,71 +35,71 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private int fAge;
         
-        //  *** Start programmer edit section *** (SimpleDataObject CustomMembers)
+        // *** Start programmer edit section *** (SimpleDataObject CustomMembers)
 
-        //  *** End programmer edit section *** (SimpleDataObject CustomMembers)
+        // *** End programmer edit section *** (SimpleDataObject CustomMembers)
 
         
         /// <summary>
         /// Name.
         /// </summary>
-        //  *** Start programmer edit section *** (SimpleDataObject.Name CustomAttributes)
+        // *** Start programmer edit section *** (SimpleDataObject.Name CustomAttributes)
 
-        //  *** End programmer edit section *** (SimpleDataObject.Name CustomAttributes)
+        // *** End programmer edit section *** (SimpleDataObject.Name CustomAttributes)
         [StrLen(255)]
         public virtual string Name
         {
             get
             {
-                //  *** Start programmer edit section *** (SimpleDataObject.Name Get start)
+                // *** Start programmer edit section *** (SimpleDataObject.Name Get start)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Name Get start)
+                // *** End programmer edit section *** (SimpleDataObject.Name Get start)
                 string result = this.fName;
-                //  *** Start programmer edit section *** (SimpleDataObject.Name Get end)
+                // *** Start programmer edit section *** (SimpleDataObject.Name Get end)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Name Get end)
+                // *** End programmer edit section *** (SimpleDataObject.Name Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (SimpleDataObject.Name Set start)
+                // *** Start programmer edit section *** (SimpleDataObject.Name Set start)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Name Set start)
+                // *** End programmer edit section *** (SimpleDataObject.Name Set start)
                 this.fName = value;
-                //  *** Start programmer edit section *** (SimpleDataObject.Name Set end)
+                // *** Start programmer edit section *** (SimpleDataObject.Name Set end)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Name Set end)
+                // *** End programmer edit section *** (SimpleDataObject.Name Set end)
             }
         }
         
         /// <summary>
         /// Age.
         /// </summary>
-        //  *** Start programmer edit section *** (SimpleDataObject.Age CustomAttributes)
+        // *** Start programmer edit section *** (SimpleDataObject.Age CustomAttributes)
 
-        //  *** End programmer edit section *** (SimpleDataObject.Age CustomAttributes)
+        // *** End programmer edit section *** (SimpleDataObject.Age CustomAttributes)
         public virtual int Age
         {
             get
             {
-                //  *** Start programmer edit section *** (SimpleDataObject.Age Get start)
+                // *** Start programmer edit section *** (SimpleDataObject.Age Get start)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Age Get start)
+                // *** End programmer edit section *** (SimpleDataObject.Age Get start)
                 int result = this.fAge;
-                //  *** Start programmer edit section *** (SimpleDataObject.Age Get end)
+                // *** Start programmer edit section *** (SimpleDataObject.Age Get end)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Age Get end)
+                // *** End programmer edit section *** (SimpleDataObject.Age Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (SimpleDataObject.Age Set start)
+                // *** Start programmer edit section *** (SimpleDataObject.Age Set start)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Age Set start)
+                // *** End programmer edit section *** (SimpleDataObject.Age Set start)
                 this.fAge = value;
-                //  *** Start programmer edit section *** (SimpleDataObject.Age Set end)
+                // *** Start programmer edit section *** (SimpleDataObject.Age Set end)
 
-                //  *** End programmer edit section *** (SimpleDataObject.Age Set end)
+                // *** End programmer edit section *** (SimpleDataObject.Age Set end)
             }
         }
     }

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Place2.
     /// </summary>
-    //  *** Start programmer edit section *** (Place2 CustomAttributes)
+    // *** Start programmer edit section *** (Place2 CustomAttributes)
 
-    //  *** End programmer edit section *** (Place2 CustomAttributes)
+    // *** End programmer edit section *** (Place2 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("Place2E", new string[] {
@@ -47,49 +47,49 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Territory2 fTomorrowTeritory;
         
-        //  *** Start programmer edit section *** (Place2 CustomMembers)
+        // *** Start programmer edit section *** (Place2 CustomMembers)
 
-        //  *** End programmer edit section *** (Place2 CustomMembers)
+        // *** End programmer edit section *** (Place2 CustomMembers)
 
         
         /// <summary>
         /// PlaceName.
         /// </summary>
-        //  *** Start programmer edit section *** (Place2.PlaceName CustomAttributes)
+        // *** Start programmer edit section *** (Place2.PlaceName CustomAttributes)
 
-        //  *** End programmer edit section *** (Place2.PlaceName CustomAttributes)
+        // *** End programmer edit section *** (Place2.PlaceName CustomAttributes)
         [StrLen(255)]
         public virtual string PlaceName
         {
             get
             {
-                //  *** Start programmer edit section *** (Place2.PlaceName Get start)
+                // *** Start programmer edit section *** (Place2.PlaceName Get start)
 
-                //  *** End programmer edit section *** (Place2.PlaceName Get start)
+                // *** End programmer edit section *** (Place2.PlaceName Get start)
                 string result = this.fPlaceName;
-                //  *** Start programmer edit section *** (Place2.PlaceName Get end)
+                // *** Start programmer edit section *** (Place2.PlaceName Get end)
 
-                //  *** End programmer edit section *** (Place2.PlaceName Get end)
+                // *** End programmer edit section *** (Place2.PlaceName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Place2.PlaceName Set start)
+                // *** Start programmer edit section *** (Place2.PlaceName Set start)
 
-                //  *** End programmer edit section *** (Place2.PlaceName Set start)
+                // *** End programmer edit section *** (Place2.PlaceName Set start)
                 this.fPlaceName = value;
-                //  *** Start programmer edit section *** (Place2.PlaceName Set end)
+                // *** Start programmer edit section *** (Place2.PlaceName Set end)
 
-                //  *** End programmer edit section *** (Place2.PlaceName Set end)
+                // *** End programmer edit section *** (Place2.PlaceName Set end)
             }
         }
         
         /// <summary>
         /// Place2.
         /// </summary>
-        //  *** Start programmer edit section *** (Place2.TodayTerritory CustomAttributes)
+        // *** Start programmer edit section *** (Place2.TodayTerritory CustomAttributes)
 
-        //  *** End programmer edit section *** (Place2.TodayTerritory CustomAttributes)
+        // *** End programmer edit section *** (Place2.TodayTerritory CustomAttributes)
         [TypeUsage(new string[] {
                 "NewPlatform.Flexberry.ORM.Tests.Country2",
                 "NewPlatform.Flexberry.ORM.Tests.Territory2"})]
@@ -97,33 +97,33 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (Place2.TodayTerritory Get start)
+                // *** Start programmer edit section *** (Place2.TodayTerritory Get start)
 
-                //  *** End programmer edit section *** (Place2.TodayTerritory Get start)
+                // *** End programmer edit section *** (Place2.TodayTerritory Get start)
                 NewPlatform.Flexberry.ORM.Tests.Territory2 result = this.fTodayTerritory;
-                //  *** Start programmer edit section *** (Place2.TodayTerritory Get end)
+                // *** Start programmer edit section *** (Place2.TodayTerritory Get end)
 
-                //  *** End programmer edit section *** (Place2.TodayTerritory Get end)
+                // *** End programmer edit section *** (Place2.TodayTerritory Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Place2.TodayTerritory Set start)
+                // *** Start programmer edit section *** (Place2.TodayTerritory Set start)
 
-                //  *** End programmer edit section *** (Place2.TodayTerritory Set start)
+                // *** End programmer edit section *** (Place2.TodayTerritory Set start)
                 this.fTodayTerritory = value;
-                //  *** Start programmer edit section *** (Place2.TodayTerritory Set end)
+                // *** Start programmer edit section *** (Place2.TodayTerritory Set end)
 
-                //  *** End programmer edit section *** (Place2.TodayTerritory Set end)
+                // *** End programmer edit section *** (Place2.TodayTerritory Set end)
             }
         }
         
         /// <summary>
         /// Place2.
         /// </summary>
-        //  *** Start programmer edit section *** (Place2.TomorrowTeritory CustomAttributes)
+        // *** Start programmer edit section *** (Place2.TomorrowTeritory CustomAttributes)
 
-        //  *** End programmer edit section *** (Place2.TomorrowTeritory CustomAttributes)
+        // *** End programmer edit section *** (Place2.TomorrowTeritory CustomAttributes)
         [TypeUsage(new string[] {
                 "NewPlatform.Flexberry.ORM.Tests.Country2",
                 "NewPlatform.Flexberry.ORM.Tests.Territory2"})]
@@ -132,24 +132,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (Place2.TomorrowTeritory Get start)
+                // *** Start programmer edit section *** (Place2.TomorrowTeritory Get start)
 
-                //  *** End programmer edit section *** (Place2.TomorrowTeritory Get start)
+                // *** End programmer edit section *** (Place2.TomorrowTeritory Get start)
                 NewPlatform.Flexberry.ORM.Tests.Territory2 result = this.fTomorrowTeritory;
-                //  *** Start programmer edit section *** (Place2.TomorrowTeritory Get end)
+                // *** Start programmer edit section *** (Place2.TomorrowTeritory Get end)
 
-                //  *** End programmer edit section *** (Place2.TomorrowTeritory Get end)
+                // *** End programmer edit section *** (Place2.TomorrowTeritory Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Place2.TomorrowTeritory Set start)
+                // *** Start programmer edit section *** (Place2.TomorrowTeritory Set start)
 
-                //  *** End programmer edit section *** (Place2.TomorrowTeritory Set start)
+                // *** End programmer edit section *** (Place2.TomorrowTeritory Set start)
                 this.fTomorrowTeritory = value;
-                //  *** Start programmer edit section *** (Place2.TomorrowTeritory Set end)
+                // *** Start programmer edit section *** (Place2.TomorrowTeritory Set end)
 
-                //  *** End programmer edit section *** (Place2.TomorrowTeritory Set end)
+                // *** End programmer edit section *** (Place2.TomorrowTeritory Set end)
             }
         }
         

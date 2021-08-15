@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Порода.
     /// </summary>
-    //  *** Start programmer edit section *** (Порода CustomAttributes)
+    // *** Start programmer edit section *** (Порода CustomAttributes)
 
-    //  *** End programmer edit section *** (Порода CustomAttributes)
+    // *** End programmer edit section *** (Порода CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("k_ПородаE", new string[] {
@@ -59,138 +59,138 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.ТипПороды fТипПороды;
         
-        //  *** Start programmer edit section *** (Порода CustomMembers)
+        // *** Start programmer edit section *** (Порода CustomMembers)
 
-        //  *** End programmer edit section *** (Порода CustomMembers)
+        // *** End programmer edit section *** (Порода CustomMembers)
 
         
         /// <summary>
         /// Название.
         /// </summary>
-        //  *** Start programmer edit section *** (Порода.Название CustomAttributes)
+        // *** Start programmer edit section *** (Порода.Название CustomAttributes)
 
-        //  *** End programmer edit section *** (Порода.Название CustomAttributes)
+        // *** End programmer edit section *** (Порода.Название CustomAttributes)
         [StrLen(255)]
         [TrimmedStringStorage(false)]
         public virtual string Название
         {
             get
             {
-                //  *** Start programmer edit section *** (Порода.Название Get start)
+                // *** Start programmer edit section *** (Порода.Название Get start)
 
-                //  *** End programmer edit section *** (Порода.Название Get start)
+                // *** End programmer edit section *** (Порода.Название Get start)
                 string result = this.fНазвание;
-                //  *** Start programmer edit section *** (Порода.Название Get end)
+                // *** Start programmer edit section *** (Порода.Название Get end)
 
-                //  *** End programmer edit section *** (Порода.Название Get end)
+                // *** End programmer edit section *** (Порода.Название Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Порода.Название Set start)
+                // *** Start programmer edit section *** (Порода.Название Set start)
 
-                //  *** End programmer edit section *** (Порода.Название Set start)
+                // *** End programmer edit section *** (Порода.Название Set start)
                 this.fНазвание = value;
-                //  *** Start programmer edit section *** (Порода.Название Set end)
+                // *** Start programmer edit section *** (Порода.Название Set end)
 
-                //  *** End programmer edit section *** (Порода.Название Set end)
+                // *** End programmer edit section *** (Порода.Название Set end)
             }
         }
         
         /// <summary>
         /// Ключ.
         /// </summary>
-        //  *** Start programmer edit section *** (Порода.Ключ CustomAttributes)
+        // *** Start programmer edit section *** (Порода.Ключ CustomAttributes)
 
-        //  *** End programmer edit section *** (Порода.Ключ CustomAttributes)
+        // *** End programmer edit section *** (Порода.Ключ CustomAttributes)
         public virtual ICSSoft.STORMNET.KeyGen.KeyGuid Ключ
         {
             get
             {
-                //  *** Start programmer edit section *** (Порода.Ключ Get start)
+                // *** Start programmer edit section *** (Порода.Ключ Get start)
 
-                //  *** End programmer edit section *** (Порода.Ключ Get start)
+                // *** End programmer edit section *** (Порода.Ключ Get start)
                 ICSSoft.STORMNET.KeyGen.KeyGuid result = this.fКлюч;
-                //  *** Start programmer edit section *** (Порода.Ключ Get end)
+                // *** Start programmer edit section *** (Порода.Ключ Get end)
 
-                //  *** End programmer edit section *** (Порода.Ключ Get end)
+                // *** End programmer edit section *** (Порода.Ключ Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Порода.Ключ Set start)
+                // *** Start programmer edit section *** (Порода.Ключ Set start)
 
-                //  *** End programmer edit section *** (Порода.Ключ Set start)
+                // *** End programmer edit section *** (Порода.Ключ Set start)
                 this.fКлюч = value;
-                //  *** Start programmer edit section *** (Порода.Ключ Set end)
+                // *** Start programmer edit section *** (Порода.Ключ Set end)
 
-                //  *** End programmer edit section *** (Порода.Ключ Set end)
+                // *** End programmer edit section *** (Порода.Ключ Set end)
             }
         }
         
         /// <summary>
         /// Порода.
         /// </summary>
-        //  *** Start programmer edit section *** (Порода.Иерархия CustomAttributes)
+        // *** Start programmer edit section *** (Порода.Иерархия CustomAttributes)
 
-        //  *** End programmer edit section *** (Порода.Иерархия CustomAttributes)
+        // *** End programmer edit section *** (Порода.Иерархия CustomAttributes)
         [PropertyStorage(new string[] {
                 "Иерархия"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.Порода Иерархия
         {
             get
             {
-                //  *** Start programmer edit section *** (Порода.Иерархия Get start)
+                // *** Start programmer edit section *** (Порода.Иерархия Get start)
 
-                //  *** End programmer edit section *** (Порода.Иерархия Get start)
+                // *** End programmer edit section *** (Порода.Иерархия Get start)
                 NewPlatform.Flexberry.ORM.Tests.Порода result = this.fИерархия;
-                //  *** Start programmer edit section *** (Порода.Иерархия Get end)
+                // *** Start programmer edit section *** (Порода.Иерархия Get end)
 
-                //  *** End programmer edit section *** (Порода.Иерархия Get end)
+                // *** End programmer edit section *** (Порода.Иерархия Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Порода.Иерархия Set start)
+                // *** Start programmer edit section *** (Порода.Иерархия Set start)
 
-                //  *** End programmer edit section *** (Порода.Иерархия Set start)
+                // *** End programmer edit section *** (Порода.Иерархия Set start)
                 this.fИерархия = value;
-                //  *** Start programmer edit section *** (Порода.Иерархия Set end)
+                // *** Start programmer edit section *** (Порода.Иерархия Set end)
 
-                //  *** End programmer edit section *** (Порода.Иерархия Set end)
+                // *** End programmer edit section *** (Порода.Иерархия Set end)
             }
         }
         
         /// <summary>
         /// Порода.
         /// </summary>
-        //  *** Start programmer edit section *** (Порода.ТипПороды CustomAttributes)
+        // *** Start programmer edit section *** (Порода.ТипПороды CustomAttributes)
 
-        //  *** End programmer edit section *** (Порода.ТипПороды CustomAttributes)
+        // *** End programmer edit section *** (Порода.ТипПороды CustomAttributes)
         [PropertyStorage(new string[] {
                 "ТипПороды"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.ТипПороды ТипПороды
         {
             get
             {
-                //  *** Start programmer edit section *** (Порода.ТипПороды Get start)
+                // *** Start programmer edit section *** (Порода.ТипПороды Get start)
 
-                //  *** End programmer edit section *** (Порода.ТипПороды Get start)
+                // *** End programmer edit section *** (Порода.ТипПороды Get start)
                 NewPlatform.Flexberry.ORM.Tests.ТипПороды result = this.fТипПороды;
-                //  *** Start programmer edit section *** (Порода.ТипПороды Get end)
+                // *** Start programmer edit section *** (Порода.ТипПороды Get end)
 
-                //  *** End programmer edit section *** (Порода.ТипПороды Get end)
+                // *** End programmer edit section *** (Порода.ТипПороды Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Порода.ТипПороды Set start)
+                // *** Start programmer edit section *** (Порода.ТипПороды Set start)
 
-                //  *** End programmer edit section *** (Порода.ТипПороды Set start)
+                // *** End programmer edit section *** (Порода.ТипПороды Set start)
                 this.fТипПороды = value;
-                //  *** Start programmer edit section *** (Порода.ТипПороды Set end)
+                // *** Start programmer edit section *** (Порода.ТипПороды Set end)
 
-                //  *** End programmer edit section *** (Порода.ТипПороды Set end)
+                // *** End programmer edit section *** (Порода.ТипПороды Set end)
             }
         }
         

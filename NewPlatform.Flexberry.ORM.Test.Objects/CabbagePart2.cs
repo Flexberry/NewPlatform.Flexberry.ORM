@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Cabbage part2.
     /// </summary>
-    //  *** Start programmer edit section *** (CabbagePart2 CustomAttributes)
+    // *** Start programmer edit section *** (CabbagePart2 CustomAttributes)
 
-    //  *** End programmer edit section *** (CabbagePart2 CustomAttributes)
+    // *** End programmer edit section *** (CabbagePart2 CustomAttributes)
     [AutoAltered()]
     [Caption("Cabbage part2")]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -38,49 +38,49 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Cabbage2 fCabbage;
         
-        //  *** Start programmer edit section *** (CabbagePart2 CustomMembers)
+        // *** Start programmer edit section *** (CabbagePart2 CustomMembers)
 
-        //  *** End programmer edit section *** (CabbagePart2 CustomMembers)
+        // *** End programmer edit section *** (CabbagePart2 CustomMembers)
 
         
         /// <summary>
         /// PartName.
         /// </summary>
-        //  *** Start programmer edit section *** (CabbagePart2.PartName CustomAttributes)
+        // *** Start programmer edit section *** (CabbagePart2.PartName CustomAttributes)
 
-        //  *** End programmer edit section *** (CabbagePart2.PartName CustomAttributes)
+        // *** End programmer edit section *** (CabbagePart2.PartName CustomAttributes)
         [StrLen(255)]
         public virtual string PartName
         {
             get
             {
-                //  *** Start programmer edit section *** (CabbagePart2.PartName Get start)
+                // *** Start programmer edit section *** (CabbagePart2.PartName Get start)
 
-                //  *** End programmer edit section *** (CabbagePart2.PartName Get start)
+                // *** End programmer edit section *** (CabbagePart2.PartName Get start)
                 string result = this.fPartName;
-                //  *** Start programmer edit section *** (CabbagePart2.PartName Get end)
+                // *** Start programmer edit section *** (CabbagePart2.PartName Get end)
 
-                //  *** End programmer edit section *** (CabbagePart2.PartName Get end)
+                // *** End programmer edit section *** (CabbagePart2.PartName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (CabbagePart2.PartName Set start)
+                // *** Start programmer edit section *** (CabbagePart2.PartName Set start)
 
-                //  *** End programmer edit section *** (CabbagePart2.PartName Set start)
+                // *** End programmer edit section *** (CabbagePart2.PartName Set start)
                 this.fPartName = value;
-                //  *** Start programmer edit section *** (CabbagePart2.PartName Set end)
+                // *** Start programmer edit section *** (CabbagePart2.PartName Set end)
 
-                //  *** End programmer edit section *** (CabbagePart2.PartName Set end)
+                // *** End programmer edit section *** (CabbagePart2.PartName Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.Cabbage2.
         /// </summary>
-        //  *** Start programmer edit section *** (CabbagePart2.Cabbage CustomAttributes)
+        // *** Start programmer edit section *** (CabbagePart2.Cabbage CustomAttributes)
 
-        //  *** End programmer edit section *** (CabbagePart2.Cabbage CustomAttributes)
+        // *** End programmer edit section *** (CabbagePart2.Cabbage CustomAttributes)
         [Agregator()]
         [NotNull()]
         [PropertyStorage(new string[] {
@@ -89,24 +89,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (CabbagePart2.Cabbage Get start)
+                // *** Start programmer edit section *** (CabbagePart2.Cabbage Get start)
 
-                //  *** End programmer edit section *** (CabbagePart2.Cabbage Get start)
+                // *** End programmer edit section *** (CabbagePart2.Cabbage Get start)
                 NewPlatform.Flexberry.ORM.Tests.Cabbage2 result = this.fCabbage;
-                //  *** Start programmer edit section *** (CabbagePart2.Cabbage Get end)
+                // *** Start programmer edit section *** (CabbagePart2.Cabbage Get end)
 
-                //  *** End programmer edit section *** (CabbagePart2.Cabbage Get end)
+                // *** End programmer edit section *** (CabbagePart2.Cabbage Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (CabbagePart2.Cabbage Set start)
+                // *** Start programmer edit section *** (CabbagePart2.Cabbage Set start)
 
-                //  *** End programmer edit section *** (CabbagePart2.Cabbage Set start)
+                // *** End programmer edit section *** (CabbagePart2.Cabbage Set start)
                 this.fCabbage = value;
-                //  *** Start programmer edit section *** (CabbagePart2.Cabbage Set end)
+                // *** Start programmer edit section *** (CabbagePart2.Cabbage Set end)
 
-                //  *** End programmer edit section *** (CabbagePart2.Cabbage Set end)
+                // *** End programmer edit section *** (CabbagePart2.Cabbage Set end)
             }
         }
         
@@ -132,15 +132,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of CabbagePart2.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfCabbagePart2 CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfCabbagePart2 CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfCabbagePart2 CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfCabbagePart2 CustomAttributes)
     public class DetailArrayOfCabbagePart2 : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfCabbagePart2 members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfCabbagePart2 members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfCabbagePart2 members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfCabbagePart2 members)
 
         
         /// <summary>

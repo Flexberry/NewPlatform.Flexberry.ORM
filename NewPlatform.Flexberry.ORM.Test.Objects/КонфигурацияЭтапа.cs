@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// КонфигурацияЭтапа.
     /// </summary>
-    //  *** Start programmer edit section *** (КонфигурацияЭтапа CustomAttributes)
+    // *** Start programmer edit section *** (КонфигурацияЭтапа CustomAttributes)
 
-    //  *** End programmer edit section *** (КонфигурацияЭтапа CustomAttributes)
+    // *** End programmer edit section *** (КонфигурацияЭтапа CustomAttributes)
     [AutoAltered()]
     [ICSSoft.STORMNET.NotStored()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -36,70 +36,70 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private int fЧетвертоеДлинноеПолеДляПроверки;
         
-        //  *** Start programmer edit section *** (КонфигурацияЭтапа CustomMembers)
+        // *** Start programmer edit section *** (КонфигурацияЭтапа CustomMembers)
 
-        //  *** End programmer edit section *** (КонфигурацияЭтапа CustomMembers)
+        // *** End programmer edit section *** (КонфигурацияЭтапа CustomMembers)
 
         
         /// <summary>
         /// ТретьеДлинноеПолеДляПроверки.
         /// </summary>
-        //  *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки CustomAttributes)
+        // *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки CustomAttributes)
 
-        //  *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки CustomAttributes)
+        // *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки CustomAttributes)
         public virtual bool ТретьеДлинноеПолеДляПроверки
         {
             get
             {
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get start)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get start)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get start)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get start)
                 bool result = this.fТретьеДлинноеПолеДляПроверки;
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get end)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get end)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get end)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set start)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set start)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set start)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set start)
                 this.fТретьеДлинноеПолеДляПроверки = value;
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set end)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set end)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set end)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ТретьеДлинноеПолеДляПроверки Set end)
             }
         }
         
         /// <summary>
         /// ЧетвертоеДлинноеПолеДляПроверки.
         /// </summary>
-        //  *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки CustomAttributes)
+        // *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки CustomAttributes)
 
-        //  *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки CustomAttributes)
+        // *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки CustomAttributes)
         public virtual int ЧетвертоеДлинноеПолеДляПроверки
         {
             get
             {
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get start)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get start)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get start)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get start)
                 int result = this.fЧетвертоеДлинноеПолеДляПроверки;
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get end)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get end)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get end)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set start)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set start)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set start)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set start)
                 this.fЧетвертоеДлинноеПолеДляПроверки = value;
-                //  *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set end)
+                // *** Start programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set end)
 
-                //  *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set end)
+                // *** End programmer edit section *** (КонфигурацияЭтапа.ЧетвертоеДлинноеПолеДляПроверки Set end)
             }
         }
     }

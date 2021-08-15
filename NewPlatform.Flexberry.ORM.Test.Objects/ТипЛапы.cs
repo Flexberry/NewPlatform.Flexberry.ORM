@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Тип лапы.
     /// </summary>
-    //  *** Start programmer edit section *** (ТипЛапы CustomAttributes)
+    // *** Start programmer edit section *** (ТипЛапы CustomAttributes)
 
-    //  *** End programmer edit section *** (ТипЛапы CustomAttributes)
+    // *** End programmer edit section *** (ТипЛапы CustomAttributes)
     [AutoAltered()]
     [Caption("Тип лапы")]
     [AccessType(ICSSoft.STORMNET.AccessType.@this)]
@@ -48,72 +48,72 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private bool fАктуально;
         
-        //  *** Start programmer edit section *** (ТипЛапы CustomMembers)
+        // *** Start programmer edit section *** (ТипЛапы CustomMembers)
 
-        //  *** End programmer edit section *** (ТипЛапы CustomMembers)
+        // *** End programmer edit section *** (ТипЛапы CustomMembers)
 
         
         /// <summary>
         /// Название.
         /// </summary>
-        //  *** Start programmer edit section *** (ТипЛапы.Название CustomAttributes)
+        // *** Start programmer edit section *** (ТипЛапы.Название CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипЛапы.Название CustomAttributes)
+        // *** End programmer edit section *** (ТипЛапы.Название CustomAttributes)
         [StrLen(255)]
         [DataServiceExpression(typeof(ICSSoft.STORMNET.Business.MSSQLDataService), "/*Operation:ПросмотрАтрибутов;DeniedAccessValue:Просмотр запрещен*/")]
         public virtual string Название
         {
             get
             {
-                //  *** Start programmer edit section *** (ТипЛапы.Название Get start)
+                // *** Start programmer edit section *** (ТипЛапы.Название Get start)
 
-                //  *** End programmer edit section *** (ТипЛапы.Название Get start)
+                // *** End programmer edit section *** (ТипЛапы.Название Get start)
                 string result = this.fНазвание;
-                //  *** Start programmer edit section *** (ТипЛапы.Название Get end)
+                // *** Start programmer edit section *** (ТипЛапы.Название Get end)
 
-                //  *** End programmer edit section *** (ТипЛапы.Название Get end)
+                // *** End programmer edit section *** (ТипЛапы.Название Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ТипЛапы.Название Set start)
+                // *** Start programmer edit section *** (ТипЛапы.Название Set start)
 
-                //  *** End programmer edit section *** (ТипЛапы.Название Set start)
+                // *** End programmer edit section *** (ТипЛапы.Название Set start)
                 this.fНазвание = value;
-                //  *** Start programmer edit section *** (ТипЛапы.Название Set end)
+                // *** Start programmer edit section *** (ТипЛапы.Название Set end)
 
-                //  *** End programmer edit section *** (ТипЛапы.Название Set end)
+                // *** End programmer edit section *** (ТипЛапы.Название Set end)
             }
         }
         
         /// <summary>
         /// Актуально.
         /// </summary>
-        //  *** Start programmer edit section *** (ТипЛапы.Актуально CustomAttributes)
+        // *** Start programmer edit section *** (ТипЛапы.Актуально CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипЛапы.Актуально CustomAttributes)
+        // *** End programmer edit section *** (ТипЛапы.Актуально CustomAttributes)
         public virtual bool Актуально
         {
             get
             {
-                //  *** Start programmer edit section *** (ТипЛапы.Актуально Get start)
+                // *** Start programmer edit section *** (ТипЛапы.Актуально Get start)
 
-                //  *** End programmer edit section *** (ТипЛапы.Актуально Get start)
+                // *** End programmer edit section *** (ТипЛапы.Актуально Get start)
                 bool result = this.fАктуально;
-                //  *** Start programmer edit section *** (ТипЛапы.Актуально Get end)
+                // *** Start programmer edit section *** (ТипЛапы.Актуально Get end)
 
-                //  *** End programmer edit section *** (ТипЛапы.Актуально Get end)
+                // *** End programmer edit section *** (ТипЛапы.Актуально Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ТипЛапы.Актуально Set start)
+                // *** Start programmer edit section *** (ТипЛапы.Актуально Set start)
 
-                //  *** End programmer edit section *** (ТипЛапы.Актуально Set start)
+                // *** End programmer edit section *** (ТипЛапы.Актуально Set start)
                 this.fАктуально = value;
-                //  *** Start programmer edit section *** (ТипЛапы.Актуально Set end)
+                // *** Start programmer edit section *** (ТипЛапы.Актуально Set end)
 
-                //  *** End programmer edit section *** (ТипЛапы.Актуально Set end)
+                // *** End programmer edit section *** (ТипЛапы.Актуально Set end)
             }
         }
         

@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// SomeMasterClass.
     /// </summary>
-    //  *** Start programmer edit section *** (SomeMasterClass CustomAttributes)
+    // *** Start programmer edit section *** (SomeMasterClass CustomAttributes)
 
-    //  *** End programmer edit section *** (SomeMasterClass CustomAttributes)
+    // *** End programmer edit section *** (SomeMasterClass CustomAttributes)
     [AutoAltered()]
     [Caption("Class A")]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -38,40 +38,40 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fFieldA;
         
-        //  *** Start programmer edit section *** (SomeMasterClass CustomMembers)
+        // *** Start programmer edit section *** (SomeMasterClass CustomMembers)
 
-        //  *** End programmer edit section *** (SomeMasterClass CustomMembers)
+        // *** End programmer edit section *** (SomeMasterClass CustomMembers)
 
         
         /// <summary>
         /// FieldA.
         /// </summary>
-        //  *** Start programmer edit section *** (SomeMasterClass.FieldA CustomAttributes)
+        // *** Start programmer edit section *** (SomeMasterClass.FieldA CustomAttributes)
 
-        //  *** End programmer edit section *** (SomeMasterClass.FieldA CustomAttributes)
+        // *** End programmer edit section *** (SomeMasterClass.FieldA CustomAttributes)
         [StrLen(255)]
         public virtual string FieldA
         {
             get
             {
-                //  *** Start programmer edit section *** (SomeMasterClass.FieldA Get start)
+                // *** Start programmer edit section *** (SomeMasterClass.FieldA Get start)
 
-                //  *** End programmer edit section *** (SomeMasterClass.FieldA Get start)
+                // *** End programmer edit section *** (SomeMasterClass.FieldA Get start)
                 string result = this.fFieldA;
-                //  *** Start programmer edit section *** (SomeMasterClass.FieldA Get end)
+                // *** Start programmer edit section *** (SomeMasterClass.FieldA Get end)
 
-                //  *** End programmer edit section *** (SomeMasterClass.FieldA Get end)
+                // *** End programmer edit section *** (SomeMasterClass.FieldA Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (SomeMasterClass.FieldA Set start)
+                // *** Start programmer edit section *** (SomeMasterClass.FieldA Set start)
 
-                //  *** End programmer edit section *** (SomeMasterClass.FieldA Set start)
+                // *** End programmer edit section *** (SomeMasterClass.FieldA Set start)
                 this.fFieldA = value;
-                //  *** Start programmer edit section *** (SomeMasterClass.FieldA Set end)
+                // *** Start programmer edit section *** (SomeMasterClass.FieldA Set end)
 
-                //  *** End programmer edit section *** (SomeMasterClass.FieldA Set end)
+                // *** End programmer edit section *** (SomeMasterClass.FieldA Set end)
             }
         }
         

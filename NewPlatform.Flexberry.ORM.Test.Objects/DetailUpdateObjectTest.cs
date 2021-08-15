@@ -16,17 +16,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// DetailUpdateObjectTest.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailUpdateObjectTest CustomAttributes)
+    // *** Start programmer edit section *** (DetailUpdateObjectTest CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailUpdateObjectTest CustomAttributes)
+    // *** End programmer edit section *** (DetailUpdateObjectTest CustomAttributes)
     [BusinessServer("NewPlatform.Flexberry.ORM.Tests.UpdateObjectTestBS, Flexberry.ORM.Tests.BusinessS" +
         "ervers", ICSSoft.STORMNET.Business.DataServiceObjectEvents.OnAllEvents)]
     [AutoAltered()]
@@ -50,82 +50,82 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.AggregatorUpdateObjectTest fAggregatorUpdateObjectTest;
         
-        //  *** Start programmer edit section *** (DetailUpdateObjectTest CustomMembers)
+        // *** Start programmer edit section *** (DetailUpdateObjectTest CustomMembers)
 
-        //  *** End programmer edit section *** (DetailUpdateObjectTest CustomMembers)
+        // *** End programmer edit section *** (DetailUpdateObjectTest CustomMembers)
 
         
         /// <summary>
         /// DetailName.
         /// </summary>
-        //  *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName CustomAttributes)
+        // *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName CustomAttributes)
 
-        //  *** End programmer edit section *** (DetailUpdateObjectTest.DetailName CustomAttributes)
+        // *** End programmer edit section *** (DetailUpdateObjectTest.DetailName CustomAttributes)
         [StrLen(255)]
         public virtual string DetailName
         {
             get
             {
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Get start)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Get start)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Get start)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Get start)
                 string result = this.fDetailName;
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Get end)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Get end)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Get end)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Set start)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Set start)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Set start)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Set start)
                 this.fDetailName = value;
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Set end)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.DetailName Set end)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Set end)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.DetailName Set end)
             }
         }
         
         /// <summary>
         /// DetailUpdateObjectTest.
         /// </summary>
-        //  *** Start programmer edit section *** (DetailUpdateObjectTest.Master CustomAttributes)
+        // *** Start programmer edit section *** (DetailUpdateObjectTest.Master CustomAttributes)
 
-        //  *** End programmer edit section *** (DetailUpdateObjectTest.Master CustomAttributes)
+        // *** End programmer edit section *** (DetailUpdateObjectTest.Master CustomAttributes)
         [PropertyStorage(new string[] {
                 "Master"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.MasterUpdateObjectTest Master
         {
             get
             {
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.Master Get start)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.Master Get start)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.Master Get start)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.Master Get start)
                 NewPlatform.Flexberry.ORM.Tests.MasterUpdateObjectTest result = this.fMaster;
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.Master Get end)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.Master Get end)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.Master Get end)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.Master Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.Master Set start)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.Master Set start)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.Master Set start)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.Master Set start)
                 this.fMaster = value;
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.Master Set end)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.Master Set end)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.Master Set end)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.Master Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.AggregatorUpdateObjectTest.
         /// </summary>
-        //  *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest CustomAttributes)
+        // *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest CustomAttributes)
 
-        //  *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest CustomAttributes)
+        // *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest CustomAttributes)
         [Agregator()]
         [NotNull()]
         [PropertyStorage(new string[] {
@@ -134,24 +134,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get start)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get start)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get start)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get start)
                 NewPlatform.Flexberry.ORM.Tests.AggregatorUpdateObjectTest result = this.fAggregatorUpdateObjectTest;
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get end)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get end)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get end)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set start)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set start)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set start)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set start)
                 this.fAggregatorUpdateObjectTest = value;
-                //  *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set end)
+                // *** Start programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set end)
 
-                //  *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set end)
+                // *** End programmer edit section *** (DetailUpdateObjectTest.AggregatorUpdateObjectTest Set end)
             }
         }
         
@@ -177,15 +177,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of DetailUpdateObjectTest.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfDetailUpdateObjectTest CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfDetailUpdateObjectTest CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfDetailUpdateObjectTest CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfDetailUpdateObjectTest CustomAttributes)
     public class DetailArrayOfDetailUpdateObjectTest : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailUpdateObjectTest members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailUpdateObjectTest members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailUpdateObjectTest members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfDetailUpdateObjectTest members)
 
         
         /// <summary>

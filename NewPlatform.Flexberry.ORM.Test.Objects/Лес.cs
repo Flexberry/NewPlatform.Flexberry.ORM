@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Лес.
     /// </summary>
-    //  *** Start programmer edit section *** (Лес CustomAttributes)
+    // *** Start programmer edit section *** (Лес CustomAttributes)
 
-    //  *** End programmer edit section *** (Лес CustomAttributes)
+    // *** End programmer edit section *** (Лес CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("ЛесE", new string[] {
@@ -54,167 +54,167 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Страна fСтрана;
         
-        //  *** Start programmer edit section *** (Лес CustomMembers)
+        // *** Start programmer edit section *** (Лес CustomMembers)
 
-        //  *** End programmer edit section *** (Лес CustomMembers)
+        // *** End programmer edit section *** (Лес CustomMembers)
 
         
         /// <summary>
         /// Название.
         /// </summary>
-        //  *** Start programmer edit section *** (Лес.Название CustomAttributes)
+        // *** Start programmer edit section *** (Лес.Название CustomAttributes)
 
-        //  *** End programmer edit section *** (Лес.Название CustomAttributes)
+        // *** End programmer edit section *** (Лес.Название CustomAttributes)
         [StrLen(255)]
         public virtual string Название
         {
             get
             {
-                //  *** Start programmer edit section *** (Лес.Название Get start)
+                // *** Start programmer edit section *** (Лес.Название Get start)
 
-                //  *** End programmer edit section *** (Лес.Название Get start)
+                // *** End programmer edit section *** (Лес.Название Get start)
                 string result = this.fНазвание;
-                //  *** Start programmer edit section *** (Лес.Название Get end)
+                // *** Start programmer edit section *** (Лес.Название Get end)
 
-                //  *** End programmer edit section *** (Лес.Название Get end)
+                // *** End programmer edit section *** (Лес.Название Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Лес.Название Set start)
+                // *** Start programmer edit section *** (Лес.Название Set start)
 
-                //  *** End programmer edit section *** (Лес.Название Set start)
+                // *** End programmer edit section *** (Лес.Название Set start)
                 this.fНазвание = value;
-                //  *** Start programmer edit section *** (Лес.Название Set end)
+                // *** Start programmer edit section *** (Лес.Название Set end)
 
-                //  *** End programmer edit section *** (Лес.Название Set end)
+                // *** End programmer edit section *** (Лес.Название Set end)
             }
         }
         
         /// <summary>
         /// Площадь.
         /// </summary>
-        //  *** Start programmer edit section *** (Лес.Площадь CustomAttributes)
+        // *** Start programmer edit section *** (Лес.Площадь CustomAttributes)
 
-        //  *** End programmer edit section *** (Лес.Площадь CustomAttributes)
+        // *** End programmer edit section *** (Лес.Площадь CustomAttributes)
         public virtual int Площадь
         {
             get
             {
-                //  *** Start programmer edit section *** (Лес.Площадь Get start)
+                // *** Start programmer edit section *** (Лес.Площадь Get start)
 
-                //  *** End programmer edit section *** (Лес.Площадь Get start)
+                // *** End programmer edit section *** (Лес.Площадь Get start)
                 int result = this.fПлощадь;
-                //  *** Start programmer edit section *** (Лес.Площадь Get end)
+                // *** Start programmer edit section *** (Лес.Площадь Get end)
 
-                //  *** End programmer edit section *** (Лес.Площадь Get end)
+                // *** End programmer edit section *** (Лес.Площадь Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Лес.Площадь Set start)
+                // *** Start programmer edit section *** (Лес.Площадь Set start)
 
-                //  *** End programmer edit section *** (Лес.Площадь Set start)
+                // *** End programmer edit section *** (Лес.Площадь Set start)
                 this.fПлощадь = value;
-                //  *** Start programmer edit section *** (Лес.Площадь Set end)
+                // *** Start programmer edit section *** (Лес.Площадь Set end)
 
-                //  *** End programmer edit section *** (Лес.Площадь Set end)
+                // *** End programmer edit section *** (Лес.Площадь Set end)
             }
         }
         
         /// <summary>
         /// Заповедник.
         /// </summary>
-        //  *** Start programmer edit section *** (Лес.Заповедник CustomAttributes)
+        // *** Start programmer edit section *** (Лес.Заповедник CustomAttributes)
 
-        //  *** End programmer edit section *** (Лес.Заповедник CustomAttributes)
+        // *** End programmer edit section *** (Лес.Заповедник CustomAttributes)
         public virtual bool Заповедник
         {
             get
             {
-                //  *** Start programmer edit section *** (Лес.Заповедник Get start)
+                // *** Start programmer edit section *** (Лес.Заповедник Get start)
 
-                //  *** End programmer edit section *** (Лес.Заповедник Get start)
+                // *** End programmer edit section *** (Лес.Заповедник Get start)
                 bool result = this.fЗаповедник;
-                //  *** Start programmer edit section *** (Лес.Заповедник Get end)
+                // *** Start programmer edit section *** (Лес.Заповедник Get end)
 
-                //  *** End programmer edit section *** (Лес.Заповедник Get end)
+                // *** End programmer edit section *** (Лес.Заповедник Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Лес.Заповедник Set start)
+                // *** Start programmer edit section *** (Лес.Заповедник Set start)
 
-                //  *** End programmer edit section *** (Лес.Заповедник Set start)
+                // *** End programmer edit section *** (Лес.Заповедник Set start)
                 this.fЗаповедник = value;
-                //  *** Start programmer edit section *** (Лес.Заповедник Set end)
+                // *** Start programmer edit section *** (Лес.Заповедник Set end)
 
-                //  *** End programmer edit section *** (Лес.Заповедник Set end)
+                // *** End programmer edit section *** (Лес.Заповедник Set end)
             }
         }
         
         /// <summary>
         /// ДатаПоследнегоОсмотра.
         /// </summary>
-        //  *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра CustomAttributes)
+        // *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра CustomAttributes)
 
-        //  *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра CustomAttributes)
+        // *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра CustomAttributes)
         [PropertyStorage("ДатаПослОсмотр")]
         public virtual ICSSoft.STORMNET.UserDataTypes.NullableDateTime ДатаПоследнегоОсмотра
         {
             get
             {
-                //  *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get start)
+                // *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get start)
 
-                //  *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get start)
+                // *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get start)
                 ICSSoft.STORMNET.UserDataTypes.NullableDateTime result = this.fДатаПоследнегоОсмотра;
-                //  *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get end)
+                // *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get end)
 
-                //  *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get end)
+                // *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set start)
+                // *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set start)
 
-                //  *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set start)
+                // *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set start)
                 this.fДатаПоследнегоОсмотра = value;
-                //  *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set end)
+                // *** Start programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set end)
 
-                //  *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set end)
+                // *** End programmer edit section *** (Лес.ДатаПоследнегоОсмотра Set end)
             }
         }
         
         /// <summary>
         /// Лес.
         /// </summary>
-        //  *** Start programmer edit section *** (Лес.Страна CustomAttributes)
+        // *** Start programmer edit section *** (Лес.Страна CustomAttributes)
 
-        //  *** End programmer edit section *** (Лес.Страна CustomAttributes)
+        // *** End programmer edit section *** (Лес.Страна CustomAttributes)
         [PropertyStorage(new string[] {
                 "Страна"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.Страна Страна
         {
             get
             {
-                //  *** Start programmer edit section *** (Лес.Страна Get start)
+                // *** Start programmer edit section *** (Лес.Страна Get start)
 
-                //  *** End programmer edit section *** (Лес.Страна Get start)
+                // *** End programmer edit section *** (Лес.Страна Get start)
                 NewPlatform.Flexberry.ORM.Tests.Страна result = this.fСтрана;
-                //  *** Start programmer edit section *** (Лес.Страна Get end)
+                // *** Start programmer edit section *** (Лес.Страна Get end)
 
-                //  *** End programmer edit section *** (Лес.Страна Get end)
+                // *** End programmer edit section *** (Лес.Страна Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Лес.Страна Set start)
+                // *** Start programmer edit section *** (Лес.Страна Set start)
 
-                //  *** End programmer edit section *** (Лес.Страна Set start)
+                // *** End programmer edit section *** (Лес.Страна Set start)
                 this.fСтрана = value;
-                //  *** Start programmer edit section *** (Лес.Страна Set end)
+                // *** Start programmer edit section *** (Лес.Страна Set end)
 
-                //  *** End programmer edit section *** (Лес.Страна Set end)
+                // *** End programmer edit section *** (Лес.Страна Set end)
             }
         }
         

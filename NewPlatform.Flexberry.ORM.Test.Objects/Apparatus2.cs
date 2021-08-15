@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Apparatus2.
     /// </summary>
-    //  *** Start programmer edit section *** (Apparatus2 CustomAttributes)
+    // *** Start programmer edit section *** (Apparatus2 CustomAttributes)
 
-    //  *** End programmer edit section *** (Apparatus2 CustomAttributes)
+    // *** End programmer edit section *** (Apparatus2 CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("Apparatus2E", new string[] {
@@ -47,103 +47,103 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.Country2 fMaker;
         
-        //  *** Start programmer edit section *** (Apparatus2 CustomMembers)
+        // *** Start programmer edit section *** (Apparatus2 CustomMembers)
 
-        //  *** End programmer edit section *** (Apparatus2 CustomMembers)
+        // *** End programmer edit section *** (Apparatus2 CustomMembers)
 
         
         /// <summary>
         /// ApparatusName.
         /// </summary>
-        //  *** Start programmer edit section *** (Apparatus2.ApparatusName CustomAttributes)
+        // *** Start programmer edit section *** (Apparatus2.ApparatusName CustomAttributes)
 
-        //  *** End programmer edit section *** (Apparatus2.ApparatusName CustomAttributes)
+        // *** End programmer edit section *** (Apparatus2.ApparatusName CustomAttributes)
         [StrLen(255)]
         public virtual string ApparatusName
         {
             get
             {
-                //  *** Start programmer edit section *** (Apparatus2.ApparatusName Get start)
+                // *** Start programmer edit section *** (Apparatus2.ApparatusName Get start)
 
-                //  *** End programmer edit section *** (Apparatus2.ApparatusName Get start)
+                // *** End programmer edit section *** (Apparatus2.ApparatusName Get start)
                 string result = this.fApparatusName;
-                //  *** Start programmer edit section *** (Apparatus2.ApparatusName Get end)
+                // *** Start programmer edit section *** (Apparatus2.ApparatusName Get end)
 
-                //  *** End programmer edit section *** (Apparatus2.ApparatusName Get end)
+                // *** End programmer edit section *** (Apparatus2.ApparatusName Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Apparatus2.ApparatusName Set start)
+                // *** Start programmer edit section *** (Apparatus2.ApparatusName Set start)
 
-                //  *** End programmer edit section *** (Apparatus2.ApparatusName Set start)
+                // *** End programmer edit section *** (Apparatus2.ApparatusName Set start)
                 this.fApparatusName = value;
-                //  *** Start programmer edit section *** (Apparatus2.ApparatusName Set end)
+                // *** Start programmer edit section *** (Apparatus2.ApparatusName Set end)
 
-                //  *** End programmer edit section *** (Apparatus2.ApparatusName Set end)
+                // *** End programmer edit section *** (Apparatus2.ApparatusName Set end)
             }
         }
         
         /// <summary>
         /// Apparatus2.
         /// </summary>
-        //  *** Start programmer edit section *** (Apparatus2.Exporter CustomAttributes)
+        // *** Start programmer edit section *** (Apparatus2.Exporter CustomAttributes)
 
-        //  *** End programmer edit section *** (Apparatus2.Exporter CustomAttributes)
+        // *** End programmer edit section *** (Apparatus2.Exporter CustomAttributes)
         [NotNull()]
         public virtual NewPlatform.Flexberry.ORM.Tests.Country2 Exporter
         {
             get
             {
-                //  *** Start programmer edit section *** (Apparatus2.Exporter Get start)
+                // *** Start programmer edit section *** (Apparatus2.Exporter Get start)
 
-                //  *** End programmer edit section *** (Apparatus2.Exporter Get start)
+                // *** End programmer edit section *** (Apparatus2.Exporter Get start)
                 NewPlatform.Flexberry.ORM.Tests.Country2 result = this.fExporter;
-                //  *** Start programmer edit section *** (Apparatus2.Exporter Get end)
+                // *** Start programmer edit section *** (Apparatus2.Exporter Get end)
 
-                //  *** End programmer edit section *** (Apparatus2.Exporter Get end)
+                // *** End programmer edit section *** (Apparatus2.Exporter Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Apparatus2.Exporter Set start)
+                // *** Start programmer edit section *** (Apparatus2.Exporter Set start)
 
-                //  *** End programmer edit section *** (Apparatus2.Exporter Set start)
+                // *** End programmer edit section *** (Apparatus2.Exporter Set start)
                 this.fExporter = value;
-                //  *** Start programmer edit section *** (Apparatus2.Exporter Set end)
+                // *** Start programmer edit section *** (Apparatus2.Exporter Set end)
 
-                //  *** End programmer edit section *** (Apparatus2.Exporter Set end)
+                // *** End programmer edit section *** (Apparatus2.Exporter Set end)
             }
         }
         
         /// <summary>
         /// Apparatus2.
         /// </summary>
-        //  *** Start programmer edit section *** (Apparatus2.Maker CustomAttributes)
+        // *** Start programmer edit section *** (Apparatus2.Maker CustomAttributes)
 
-        //  *** End programmer edit section *** (Apparatus2.Maker CustomAttributes)
+        // *** End programmer edit section *** (Apparatus2.Maker CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.Country2 Maker
         {
             get
             {
-                //  *** Start programmer edit section *** (Apparatus2.Maker Get start)
+                // *** Start programmer edit section *** (Apparatus2.Maker Get start)
 
-                //  *** End programmer edit section *** (Apparatus2.Maker Get start)
+                // *** End programmer edit section *** (Apparatus2.Maker Get start)
                 NewPlatform.Flexberry.ORM.Tests.Country2 result = this.fMaker;
-                //  *** Start programmer edit section *** (Apparatus2.Maker Get end)
+                // *** Start programmer edit section *** (Apparatus2.Maker Get end)
 
-                //  *** End programmer edit section *** (Apparatus2.Maker Get end)
+                // *** End programmer edit section *** (Apparatus2.Maker Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Apparatus2.Maker Set start)
+                // *** Start programmer edit section *** (Apparatus2.Maker Set start)
 
-                //  *** End programmer edit section *** (Apparatus2.Maker Set start)
+                // *** End programmer edit section *** (Apparatus2.Maker Set start)
                 this.fMaker = value;
-                //  *** Start programmer edit section *** (Apparatus2.Maker Set end)
+                // *** Start programmer edit section *** (Apparatus2.Maker Set end)
 
-                //  *** End programmer edit section *** (Apparatus2.Maker Set end)
+                // *** End programmer edit section *** (Apparatus2.Maker Set end)
             }
         }
         

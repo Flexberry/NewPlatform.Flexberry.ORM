@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// УчастникХозДоговора.
     /// </summary>
-    //  *** Start programmer edit section *** (УчастникХозДоговора CustomAttributes)
+    // *** Start programmer edit section *** (УчастникХозДоговора CustomAttributes)
 
-    //  *** End programmer edit section *** (УчастникХозДоговора CustomAttributes)
+    // *** End programmer edit section *** (УчастникХозДоговора CustomAttributes)
     [ClassStorage("УчастникХозДог")]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -45,136 +45,136 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.ХозДоговор fХозДоговор;
         
-        //  *** Start programmer edit section *** (УчастникХозДоговора CustomMembers)
+        // *** Start programmer edit section *** (УчастникХозДоговора CustomMembers)
 
-        //  *** End programmer edit section *** (УчастникХозДоговора CustomMembers)
+        // *** End programmer edit section *** (УчастникХозДоговора CustomMembers)
 
         
         /// <summary>
         /// НомерУчастникаХозДоговора.
         /// </summary>
-        //  *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора CustomAttributes)
+        // *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора CustomAttributes)
 
-        //  *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора CustomAttributes)
+        // *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора CustomAttributes)
         [PropertyStorage("НомУчастнХозДог")]
         public virtual int НомерУчастникаХозДоговора
         {
             get
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get start)
+                // *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get start)
                 int result = this.fНомерУчастникаХозДоговора;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get end)
+                // *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set start)
+                // *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set start)
                 this.fНомерУчастникаХозДоговора = value;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set end)
+                // *** End programmer edit section *** (УчастникХозДоговора.НомерУчастникаХозДоговора Set end)
             }
         }
         
         /// <summary>
         /// Статус.
         /// </summary>
-        //  *** Start programmer edit section *** (УчастникХозДоговора.Статус CustomAttributes)
+        // *** Start programmer edit section *** (УчастникХозДоговора.Статус CustomAttributes)
 
-        //  *** End programmer edit section *** (УчастникХозДоговора.Статус CustomAttributes)
+        // *** End programmer edit section *** (УчастникХозДоговора.Статус CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.tСтатусИсполнителяХозДоговора Статус
         {
             get
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Статус Get start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Статус Get start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Статус Get start)
+                // *** End programmer edit section *** (УчастникХозДоговора.Статус Get start)
                 NewPlatform.Flexberry.ORM.Tests.tСтатусИсполнителяХозДоговора result = this.fСтатус;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Статус Get end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Статус Get end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Статус Get end)
+                // *** End programmer edit section *** (УчастникХозДоговора.Статус Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Статус Set start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Статус Set start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Статус Set start)
+                // *** End programmer edit section *** (УчастникХозДоговора.Статус Set start)
                 this.fСтатус = value;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Статус Set end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Статус Set end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Статус Set end)
+                // *** End programmer edit section *** (УчастникХозДоговора.Статус Set end)
             }
         }
         
         /// <summary>
         /// УчастникХозДоговора.
         /// </summary>
-        //  *** Start programmer edit section *** (УчастникХозДоговора.Личность CustomAttributes)
+        // *** Start programmer edit section *** (УчастникХозДоговора.Личность CustomAttributes)
 
-        //  *** End programmer edit section *** (УчастникХозДоговора.Личность CustomAttributes)
+        // *** End programmer edit section *** (УчастникХозДоговора.Личность CustomAttributes)
         [NotNull()]
         public virtual NewPlatform.Flexberry.ORM.Tests.Личность Личность
         {
             get
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Личность Get start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Личность Get start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Личность Get start)
+                // *** End programmer edit section *** (УчастникХозДоговора.Личность Get start)
                 NewPlatform.Flexberry.ORM.Tests.Личность result = this.fЛичность;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Личность Get end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Личность Get end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Личность Get end)
+                // *** End programmer edit section *** (УчастникХозДоговора.Личность Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Личность Set start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Личность Set start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Личность Set start)
+                // *** End programmer edit section *** (УчастникХозДоговора.Личность Set start)
                 this.fЛичность = value;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.Личность Set end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.Личность Set end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.Личность Set end)
+                // *** End programmer edit section *** (УчастникХозДоговора.Личность Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.ХозДоговор.
         /// </summary>
-        //  *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор CustomAttributes)
+        // *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор CustomAttributes)
 
-        //  *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор CustomAttributes)
+        // *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор CustomAttributes)
         [Agregator()]
         [NotNull()]
         public virtual NewPlatform.Flexberry.ORM.Tests.ХозДоговор ХозДоговор
         {
             get
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Get start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Get start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Get start)
+                // *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Get start)
                 NewPlatform.Flexberry.ORM.Tests.ХозДоговор result = this.fХозДоговор;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Get end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Get end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Get end)
+                // *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Set start)
+                // *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Set start)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Set start)
+                // *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Set start)
                 this.fХозДоговор = value;
-                //  *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Set end)
+                // *** Start programmer edit section *** (УчастникХозДоговора.ХозДоговор Set end)
 
-                //  *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Set end)
+                // *** End programmer edit section *** (УчастникХозДоговора.ХозДоговор Set end)
             }
         }
         
@@ -200,15 +200,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of УчастникХозДоговора.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfУчастникХозДоговора CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfУчастникХозДоговора CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfУчастникХозДоговора CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfУчастникХозДоговора CustomAttributes)
     public class DetailArrayOfУчастникХозДоговора : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfУчастникХозДоговора members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfУчастникХозДоговора members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfУчастникХозДоговора members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfУчастникХозДоговора members)
 
         
         /// <summary>

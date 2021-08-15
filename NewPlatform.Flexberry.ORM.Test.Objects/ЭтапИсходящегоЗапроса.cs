@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// ЭтапИсходящегоЗапроса.
     /// </summary>
-    //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса CustomAttributes)
+    // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса CustomAttributes)
 
-    //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса CustomAttributes)
+    // *** End programmer edit section *** (ЭтапИсходящегоЗапроса CustomAttributes)
     [AutoAltered()]
     [ICSSoft.STORMNET.NotStored()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
@@ -38,48 +38,48 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.ИсходящийЗапрос fЗапросы;
         
-        //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса CustomMembers)
+        // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса CustomMembers)
 
-        //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса CustomMembers)
+        // *** End programmer edit section *** (ЭтапИсходящегоЗапроса CustomMembers)
 
         
         /// <summary>
         /// Статус.
         /// </summary>
-        //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус CustomAttributes)
+        // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус CustomAttributes)
 
-        //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус CustomAttributes)
+        // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.СтатусЗапроса Статус
         {
             get
             {
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get start)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get start)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get start)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get start)
                 NewPlatform.Flexberry.ORM.Tests.СтатусЗапроса result = this.fСтатус;
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get end)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get end)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get end)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set start)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set start)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set start)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set start)
                 this.fСтатус = value;
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set end)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set end)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set end)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Статус Set end)
             }
         }
         
         /// <summary>
         /// ЭтапИсходящегоЗапроса.
         /// </summary>
-        //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация CustomAttributes)
+        // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация CustomAttributes)
 
-        //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация CustomAttributes)
+        // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация CustomAttributes)
         [PropertyStorage(new string[] {
                 "Конфигурация"})]
         [NotNull()]
@@ -87,33 +87,33 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get start)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get start)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get start)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get start)
                 NewPlatform.Flexberry.ORM.Tests.КонфигурацияЗапроса result = this.fКонфигурация;
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get end)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get end)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get end)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set start)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set start)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set start)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set start)
                 this.fКонфигурация = value;
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set end)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set end)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set end)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Конфигурация Set end)
             }
         }
         
         /// <summary>
         /// мастеровая ссылка на шапку NewPlatform.Flexberry.ORM.Tests.ИсходящийЗапрос.
         /// </summary>
-        //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы CustomAttributes)
+        // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы CustomAttributes)
 
-        //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы CustomAttributes)
+        // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы CustomAttributes)
         [Agregator()]
         [NotNull()]
         [PropertyStorage(new string[] {
@@ -122,24 +122,24 @@ namespace NewPlatform.Flexberry.ORM.Tests
         {
             get
             {
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get start)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get start)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get start)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get start)
                 NewPlatform.Flexberry.ORM.Tests.ИсходящийЗапрос result = this.fЗапросы;
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get end)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get end)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get end)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set start)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set start)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set start)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set start)
                 this.fЗапросы = value;
-                //  *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set end)
+                // *** Start programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set end)
 
-                //  *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set end)
+                // *** End programmer edit section *** (ЭтапИсходящегоЗапроса.Запросы Set end)
             }
         }
     }
@@ -147,15 +147,15 @@ namespace NewPlatform.Flexberry.ORM.Tests
     /// <summary>
     /// Detail array of ЭтапИсходящегоЗапроса.
     /// </summary>
-    //  *** Start programmer edit section *** (DetailArrayDetailArrayOfЭтапИсходящегоЗапроса CustomAttributes)
+    // *** Start programmer edit section *** (DetailArrayDetailArrayOfЭтапИсходящегоЗапроса CustomAttributes)
 
-    //  *** End programmer edit section *** (DetailArrayDetailArrayOfЭтапИсходящегоЗапроса CustomAttributes)
+    // *** End programmer edit section *** (DetailArrayDetailArrayOfЭтапИсходящегоЗапроса CustomAttributes)
     public class DetailArrayOfЭтапИсходящегоЗапроса : ICSSoft.STORMNET.DetailArray
     {
         
-        //  *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfЭтапИсходящегоЗапроса members)
+        // *** Start programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfЭтапИсходящегоЗапроса members)
 
-        //  *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfЭтапИсходящегоЗапроса members)
+        // *** End programmer edit section *** (NewPlatform.Flexberry.ORM.Tests.DetailArrayOfЭтапИсходящегоЗапроса members)
 
         
         /// <summary>

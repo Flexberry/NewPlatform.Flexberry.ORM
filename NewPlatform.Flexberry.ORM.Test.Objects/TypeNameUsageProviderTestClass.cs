@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// TypeNameUsageProviderTestClass.
     /// </summary>
-    //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass CustomAttributes)
+    // *** Start programmer edit section *** (TypeNameUsageProviderTestClass CustomAttributes)
 
-    //  *** End programmer edit section *** (TypeNameUsageProviderTestClass CustomAttributes)
+    // *** End programmer edit section *** (TypeNameUsageProviderTestClass CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class TypeNameUsageProviderTestClass : ICSSoft.STORMNET.DataObject
@@ -33,40 +33,40 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fName;
         
-        //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass CustomMembers)
+        // *** Start programmer edit section *** (TypeNameUsageProviderTestClass CustomMembers)
 
-        //  *** End programmer edit section *** (TypeNameUsageProviderTestClass CustomMembers)
+        // *** End programmer edit section *** (TypeNameUsageProviderTestClass CustomMembers)
 
         
         /// <summary>
         /// Name.
         /// </summary>
-        //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name CustomAttributes)
+        // *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name CustomAttributes)
 
-        //  *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name CustomAttributes)
+        // *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name CustomAttributes)
         [StrLen(255)]
         public virtual string Name
         {
             get
             {
-                //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Get start)
+                // *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Get start)
 
-                //  *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Get start)
+                // *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Get start)
                 string result = this.fName;
-                //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Get end)
+                // *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Get end)
 
-                //  *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Get end)
+                // *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Set start)
+                // *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Set start)
 
-                //  *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Set start)
+                // *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Set start)
                 this.fName = value;
-                //  *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Set end)
+                // *** Start programmer edit section *** (TypeNameUsageProviderTestClass.Name Set end)
 
-                //  *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Set end)
+                // *** End programmer edit section *** (TypeNameUsageProviderTestClass.Name Set end)
             }
         }
     }

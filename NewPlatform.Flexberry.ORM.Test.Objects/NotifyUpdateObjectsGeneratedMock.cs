@@ -14,25 +14,25 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using System.Collections.Generic;
     using System.Linq;
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// NotifyUpdateObjectsGeneratedMock.
     /// </summary>
-    //  *** Start programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomAttributes)
+    // *** Start programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomAttributes)
 
-    //  *** End programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomAttributes)
+    // *** End programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomAttributes)
     public class NotifyUpdateObjectsGeneratedMock : INotifyUpdateObjects
     {
         
-        //  *** Start programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)
+        // *** Start programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)
         /// <inheritdoc cref="INotifyUpdateObjects"/>
         public void BeforeUpdateObjects(Guid operationId, IDataService dataService, System.Data.IDbTransaction transaction, IEnumerable<DataObject> dataObjects)
         {
@@ -66,7 +66,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateObjects), new Tuple<Guid, IDataService, IEnumerable<DataObject>>(operationId, dataService, dataObjects));
         }
 
-        //  *** End programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)
+        // *** End programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)
 
     }
 }

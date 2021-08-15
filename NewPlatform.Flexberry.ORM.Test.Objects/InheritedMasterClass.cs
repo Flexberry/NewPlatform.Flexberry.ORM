@@ -15,26 +15,26 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// InheritedMasterClass.
     /// </summary>
-    //  *** Start programmer edit section *** (InheritedMasterClass CustomAttributes)
+    // *** Start programmer edit section *** (InheritedMasterClass CustomAttributes)
 
-    //  *** End programmer edit section *** (InheritedMasterClass CustomAttributes)
+    // *** End programmer edit section *** (InheritedMasterClass CustomAttributes)
     [ClassStorage("MasterClass")]
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class InheritedMasterClass : NewPlatform.Flexberry.ORM.Tests.MasterClass
     {
         
-        //  *** Start programmer edit section *** (InheritedMasterClass CustomMembers)
+        // *** Start programmer edit section *** (InheritedMasterClass CustomMembers)
 
-        //  *** End programmer edit section *** (InheritedMasterClass CustomMembers)
+        // *** End programmer edit section *** (InheritedMasterClass CustomMembers)
 
     }
 }

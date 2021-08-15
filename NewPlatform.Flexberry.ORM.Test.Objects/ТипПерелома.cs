@@ -14,28 +14,28 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using System.Xml;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Тип перелома.
     /// </summary>
-    //  *** Start programmer edit section *** (ТипПерелома CustomAttributes)
+    // *** Start programmer edit section *** (ТипПерелома CustomAttributes)
 
-    //  *** End programmer edit section *** (ТипПерелома CustomAttributes)
+    // *** End programmer edit section *** (ТипПерелома CustomAttributes)
     public enum ТипПерелома
     {
         
-        //  *** Start programmer edit section *** (ТипПерелома.Открытый CustomAttributes)
+        // *** Start programmer edit section *** (ТипПерелома.Открытый CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипПерелома.Открытый CustomAttributes)
+        // *** End programmer edit section *** (ТипПерелома.Открытый CustomAttributes)
         Открытый,
         
-        //  *** Start programmer edit section *** (ТипПерелома.Закрытый CustomAttributes)
+        // *** Start programmer edit section *** (ТипПерелома.Закрытый CustomAttributes)
 
-        //  *** End programmer edit section *** (ТипПерелома.Закрытый CustomAttributes)
+        // *** End programmer edit section *** (ТипПерелома.Закрытый CustomAttributes)
         Закрытый,
     }
 }

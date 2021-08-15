@@ -15,29 +15,29 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// PoleEnum.
     /// </summary>
-    //  *** Start programmer edit section *** (PoleEnum CustomAttributes)
+    // *** Start programmer edit section *** (PoleEnum CustomAttributes)
 
-    //  *** End programmer edit section *** (PoleEnum CustomAttributes)
+    // *** End programmer edit section *** (PoleEnum CustomAttributes)
     public enum PoleEnum
     {
         
-        //  *** Start programmer edit section *** (PoleEnum.Attribute1 CustomAttributes)
+        // *** Start programmer edit section *** (PoleEnum.Attribute1 CustomAttributes)
 
-        //  *** End programmer edit section *** (PoleEnum.Attribute1 CustomAttributes)
+        // *** End programmer edit section *** (PoleEnum.Attribute1 CustomAttributes)
         [Caption("GreateAttribute")]
         Attribute1,
         
-        //  *** Start programmer edit section *** (PoleEnum.Attribute2 CustomAttributes)
+        // *** Start programmer edit section *** (PoleEnum.Attribute2 CustomAttributes)
 
-        //  *** End programmer edit section *** (PoleEnum.Attribute2 CustomAttributes)
+        // *** End programmer edit section *** (PoleEnum.Attribute2 CustomAttributes)
         Attribute2,
     }
 }

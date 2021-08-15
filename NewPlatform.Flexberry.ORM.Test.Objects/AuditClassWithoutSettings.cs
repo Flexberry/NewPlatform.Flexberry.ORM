@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// AuditClassWithoutSettings.
     /// </summary>
-    //  *** Start programmer edit section *** (AuditClassWithoutSettings CustomAttributes)
+    // *** Start programmer edit section *** (AuditClassWithoutSettings CustomAttributes)
 
-    //  *** End programmer edit section *** (AuditClassWithoutSettings CustomAttributes)
+    // *** End programmer edit section *** (AuditClassWithoutSettings CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     public class AuditClassWithoutSettings : ICSSoft.STORMNET.DataObject
@@ -33,40 +33,40 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private string fName;
         
-        //  *** Start programmer edit section *** (AuditClassWithoutSettings CustomMembers)
+        // *** Start programmer edit section *** (AuditClassWithoutSettings CustomMembers)
 
-        //  *** End programmer edit section *** (AuditClassWithoutSettings CustomMembers)
+        // *** End programmer edit section *** (AuditClassWithoutSettings CustomMembers)
 
         
         /// <summary>
         /// Name.
         /// </summary>
-        //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name CustomAttributes)
+        // *** Start programmer edit section *** (AuditClassWithoutSettings.Name CustomAttributes)
 
-        //  *** End programmer edit section *** (AuditClassWithoutSettings.Name CustomAttributes)
+        // *** End programmer edit section *** (AuditClassWithoutSettings.Name CustomAttributes)
         [StrLen(255)]
         public virtual string Name
         {
             get
             {
-                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Get start)
+                // *** Start programmer edit section *** (AuditClassWithoutSettings.Name Get start)
 
-                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Get start)
+                // *** End programmer edit section *** (AuditClassWithoutSettings.Name Get start)
                 string result = this.fName;
-                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Get end)
+                // *** Start programmer edit section *** (AuditClassWithoutSettings.Name Get end)
 
-                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Get end)
+                // *** End programmer edit section *** (AuditClassWithoutSettings.Name Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Set start)
+                // *** Start programmer edit section *** (AuditClassWithoutSettings.Name Set start)
 
-                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Set start)
+                // *** End programmer edit section *** (AuditClassWithoutSettings.Name Set start)
                 this.fName = value;
-                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Set end)
+                // *** Start programmer edit section *** (AuditClassWithoutSettings.Name Set end)
 
-                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Set end)
+                // *** End programmer edit section *** (AuditClassWithoutSettings.Name Set end)
             }
         }
     }

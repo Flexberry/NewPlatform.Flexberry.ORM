@@ -15,17 +15,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
     using ICSSoft.STORMNET;
     
     
-    //  *** Start programmer edit section *** (Using statements)
+    // *** Start programmer edit section *** (Using statements)
 
-    //  *** End programmer edit section *** (Using statements)
+    // *** End programmer edit section *** (Using statements)
 
 
     /// <summary>
     /// Кредит.
     /// </summary>
-    //  *** Start programmer edit section *** (Кредит CustomAttributes)
+    // *** Start programmer edit section *** (Кредит CustomAttributes)
 
-    //  *** End programmer edit section *** (Кредит CustomAttributes)
+    // *** End programmer edit section *** (Кредит CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("C__КредитE", new string[] {
@@ -76,233 +76,233 @@ namespace NewPlatform.Flexberry.ORM.Tests
         
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfВыплаты fВыплаты;
         
-        //  *** Start programmer edit section *** (Кредит CustomMembers)
+        // *** Start programmer edit section *** (Кредит CustomMembers)
 
-        //  *** End programmer edit section *** (Кредит CustomMembers)
+        // *** End programmer edit section *** (Кредит CustomMembers)
 
         
         /// <summary>
         /// ДатаВыдачи.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.ДатаВыдачи CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.ДатаВыдачи CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.ДатаВыдачи CustomAttributes)
+        // *** End programmer edit section *** (Кредит.ДатаВыдачи CustomAttributes)
         public virtual System.DateTime ДатаВыдачи
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.ДатаВыдачи Get start)
+                // *** Start programmer edit section *** (Кредит.ДатаВыдачи Get start)
 
-                //  *** End programmer edit section *** (Кредит.ДатаВыдачи Get start)
+                // *** End programmer edit section *** (Кредит.ДатаВыдачи Get start)
                 System.DateTime result = this.fДатаВыдачи;
-                //  *** Start programmer edit section *** (Кредит.ДатаВыдачи Get end)
+                // *** Start programmer edit section *** (Кредит.ДатаВыдачи Get end)
 
-                //  *** End programmer edit section *** (Кредит.ДатаВыдачи Get end)
+                // *** End programmer edit section *** (Кредит.ДатаВыдачи Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.ДатаВыдачи Set start)
+                // *** Start programmer edit section *** (Кредит.ДатаВыдачи Set start)
 
-                //  *** End programmer edit section *** (Кредит.ДатаВыдачи Set start)
+                // *** End programmer edit section *** (Кредит.ДатаВыдачи Set start)
                 this.fДатаВыдачи = value;
-                //  *** Start programmer edit section *** (Кредит.ДатаВыдачи Set end)
+                // *** Start programmer edit section *** (Кредит.ДатаВыдачи Set end)
 
-                //  *** End programmer edit section *** (Кредит.ДатаВыдачи Set end)
+                // *** End programmer edit section *** (Кредит.ДатаВыдачи Set end)
             }
         }
         
         /// <summary>
         /// СуммаКредита.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.СуммаКредита CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.СуммаКредита CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.СуммаКредита CustomAttributes)
+        // *** End programmer edit section *** (Кредит.СуммаКредита CustomAttributes)
         public virtual double СуммаКредита
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.СуммаКредита Get start)
+                // *** Start programmer edit section *** (Кредит.СуммаКредита Get start)
 
-                //  *** End programmer edit section *** (Кредит.СуммаКредита Get start)
+                // *** End programmer edit section *** (Кредит.СуммаКредита Get start)
                 double result = this.fСуммаКредита;
-                //  *** Start programmer edit section *** (Кредит.СуммаКредита Get end)
+                // *** Start programmer edit section *** (Кредит.СуммаКредита Get end)
 
-                //  *** End programmer edit section *** (Кредит.СуммаКредита Get end)
+                // *** End programmer edit section *** (Кредит.СуммаКредита Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.СуммаКредита Set start)
+                // *** Start programmer edit section *** (Кредит.СуммаКредита Set start)
 
-                //  *** End programmer edit section *** (Кредит.СуммаКредита Set start)
+                // *** End programmer edit section *** (Кредит.СуммаКредита Set start)
                 this.fСуммаКредита = value;
-                //  *** Start programmer edit section *** (Кредит.СуммаКредита Set end)
+                // *** Start programmer edit section *** (Кредит.СуммаКредита Set end)
 
-                //  *** End programmer edit section *** (Кредит.СуммаКредита Set end)
+                // *** End programmer edit section *** (Кредит.СуммаКредита Set end)
             }
         }
         
         /// <summary>
         /// СрокКредита.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.СрокКредита CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.СрокКредита CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.СрокКредита CustomAttributes)
+        // *** End programmer edit section *** (Кредит.СрокКредита CustomAttributes)
         public virtual int СрокКредита
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.СрокКредита Get start)
+                // *** Start programmer edit section *** (Кредит.СрокКредита Get start)
 
-                //  *** End programmer edit section *** (Кредит.СрокКредита Get start)
+                // *** End programmer edit section *** (Кредит.СрокКредита Get start)
                 int result = this.fСрокКредита;
-                //  *** Start programmer edit section *** (Кредит.СрокКредита Get end)
+                // *** Start programmer edit section *** (Кредит.СрокКредита Get end)
 
-                //  *** End programmer edit section *** (Кредит.СрокКредита Get end)
+                // *** End programmer edit section *** (Кредит.СрокКредита Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.СрокКредита Set start)
+                // *** Start programmer edit section *** (Кредит.СрокКредита Set start)
 
-                //  *** End programmer edit section *** (Кредит.СрокКредита Set start)
+                // *** End programmer edit section *** (Кредит.СрокКредита Set start)
                 this.fСрокКредита = value;
-                //  *** Start programmer edit section *** (Кредит.СрокКредита Set end)
+                // *** Start programmer edit section *** (Кредит.СрокКредита Set end)
 
-                //  *** End programmer edit section *** (Кредит.СрокКредита Set end)
+                // *** End programmer edit section *** (Кредит.СрокКредита Set end)
             }
         }
         
         /// <summary>
         /// ВидКредита.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.ВидКредита CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.ВидКредита CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.ВидКредита CustomAttributes)
+        // *** End programmer edit section *** (Кредит.ВидКредита CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.ВидКредита ВидКредита
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.ВидКредита Get start)
+                // *** Start programmer edit section *** (Кредит.ВидКредита Get start)
 
-                //  *** End programmer edit section *** (Кредит.ВидКредита Get start)
+                // *** End programmer edit section *** (Кредит.ВидКредита Get start)
                 NewPlatform.Flexberry.ORM.Tests.ВидКредита result = this.fВидКредита;
-                //  *** Start programmer edit section *** (Кредит.ВидКредита Get end)
+                // *** Start programmer edit section *** (Кредит.ВидКредита Get end)
 
-                //  *** End programmer edit section *** (Кредит.ВидКредита Get end)
+                // *** End programmer edit section *** (Кредит.ВидКредита Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.ВидКредита Set start)
+                // *** Start programmer edit section *** (Кредит.ВидКредита Set start)
 
-                //  *** End programmer edit section *** (Кредит.ВидКредита Set start)
+                // *** End programmer edit section *** (Кредит.ВидКредита Set start)
                 this.fВидКредита = value;
-                //  *** Start programmer edit section *** (Кредит.ВидКредита Set end)
+                // *** Start programmer edit section *** (Кредит.ВидКредита Set end)
 
-                //  *** End programmer edit section *** (Кредит.ВидКредита Set end)
+                // *** End programmer edit section *** (Кредит.ВидКредита Set end)
             }
         }
         
         /// <summary>
         /// Кредит.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.ИнспекторПоКредиту CustomAttributes)
+        // *** End programmer edit section *** (Кредит.ИнспекторПоКредиту CustomAttributes)
         [PropertyStorage(new string[] {
                 "ИнспекторПоКред"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.ИнспекторПоКредиту ИнспекторПоКредиту
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Get start)
+                // *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Get start)
 
-                //  *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Get start)
+                // *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Get start)
                 NewPlatform.Flexberry.ORM.Tests.ИнспекторПоКредиту result = this.fИнспекторПоКредиту;
-                //  *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Get end)
+                // *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Get end)
 
-                //  *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Get end)
+                // *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Set start)
+                // *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Set start)
 
-                //  *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Set start)
+                // *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Set start)
                 this.fИнспекторПоКредиту = value;
-                //  *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Set end)
+                // *** Start programmer edit section *** (Кредит.ИнспекторПоКредиту Set end)
 
-                //  *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Set end)
+                // *** End programmer edit section *** (Кредит.ИнспекторПоКредиту Set end)
             }
         }
         
         /// <summary>
         /// Кредит.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.Клиент CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.Клиент CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.Клиент CustomAttributes)
+        // *** End programmer edit section *** (Кредит.Клиент CustomAttributes)
         [PropertyStorage(new string[] {
                 "Клиент"})]
         public virtual NewPlatform.Flexberry.ORM.Tests.Клиент Клиент
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.Клиент Get start)
+                // *** Start programmer edit section *** (Кредит.Клиент Get start)
 
-                //  *** End programmer edit section *** (Кредит.Клиент Get start)
+                // *** End programmer edit section *** (Кредит.Клиент Get start)
                 NewPlatform.Flexberry.ORM.Tests.Клиент result = this.fКлиент;
-                //  *** Start programmer edit section *** (Кредит.Клиент Get end)
+                // *** Start programmer edit section *** (Кредит.Клиент Get end)
 
-                //  *** End programmer edit section *** (Кредит.Клиент Get end)
+                // *** End programmer edit section *** (Кредит.Клиент Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.Клиент Set start)
+                // *** Start programmer edit section *** (Кредит.Клиент Set start)
 
-                //  *** End programmer edit section *** (Кредит.Клиент Set start)
+                // *** End programmer edit section *** (Кредит.Клиент Set start)
                 this.fКлиент = value;
-                //  *** Start programmer edit section *** (Кредит.Клиент Set end)
+                // *** Start programmer edit section *** (Кредит.Клиент Set end)
 
-                //  *** End programmer edit section *** (Кредит.Клиент Set end)
+                // *** End programmer edit section *** (Кредит.Клиент Set end)
             }
         }
         
         /// <summary>
         /// Кредит.
         /// </summary>
-        //  *** Start programmer edit section *** (Кредит.Выплаты CustomAttributes)
+        // *** Start programmer edit section *** (Кредит.Выплаты CustomAttributes)
 
-        //  *** End programmer edit section *** (Кредит.Выплаты CustomAttributes)
+        // *** End programmer edit section *** (Кредит.Выплаты CustomAttributes)
         public virtual NewPlatform.Flexberry.ORM.Tests.DetailArrayOfВыплаты Выплаты
         {
             get
             {
-                //  *** Start programmer edit section *** (Кредит.Выплаты Get start)
+                // *** Start programmer edit section *** (Кредит.Выплаты Get start)
 
-                //  *** End programmer edit section *** (Кредит.Выплаты Get start)
+                // *** End programmer edit section *** (Кредит.Выплаты Get start)
                 if ((this.fВыплаты == null))
                 {
                     this.fВыплаты = new NewPlatform.Flexberry.ORM.Tests.DetailArrayOfВыплаты(this);
                 }
                 NewPlatform.Flexberry.ORM.Tests.DetailArrayOfВыплаты result = this.fВыплаты;
-                //  *** Start programmer edit section *** (Кредит.Выплаты Get end)
+                // *** Start programmer edit section *** (Кредит.Выплаты Get end)
 
-                //  *** End programmer edit section *** (Кредит.Выплаты Get end)
+                // *** End programmer edit section *** (Кредит.Выплаты Get end)
                 return result;
             }
             set
             {
-                //  *** Start programmer edit section *** (Кредит.Выплаты Set start)
+                // *** Start programmer edit section *** (Кредит.Выплаты Set start)
 
-                //  *** End programmer edit section *** (Кредит.Выплаты Set start)
+                // *** End programmer edit section *** (Кредит.Выплаты Set start)
                 this.fВыплаты = value;
-                //  *** Start programmer edit section *** (Кредит.Выплаты Set end)
+                // *** Start programmer edit section *** (Кредит.Выплаты Set end)
 
-                //  *** End programmer edit section *** (Кредит.Выплаты Set end)
+                // *** End programmer edit section *** (Кредит.Выплаты Set end)
             }
         }
         
