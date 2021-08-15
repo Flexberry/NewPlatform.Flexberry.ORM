@@ -958,6 +958,8 @@ CREATE TABLE "ТипПороды"
 
 	"ДатаРегистрации" DATE NULL,
 
+	"Актуально" NUMBER(1) NULL,
+
 	 PRIMARY KEY ("primaryKey")
 ) ;
 
