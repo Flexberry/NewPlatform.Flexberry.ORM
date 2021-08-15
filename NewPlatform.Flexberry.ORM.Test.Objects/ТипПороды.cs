@@ -28,6 +28,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     // *** End programmer edit section *** (ТипПороды CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
+    [View("Актуальность", new string[] {
+            "Актуально"})]
     [View("ТипПородыE", new string[] {
             "Название",
             "ДатаРегистрации"})]
@@ -147,6 +149,17 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// </summary>
         public class Views
         {
+            
+            /// <summary>
+            /// "Актуальность" view.
+            /// </summary>
+            public static ICSSoft.STORMNET.View Актуальность
+            {
+                get
+                {
+                    return ICSSoft.STORMNET.Information.GetView("Актуальность", typeof(NewPlatform.Flexberry.ORM.Tests.ТипПороды));
+                }
+            }
             
             /// <summary>
             /// "ТипПородыE" view.

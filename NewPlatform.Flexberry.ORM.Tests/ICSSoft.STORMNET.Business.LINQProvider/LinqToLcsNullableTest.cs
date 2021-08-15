@@ -18,7 +18,7 @@
         /// Method for test Nullable attributes limit functions.
         /// </summary>
         [Fact]
-        public void GetLcsTestNullableIsNullFunction()
+        public void GetLcsTestNullableCharIsNullFunction()
         {
             var testProvider = new TestLcsQueryProvider<FullTypesMaster1>();
             new Query<FullTypesMaster1>(testProvider).Where(o => o.PoleNullChar == null).ToList();
@@ -27,6 +27,22 @@
             LoadingCustomizationStruct expected = new LoadingCustomizationStruct(null) { LimitFunction = function };
 
             LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, FullTypesMaster1.Views.FullMasterView);
+            Assert.True(Equals(expected, actual));
+        }
+
+        /// <summary>
+        /// Method for test Nullable attributes limit functions.
+        /// </summary>
+        [Fact]
+        public void GetLcsTestNullableBoolIsNullFunction()
+        {
+            var testProvider = new TestLcsQueryProvider<ТипПороды>();
+            new Query<ТипПороды>(testProvider).Where(o => o.Актуально == null).ToList();
+            Expression queryExpression = testProvider.InnerExpression;
+            Function function = ldef.GetFunction(ldef.funcIsNull, new VariableDef(ldef.BoolType, nameof(ТипПороды.Актуально)));
+            LoadingCustomizationStruct expected = new LoadingCustomizationStruct(null) { LimitFunction = function };
+
+            LoadingCustomizationStruct actual = LinqToLcs.GetLcs(queryExpression, ТипПороды.Views.Актуальность);
             Assert.True(Equals(expected, actual));
         }
     }
