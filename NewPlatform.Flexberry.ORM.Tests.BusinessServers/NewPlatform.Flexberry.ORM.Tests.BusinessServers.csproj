@@ -11,6 +11,7 @@
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Test.BusinessServers.snk</AssemblyOriginatorKeyFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.ORM.Tests.BusinessServers.xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+    <AssemblyName>Flexberry.ORM.Tests.BusinessServers</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

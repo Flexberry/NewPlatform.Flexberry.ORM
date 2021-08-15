@@ -12,7 +12,6 @@ namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
     using System.Xml;
-    using ICSSoft.STORMNET;
     
     
     //  *** Start programmer edit section *** (Using statements)
@@ -21,19 +20,18 @@ namespace NewPlatform.Flexberry.ORM.Tests
 
 
     /// <summary>
-    /// НаследникМ1.
+    /// MasterBS.
     /// </summary>
-    //  *** Start programmer edit section *** (НаследникМ1 CustomAttributes)
+    //  *** Start programmer edit section *** (MasterBS CustomAttributes)
 
-    //  *** End programmer edit section *** (НаследникМ1 CustomAttributes)
-    [AutoAltered()]
-    [AccessType(ICSSoft.STORMNET.AccessType.none)]
-    public class НаследникМ1 : NewPlatform.Flexberry.ORM.Tests.МастерМ
+    //  *** End programmer edit section *** (MasterBS CustomAttributes)
+    [ICSSoft.STORMNET.AccessType(ICSSoft.STORMNET.AccessType.none)]
+    public class MasterBS : ICSSoft.STORMNET.Business.BusinessServer
     {
         
-        //  *** Start programmer edit section *** (НаследникМ1 CustomMembers)
+        //  *** Start programmer edit section *** (MasterBS CustomMembers)
 
-        //  *** End programmer edit section *** (НаследникМ1 CustomMembers)
+        //  *** End programmer edit section *** (MasterBS CustomMembers)
 
     }
 }
