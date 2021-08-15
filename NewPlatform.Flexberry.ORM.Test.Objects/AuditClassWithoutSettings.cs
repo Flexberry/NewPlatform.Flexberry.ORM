@@ -31,9 +31,43 @@ namespace NewPlatform.Flexberry.ORM.Tests
     public class AuditClassWithoutSettings : ICSSoft.STORMNET.DataObject
     {
         
+        private string fName;
+        
         //  *** Start programmer edit section *** (AuditClassWithoutSettings CustomMembers)
 
         //  *** End programmer edit section *** (AuditClassWithoutSettings CustomMembers)
 
+        
+        /// <summary>
+        /// Name.
+        /// </summary>
+        //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name CustomAttributes)
+
+        //  *** End programmer edit section *** (AuditClassWithoutSettings.Name CustomAttributes)
+        [StrLen(255)]
+        public virtual string Name
+        {
+            get
+            {
+                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Get start)
+
+                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Get start)
+                string result = this.fName;
+                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Get end)
+
+                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Get end)
+                return result;
+            }
+            set
+            {
+                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Set start)
+
+                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Set start)
+                this.fName = value;
+                //  *** Start programmer edit section *** (AuditClassWithoutSettings.Name Set end)
+
+                //  *** End programmer edit section *** (AuditClassWithoutSettings.Name Set end)
+            }
+        }
     }
 }

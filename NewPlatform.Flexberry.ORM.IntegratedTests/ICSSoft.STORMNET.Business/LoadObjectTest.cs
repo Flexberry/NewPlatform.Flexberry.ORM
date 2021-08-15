@@ -862,8 +862,6 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange.
-                SQLDataService ds = (SQLDataService)dataService;
-
                 string[] props = new[]
                 {
                     Information.ExtractPropertyPath<FullTypesMaster1>(x => x.PoleNullChar),
@@ -882,7 +880,7 @@
                     new FullTypesMaster1() { PoleNullChar = 'W', PoleInt = 1 },
                     new FullTypesMaster1() { PoleNullChar = null, PoleInt = 2 },
                 };
-                ds.UpdateObjects(ref objectsForUpdate);
+                dataService.UpdateObjects(ref objectsForUpdate);
 
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMaster1), view);
 
@@ -890,7 +888,7 @@
                 lcs.LimitFunction = langDef.GetFunction(langDef.funcIsNull, new VariableDef(langDef.BoolType, nameof(FullTypesMaster1.PoleNullChar)));
 
                 // Act.
-                DataObject[] loadedObjects = ds.LoadObjects(lcs);
+                DataObject[] loadedObjects = dataService.LoadObjects(lcs);
 
                 // Assert.
                 Assert.Single(loadedObjects);
