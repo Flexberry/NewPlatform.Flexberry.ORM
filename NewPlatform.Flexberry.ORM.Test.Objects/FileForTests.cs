@@ -29,7 +29,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
     //  *** End programmer edit section *** (FileForTests CustomAttributes)
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.SQLDataService), typeof(string))]
     [ICSSoft.STORMNET.StoreInstancesInType(typeof(ICSSoft.STORMNET.Business.PostgresDataService), typeof(string))]
-    public class FileForTests : INotifyUpdateProperty
+    public class FileForTests : IComparableType, INotifyUpdateProperty
     {
         
         //  *** Start programmer edit section *** (FileForTests CustomMembers)
