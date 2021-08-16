@@ -399,7 +399,13 @@
             // Обработка .net Nullable
             if (memberType.IsGenericType && memberType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                memberType = Nullable.GetUnderlyingType(memberType);
+                Type underlyingType = Nullable.GetUnderlyingType(memberType);
+
+                // For Nullable<bool> it is ok expressoin like "o.BoolField == true", skip it.
+                if (underlyingType != typeof(bool))
+                {
+                    memberType = underlyingType;
+                }
             }
 
             if (declaringType.IsGenericType && declaringType.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -471,6 +477,11 @@
                 UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
                 var param = new VariableDef(_ldef.BoolType, varname);
                 _stacksHolder.PushFunction(_ldef.GetFunction(_ldef.funcEQ, param));
+            }
+            else if (memberType == typeof(bool?))
+            {
+                UtilsLcs.AddPropertyToView(_view, varname, _viewIsDynamic);
+                _stacksHolder.PushParam(new VariableDef(_ldef.BoolType, varname));
             }
             else if (memberType == typeof(DateTime) || memberType == typeof(DayOfWeek)
                      || memberType == typeof(TimeSpan) || memberType == typeof(NullableDateTime))
