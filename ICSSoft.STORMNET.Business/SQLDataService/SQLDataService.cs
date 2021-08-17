@@ -403,41 +403,11 @@
         }
 
         /// <summary>
-        /// Construct data service with default settings.
-        /// </summary>
-        protected SQLDataService()
-        {
-            UseCommandTimeout = false;
-            string commandTimeout = null;
-
-            commandTimeout = System.Configuration.ConfigurationManager.AppSettings["SQLDataServiceCommandTimeout"];
-
-            if (commandTimeout == null) // lanin: Для совместимости с 2003-м Штормом.
-            {
-                commandTimeout = System.Configuration.ConfigurationManager.AppSettings["SqlCommandTimeout"];
-            }
-
-            if (commandTimeout != null)
-            {
-                try
-                {
-                    CommandTimeout = int.Parse(commandTimeout);
-                    UseCommandTimeout = true;
-                }
-                catch
-                {
-                    UseCommandTimeout = false;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager and audit service.
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service.</param>
         protected SQLDataService(ISecurityManager securityManager, IAuditService auditService)
-            : this()
         {
             SecurityManager = securityManager ?? throw new ArgumentNullException(nameof(securityManager));
             AuditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
@@ -5328,26 +5298,15 @@
             }
         }
 
-        private bool m_bUseCommandTimeout = false;
-        private int m_iCommandTimeout = 0;
-
         /// <summary>
-        /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout"/>.
+        /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout" />.
         /// </summary>
-        public int CommandTimeout
-        {
-            get { return m_iCommandTimeout; }
-            set { m_iCommandTimeout = value; }
-        }
+        public int CommandTimeout { get; set; }
 
         /// <summary>
         /// Использовать ли атрибут <see cref="CommandTimeout"/> (если задан через конфиг, то будет true) по-умолчанию false.
         /// </summary>
-        public bool UseCommandTimeout
-        {
-            get { return m_bUseCommandTimeout; }
-            set { m_bUseCommandTimeout = value; }
-        }
+        public bool UseCommandTimeout { get; set; }
 
         protected virtual void CustomizeCommand(System.Data.IDbCommand cmd)
         {
@@ -5960,9 +5919,9 @@
             instance.CustomizationString = CustomizationString;
             instance.DoNotChangeCustomizationString = DoNotChangeCustomizationString;
             instance.fchangeViewForTypeDelegate = fchangeViewForTypeDelegate;
-            instance.m_iCommandTimeout = m_iCommandTimeout;
+            instance.CommandTimeout = CommandTimeout;
             instance.fldTypeUsage = fldTypeUsage;
-            instance.m_bUseCommandTimeout = m_bUseCommandTimeout;
+            instance.UseCommandTimeout = UseCommandTimeout;
             instance.mustNewgenerate = mustNewgenerate;
             instance.prvInstanceId = prvInstanceId;
             instance.StorageType = StorageType;
