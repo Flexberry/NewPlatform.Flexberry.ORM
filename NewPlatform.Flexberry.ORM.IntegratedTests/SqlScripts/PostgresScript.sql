@@ -509,6 +509,7 @@ CREATE TABLE ТипПороды (
  primaryKey UUID NOT NULL,
  Название VARCHAR(255) NULL,
  ДатаРегистрации TIMESTAMP(3) NULL,
+ Актуально BOOLEAN NULL,
  PRIMARY KEY (primaryKey));
 
 

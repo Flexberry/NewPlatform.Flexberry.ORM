@@ -843,6 +843,8 @@ CREATE TABLE [ТипПороды] (
 
 	 [ДатаРегистрации] DATETIME  NULL,
 
+	 [Актуально] BIT  NULL,
+
 	 PRIMARY KEY ([primaryKey]))
 
 

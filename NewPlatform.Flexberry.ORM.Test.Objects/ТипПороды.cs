@@ -28,6 +28,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
     // *** End programmer edit section *** (ТипПороды CustomAttributes)
     [AutoAltered()]
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
+    [View("Актуальность", new string[] {
+            "Актуально"})]
     [View("ТипПородыE", new string[] {
             "Название",
             "ДатаРегистрации"})]
@@ -40,6 +42,8 @@ namespace NewPlatform.Flexberry.ORM.Tests
         private string fНазвание;
         
         private System.DateTime fДатаРегистрации;
+        
+        private System.Nullable<bool> fАктуально;
         
         // *** Start programmer edit section *** (ТипПороды CustomMembers)
 
@@ -110,10 +114,52 @@ namespace NewPlatform.Flexberry.ORM.Tests
         }
         
         /// <summary>
+        /// Актуально.
+        /// </summary>
+        // *** Start programmer edit section *** (ТипПороды.Актуально CustomAttributes)
+
+        // *** End programmer edit section *** (ТипПороды.Актуально CustomAttributes)
+        public virtual System.Nullable<bool> Актуально
+        {
+            get
+            {
+                // *** Start programmer edit section *** (ТипПороды.Актуально Get start)
+
+                // *** End programmer edit section *** (ТипПороды.Актуально Get start)
+                System.Nullable<bool> result = this.fАктуально;
+                // *** Start programmer edit section *** (ТипПороды.Актуально Get end)
+
+                // *** End programmer edit section *** (ТипПороды.Актуально Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (ТипПороды.Актуально Set start)
+
+                // *** End programmer edit section *** (ТипПороды.Актуально Set start)
+                this.fАктуально = value;
+                // *** Start programmer edit section *** (ТипПороды.Актуально Set end)
+
+                // *** End programmer edit section *** (ТипПороды.Актуально Set end)
+            }
+        }
+        
+        /// <summary>
         /// Class views container.
         /// </summary>
         public class Views
         {
+            
+            /// <summary>
+            /// "Актуальность" view.
+            /// </summary>
+            public static ICSSoft.STORMNET.View Актуальность
+            {
+                get
+                {
+                    return ICSSoft.STORMNET.Information.GetView("Актуальность", typeof(NewPlatform.Flexberry.ORM.Tests.ТипПороды));
+                }
+            }
             
             /// <summary>
             /// "ТипПородыE" view.

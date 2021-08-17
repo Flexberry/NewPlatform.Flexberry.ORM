@@ -1,5 +1,5 @@
 # install & tune code generation tool
-nuget install NewPlatform.Flexberry.Designer.CommandLine -Version 0.1.0-beta05 -OutputDirectory gen
+nuget install NewPlatform.Flexberry.Designer.CommandLine -Version 0.1.0-beta07 -OutputDirectory gen
 
 apt-get update
 apt-get install xvfb -y
@@ -16,7 +16,7 @@ mkdir -p /codegen/Flexberry.ORM.Tests/BusinessServers && cp -a /src/NewPlatform.
 
 # code generation (magic)
 
-mono ./gen/NewPlatform.Flexberry.Designer.CommandLine.0.1.0-beta05/tools/flexberry.exe ./src/NewPlatform.Flexberry.ORM.IntegratedTests/CodeGen/GenConfig.fdg
+mono ./gen/NewPlatform.Flexberry.Designer.CommandLine.0.1.0-beta07/tools/flexberry.exe ./src/NewPlatform.Flexberry.ORM.IntegratedTests/CodeGen/GenConfig.fdg
 
 # copy generated files back to the source folder
 
