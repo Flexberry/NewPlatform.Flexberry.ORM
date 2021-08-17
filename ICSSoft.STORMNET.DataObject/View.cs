@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
@@ -933,8 +934,8 @@
                 details = new DetailInView[detailprops.Count];
                 for (int i = 0; i < detailprops.Count; i++)
                 {
-                    System.Type propType = Information.GetPropertyType(defineClass, detailprops[i]);
-                    details[i] = new DetailInView(detailprops[i], new View(Information.GetItemType(defineClass, detailprops[i]), ReadType.WithRelated), true, string.Empty, string.Empty, true, null);
+                    System.Type propType = Information.GetItemType(defineClass, detailprops[i]);
+                    details[i] = new DetailInView(detailprops[i], new View(propType, ReadType.WithRelated), true, string.Empty, string.Empty, true, null);
                 }
             }
         }
@@ -1311,6 +1312,16 @@
         /// <param name="propPath">Путь свойства на форме.</param>
         public void AddProperty(string propName, string propCaption, bool visible, string propPath)
         {
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
+            if (propCaption == null)
+            {
+                throw new ArgumentNullException(nameof(propCaption));
+            }
+
             lock (lockObject)
             {
                 // Проверим может оно уже есть.
@@ -1319,79 +1330,75 @@
                     properties = new PropertyInView[0];
                 }
 
-                for (int i = 0; i < properties.Length; i++)
+                if (properties.Any(p => p.Name == propName))
                 {
-                    if (properties[i].Name == propName)
-                    {
-                        return;
-                    }
+                    return;
                 }
 
                 // Увеличим количество свойств.
-                PropertyInView[] piv = properties;
-                properties = new PropertyInView[piv.Length + 1];
-                piv.CopyTo(properties, 0);
-                int propIndex = piv.Length;
+                List<PropertyInView> piv = new List<PropertyInView>(properties);
 
                 if (propCaption == string.Empty)
                 {
-                    if (!propName.EndsWith("*"))
+                    if (!propName.EndsWith("*", StringComparison.Ordinal))
                     {
                         propCaption = propName;
                     }
                 }
 
-                if (propName.EndsWith("*"))
+                if (propName.EndsWith("*", StringComparison.Ordinal))
                 {
-                    if (propCaption.EndsWith("*"))
+                    if (propCaption.EndsWith("*", StringComparison.Ordinal))
                     {
                         propCaption = propCaption.Substring(0, propCaption.Length - 1);
                     }
 
                     // Смотрим кто же это.
                     string pref = string.Empty;
-                    if (propName.LastIndexOf(".") >= 0)
+                    int lastDotIndex = propName.LastIndexOf(".", StringComparison.Ordinal);
+                    if (lastDotIndex >= 0)
                     {
-                        pref = propName.Substring(0, propName.LastIndexOf("."));
+                        pref = propName.Substring(0, lastDotIndex);
                     }
 
                     Type type = DefineClassType;
-                    string[] path = pref.Split('.');
                     if (pref != string.Empty)
                     {
+                        string[] path = pref.Split('.');
                         for (int pathind = 0; pathind < path.Length; pathind++)
                         {
                             type = Information.GetPropertyType(type, path[pathind]);
                         }
 
-                        pref = pref + ".";
+                        pref += ".";
+                        if (propCaption == string.Empty)
+                        {
+                            propCaption = pref;
+                        }
                     }
 
                     string[] allprops = Information.GetAllPropertyNames(type);
                     for (int propsind = 0; propsind < allprops.Length; propsind++)
                     {
-                        if (!Information.GetPropertyType(type, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
+                        string currprop = allprops[propsind];
+                        if (!Information.GetPropertyType(type, currprop).IsSubclassOf(typeof(DetailArray)))
                         {
-                            // Добавляем атрибут.
-                            if (propsind != 0)
+                            string currproppath = pref + currprop;
+                            if (properties.All(p => p.Name != currproppath))
                             {
-                                // Увеличим массив.
-                                piv = properties;
-                                properties = new PropertyInView[piv.Length + 1];
-                                piv.CopyTo(properties, 0);
-                            }
-
-                            if (propCaption == string.Empty && pref == string.Empty)
-                            {
-                                properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
+                                var property = new PropertyInView(currproppath, propCaption + currprop, visible, propPath);
+                                piv.Add(property);
                             }
                         }
                     }
                 }
                 else
                 {
-                    properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath);
+                    var property = new PropertyInView(propName, propCaption, visible, propPath);
+                    piv.Add(property);
                 }
+
+                properties = piv.ToArray();
             }
         }
 
