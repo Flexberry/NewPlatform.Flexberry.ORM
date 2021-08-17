@@ -29,8 +29,19 @@
         private Guid _instanceId = Guid.NewGuid();
         private ChangeViewForTypeDelegate _changeViewForTypeDelegate;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XMLFileDataService"/> class with specified security manager and audit service.
+        /// </summary>
+        /// <param name="securityManager">The security manager instance.</param>
+        /// <param name="auditService">The audit service.</param>
+        public XMLFileDataService(ISecurityManager securityManager, IAuditService auditService)
+        {
+            SecurityManager = securityManager;
+            AuditService = auditService;
+        }
+
         /// <inheritdoc cref="IDataService" />
-        public ISecurityManager SecurityManager { get; protected set; }
+        public ISecurityManager SecurityManager { get; }
 
         /// <inheritdoc cref="IDataService" />
         public IAuditService AuditService { get; }
@@ -1519,7 +1530,7 @@
         /// <returns>Копии экземпляра сервиса данных.</returns>
         public object Clone()
         {
-            return new XMLFileDataService
+            return new XMLFileDataService(SecurityManager, AuditService)
             {
                 _altdataSet = _altdataSet,
                 _changeViewForTypeDelegate = _changeViewForTypeDelegate,
