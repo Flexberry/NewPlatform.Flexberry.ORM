@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Update data objects with static properties inherited from DataObject.
 - Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
 - Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
+- Nullable bool isnull limit.
     
 ### Security
 
