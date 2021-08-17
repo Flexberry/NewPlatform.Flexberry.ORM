@@ -18,9 +18,10 @@
         {
             // Arrange.
             var type = typeof(Class1);
+            var provider = new BusinessServerProvider();
 
             // Act.
-            BusinessServer[] bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            BusinessServer[] bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Equal(6, bss.Length);

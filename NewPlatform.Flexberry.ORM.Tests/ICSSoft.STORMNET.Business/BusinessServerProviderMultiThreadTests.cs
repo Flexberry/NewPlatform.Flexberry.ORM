@@ -29,7 +29,7 @@
         }
 
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>.
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,ObjectStatus,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>.
         /// </summary>
         [Fact]
         public void GetBusinessServerMultiThreadAsParallelTest()
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>.
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,ObjectStatus,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>.
         /// </summary>
         [Fact]
         public void GetBusinessServerMultiThreadToolTest()
@@ -75,9 +75,10 @@
             // Arrange.
             var processingObject = new ObjectsToUpdateMultiThreadClass();
             var processingObjects = new ArrayList { processingObject };
+            var provider = new BusinessServerProvider();
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), ObjectStatus.Created, null);
             foreach (BusinessServer bs in bss)
             {
                 try
@@ -102,9 +103,10 @@
             // Arrange.
             var processingObject = new ObjectsToUpdateMultiThreadClass();
             var processingObjects = new ArrayList { processingObject };
+            var provider = new BusinessServerProvider();
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), ObjectStatus.Created, null);
             foreach (BusinessServer bs in bss)
             {
                 bs.ObjectsToUpdate = processingObjects;

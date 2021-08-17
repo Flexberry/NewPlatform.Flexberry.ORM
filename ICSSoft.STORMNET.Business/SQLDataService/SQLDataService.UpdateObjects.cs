@@ -34,7 +34,7 @@
                 }
 
                 string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
 
             using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))

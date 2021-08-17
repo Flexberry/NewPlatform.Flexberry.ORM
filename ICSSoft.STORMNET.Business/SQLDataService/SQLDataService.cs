@@ -12,6 +12,7 @@
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
@@ -73,25 +74,9 @@
         private Guid prvInstanceId = Guid.NewGuid();
 
         /// <summary>
-        /// The prv storage type.
-        /// </summary>
-        private StorageTypeEnum prvStorageType = StorageTypeEnum.SimpleStorage;
-
-        /// <summary>
         /// Тип хранилища.
         /// </summary>
-        public StorageTypeEnum StorageType
-        {
-            get
-            {
-                return prvStorageType;
-            }
-
-            set
-            {
-                prvStorageType = value;
-            }
-        }
+        public StorageTypeEnum StorageType { get; set; } = StorageTypeEnum.SimpleStorage;
 
         /// <summary>
         /// An instance of the class responsible for converting values to a string for the SQL query.
@@ -108,6 +93,7 @@
         /// <summary>
         /// Преобразовать значение в SQL строку.
         /// </summary>
+        /// <param name="sqlLangDef">Язык ограничений.</param>
         /// <param name="function">Функция.</param>
         /// <param name="convertValue">делегат для преобразования констант.</param>
         /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
@@ -140,17 +126,12 @@
 
         ////-----------------------------------------------------
 
-        private string customizationString;
         private string _customizationStringName;
 
         /// <summary>
         /// Настроичная строка (строка соединения).
         /// </summary>
-        public string CustomizationString
-        {
-            get { return customizationString; }
-            set { customizationString = value; }
-        }
+        public string CustomizationString { get; set; }
 
         /// <summary>
         /// Свойство для установки строки соединения по имени.
@@ -174,16 +155,10 @@
         /// </summary>
         public static ChangeCustomizationStringDelegate ChangeCustomizationString = null;
 
-        private bool _doNotChangeCustomizationString = false;
-
         /// <summary>
         /// Не менять строку соединения общим делегатом ChangeCustomizationString.
         /// </summary>
-        public bool DoNotChangeCustomizationString
-        {
-            get { return _doNotChangeCustomizationString; }
-            set { _doNotChangeCustomizationString = value; }
-        }
+        public bool DoNotChangeCustomizationString { get; set; }
 
         private System.Collections.SortedList prvTypesByKeys;
 
@@ -226,7 +201,12 @@
         /// <summary>
         /// Сервис разрешения строк соединения на основе файла конфигурации приложения.
         /// </summary>
-        public IConfigResolver ConfigResolver { get; set; }
+        public IConfigResolver ConfigResolver { get; set; } = new ConfigResolver();
+
+        /// <summary>
+        /// Сервис получения бизнес-серверов для обрабатываемых объектов.
+        /// </summary>
+        public IBusinessServerProvider BusinessServerProvider { get; set; } = new BusinessServerProvider();
 
         /// <inheritdoc cref="IDataService" />
         public ISecurityManager SecurityManager { get; protected set; }
@@ -247,7 +227,7 @@
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
                 string cs = ChangeCustomizationString(customizationStruct.LoadingTypes);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
 
             // Применим полномочия на строки
@@ -358,7 +338,7 @@
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
                 string cs = ChangeCustomizationString(lcs.LoadingTypes);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
 
             bool usedSorting = false;
@@ -696,7 +676,7 @@
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
                 string cs = ChangeCustomizationString(new Type[] { doType });
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
 
             // if (dobject.GetStatus(false)==ObjectStatus.Created && !dobject.Prototyped) return;
@@ -1714,7 +1694,7 @@
                 }
 
                 string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
 
             DataObjectCache.StartCaching(false);
@@ -1921,7 +1901,7 @@
                 // Получаем данные.
                 object[][] resValue = ReadFirstByExtConn(
                                             selectString, ref state, customizationStruct.LoadingBufferSize, connection, transaction);
-                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, customizationString };
+                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, CustomizationString };
                 DataObject[] res = null;
                 if (resValue == null)
                 {
@@ -1958,7 +1938,7 @@
                 if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
                 {
                     string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                    CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
                 }
 
                 // Применим полномочия на строки.
@@ -1973,7 +1953,7 @@
                 object[][] resValue = ReadFirst(
                     SelectString,
                     ref State, customizationStruct.LoadingBufferSize);
-                State = new object[] { State, dataObjectType, StorageStruct, customizationStruct, customizationString };
+                State = new object[] { State, dataObjectType, StorageStruct, customizationStruct, CustomizationString };
                 ICSSoft.STORMNET.DataObject[] res = null;
                 if (resValue == null)
                 {
@@ -3372,7 +3352,7 @@
                 if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
                 {
                     string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                    CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
                 }
 
                 // Применим полномочия на строки.
@@ -3470,7 +3450,7 @@
                 if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
                 {
                     string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                    CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
                 }
 
                 // Применим полномочия на строки
@@ -3573,7 +3553,7 @@
                 if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
                 {
                     string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                    CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
                 }
 
                 // Применим полномочия на строки.
@@ -4013,7 +3993,7 @@
 
             cs.Init(new ColumnsSortDef[0], func, new Type[] { view.DefineClassType }, view, new string[0]);
             object state = null;
-            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
+            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, ObjectStatus.Deleted, this);
             if (bs != null && bs.Length > 0)
             {
                 // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
@@ -5976,8 +5956,8 @@
         public virtual object Clone()
         {
             var instance = (SQLDataService)Activator.CreateInstance(GetType());
-            instance._doNotChangeCustomizationString = _doNotChangeCustomizationString;
-            instance.customizationString = customizationString;
+            instance.DoNotChangeCustomizationString = DoNotChangeCustomizationString;
+            instance.CustomizationString = CustomizationString;
             instance.DoNotChangeCustomizationString = DoNotChangeCustomizationString;
             instance.fchangeViewForTypeDelegate = fchangeViewForTypeDelegate;
             instance.m_iCommandTimeout = m_iCommandTimeout;
@@ -5985,7 +5965,7 @@
             instance.m_bUseCommandTimeout = m_bUseCommandTimeout;
             instance.mustNewgenerate = mustNewgenerate;
             instance.prvInstanceId = prvInstanceId;
-            instance.prvStorageType = prvStorageType;
+            instance.StorageType = StorageType;
             instance.prvTypesByKeys = prvTypesByKeys;
 
             if (AfterGenerateSQLSelectQueryStatic != null)

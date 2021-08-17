@@ -18,9 +18,10 @@
         {
             // Arrange.
             var type = typeof(Class3);
+            var provider = new BusinessServerProvider();
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Single(bss);
@@ -33,9 +34,10 @@
         {
             // Arrange.
             var type = typeof(Class2);
+            var provider = new BusinessServerProvider();
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Equal(3, bss.Length);
@@ -52,9 +54,10 @@
         {
             // Arrange.
             var type = typeof(Class1);
+            var provider = new BusinessServerProvider();
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Equal(6, bss.Length);
