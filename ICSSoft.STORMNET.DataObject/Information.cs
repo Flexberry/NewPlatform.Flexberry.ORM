@@ -1018,100 +1018,98 @@
         /// <summary>
         /// Возвращает тип элемента DetailArray.
         /// </summary>
-        /// <param name="AgregatorType">объект-владелец.</param>
-        /// <param name="DetailPropertyName">свойство-DetailArray.</param>
-        /// <returns></returns>
-        public static System.Type GetItemType(System.Type AgregatorType, string DetailPropertyName)
+        /// <param name="agregatorType">объект-владелец.</param>
+        /// <param name="detailPropertyName">свойство-DetailArray.</param>
+        /// <returns>net-тип элемента DetailArray.</returns>
+        public static Type GetItemType(Type agregatorType, string detailPropertyName)
         {
+            if (agregatorType == null)
+            {
+                throw new ArgumentNullException(nameof(agregatorType));
+            }
+
+            if (detailPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(detailPropertyName));
+            }
+
             lock (cacheGetItemType)
             {
-                Type res = (Type)cacheGetItemType[AgregatorType, DetailPropertyName];
+                Type res = (Type)cacheGetItemType[agregatorType, detailPropertyName];
                 if (res != null)
                 {
                     return res;
                 }
+
+                int pointIndex = detailPropertyName.IndexOf(".", StringComparison.Ordinal);
+                if (pointIndex >= 0)
+                {
+                    string masterName = detailPropertyName.Substring(0, pointIndex);
+                    detailPropertyName = detailPropertyName.Substring(pointIndex + 1);
+                    Type masterType = GetPropertyType(agregatorType, masterName);
+                    if (masterType == null)
+                    {
+                        throw new CantFindPropertyException(masterName, agregatorType);
+                    }
+
+                    res = GetItemType(masterType, detailPropertyName);
+                }
                 else
                 {
-                    int pointIndex = DetailPropertyName.IndexOf(".");
-                    if (pointIndex >= 0)
-                    {
-                        string MasterName = DetailPropertyName.Substring(0, pointIndex);
-                        DetailPropertyName = DetailPropertyName.Substring(pointIndex + 1);
-                        System.Type MasterType = GetPropertyType(AgregatorType, MasterName);
-                        if (MasterType == null)
-                        {
-                            throw new CantFindPropertyException(MasterName, AgregatorType);
-                        }
-                        else
-                        {
-                            res = GetItemType(MasterType, DetailPropertyName);
-                        }
+                    string err = string.Empty;
 
-                        return res;
-                    }
-                    else
+                    try
                     {
-                        string err = string.Empty;
-
-                        try
+                        Type propType = GetPropertyType(agregatorType, detailPropertyName);
+                        if (propType.IsSubclassOf(typeof(DetailArray)))
                         {
-                            Type propType = GetPropertyType(AgregatorType, DetailPropertyName);
-                            if (propType.IsSubclassOf(typeof(DetailArray)))
+                            ConstructorInfo ci = null;
+                            err = string.Empty;
+                            ConstructorInfo[] constructorInfos = propType.GetConstructors();
+                            foreach (ConstructorInfo cci in constructorInfos)
                             {
-                                ConstructorInfo ci = null;
-                                err = string.Empty;
-                                ConstructorInfo[] constructorInfos = propType.GetConstructors();
-                                foreach (ConstructorInfo cci in constructorInfos)
+                                ParameterInfo[] pars = cci.GetParameters();
+                                if (pars.Length == 1)
                                 {
-                                    ParameterInfo[] pars = cci.GetParameters();
-                                    if (pars.Length == 1)
-                                    {
-                                        err += cci.ToString() + " " + Environment.NewLine +
+                                    err += cci.ToString() + " " + Environment.NewLine +
                                            pars[0].ParameterType.AssemblyQualifiedName + Environment.NewLine +
-                                           AgregatorType.AssemblyQualifiedName + Environment.NewLine +
-                                           (pars[0].ParameterType == AgregatorType).ToString() +
+                                           agregatorType.AssemblyQualifiedName + Environment.NewLine +
+                                           (pars[0].ParameterType == agregatorType).ToString() +
                                            ";";
-                                        if ((pars[0].ParameterType == AgregatorType) || AgregatorType.IsSubclassOf(pars[0].ParameterType))
-                                        {
-                                            ci = cci;
-                                            break;
-                                        }
+                                    if ((pars[0].ParameterType == agregatorType) || agregatorType.IsSubclassOf(pars[0].ParameterType))
+                                    {
+                                        ci = cci;
+                                        break;
                                     }
                                 }
+                            }
 
-                                if (ci != null)
-                                {
-                                    DetailArray da = (DetailArray)ci.Invoke(new object[] { null });
-                                    res = da.ItemType;
-                                }
-                                else
-                                {
-                                    err = "Cant find constructor " + err;
-                                    throw new Exception(err);
-                                }
+                            if (ci != null)
+                            {
+                                DetailArray da = (DetailArray)ci.Invoke(new object[] { null });
+                                res = da.ItemType;
                             }
                             else
                             {
-                                res = null;
+                                err = "Cant find constructor " + err;
+                                throw new Exception(err);
                             }
                         }
-                        catch
-                        {
-                            throw new Exception("Information getItemType(" + ((AgregatorType == null) ? "NULL" : AgregatorType.FullName) + "," + DetailPropertyName + ")" +
-                                Environment.NewLine + err);
-                        }
-
-                        err = "9";
-
-                        // Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
-                        if (AgregatorType.Assembly.FullName != "TempAssembly, Version=0.0.0.0")
-                        {
-                            cacheGetItemType[AgregatorType, DetailPropertyName] = res;
-                        }
-
-                        return res;
+                    }
+                    catch
+                    {
+                        throw new Exception("Information getItemType(" + ((agregatorType == null) ? "NULL" : agregatorType.FullName) + "," + detailPropertyName + ")" +
+                                            Environment.NewLine + err);
                     }
                 }
+
+                // Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
+                if (agregatorType.Assembly.FullName != "TempAssembly, Version=0.0.0.0")
+                {
+                    cacheGetItemType[agregatorType, detailPropertyName] = res;
+                }
+
+                return res;
             }
         }
 
@@ -1184,8 +1182,18 @@
         /// <param name="type">тип.</param>
         /// <param name="property">свойство.</param>
         /// <returns></returns>
-        public static bool GetPropertyDisableAutoViewing(System.Type type, string property)
+        public static bool GetPropertyDisableAutoViewing(Type type, string property)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (property == null)
+            {
+                throw new ArgumentNullException(nameof(property));
+            }
+
             lock (cacheGetPropertyDisableAutoViewing)
             {
                 var res = cacheGetPropertyDisableAutoViewing[type, property];
@@ -1194,18 +1202,18 @@
                     return (bool)res;
                 }
 
-                int pointIndex = property.IndexOf(".");
+                int pointIndex = property.IndexOf(".", StringComparison.Ordinal);
                 if (pointIndex >= 0)
                 {
-                    string MasterName = property.Substring(0, pointIndex);
+                    string masterName = property.Substring(0, pointIndex);
                     property = property.Substring(pointIndex + 1);
-                    System.Type MasterType = GetPropertyType(type, MasterName);
-                    if (MasterType == null)
+                    Type masterType = GetPropertyType(type, masterName);
+                    if (masterType == null)
                     {
                         throw new CantFindPropertyException(property, type);
                     }
 
-                    res = GetPropertyDisableAutoViewing(MasterType, property);
+                    res = GetPropertyDisableAutoViewing(masterType, property);
                 }
                 else
                 {
@@ -1215,14 +1223,14 @@
                         throw new CantFindPropertyException(property, type);
                     }
 
-                    object[] typeAttributes = pi.GetCustomAttributes(typeof(DisableAutoViewedAttribute), true);
-                    if (typeAttributes.Length == 0)
+                    var typeAttribute = pi.GetCustomAttribute<DisableAutoViewedAttribute>(true);
+                    if (typeAttribute == null)
                     {
                         res = false;
                     }
                     else
                     {
-                        res = ((DisableAutoViewedAttribute)typeAttributes[0]).value;
+                        res = typeAttribute.value;
                     }
                 }
 
@@ -1643,35 +1651,43 @@
         /// <param name="declarationType">.Net-тип класса объекта данных.</param>
         /// <param name="propname">имя свойства.</param>
         /// <returns>.Net-тип свойства.</returns>
-        public static Type GetPropertyType(System.Type declarationType, string propname)
+        public static Type GetPropertyType(Type declarationType, string propname)
         {
-            Type res = null;
-            res = (System.Type)cachePropertyType[declarationType, propname];
-            if (res != null)
+            if (declarationType == null)
             {
-                return res;
+                throw new ArgumentNullException(nameof(declarationType));
             }
-            else
+
+            if (propname == null)
             {
-                int pointIndex = propname.IndexOf(".");
+                throw new ArgumentNullException(nameof(propname));
+            }
+
+            lock (cachePropertyType)
+            {
+                Type res = (Type)cachePropertyType[declarationType, propname];
+                if (res != null)
+                {
+                    return res;
+                }
+
+                int pointIndex = propname.IndexOf(".", StringComparison.Ordinal);
                 if (pointIndex >= 0)
                 {
-                    string MasterName = propname.Substring(0, pointIndex);
+                    string masterName = propname.Substring(0, pointIndex);
                     string mpropname = propname.Substring(pointIndex + 1);
-                    System.Type MasterType = GetPropertyType(declarationType, MasterName);
-                    if (MasterType.IsSubclassOf(typeof(DetailArray)))
+                    Type masterType = GetPropertyType(declarationType, masterName);
+                    if (masterType.IsSubclassOf(typeof(DetailArray)))
                     {
-                        MasterType = GetItemType(declarationType, MasterName);
+                        masterType = GetItemType(declarationType, masterName);
                     }
 
-                    if (MasterType == null)
+                    if (masterType == null)
                     {
-                        throw new CantFindPropertyException(MasterName, declarationType);
+                        throw new CantFindPropertyException(masterName, declarationType);
                     }
-                    else
-                    {
-                        res = GetPropertyType(MasterType, mpropname);
-                    }
+
+                    res = GetPropertyType(masterType, mpropname);
                 }
                 else
                 {
@@ -1687,21 +1703,14 @@
                     }
                     else
                     {
-                        System.Type ptype = pi.PropertyType;
-                        res = ptype;
+                        res = pi.PropertyType;
                     }
                 }
 
                 // Для генерённых на ходу типов не добавляем в кеш, т.к. они меняются в любой момент (например редактор параметров генерит фиктивный тип для задания параметров и формы параметров)
                 if (declarationType.Assembly.FullName != "TempAssembly, Version=0.0.0.0")
                 {
-                    lock (cachePropertyType)
-                    {
-                        if (cachePropertyType[declarationType, propname] == null)
-                        {
-                            cachePropertyType[declarationType, propname] = res;
-                        }
-                    }
+                    cachePropertyType[declarationType, propname] = res;
                 }
 
                 return res;
@@ -2789,35 +2798,25 @@
             }
         }
 
-        private static TypeAtrValueCollection cacheAllPropertyNames = new TypeAtrValueCollection();
+        private static ConcurrentDictionary<Type, List<string>> cacheAllPropertyNames = new ConcurrentDictionary<Type, List<string>>();
 
         /// <summary>
         /// Вернуть все имена .Net-свойств для .Net-типа класса объекта данных.
         /// </summary>
         /// <param name="type">.Net-тип класса объекта данных.</param>
         /// <returns>одномерный строковый массив имён свойств.</returns>
-        public static string[] GetAllPropertyNames(System.Type type)
+        public static string[] GetAllPropertyNames(Type type)
         {
-            lock (cacheAllPropertyNames)
+            if (type == null)
             {
-                string[] res = (string[])cacheAllPropertyNames[type];
-                if (res != null)
-                {
-                    return CopyStringArray(res);
-                }
-                else
-                {
-                    PropertyInfo[] Properties = type.GetProperties();
-                    string[] returnValue = new string[Properties.Length];
-                    for (int i = 0; i < Properties.Length; i++)
-                    {
-                        returnValue[i] = Properties[i].Name;
-                    }
-
-                    cacheAllPropertyNames[type] = returnValue;
-                    return returnValue;
-                }
+                throw new ArgumentNullException(nameof(type));
             }
+
+            return cacheAllPropertyNames
+                .GetOrAdd(
+                    type,
+                    t => type.GetProperties().Select(p => p.Name).ToList())
+                .ToArray();
         }
 
         /// <summary>
@@ -2826,15 +2825,14 @@
         /// <param name="type">.Net-тип класса объекта данных.</param>
         /// <param name="propName">Имя свойства.</param>
         /// <returns>true - свойство есть, false - нет.</returns>
-        public static bool CheckPropertyExist(System.Type type, string propName)
+        public static bool CheckPropertyExist(Type type, string propName)
         {
             if (type == null)
             {
                 throw new Exception("Не указан тип для определения наличия свойства <" + propName + "> в нём");
             }
 
-            var props = new System.Collections.Generic.List<string>(GetAllPropertyNames(type));
-            return props.Contains(propName);
+            return GetAllPropertyNames(type).Contains(propName);
         }
 
         private static TypeAtrValueCollection cacheAutoStoreMastersDisabled = new TypeAtrValueCollection();

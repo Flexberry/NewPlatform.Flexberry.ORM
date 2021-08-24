@@ -3,12 +3,24 @@
     using System;
     using ICSSoft.STORMNET;
     using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тесты для класса <see cref="DataObjectCache"/>.
     /// </summary>
     public class DataObjectCacheTest
     {
+        private readonly ITestOutputHelper output;
+
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="output">Поток вывода теста.</param>
+        public DataObjectCacheTest(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         /// <summary>
         /// A test for DataObjectCache Constructor.
         /// </summary>
@@ -27,11 +39,11 @@
         {
             DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject(cache);
-            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey);
+            DataObjectForTest dobj = PrvCreateDataObject(cache);
+            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj.__PrimaryKey);
             cache.StopCaching();
             Assert.NotNull(sdo);
-            Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo.Name));
+            output.WriteLine($"Getted from cache dataobject name = {sdo.Name}");
         }
 
         /// <summary>
@@ -42,41 +54,41 @@
         {
             DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject(cache);
+            DataObjectForTest dobj = PrvCreateDataObject(cache);
             cache.StartCaching(true);
-            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey);
+            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj.__PrimaryKey);
             cache.StopCaching();
             cache.StopCaching();
             Assert.Null(sdo);
-            Console.WriteLine(String.Format("Null when ClipParentCahce = true"));
+            output.WriteLine("Null when ClipParentCahce = true");
 
             cache.StartCaching(false);
-            object pkey1 = PrvCreateDataObject(cache);
+            DataObjectForTest dobj1 = PrvCreateDataObject(cache);
             cache.StartCaching(false);
-            DataObjectForTest sdo1 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey1);
+            DataObjectForTest sdo1 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj1.__PrimaryKey);
             cache.StopCaching();
             cache.StopCaching();
             Assert.NotNull(sdo1);
-            Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo1.Name));
+            output.WriteLine($"Getted from cache dataobject name = {sdo1.Name}");
 
             // проверим что будет, если создадим объект в дочернем кэше - доступен ли он будет после его остановки?
             cache.StartCaching(false);
             cache.StartCaching(false);
-            object pkey2 = PrvCreateDataObject(cache);
+            DataObjectForTest dobj2 = PrvCreateDataObject(cache);
             cache.StopCaching();
-            DataObjectForTest sdo2 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey2);
+            DataObjectForTest sdo2 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj2.__PrimaryKey);
             cache.StopCaching();
             Assert.NotNull(sdo2);
-            Console.WriteLine(String.Format("Объект создали в дочернем кеше, а читаем в родительском"));
+            output.WriteLine("Объект создали в дочернем кеше, а читаем в родительском");
         }
 
-        private object PrvCreateDataObject(DataObjectCache cache)
+        private DataObjectForTest PrvCreateDataObject(DataObjectCache cache)
         {
             DataObjectForTest sdo = new DataObjectForTest();
             sdo.Name = "Объект данных";
-            Console.WriteLine(String.Format("Created dataobject name = {0}", sdo.Name));
+            output.WriteLine($"Created dataobject name = {sdo.Name}");
             cache.AddDataObject(sdo);
-            return sdo.__PrimaryKey;
+            return sdo;
         }
 
         /// <summary>
@@ -87,11 +99,11 @@
         {
             DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject(cache);
-            DataObjectForTest sdo = (DataObjectForTest)cache.CreateDataObject(typeof(DataObjectForTest), pkey);
+            DataObjectForTest dobj = PrvCreateDataObject(cache);
+            DataObjectForTest sdo = (DataObjectForTest)cache.CreateDataObject(typeof(DataObjectForTest), dobj.__PrimaryKey);
             cache.StopCaching();
             Assert.NotNull(sdo);
-            Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo.Name));
+            output.WriteLine($"Getted from cache dataobject name = {sdo.Name}");
         }
 
         /// <summary>
