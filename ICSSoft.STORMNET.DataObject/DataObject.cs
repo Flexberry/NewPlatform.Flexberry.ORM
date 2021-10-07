@@ -133,16 +133,6 @@
         public bool PrimaryKeyIsUnique;
 
         /// <summary>
-        /// кэш для делегатов присвоения по полям.
-        /// </summary>
-        private static Dictionary<FieldInfo, SetHandler> cacheSetHandler = new Dictionary<FieldInfo, SetHandler>();
-
-        /// <summary>
-        /// кэш для делегатов получения значения поля.
-        /// </summary>
-        private static Dictionary<FieldInfo, GetHandler> cacheGetHandler = new Dictionary<FieldInfo, GetHandler>();
-
-        /// <summary>
         /// Установить первичный ключ в объект данных.
         /// Выполняется операция Clear() для объекта, присваивается первичный ключ,
         /// SetLoadingState(LoadingState.LightLoaded);
@@ -788,66 +778,12 @@
 
         private GetHandler GetHandlerCached(Type thisType, FieldInfo fi)
         {
-            if (thisType == null)
-            {
-                throw new ArgumentNullException(nameof(thisType));
-            }
-
-            if (fi == null)
-            {
-                throw new ArgumentNullException(nameof(fi));
-            }
-
-            GetHandler getHandler;
-            if (!cacheGetHandler.TryGetValue(fi, out getHandler))
-            {
-                lock (cacheGetHandler)
-                {
-                    if (!cacheGetHandler.ContainsKey(fi))
-                    {
-                        getHandler = DynamicMethodCompiler.CreateGetHandler(thisType, fi);
-                        cacheGetHandler.Add(fi, getHandler);
-                    }
-                    else
-                    {
-                        getHandler = cacheGetHandler[fi];
-                    }
-                }
-            }
-
-            return getHandler;
+            return Information.GetGetHandler(thisType, fi);
         }
 
         private SetHandler SetHandlerCached(Type thisType, FieldInfo fi)
         {
-            if (thisType == null)
-            {
-                throw new ArgumentNullException(nameof(thisType));
-            }
-
-            if (fi == null)
-            {
-                throw new ArgumentNullException(nameof(fi));
-            }
-
-            SetHandler setHandler;
-            if (!cacheSetHandler.TryGetValue(fi, out setHandler))
-            {
-                lock (cacheSetHandler)
-                {
-                    if (!cacheSetHandler.ContainsKey(fi))
-                    {
-                        setHandler = DynamicMethodCompiler.CreateSetHandler(thisType, fi);
-                        cacheSetHandler.Add(fi, setHandler);
-                    }
-                    else
-                    {
-                        setHandler = cacheSetHandler[fi];
-                    }
-                }
-            }
-
-            return setHandler;
+            return Information.GetSetHandler(thisType, fi);
         }
 
         private void prvCopyTo_initDataCopy(DataObject toObject, DataObjectCache DataObjectCache)

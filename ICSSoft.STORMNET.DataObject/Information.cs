@@ -65,6 +65,50 @@
         private static ConcurrentDictionary<long, GetHandler> cacheGetPropValueByName = new ConcurrentDictionary<long, GetHandler>();
 
         /// <summary>
+        /// Получить делегат <see cref="GetHandler" /> для быстрого доступа к свойствам.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="propInfo">Метаданные о свойстве.</param>
+        /// <returns>Делегат.</returns>
+        internal static GetHandler GetGetHandler(Type type, PropertyInfo propInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + propInfo.Name.GetHashCode();
+            return cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(type, propInfo));
+        }
+
+        /// <summary>
+        /// Получить делегат <see cref="GetHandler" /> для быстрого доступа к полям.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="fieldInfo">Метаданные о поле.</param>
+        /// <returns>Делегат.</returns>
+        internal static GetHandler GetGetHandler(Type type, FieldInfo fieldInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + fieldInfo.Name.GetHashCode();
+            return cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(type, fieldInfo));
+        }
+
+        /// <summary>
         /// Получить значение свойства объекта данных по имени этого свойства.
         /// </summary>
         public static object GetPropValueByName(DataObject obj, string propName)
@@ -97,8 +141,7 @@
             }
             else if (pi != null) // надо проверить что такое свойство есть
             {
-                long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-                GetHandler getHandler = cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(tp, pi));
+                GetHandler getHandler = GetGetHandler(tp, pi);
 
                 try
                 {
@@ -250,19 +293,7 @@
                         propType = Nullable.GetUnderlyingType(propType);
                     }
 
-                    long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-                    SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(
-                        key,
-                        k =>
-                        {
-                            SetHandler sh = null;
-                            if (pi != null && pi.CanWrite)
-                            {
-                                sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
-                            }
-
-                            return sh;
-                        });
+                    SetHandler setHandler = GetSetHandler(tp, pi);
 
                     if (propType == typeof(string))
                     {
@@ -407,6 +438,50 @@
         private static ConcurrentDictionary<long, SetHandler> cacheSetPropValueByName = new ConcurrentDictionary<long, SetHandler>();
 
         /// <summary>
+        /// Получить делегат <see cref="SetHandler" /> для быстрого доступа к свойствам.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="propInfo">Метаданные о свойстве.</param>
+        /// <returns>Делегат.</returns>
+        internal static SetHandler GetSetHandler(Type type, PropertyInfo propInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + propInfo.Name.GetHashCode();
+            return cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(type, propInfo));
+        }
+
+        /// <summary>
+        /// Получить делегат <see cref="SetHandler" /> для быстрого доступа к полям.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="fieldInfo">Метаданные о поле.</param>
+        /// <returns>Делегат.</returns>
+        internal static SetHandler GetSetHandler(Type type, FieldInfo fieldInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + fieldInfo.Name.GetHashCode();
+            return cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(type, fieldInfo));
+        }
+
+        /// <summary>
         /// Установить значение свойства объекта данных по имени этого свойства,
         /// значение передаётся типизированно. Если попытка преобразования
         /// типа неудачна, возвращается сообщение об ошибке.
@@ -464,8 +539,7 @@
                                     propType = Nullable.GetUnderlyingType(propType);
                                 }
 
-                                long key = objType.GetHashCode() * 10000000000 + propName.GetHashCode();
-                                SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(objType, propInfo));
+                                SetHandler setHandler = GetSetHandler(objType, propInfo);
                                 if (propType.IsEnum && PropValue == null)
                                 {
                                     try
