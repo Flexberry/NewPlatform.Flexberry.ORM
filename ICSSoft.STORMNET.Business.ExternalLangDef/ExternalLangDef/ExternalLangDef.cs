@@ -20,34 +20,23 @@
         {
             fieldDataObjectType.SimplificationValue = DataObjectToSimpleValue;
             fieldDataObjectType.UnSimplificationValue = SimpleValueToDataObject;
+            ChFuncNames = new List<string>
+            {
+                "Count", "SUM", funcCountWithLimit, "ExistExact", "Exist", "AVG", "MAX", "MIN", funcSumWithLimit, funcAvgWithLimit, funcMaxWithLimit, funcMinWithLimit, "ExistAll", "ExistAllExact",
+            };
         }
-
-        private static ExternalLangDef _lngDef = null;
-        private static string _objNull = "CONST";
 
         /// <summary>
         /// Статический ExternalLangDef, используется для получения функций.
         /// </summary>
-        public static ExternalLangDef LanguageDef
-        {
-            get
-            {
-                if (_lngDef != null)
-                {
-                    return _lngDef;
-                }
-
-                lock (_objNull)
-                {
-                    return _lngDef ?? (_lngDef = new ExternalLangDef());
-                }
-            }
-        }
+        public static ExternalLangDef LanguageDef { get; } = new ExternalLangDef();
 
         /// <summary>
         /// сервис данных для построения подзапросов.
         /// </summary>
         private Business.IDataService m_objDataService;
+
+        private readonly List<string> ChFuncNames;
 
         /// <summary>
         /// Сервис данных для построения подзапросов. Если не указан, используется DataServiceProvider.DataService.
@@ -973,20 +962,12 @@
             get { return base.MaxFuncID + 35; }
         }
 
-        private System.Collections.Specialized.StringCollection ChFuncNames = null;
-
         public override string[] GetExistingVariableNames(ICSSoft.STORMNET.FunctionalLanguage.Function f)
         {
             var al = new ArrayList();
             if (retVars != null)
             {
                 al.AddRange(retVars);
-            }
-
-            if (ChFuncNames == null)
-            {
-                ChFuncNames = new System.Collections.Specialized.StringCollection();
-                ChFuncNames.AddRange(new[] { "Count", "SUM", funcCountWithLimit, "ExistExact", "Exist", "AVG", "MAX", "MIN", funcSumWithLimit, funcAvgWithLimit, funcMaxWithLimit, funcMinWithLimit, "ExistAll", "ExistAllExact" });
             }
 
             if (ChFuncNames.Contains(f.FunctionDef.StringedView))
