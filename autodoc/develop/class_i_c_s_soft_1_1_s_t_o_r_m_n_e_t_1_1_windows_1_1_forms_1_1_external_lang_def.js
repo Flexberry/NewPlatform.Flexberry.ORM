@@ -57,7 +57,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang
     [ "funcYearPart", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ae8a3d3f596b0b760fd8410112fe76497", null ],
     [ "GeographyType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a9e114d4dc5619660cfe960d8cfcc6262", null ],
     [ "GeometryType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a61d75ed414ea4aaa8764c9c09e16ea58", null ],
-    [ "LanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a13d356119f978be765c338170ca08ca0", null ],
+    [ "LanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a2ffd3b75e21294577a18838f4268d08b", null ],
     [ "MaxFuncID", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a36ee62c6be7ff84035b642cb1a82ce14", null ],
     [ "paramDayDIFF", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#acf6f6a5de365310e23efb5938f93e6df", null ],
     [ "paramMonthDIFF", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a945f446cea0c7f257be94566be07b6f1", null ],
