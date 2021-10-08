@@ -27,7 +27,7 @@ Also perform undo in App.config before commit changes.
 
 ## Test objects development
 
-Tests projects use objects from project `NewPlatform.Flexberry.ORM.Tests.Objects` and business logic from `NewPlatform.Flexberry.ORM.Tests.BusinessServers`. Both projects created by flexberry code generator from metadata file `NewPlatform.Flexberry.ORM.IntegratedTests/SqlScripts/NewPlatform.Flexberry.ORM.Tests.crp`.  
+Tests projects use objects from project `NewPlatform.Flexberry.ORM.Tests.Objects` and business logic from `NewPlatform.Flexberry.ORM.Tests.BusinessServers`. Both projects created by flexberry code generator from metadata file `NewPlatform.Flexberry.ORM.IntegratedTests/CodeGen/NewPlatform.Flexberry.ORM.Tests.crp`.  
 Modification test objects made in Flexberry Designer and save into file `NewPlatform.Flexberry.ORM.Tests.crp` and run code generation by command:
 
 ```

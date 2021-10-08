@@ -5,7 +5,7 @@
     using Xunit;
 
     /// <summary>
-    /// Тестовый класс для <see cref="IReferencesNullDelete" />.
+    /// Тестовый класс для <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete" />.
     /// </summary>
     public class IReferencesNullDeleteTests : BaseIntegratedTest
     {
@@ -13,7 +13,7 @@
         /// Конструктор.
         /// </summary>
         public IReferencesNullDeleteTests()
-            : base("IRefNullDel")
+            : base("IRND")
         {
         }
 

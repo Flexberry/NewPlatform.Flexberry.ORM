@@ -31,10 +31,10 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
 #endif
             var assemblies = new[]
             {
-                System.Reflection.Assembly.Load("NewPlatform.Flexberry.ORM.Tests.Objects"),
+                typeof(NewPlatform.Flexberry.ORM.Tests.Salad2).Assembly,
             };
 
-            ICSSoft.STORMNET.Business.OrmConfigurator.SetAssembliesForIReferencesNullDeleteSearch(assemblies);
+            ICSSoft.STORMNET.Business.Interfaces.InterfaceBusinessServer.SetupAdditionalAssemblies(assemblies);
         }
     }
 }

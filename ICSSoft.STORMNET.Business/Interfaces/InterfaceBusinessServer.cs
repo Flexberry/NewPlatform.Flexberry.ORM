@@ -16,6 +16,65 @@
     public class InterfaceBusinessServer : BusinessServer
     {
         /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// </summary>
+        private static IEnumerable<Assembly> assembliesForIReferencesNullDeleteSearch;
+
+        /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// </summary>
+        private static IEnumerable<Assembly> assembliesForIReferencesCascadeDeleteSearch;
+
+        /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// </summary>
+        public static IEnumerable<Assembly> AssembliesForIReferencesNullDeleteSearch
+        {
+            get
+            {
+                return assembliesForIReferencesNullDeleteSearch;
+            }
+
+            set
+            {
+                assembliesForIReferencesNullDeleteSearch = value;
+            }
+        }
+
+        /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// </summary>
+        public static IEnumerable<Assembly> AssembliesForIReferencesCascadeDeleteSearch
+        {
+            get
+            {
+                return assembliesForIReferencesCascadeDeleteSearch;
+            }
+
+            set
+            {
+                assembliesForIReferencesCascadeDeleteSearch = value;
+            }
+        }
+
+        /// <summary>
+        /// Задание списка сборок, где будет осуществляться поиск объектов, для которых переданный является мастером,
+        /// при обработке интерфейсов <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>
+        /// и <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/> .
+        /// Если настройка не будет задана, то поиск будет осуществляться только в сборке с удаляемым объектом.
+        /// </summary>
+        /// <param name="searchAssemblies">Список сборок.</param>
+        public static void SetupAdditionalAssemblies(IEnumerable<Assembly> searchAssemblies)
+        {
+            AssembliesForIReferencesNullDeleteSearch = searchAssemblies;
+            AssembliesForIReferencesCascadeDeleteSearch = searchAssemblies;
+        }
+
+        /// <summary>
         /// Определяем набор объектов, для которых переданный является мастером.
         /// </summary>
         /// <param name="masterObject">Объект, для которого мы будем искать набор объектов, чьим мастером он является.</param>
@@ -196,7 +255,7 @@
 
             List<ReferencePropertyInfo> referencePropertyInfos;
             var referenceObjectList = GetReferencedDataObjects(
-                updatedDataObject, out referencePropertyInfos, OrmConfigurator.GetAssembliesForIReferencesNullDeleteSearch());
+                updatedDataObject, out referencePropertyInfos, AssembliesForIReferencesNullDeleteSearch);
             NullifyMasterReferences(updatedDataObject, referenceObjectList, referencePropertyInfos);
             return referenceObjectList.ToArray();
         }
