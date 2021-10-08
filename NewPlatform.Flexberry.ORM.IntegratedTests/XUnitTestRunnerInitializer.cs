@@ -29,6 +29,12 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
             string outputConfigFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
             File.Copy(configFile, outputConfigFile, true);
 #endif
+            var assemblies = new[]
+            {
+                System.Reflection.Assembly.Load("NewPlatform.Flexberry.ORM.Tests.Objects"),
+            };
+
+            ICSSoft.STORMNET.Business.OrmConfigurator.SetAssembliesForIReferencesNullDeleteSearch(assemblies);
         }
     }
 }

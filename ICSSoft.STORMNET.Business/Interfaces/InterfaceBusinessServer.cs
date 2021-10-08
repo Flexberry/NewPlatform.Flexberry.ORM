@@ -19,41 +19,20 @@
         /// Определяем набор объектов, для которых переданный является мастером.
         /// </summary>
         /// <param name="masterObject">Объект, для которого мы будем искать набор объектов, чьим мастером он является.</param>
+        /// <param name="searchAssemblies">Список сборок, где осуществляется поиск объектов, для которых переданный является мастером. Если <c>null</c>, то поиск осуществляется только в сборке класса <paramref name="masterObject"/>.</param>
         /// <returns>Набор объектов, для которых переданный является мастером.</returns>
-        public static List<ReferencePropertyInfo> GetReferencedDataObjectsInfo(DataObject masterObject)
+        public static List<ReferencePropertyInfo> GetReferencedDataObjectsInfo(
+            DataObject masterObject, IEnumerable<Assembly> searchAssemblies = null)
         {
             var referencePropertyInfos = new List<ReferencePropertyInfo>();
-            Type realMasterObjectType = masterObject.GetType();
-            string masterObjectAssemblyLocation = realMasterObjectType.Assembly.Location;
-            string directoryPath;
-            if (!string.IsNullOrEmpty(masterObjectAssemblyLocation)
-                && !string.IsNullOrEmpty(directoryPath = Path.GetDirectoryName(masterObjectAssemblyLocation))
-                && Directory.Exists(directoryPath))
+            var realMasterObjectType = masterObject.GetType();
+            var searchAssemblyArray = searchAssemblies == null
+                                        ? new[] { realMasterObjectType.Assembly }
+                                        : searchAssemblies;
+
+            foreach (Assembly assembly in searchAssemblyArray)
             {
-                List<Assembly> assembliesThatMayContainDataObjects = new List<Assembly>();
-                foreach (FileInfo assemblyFileInfo in new DirectoryInfo(directoryPath).GetFiles("*.dll"))
-                {
-                    Assembly assembly = null;
-
-                    try
-                    {
-                        assembly = Assembly.LoadFile(assemblyFileInfo.FullName);
-                    }
-                    catch (Exception ex)
-                    {
-                        LogService.LogError($"При попытке загрузить сборку \"{assemblyFileInfo.FullName}\" произошла ошибка.", ex);
-                    }
-
-                    if (assembly != null)
-                    {
-                        assembliesThatMayContainDataObjects.Add(assembly);
-                    }
-                }
-
-                foreach (Assembly assembly in assembliesThatMayContainDataObjects)
-                {
-                    referencePropertyInfos.AddRange(ReferencePropertyInfo.FormList(assembly, realMasterObjectType));
-                }
+                referencePropertyInfos.AddRange(ReferencePropertyInfo.FormList(assembly, realMasterObjectType));
             }
 
             return referencePropertyInfos;
@@ -216,7 +195,8 @@
             }
 
             List<ReferencePropertyInfo> referencePropertyInfos;
-            var referenceObjectList = GetReferencedDataObjects(updatedDataObject, out referencePropertyInfos);
+            var referenceObjectList = GetReferencedDataObjects(
+                updatedDataObject, out referencePropertyInfos, OrmConfigurator.GetAssembliesForIReferencesNullDeleteSearch());
             NullifyMasterReferences(updatedDataObject, referenceObjectList, referencePropertyInfos);
             return referenceObjectList.ToArray();
         }
@@ -226,10 +206,14 @@
         /// </summary>
         /// <param name="masterObject">Объект, ссылающиеся на который объекты мы будем искать.</param>
         /// <param name="referencePropertyInfos">Набор информации о классах, для которых переданный объект может являться мастером, и соответствующие свойства, которыми они могут ссылаться на мастера.</param>
+        /// <param name="searchAssemblies">Список сборок, где осуществляется поиск объектов, для которых переданный является мастером. Если <c>null</c>, то поиск осуществляется только в сборке класса <paramref name="masterObject"/>.</param>
         /// <returns>Список найденных объектов.</returns>
-        public List<DataObject> GetReferencedDataObjects(DataObject masterObject, out List<ReferencePropertyInfo> referencePropertyInfos)
+        public List<DataObject> GetReferencedDataObjects(
+            DataObject masterObject,
+            out List<ReferencePropertyInfo> referencePropertyInfos,
+            IEnumerable<Assembly> searchAssemblies = null)
         {
-            referencePropertyInfos = GetReferencedDataObjectsInfo(masterObject);
+            referencePropertyInfos = GetReferencedDataObjectsInfo(masterObject, searchAssemblies);
 
             if (!referencePropertyInfos.Any())
             {

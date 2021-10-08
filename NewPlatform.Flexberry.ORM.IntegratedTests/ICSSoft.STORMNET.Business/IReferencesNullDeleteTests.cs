@@ -52,9 +52,24 @@
                 var updatedSaladWithRef = new Salad2();
                 updatedSaladWithRef.SetExistObjectPrimaryKey(saladWithRef.__PrimaryKey);
                 ds.LoadObject(Salad2.Views.Salad2L, updatedSaladWithRef);
-
                 Assert.Null(updatedSaladWithRef.Ingridient1);
                 Assert.Equal(plantToNotDelete.__PrimaryKey, updatedSaladWithRef.Ingridient2.__PrimaryKey);
+
+                var updatedSaladWithRef2 = new Salad2();
+                updatedSaladWithRef2.SetExistObjectPrimaryKey(saladWithRef2.__PrimaryKey);
+                ds.LoadObject(Salad2.Views.Salad2L, updatedSaladWithRef2);
+                Assert.Equal(plantToNotDelete.__PrimaryKey, updatedSaladWithRef2.Ingridient1.__PrimaryKey);
+                Assert.Equal(plantToNotDelete.__PrimaryKey, updatedSaladWithRef2.Ingridient2.__PrimaryKey);
+
+                var updatedDishWithRef = new Dish2();
+                updatedDishWithRef.SetExistObjectPrimaryKey(dishWithRef.__PrimaryKey);
+                ds.LoadObject(Dish2.Views.Dish2E, updatedDishWithRef);
+                Assert.Null(updatedDishWithRef.MainIngridient);
+
+                var updatedDishWithRef2 = new Dish2();
+                updatedDishWithRef2.SetExistObjectPrimaryKey(dishWithRef2.__PrimaryKey);
+                ds.LoadObject(Dish2.Views.Dish2E, updatedDishWithRef2);
+                Assert.Equal(plantToNotDelete.__PrimaryKey, updatedDishWithRef2.MainIngridient.__PrimaryKey);
             }
         }
     }
