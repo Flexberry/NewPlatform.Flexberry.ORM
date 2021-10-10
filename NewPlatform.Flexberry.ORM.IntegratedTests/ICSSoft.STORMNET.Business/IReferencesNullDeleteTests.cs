@@ -32,13 +32,13 @@
                 var plantToDelete = new Plant2() { Name = "Delete" };
                 var plantToNotDelete = new Plant2() { Name = "NotDelete" };
                 var saladWithRef = new Salad2()
-                    { SaladName = "OnlyOneDelete", Ingridient1 = plantToDelete, Ingridient2 = plantToNotDelete };
+                { SaladName = "OnlyOneDelete", Ingridient1 = plantToDelete, Ingridient2 = plantToNotDelete };
                 var saladWithRef2 = new Salad2()
-                    { SaladName = "WithNoDelete", Ingridient1 = plantToNotDelete, Ingridient2 = plantToNotDelete };
+                { SaladName = "WithNoDelete", Ingridient1 = plantToNotDelete, Ingridient2 = plantToNotDelete };
                 var dishWithRef = new Dish2()
-                    { DishName = "OnlyWithDelete", MainIngridient = plantToDelete };
+                { DishName = "OnlyWithDelete", MainIngridient = plantToDelete };
                 var dishWithRef2 = new Dish2()
-                    { DishName = "WithNoDelete", MainIngridient = plantToNotDelete };
+                { DishName = "WithNoDelete", MainIngridient = plantToNotDelete };
                 var objsToUpdate = new ICSSoft.STORMNET.DataObject[]
                     { plantToDelete, plantToNotDelete, saladWithRef, saladWithRef2, dishWithRef, dishWithRef2 };
 
@@ -88,7 +88,7 @@
                 SQLDataService ds = (SQLDataService)dataService;
                 var plantToDelete = new Plant2() { Name = "Delete" };
                 var saladWithRef = new Salad2()
-                    { SaladName = "ProblemDelete", Ingridient1 = plantToDelete, Ingridient2 = plantToDelete };
+                { SaladName = "ProblemDelete", Ingridient1 = plantToDelete, Ingridient2 = plantToDelete };
                 var objsToUpdate = new ICSSoft.STORMNET.DataObject[] { plantToDelete, saladWithRef };
 
                 dataService.UpdateObjects(ref objsToUpdate);
@@ -124,19 +124,19 @@
                 cabbageToDelete.CabbageParts.Add(cabbageDetail);
                 var cabbageToNotDelete = new Cabbage2() { Name = "NotDelete" };
                 var saladWithRef = new Salad2()
-                    { SaladName = "OnlyOneDelete", Ingridient1 = cabbageToDelete, Ingridient2 = cabbageToNotDelete };
+                { SaladName = "OnlyOneDelete", Ingridient1 = cabbageToDelete, Ingridient2 = cabbageToNotDelete };
                 var saladWithRef2 = new Salad2()
-                    { SaladName = "WithNoDelete", Ingridient1 = cabbageToNotDelete, Ingridient2 = cabbageToNotDelete };
+                { SaladName = "WithNoDelete", Ingridient1 = cabbageToNotDelete, Ingridient2 = cabbageToNotDelete };
                 var dishWithRef = new Dish2()
-                    { DishName = "OnlyWithDelete", MainIngridient = cabbageToDelete };
+                { DishName = "OnlyWithDelete", MainIngridient = cabbageToDelete };
                 var dishWithRef2 = new Dish2()
-                    { DishName = "WithNoDelete", MainIngridient = cabbageToNotDelete };
+                { DishName = "WithNoDelete", MainIngridient = cabbageToNotDelete };
                 var cabbageSaladWithRef = new CabbageSalad()
-                    { CabbageSaladName = "OnlyOneDelete", Cabbage1 = cabbageToDelete, Cabbage2 = cabbageToNotDelete };
+                { CabbageSaladName = "OnlyOneDelete", Cabbage1 = cabbageToDelete, Cabbage2 = cabbageToNotDelete };
                 var cabbageSaladWithRef2 = new CabbageSalad()
-                    { CabbageSaladName = "WithNoDelete", Cabbage1 = cabbageToNotDelete, Cabbage2 = cabbageToNotDelete };
+                { CabbageSaladName = "WithNoDelete", Cabbage1 = cabbageToNotDelete, Cabbage2 = cabbageToNotDelete };
                 var soupWithRef = new Soup2()
-                    { SoupName = "WithNoDelete", CabbageType = cabbageToNotDelete };
+                { SoupName = "WithNoDelete", CabbageType = cabbageToNotDelete };
 
                 var objsToUpdate = new ICSSoft.STORMNET.DataObject[]
                     {
@@ -215,7 +215,7 @@
                 SQLDataService ds = (SQLDataService)dataService;
                 var cabbageToDelete = new Cabbage2() { Name = "Delete" };
                 var soupWithRef = new Soup2()
-                    { SoupName = "ProblemDelete", CabbageType = cabbageToDelete };
+                { SoupName = "ProblemDelete", CabbageType = cabbageToDelete };
                 var objsToUpdate = new ICSSoft.STORMNET.DataObject[] { cabbageToDelete, soupWithRef };
 
                 dataService.UpdateObjects(ref objsToUpdate);
@@ -231,6 +231,56 @@
 
                 // Assert.
                 Assert.IsType<PropertyCouldnotBeNullException>(exception);
+            }
+        }
+
+        /// <summary>
+        /// Выполняется проверка, что при удалении объекта, реализуюзего интерфейс <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete" />,
+        /// всем ссылающимся объектам будет проставлено <c>NULL</c> с учётом существующей иерархии.
+        /// </summary>
+        [Fact]
+        public void TestIReferencesNullDeleteWithHierarchy()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                SQLDataService ds = (SQLDataService)dataService;
+                var objectToDelete = new HierarchyClassWithIRND() { Name = "Delete" };
+                var detailForDelete = new DetailForIRND() { Name = "Delete" };
+                objectToDelete.DetailForIRND = new DetailArrayOfDetailForIRND(objectToDelete);
+                objectToDelete.DetailForIRND.Add(detailForDelete);
+
+                var oneLevel = new HierarchyClassWithIRND() { Name = "OneLevel" };
+                var detailOneLevel = new DetailForIRND() { Name = "OneLevelDetail" };
+                oneLevel.DetailForIRND = new DetailArrayOfDetailForIRND(oneLevel);
+                oneLevel.DetailForIRND.Add(detailOneLevel);
+                oneLevel.Parent = objectToDelete;
+
+                var objectWithReference = new ClassToTestIRND() { Name = "SomeName", CanBeNull = objectToDelete, CanNotBeNull = oneLevel };
+
+                var objsToUpdate = new ICSSoft.STORMNET.DataObject[]
+                    { objectToDelete, detailForDelete, oneLevel, detailOneLevel, objectWithReference };
+
+                dataService.UpdateObjects(ref objsToUpdate);
+
+                objectToDelete.SetStatus(ICSSoft.STORMNET.ObjectStatus.Deleted);
+                objsToUpdate = new ICSSoft.STORMNET.DataObject[] { objectToDelete };
+
+                // Act.
+                dataService.UpdateObjects(ref objsToUpdate);
+
+                // Assert.
+                var oneLevelUpdated = new HierarchyClassWithIRND();
+                oneLevelUpdated.SetExistObjectPrimaryKey(oneLevel.__PrimaryKey);
+                ds.LoadObject(HierarchyClassWithIRND.Views.HierarchyClassWithIRNDE, oneLevelUpdated);
+                Assert.Null(oneLevelUpdated.Parent);
+                Assert.Equal(1, oneLevelUpdated.DetailForIRND.Count);
+
+                var objectWithReferenceUpdated = new ClassToTestIRND();
+                objectWithReferenceUpdated.SetExistObjectPrimaryKey(objectWithReference.__PrimaryKey);
+                ds.LoadObject(ClassToTestIRND.Views.ClassToTestIRNDE, objectWithReferenceUpdated);
+                Assert.Null(objectWithReferenceUpdated.CanBeNull);
+                Assert.Equal(oneLevel.__PrimaryKey, objectWithReferenceUpdated.CanNotBeNull.__PrimaryKey);
             }
         }
     }
