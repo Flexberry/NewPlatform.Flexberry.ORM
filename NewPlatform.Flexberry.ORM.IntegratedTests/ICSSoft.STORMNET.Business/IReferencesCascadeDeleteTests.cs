@@ -3,7 +3,6 @@
     using System.Linq;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
-    using ICSSoft.STORMNET.Exceptions;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
 
@@ -318,7 +317,7 @@
                 });
 
                 // Assert.
-                Assert.IsType<PropertyCouldnotBeNullException>(exception);
+                Assert.IsType<ExecutingQueryException>(exception);
             }
         }
 

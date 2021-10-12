@@ -225,7 +225,7 @@
             }
 
             List<ReferencePropertyInfo> referencePropertyInfos;
-            var referenceObjectList = GetReferencedDataObjects(updatedDataObject, out referencePropertyInfos);
+            var referenceObjectList = GetReferencedDataObjects(updatedDataObject, out referencePropertyInfos, AssembliesForIReferencesCascadeDeleteSearch);
             foreach (DataObject dataObject in referenceObjectList)
             {
                 dataObject.SetStatus(ObjectStatus.Deleted);

@@ -4508,7 +4508,13 @@
         /// <param name="currentType">Текущий обрабатываемый тип.</param>
         /// <param name="dependencies">Дополняемые зависимости.</param>
         /// <param name="extraUpdateList">Дополнительные объекты на обновление.</param>
-        private void GetDependencies(DataObject currentObject, Type currentType, Dictionary<Type, List<Type>> dependencies, List<DataObject> extraUpdateList)
+        /// <param name="selfReferences">Структура для хранения информации об иерархических мастеровых ссылках объекта самогона себя.</param>
+        private void GetDependencies(
+            DataObject currentObject,
+            Type currentType,
+            Dictionary<Type, List<Type>> dependencies,
+            List<DataObject> extraUpdateList,
+            Dictionary<Type, List<string>> selfReferences)
         {
             string[] props = Information.GetAllPropertyNames(currentType);
 
@@ -4528,7 +4534,7 @@
                             AddDependencies(type, currentType, dependencies);
 
                             // Для детейлов доформируем зависимости.
-                            GetDependencies(null, type, dependencies, extraUpdateList);
+                            GetDependencies(null, type, dependencies, extraUpdateList, selfReferences);
                         }
                     }
 
@@ -4551,12 +4557,20 @@
                     {
                         // Обрабатываем мастера.
                         AddDependencies(currentType, propType, dependencies);
+                        if (currentType == propType)
+                        {
+                            AddSelfReferences(selfReferences, currentType, prop);
+                        }
 
                         // Обрабатываем наследников мастера.
                         Type[] propertyTypes = TypeUsageProvider.TypeUsage.GetUsageTypes(currentType, prop);
                         foreach (Type type in propertyTypes)
                         {
                             AddDependencies(currentType, type, dependencies);
+                            if (currentType == type)
+                            {
+                                AddSelfReferences(selfReferences, currentType, prop);
+                            }
                         }
                     }
                     else if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
@@ -4564,6 +4578,30 @@
                         extraUpdateList.Add(currentObject);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Добавление в коллекцию иерархических зависимостей новой записи.
+        /// </summary>
+        /// <param name="selfReferences">Коллекция иерархических зависимостей.</param>
+        /// <param name="typeWithSelfReference">Тип, у которого есть ссылка на самого себя.</param>
+        /// <param name="selfReferenceProperty">Свойство, которое представляет собой ссылку типа на самого себя.</param>
+        private void AddSelfReferences(Dictionary<Type, List<string>> selfReferences, Type typeWithSelfReference, string selfReferenceProperty)
+        {
+            if (selfReferences.ContainsKey(typeWithSelfReference))
+            {
+                var selfReferenceList = selfReferences[typeWithSelfReference];
+                if (!selfReferenceList.Contains(selfReferenceProperty))
+                {
+                    selfReferenceList.Add(selfReferenceProperty);
+                }
+
+                selfReferences[typeWithSelfReference] = selfReferenceList;
+            }
+            else
+            {
+                selfReferences.Add(typeWithSelfReference, new List<string>() { selfReferenceProperty });
             }
         }
 
@@ -4872,8 +4910,9 @@
             var alteredLastList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
             var updateList = new Dictionary<DataObject, UpdaterObject>();
 
-            List<DataObject> extraUpdateList = new List<DataObject>();
-            Dictionary<Type, List<Type>> dependencies = new Dictionary<Type, List<Type>>();
+            var extraUpdateList = new List<DataObject>();
+            var dependencies = new Dictionary<Type, List<Type>>();
+            var selfReferences = new Dictionary<Type, List<string>>();
 
             var processingObjectsKeys = new Dictionary<TypeKeyPair, bool>(new TypeKeyPairEqualityComparer());
             foreach (DataObject dobj in dobjects)
@@ -5103,8 +5142,8 @@
 
             foreach (DataObject processingObject in processingObjects)
             {
-                // Включем текущий объект в граф зависимостей.
-                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
+                // Включим текущий объект в граф зависимостей.
+                GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList, selfReferences);
             }
 
             // Поиск и разрешение циклов в зависимостях.
@@ -5235,6 +5274,53 @@
                 }
             }
 
+            /* Ещё возможна редкая ситуация, когда у объекта есть ссылка на самого себя. Один объект удаляется, а ссылающийся на него обнуляет ссылку.
+               В этом случае "стандартный" механизм, что над таблицей операции выполняются в порядке "Delete, Insert, Update" не подходит,
+               потому что сначала нужен "Update" с занулением ссылки, а потом "Delete" с удалением сущности.*/
+            var alteredFirstSpecialList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
+            var updateFirstSpecialList = new Dictionary<DataObject, UpdaterObject>();
+            if (alteredList.Any())
+            {
+                var potenciallyUsedSelfDependencies = new List<Type>();
+                foreach (var selfReferenceType in selfReferences.Keys)
+                {
+                    var currentTableName = Information.GetClassStorageName(selfReferenceType);
+                    if (tableOperations.ContainsKey(currentTableName))
+                    {
+                        var ops = (OperationType)tableOperations[currentTableName];
+                        if ((ops & OperationType.Delete) == OperationType.Delete)
+                        {
+                            potenciallyUsedSelfDependencies.Add(selfReferenceType);
+                        }
+                    }
+                }
+
+                if (potenciallyUsedSelfDependencies.Any())
+                {
+                    // Поиск всех update данного типа, у которого меняется ссылка самого на себя. При этом старое значение иногда без запроса к БД не получить.
+                    var alteredDataObjectsList = alteredList.Keys.ToList();
+                    foreach (var updateObject in alteredDataObjectsList)
+                    {
+                        var updateObjectType = updateObject.GetType();
+                        if (potenciallyUsedSelfDependencies.Contains(updateObjectType))
+                        {
+                            List<string> selfReferenceProperties = selfReferences[updateObjectType];
+                            if (updateObject.GetAlteredPropertyNames().Any(alteredProperty => selfReferenceProperties.Contains(alteredProperty)))
+                            {
+                                // Такие Update нужно делать перед Delete.
+                                var updateEntity = updateList.First(x => x.Key == updateObject);
+                                var alteredEntity = alteredList.First(x => x.Key == updateObject);
+                                updateList.Remove(updateObject);
+                                alteredList.Remove(updateObject);
+
+                                alteredFirstSpecialList.Add(alteredEntity.Key, alteredEntity.Value);
+                                updateFirstSpecialList.Add(updateEntity.Key, updateEntity.Value);
+                            }
+                        }
+                    }
+                }
+            }
+
             if (alteredList.Count > 0)
             {
                 GenerateUpdateQueries(alteredList, updateList, updateTables, tableOperations, updateQueries);
@@ -5243,6 +5329,11 @@
             if (alteredLastList.Count > 0)
             {
                 GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
+            }
+
+            if (alteredFirstSpecialList.Count > 0)
+            {
+                GenerateUpdateQueries(alteredFirstSpecialList, updateFirstSpecialList, updateTables, tableOperations, updateFirstQueries);
             }
 
             deleteTables.Clear();
