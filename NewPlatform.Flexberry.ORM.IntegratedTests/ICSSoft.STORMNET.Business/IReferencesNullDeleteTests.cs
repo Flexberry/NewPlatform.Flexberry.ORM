@@ -283,5 +283,65 @@
                 Assert.Equal(oneLevel.__PrimaryKey, objectWithReferenceUpdated.CanNotBeNull.__PrimaryKey);
             }
         }
+
+        /// <summary>
+        /// При доработке сервиса данных для обработки интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete" /> был изменён порядок формирования запросов.
+        /// Данный тест на изменённый порядок запросов.
+        /// </summary>
+        [Fact(Skip = "Раскомментируйте этот тест после закрытия ошибки #204 (https://github.com/Flexberry/NewPlatform.Flexberry.ORM/issues/204).")]
+        public void TestProperQueryOrder()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                SQLDataService ds = (SQLDataService)dataService;
+                var objectToDelete = new HierarchyClassWithIRND() { Name = "Delete" };
+                var detailForDelete = new DetailForIRND() { Name = "Delete" };
+                objectToDelete.DetailForIRND = new DetailArrayOfDetailForIRND(objectToDelete);
+                objectToDelete.DetailForIRND.Add(detailForDelete);
+
+                var oneLevel = new HierarchyClassWithIRND() { Name = "OneLevel", Parent = objectToDelete };
+                var detailOneLevel = new DetailForIRND() { Name = "OneLevelDetail" };
+                oneLevel.DetailForIRND.Add(detailOneLevel);
+
+                var objectWithReference = new ClassToTestIRND() { Name = "SomeName", CanBeNull = objectToDelete, CanNotBeNull = oneLevel };
+                var freeObject = new HierarchyClassWithIRND() { Name = "Free object" };
+                var objectWithoutReference = new ClassToTestIRND() { Name = "SomeName", CanNotBeNull = oneLevel };
+
+                var objsToUpdate = new ICSSoft.STORMNET.DataObject[]
+                    { objectToDelete, detailForDelete, oneLevel, detailOneLevel, objectWithReference, freeObject, objectWithoutReference };
+
+                dataService.UpdateObjects(ref objsToUpdate);
+
+                objectToDelete.SetStatus(ICSSoft.STORMNET.ObjectStatus.Deleted);
+                oneLevel.Parent = null;
+                detailOneLevel.Name = "AnotherName";
+                freeObject.Name = "Freedom";
+                objectWithoutReference.SetStatus(ICSSoft.STORMNET.ObjectStatus.Deleted);
+
+                /*
+                 * Проблема в том, что если на одной таблице сразу есть операции помимо Delete, то сначала выполняется Delete, а потом Update и Create.
+                 * Если удаляется запись, а потом обновляется имеющая на удаляемую ссылку, то это приводит к ошибке
+                 * (для повтора проблемы на тип, который обновляется, так же должно быть Delete).
+                 */
+                objsToUpdate = new ICSSoft.STORMNET.DataObject[] { detailOneLevel, freeObject, oneLevel, objectWithoutReference, objectToDelete };
+
+                // Act.
+                dataService.UpdateObjects(ref objsToUpdate);
+
+                // Assert.
+                var oneLevelUpdated = new HierarchyClassWithIRND();
+                oneLevelUpdated.SetExistObjectPrimaryKey(oneLevel.__PrimaryKey);
+                ds.LoadObject(HierarchyClassWithIRND.Views.HierarchyClassWithIRNDE, oneLevelUpdated);
+                Assert.Null(oneLevelUpdated.Parent);
+                Assert.Equal(1, oneLevelUpdated.DetailForIRND.Count);
+
+                var objectWithReferenceUpdated = new ClassToTestIRND();
+                objectWithReferenceUpdated.SetExistObjectPrimaryKey(objectWithReference.__PrimaryKey);
+                ds.LoadObject(ClassToTestIRND.Views.ClassToTestIRNDE, objectWithReferenceUpdated);
+                Assert.Null(objectWithReferenceUpdated.CanBeNull);
+                Assert.Equal(oneLevel.__PrimaryKey, objectWithReferenceUpdated.CanNotBeNull.__PrimaryKey);
+            }
+        }
     }
 }
