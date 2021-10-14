@@ -1474,8 +1474,15 @@
                 }
                 #endregion
 
-                string colsPart = Query.Substring(Query.IndexOf(Regex.Match(Query,
-                    @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey)).Value));
+                string colsPart = null;
+                if (mustNewgenerate)
+                {
+                    var match = Regex.Match(
+                        Query,
+                        @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey));
+                    colsPart = Query.Substring(Query.IndexOf(match.Value));
+                }
+
                 if (mustNewgenerate)
                 {
                     Query = "SELECT ";
