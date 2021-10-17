@@ -1481,10 +1481,7 @@
                         Query,
                         @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey));
                     colsPart = Query.Substring(Query.IndexOf(match.Value));
-                }
 
-                if (mustNewgenerate)
-                {
                     Query = "SELECT ";
                     if (customizationStruct.Distinct /*&& ForReadValues*/)
                     {
