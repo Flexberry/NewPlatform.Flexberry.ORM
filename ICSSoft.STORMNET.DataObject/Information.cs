@@ -12,6 +12,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using ICSSoft.Services;
+    using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.Security;
     using Microsoft.Spatial;
@@ -1801,7 +1802,7 @@
         /// <returns></returns>
         public static Type GetPropertyType(System.Type declarationType, string propname, string masterpref, Collections.NameObjectCollection masterTypes)
         {
-            int pointIndex = propname.IndexOf(".");
+            int pointIndex = propname.IndexOf(".", StringComparison.Ordinal);
             if (masterTypes != null && masterTypes.Count > 0)
             {
                 System.Type MasterType = (masterTypes == null) ? null : (Type)masterTypes[propname];
@@ -1910,7 +1911,7 @@
             var pvs = new Queue(view.Properties);
 
             var retVal = new Business.StorageStructForView();
-            var props = new ArrayList();
+            var props = new List<Business.StorageStructForView.PropStorage>();
             retVal.sources.storage[0].Storage = GetClassStorageName(type);
             retVal.sources.storage[0].PrimaryKeyStorageName = GetPrimaryKeyStorageName(type);
             retVal.sources.storage[0].TypeStorageName = GetTypeStorageName(type);
@@ -2122,7 +2123,7 @@
                 }
             }
 
-            retVal.props = (Business.StorageStructForView.PropStorage[])props.ToArray(typeof(Business.StorageStructForView.PropStorage));
+            retVal.props = props.ToArray();
 
             // строим структуру
             return retVal;
@@ -3169,7 +3170,7 @@
             }
         }
 
-        private static ConcurrentDictionary<string, bool> cacheIsStoredProp = new ConcurrentDictionary<string, bool>();
+        private static ConcurrentDictionary<long, bool> cacheIsStoredProp = new ConcurrentDictionary<long, bool>();
 
         /// <summary>
         /// Хранимое ли свойство.
@@ -3179,7 +3180,17 @@
         /// <returns></returns>
         public static bool IsStoredProperty(Type type, string propName)
         {
-            string key = type.FullName + "." + propName;
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + propName.GetHashCode();
 
             return cacheIsStoredProp.GetOrAdd(key, k => IsStoredPropertyInternal(type, propName));
         }
@@ -3491,44 +3502,59 @@
         /// <param name="type">тип.</param>
         /// <param name="propName">свойство.</param>
         /// <returns></returns>
-        public static ICSSoft.STORMNET.Collections.TypeBaseCollection GetExpressionForProperty(System.Type type, string propName)
+        public static TypeBaseCollection GetExpressionForProperty(Type type, string propName)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
             lock (cacheGetExpressionForProperty)
             {
-                ICSSoft.STORMNET.Collections.TypeBaseCollection res = (ICSSoft.STORMNET.Collections.TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
+                TypeBaseCollection res = (TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
                 if (res != null)
                 {
                     return res;
                 }
-                else
+
+                int pntIndex = propName.LastIndexOf('.');
+                if (pntIndex >= 0)
                 {
-                    res = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                    int pntIndex = propName.LastIndexOf('.');
-                    if (pntIndex >= 0)
-                    {
-                        string masterName = propName.Substring(0, pntIndex);
-                        type = GetPropertyType(type, masterName);
-                        propName = propName.Substring(pntIndex + 1);
-                    }
+                    string masterName = propName.Substring(0, pntIndex);
+                    type = GetPropertyType(type, masterName);
+                    propName = propName.Substring(pntIndex + 1);
+                }
 
-                    PropertyInfo prop = type.GetProperty(propName);
-                    if (prop != null)
-                    {
-                        object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
-                        foreach (DataServiceExpressionAttribute atr in myAttributes)
-                        {
-                            var key = atr.TypeofDataService;
-                            if (key != null)
-                            {
-                                res.Add(key, atr.Expression);
-                            }
-                        }
-
-                        cacheGetExpressionForProperty[type, propName] = res;
-                    }
-
+                // Снова ищем в кэше по новому пути.
+                res = (TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
+                if (res != null)
+                {
                     return res;
                 }
+
+                res = new TypeBaseCollection();
+                PropertyInfo prop = type.GetProperty(propName);
+                if (prop != null)
+                {
+                    object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
+                    foreach (DataServiceExpressionAttribute atr in myAttributes)
+                    {
+                        var key = atr.TypeofDataService;
+                        if (key != null)
+                        {
+                            res.Add(key, atr.Expression);
+                        }
+                    }
+
+                    cacheGetExpressionForProperty[type, propName] = res;
+                }
+
+                return res;
             }
         }
 

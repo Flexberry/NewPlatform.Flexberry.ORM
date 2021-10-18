@@ -47,12 +47,12 @@
                 new[] { "smallint", "int2" },
                 new[] { "smallserial", "serial2" },
                 new[] { "serial", "serial4" },
-                 };
+            };
 
         /// <summary>
         /// The postgres reserved words.
         /// </summary>
-        private static readonly List<string> PostgresReservedWords = new List<string>
+        private static readonly HashSet<string> PostgresReservedWords = new HashSet<string>
             {
                "WINDOW",
                "ALL",
@@ -170,7 +170,6 @@
         /// </summary>
         static PostgresDataService()
         {
-            PostgresReservedWords.Sort();
         }
 
         /// <summary>
@@ -300,7 +299,7 @@
         /// </returns>
         public static string PrepareIdentifier(string identifier)
         {
-            if (PostgresReservedWords.BinarySearch(identifier.ToUpper()) >= 0)
+            if (PostgresReservedWords.Contains(identifier.ToUpper()))
             {
                 identifier = "\"" + identifier + "\"";
             }
