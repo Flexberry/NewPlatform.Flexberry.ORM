@@ -112,6 +112,9 @@
         /// <summary>
         /// Получить значение свойства объекта данных по имени этого свойства.
         /// </summary>
+        /// <param name="obj">Объект данных, значение свойства которого извлекается данным методом. </param>
+        /// <param name="propName">Имя свойства объекта данных, значение которого извлекается данным методом.</param>
+        /// <returns>Значение свойства объекта данных, которое извлечено данным методом.</returns>
         public static object GetPropValueByName(DataObject obj, string propName)
         {
             if (obj == null)
@@ -119,7 +122,12 @@
                 return null;
             }
 
-            int pointIndex = propName.IndexOf(".");
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
+            int pointIndex = propName.IndexOf(".", StringComparison.Ordinal);
             if (pointIndex >= 0)
             {
                 string masterName = propName.Substring(0, pointIndex);
@@ -239,14 +247,25 @@
         /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом.</param>
         public static void SetPropValueByName(DataObject obj, string propName, string PropValue)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
             try
             {
-                int pointIndex = propName.IndexOf(".");
+                int pointIndex = propName.IndexOf(".", StringComparison.Ordinal);
                 if (pointIndex >= 0)
                 {
-                    string MasterName = propName.Substring(0, pointIndex);
+                    string masterName = propName.Substring(0, pointIndex);
+                    var masterValue = (DataObject)GetPropValueByName(obj, masterName);
                     propName = propName.Substring(pointIndex + 1);
-                    SetPropValueByName((DataObject)GetPropValueByName(obj, MasterName), propName, PropValue);
+                    SetPropValueByName(masterValue, propName, PropValue);
                 }
                 else
                 {
@@ -418,17 +437,23 @@
         /// <summary>
         /// Проверка: является ли переданный тип определённым в namespace <see cref="System"/>.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        private static bool isSystemType(System.Type type)
+        /// <param name="type">Тип данных.</param>
+        /// <returns><see langword="true" /> если тип является системным.</returns>
+        private static bool IsSystemType(System.Type type)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             lock (stTypesList)
             {
                 string name = type.FullName;
                 object res = stTypesList[name];
                 if (res == null)
                 {
-                    stTypesList.Add(name, name.StartsWith("System.") && (name.IndexOf(".", 7) == -1));
+                    bool isSystemType = name.StartsWith("System.", StringComparison.Ordinal) && (name.IndexOf(".", 7, StringComparison.Ordinal) == -1);
+                    stTypesList.Add(name, isSystemType);
                     res = stTypesList[name];
                 }
 
@@ -487,21 +512,30 @@
         /// значение передаётся типизированно. Если попытка преобразования
         /// типа неудачна, возвращается сообщение об ошибке.
         /// </summary>
+        /// <param name="obj">Объект данных, значение свойства которого кстанавливается данным методом. </param>
+        /// <param name="propName">Имя свойства объекта данных, значение которого устанавливается данным методом.</param>
+        /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом.</param>
         public static void SetPropValueByName(DataObject obj, string propName, object PropValue)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
             try
             {
-                if (obj == null)
-                {
-                    return;
-                }
-
-                int pointIndex = propName.IndexOf(".");
+                int pointIndex = propName.IndexOf(".", StringComparison.Ordinal);
                 if (pointIndex >= 0)
                 {
                     string masterName = propName.Substring(0, pointIndex);
+                    var masterValue = (DataObject)GetPropValueByName(obj, masterName);
                     propName = propName.Substring(pointIndex + 1);
-                    SetPropValueByName((DataObject)GetPropValueByName(obj, masterName), propName, PropValue);
+                    SetPropValueByName(masterValue, propName, PropValue);
                 }
                 else
                 {
@@ -567,7 +601,7 @@
                                 {
                                     Type valType = PropValue.GetType();
 
-                                    if ((valType == propType) || (isSystemType(valType) && isSystemType(propType)) ||
+                                    if ((valType == propType) || (IsSystemType(valType) && IsSystemType(propType)) ||
                                         (propType == typeof(object))
                                         || valType.IsSubclassOf(propType))
                                     {
@@ -608,7 +642,8 @@
                                                 throw new InvalidCastException();
                                             }
 
-                                            setHandler(obj, Convertors.InOperatorsConverter.Convert(PropValue, propType));
+                                            object convertedValue = Convertors.InOperatorsConverter.Convert(PropValue, propType);
+                                            setHandler(obj, convertedValue);
                                         }
                                     }
                                     else
@@ -618,7 +653,8 @@
                                             throw new InvalidCastException();
                                         }
 
-                                        setHandler(obj, Convertors.InOperatorsConverter.Convert(PropValue, propType));
+                                        object convertedValue = Convertors.InOperatorsConverter.Convert(PropValue, propType);
+                                        setHandler(obj, convertedValue);
                                     }
                                 }
                             }

@@ -4516,6 +4516,11 @@
         {
             string[] props = Information.GetAllPropertyNames(currentType);
 
+            // Smirnov: GetStatus довольно тяжелая операция, при исполнении в цикле имеет значительное воздействие.
+            // В общем GetStatus мб лишним только в случае отсутствия детейлов и мастеров в типе,
+            // такими случаями можно пренебречь `for the greater good`.
+            ObjectStatus? objectStatus = currentObject?.GetStatus();
+
             // Смотрим мастера и детейлы для выявления зависимостей.
             foreach (string prop in props)
             {
@@ -4536,7 +4541,7 @@
                         }
                     }
 
-                    if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted)
+                    if (objectStatus == ObjectStatus.Deleted)
                     {
                         foreach (DataObject detail in (DetailArray)Information.GetPropValueByName(currentObject, prop))
                         {
@@ -4563,7 +4568,7 @@
                             AddDependencies(currentType, type, dependencies);
                         }
                     }
-                    else if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
+                    else if (objectStatus == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
                     {
                         extraUpdateList.Add(currentObject);
                     }

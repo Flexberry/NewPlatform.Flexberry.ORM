@@ -195,9 +195,10 @@
                     if (!curObjProperiesValues.ContainsKey(tmp0))
                     {
                         curObjProperiesValues.Add(tmp0, tmp[1]);
-                        if (!loadedPropsColl.Contains((string)tmp0))
+                        string s = (string)tmp0;
+                        if (!loadedPropsColl.Contains(s))
                         {
-                            loadedPropsColl.Add((string)tmp0);
+                            loadedPropsColl.Add(s);
                         }
                     }
 
