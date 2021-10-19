@@ -725,8 +725,7 @@
                 LoadedProperties = new string[0];
             }
 
-            System.Collections.Specialized.StringCollection sc = new System.Collections.Specialized.StringCollection();
-            sc.AddRange(LoadedProperties);
+            List<string> sc = new List<string>(LoadedProperties);
             foreach (string s in addingLoadedProperties)
             {
                 if (!sc.Contains(s))
@@ -735,9 +734,7 @@
                 }
             }
 
-            LoadedProperties = new string[sc.Count];
-            sc.CopyTo(LoadedProperties, 0);
-            sc.Clear();
+            LoadedProperties = sc.ToArray();
         }
 
         /// <summary>
@@ -1670,8 +1667,7 @@
         /// <returns></returns>
         public bool IsAlteredProperty(string propName)
         {
-            var lst = new List<string>();
-            lst.AddRange(GetAlteredPropertyNames());
+            string[] lst = GetAlteredPropertyNames();
             return lst.Contains(propName);
         }
 
