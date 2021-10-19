@@ -20,11 +20,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
 - Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
 - Nullable bool isnull limit.
-    
+- Fix `ExternalLangDef` concurrency.
+
 ### Security
 
 ### Performance
 - Optimize query (select, update, delete) generation.
+- Optimize `Utils.FillRowSetToDataObject`.
+- Optimize `GetHandler` and `SetHandler` usage.
 
 ## [6.0.0] - 2021-05-25
 
