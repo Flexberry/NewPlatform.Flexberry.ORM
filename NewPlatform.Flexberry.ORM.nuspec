@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>6.0.1-beta05</version>
+    <version>6.0.1-beta06</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -20,8 +20,11 @@
       2. Update data objects with static properties inherited from DataObject.
       3. Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
       4. Fix Nullable bool isnull limit.
+      5. Fix `ExternalLangDef` concurrency.
       Performance
       1. Optimize query (select, update, delete) generation.
+      2. Optimize `Utils.FillRowSetToDataObject`.
+      3. Optimize `GetHandler` and `SetHandler` usage.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>

@@ -432,7 +432,7 @@
             }
         }
 
-        private static SortedList stTypesList = new SortedList();
+        private static Hashtable stTypesList = new Hashtable();
 
         /// <summary>
         /// Проверка: является ли переданный тип определённым в namespace <see cref="System"/>.
@@ -448,13 +448,12 @@
 
             lock (stTypesList)
             {
-                string name = type.FullName;
-                object res = stTypesList[name];
+                object res = stTypesList[type];
                 if (res == null)
                 {
-                    bool isSystemType = name.StartsWith("System.", StringComparison.Ordinal) && (name.IndexOf(".", 7, StringComparison.Ordinal) == -1);
-                    stTypesList.Add(name, isSystemType);
-                    res = stTypesList[name];
+                    string name = type.FullName;
+                    res = name.StartsWith("System.", StringComparison.Ordinal) && (name.IndexOf(".", 7, StringComparison.Ordinal) == -1);
+                    stTypesList.Add(type, res);
                 }
 
                 return (bool)res;
@@ -544,9 +543,9 @@
                         PropValue = null;
                     }
 
-                    if ((PropValue != null) && (PropValue.GetType() == typeof(string)))
+                    if (PropValue is string value)
                     {
-                        SetPropValueByName(obj, propName, (string)PropValue);
+                        SetPropValueByName(obj, propName, value);
                     }
                     else
                     {
@@ -601,22 +600,26 @@
                                 {
                                     Type valType = PropValue.GetType();
 
-                                    if ((valType == propType) || (IsSystemType(valType) && IsSystemType(propType)) ||
-                                        (propType == typeof(object))
+                                    if ((valType == propType)
+                                        || (IsSystemType(valType) && IsSystemType(propType))
+                                        || (propType == typeof(object))
                                         || valType.IsSubclassOf(propType))
                                     {
-                                        if (valType != propType && valType.GetInterface("IConvertible") != null)
+                                        object convertedValue;
+                                        if (valType != propType && valType.GetInterface(nameof(IConvertible)) != null)
                                         {
-                                            setHandler(obj, Convert.ChangeType(PropValue, propType));
+                                            convertedValue = Convert.ChangeType(PropValue, propType);
                                         }
                                         else if (valType == typeof(byte[]) && propInfo.PropertyType == typeof(System.Guid) && (PropValue as byte[]).Length == 16)
                                         {
-                                            setHandler(obj, new Guid(PropValue as byte[]));
+                                            convertedValue = new Guid(PropValue as byte[]);
                                         }
                                         else
                                         {
-                                            setHandler(obj, PropValue);
+                                            convertedValue = PropValue;
                                         }
+
+                                        setHandler(obj, convertedValue);
                                     }
                                     else if (propType == typeof(bool))
                                     {
@@ -1944,8 +1947,6 @@
                 throw new ClassIsNotSubclassOfOtherException(type, view.DefineClassType);
             }
 
-            var pvs = new Queue(view.Properties);
-
             var retVal = new Business.StorageStructForView();
             var props = new List<Business.StorageStructForView.PropStorage>();
             retVal.sources.storage[0].Storage = GetClassStorageName(type);
@@ -1957,14 +1958,13 @@
             retVal.sources.Name = view.DefineClassType.Name;
             var addedProperties = new StringCollection();
 
-            int propsCount = pvs.Count;
-            while (pvs.Count > 0)
+            int propsCount = view.Properties.Length;
+            foreach (PropertyInView curprop in view.Properties)
             {
                 propsCount--;
                 var prop = new Business.StorageStructForView.PropStorage();
                 prop.AdditionalProp = propsCount < 0;
                 props.Add(prop);
-                var curprop = (PropertyInView)pvs.Dequeue();
                 if (!addedProperties.Contains(curprop.Name))
                 {
                     addedProperties.Add(curprop.Name);
