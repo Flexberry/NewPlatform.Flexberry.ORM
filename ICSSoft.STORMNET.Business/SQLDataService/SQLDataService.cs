@@ -4508,7 +4508,7 @@
         /// <param name="currentType">Текущий обрабатываемый тип.</param>
         /// <param name="dependencies">Дополняемые зависимости.</param>
         /// <param name="extraUpdateList">Дополнительные объекты на обновление.</param>
-        /// <param name="selfReferences">Структура для хранения информации об иерархических мастеровых ссылках объекта самогона себя.</param>
+        /// <param name="selfReferences">Структура для хранения информации об иерархических мастеровых ссылках объекта самого на себя.</param>
         private void GetDependencies(
             DataObject currentObject,
             Type currentType,
