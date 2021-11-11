@@ -28,8 +28,14 @@
         private static IEnumerable<Assembly> assembliesForIReferencesCascadeDeleteSearch;
 
         /// <summary>
+        /// Кеш соответствия типа и списка типов, для которых он является мастером.
+        /// </summary>
+        private static Dictionary<Type, List<ReferencePropertyInfo>> cacheForReferencePropertyInfoLists;
+
+        /// <summary>
         /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete"/>.
         /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// При изменении данного свойства сбрасывается кеш соответствия типа и списка типов, для которых он является мастером.
         /// </summary>
         public static IEnumerable<Assembly> AssembliesForIReferencesNullDeleteSearch
         {
@@ -40,6 +46,11 @@
 
             set
             {
+                if (assembliesForIReferencesNullDeleteSearch != value)
+                {
+                    cacheForReferencePropertyInfoLists = null;
+                }
+
                 assembliesForIReferencesNullDeleteSearch = value;
             }
         }
@@ -47,6 +58,7 @@
         /// <summary>
         /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>.
         /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// При изменении данного свойства сбрасывается кеш соответствия типа и списка типов, для которых он является мастером.
         /// </summary>
         public static IEnumerable<Assembly> AssembliesForIReferencesCascadeDeleteSearch
         {
@@ -57,6 +69,11 @@
 
             set
             {
+                if (assembliesForIReferencesCascadeDeleteSearch != value)
+                {
+                    cacheForReferencePropertyInfoLists = null;
+                }
+
                 assembliesForIReferencesCascadeDeleteSearch = value;
             }
         }
@@ -83,8 +100,14 @@
         public static List<ReferencePropertyInfo> GetReferencedDataObjectsInfo(
             DataObject masterObject, IEnumerable<Assembly> searchAssemblies = null)
         {
-            var referencePropertyInfos = new List<ReferencePropertyInfo>();
             var realMasterObjectType = masterObject.GetType();
+            var cache = GetCacheForReferencePropertyInfoLists();
+            if (cache.ContainsKey(realMasterObjectType))
+            {
+                return cache[realMasterObjectType];
+            }
+
+            var referencePropertyInfos = new List<ReferencePropertyInfo>();
             var searchAssemblyArray = searchAssemblies == null
                                         ? new[] { realMasterObjectType.Assembly }
                                         : searchAssemblies;
@@ -94,6 +117,7 @@
                 referencePropertyInfos.AddRange(ReferencePropertyInfo.FormList(assembly, realMasterObjectType));
             }
 
+            cache[realMasterObjectType] = referencePropertyInfos;
             return referencePropertyInfos;
         }
 
@@ -342,12 +366,12 @@
             {
                 if (assembly == null)
                 {
-                    throw new ArgumentNullException("assembly");
+                    throw new ArgumentNullException(nameof(assembly));
                 }
 
                 if (masterPropertyType == null)
                 {
-                    throw new ArgumentNullException("masterPropertyType");
+                    throw new ArgumentNullException(nameof(masterPropertyType));
                 }
 
                 List<Type> dataObjectTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(DataObject))).ToList();
@@ -363,5 +387,19 @@
         }
 
         #endregion Вспомогательный класс.
+
+        /// <summary>
+        /// Получение кеша соответствия типа и списка типов, для которых он является мастером.
+        /// </summary>
+        /// <returns>Кеш соответствия типа и списка типов, для которых он является мастером.</returns>
+        private static Dictionary<Type, List<ReferencePropertyInfo>> GetCacheForReferencePropertyInfoLists()
+        {
+            if (cacheForReferencePropertyInfoLists == null)
+            {
+                cacheForReferencePropertyInfoLists = new Dictionary<Type, List<ReferencePropertyInfo>>();
+            }
+
+            return cacheForReferencePropertyInfoLists;
+        }
     }
 }
