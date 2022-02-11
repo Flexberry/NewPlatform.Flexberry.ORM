@@ -1267,5 +1267,49 @@
                 Assert.True(updateException == null, "При создании через UpdateObjectsOrdered не возникло исключений");
             }
         }
+
+        /// <summary>
+        /// Тест на смену агрегатора для детейла.
+        /// </summary>
+        [Fact]
+        public void ChangeAgregatorTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                string detailName = "Под ёлкой";
+                var oldAgregator = new Медведь { ПорядковыйНомер = 1 };
+                var newAgregator = new Медведь { ПорядковыйНомер = 2 };
+                var detail = new Берлога() { Наименование = detailName };
+
+                oldAgregator.Берлога.Add(detail);
+                dataService.UpdateObject(oldAgregator);
+                dataService.UpdateObject(newAgregator);
+
+                // Act.
+                oldAgregator.Берлога.Remove(detail);
+                newAgregator.Берлога.Add(detail);
+                dataService.UpdateObject(newAgregator);
+
+                DataObject[] loadedAgregators = dataService.LoadObjects(Медведь.Views.МедведьСДелейломИВычислимымСвойством);
+
+                // Assert.
+                Assert.Equal(2, loadedAgregators.Length);
+
+                foreach (Медведь item in loadedAgregators)
+                {
+                    if (item.ПорядковыйНомер == 1)
+                    {
+                        Assert.Equal(0, item.Берлога.Count);
+                    }
+
+                    if (item.ПорядковыйНомер == 2)
+                    {
+                        Assert.Equal(1, item.Берлога.Count);
+                        Assert.Equal(detailName, item.Берлога[0].Наименование);
+                    }
+                }
+            }
+        }
     }
 }
