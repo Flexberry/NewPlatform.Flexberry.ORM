@@ -10,6 +10,8 @@ namespace ICSSoft.STORMNET.Business
     using System.Data;
     using System.Collections;
     using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Exceptions;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 
     /// <summary>
     /// Data service for SQL storage.
@@ -21,32 +23,179 @@ namespace ICSSoft.STORMNET.Business
         /// <inheritdoc/>
         public virtual async Task<int> GetObjectsCountAsync(LoadingCustomizationStruct customizationStruct)
         {
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                string cs = ChangeCustomizationString(customizationStruct.LoadingTypes);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
+            RunChangeCustomizationString(customizationStruct.LoadingTypes);
 
             // Применим полномочия на строки
             ApplyReadPermissions(customizationStruct, SecurityManager);
 
             string query = string.Format(
                 "Select count(*) from ({0}) QueryForGettingCount", GenerateSQLSelect(customizationStruct, true));
-            object[][] res = await ReadAsync(query, customizationStruct.LoadingBufferSize);
+            object[][] res = await ReadAsync(query, customizationStruct.LoadingBufferSize)
+                .ConfigureAwait(false);
             return (int)Convert.ChangeType(res[0][0], typeof(int));
+        }
+
+        #region LoadObjectAsync
+
+        /// <summary>
+        /// Загрузка одного объекта данных.
+        /// DataObject обновляется по завершению асинхронной операции, не рекомендуется работать c объектом до завершения операции.
+        /// </summary>
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">очищать ли объект.</param>
+        /// <param name="checkExistingObject">Выбрасывать ли ошибку, если объекта нет в хранилище.</param>
+        /// <returns>Асинхронная операция (по её завершению DataObject обновляется).</returns>
+        public virtual async Task LoadObjectAsync(
+            ICSSoft.STORMNET.View dataObjectView,
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
+        {
+            if (dataObjectView == null)
+            {
+                throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
+            }
+
+            var doType = dobject.GetType();
+            RunChangeCustomizationString(new Type[] { doType });
+
+            // if (dobject.GetStatus(false)==ObjectStatus.Created && !dobject.Prototyped) return;
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                dataObjectCache.AddDataObject(dobject);
+
+                if (clearDataObject)
+                {
+                    dobject.Clear();
+                }
+                else
+                {
+                    prv_AddMasterObjectsToCache(dobject, new System.Collections.ArrayList(), dataObjectCache);
+                }
+
+                var prevPrimaryKey = dobject.__PrimaryKey;
+                var lc = GetLcsPrimaryKey(dobject, dataObjectView);
+                ApplyLimitForAccess(lc);
+
+                // строим запрос
+                StorageStructForView[] StorageStruct; // = STORMDO.Information.GetStorageStructForView(dataObjectView,doType);
+                string query = GenerateSQLSelect(lc, false, out StorageStruct, false);
+
+                // получаем данные
+                object[][] resValue = await ReadAsync(query, 0).ConfigureAwait(false);
+                if (resValue == null)
+                {
+                    if (checkExistingObject)
+                    {
+                        throw new CantFindDataObjectException(doType, dobject.__PrimaryKey);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                DataObject[] rrr = new DataObject[] { dobject };
+                Utils.ProcessingRowsetDataRef(resValue, new Type[] { doType }, StorageStruct, lc, rrr, this, Types, clearDataObject, dataObjectCache, SecurityManager);
+                if (dobject.Prototyped)
+                {
+                    dobject.SetStatus(ObjectStatus.Created);
+                    dobject.SetLoadingState(LoadingState.NotLoaded);
+                    dobject.__PrimaryKey = prevPrimaryKey;
+                }
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(DataObject dobject, DataObjectCache cache)
+        {
+            await LoadObjectAsync(dobject, true, true, cache).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(string viewName, DataObject dataObject)
+        {
+            await LoadObjectAsync(viewName, dataObject, new DataObjectCache()).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(View view, DataObject dobject)
+        {
+            await LoadObjectAsync(view, dobject, new DataObjectCache());
         }
 
         /// <inheritdoc/>
         public virtual async Task LoadObjectAsync(DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
         {
-            await Task.Run(() => this.LoadObject(dobject, clearDataObject, checkExistingObject));
+            await LoadObjectAsync(
+                dobject,
+                clearDataObject,
+                checkExistingObject,
+                new DataObjectCache()).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(string dataObjectViewName, DataObject dobject, DataObjectCache cache)
+        {
+            await LoadObjectAsync(Information.GetView(dataObjectViewName, dobject.GetType()), dobject, cache)
+                .ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(View view, DataObject dobject, DataObjectCache cache)
+        {
+            await LoadObjectAsync(view, dobject, true, true, cache);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
+        {
+            await LoadObjectAsync(
+                new View(dobject.GetType(), View.ReadType.OnlyThatObject),
+                dobject,
+                clearDataObject,
+                checkExistingObject,
+                dataObjectCache).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(string dataObjectViewName, DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
+        {
+            await LoadObjectAsync(
+                Information.GetView(dataObjectViewName, dobject.GetType()),
+                dobject,
+                clearDataObject,
+                checkExistingObject,
+                new DataObjectCache()).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(View dataObjectView, DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
+        {
+            await LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache())
+                .ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task LoadObjectAsync(
+            string dataObjectViewName,
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
+        {
+            await LoadObjectAsync(Information.GetView(dataObjectViewName, dobject.GetType()), dobject, clearDataObject, checkExistingObject, dataObjectCache);
         }
 
         /// <inheritdoc/>
         public virtual async Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true)
         {
-            await Task.Run(() => LoadObject(dataObjectView, dobject, clearDataObject, checkExistingObject));
+            await LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
+
+        #endregion
 
         /// <inheritdoc/>
         public virtual async Task LoadObjectsAsync(IEnumerable<DataObject> dataobjects, View dataObjectView, bool clearDataobject = true)
@@ -120,9 +269,9 @@ namespace ICSSoft.STORMNET.Business
         /// <summary>
         /// Асинхронная вычитка данных.
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="query">Запрос для вычитки.</param>
         /// <param name="loadingBufferSize"></param>
-        /// <returns></returns>
+        /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
         public virtual async Task<object[][]> ReadAsync(string query, int loadingBufferSize)
         {
             object task = BusinessTaskMonitor.BeginTask("Reading data asynchronously" + Environment.NewLine + query);
@@ -173,13 +322,6 @@ namespace ICSSoft.STORMNET.Business
                     }
 
                     object[][] result = (object[][])arl.ToArray(typeof(object[]));
-
-                    if (i < loadingBufferSize || loadingBufferSize == 0)
-                    {
-                        reader.Close();
-                        connection.Close();
-                    }
-
                     return result;
                 }
                 else

@@ -289,6 +289,19 @@
         }
 
         /// <summary>
+        /// Изменить строку соединения (согласно настройкам <see cref="DoNotChangeCustomizationString"/> и <see cref="ChangeCustomizationString"/>).
+        /// </summary>
+        /// <param name="types">Типы загружаемых объектов, согласно которым нужно изменить строку соединения.</param>
+        private void RunChangeCustomizationString(Type[] types)
+        {
+            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            {
+                string cs = ChangeCustomizationString(types);
+                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+            }
+        }
+
+        /// <summary>
         /// Возвращает количество объектов удовлетворяющих запросу.
         /// </summary>
         /// <param name="customizationStruct">
@@ -298,11 +311,7 @@
         /// </returns>
         public virtual int GetObjectsCount(LoadingCustomizationStruct customizationStruct)
         {
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                string cs = ChangeCustomizationString(customizationStruct.LoadingTypes);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
+            RunChangeCustomizationString(customizationStruct.LoadingTypes);
 
             // Применим полномочия на строки
             ApplyReadPermissions(customizationStruct, SecurityManager);
@@ -661,6 +670,7 @@
             dataObjectCache.StartCaching(false);
             try
             {
+                Type dataObjectType = dobject.GetType();
                 dataObjectCache.AddDataObject(dobject);
 
                 if (сlearDataObject)
@@ -672,48 +682,13 @@
                     prv_AddMasterObjectsToCache(dobject, new ArrayList(), dataObjectCache);
                 }
 
-                Type dataObjectType = dobject.GetType();
+                var prevPrimaryKey = dobject.__PrimaryKey;
+                var lcs = GetLcsPrimaryKey(dobject, dataObjectView);
 
-                var lcs = new LoadingCustomizationStruct(GetInstanceId());
-
-                FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang =
-                    FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                var variable = new FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectType)),
-                    FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.StormMainObjectKey);
-                object readingkey = dobject.__PrimaryKey;
-                object prevPrimaryKey = null;
-                if (dobject.Prototyped)
-                {
-                    readingkey = dobject.__PrototypeKey;
-                    prevPrimaryKey = dobject.__PrimaryKey;
-                }
-
-                FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, variable, readingkey);
-
-                lcs.Init(new ColumnsSortDef[0], func, new Type[] { dataObjectType }, dataObjectView, new string[0]);
+                ApplyLimitForAccess(lcs);
 
                 // Cтроим запрос.
                 StorageStructForView[] storageStruct;
-
-                // Применим полномочия на строки. НАЧАЛО.
-                object limitObject;
-                bool canAccess;
-                var operationResult = SecurityManager.GetLimitForAccess(lcs.View.DefineClassType, tTypeAccess.Read, out limitObject, out canAccess);
-                STORMFunction limit = limitObject as STORMFunction;
-                if (operationResult == OperationResult.Успешно)
-                {
-                    if (limit != null)
-                    {
-                        lcs.LimitFunction = lang.GetFunction(lang.funcAND, lcs.LimitFunction, limit);
-                    }
-                }
-                else
-                {
-                    // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
-                    LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
-                }
-
                 string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
 
                 // Получаем данные.
@@ -1089,6 +1064,59 @@
         public virtual void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
         {
             LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, true, true, DataObjectCache);
+        }
+
+        /// <summary>
+        /// Получить ограничение по первичному ключу для объекта данных.
+        /// </summary>
+        /// <param name="dataObject">Объект данных.</param>
+        /// <param name="dataObjectView">Представление для ограничения.</param>
+        /// <returns>Ограничение по первичному ключу.</returns>
+        private LoadingCustomizationStruct GetLcsPrimaryKey(DataObject dataObject, View dataObjectView)
+        {
+            var doType = dataObject.GetType();
+
+            LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
+            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
+            VariableDef var = new VariableDef(
+                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), SQLWhereLanguageDef.StormMainObjectKey);
+            object readingkey = dataObject.__PrimaryKey;
+            if (dataObject.Prototyped)
+            {
+                readingkey = dataObject.__PrototypeKey;
+            }
+
+            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
+
+            // ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef fd = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+            lc.Init(new ColumnsSortDef[0], func, new Type[] { doType }, dataObjectView, new string[0]);
+
+            return lc;
+        }
+
+        /// <summary>
+        /// Добавить ограничение доступа (у текущего пользователя) к lcs.
+        /// </summary>
+        /// <param name="lc">Lcs, к которому добавится ограничение.</param>
+        private void ApplyLimitForAccess(LoadingCustomizationStruct lc)
+        {
+            object limitObject;
+            bool canAccess;
+            var operationResult = SecurityManager.GetLimitForAccess(lc.View.DefineClassType, tTypeAccess.Read, out limitObject, out canAccess);
+            STORMFunction limit = limitObject as STORMFunction;
+            if (operationResult == OperationResult.Успешно)
+            {
+                if (limit != null)
+                {
+                    SQLWhereLanguageDef ldef = SQLWhereLanguageDef.LanguageDef;
+                    lc.LimitFunction = ldef.GetFunction(ldef.funcAND, lc.LimitFunction, limit);
+                }
+            }
+            else
+            {
+                // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
+                LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
+            }
         }
 
         /// <summary>

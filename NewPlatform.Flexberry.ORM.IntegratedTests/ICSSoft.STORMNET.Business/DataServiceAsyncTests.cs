@@ -50,5 +50,37 @@
                 Assert.Equal(2, count);
             }
         }
+
+        /// <summary>
+        /// Тест проверяет метод <see cref="IAsyncDataService.LoadObjectAsync(ICSSoft.STORMNET.DataObject, View, bool, bool)"/>.
+        /// </summary>
+        [Fact]
+        public async void LoadObjectAsyncTest()
+        {
+            foreach (SQLDataService ds in DataServices)
+            {
+                // Arrange.
+                var user1 = new Пользователь { ФИО = "Петриченко Максим Андреевич", Логин = "petr", ДатаРегистрации = NullableDateTime.Parse("2020-01-01") };
+                var dObjects = new ICSSoft.STORMNET.DataObject[] { user1 };
+
+                var view = new View { DefineClassType = typeof(Пользователь) };
+                view.AddProperties(
+                    Information.ExtractPropertyPath<Пользователь>(x => x.ФИО),
+                    Information.ExtractPropertyPath<Пользователь>(x => x.Логин),
+                    Information.ExtractPropertyPath<Пользователь>(x => x.ДатаРегистрации));
+
+                // Act.
+                ds.UpdateObjects(ref dObjects);
+
+                var userToLoad = new Пользователь();
+                userToLoad.SetExistObjectPrimaryKey(user1.__PrimaryKey);
+                await ds.LoadObjectAsync(view, userToLoad);
+
+                // Assert.
+                Assert.Equal(user1.ФИО, userToLoad.ФИО);
+                Assert.Equal(user1.Логин, userToLoad.Логин);
+                Assert.Equal(user1.ДатаРегистрации, userToLoad.ДатаРегистрации);
+            }
+        }
     }
 }
