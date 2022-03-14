@@ -538,6 +538,15 @@
         }
 
         /// <summary>
+        /// Get connection by Npgsql (DbConnection).
+        /// </summary>
+        /// <returns>Database connection.</returns>
+        public override System.Data.Common.DbConnection GetDbConnection()
+        {
+            return new NpgsqlConnection(CustomizationString);
+        }
+
+        /// <summary>
         /// Put identifier into brackets.
         /// </summary>
         /// <param name="identifier">Identifier in query.</param>

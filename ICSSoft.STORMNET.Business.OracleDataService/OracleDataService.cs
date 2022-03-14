@@ -389,6 +389,11 @@
             return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
         }
 
+        public override System.Data.Common.DbConnection GetDbConnection()
+        {
+            return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
+        }
+
         /// <summary>
         /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL).
         /// </summary>
