@@ -10,8 +10,6 @@ namespace ICSSoft.STORMNET.Business
 
     public interface IAsyncDataService : ICloneable
     {
-        //Нужен ли? DataServiceOptions Options { get; set; }
-
         /// <summary>
         /// Возвращает количество объектов удовлетворяющих запросу.
         /// </summary>
@@ -48,7 +46,7 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="dataObjectView">Представлене.</param>
         /// <param name="clearDataobject">Очищать загруженные объекты (см. <see cref="ICSSoft.STORMNET.DataObject.Clear"/>).</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task LoadObjectsAsync(IEnumerable<DataObject> dataobjects, View dataObjectView, bool clearDataobject = true);
+        //Task LoadObjectsAsync(DataObject[] dataobjects, View dataObjectView, bool clearDataobject = true);
 
         /// <summary>
         /// Загрузка объектов данных по представлению.
@@ -58,7 +56,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(View dataObjectView);
+        //Task<DataObject[]> LoadObjectsAsync(View dataObjectView);
 
         /// <summary>
         /// Загрузка объектов данных по нескольким представлениям.
@@ -68,7 +66,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<View> dataObjectViews);
+        Task<DataObject[]> LoadObjectsAsync(View[] dataObjectViews);
 
         /// <summary>
         /// Загрузка объектов данных по массиву структур.
@@ -78,7 +76,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<LoadingCustomizationStruct> customizationStructs);
+        Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct[] customizationStructs);
 
         /// <summary>
         /// Загрузка объектов данных по представлению.
@@ -89,7 +87,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(View dataObjectView, ChangeViewForTypeDelegate changeViewForTypeDelegate);
+        //Task<DataObject[]> LoadObjectsAsync(View dataObjectView, ChangeViewForTypeDelegate changeViewForTypeDelegate);
 
         /// <summary>
         /// Загрузка объектов данных по массиву представлений.
@@ -100,7 +98,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<View> dataObjectViews, ChangeViewForTypeDelegate changeViewForTypeDelegate);
+        //Task<DataObject[]> LoadObjectsAsync(View[] dataObjectViews, ChangeViewForTypeDelegate changeViewForTypeDelegate);
 
         /// <summary>
         /// Загрузка объектов данных по массиву структур.
@@ -111,7 +109,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<LoadingCustomizationStruct> customizationStructs, ChangeViewForTypeDelegate changeViewForTypeDelegate);
+        //Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct[] customizationStructs, ChangeViewForTypeDelegate changeViewForTypeDelegate);
 
         /// <summary>
         /// Загрузка объектов данных.
@@ -121,28 +119,7 @@ namespace ICSSoft.STORMNET.Business
         /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
         /// Результат содержит коллекцию объектов данных.
         /// </returns>
-        Task<IEnumerable<DataObject>> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct);
-
-        /// <summary>
-        /// Загрузка объектов данных.
-        /// </summary>
-        /// <param name="customizationStruct">Настроечная структура для выборки <see cref="LoadingCustomizationStruct"/>.</param>
-        /// <param name="State">Состояние вычитки (для последующей дочитки).</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        //Task<IEnumerable<DataObject>> LoadObjects(LoadingCustomizationStruct customizationStruct, ref object State);
-
-        /// <summary>
-        /// Загрузка объектов данных.
-        /// </summary>
-        /// <param name="State">Состояние вычитки( для последующей дочитки).</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        //Task<IEnumerable<DataObject>> LoadObjects(ref object State);
+        Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct);
 
         /// <summary>
         /// Обновление объекта данных.
@@ -156,6 +133,6 @@ namespace ICSSoft.STORMNET.Business
         /// </summary>
         /// <param name="objects">Объекты данных, которые требуется обновить.</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task<IEnumerable<DataObject>> UpdateObjectsAsync(IEnumerable<DataObject> objects);
+        Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects);
     }
 }

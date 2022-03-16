@@ -1,5 +1,4 @@
-﻿
-namespace ICSSoft.STORMNET.Business
+﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
     using System.Collections.Generic;
@@ -197,53 +196,254 @@ namespace ICSSoft.STORMNET.Business
 
         #endregion
 
+        #region LoadObjectsAsync
+
         /// <inheritdoc/>
-        public virtual async Task LoadObjectsAsync(IEnumerable<DataObject> dataobjects, View dataObjectView, bool clearDataobject = true)
+        public virtual async Task LoadObjectsAsync(ICSSoft.STORMNET.DataObject[] dataObjects,
+            ICSSoft.STORMNET.View dataObjectView, bool clearDataObject = true, DataObjectCache dataObjectCache = null)
         {
-            await Task.Run(() => LoadObjects(dataobjects.ToArray(), dataObjectView, clearDataobject));
+            if (dataObjectView == null)
+            {
+                throw new ArgumentNullException(nameof(dataObjectView));
+            }
+
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
+            if (dataObjects == null || dataObjects.Length == 0)
+            {
+                return;
+            }
+
+            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            {
+                System.Collections.Generic.List<Type> tps = new System.Collections.Generic.List<Type>();
+                foreach (DataObject d in dataObjects)
+                {
+                    Type t = d.GetType();
+                    if (!tps.Contains(t))
+                    {
+                        tps.Add(t);
+                    }
+                }
+
+                string cs = ChangeCustomizationString(tps.ToArray());
+                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+            }
+
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                System.Collections.ArrayList ALtypes = new System.Collections.ArrayList();
+                System.Collections.ArrayList ALKeys = new System.Collections.ArrayList();
+                System.Collections.SortedList ALobjectsKeys = new System.Collections.SortedList();
+                System.Collections.SortedList readingKeys = new System.Collections.SortedList();
+                for (int i = 0; i < dataObjects.Length; i++)
+                {
+                    DataObject dobject = dataObjects[i];
+                    Type dotype = dobject.GetType();
+                    bool addobj = false;
+                    if (ALtypes.Contains(dotype))
+                    {
+                        addobj = true;
+                    }
+                    else
+                    {
+                        if ((dotype == dataObjectView.DefineClassType || dotype.IsSubclassOf(dataObjectView.DefineClassType)) && Information.IsStoredType(dotype))
+                        {
+                            ALtypes.Add(dotype);
+                            addobj = true;
+                        }
+                    }
+
+                    if (addobj)
+                    {
+                        object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
+                        ALKeys.Add(readingKey);
+                        ALobjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
+                        readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
+                    }
+                }
+
+                LoadingCustomizationStruct customizationStruct = new LoadingCustomizationStruct(GetInstanceId());
+
+                FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+                FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
+                object[] keys = new object[ALKeys.Count + 1];
+                ALKeys.CopyTo(keys, 1);
+                keys[0] = var;
+                FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys);
+                Type[] types = new Type[ALtypes.Count];
+                ALtypes.CopyTo(types);
+
+                customizationStruct.Init(null, func, types, dataObjectView, null);
+
+                StorageStructForView[] StorageStruct;
+
+                // Применим полномочия на строки.
+                ApplyReadPermissions(customizationStruct, SecurityManager);
+
+                string SelectString = string.Empty;
+                SelectString = GenerateSQLSelect(customizationStruct, false, out StorageStruct, false);
+
+                // получаем данные
+                object[][] resValue = (SelectString == string.Empty) ? new object[0][] : await ReadAsync(
+                    SelectString,
+                    0).ConfigureAwait(false);
+                if (resValue != null && resValue.Length != 0)
+                {
+                    DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[resValue.Length];
+                    int ObjectTypeIndexPOs = resValue[0].Length - 1;
+                    int keyIndex = StorageStruct[0].props.Length - 1;
+                    while (StorageStruct[0].props[keyIndex].MultipleProp)
+                    {
+                        keyIndex--;
+                    }
+
+                    keyIndex++;
+
+                    for (int i = 0; i < resValue.Length; i++)
+                    {
+                        Type tp = types[Convert.ToInt64(resValue[i][ObjectTypeIndexPOs].ToString())];
+                        object ky = resValue[i][keyIndex];
+                        ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
+                        int indexobj = ALobjectsKeys.IndexOfKey(tp.FullName + ky.ToString());
+                        if (indexobj > -1)
+                        {
+                            loadobjects[i] = dataObjects[(int)ALobjectsKeys.GetByIndex(indexobj)];
+                            if (clearDataObject)
+                            {
+                                loadobjects[i].Clear();
+                            }
+
+                            dataObjectCache.AddDataObject(loadobjects[i]);
+                        }
+                        else
+                        {
+                            loadobjects[i] = null;
+                        }
+                    }
+
+                    Utils.ProcessingRowsetDataRef(resValue, types, StorageStruct, customizationStruct, loadobjects, this, Types, clearDataObject, dataObjectCache, SecurityManager);
+                    foreach (DataObject dobj in loadobjects)
+                    {
+                        if (dobj != null && dobj.Prototyped)
+                        {
+                            dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
+                            dobj.SetStatus(ObjectStatus.Created);
+                            dobj.SetLoadingState(LoadingState.NotLoaded);
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(View dataObjectView)
+        public virtual async Task<ICSSoft.STORMNET.DataObject[]> LoadObjectsAsync(
+            LoadingCustomizationStruct customizationStruct,
+            DataObjectCache dataObjectCache)
         {
-            return await Task.Run(() => LoadObjectsAsync(dataObjectView));
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                System.Type[] dataObjectType = customizationStruct.LoadingTypes;
+                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+                {
+                    string cs = ChangeCustomizationString(dataObjectType);
+                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                }
+
+                // Применим полномочия на строки.
+                ApplyReadPermissions(customizationStruct, SecurityManager);
+
+                StorageStructForView[] storageStruct;
+
+                string selectString = string.Empty;
+                selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
+
+                // получаем данные
+                object[][] resValue = await ReadAsync(selectString, customizationStruct.LoadingBufferSize)
+                    .ConfigureAwait(false);
+                ICSSoft.STORMNET.DataObject[] res = null;
+                if (resValue == null)
+                {
+                    res = new DataObject[0];
+                }
+                else
+                {
+                    res = Utils.ProcessingRowsetData(resValue, dataObjectType, storageStruct, customizationStruct, this, Types, dataObjectCache, SecurityManager);
+                }
+
+                return res;
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<View> dataObjectViews)
+        public virtual Task<ICSSoft.STORMNET.DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct)
         {
-            return await Task.Run(() => LoadObjects(dataObjectViews.ToArray()));
+            return LoadObjectsAsync(customizationStruct, new DataObjectCache());
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<LoadingCustomizationStruct> customizationStructs)
+        public virtual async Task<ICSSoft.STORMNET.DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct[] customizationStructs)
         {
-            return await Task.Run(() => LoadObjects(customizationStructs.ToArray()));
+            System.Collections.ArrayList arr = new System.Collections.ArrayList();
+            ICSSoft.STORMNET.DataObject[] res = null;
+            for (int i = 0; i < customizationStructs.Length; i++)
+            {
+                res = await LoadObjectsAsync(customizationStructs[i]);
+                for (int j = 0; j < res.Length; j++)
+                {
+                    arr.Add(res[j]);
+                }
+            }
+
+            res = new ICSSoft.STORMNET.DataObject[arr.Count];
+            arr.CopyTo(res);
+            return res;
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(View dataObjectView, ChangeViewForTypeDelegate changeViewForTypeDelegate)
+        public virtual Task<DataObject[]> LoadObjectsAsync(View dataObjectView)
         {
-            return await Task.Run(() => LoadObjects(dataObjectView, changeViewForTypeDelegate));
+            LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
+            lc.View = dataObjectView;
+            lc.LoadingTypes = new[] { dataObjectView.DefineClassType };
+            return LoadObjectsAsync(lc, new DataObjectCache());
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<View> dataObjectViews, ChangeViewForTypeDelegate changeViewForTypeDelegate)
+        public virtual async Task<DataObject[]> LoadObjectsAsync(View[] dataObjectViews)
         {
-            return await Task.Run(() => LoadObjects(dataObjectViews.ToArray(), changeViewForTypeDelegate));
+            System.Collections.ArrayList arr = new System.Collections.ArrayList();
+            ICSSoft.STORMNET.DataObject[] res = null;
+            for (int i = 0; i < dataObjectViews.Length; i++)
+            {
+                res = await LoadObjectsAsync(dataObjectViews[i])
+                    .ConfigureAwait(false);
+                for (int j = 0; j < res.Length; j++)
+                {
+                    arr.Add(res[j]);
+                }
+            }
+
+            res = new ICSSoft.STORMNET.DataObject[arr.Count];
+            arr.CopyTo(res);
+            return res;
         }
 
-        /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(IEnumerable<LoadingCustomizationStruct> customizationStructs, ChangeViewForTypeDelegate changeViewForTypeDelegate)
-        {
-            return await Task.Run(() => LoadObjects(customizationStructs.ToArray(), changeViewForTypeDelegate));
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct)
-        {
-            return await Task.Run(() => LoadObjects(customizationStruct));
-        }
+        #endregion
 
         /// <inheritdoc/>
         public virtual async Task<DataObject> UpdateObjectAsync(DataObject dobject)
@@ -339,6 +539,11 @@ namespace ICSSoft.STORMNET.Business
                 connection?.Close();
                 BusinessTaskMonitor.EndTask(task);
             }
+        }
+
+        public Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects)
+        {
+            throw new NotImplementedException();
         }
     }
 }
