@@ -54,10 +54,10 @@ jobs:
         run:  msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln" 
 
       - name: Test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Integration test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
@@ -109,10 +109,10 @@ jobs:
         run:  msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln" 
 
       - name: Test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Integration test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
