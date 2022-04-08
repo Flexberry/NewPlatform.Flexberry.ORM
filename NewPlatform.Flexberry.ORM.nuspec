@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>6.0.1-beta07</version>
+    <version>6.1.0-beta01</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -15,6 +15,7 @@
       Added
       1. IComparableType implementation to WebFile class.
       2. Feature GeoDistance is implemented.
+	  3. UTC time enable flag as property in IAuditService.
       Fixed
       1. Resolve hierarchy references for Created master only (removed excess UPDATE).
       2. Update data objects with static properties inherited from DataObject.
