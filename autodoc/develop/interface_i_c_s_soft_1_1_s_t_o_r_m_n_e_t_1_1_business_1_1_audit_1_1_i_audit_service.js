@@ -23,5 +23,6 @@ var interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_
     [ "AuditConnectionStringName", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a29bacfd166b7345895312409c52509e1", null ],
     [ "IsAuditEnabled", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a6b0715d64ffb23c97b53633642044fbb", null ],
     [ "IsAuditRemote", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#aeb3876a39cd4c61ee0de2ca3a051dfb1", null ],
+    [ "PersistUtcDates", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#ace27dfadb48f7f6baf3c2adad29d8108", null ],
     [ "ShowPrimaryKey", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a8e05b07591afa3dce7176f967ed6ce41", null ]
 ];
