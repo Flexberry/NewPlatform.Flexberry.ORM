@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `IComparableType` implementation to `WebFile` class.
 - Feature GeoDistance is implemented.
+- `IAuditService` UTC time enable flag as property.
 
 ### Changed
 
