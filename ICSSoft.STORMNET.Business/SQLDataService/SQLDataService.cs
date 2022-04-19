@@ -302,6 +302,20 @@
         }
 
         /// <summary>
+        /// Изменить строку соединения (согласно настройкам <see cref="DoNotChangeCustomizationString"/> и <see cref="ChangeCustomizationString"/>).
+        /// </summary>
+        /// <param name="dataObjects">Загружаемые объекты - по списку их типов будет изменена строка соединения.</param>
+        private void RunChangeCustomizationString(DataObject[] dataObjects)
+        {
+            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            {
+                var types = dataObjects.Select(x => x.GetType()).Distinct().ToArray();
+                string cs = ChangeCustomizationString(types);
+                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+            }
+        }
+
+        /// <summary>
         /// Возвращает количество объектов удовлетворяющих запросу.
         /// </summary>
         /// <param name="customizationStruct">
@@ -5643,29 +5657,7 @@
                 return indexX.CompareTo(indexY);
             });
 
-            /*access checks*/
-
-            foreach (DataObject dtob in allQueriedObjects)
-            {
-                Type dobjType = dtob.GetType();
-                if (!SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Full, false))
-                {
-                    switch (dtob.GetStatus(false))
-                    {
-                        case ObjectStatus.Created:
-                            SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Insert, true);
-                            break;
-                        case ObjectStatus.Altered:
-                            SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Update, true);
-                            break;
-                        case ObjectStatus.Deleted:
-                            SecurityManager.AccessObjectCheck(dobjType, tTypeAccess.Delete, true);
-                            break;
-                    }
-                }
-            }
-
-            /*access checks*/
+            AccessCheckBeforeUpdate(SecurityManager, allQueriedObjects);
 
             // Порядок выполнения запросов: delete, insert, update.
             if (deleteQueries.Count > 0 || updateQueries.Count > 0 || insertQueries.Count > 0)
@@ -6143,6 +6135,34 @@
                    && Regex.IsMatch(
                        expression.Trim(),
                        string.Format(@"^{0}$", SecurityManager.AttributeCheckExpressionPattern));
+        }
+
+        /// <summary>
+        /// Проверка прав пользователя перед изменением объектов (выбрасывает исключение если доступ закрыт).
+        /// </summary>
+        /// <param name="securityManager">Менеджер полномочий, выполняющий проверку.</param>
+        /// <param name="dataObjects">Изменённые объекты (проверяются права на изменение этих объектов).</param>
+        public static void AccessCheckBeforeUpdate(ISecurityManager securityManager, ArrayList dataObjects)
+        {
+            foreach (DataObject dtob in dataObjects)
+            {
+                Type dobjType = dtob.GetType();
+                if (!securityManager.AccessObjectCheck(dobjType, tTypeAccess.Full, false))
+                {
+                    switch (dtob.GetStatus(false))
+                    {
+                        case ObjectStatus.Created:
+                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Insert, true);
+                            break;
+                        case ObjectStatus.Altered:
+                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Update, true);
+                            break;
+                        case ObjectStatus.Deleted:
+                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Delete, true);
+                            break;
+                    }
+                }
+            }
         }
     }
 

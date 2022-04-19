@@ -1,4 +1,4 @@
-namespace ICSSoft.STORMNET.Business
+namespace NewPlatform.Flexberry.ORM
 {
     using System;
     using System.Collections.Generic;
@@ -38,25 +38,6 @@ namespace ICSSoft.STORMNET.Business
         /// <param name="checkExistingObject">Проверять ли существование объекта в хранилище (вызывать исключение если объекта нет).</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
         Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true);
-
-        /// <summary>
-        /// Догрузка объектов данных по представлению.
-        /// </summary>
-        /// <param name="dataobjects">Исходные объекты.</param>
-        /// <param name="dataObjectView">Представлене.</param>
-        /// <param name="clearDataobject">Очищать загруженные объекты (см. <see cref="ICSSoft.STORMNET.DataObject.Clear"/>).</param>
-        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        //Task LoadObjectsAsync(DataObject[] dataobjects, View dataObjectView, bool clearDataobject = true);
-
-        /// <summary>
-        /// Загрузка объектов данных по представлению.
-        /// </summary>
-        /// <param name="dataObjectView">Представление.</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        //Task<DataObject[]> LoadObjectsAsync(View dataObjectView);
 
         /// <summary>
         /// Загрузка объектов данных по нескольким представлениям.

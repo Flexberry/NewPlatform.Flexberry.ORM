@@ -8,7 +8,15 @@
     /// </summary>
     public class DbTransactionWrapper : IDisposable
     {
-        private IDbTransaction _transaction;
+        /// <summary>
+        /// Транзакция.
+        /// </summary>
+        protected IDbTransaction _transaction;
+
+        /// <summary>
+        /// Пустой конструктор.
+        /// </summary>
+        protected DbTransactionWrapper() { }
 
         /// <summary>
         /// Initializes instance of <see cref="DbTransactionWrapper" />.

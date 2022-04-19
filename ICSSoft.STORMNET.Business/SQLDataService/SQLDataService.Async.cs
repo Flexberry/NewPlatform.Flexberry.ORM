@@ -1,16 +1,15 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Data.Common;
-    using System.Data;
     using System.Collections;
-    using ICSSoft.STORMNET.Security;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using NewPlatform.Flexberry.ORM;
 
     /// <summary>
     /// Data service for SQL storage.
@@ -110,88 +109,55 @@
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(DataObject dobject, DataObjectCache cache)
+        public virtual Task LoadObjectAsync(DataObject dobject, DataObjectCache cache)
         {
-            await LoadObjectAsync(dobject, true, true, cache).ConfigureAwait(false);
+            return LoadObjectAsync(dobject, true, true, cache);
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(string viewName, DataObject dataObject)
+        public virtual Task LoadObjectAsync(View view, DataObject dobject)
         {
-            await LoadObjectAsync(viewName, dataObject, new DataObjectCache()).ConfigureAwait(false);
+            return LoadObjectAsync(view, dobject, new DataObjectCache());
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(View view, DataObject dobject)
+        public virtual Task LoadObjectAsync(DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
         {
-            await LoadObjectAsync(view, dobject, new DataObjectCache());
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
-        {
-            await LoadObjectAsync(
+            return LoadObjectAsync(
                 dobject,
                 clearDataObject,
                 checkExistingObject,
-                new DataObjectCache()).ConfigureAwait(false);
+                new DataObjectCache());
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(string dataObjectViewName, DataObject dobject, DataObjectCache cache)
+        public virtual Task LoadObjectAsync(View view, DataObject dobject, DataObjectCache cache)
         {
-            await LoadObjectAsync(Information.GetView(dataObjectViewName, dobject.GetType()), dobject, cache)
-                .ConfigureAwait(false);
+            return LoadObjectAsync(view, dobject, true, true, cache);
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(View view, DataObject dobject, DataObjectCache cache)
-        {
-            await LoadObjectAsync(view, dobject, true, true, cache);
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(
+        public virtual Task LoadObjectAsync(
             ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
         {
-            await LoadObjectAsync(
+            return LoadObjectAsync(
                 new View(dobject.GetType(), View.ReadType.OnlyThatObject),
                 dobject,
                 clearDataObject,
                 checkExistingObject,
-                dataObjectCache).ConfigureAwait(false);
+                dataObjectCache);
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(string dataObjectViewName, DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
+        public virtual Task LoadObjectAsync(View dataObjectView, DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
         {
-            await LoadObjectAsync(
-                Information.GetView(dataObjectViewName, dobject.GetType()),
-                dobject,
-                clearDataObject,
-                checkExistingObject,
-                new DataObjectCache()).ConfigureAwait(false);
+            return LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
 
         /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(View dataObjectView, DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
+        public virtual Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true)
         {
-            await LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache())
-                .ConfigureAwait(false);
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(
-            string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
-        {
-            await LoadObjectAsync(Information.GetView(dataObjectViewName, dobject.GetType()), dobject, clearDataObject, checkExistingObject, dataObjectCache);
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true)
-        {
-            await LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
+            return LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
 
         #endregion
@@ -443,28 +409,155 @@
             return res;
         }
 
+        /// <summary>
+        /// Асихнронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.
+        /// </summary>
+        /// <param name="dataObjectView">Представление, по которому будет зачитываться объект.</param>
+        /// <param name="dobject">Объект, который будет дочитываться/зачитываться.</param>
+        /// <param name="сlearDataObject">Следует ли при зачитке очистить поля существующего объекта данных.</param>
+        /// <param name="сheckExistingObject">Проверить существовние встречающихся при зачитке объектов.</param>
+        /// <param name="dataObjectCache">Кэш объектов.</param>
+        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
+        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
+        public virtual async Task LoadObjectByExtConnAsync(
+            View dataObjectView,
+            DataObject dobject,
+            bool сlearDataObject,
+            bool сheckExistingObject,
+            DataObjectCache dataObjectCache,
+            DbConnection connection,
+            DbTransaction transaction)
+        {
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                Type dataObjectType = dobject.GetType();
+                dataObjectCache.AddDataObject(dobject);
+
+                if (сlearDataObject)
+                {
+                    dobject.Clear();
+                }
+                else
+                {
+                    prv_AddMasterObjectsToCache(dobject, new ArrayList(), dataObjectCache);
+                }
+
+                var prevPrimaryKey = dobject.__PrimaryKey;
+                var lcs = GetLcsPrimaryKey(dobject, dataObjectView);
+
+                ApplyLimitForAccess(lcs);
+
+                // Cтроим запрос.
+                StorageStructForView[] storageStruct;
+                string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
+
+                // Получаем данные.
+                object state = null;
+                object[][] resValue = await ReadFirstByExtConnAsync(query, state, 0, connection, transaction);
+                if (resValue == null)
+                {
+                    if (сheckExistingObject)
+                    {
+                        throw new CantFindDataObjectException(dataObjectType, dobject.__PrimaryKey);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                DataObject[] helpDataObjectArray = { dobject };
+
+                Utils.ProcessingRowsetDataRef(
+                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, сlearDataObject, dataObjectCache, SecurityManager, connection, transaction);
+
+                if (dobject.Prototyped)
+                {
+                    dobject.SetStatus(ObjectStatus.Created);
+                    dobject.SetLoadingState(LoadingState.NotLoaded);
+                    dobject.__PrimaryKey = prevPrimaryKey;
+                }
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
+        }
+
+        public virtual Task<object[][]> ReadFirstByExtConnAsync(string Query, object State, int LoadingBufferSize, DbConnection Connection, DbTransaction Transaction)
+        {
+            object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + Query);
+            try
+            {
+                using (DbCommand myCommand = Connection.CreateCommand())
+                {
+                    myCommand.CommandText = Query;
+                    myCommand.Transaction = Transaction;
+                    CustomizeCommand(myCommand);
+
+                    DbDataReader myReader = myCommand.ExecuteReader();
+                    State = new object[] { Connection, myReader };
+                    return ReadNextByExtConnAsync(State, LoadingBufferSize);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ExecutingQueryException(Query, string.Empty, e);
+            }
+            finally
+            {
+                BusinessTaskMonitor.EndTask(taskid);
+            }
+        }
+
+        public virtual async Task<object[][]> ReadNextByExtConnAsync(object State, int LoadingBufferSize)
+        {
+            if (State == null || !State.GetType().IsArray)
+            {
+                return null;
+            }
+
+            DbDataReader myReader = (DbDataReader)((object[])State)[1];
+            if (await myReader.ReadAsync())
+            {
+                ArrayList arl = new ArrayList();
+                int i = 1;
+                int FieldCount = myReader.FieldCount;
+
+                while (i <= LoadingBufferSize || LoadingBufferSize == 0)
+                {
+                    if (i > 1)
+                    {
+                        if (!await myReader.ReadAsync())
+                        {
+                            break;
+                        }
+                    }
+
+                    object[] tmp = new object[FieldCount];
+                    myReader.GetValues(tmp);
+                    arl.Add(tmp);
+                    i++;
+                }
+
+                object[][] result = (object[][])arl.ToArray(typeof(object[]));
+
+                if (i < LoadingBufferSize || LoadingBufferSize == 0)
+                {
+                    myReader.Close();
+                }
+
+                return result;
+            }
+            else
+            {
+                myReader.Close();
+                return null;
+            }
+        }
+
         #endregion
-
-        /// <inheritdoc/>
-        public virtual async Task<DataObject> UpdateObjectAsync(DataObject dobject)
-        {
-            return await Task.Run(() =>
-            {
-                UpdateObject(ref dobject);
-                return dobject;
-            });
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task<IEnumerable<DataObject>> UpdateObjectsAsync(IEnumerable<DataObject> objects)
-        {
-            return await Task.Run(() =>
-            {
-                var objArray = objects.ToArray();
-                UpdateObjects(ref objArray);
-                return objArray;
-            });
-        }
 
         /// <summary>
         /// Асинхронная вычитка данных.
@@ -541,9 +634,33 @@
             }
         }
 
-        public Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects)
+        /// <inheritdoc/>
+        public virtual Task<DataObject> UpdateObjectAsync(DataObject dobject)
         {
-            throw new NotImplementedException();
+            return UpdateObjectAsync(dobject, false);
+        }
+
+        /// <inheritdoc/>
+        public virtual Task<DataObject> UpdateObjectAsync(DataObject dobject, bool alwaysThrowException)
+        {
+            return UpdateObjectAsync(dobject, new DataObjectCache(), alwaysThrowException);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<DataObject> UpdateObjectAsync(DataObject dobject, DataObjectCache dataObjectCache, bool alwaysThrowException)
+        {
+            DataObject[] arr = new DataObject[] { dobject };
+            var result = await UpdateObjectsAsync(arr, dataObjectCache, alwaysThrowException).ConfigureAwait(false);
+            if (result != null && result.Length > 0)
+            {
+                dobject = result[0];
+            }
+            else
+            {
+                dobject = null;
+            }
+
+            return dobject;
         }
     }
 }
