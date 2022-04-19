@@ -2446,7 +2446,7 @@
             FromPart = string.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
                 GetJoinTableModifierExpression(),
                 subJoins,
-                nl, " ON ", parentAliasWithKey, " = ", joinCondition);
+                nl, " ON ", joinCondition);
             WherePart = string.Empty;
         }
 
