@@ -1,14 +1,16 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Security;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using Services;
     using System.Collections;
+    using System.Data.Common;
+    using System.Data.SqlClient;
+
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
 
     /// <summary>
     /// Сервис данных для работы с Microsoft SQL Server.
@@ -70,6 +72,9 @@
         {
             return new System.Data.SqlClient.SqlConnection(CustomizationString);
         }
+
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => SqlClientFactory.Instance;
 
         /// <summary>
         /// Преобразовать значение в SQL строку.

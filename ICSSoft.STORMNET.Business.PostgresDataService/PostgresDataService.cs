@@ -3,17 +3,21 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data.Common;
     using System.Globalization;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using FunctionalLanguage;
-    using FunctionalLanguage.SQLWhere;
+
+    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
     using Npgsql;
-    using Services;
-    using Windows.Forms;
+
     using static Windows.Forms.ExternalLangDef;
 
     /// <summary>
@@ -536,6 +540,9 @@
         {
             return new NpgsqlConnection(CustomizationString);
         }
+
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => NpgsqlFactory.Instance;
 
         /// <summary>
         /// Put identifier into brackets.
