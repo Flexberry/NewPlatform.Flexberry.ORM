@@ -3,12 +3,14 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Data;
     using System.Data.Common;
     using System.Linq;
     using System.Threading.Tasks;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.KeyGen;
     using NewPlatform.Flexberry.ORM;
 
     /// <summary>
@@ -18,7 +20,7 @@
     {
         public abstract System.Data.Common.DbConnection GetDbConnection();
 
-        /// <inheritdoc/>
+        /// <inheritdoc cref="IAsyncDataService.GetObjectsCountAsync(LoadingCustomizationStruct)"/>
         public virtual async Task<int> GetObjectsCountAsync(LoadingCustomizationStruct customizationStruct)
         {
             RunChangeCustomizationString(customizationStruct.LoadingTypes);
@@ -36,76 +38,27 @@
         #region LoadObjectAsync
 
         /// <summary>
-        /// Загрузка одного объекта данных.
-        /// DataObject обновляется по завершению асинхронной операции, не рекомендуется работать c объектом до завершения операции.
+        /// Загрузка одного объекта данных, <paramref name="dataObject"/> обновляется по завершению асинхронной операции.
         /// </summary>
-        /// <param name="dataObjectView">представление.</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="clearDataObject">очищать ли объект.</param>
-        /// <param name="checkExistingObject">Выбрасывать ли ошибку, если объекта нет в хранилище.</param>
-        /// <returns>Асинхронная операция (по её завершению DataObject обновляется).</returns>
-        public virtual async Task LoadObjectAsync(
+        /// <inheritdoc cref="SQLDataService.LoadObjectByExtConnAsync(View, DataObject, bool, bool, DataObjectCache, DbConnection, DbTransaction)"/>
+        public virtual Task LoadObjectAsync(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
+            ICSSoft.STORMNET.DataObject dataObject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
         {
             if (dataObjectView == null)
             {
                 throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
             }
 
-            var doType = dobject.GetType();
+            if (dataObject == null)
+            {
+                throw new ArgumentNullException(nameof(dataObjectView), "Не указан объект для загрузки. Обратитесь к разработчику.");
+            }
+
+            var doType = dataObject.GetType();
             RunChangeCustomizationString(new Type[] { doType });
 
-            // if (dobject.GetStatus(false)==ObjectStatus.Created && !dobject.Prototyped) return;
-            dataObjectCache.StartCaching(false);
-            try
-            {
-                dataObjectCache.AddDataObject(dobject);
-
-                if (clearDataObject)
-                {
-                    dobject.Clear();
-                }
-                else
-                {
-                    prv_AddMasterObjectsToCache(dobject, new System.Collections.ArrayList(), dataObjectCache);
-                }
-
-                var prevPrimaryKey = dobject.__PrimaryKey;
-                var lc = GetLcsPrimaryKey(dobject, dataObjectView);
-                ApplyLimitForAccess(lc);
-
-                // строим запрос
-                StorageStructForView[] StorageStruct; // = STORMDO.Information.GetStorageStructForView(dataObjectView,doType);
-                string query = GenerateSQLSelect(lc, false, out StorageStruct, false);
-
-                // получаем данные
-                object[][] resValue = await ReadAsync(query, 0).ConfigureAwait(false);
-                if (resValue == null)
-                {
-                    if (checkExistingObject)
-                    {
-                        throw new CantFindDataObjectException(doType, dobject.__PrimaryKey);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                DataObject[] rrr = new DataObject[] { dobject };
-                Utils.ProcessingRowsetDataRef(resValue, new Type[] { doType }, StorageStruct, lc, rrr, this, Types, clearDataObject, dataObjectCache, SecurityManager);
-                if (dobject.Prototyped)
-                {
-                    dobject.SetStatus(ObjectStatus.Created);
-                    dobject.SetLoadingState(LoadingState.NotLoaded);
-                    dobject.__PrimaryKey = prevPrimaryKey;
-                }
-            }
-            finally
-            {
-                dataObjectCache.StopCaching();
-            }
+            return LoadObjectByExtConnAsync(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, GetDbConnection());
         }
 
         /// <inheritdoc/>
@@ -158,6 +111,84 @@
         public virtual Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true)
         {
             return LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
+        }
+
+        /// <summary>
+        /// Асихнронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.
+        /// </summary>
+        /// <param name="dataObjectView">Представление, по которому будет зачитываться объект.</param>
+        /// <param name="dataObject">Объект, который будет дочитываться/зачитываться.</param>
+        /// <param name="clearDataObject">Следует ли при зачитке очистить поля существующего объекта данных.</param>
+        /// <param name="checkExistingObject">Проверить существовние встречающихся при зачитке объектов.</param>
+        /// <param name="dataObjectCache">Кэш объектов.</param>
+        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
+        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
+        /// <returns>Асинхронная операция.</returns>
+        public virtual async Task LoadObjectByExtConnAsync(
+            View dataObjectView,
+            DataObject dataObject,
+            bool clearDataObject,
+            bool checkExistingObject,
+            DataObjectCache dataObjectCache,
+            DbConnection connection,
+            DbTransaction transaction = null)
+        {
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                Type dataObjectType = dataObject.GetType();
+                dataObjectCache.AddDataObject(dataObject);
+
+                if (clearDataObject)
+                {
+                    dataObject.Clear();
+                }
+                else
+                {
+                    prv_AddMasterObjectsToCache(dataObject, new ArrayList(), dataObjectCache);
+                }
+
+                var prevPrimaryKey = dataObject.__PrimaryKey;
+                var lcs = GetLcsPrimaryKey(dataObject, dataObjectView);
+
+                ApplyLimitForAccess(lcs);
+
+                // Cтроим запрос.
+                StorageStructForView[] storageStruct;
+                string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
+
+                // Получаем данные.
+                object[][] resValue = await ReadAsyncByExtConn(query, 0, connection, transaction)
+                    .ConfigureAwait(false);
+
+                if (resValue == null)
+                {
+                    if (checkExistingObject)
+                    {
+                        throw new CantFindDataObjectException(dataObjectType, dataObject.__PrimaryKey);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                DataObject[] helpDataObjectArray = { dataObject };
+
+                Utils.ProcessingRowsetDataRef(
+                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, clearDataObject, dataObjectCache, SecurityManager, connection, transaction);
+
+                if (dataObject.Prototyped)
+                {
+                    dataObject.SetStatus(ObjectStatus.Created);
+                    dataObject.SetLoadingState(LoadingState.NotLoaded);
+                    dataObject.__PrimaryKey = prevPrimaryKey;
+                }
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
         }
 
         #endregion
@@ -311,40 +342,55 @@
             }
         }
 
-        /// <inheritdoc/>
-        public virtual async Task<ICSSoft.STORMNET.DataObject[]> LoadObjectsAsync(
+        /// <summary>test.</summary>
+        /// <inheritdoc cref="SQLDataService.LoadObjectsByExtConnAsync(LoadingCustomizationStruct, DataObjectCache, DbConnection, DbTransaction)"/>
+        public virtual Task<DataObject[]> LoadObjectsAsync(
             LoadingCustomizationStruct customizationStruct,
             DataObjectCache dataObjectCache)
+        {
+            RunChangeCustomizationString(customizationStruct.LoadingTypes);
+            return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, GetDbConnection());
+        }
+
+        /// <summary>
+        /// Асинхронная загрузка объектов с использованием указанной коннекции и транзакции.
+        /// </summary>
+        /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
+        /// <param name="dataObjectCache">Кэш объектов для зачитки.</param>
+        /// <param name="connection">Коннекция, через которую будут выполнена зачитска.</param>
+        /// <param name="transaction">Транзакция, в рамках которой будет выполнена зачитка.</param>
+        /// <returns>Загруженные данные.</returns>
+        public virtual async Task<DataObject[]> LoadObjectsByExtConnAsync(
+            LoadingCustomizationStruct customizationStruct,
+            DataObjectCache dataObjectCache,
+            DbConnection connection,
+            DbTransaction transaction = null)
         {
             dataObjectCache.StartCaching(false);
             try
             {
-                System.Type[] dataObjectType = customizationStruct.LoadingTypes;
-                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-                {
-                    string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-                }
-
                 // Применим полномочия на строки.
                 ApplyReadPermissions(customizationStruct, SecurityManager);
 
+                Type[] dataObjectType = customizationStruct.LoadingTypes;
                 StorageStructForView[] storageStruct;
 
                 string selectString = string.Empty;
                 selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
 
-                // получаем данные
-                object[][] resValue = await ReadAsync(selectString, customizationStruct.LoadingBufferSize)
+                // Получаем данные.
+                object[][] resValue = await ReadAsyncByExtConn(selectString, customizationStruct.LoadingBufferSize, connection, transaction)
                     .ConfigureAwait(false);
-                ICSSoft.STORMNET.DataObject[] res = null;
+
+                DataObject[] res = null;
                 if (resValue == null)
                 {
                     res = new DataObject[0];
                 }
                 else
                 {
-                    res = Utils.ProcessingRowsetData(resValue, dataObjectType, storageStruct, customizationStruct, this, Types, dataObjectCache, SecurityManager);
+                    res = Utils.ProcessingRowsetData(
+                            resValue, dataObjectType, storageStruct, customizationStruct, this, Types, dataObjectCache, SecurityManager, connection, transaction);
                 }
 
                 return res;
@@ -368,7 +414,9 @@
             ICSSoft.STORMNET.DataObject[] res = null;
             for (int i = 0; i < customizationStructs.Length; i++)
             {
-                res = await LoadObjectsAsync(customizationStructs[i]);
+                res = await LoadObjectsAsync(customizationStructs[i])
+                    .ConfigureAwait(false);
+
                 for (int j = 0; j < res.Length; j++)
                 {
                     arr.Add(res[j]);
@@ -409,179 +457,45 @@
             return res;
         }
 
-        /// <summary>
-        /// Асихнронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.
-        /// </summary>
-        /// <param name="dataObjectView">Представление, по которому будет зачитываться объект.</param>
-        /// <param name="dobject">Объект, который будет дочитываться/зачитываться.</param>
-        /// <param name="сlearDataObject">Следует ли при зачитке очистить поля существующего объекта данных.</param>
-        /// <param name="сheckExistingObject">Проверить существовние встречающихся при зачитке объектов.</param>
-        /// <param name="dataObjectCache">Кэш объектов.</param>
-        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
-        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
-        public virtual async Task LoadObjectByExtConnAsync(
-            View dataObjectView,
-            DataObject dobject,
-            bool сlearDataObject,
-            bool сheckExistingObject,
-            DataObjectCache dataObjectCache,
-            DbConnection connection,
-            DbTransaction transaction)
-        {
-            dataObjectCache.StartCaching(false);
-            try
-            {
-                Type dataObjectType = dobject.GetType();
-                dataObjectCache.AddDataObject(dobject);
-
-                if (сlearDataObject)
-                {
-                    dobject.Clear();
-                }
-                else
-                {
-                    prv_AddMasterObjectsToCache(dobject, new ArrayList(), dataObjectCache);
-                }
-
-                var prevPrimaryKey = dobject.__PrimaryKey;
-                var lcs = GetLcsPrimaryKey(dobject, dataObjectView);
-
-                ApplyLimitForAccess(lcs);
-
-                // Cтроим запрос.
-                StorageStructForView[] storageStruct;
-                string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
-
-                // Получаем данные.
-                object state = null;
-                object[][] resValue = await ReadFirstByExtConnAsync(query, state, 0, connection, transaction);
-                if (resValue == null)
-                {
-                    if (сheckExistingObject)
-                    {
-                        throw new CantFindDataObjectException(dataObjectType, dobject.__PrimaryKey);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                DataObject[] helpDataObjectArray = { dobject };
-
-                Utils.ProcessingRowsetDataRef(
-                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, сlearDataObject, dataObjectCache, SecurityManager, connection, transaction);
-
-                if (dobject.Prototyped)
-                {
-                    dobject.SetStatus(ObjectStatus.Created);
-                    dobject.SetLoadingState(LoadingState.NotLoaded);
-                    dobject.__PrimaryKey = prevPrimaryKey;
-                }
-            }
-            finally
-            {
-                dataObjectCache.StopCaching();
-            }
-        }
-
-        public virtual Task<object[][]> ReadFirstByExtConnAsync(string Query, object State, int LoadingBufferSize, DbConnection Connection, DbTransaction Transaction)
-        {
-            object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + Query);
-            try
-            {
-                using (DbCommand myCommand = Connection.CreateCommand())
-                {
-                    myCommand.CommandText = Query;
-                    myCommand.Transaction = Transaction;
-                    CustomizeCommand(myCommand);
-
-                    DbDataReader myReader = myCommand.ExecuteReader();
-                    State = new object[] { Connection, myReader };
-                    return ReadNextByExtConnAsync(State, LoadingBufferSize);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new ExecutingQueryException(Query, string.Empty, e);
-            }
-            finally
-            {
-                BusinessTaskMonitor.EndTask(taskid);
-            }
-        }
-
-        public virtual async Task<object[][]> ReadNextByExtConnAsync(object State, int LoadingBufferSize)
-        {
-            if (State == null || !State.GetType().IsArray)
-            {
-                return null;
-            }
-
-            DbDataReader myReader = (DbDataReader)((object[])State)[1];
-            if (await myReader.ReadAsync())
-            {
-                ArrayList arl = new ArrayList();
-                int i = 1;
-                int FieldCount = myReader.FieldCount;
-
-                while (i <= LoadingBufferSize || LoadingBufferSize == 0)
-                {
-                    if (i > 1)
-                    {
-                        if (!await myReader.ReadAsync())
-                        {
-                            break;
-                        }
-                    }
-
-                    object[] tmp = new object[FieldCount];
-                    myReader.GetValues(tmp);
-                    arl.Add(tmp);
-                    i++;
-                }
-
-                object[][] result = (object[][])arl.ToArray(typeof(object[]));
-
-                if (i < LoadingBufferSize || LoadingBufferSize == 0)
-                {
-                    myReader.Close();
-                }
-
-                return result;
-            }
-            else
-            {
-                myReader.Close();
-                return null;
-            }
-        }
-
         #endregion
 
         /// <summary>
         /// Асинхронная вычитка данных.
         /// </summary>
         /// <param name="query">Запрос для вычитки.</param>
-        /// <param name="loadingBufferSize"></param>
+        /// <param name="loadingBufferSize">Ограничение на количество строк, которые будут загружены.</param>
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
-        public virtual async Task<object[][]> ReadAsync(string query, int loadingBufferSize)
+        public virtual Task<object[][]> ReadAsync(string query, int loadingBufferSize)
+        {
+            return ReadAsyncByExtConn(query, loadingBufferSize, GetDbConnection());
+        }
+
+        /// <summary>
+        /// Асинхронная вычитка данных.
+        /// </summary>
+        /// <param name="query">Запрос для вычитки.</param>
+        /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
+        /// <param name="connection">Соединение, в рамках которого нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
+        /// <param name="transaction">Транзакция, в рамках которой выполняется запрос.</param>
+        /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
+        public virtual async Task<object[][]> ReadAsyncByExtConn(string query, int loadingBufferSize, DbConnection connection, DbTransaction transaction = null)
         {
             object task = BusinessTaskMonitor.BeginTask("Reading data asynchronously" + Environment.NewLine + query);
 
-            DbConnection connection = null;
             DbDataReader reader = null;
             try
             {
-                connection = GetDbConnection();
-                var openConnectionTask = connection.OpenAsync()
-                    .ConfigureAwait(false);
+                bool connectionIsOpen = connection.State.HasFlag(ConnectionState.Open);
+                if (!connectionIsOpen)
+                {
+                    await connection.OpenAsync()
+                        .ConfigureAwait(false);
+                }
 
                 DbCommand command = connection.CreateCommand();
                 command.CommandText = query;
+                command.Transaction = transaction;
                 CustomizeCommand(command);
-
-                await openConnectionTask;
 
                 reader = await command.ExecuteReaderAsync()
                     .ConfigureAwait(false);
@@ -595,6 +509,7 @@
                     int i = 1;
                     int fieldCount = reader.FieldCount;
 
+                    // Порционная вычитка:
                     while (i <= loadingBufferSize || loadingBufferSize == 0)
                     {
                         if (i > 1)

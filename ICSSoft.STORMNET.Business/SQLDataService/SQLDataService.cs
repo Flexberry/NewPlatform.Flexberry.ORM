@@ -742,113 +742,28 @@
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dataObjectView">представление.</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="dataObject">объект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">очищать ли объект.</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="dataObjectCache">свой кеш объектов.</param>
         public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
+            ICSSoft.STORMNET.DataObject dataObject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
         {
             if (dataObjectView == null)
             {
                 throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
             }
 
-            Type doType = dobject.GetType();
-
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            if (dataObject == null)
             {
-                string cs = ChangeCustomizationString(new Type[] { doType });
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки. Обратитесь к разработчику.");
             }
 
-            // if (dobject.GetStatus(false)==ObjectStatus.Created && !dobject.Prototyped) return;
-            DataObjectCache.StartCaching(false);
-            try
-            {
-                DataObjectCache.AddDataObject(dobject);
+            Type doType = dataObject.GetType();
+            RunChangeCustomizationString(new Type[] { doType });
 
-                if (ClearDataObject)
-                {
-                    dobject.Clear();
-                }
-                else
-                {
-                    prv_AddMasterObjectsToCache(dobject, new System.Collections.ArrayList(), DataObjectCache);
-                }
-
-                LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
-
-                FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), SQLWhereLanguageDef.StormMainObjectKey);
-                object readingkey = dobject.__PrimaryKey;
-                object prevPrimaryKey = null;
-                if (dobject.Prototyped)
-                {
-                    readingkey = dobject.__PrototypeKey;
-                    prevPrimaryKey = dobject.__PrimaryKey;
-                }
-
-                FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
-
-                // ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef fd = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                lc.Init(new ColumnsSortDef[0], func, new Type[] { doType }, dataObjectView, new string[0]);
-
-                // Применим полномочия на строки: НАЧАЛО.
-                object limitObject;
-                bool canAccess;
-                var operationResult = SecurityManager.GetLimitForAccess(lc.View.DefineClassType, tTypeAccess.Read, out limitObject, out canAccess);
-                STORMFunction limit = limitObject as STORMFunction;
-                if (operationResult == OperationResult.Успешно)
-                {
-                    if (limit != null)
-                    {
-                        ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef ldef =
-                            ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                        lc.LimitFunction = ldef.GetFunction(ldef.funcAND, lc.LimitFunction, limit);
-                    }
-                }
-                else
-                {
-                    // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
-                    LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
-                }
-
-                // Применим полномочия на строки: КОНЕЦ.
-
-                // строим запрос
-                STORMDO.Business.StorageStructForView[] StorageStruct; // = STORMDO.Information.GetStorageStructForView(dataObjectView,doType);
-                string Query = GenerateSQLSelect(lc, false, out StorageStruct, false);
-
-                // получаем данные
-                object state = null;
-                object[][] resValue = ReadFirst(Query, ref state, 0);
-                if (resValue == null)
-                {
-                    if (CheckExistingObject)
-                    {
-                        throw new CantFindDataObjectException(doType, dobject.__PrimaryKey);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                ICSSoft.STORMNET.DataObject[] rrr = new ICSSoft.STORMNET.DataObject[] { dobject };
-                Utils.ProcessingRowsetDataRef(resValue, new Type[] { doType }, StorageStruct, lc, rrr, this, Types, ClearDataObject, DataObjectCache, SecurityManager);
-                if (dobject.Prototyped)
-                {
-                    dobject.SetStatus(ObjectStatus.Created);
-                    dobject.SetLoadingState(LoadingState.NotLoaded);
-                    dobject.__PrimaryKey = prevPrimaryKey;
-                }
-            }
-            finally
-            {
-                DataObjectCache.StopCaching();
-            }
+            LoadObjectByExtConn(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, GetConnection(), null);
         }
 
         /// <summary>
@@ -2014,7 +1929,7 @@
         /// Загрузка объектов с использованием указанной коннекции и транзакции.
         /// </summary>
         /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
-        /// <param name="state"> </param>
+        /// <param name="state">Состояние вычитки (для последующей дочитки).</param>
         /// <param name="dataObjectCache">Кэш объектов для зачитки.</param>
         /// <param name="connection">Коннекция, через которую будут выполнена зачитска.</param>
         /// <param name="transaction">Транзакция, в рамках которой будет выполнена зачитка.</param>
@@ -2024,7 +1939,7 @@
             ref object state, // TODO: разобраться, что это за параметр.
             DataObjectCache dataObjectCache,
             IDbConnection connection,
-            IDbTransaction transaction)
+            IDbTransaction transaction = null)
         {
             dataObjectCache.StartCaching(false);
             try
@@ -2065,51 +1980,14 @@
         /// Загрузка объектов данных.
         /// </summary>
         /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
-        /// <param name="State">Состояние вычитки( для последующей дочитки ).</param>
+        /// <param name="state">Состояние вычитки (для последующей дочитки).</param>
         /// <returns></returns>
         public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct customizationStruct,
-            ref object State, DataObjectCache DataObjectCache)
+            ref object state, DataObjectCache dataObjectCache)
         {
-            DataObjectCache.StartCaching(false);
-            try
-            {
-                System.Type[] dataObjectType = customizationStruct.LoadingTypes;
-                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-                {
-                    string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-                }
-
-                // Применим полномочия на строки.
-                ApplyReadPermissions(customizationStruct, SecurityManager);
-
-                STORMDO.Business.StorageStructForView[] StorageStruct;
-
-                string SelectString = string.Empty;
-                SelectString = GenerateSQLSelect(customizationStruct, false, out StorageStruct, false);
-
-                // получаем данные
-                object[][] resValue = ReadFirst(
-                    SelectString,
-                    ref State, customizationStruct.LoadingBufferSize);
-                State = new object[] { State, dataObjectType, StorageStruct, customizationStruct, customizationString };
-                ICSSoft.STORMNET.DataObject[] res = null;
-                if (resValue == null)
-                {
-                    res = new DataObject[0];
-                }
-                else
-                {
-                    res = Utils.ProcessingRowsetData(resValue, dataObjectType, StorageStruct, customizationStruct, this, Types, DataObjectCache, SecurityManager);
-                }
-
-                return res;
-            }
-            finally
-            {
-                DataObjectCache.StopCaching();
-            }
+            RunChangeCustomizationString(customizationStruct.LoadingTypes);
+            return LoadObjectsByExtConn(customizationStruct, ref state, dataObjectCache, GetConnection());
         }
 
         /// <summary>
@@ -2234,9 +2112,9 @@
         /// <summary>
         /// Вычитка первой партии данных.
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="query">Запрос для вычитки.</param>
         /// <param name="state"></param>
-        /// <param name="loadingBufferSize"></param>
+        /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
         /// <returns></returns>
         public virtual object[][] ReadFirst(string query, ref object state, int loadingBufferSize)
         {
