@@ -5470,14 +5470,19 @@
             }
         }
 
-        protected virtual Exception RunCommands(StringCollection queries, StringCollection tables,
-            string table, System.Data.IDbCommand command,
-            object businessID, bool AlwaysThrowException)
+        protected virtual Exception RunCommands(
+            StringCollection queries,
+            StringCollection tables,
+            string table,
+            System.Data.IDbCommand command,
+            object businessID,
+            bool AlwaysThrowException)
         {
             int i = 0;
-            bool res = true;
+
+            // if exception is set then transaction is a broken state.
             Exception ex = null;
-            while (i < queries.Count)
+            while (i < queries.Count && ex == null)
             {
                 if (tables[i] == table)
                 {
@@ -5495,13 +5500,7 @@
                     catch (Exception exc)
                     {
                         i++;
-                        res = false;
                         ex = new ExecutingQueryException(query, string.Empty, exc);
-                        if (AlwaysThrowException)
-                        {
-                            BusinessTaskMonitor.EndSubTask(subTask);
-                            throw ex;
-                        }
                     }
 
                     BusinessTaskMonitor.EndSubTask(subTask);
@@ -5512,19 +5511,12 @@
                 }
             }
 
-            if (!res)
+            if (AlwaysThrowException && ex != null)
             {
-                if (AlwaysThrowException)
-                {
-                    throw ex;
-                }
+                throw ex;
+            }
 
-                return ex;
-            }
-            else
-            {
-                return null;
-            }
+            return ex;
         }
 
         protected OperationType Minus(OperationType ops, OperationType value)
