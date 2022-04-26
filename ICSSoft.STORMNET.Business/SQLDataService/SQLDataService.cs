@@ -3995,7 +3995,8 @@
             StringCollection DeleteTables,
             SortedList TableOperations,
             DataObjectCache DataObjectCache,
-            DbTransactionWrapper dbTransactionWrapper)
+            IDbConnection connection,
+            IDbTransaction transaction)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
@@ -4015,7 +4016,7 @@
             if (bs != null && bs.Length > 0)
             {
                 // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
             }
             else
             {
@@ -4025,7 +4026,7 @@
                     * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                     * а бизнес-сервера основного объекта уже выполнились.
                     */
-                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
                     if (detailObjects != null)
                     {
                         foreach (var detailObject in detailObjects)
@@ -4166,7 +4167,8 @@
                 processingObjects,
                 dataObjectCache,
                 null,
-                dbTransactionWrapper,
+                dbTransactionWrapper.Connection,
+                dbTransactionWrapper.Transaction,
                 dobjects);
         }
 
@@ -4788,7 +4790,8 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
-            DbTransactionWrapper dbTransactionWrapper,
+            IDbConnection connection,
+            IDbTransaction transaction,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -4885,7 +4888,7 @@
                             {
                                 DataObject[] detailsObjects;
                                 IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, dbTransactionWrapper);
+                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, connection, transaction);
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)
@@ -5521,7 +5524,8 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
+
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper);
 

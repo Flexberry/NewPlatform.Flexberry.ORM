@@ -2,7 +2,9 @@
 {
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
+    using NewPlatform.Flexberry.ORM;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -14,11 +16,16 @@
     /// <summary>
     /// Data service for SQL storage.
     /// </summary>
-    public abstract partial class SQLDataService : System.ComponentModel.Component, IDataService
+    public abstract partial class SQLDataService : System.ComponentModel.Component, IDataService, IAsyncDataService
     {
-        /// <inheritdoc/>
-        public virtual async Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, DataObjectCache DataObjectCache, bool AlwaysThrowException)
+        /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
+        public virtual async Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
         {
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
             RunChangeCustomizationString(objects);
 
             DataObject[] result;
@@ -26,12 +33,23 @@
             {
                 try
                 {
-                    result = await UpdateObjectsByExtConnAsync(objects, DataObjectCache, AlwaysThrowException, dbTransactionWrapper).ConfigureAwait(false);
+                    await UpdateObjectsByExtConnAsync(objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction)
+                        .ConfigureAwait(false);
+#if NETSTANDARD2_1
+                    await dbTransactionWrapper.CommitTransaction()
+                        .ConfigureAwait(false);
+#else
                     dbTransactionWrapper.CommitTransaction();
+#endif
                 }
                 catch (Exception)
                 {
+#if NETSTANDARD2_1
+                    await dbTransactionWrapper.RollbackTransaction()
+                        .ConfigureAwait(false);
+#else
                     dbTransactionWrapper.RollbackTransaction();
+#endif
                     throw;
                 }
             }
@@ -39,26 +57,11 @@
             return result;
         }
 
-        /// <inheritdoc/>
-        public virtual Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, DataObjectCache DataObjectCache)
-        {
-            return UpdateObjectsAsync(objects, DataObjectCache, false);
-        }
-
-        /// <inheritdoc/>
-        public virtual Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects)
-        {
-            return UpdateObjectsAsync(objects, new DataObjectCache());
-        }
-
-        /// <inheritdoc/>
-        public virtual Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, bool AlwaysThrowException)
-        {
-            return UpdateObjectsAsync(objects, new DataObjectCache(), AlwaysThrowException);
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task<DataObject[]> UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbTransactionWrapperAsync dbTransactionWrapperAsync)
+        /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
+        /// <summary>Обновление объекта данных с использованием указанной коннекцией в рамках указанной транзакции.</summary>
+        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
+        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
+        public virtual async Task<DataObject[]> UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbConnection connection, DbTransaction transaction = null)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
@@ -332,7 +335,7 @@
             int i = 0;
             bool res = true;
             Exception ex = null;
-            while (i < queries.Count)
+            while (i < queries.Count && ex == null)
             {
                 if (tables[i] == table)
                 {
@@ -343,20 +346,14 @@
                     object subTask = BusinessTaskMonitor.BeginSubTask(query, businessID);
                     try
                     {
-                        await command.ExecuteNonQueryAsync();
+                        await command.ExecuteNonQueryAsync().ConfigureAwait(false);
                         queries.RemoveAt(i);
                         tables.RemoveAt(i);
                     }
                     catch (Exception exc)
                     {
                         i++;
-                        res = false;
                         ex = new ExecutingQueryException(query, string.Empty, exc);
-                        if (AlwaysThrowException)
-                        {
-                            BusinessTaskMonitor.EndSubTask(subTask);
-                            throw ex;
-                        }
                     }
 
                     BusinessTaskMonitor.EndSubTask(subTask);
@@ -367,26 +364,13 @@
                 }
             }
 
-            if (!res)
-            {
-                if (AlwaysThrowException)
-                {
-                    throw ex;
-                }
-
-                return ex;
-            }
-            else
+            if (AlwaysThrowException && ex != null)
             {
                 return null;
+                throw ex;
             }
-        }
 
-        /// <inheritdoc/>
-        public virtual Task UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbConnection connection, DbTransaction transaction)
-        {
-            DbTransactionWrapperAsync dbTransactionWrapper = new DbTransactionWrapperAsync(connection, transaction);
-            return UpdateObjectsByExtConnAsync(objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
+            return ex;
         }
 
         protected virtual async Task<List<DataObject>> GenerateAuditForAggregatorsAsync(
@@ -444,11 +428,12 @@
 
                         if (dbTransactionWrapper == null)
                         {
-                            await LoadObjectAsync(tempView, tempObject, dataObjectCache);
+                            await LoadObjectAsync(tempObject, tempView, true, true, dataObjectCache).ConfigureAwait(false);
                         }
                         else
                         {
-                            await LoadObjectByExtConnAsync(tempView, tempObject, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                            await LoadObjectByExtConnAsync(tempObject, tempView, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction)
+                                .ConfigureAwait(false);
                         }
 
                         oldAggregator =
@@ -529,11 +514,12 @@
 
                     if (dbTransactionWrapper == null)
                     {
-                        await LoadObjectAsync(aggregatorView, tempAggregator, true, false, dataObjectCache);
+                        await LoadObjectAsync(tempAggregator, aggregatorView, true, false, dataObjectCache).ConfigureAwait(false);
                     }
                     else
                     {
-                        await LoadObjectByExtConnAsync(aggregatorView, tempAggregator, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                        await LoadObjectByExtConnAsync(tempAggregator, aggregatorView, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction)
+                            .ConfigureAwait(false);
                     }
 
                     DetailArray tempAggregatorDetailArray =

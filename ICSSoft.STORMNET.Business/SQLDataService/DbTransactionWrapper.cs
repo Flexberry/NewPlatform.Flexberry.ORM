@@ -14,11 +14,6 @@
         protected IDbTransaction _transaction;
 
         /// <summary>
-        /// Пустой конструктор.
-        /// </summary>
-        protected DbTransactionWrapper() { }
-
-        /// <summary>
         /// Initializes instance of <see cref="DbTransactionWrapper" />.
         /// </summary>
         /// <param name="dataService">The instance of <see cref="SQLDataService" /> class.</param>

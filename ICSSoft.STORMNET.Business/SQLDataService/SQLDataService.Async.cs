@@ -35,98 +35,38 @@
             return (int)Convert.ChangeType(res[0][0], typeof(int));
         }
 
-        #region LoadObjectAsync
-
-        /// <summary>
-        /// Загрузка одного объекта данных, <paramref name="dataObject"/> обновляется по завершению асинхронной операции.
-        /// </summary>
-        /// <inheritdoc cref="SQLDataService.LoadObjectByExtConnAsync(View, DataObject, bool, bool, DataObjectCache, DbConnection, DbTransaction)"/>
-        public virtual Task LoadObjectAsync(
-            ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dataObject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)"></inheritdoc>
+        public virtual Task LoadObjectAsync(DataObject dataObject, View dataObjectView = null, bool clearDataObject = true, bool checkExistingObject = true, DataObjectCache dataObjectCache = null)
         {
-            if (dataObjectView == null)
-            {
-                throw new ArgumentNullException(nameof(dataObjectView), "Не указано представление для загрузки объекта. Обратитесь к разработчику.");
-            }
-
             if (dataObject == null)
             {
                 throw new ArgumentNullException(nameof(dataObjectView), "Не указан объект для загрузки. Обратитесь к разработчику.");
             }
 
             var doType = dataObject.GetType();
+
+            if (dataObjectView == null)
+            {
+                dataObjectView = new View(doType, View.ReadType.OnlyThatObject);
+            }
+
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
             RunChangeCustomizationString(new Type[] { doType });
 
-            return LoadObjectByExtConnAsync(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, GetDbConnection());
+            return LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, GetDbConnection());
         }
 
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(DataObject dobject, DataObjectCache cache)
-        {
-            return LoadObjectAsync(dobject, true, true, cache);
-        }
-
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(View view, DataObject dobject)
-        {
-            return LoadObjectAsync(view, dobject, new DataObjectCache());
-        }
-
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
-        {
-            return LoadObjectAsync(
-                dobject,
-                clearDataObject,
-                checkExistingObject,
-                new DataObjectCache());
-        }
-
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(View view, DataObject dobject, DataObjectCache cache)
-        {
-            return LoadObjectAsync(view, dobject, true, true, cache);
-        }
-
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(
-            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
-        {
-            return LoadObjectAsync(
-                new View(dobject.GetType(), View.ReadType.OnlyThatObject),
-                dobject,
-                clearDataObject,
-                checkExistingObject,
-                dataObjectCache);
-        }
-
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(View dataObjectView, DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true)
-        {
-            return LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
-        }
-
-        /// <inheritdoc/>
-        public virtual Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true)
-        {
-            return LoadObjectAsync(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
-        }
-
-        /// <summary>
-        /// Асихнронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.
-        /// </summary>
-        /// <param name="dataObjectView">Представление, по которому будет зачитываться объект.</param>
-        /// <param name="dataObject">Объект, который будет дочитываться/зачитываться.</param>
-        /// <param name="clearDataObject">Следует ли при зачитке очистить поля существующего объекта данных.</param>
-        /// <param name="checkExistingObject">Проверить существовние встречающихся при зачитке объектов.</param>
-        /// <param name="dataObjectCache">Кэш объектов.</param>
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)"/>
+        /// <summary>Асинхронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.</summary>
         /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
         /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
-        /// <returns>Асинхронная операция.</returns>
         public virtual async Task LoadObjectByExtConnAsync(
-            View dataObjectView,
             DataObject dataObject,
+            View dataObjectView,
             bool clearDataObject,
             bool checkExistingObject,
             DataObjectCache dataObjectCache,
@@ -191,13 +131,8 @@
             }
         }
 
-        #endregion
-
-        #region LoadObjectsAsync
-
-        /// <inheritdoc/>
-        public virtual async Task LoadObjectsAsync(ICSSoft.STORMNET.DataObject[] dataObjects,
-            ICSSoft.STORMNET.View dataObjectView, bool clearDataObject = true, DataObjectCache dataObjectCache = null)
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(DataObject[], View, bool, DataObjectCache)"/>
+        public virtual async Task LoadObjectsAsync(DataObject[] dataObjects, View dataObjectView = null, bool clearDataObject = true, DataObjectCache dataObjectCache = null)
         {
             if (dataObjectView == null)
             {
@@ -342,16 +277,6 @@
             }
         }
 
-        /// <summary>test.</summary>
-        /// <inheritdoc cref="SQLDataService.LoadObjectsByExtConnAsync(LoadingCustomizationStruct, DataObjectCache, DbConnection, DbTransaction)"/>
-        public virtual Task<DataObject[]> LoadObjectsAsync(
-            LoadingCustomizationStruct customizationStruct,
-            DataObjectCache dataObjectCache)
-        {
-            RunChangeCustomizationString(customizationStruct.LoadingTypes);
-            return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, GetDbConnection());
-        }
-
         /// <summary>
         /// Асинхронная загрузка объектов с использованием указанной коннекции и транзакции.
         /// </summary>
@@ -401,63 +326,31 @@
             }
         }
 
-        /// <inheritdoc/>
-        public virtual Task<ICSSoft.STORMNET.DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct)
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(LoadingCustomizationStruct, DataObjectCache)"/>
+        public virtual Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
         {
-            return LoadObjectsAsync(customizationStruct, new DataObjectCache());
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task<ICSSoft.STORMNET.DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct[] customizationStructs)
-        {
-            System.Collections.ArrayList arr = new System.Collections.ArrayList();
-            ICSSoft.STORMNET.DataObject[] res = null;
-            for (int i = 0; i < customizationStructs.Length; i++)
+            if (dataObjectCache == null)
             {
-                res = await LoadObjectsAsync(customizationStructs[i])
-                    .ConfigureAwait(false);
-
-                for (int j = 0; j < res.Length; j++)
-                {
-                    arr.Add(res[j]);
-                }
+                dataObjectCache = new DataObjectCache();
             }
 
-            res = new ICSSoft.STORMNET.DataObject[arr.Count];
-            arr.CopyTo(res);
-            return res;
+            RunChangeCustomizationString(customizationStruct.LoadingTypes);
+            return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, GetDbConnection());
         }
 
-        /// <inheritdoc/>
-        public virtual Task<DataObject[]> LoadObjectsAsync(View dataObjectView)
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(View, DataObjectCache)"/>
+        public virtual Task<DataObject[]> LoadObjectsAsync(View dataObjectView, DataObjectCache dataObjectCache = null)
         {
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
             LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
             lc.View = dataObjectView;
             lc.LoadingTypes = new[] { dataObjectView.DefineClassType };
-            return LoadObjectsAsync(lc, new DataObjectCache());
+            return LoadObjectsAsync(lc, dataObjectCache);
         }
-
-        /// <inheritdoc/>
-        public virtual async Task<DataObject[]> LoadObjectsAsync(View[] dataObjectViews)
-        {
-            System.Collections.ArrayList arr = new System.Collections.ArrayList();
-            ICSSoft.STORMNET.DataObject[] res = null;
-            for (int i = 0; i < dataObjectViews.Length; i++)
-            {
-                res = await LoadObjectsAsync(dataObjectViews[i])
-                    .ConfigureAwait(false);
-                for (int j = 0; j < res.Length; j++)
-                {
-                    arr.Add(res[j]);
-                }
-            }
-
-            res = new ICSSoft.STORMNET.DataObject[arr.Count];
-            arr.CopyTo(res);
-            return res;
-        }
-
-        #endregion
 
         /// <summary>
         /// Асинхронная вычитка данных.
@@ -549,33 +442,21 @@
             }
         }
 
-        /// <inheritdoc/>
-        public virtual Task<DataObject> UpdateObjectAsync(DataObject dobject)
+        /// <inheritdoc cref="IAsyncDataService.UpdateObjectAsync(DataObject, bool, DataObjectCache)"/>
+        public virtual async Task<DataObject> UpdateObjectAsync(DataObject dataObject, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
         {
-            return UpdateObjectAsync(dobject, false);
-        }
-
-        /// <inheritdoc/>
-        public virtual Task<DataObject> UpdateObjectAsync(DataObject dobject, bool alwaysThrowException)
-        {
-            return UpdateObjectAsync(dobject, new DataObjectCache(), alwaysThrowException);
-        }
-
-        /// <inheritdoc/>
-        public virtual async Task<DataObject> UpdateObjectAsync(DataObject dobject, DataObjectCache dataObjectCache, bool alwaysThrowException)
-        {
-            DataObject[] arr = new DataObject[] { dobject };
-            var result = await UpdateObjectsAsync(arr, dataObjectCache, alwaysThrowException).ConfigureAwait(false);
+            DataObject[] arr = new DataObject[] { dataObject };
+            var result = await UpdateObjectsAsync(arr, alwaysThrowException, dataObjectCache).ConfigureAwait(false);
             if (result != null && result.Length > 0)
             {
-                dobject = result[0];
+                dataObject = result[0];
             }
             else
             {
-                dobject = null;
+                dataObject = null;
             }
 
-            return dobject;
+            return dataObject;
         }
     }
 }

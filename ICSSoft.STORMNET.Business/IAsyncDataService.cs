@@ -1,119 +1,78 @@
 namespace NewPlatform.Flexberry.ORM
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Security;
 
+    /// <summary>
+    /// РРЅС‚РµСЂС„РµР№СЃ Р°СЃРёРЅС…СЂРѕРЅРЅРѕРіРѕ РґР°С‚Р°СЃРµСЂРІРёСЃР°.
+    /// </summary>
     public interface IAsyncDataService : ICloneable
     {
         /// <summary>
-        /// Возвращает количество объектов удовлетворяющих запросу.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ СѓРґРѕРІР»РµС‚РІРѕСЂСЏСЋС‰РёС… Р·Р°РїСЂРѕСЃСѓ.
         /// </summary>
-        /// <param name="customizationStruct">Что выбираем.</param>
+        /// <param name="customizationStruct">Р§С‚Рѕ РІС‹Р±РёСЂР°РµРј.</param>
         /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит количество объектов.
+        /// РћР±СЉРµРєС‚ <see cref="Task"/>, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ Р°СЃРёРЅС…СЂРѕРЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ.
+        /// Р РµР·СѓР»СЊС‚Р°С‚ СЃРѕРґРµСЂР¶РёС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ.
         /// </returns>
         Task<int> GetObjectsCountAsync(LoadingCustomizationStruct customizationStruct);
 
         /// <summary>
-        /// Догрузка одного объекта данных.
+        /// Р—Р°РіСЂСѓР·РєР° РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РґР°РЅРЅС‹С… <i>(Р°С‚СЂРёР±СѓС‚С‹ <paramref name="dataObject"/> Р·Р°РіСЂСѓР¶Р°РµС‚СЃСЏ РІ РїСЂРѕС†РµСЃСЃРµ СЂР°Р±РѕС‚С‹)</i>.
         /// </summary>
-        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
-        /// <param name="clearDataObject">Очищать ли объект.</param>
-        /// <param name="checkExistingObject">Проверять ли существование объекта в хранилище (вызывать исключение если объекта нет).</param>
-        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task LoadObjectAsync(DataObject dobject, bool clearDataObject = true, bool checkExistingObject = true);
+        /// <param name="dataObject">РћР±СЉРµРєС‚ РґР°РЅРЅС‹С…, РєРѕС‚РѕСЂС‹Р№ С‚СЂРµР±СѓРµС‚СЃСЏ Р·Р°РіСЂСѓР·РёС‚СЊ.</param>
+        /// <param name="dataObjectView">РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ Р·Р°РіСЂСѓР¶Р°РµС‚СЃСЏ РѕР±СЉРµРєС‚. Р•СЃР»Рё null, Р±СѓРґСѓС‚ Р·Р°РіСЂСѓР¶РµРЅС‹ РІСЃРµ Р°С‚СЂРёР±СѓС‚С‹ РѕР±СЉРµРєС‚Р°, Р±РµР· РґРµС‚РµР№Р»РѕРІ (СЃРј. <see cref="View.ReadType.OnlyThatObject"/>).</param>
+        /// <param name="clearDataObject">РћС‡РёСЃС‚РёС‚СЊ РѕР±СЉРµРєС‚ РїРµСЂРµРґ РІС‹С‡РёС‚РєРѕР№ (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Р’С‹Р·С‹РІР°С‚СЊ РёСЃРєР»СЋС‡РµРЅРёРµ РµСЃР»Рё РѕР±СЉРµРєС‚Р° РЅРµС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ.</param>
+        /// <param name="dataObjectCache">РљСЌС€ РѕР±СЉРµРєС‚РѕРІ (РµСЃР»Рё null, Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІСЂРµРјРµРЅРЅС‹Р№ РєРµС€, СЃРѕР·РґР°РЅРЅС‹Р№ РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°).</param>
+        /// <returns>РћР±СЉРµРєС‚ <see cref="Task"/>, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ Р°СЃРёРЅС…СЂРѕРЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ.</returns>
+        Task LoadObjectAsync(DataObject dataObject, View dataObjectView = null, bool clearDataObject = true, bool checkExistingObject = true, DataObjectCache dataObjectCache = null);
 
         /// <summary>
-        /// Догрузка одного объекта данных по представлению.
+        /// Р—Р°РіСЂСѓР·РєР° РЅРµСЃРєРѕР»СЊРєРёС… РѕР±СЉРµРєС‚РѕРІ РґР°РЅРЅС‹С… <i>(Р°С‚СЂРёР±СѓС‚С‹ <paramref name="dataObjects"/> Р·Р°РіСЂСѓР¶Р°СЋС‚СЃСЏ РІ РїСЂРѕС†РµСЃСЃРµ СЂР°Р±РѕС‚С‹)</i>.
         /// </summary>
-        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
-        /// <param name="dataObjectView">Представление.</param>
-        /// <param name="clearDataObject">Очищать загруженные объекты (см. <see cref="ICSSoft.STORMNET.DataObject.Clear"/>).</param>
-        /// <param name="checkExistingObject">Проверять ли существование объекта в хранилище (вызывать исключение если объекта нет).</param>
-        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task LoadObjectAsync(DataObject dobject, View dataObjectView, bool clearDataObject = true, bool checkExistingObject = true);
+        /// <param name="dataObjects">РћР±СЉРµРєС‚С‹ РґР°РЅРЅС‹С…, РєРѕС‚РѕСЂС‹Рµ С‚СЂРµР±СѓРµС‚СЃСЏ Р·Р°РіСЂСѓР·РёС‚СЊ.</param>
+        /// <param name="dataObjectView">РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ Р·Р°РіСЂСѓР¶Р°СЋС‚СЃСЏ РѕР±СЉРµРєС‚С‹.</param>
+        /// <param name="clearDataObject">РћС‡РёСЃС‚РёС‚СЊ РѕР±СЉРµРєС‚ РїРµСЂРµРґ РІС‹С‡РёС‚РєРѕР№ (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="dataObjectCache">РљСЌС€ РѕР±СЉРµРєС‚РѕРІ (РµСЃР»Рё null, Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІСЂРµРјРµРЅРЅС‹Р№ РєРµС€, СЃРѕР·РґР°РЅРЅС‹Р№ РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°).</param>
+        /// <returns>РћР±СЉРµРєС‚ <see cref="Task"/>, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ Р°СЃРёРЅС…СЂРѕРЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ.</returns>
+        Task LoadObjectsAsync(DataObject[] dataObjects, View dataObjectView, bool clearDataObject = true, DataObjectCache dataObjectCache = null);
 
         /// <summary>
-        /// Загрузка объектов данных по нескольким представлениям.
+        /// Р—Р°РіСЂСѓР·РєР° РЅРµСЃРєРѕР»СЊРєРёС… РѕР±СЉРµРєС‚РѕРІ РґР°РЅРЅС‹С… (СЃ РїРѕРјРѕС‰СЊСЋ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ).
         /// </summary>
-        /// <param name="dataObjectViews">Массив представлений.</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        Task<DataObject[]> LoadObjectsAsync(View[] dataObjectViews);
+        /// <param name="dataObjectView">РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ Р·Р°РіСЂСѓР¶Р°СЋС‚СЃСЏ РѕР±СЉРµРєС‚С‹.</param>
+        /// <param name="dataObjectCache">РљСЌС€ РѕР±СЉРµРєС‚РѕРІ (РµСЃР»Рё null, Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІСЂРµРјРµРЅРЅС‹Р№ РєРµС€, СЃРѕР·РґР°РЅРЅС‹Р№ РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°).</param>
+        /// <returns>РћР±СЉРµРєС‚ <see cref="Task"/>, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ Р°СЃРёРЅС…СЂРѕРЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ. Р РµР·СѓР»СЊС‚Р°С‚ СЃРѕРґРµСЂР¶РёС‚ РєРѕР»Р»РµРєС†РёСЋ РѕР±СЉРµРєС‚РѕРІ РґР°РЅРЅС‹С….</returns>
+        Task<DataObject[]> LoadObjectsAsync(View dataObjectView, DataObjectCache dataObjectCache = null);
 
         /// <summary>
-        /// Загрузка объектов данных по массиву структур.
+        /// Р—Р°РіСЂСѓР·РєР° РЅРµСЃРєРѕР»СЊРєРёС… РѕР±СЉРµРєС‚РѕРІ РґР°РЅРЅС‹С… (СЃ РїРѕРјРѕС‰СЊСЋ LCS).
         /// </summary>
-        /// <param name="customizationStructs">Массив структур.</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct[] customizationStructs);
+        /// <param name="customizationStruct">РЎС‚СЂСѓРєС‚СѓСЂР° (LCS) РґР»СЏ Р·Р°РіСЂСѓР·РєРё РѕР±СЉРµРєС‚РѕРІ.</param>
+        /// <param name="dataObjectCache">РљСЌС€ РѕР±СЉРµРєС‚РѕРІ (РµСЃР»Рё null, Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІСЂРµРјРµРЅРЅС‹Р№ РєРµС€, СЃРѕР·РґР°РЅРЅС‹Р№ РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°).</param>
+        /// <returns>РђСЃРёРЅС…СЂРѕРЅРЅР°СЏ РѕРїРµСЂР°С†РёСЏ <see cref="Task"/>. Р РµР·СѓР»СЊС‚Р°С‚ РѕРїРµСЂР°С†РёРё СЃРѕРґРµСЂР¶РёС‚ Р·Р°РіСЂСѓР¶РµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹ РґР°РЅРЅС‹С….</returns>
+        Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null);
 
         /// <summary>
-        /// Загрузка объектов данных по представлению.
+        /// РЎРѕС…СЂР°РЅРµРЅРёРµ РѕР±СЉРµРєС‚Р° РґР°РЅРЅС‹С… <i>(Р°С‚СЂРёР±СѓС‚С‹ СЃРѕСЃС‚РѕСЏРЅРёСЏ <paramref name="dataObject"/> (state, loading) РёР·РјРµРЅСЏСЋС‚СЃСЏ РІ РїСЂРѕС†РµСЃСЃРµ СЂР°Р±РѕС‚С‹)</i>.
         /// </summary>
-        /// <param name="dataObjectView">Представление.</param>
-        /// <param name="changeViewForTypeDelegate">Делегат, возвращающий представление в зависимости от типа объекта (используется когда получаемый список DataObject'ов может состоять из нескольких типов - напр. при наследовании DataObject'ов).</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        //Task<DataObject[]> LoadObjectsAsync(View dataObjectView, ChangeViewForTypeDelegate changeViewForTypeDelegate);
+        /// <param name="dataObject">РћР±СЉРµРєС‚ РґР°РЅРЅС‹С…, РєРѕС‚РѕСЂС‹Р№ С‚СЂРµР±СѓРµС‚СЃСЏ РѕР±РЅРѕРІРёС‚СЊ.</param>
+        /// <param name="alwaysThrowException">.</param>
+        /// <param name="dataObjectCache">РљСЌС€ РѕР±СЉРµРєС‚РѕРІ (РµСЃР»Рё null, Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІСЂРµРјРµРЅРЅС‹Р№ РєРµС€, СЃРѕР·РґР°РЅРЅС‹Р№ РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°).</param>
+        /// <returns>РћР±СЉРµРєС‚ <see cref="Task"/>, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ Р°СЃРёРЅС…СЂРѕРЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ.</returns>
+        Task UpdateObjectAsync(DataObject dataObject, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null);
 
         /// <summary>
-        /// Загрузка объектов данных по массиву представлений.
+        /// РЎРѕС…СЂР°РЅРµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ РґР°РЅРЅС‹С… <i>(Р°С‚СЂРёР±СѓС‚С‹ СЃРѕСЃС‚РѕСЏРЅРёСЏ РѕР±СЉРµРєС‚РѕРІ <paramref name="objects"/> (state Рё loading) РёР·РјРµРЅСЏСЋС‚СЃСЏ РІ РїСЂРѕС†РµСЃСЃРµ СЂР°Р±РѕС‚С‹</i>.
         /// </summary>
-        /// <param name="dataObjectViews">Массив представлений.</param>
-        /// <param name="changeViewForTypeDelegate">Делегат, возвращающий представление в зависимости от типа объекта (используется когда получаемый список DataObject'ов может состоять из нескольких типов - напр. при наследовании DataObject'ов).</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        //Task<DataObject[]> LoadObjectsAsync(View[] dataObjectViews, ChangeViewForTypeDelegate changeViewForTypeDelegate);
-
-        /// <summary>
-        /// Загрузка объектов данных по массиву структур.
-        /// </summary>
-        /// <param name="customizationStructs">Массив структур.</param>
-        /// <param name="changeViewForTypeDelegate">Делегат, возвращающий представление в зависимости от типа объекта (используется когда получаемый список DataObject'ов может состоять из нескольких типов - напр. при наследовании DataObject'ов).</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        //Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct[] customizationStructs, ChangeViewForTypeDelegate changeViewForTypeDelegate);
-
-        /// <summary>
-        /// Загрузка объектов данных.
-        /// </summary>
-        /// <param name="customizationStruct">Настроечная структура для выборки <see cref="LoadingCustomizationStruct"/>.</param>
-        /// <returns>
-        /// Объект <see cref="Task"/>, представляющий асинхронную операцию.
-        /// Результат содержит коллекцию объектов данных.
-        /// </returns>
-        Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct);
-
-        /// <summary>
-        /// Обновление объекта данных.
-        /// </summary>
-        /// <param name="dobject">Объект данных, который требуется обновить.</param>
-        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task<DataObject> UpdateObjectAsync(DataObject dobject);
-
-        /// <summary>
-        /// Обновление объектов данных.
-        /// </summary>
-        /// <param name="objects">Объекты данных, которые требуется обновить.</param>
-        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects);
+        /// <param name="objects">РћР±СЉРµРєС‚С‹ РґР°РЅРЅС‹С…, РєРѕС‚РѕСЂС‹Рµ С‚СЂРµР±СѓРµС‚СЃСЏ РѕР±РЅРѕРІРёС‚СЊ.</param>
+        /// <param name="alwaysThrowException">.</param>
+        /// <param name="dataObjectCache">РљСЌС€ РѕР±СЉРµРєС‚РѕРІ (РµСЃР»Рё null, Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІСЂРµРјРµРЅРЅС‹Р№ РєРµС€, СЃРѕР·РґР°РЅРЅС‹Р№ РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°).</param>
+        /// <returns>РћР±СЉРµРєС‚ <see cref="Task"/>, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ Р°СЃРёРЅС…СЂРѕРЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ.</returns>
+        Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null);
     }
 }
