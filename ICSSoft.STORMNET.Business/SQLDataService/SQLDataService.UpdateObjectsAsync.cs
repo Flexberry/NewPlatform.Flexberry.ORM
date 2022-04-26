@@ -19,7 +19,7 @@
     public abstract partial class SQLDataService : System.ComponentModel.Component, IDataService, IAsyncDataService
     {
         /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
-        public virtual async Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
+        public virtual async Task UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
         {
             if (dataObjectCache == null)
             {
@@ -28,7 +28,6 @@
 
             RunChangeCustomizationString(objects);
 
-            DataObject[] result;
             using (DbTransactionWrapperAsync dbTransactionWrapper = new DbTransactionWrapperAsync(this))
             {
                 try
@@ -53,15 +52,13 @@
                     throw;
                 }
             }
-
-            return result;
         }
 
         /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
         /// <summary>Обновление объекта данных с использованием указанной коннекцией в рамках указанной транзакции.</summary>
         /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
         /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
-        public virtual async Task<DataObject[]> UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbConnection connection, DbTransaction transaction = null)
+        public virtual async Task UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbConnection connection, DbTransaction transaction = null)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
@@ -81,7 +78,9 @@
 
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapperAsync, objects);
+
+            var dbTransactionWrapperAsync = new DbTransactionWrapperAsync(connection, transaction);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, connection, transaction, objects);
 
             extraProcessingList = await GenerateAuditForAggregatorsAsync(allQueriedObjects, dataObjectCache, dbTransactionWrapperAsync).ConfigureAwait(false);
 
@@ -324,13 +323,11 @@
             {
                 AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
             }
-
-            return objects;
         }
 
         protected virtual async Task<Exception> RunCommandsAsync(StringCollection queries, StringCollection tables,
             string table, DbCommand command,
-            object businessID, bool AlwaysThrowException)
+            object businessID, bool alwaysThrowException)
         {
             int i = 0;
             bool res = true;
@@ -364,7 +361,7 @@
                 }
             }
 
-            if (AlwaysThrowException && ex != null)
+            if (alwaysThrowException && ex != null)
             {
                 return null;
                 throw ex;

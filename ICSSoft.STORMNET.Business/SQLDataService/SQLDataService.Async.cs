@@ -443,20 +443,10 @@
         }
 
         /// <inheritdoc cref="IAsyncDataService.UpdateObjectAsync(DataObject, bool, DataObjectCache)"/>
-        public virtual async Task<DataObject> UpdateObjectAsync(DataObject dataObject, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
+        public virtual async Task UpdateObjectAsync(DataObject dataObject, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
         {
             DataObject[] arr = new DataObject[] { dataObject };
-            var result = await UpdateObjectsAsync(arr, alwaysThrowException, dataObjectCache).ConfigureAwait(false);
-            if (result != null && result.Length > 0)
-            {
-                dataObject = result[0];
-            }
-            else
-            {
-                dataObject = null;
-            }
-
-            return dataObject;
+            await UpdateObjectsAsync(arr, alwaysThrowException, dataObjectCache).ConfigureAwait(false);
         }
     }
 }

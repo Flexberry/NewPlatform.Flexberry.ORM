@@ -1,4 +1,4 @@
-namespace NewPlatform.Flexberry.ORM
+﻿namespace NewPlatform.Flexberry.ORM
 {
     using System;
     using System.Threading.Tasks;
@@ -21,7 +21,7 @@ namespace NewPlatform.Flexberry.ORM
         Task<int> GetObjectsCountAsync(LoadingCustomizationStruct customizationStruct);
 
         /// <summary>
-        /// Загрузка одного объекта данных <i>(атрибуты <paramref name="dataObject"/> загружается в процессе работы)</i>.
+        /// Загрузка одного объекта данных <i>(атрибуты <paramref name="dataObject"/> загружаются в процессе работы)</i>.
         /// </summary>
         /// <param name="dataObject">Объект данных, который требуется загрузить.</param>
         /// <param name="dataObjectView">Представление, по которому загружается объект. Если null, будут загружены все атрибуты объекта, без детейлов (см. <see cref="View.ReadType.OnlyThatObject"/>).</param>
@@ -73,6 +73,6 @@ namespace NewPlatform.Flexberry.ORM
         /// <param name="alwaysThrowException">.</param>
         /// <param name="dataObjectCache">Кэш объектов (если null, будет использован временный кеш, созданный внутри метода).</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
-        Task<DataObject[]> UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null);
+        Task UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null);
     }
 }

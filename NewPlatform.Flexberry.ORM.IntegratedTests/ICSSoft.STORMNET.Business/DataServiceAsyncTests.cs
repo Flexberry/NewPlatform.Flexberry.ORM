@@ -75,7 +75,7 @@
 
                 var userToLoad = new Пользователь();
                 userToLoad.SetExistObjectPrimaryKey(user1.__PrimaryKey);
-                await ds.LoadObjectAsync(view, userToLoad);
+                await ds.LoadObjectAsync(userToLoad, view);
 
                 // Assert.
                 Assert.Equal(user1.ФИО, userToLoad.ФИО);
