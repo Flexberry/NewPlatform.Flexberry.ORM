@@ -18,7 +18,11 @@
     /// </summary>
     public abstract partial class SQLDataService : IAsyncDataService
     {
-        public abstract System.Data.Common.DbConnection GetDbConnection();
+        /// <summary>
+        /// Функция должна возвращать соединение <see cref="DbConnection"/>.
+        /// </summary>
+        /// <returns>Соединение <see cref="DbConnection"/>.</returns>
+        public abstract DbConnection GetDbConnection();
 
         /// <inheritdoc cref="IAsyncDataService.GetObjectsCountAsync(LoadingCustomizationStruct)"/>
         public virtual async Task<int> GetObjectsCountAsync(LoadingCustomizationStruct customizationStruct)
@@ -43,10 +47,9 @@
                 throw new ArgumentNullException(nameof(dataObjectView), "Не указан объект для загрузки. Обратитесь к разработчику.");
             }
 
-            var doType = dataObject.GetType();
-
             if (dataObjectView == null)
             {
+                var doType = dataObject.GetType();
                 dataObjectView = new View(doType, View.ReadType.OnlyThatObject);
             }
 
@@ -54,8 +57,6 @@
             {
                 dataObjectCache = new DataObjectCache();
             }
-
-            RunChangeCustomizationString(new Type[] { doType });
 
             return LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, GetDbConnection());
         }
@@ -77,6 +78,8 @@
             try
             {
                 Type dataObjectType = dataObject.GetType();
+                RunChangeCustomizationString(new Type[] { dataObjectType });
+
                 dataObjectCache.AddDataObject(dataObject);
 
                 if (clearDataObject)
@@ -98,7 +101,7 @@
                 string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
 
                 // Получаем данные.
-                object[][] resValue = await ReadAsyncByExtConn(query, 0, connection, transaction)
+                object[][] resValue = await ReadByExtConnAsync(query, 0, connection, transaction)
                     .ConfigureAwait(false);
 
                 if (resValue == null)
@@ -149,132 +152,152 @@
                 return;
             }
 
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                System.Collections.Generic.List<Type> tps = new System.Collections.Generic.List<Type>();
-                foreach (DataObject d in dataObjects)
-                {
-                    Type t = d.GetType();
-                    if (!tps.Contains(t))
-                    {
-                        tps.Add(t);
-                    }
-                }
-
-                string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
-
             dataObjectCache.StartCaching(false);
             try
             {
-                System.Collections.ArrayList ALtypes = new System.Collections.ArrayList();
-                System.Collections.ArrayList ALKeys = new System.Collections.ArrayList();
-                System.Collections.SortedList ALobjectsKeys = new System.Collections.SortedList();
-                System.Collections.SortedList readingKeys = new System.Collections.SortedList();
-                for (int i = 0; i < dataObjects.Length; i++)
-                {
-                    DataObject dobject = dataObjects[i];
-                    Type dotype = dobject.GetType();
-                    bool addobj = false;
-                    if (ALtypes.Contains(dotype))
-                    {
-                        addobj = true;
-                    }
-                    else
-                    {
-                        if ((dotype == dataObjectView.DefineClassType || dotype.IsSubclassOf(dataObjectView.DefineClassType)) && Information.IsStoredType(dotype))
-                        {
-                            ALtypes.Add(dotype);
-                            addobj = true;
-                        }
-                    }
+                RunChangeCustomizationString(dataObjects);
 
-                    if (addobj)
-                    {
-                        object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
-                        ALKeys.Add(readingKey);
-                        ALobjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
-                        readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
-                    }
-                }
-
-                LoadingCustomizationStruct customizationStruct = new LoadingCustomizationStruct(GetInstanceId());
-
-                FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
-                object[] keys = new object[ALKeys.Count + 1];
-                ALKeys.CopyTo(keys, 1);
-                keys[0] = var;
-                FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys);
-                Type[] types = new Type[ALtypes.Count];
-                ALtypes.CopyTo(types);
-
-                customizationStruct.Init(null, func, types, dataObjectView, null);
-
-                StorageStructForView[] StorageStruct;
-
-                // Применим полномочия на строки.
+                SortedList allObjectKeys = new SortedList();
+                SortedList readingKeys = new SortedList();
+                LoadingCustomizationStruct customizationStruct = GetCustomizationStruct(dataObjects, dataObjectView, out allObjectKeys, out readingKeys);
                 ApplyReadPermissions(customizationStruct, SecurityManager);
 
-                string SelectString = string.Empty;
-                SelectString = GenerateSQLSelect(customizationStruct, false, out StorageStruct, false);
+                StorageStructForView[] storageStruct;
+                string selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
 
                 // получаем данные
-                object[][] resValue = (SelectString == string.Empty) ? new object[0][] : await ReadAsync(
-                    SelectString,
+                object[][] result = string.IsNullOrEmpty(selectString) ? new object[0][] : await ReadAsync(
+                    selectString,
                     0).ConfigureAwait(false);
-                if (resValue != null && resValue.Length != 0)
-                {
-                    DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[resValue.Length];
-                    int ObjectTypeIndexPOs = resValue[0].Length - 1;
-                    int keyIndex = StorageStruct[0].props.Length - 1;
-                    while (StorageStruct[0].props[keyIndex].MultipleProp)
-                    {
-                        keyIndex--;
-                    }
 
-                    keyIndex++;
-
-                    for (int i = 0; i < resValue.Length; i++)
-                    {
-                        Type tp = types[Convert.ToInt64(resValue[i][ObjectTypeIndexPOs].ToString())];
-                        object ky = resValue[i][keyIndex];
-                        ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
-                        int indexobj = ALobjectsKeys.IndexOfKey(tp.FullName + ky.ToString());
-                        if (indexobj > -1)
-                        {
-                            loadobjects[i] = dataObjects[(int)ALobjectsKeys.GetByIndex(indexobj)];
-                            if (clearDataObject)
-                            {
-                                loadobjects[i].Clear();
-                            }
-
-                            dataObjectCache.AddDataObject(loadobjects[i]);
-                        }
-                        else
-                        {
-                            loadobjects[i] = null;
-                        }
-                    }
-
-                    Utils.ProcessingRowsetDataRef(resValue, types, StorageStruct, customizationStruct, loadobjects, this, Types, clearDataObject, dataObjectCache, SecurityManager);
-                    foreach (DataObject dobj in loadobjects)
-                    {
-                        if (dobj != null && dobj.Prototyped)
-                        {
-                            dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
-                            dobj.SetStatus(ObjectStatus.Created);
-                            dobj.SetLoadingState(LoadingState.NotLoaded);
-                        }
-                    }
-                }
+                ConvertReadResult(result, dataObjects, customizationStruct, storageStruct, allObjectKeys, readingKeys, clearDataObject, dataObjectCache);
             }
             finally
             {
                 dataObjectCache.StopCaching();
             }
+        }
+
+        /// <summary>
+        /// Сгенерировать <see cref="LoadingCustomizationStruct"/> - результат представляет собой ограничение "Один из переданных объектов данных".
+        /// Используется в дальнейшем для генерации SQL.
+        /// </summary>
+        /// <param name="dataObjects">Объекты данных, по которым будет генерироваться <see cref="LoadingCustomizationStruct"/>.</param>
+        /// <param name="dataObjectView">Представление, по которому будет генерироваться <see cref="LoadingCustomizationStruct"/>.</param>
+        /// <param name="allObjectsKeys">Вспомогательная структура для дальнейшей вычитки.</param>
+        /// <param name="readingKeys">Вспомогательная структура для дальнеишей вычитки.</param>
+        /// <returns>Итоговое ограничение.</returns>
+        protected virtual LoadingCustomizationStruct GetCustomizationStruct(DataObject[] dataObjects, View dataObjectView, out SortedList allObjectsKeys, out SortedList readingKeys)
+        {
+            List<Type> types = new List<Type>();
+            List<object> keys = new List<object>();
+            SortedList _allObjectsKeys = new SortedList();
+            SortedList _readingKeys = new SortedList();
+
+            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
+            FunctionalLanguage.VariableDef var = new FunctionalLanguage.VariableDef(
+                lang.GetObjectTypeForNetType(KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
+            keys.Add(var);
+
+            for (int i = 0; i < dataObjects.Length; i++)
+            {
+                DataObject dobject = dataObjects[i];
+                Type dotype = dobject.GetType();
+                bool addobj = false;
+                if (types.Contains(dotype))
+                {
+                    addobj = true;
+                }
+                else
+                {
+                    if ((dotype == dataObjectView.DefineClassType || dotype.IsSubclassOf(dataObjectView.DefineClassType)) && Information.IsStoredType(dotype))
+                    {
+                        types.Add(dotype);
+                        addobj = true;
+                    }
+                }
+
+                if (addobj)
+                {
+                    object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
+                    keys.Add(readingKey);
+                    _allObjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
+                    _readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
+                }
+            }
+
+            allObjectsKeys = _allObjectsKeys;
+            readingKeys = _readingKeys;
+
+            LoadingCustomizationStruct customizationStruct = new LoadingCustomizationStruct(GetInstanceId());
+            FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys.ToArray());
+            customizationStruct.Init(null, func, types.ToArray(), dataObjectView, null);
+
+            return customizationStruct;
+        }
+
+        /// <summary>
+        /// Конвертировать результат вычитки методов Read/ReadAsync в массив объектов данных.
+        /// </summary>
+        /// <param name="result">Результат вычитки, который будет сконвертирован.</param>
+        protected virtual void ConvertReadResult(object[][] result, DataObject[] dataObjects, LoadingCustomizationStruct customizationStruct, StorageStructForView[] storageStructs, SortedList allObjectKeys, SortedList readingKeys, bool clearDataObject, DataObjectCache dataObjectCache)
+        {
+            if (result != null && result.Length != 0)
+            {
+                DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[result.Length];
+                int objectTypeIndexPOs = result[0].Length - 1;
+                int keyIndex = storageStructs[0].props.Length - 1;
+                while (storageStructs[0].props[keyIndex].MultipleProp)
+                {
+                    keyIndex--;
+                }
+
+                keyIndex++;
+
+                for (int i = 0; i < result.Length; i++)
+                {
+                    Type tp = customizationStruct.LoadingTypes[Convert.ToInt64(result[i][objectTypeIndexPOs].ToString())];
+                    object ky = result[i][keyIndex];
+                    ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
+                    int indexobj = allObjectKeys.IndexOfKey(tp.FullName + ky.ToString());
+                    if (indexobj > -1)
+                    {
+                        loadobjects[i] = dataObjects[(int)allObjectKeys.GetByIndex(indexobj)];
+                        if (clearDataObject)
+                        {
+                            loadobjects[i].Clear();
+                        }
+
+                        dataObjectCache.AddDataObject(loadobjects[i]);
+                    }
+                    else
+                    {
+                        loadobjects[i] = null;
+                    }
+                }
+
+                Utils.ProcessingRowsetDataRef(result, customizationStruct.LoadingTypes, storageStructs, customizationStruct, loadobjects, this, Types, clearDataObject, dataObjectCache, SecurityManager);
+                foreach (DataObject dobj in loadobjects)
+                {
+                    if (dobj != null && dobj.Prototyped)
+                    {
+                        dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
+                        dobj.SetStatus(ObjectStatus.Created);
+                        dobj.SetLoadingState(LoadingState.NotLoaded);
+                    }
+                }
+            }
+        }
+
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(LoadingCustomizationStruct, DataObjectCache)"/>
+        public virtual Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
+        {
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
+            return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, GetDbConnection());
         }
 
         /// <summary>
@@ -294,6 +317,8 @@
             dataObjectCache.StartCaching(false);
             try
             {
+                RunChangeCustomizationString(customizationStruct.LoadingTypes);
+
                 // Применим полномочия на строки.
                 ApplyReadPermissions(customizationStruct, SecurityManager);
 
@@ -304,7 +329,7 @@
                 selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
 
                 // Получаем данные.
-                object[][] resValue = await ReadAsyncByExtConn(selectString, customizationStruct.LoadingBufferSize, connection, transaction)
+                object[][] resValue = await ReadByExtConnAsync(selectString, customizationStruct.LoadingBufferSize, connection, transaction)
                     .ConfigureAwait(false);
 
                 DataObject[] res = null;
@@ -324,18 +349,6 @@
             {
                 dataObjectCache.StopCaching();
             }
-        }
-
-        /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(LoadingCustomizationStruct, DataObjectCache)"/>
-        public virtual Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
-        {
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
-
-            RunChangeCustomizationString(customizationStruct.LoadingTypes);
-            return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, GetDbConnection());
         }
 
         /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(View, DataObjectCache)"/>
@@ -360,7 +373,7 @@
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
         public virtual Task<object[][]> ReadAsync(string query, int loadingBufferSize)
         {
-            return ReadAsyncByExtConn(query, loadingBufferSize, GetDbConnection());
+            return ReadByExtConnAsync(query, loadingBufferSize, GetDbConnection());
         }
 
         /// <summary>
@@ -371,7 +384,7 @@
         /// <param name="connection">Соединение, в рамках которого нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
         /// <param name="transaction">Транзакция, в рамках которой выполняется запрос.</param>
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
-        public virtual async Task<object[][]> ReadAsyncByExtConn(string query, int loadingBufferSize, DbConnection connection, DbTransaction transaction = null)
+        public virtual async Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbConnection connection, DbTransaction transaction = null)
         {
             object task = BusinessTaskMonitor.BeginTask("Reading data asynchronously" + Environment.NewLine + query);
 
@@ -443,10 +456,10 @@
         }
 
         /// <inheritdoc cref="IAsyncDataService.UpdateObjectAsync(DataObject, bool, DataObjectCache)"/>
-        public virtual async Task UpdateObjectAsync(DataObject dataObject, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
+        public virtual Task UpdateObjectAsync(DataObject dataObject, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
         {
             DataObject[] arr = new DataObject[] { dataObject };
-            await UpdateObjectsAsync(arr, alwaysThrowException, dataObjectCache).ConfigureAwait(false);
+            return UpdateObjectsAsync(arr, alwaysThrowException, dataObjectCache);
         }
     }
 }

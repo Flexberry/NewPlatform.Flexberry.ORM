@@ -36,18 +36,17 @@
         /// <inheritdoc/>
         public DbConnection Connection { get; }
 
-        /// <inheritdoc cref="DbTransactionWrapper.Transaction"/>
-        public DbTransaction Transaction => GetTransaction().GetAwaiter().GetResult();
-
         /// <summary>
         /// Creates and returns a Command object associated with the connection.
         /// </summary>
         /// <param name="sql">The text command to execute.</param>
         /// <returns>A Command object associated with the connection.</returns>
-        public DbCommand CreateCommand(string sql = null)
+        public async Task<DbCommand> CreateCommandAsync(string sql = null)
         {
             var cmd = Connection.CreateCommand();
-            cmd.Transaction = Transaction;
+            cmd.Transaction = await GetTransactionAsync()
+                .ConfigureAwait(false);
+
             if (sql != null)
             {
                 cmd.CommandText = sql;
@@ -62,7 +61,7 @@
         /// Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`.
         /// </summary>
 #if NETSTANDARD2_1
-        public virtual async void CommitTransaction()
+        public virtual async Task CommitTransaction()
         {
             if (_transaction?.Connection != null)
             {
@@ -86,7 +85,7 @@
         /// Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`.
         /// </summary>
 #if NETSTANDARD2_1
-        public virtual async void RollbackTransaction()
+        public virtual async Task RollbackTransaction()
         {
             if (_transaction?.Connection != null)
             {
@@ -111,7 +110,12 @@
             Connection?.Close();
         }
 
-        private async Task<DbTransaction> GetTransaction()
+        /// <summary>
+        /// Открыть соединение и получить транзакцию.
+        /// </summary>
+        /// <returns>Транзакция.</returns>
+        /// <exception cref="Exception">Ошибка во время открытия соединения/создания транзакции.</exception>
+        public async Task<DbTransaction> GetTransactionAsync()
         {
             if (_transaction != null)
             {
@@ -141,5 +145,7 @@
 
             return _transaction;
         }
+
+        public static explicit operator DbTransactionWrapper(DbTransactionWrapperAsync dbTransactionWrapperAsync) => new DbTransactionWrapper(dbTransactionWrapperAsync.Connection, dbTransactionWrapperAsync._transaction);
     }
 }

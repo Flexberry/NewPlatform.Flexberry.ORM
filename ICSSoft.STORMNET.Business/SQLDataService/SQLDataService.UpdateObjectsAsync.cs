@@ -32,7 +32,7 @@
             {
                 try
                 {
-                    await UpdateObjectsByExtConnAsync(objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction)
+                    await UpdateObjectsByExtConnAsync(objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper)
                         .ConfigureAwait(false);
 #if NETSTANDARD2_1
                     await dbTransactionWrapper.CommitTransaction()
@@ -56,9 +56,8 @@
 
         /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
         /// <summary>Обновление объекта данных с использованием указанной коннекцией в рамках указанной транзакции.</summary>
-        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
-        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
-        public virtual async Task UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbConnection connection, DbTransaction transaction = null)
+        /// <param name="dbTransactionWrapperAsync">Используемые коннекция и транзакция.</param>
+        public virtual async Task UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
@@ -79,8 +78,7 @@
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
 
-            var dbTransactionWrapperAsync = new DbTransactionWrapperAsync(connection, transaction);
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, connection, transaction, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, (DbTransactionWrapper)dbTransactionWrapperAsync, objects);
 
             extraProcessingList = await GenerateAuditForAggregatorsAsync(allQueriedObjects, dataObjectCache, dbTransactionWrapperAsync).ConfigureAwait(false);
 
@@ -104,7 +102,8 @@
                 if (NotifierUpdateObjects != null)
                 {
                     operationUniqueId = Guid.NewGuid();
-                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapperAsync.Transaction, objects);
+                    var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
+                    NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, transaction, objects);
                 }
 
                 if (AuditService.IsAuditEnabled)
@@ -112,7 +111,8 @@
                     /* Аудит проводится именно здесь, поскольку на этот момент все бизнес-сервера на объектах уже выполнились,
                      * объекты находятся именно в том состоянии, в каком должны были пойти в базу + в будущем можно транзакцию передать на исполнение
                      */
-                    AuditService.WriteCommonAuditOperationWithAutoFields(extraProcessingList, auditOperationInfoList, this, true, dbTransactionWrapperAsync.Transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
+                    var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
+                    AuditService.WriteCommonAuditOperationWithAutoFields(extraProcessingList, auditOperationInfoList, this, true, transaction); // TODO: подумать, как записывать аудит до OnBeforeUpdateObjects, но уже потенциально с транзакцией
                 }
 
                 string query = string.Empty;
@@ -121,7 +121,7 @@
                 try
                 {
                     Exception ex = null;
-                    DbCommand command = dbTransactionWrapperAsync.CreateCommand();
+                    DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync();
 
                     // прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -258,16 +258,18 @@
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     {
                         // Нужно зафиксировать операции аудита (то есть сообщить, что всё было корректно выполнено и запомнить время)
+                        var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
                         AuditService.RatifyAuditOperationWithAutoFields(
                             tExecutionVariant.Executed,
-                            AuditAdditionalInfo.SetNewFieldValuesForList(dbTransactionWrapperAsync.Transaction, this, auditOperationInfoList),
+                            AuditAdditionalInfo.SetNewFieldValuesForList(transaction, this, auditOperationInfoList),
                             this,
                             true);
                     }
 
                     if (NotifierUpdateObjects != null)
                     {
-                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapperAsync.Transaction, objects);
+                        var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
+                        NotifierUpdateObjects.AfterSuccessSqlUpdateObjects(operationUniqueId.Value, this, transaction, objects);
                     }
                 }
                 catch (Exception excpt)
@@ -429,7 +431,8 @@
                         }
                         else
                         {
-                            await LoadObjectByExtConnAsync(tempObject, tempView, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction)
+                            var transaction = await dbTransactionWrapper.GetTransactionAsync().ConfigureAwait(false);
+                            await LoadObjectByExtConnAsync(tempObject, tempView, true, false, dataObjectCache, dbTransactionWrapper.Connection, transaction)
                                 .ConfigureAwait(false);
                         }
 
@@ -515,7 +518,8 @@
                     }
                     else
                     {
-                        await LoadObjectByExtConnAsync(tempAggregator, aggregatorView, true, false, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction)
+                        var transaction = await dbTransactionWrapper.GetTransactionAsync().ConfigureAwait(false);
+                        await LoadObjectByExtConnAsync(tempAggregator, aggregatorView, true, false, dataObjectCache, dbTransactionWrapper.Connection, transaction)
                             .ConfigureAwait(false);
                     }
 

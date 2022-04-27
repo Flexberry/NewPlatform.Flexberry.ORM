@@ -21,21 +21,7 @@
         /// <param name="AlwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
         public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache DataObjectCache, bool AlwaysThrowException)
         {
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                var tps = new List<Type>();
-                foreach (DataObject d in objects)
-                {
-                    Type t = d.GetType();
-                    if (!tps.Contains(t))
-                    {
-                        tps.Add(t);
-                    }
-                }
-
-                string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
+            RunChangeCustomizationString(objects);
 
             using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
             {

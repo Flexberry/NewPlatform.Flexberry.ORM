@@ -291,7 +291,7 @@
         /// <summary>
         /// Изменить строку соединения (согласно настройкам <see cref="DoNotChangeCustomizationString"/> и <see cref="ChangeCustomizationString"/>).
         /// </summary>
-        /// <param name="types">Типы загружаемых объектов, согласно которым нужно изменить строку соединения.</param>
+        /// <param name="types">Типы загружаемых объектов - по ним будет изменена строка соединения.</param>
         private void RunChangeCustomizationString(Type[] types)
         {
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
@@ -321,8 +321,7 @@
         /// <param name="customizationStruct">
         /// Что выбираем.
         /// </param>
-        /// <returns>
-        /// </returns>
+        /// <returns>Количество объектов.</returns>
         public virtual int GetObjectsCount(LoadingCustomizationStruct customizationStruct)
         {
             RunChangeCustomizationString(customizationStruct.LoadingTypes);
@@ -432,11 +431,7 @@
                 throw new ArgumentOutOfRangeException("maxResults", "Максимальное число возвращаемых результатов не может быть отрицательным.");
             }
 
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                string cs = ChangeCustomizationString(lcs.LoadingTypes);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
+            RunChangeCustomizationString(lcs.LoadingTypes);
 
             bool usedSorting = false;
             if (lcs.ColumnsSort == null || lcs.ColumnsSort.Length == 0)
@@ -1725,144 +1720,51 @@
         /// <summary>
         /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="dataobjects">исходные объекты.</param>
+        /// <param name="dataObjects">исходные объекты.</param>
         /// <param name="dataObjectView">представлене.</param>
-        /// <param name="ClearDataobject">очищать ли существующие.</param>
-        public virtual void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
-            ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject, DataObjectCache DataObjectCache)
+        /// <param name="clearDataObject">очищать ли существующие.</param>
+        public virtual void LoadObjects(ICSSoft.STORMNET.DataObject[] dataObjects,
+            ICSSoft.STORMNET.View dataObjectView, bool clearDataObject, DataObjectCache dataObjectCache)
         {
-            if (dataobjects == null || dataobjects.Length == 0)
+            if (dataObjectView == null)
+            {
+                throw new ArgumentNullException(nameof(dataObjectView));
+            }
+
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
+            if (dataObjects == null || dataObjects.Length == 0)
             {
                 return;
             }
 
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                System.Collections.Generic.List<Type> tps = new System.Collections.Generic.List<Type>();
-                foreach (DataObject d in dataobjects)
-                {
-                    Type t = d.GetType();
-                    if (!tps.Contains(t))
-                    {
-                        tps.Add(t);
-                    }
-                }
-
-                string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
-
-            DataObjectCache.StartCaching(false);
+            dataObjectCache.StartCaching(false);
             try
             {
-                System.Collections.ArrayList ALtypes = new System.Collections.ArrayList();
-                System.Collections.ArrayList ALKeys = new System.Collections.ArrayList();
-                System.Collections.SortedList ALobjectsKeys = new System.Collections.SortedList();
-                System.Collections.SortedList readingKeys = new System.Collections.SortedList();
-                for (int i = 0; i < dataobjects.Length; i++)
-                {
-                    DataObject dobject = dataobjects[i];
-                    Type dotype = dobject.GetType();
-                    bool addobj = false;
-                    if (ALtypes.Contains(dotype))
-                    {
-                        addobj = true;
-                    }
-                    else
-                    {
-                        if ((dotype == dataObjectView.DefineClassType || dotype.IsSubclassOf(dataObjectView.DefineClassType)) && Information.IsStoredType(dotype))
-                        {
-                            ALtypes.Add(dotype);
-                            addobj = true;
-                        }
-                    }
+                RunChangeCustomizationString(dataObjects);
 
-                    if (addobj)
-                    {
-                        object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
-                        ALKeys.Add(readingKey);
-                        ALobjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
-                        readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
-                    }
-                }
-
-                LoadingCustomizationStruct customizationStruct = new LoadingCustomizationStruct(GetInstanceId());
-
-                FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
-                object[] keys = new object[ALKeys.Count + 1];
-                ALKeys.CopyTo(keys, 1);
-                keys[0] = var;
-                FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys);
-                Type[] types = new Type[ALtypes.Count];
-                ALtypes.CopyTo(types);
-
-                customizationStruct.Init(null, func, types, dataObjectView, null);
-
-                STORMDO.Business.StorageStructForView[] StorageStruct;
-
-                // Применим полномочия на строки.
+                SortedList allObjectKeys = new SortedList();
+                SortedList readingKeys = new SortedList();
+                LoadingCustomizationStruct customizationStruct = GetCustomizationStruct(dataObjects, dataObjectView, out allObjectKeys, out readingKeys);
                 ApplyReadPermissions(customizationStruct, SecurityManager);
 
-                string SelectString = string.Empty;
-                SelectString = GenerateSQLSelect(customizationStruct, false, out StorageStruct, false);
+                StorageStructForView[] storageStruct;
+                string selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
 
                 // получаем данные
                 object State = null;
-
-                object[][] resValue = (SelectString == string.Empty) ? new object[0][] : ReadFirst(
-                    SelectString,
+                object[][] result = string.IsNullOrEmpty(selectString) ? new object[0][] : ReadFirst(
+                    selectString,
                     ref State, 0);
-                if (resValue != null && resValue.Length != 0)
-                {
-                    DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[resValue.Length];
-                    int ObjectTypeIndexPOs = resValue[0].Length - 1;
-                    int keyIndex = StorageStruct[0].props.Length - 1;
-                    while (StorageStruct[0].props[keyIndex].MultipleProp)
-                    {
-                        keyIndex--;
-                    }
 
-                    keyIndex++;
-
-                    for (int i = 0; i < resValue.Length; i++)
-                    {
-                        Type tp = types[Convert.ToInt64(resValue[i][ObjectTypeIndexPOs].ToString())];
-                        object ky = resValue[i][keyIndex];
-                        ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
-                        int indexobj = ALobjectsKeys.IndexOfKey(tp.FullName + ky.ToString());
-                        if (indexobj > -1)
-                        {
-                            loadobjects[i] = dataobjects[(int)ALobjectsKeys.GetByIndex(indexobj)];
-                            if (ClearDataobject)
-                            {
-                                loadobjects[i].Clear();
-                            }
-
-                            DataObjectCache.AddDataObject(loadobjects[i]);
-                        }
-                        else
-                        {
-                            loadobjects[i] = null;
-                        }
-                    }
-
-                    Utils.ProcessingRowsetDataRef(resValue, types, StorageStruct, customizationStruct, loadobjects, this, Types, ClearDataobject, DataObjectCache, SecurityManager);
-                    foreach (DataObject dobj in loadobjects)
-                    {
-                        if (dobj != null && dobj.Prototyped)
-                        {
-                            dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
-                            dobj.SetStatus(ObjectStatus.Created);
-                            dobj.SetLoadingState(LoadingState.NotLoaded);
-                        }
-                    }
-                }
+                ConvertReadResult(result, dataObjects, customizationStruct, storageStruct, allObjectKeys, readingKeys, clearDataObject, dataObjectCache);
             }
             finally
             {
-                DataObjectCache.StopCaching();
+                dataObjectCache.StopCaching();
             }
         }
 
@@ -3367,11 +3269,7 @@
             try
             {
                 System.Type[] dataObjectType = customizationStruct.LoadingTypes;
-                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-                {
-                    string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-                }
+                RunChangeCustomizationString(dataObjectType);
 
                 // Применим полномочия на строки.
                 ApplyReadPermissions(customizationStruct, SecurityManager);
@@ -3464,12 +3362,7 @@
             object ID = BusinessTaskMonitor.BeginTask("Load raw values");
             try
             {
-                Type[] dataObjectType = customizationStruct.LoadingTypes;
-                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-                {
-                    string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-                }
+                RunChangeCustomizationString(customizationStruct.LoadingTypes);
 
                 // Применим полномочия на строки
                 ApplyReadPermissions(customizationStruct, SecurityManager);
@@ -3567,12 +3460,7 @@
             object ID = BusinessTaskMonitor.BeginTask("Load objects");
             try
             {
-                System.Type[] dataObjectType = customizationStruct.LoadingTypes;
-                if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-                {
-                    string cs = ChangeCustomizationString(dataObjectType);
-                    customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-                }
+                RunChangeCustomizationString(customizationStruct.LoadingTypes);
 
                 // Применим полномочия на строки.
                 ApplyReadPermissions(customizationStruct, SecurityManager);
@@ -3598,10 +3486,10 @@
                 }
                 else
                 {
-                    result = Utils.ProcessingRowSet2StringedView(resValue, true, dataObjectType, PropCount, separator, customizationStruct, StorageStruct, this, Types, ref procRead, new DataObjectCache(), SecurityManager);
+                    result = Utils.ProcessingRowSet2StringedView(resValue, true, customizationStruct.LoadingTypes, PropCount, separator, customizationStruct, StorageStruct, this, Types, ref procRead, new DataObjectCache(), SecurityManager);
                 }
 
-                State = new object[] { State, dataObjectType, StorageStruct, separator, PropCount, customizationStruct, procRead };
+                State = new object[] { State, customizationStruct.LoadingTypes, StorageStruct, separator, PropCount, customizationStruct, procRead };
                 BusinessTaskMonitor.EndSubTask(id1);
                 return result;
             }
@@ -3995,8 +3883,7 @@
             StringCollection DeleteTables,
             SortedList TableOperations,
             DataObjectCache DataObjectCache,
-            IDbConnection connection,
-            IDbTransaction transaction)
+            DbTransactionWrapper dbTransactionWrapper)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
             updateobjects = new DataObject[0];
@@ -4016,7 +3903,7 @@
             if (bs != null && bs.Length > 0)
             {
                 // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
+                updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
             }
             else
             {
@@ -4026,7 +3913,7 @@
                     * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                     * а бизнес-сервера основного объекта уже выполнились.
                     */
-                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, connection, transaction);
+                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                     if (detailObjects != null)
                     {
                         foreach (var detailObject in detailObjects)
@@ -4167,8 +4054,7 @@
                 processingObjects,
                 dataObjectCache,
                 null,
-                dbTransactionWrapper.Connection,
-                dbTransactionWrapper.Transaction,
+                dbTransactionWrapper,
                 dobjects);
         }
 
@@ -4790,8 +4676,7 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
-            IDbConnection connection,
-            IDbTransaction transaction,
+            DbTransactionWrapper dbTransactionWrapper,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -4888,7 +4773,7 @@
                             {
                                 DataObject[] detailsObjects;
                                 IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, connection, transaction);
+                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, dbTransactionWrapper);
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)
@@ -5525,7 +5410,7 @@
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
 
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper);
 
