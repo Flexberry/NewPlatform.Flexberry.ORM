@@ -431,8 +431,7 @@
                         }
                         else
                         {
-                            var transaction = await dbTransactionWrapper.GetTransactionAsync().ConfigureAwait(false);
-                            await LoadObjectByExtConnAsync(tempObject, tempView, true, false, dataObjectCache, dbTransactionWrapper.Connection, transaction)
+                            await LoadObjectByExtConnAsync(tempObject, tempView, true, false, dataObjectCache, dbTransactionWrapper)
                                 .ConfigureAwait(false);
                         }
 
@@ -518,8 +517,7 @@
                     }
                     else
                     {
-                        var transaction = await dbTransactionWrapper.GetTransactionAsync().ConfigureAwait(false);
-                        await LoadObjectByExtConnAsync(tempAggregator, aggregatorView, true, false, dataObjectCache, dbTransactionWrapper.Connection, transaction)
+                        await LoadObjectByExtConnAsync(tempAggregator, aggregatorView, true, false, dataObjectCache, dbTransactionWrapper)
                             .ConfigureAwait(false);
                     }
 

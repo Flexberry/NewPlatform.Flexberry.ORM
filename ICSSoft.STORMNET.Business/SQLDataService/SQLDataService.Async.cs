@@ -44,7 +44,7 @@
         {
             if (dataObject == null)
             {
-                throw new ArgumentNullException(nameof(dataObjectView), "Не указан объект для загрузки. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки. Обратитесь к разработчику.");
             }
 
             if (dataObjectView == null)
@@ -58,21 +58,22 @@
                 dataObjectCache = new DataObjectCache();
             }
 
-            return LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, GetDbConnection());
+            using (var dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
+            {
+                return LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapperAsync);
+            }
         }
 
         /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)"/>
         /// <summary>Асинхронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.</summary>
-        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
-        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит коннекцию и транзакцию, через которые будет происходить зачитка.</param>
         public virtual async Task LoadObjectByExtConnAsync(
             DataObject dataObject,
             View dataObjectView,
             bool clearDataObject,
             bool checkExistingObject,
             DataObjectCache dataObjectCache,
-            DbConnection connection,
-            DbTransaction transaction = null)
+            DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
             dataObjectCache.StartCaching(false);
             try
@@ -101,7 +102,8 @@
                 string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
 
                 // Получаем данные.
-                object[][] resValue = await ReadByExtConnAsync(query, 0, connection, transaction)
+                var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
+                object[][] resValue = await ReadByExtConnAsync(query, 0, dbTransactionWrapperAsync)
                     .ConfigureAwait(false);
 
                 if (resValue == null)
@@ -118,8 +120,9 @@
 
                 DataObject[] helpDataObjectArray = { dataObject };
 
+                transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
                 Utils.ProcessingRowsetDataRef(
-                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, clearDataObject, dataObjectCache, SecurityManager, connection, transaction);
+                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, clearDataObject, dataObjectCache, SecurityManager, dbTransactionWrapperAsync.Connection, transaction);
 
                 if (dataObject.Prototyped)
                 {
@@ -297,7 +300,10 @@
                 dataObjectCache = new DataObjectCache();
             }
 
-            return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, GetDbConnection());
+            using (DbTransactionWrapperAsync wrapper = new DbTransactionWrapperAsync(this))
+            {
+                return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, wrapper);
+            }
         }
 
         /// <summary>
@@ -305,14 +311,12 @@
         /// </summary>
         /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
         /// <param name="dataObjectCache">Кэш объектов для зачитки.</param>
-        /// <param name="connection">Коннекция, через которую будут выполнена зачитска.</param>
-        /// <param name="transaction">Транзакция, в рамках которой будет выполнена зачитка.</param>
+        /// <param name="dbTransactionWrapperAsync">Коннекция и транзакция, через которые будут выполнена зачитка.</param>
         /// <returns>Загруженные данные.</returns>
         public virtual async Task<DataObject[]> LoadObjectsByExtConnAsync(
             LoadingCustomizationStruct customizationStruct,
             DataObjectCache dataObjectCache,
-            DbConnection connection,
-            DbTransaction transaction = null)
+            DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
             dataObjectCache.StartCaching(false);
             try
@@ -329,7 +333,7 @@
                 selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
 
                 // Получаем данные.
-                object[][] resValue = await ReadByExtConnAsync(selectString, customizationStruct.LoadingBufferSize, connection, transaction)
+                object[][] resValue = await ReadByExtConnAsync(selectString, customizationStruct.LoadingBufferSize, dbTransactionWrapperAsync)
                     .ConfigureAwait(false);
 
                 DataObject[] res = null;
@@ -339,8 +343,10 @@
                 }
                 else
                 {
+                    var transaction = await dbTransactionWrapperAsync.GetTransactionAsync()
+                        .ConfigureAwait(false);
                     res = Utils.ProcessingRowsetData(
-                            resValue, dataObjectType, storageStruct, customizationStruct, this, Types, dataObjectCache, SecurityManager, connection, transaction);
+                            resValue, dataObjectType, storageStruct, customizationStruct, this, Types, dataObjectCache, SecurityManager, dbTransactionWrapperAsync.Connection, transaction);
                 }
 
                 return res;
@@ -373,7 +379,10 @@
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
         public virtual Task<object[][]> ReadAsync(string query, int loadingBufferSize)
         {
-            return ReadByExtConnAsync(query, loadingBufferSize, GetDbConnection());
+            using (DbTransactionWrapperAsync dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
+            {
+                return ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync);
+            }
         }
 
         /// <summary>
@@ -381,14 +390,14 @@
         /// </summary>
         /// <param name="query">Запрос для вычитки.</param>
         /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
-        /// <param name="connection">Соединение, в рамках которого нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
-        /// <param name="transaction">Транзакция, в рамках которой выполняется запрос.</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит соединение и транзакцию, в рамках которых нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
-        public virtual async Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbConnection connection, DbTransaction transaction = null)
+        public virtual async Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
             object task = BusinessTaskMonitor.BeginTask("Reading data asynchronously" + Environment.NewLine + query);
 
             DbDataReader reader = null;
+            var connection = dbTransactionWrapperAsync?.Connection;
             try
             {
                 bool connectionIsOpen = connection.State.HasFlag(ConnectionState.Open);
@@ -398,9 +407,8 @@
                         .ConfigureAwait(false);
                 }
 
-                DbCommand command = connection.CreateCommand();
-                command.CommandText = query;
-                command.Transaction = transaction;
+                DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync()
+                    .ConfigureAwait(false);
                 CustomizeCommand(command);
 
                 reader = await command.ExecuteReaderAsync()
@@ -449,8 +457,24 @@
             }
             finally
             {
-                reader?.Close();
-                connection?.Close();
+                if (reader is not null)
+                {
+#if NETSTANDARD2_1
+                    await reader.CloseAsync().ConfigureAwait(false);
+#else
+                    reader.Close();
+#endif
+                }
+
+                if (connection is not null)
+                {
+#if NETSTANDARD2_1
+                    await connection.CloseAsync().ConfigureAwait(false);
+#else
+                    connection.Close();
+#endif
+                }
+
                 BusinessTaskMonitor.EndTask(task);
             }
         }
