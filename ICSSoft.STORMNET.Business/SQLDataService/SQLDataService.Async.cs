@@ -36,11 +36,11 @@
                 "Select count(*) from ({0}) QueryForGettingCount", GenerateSQLSelect(customizationStruct, true));
             object[][] res = await ReadAsync(query, customizationStruct.LoadingBufferSize)
                 .ConfigureAwait(false);
-            return (int)Convert.ChangeType(res[0][0], typeof(int));
+            return res == null ? 0 : (int)Convert.ChangeType(res[0][0], typeof(int));
         }
 
         /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)"></inheritdoc>
-        public virtual Task LoadObjectAsync(DataObject dataObject, View dataObjectView = null, bool clearDataObject = true, bool checkExistingObject = true, DataObjectCache dataObjectCache = null)
+        public virtual async Task LoadObjectAsync(DataObject dataObject, View dataObjectView = null, bool clearDataObject = true, bool checkExistingObject = true, DataObjectCache dataObjectCache = null)
         {
             if (dataObject == null)
             {
@@ -60,7 +60,8 @@
 
             using (var dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
             {
-                return LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapperAsync);
+                await LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapperAsync)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -293,7 +294,7 @@
         }
 
         /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(LoadingCustomizationStruct, DataObjectCache)"/>
-        public virtual Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
+        public virtual async Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
         {
             if (dataObjectCache == null)
             {
@@ -302,7 +303,8 @@
 
             using (DbTransactionWrapperAsync wrapper = new DbTransactionWrapperAsync(this))
             {
-                return LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, wrapper);
+                return await LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, wrapper)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -377,11 +379,12 @@
         /// <param name="query">Запрос для вычитки.</param>
         /// <param name="loadingBufferSize">Ограничение на количество строк, которые будут загружены.</param>
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
-        public virtual Task<object[][]> ReadAsync(string query, int loadingBufferSize)
+        public virtual async Task<object[][]> ReadAsync(string query, int loadingBufferSize)
         {
             using (DbTransactionWrapperAsync dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
             {
-                return ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync);
+                return await ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -407,7 +410,7 @@
                         .ConfigureAwait(false);
                 }
 
-                DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync()
+                DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync(query)
                     .ConfigureAwait(false);
                 CustomizeCommand(command);
 
