@@ -65,13 +65,13 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: NuGet Restore
-        run: nuget restore "Flexberry ORM.sln" -NonInteractive
+        run: dotnet restore "Flexberry ORM.sln"
         
       - name: Install xunit.runner.console
         run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
         
       - name: Compile code
-        run: msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln"
+        run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
 
       - name: Test on dotnet 3.1
         run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
@@ -139,13 +139,13 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: NuGet Restore
-        run: nuget restore "Flexberry ORM.sln" -NonInteractive
+        run: dotnet restore "Flexberry ORM.sln"
         
       - name: Install xunit.runner.console
         run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
         
       - name: Compile code
-        run: msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln"
+        run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
 
       - name: Test on dotnet 3.1
         run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
