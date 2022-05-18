@@ -74,16 +74,16 @@ jobs:
         run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
 
       - name: Test on dotnet 3.1
-        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Test on dotnet 6.0
-        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Integration test on dotnet 6.0
-        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -148,16 +148,16 @@ jobs:
         run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
 
       - name: Test on dotnet 3.1
-        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Test on dotnet 6.0
-        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Integration test on dotnet 6.0
-        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
