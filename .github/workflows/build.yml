@@ -13,6 +13,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  XUNIT_RUNNER: "2.4.1"
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build-postgres"
@@ -42,28 +45,48 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Several .NET Core versions will be used during the test run.
+      # The lowest version gets installed first in order to prevent
+      # "a newer version is already installed" install errors.
+
+      - name: Install .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      # Building requires an up-to-date .NET SDK.
+
+      - name: Install .NET 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
 
       - name: NuGet Restore
         run: nuget restore "Flexberry ORM.sln" -NonInteractive
         
       - name: Install xunit.runner.console
-        run: nuget install xunit.runner.console -Version 2.4.1 -OutputDirectory testrunner
+        run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
         
       - name: Compile code
-        run:  msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln" 
+        run: msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln"
 
-      - name: Test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+      - name: Test on dotnet 3.1
+        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
 
-      - name: Integration test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+      - name: Test on dotnet 6.0
+        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Test under mono
-        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 6.0
+        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test under mono
-        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
         
       - name: Cleanup
         if: always()
@@ -99,26 +122,45 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      # Several .NET Core versions will be used during the test run.
+      # The lowest version gets installed first in order to prevent
+      # "a newer version is already installed" install errors.
+
+      - name: Install .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      # Building requires an up-to-date .NET SDK.
+
+      - name: Install .NET 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
       - name: NuGet Restore
         run: nuget restore "Flexberry ORM.sln" -NonInteractive
         
       - name: Install xunit.runner.console
-        run: nuget install xunit.runner.console -Version 2.4.1 -OutputDirectory testrunner
+        run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
         
       - name: Compile code
-        run:  msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln" 
+        run: msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "Flexberry ORM.sln"
 
-      - name: Test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+      - name: Test on dotnet 3.1
+        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
 
-      - name: Integration test under dotnet
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+      - name: Test on dotnet 6.0
+        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
 
       - name: Test under mono
-        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 6.0
+        run: dotnet test --no-restore ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test under mono
-        run: mono ./testrunner/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
         
       - name: Cleanup
         if: always()
