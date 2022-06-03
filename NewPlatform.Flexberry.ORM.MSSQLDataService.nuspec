@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.MSSQLDataService</id>
-    <version>6.0.0</version>
+    <version>6.1.0-beta04</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,10 +13,8 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
       Added
-      - MSSQLDataService in it's own NuGet package.
-      Changed
-      - `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
-    </releaseNotes>
+      1. DbProviderFactory
+	</releaseNotes>
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
