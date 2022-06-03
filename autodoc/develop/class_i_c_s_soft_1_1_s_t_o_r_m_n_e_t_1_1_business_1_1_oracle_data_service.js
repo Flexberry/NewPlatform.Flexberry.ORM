@@ -18,5 +18,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service =
     [ "PrepareIdentifier", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a2b43679d051781b7e83ef00fe8f37227", null ],
     [ "PutIdentifierIntoBrackets", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a600e215187002b861030176395dd5c66", null ],
     [ "ReadFirst", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#acd092041c2bc400563e21d9f909ee2e0", null ],
-    [ "MaxBytes", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a20dee916a58e6509e8de0c1400aa9c22", null ]
+    [ "MaxBytes", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a20dee916a58e6509e8de0c1400aa9c22", null ],
+    [ "ProviderFactory", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#ac277e8983a8c4cf8da4ef18a9be5d237", null ]
 ];

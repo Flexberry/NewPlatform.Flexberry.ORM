@@ -1,5 +1,9 @@
 var NAVTREEINDEX10 =
 {
+"class_new_platform_1_1_flexberry_1_1_export_params.html":[1,0,3,0,2],
+"class_new_platform_1_1_flexberry_1_1_export_params.html#a5415efecadb4b8ecff5aa5d684ff2144":[1,0,3,0,2,11],
+"class_new_platform_1_1_flexberry_1_1_export_params.html#a593da8637b5364f596bfe4dfddd30548":[1,0,3,0,2,10],
+"class_new_platform_1_1_flexberry_1_1_export_params.html#a661b614a487700f2efc4448fdf338bb1":[1,0,3,0,2,7],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#a6e76af037c82bc5a499cf7a108636c72":[1,0,3,0,2,4],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#a8e7150cd60b8bc14d92a15538da6da94":[1,0,3,0,2,1],
 "class_new_platform_1_1_flexberry_1_1_export_params.html#a8f2cc45df5bfb2ce2b03e209fcada465":[1,0,3,0,2,12],
@@ -33,8 +37,8 @@ var NAVTREEINDEX10 =
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aa691571e768d110e73dfcdad6b1638dc":[1,0,3,0,0,0,0,0],
 "class_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen_1_1_system_guid_generator.html#aaed4338a4a6cbe0f762c935d99ed20d1":[1,0,3,0,0,0,0,1],
 "classes.html":[1,1],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_a.html":[1,3,0,1],
 "functions_b.html":[1,3,0,2],
 "functions_c.html":[1,3,0,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX10 =
 "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property.html":[1,0,2,1,48],
 "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property.html#a2c828c39e3457139518d5f387fc644ba":[1,0,2,1,48,2],
 "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property.html#a330da893ab5888d1c4e46d4fc1e8236c":[1,0,2,1,48,3],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property.html#a3997a11ee2c03d19b7a26b91fc762ae5":[1,0,2,1,48,0],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property.html#a9ecf4135addc12ce9b224e16219f3006":[1,0,2,1,48,1],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property_by_type.html":[1,0,2,1,49],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property_by_type.html#a2c6939e760266021a8e3bf4e22b4cdcc":[1,0,2,1,49,3],
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property_by_type.html#a6a34c95280565a358bf58c59cdc67028":[1,0,2,1,49,1]
+"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_property.html#a3997a11ee2c03d19b7a26b91fc762ae5":[1,0,2,1,48,0]
 };

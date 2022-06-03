@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a0a28e5d4ad26fd8b38b0d535af33efa2":[1,0,2,1,1,3,12],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a1b4e0bb6b7f883df4c4e3ded7c2d9003":[1,0,2,1,1,3,11],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a256f5726f83932cb169b23d58df77c67":[1,0,2,1,1,3,4],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a2b11b033cdf568b98403db54d0a21486":[1,0,2,1,1,3,8],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a552e57e5f5ead1ebe5926dd75fc99d0a":[1,0,2,1,1,3,5],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a76325133b349bdf5e8067e7c65a18624":[1,0,2,1,1,3,2],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html#a7dbe385ec5ec95d2de0d48f23e6dad8b":[1,0,2,1,1,3,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html":[1,0,2,1,4,13],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#a603bd6b98f3c81e155d8cddcf80e38c5":[1,0,2,1,4,13,3],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#a71d6fc9dbc947467625c7a0db7081ba0":[1,0,2,1,4,13,4],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#a787ea30ce2f53cec6e8f60af7195aa29":[1,0,2,1,4,13,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#a99ac25d28ef1061383c1e9bce6fa114c":[1,0,2,1,4,13,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#afe6d9e6a13507e60edda66634fc46de9":[1,0,2,1,4,13,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_types_for_view_operation_exception.html":[1,0,2,1,4,14],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_types_for_view_operation_exception.html#a35f53ce194d65396ac7b06b14029f033":[1,0,2,1,4,14,0]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#a787ea30ce2f53cec6e8f60af7195aa29":[1,0,2,1,4,13,2]
 };

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flexberry ORM 6.1.0-beta01: Класс ICSSoft.STORMNET.Business.OracleDataService</title>
+<title>Flexberry ORM 6.1.0-beta02: Класс ICSSoft.STORMNET.Business.OracleDataService</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 6.1.0-beta01
+   <div id="projectname">Flexberry ORM 6.1.0-beta02
    </div>
   </td>
  </tr>
@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
   <div class="summary">
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="#pub-static-methods">Открытые статические члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
 <a href="#pub-static-attribs">Статические открытые данные</a> &#124;
 <a href="#pro-methods">Защищенные члены</a> &#124;
 <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service-members.html">Полный список членов класса</a>  </div>
@@ -132,8 +133,9 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 <tr class="memitem:a600e215187002b861030176395dd5c66"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a600e215187002b861030176395dd5c66">PutIdentifierIntoBrackets</a> (string identifier)</td></tr>
 <tr class="memdesc:a600e215187002b861030176395dd5c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a600e215187002b861030176395dd5c66">Подробнее...</a><br /></td></tr>
 <tr class="separator:a600e215187002b861030176395dd5c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a345d2275d79b662e41f84a0bd30cf917"><td class="memItemLeft" align="right" valign="top">override System.Data.IDbConnection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a345d2275d79b662e41f84a0bd30cf917">GetConnection</a> ()</td></tr>
-<tr class="memdesc:a345d2275d79b662e41f84a0bd30cf917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вернуть объект System.Data.IDbConnection.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a345d2275d79b662e41f84a0bd30cf917">Подробнее...</a><br /></td></tr>
+<tr class="memitem:a345d2275d79b662e41f84a0bd30cf917"><td class="memItemLeft" align="right" valign="top"><a id="a345d2275d79b662e41f84a0bd30cf917"></a>
+override System.Data.IDbConnection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a345d2275d79b662e41f84a0bd30cf917">GetConnection</a> ()</td></tr>
+<tr class="memdesc:a345d2275d79b662e41f84a0bd30cf917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вернуть объект System.Data.IDbConnection. <br /></td></tr>
 <tr class="separator:a345d2275d79b662e41f84a0bd30cf917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae5ab0164eac1822e01e4a90aca90d51"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#aae5ab0164eac1822e01e4a90aca90d51">GetIfNullExpression</a> (params string[] identifiers)</td></tr>
 <tr class="memdesc:aae5ab0164eac1822e01e4a90aca90d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вернуть ifnull выражение (для ORACLE используется ф-я NVL).  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#aae5ab0164eac1822e01e4a90aca90d51">Подробнее...</a><br /></td></tr>
@@ -431,6 +433,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateObjects</b> (re
 <tr class="memdesc:a2b43679d051781b7e83ef00fe8f37227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#a2b43679d051781b7e83ef00fe8f37227">Подробнее...</a><br /></td></tr>
 <tr class="separator:a2b43679d051781b7e83ef00fe8f37227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:ac277e8983a8c4cf8da4ef18a9be5d237"><td class="memItemLeft" align="right" valign="top"><a id="ac277e8983a8c4cf8da4ef18a9be5d237"></a>
+override DbProviderFactory&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html#ac277e8983a8c4cf8da4ef18a9be5d237">ProviderFactory</a> =&gt; OracleClientFactory.Instance</td></tr>
+<tr class="separator:ac277e8983a8c4cf8da4ef18a9be5d237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Статические открытые данные</h2></td></tr>
 <tr class="memitem:a20dee916a58e6509e8de0c1400aa9c22"><td class="memItemLeft" align="right" valign="top"><a id="a20dee916a58e6509e8de0c1400aa9c22"></a>
@@ -492,6 +500,9 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 <tr class="memitem:a7fba0bc4f1fe7831eda567b28b4944ef inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_objects.html">INotifyUpdateObjects</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a7fba0bc4f1fe7831eda567b28b4944ef">NotifierUpdateObjects</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7fba0bc4f1fe7831eda567b28b4944ef inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">An instance of the class for custom process updated objects. See <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_objects.html" title="Notify update objects.">INotifyUpdateObjects</a>.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a7fba0bc4f1fe7831eda567b28b4944ef">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7fba0bc4f1fe7831eda567b28b4944ef inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa6bc9ed4895ef3d091a063f78e8cb9c inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top">abstract DbProviderFactory&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aaa6bc9ed4895ef3d091a063f78e8cb9c">ProviderFactory</a><code> [get]</code></td></tr>
+<tr class="memdesc:aaa6bc9ed4895ef3d091a063f78e8cb9c inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory to create instances of the data source classes.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aaa6bc9ed4895ef3d091a063f78e8cb9c">Подробнее...</a><br /></td></tr>
+<tr class="separator:aaa6bc9ed4895ef3d091a063f78e8cb9c inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abef10e60dcb8389aefe1180628fbf80d inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#abef10e60dcb8389aefe1180628fbf80d">CustomizationString</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:abef10e60dcb8389aefe1180628fbf80d inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Настроичная строка (строка соединения).  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#abef10e60dcb8389aefe1180628fbf80d">Подробнее...</a><br /></td></tr>
 <tr class="separator:abef10e60dcb8389aefe1180628fbf80d inherit properties_class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -964,36 +975,6 @@ virtual IDbTransaction&#160;</td><td class="memItemRight" valign="bottom"><b>Cre
 
 <p>Перегрузка GenerateSQLSelect, связанная с необходимостью в ORACLE заменить TOP на ограничение rownum. </p>
 <dl class="section return"><dt>Возвращает</dt><dd>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE.</dd></dl>
-
-</div>
-</div>
-<a id="a345d2275d79b662e41f84a0bd30cf917"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a345d2275d79b662e41f84a0bd30cf917">&#9670;&nbsp;</a></span>GetConnection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">override System.Data.IDbConnection ICSSoft.STORMNET.Business.OracleDataService.GetConnection </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Вернуть объект System.Data.IDbConnection. </p>
-<dl class="section return"><dt>Возвращает</dt><dd>Коннекция к БД.</dd></dl>
-
-<p>Замещает <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a7cd046be0acb3494597dec98cfaa32fe">ICSSoft.STORMNET.Business.SQLDataService</a>.</p>
 
 </div>
 </div>

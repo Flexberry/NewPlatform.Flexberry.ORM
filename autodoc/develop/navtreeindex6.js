@@ -1,5 +1,9 @@
 var NAVTREEINDEX6 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#aa2e7ca93a34a04e66525f0e94324f41c":[1,0,2,1,6,10,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_helper.html":[1,0,2,1,6,11],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_helper.html#a471dc971e79e19e500569dd6c68ce0b8":[1,0,2,1,6,11,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_helper.html#ade7c197db1ffdd025b1c91f87700718a":[1,0,2,1,6,11,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_parameter_def.html":[1,0,2,1,6,12],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_parameter_def.html#a535604f2127ec8b10261a8d3d3e8e539":[1,0,2,1,6,12,5],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_parameter_def.html#a98365388b920ebe9d0a7ae6bc3888c85":[1,0,2,1,6,12,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX6 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a65807aed7ddc6d343d05ba91ccdf9249":[1,0,2,1,7,3,23],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a70a923b7fb4a2e1542e29676bd8bb1f2":[1,0,2,1,7,3,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a7ec9c7c4cc26066086f527f9efec168b":[1,0,2,1,7,3,18],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a8173d54cd84b052fd7c803e0e0dabc69":[1,0,2,1,7,3,26],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a864382f79fb8ad1f326916ded4e30fe9":[1,0,2,1,7,3,7],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a92235b7e63d00a211640d79902f821e5":[1,0,2,1,7,3,13],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a9470fff487e8ed61c69124982140f225":[1,0,2,1,7,3,3],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a96c597a8be8dbf75251597cf41118082":[1,0,2,1,7,3,19]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html#a8173d54cd84b052fd7c803e0e0dabc69":[1,0,2,1,7,3,26]
 };

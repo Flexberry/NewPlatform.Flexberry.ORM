@@ -117,6 +117,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service =
     [ "CustomizationStringName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a45c95c583e44a7f13f5e9b802fca25e8", null ],
     [ "DoNotChangeCustomizationString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a943235692e816d4e2cf9c02c44d0fa11", null ],
     [ "NotifierUpdateObjects", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a7fba0bc4f1fe7831eda567b28b4944ef", null ],
+    [ "ProviderFactory", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#aaa6bc9ed4895ef3d091a063f78e8cb9c", null ],
     [ "SecurityManager", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a1d730a6d18b444f318137be22c7589d3", null ],
     [ "StorageType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a69684a7af442289d64a0bc95c1dd51a6", null ],
     [ "Types", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a3b85b7e5d8a8cc0b45d24cea71f6046e", null ],

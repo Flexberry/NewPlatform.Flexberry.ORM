@@ -1,5 +1,9 @@
 var NAVTREEINDEX5 =
 {
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#a99ac25d28ef1061383c1e9bce6fa114c":[1,0,2,1,4,13,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_type_exception.html#afe6d9e6a13507e60edda66634fc46de9":[1,0,2,1,4,13,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_types_for_view_operation_exception.html":[1,0,2,1,4,14],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_types_for_view_operation_exception.html#a35f53ce194d65396ac7b06b14029f033":[1,0,2,1,4,14,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_types_for_view_operation_exception.html#a8c2b14b69deca818c1debf5d1ffc5fb3":[1,0,2,1,4,14,1],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_incompatible_types_for_view_operation_exception.html#a9b90474b16995c57f033b8503012e223":[1,0,2,1,4,14,2],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_no_such_property_exception.html":[1,0,2,1,4,15],
@@ -245,9 +249,5 @@ var NAVTREEINDEX5 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#a66014524d9d715e16a5c91aff4b81404":[1,0,2,1,6,10,8],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#a6bcae225c062ec2779cf9e9421fb1075":[1,0,2,1,6,10,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#a814f5e2d5e8de97f086357dfec41cf0c":[1,0,2,1,6,10,3],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#a8d9126659dbe7b5990479c975a9f63b0":[1,0,2,1,6,10,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#aa2e7ca93a34a04e66525f0e94324f41c":[1,0,2,1,6,10,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_helper.html":[1,0,2,1,6,11],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_helper.html#a471dc971e79e19e500569dd6c68ce0b8":[1,0,2,1,6,11,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_helper.html#ade7c197db1ffdd025b1c91f87700718a":[1,0,2,1,6,11,0]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_for_controls.html#a8d9126659dbe7b5990479c975a9f63b0":[1,0,2,1,6,10,2]
 };
