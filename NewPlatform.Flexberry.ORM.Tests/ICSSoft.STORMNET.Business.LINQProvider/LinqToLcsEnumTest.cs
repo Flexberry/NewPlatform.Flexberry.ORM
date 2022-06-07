@@ -10,6 +10,7 @@
     using ICSSoft.STORMNET.FunctionalLanguage;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
+
     using ExternalLangDef = ICSSoft.STORMNET.Windows.Forms.ExternalLangDef;
 
     /// <summary>
