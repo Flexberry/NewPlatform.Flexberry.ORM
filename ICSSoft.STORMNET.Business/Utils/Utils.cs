@@ -1,14 +1,15 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
+    using ICSSoft.STORMNET.Security;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data;
     using System.Linq;
-    using Security;
-    using STORMDO = STORMNET;
-    using STORMFunction = FunctionalLanguage.Function;
+
+    using STORMDO = ICSSoft.STORMNET;
+    using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
