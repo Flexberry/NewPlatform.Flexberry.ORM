@@ -5,10 +5,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-- `IComparableType` implementation to `WebFile` class.
-- Feature GeoDistance is implemented.
-- `IAuditService` UTC time enable flag as property.
-- New property `SQLDataService.ProviderFactory` to create the data source objects.
 
 ### Changed
 
@@ -17,14 +13,26 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+
+### Security
+
+### Performance
+
+## [6.1.0] - 2022-08-22
+
+### Added
+- `IComparableType` implementation to `WebFile` class.
+- Feature GeoDistance is implemented.
+- `IAuditService` UTC time enable flag as property.
+- New property `SQLDataService.ProviderFactory` to create the data source objects.
+
+### Fixed
 - Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 - Update data objects with static properties inherited from DataObject.
 - Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
 - Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
 - Nullable bool isnull limit.
 - Fix `ExternalLangDef` concurrency.
-
-### Security
 
 ### Performance
 - Optimize query (select, update, delete) generation.
