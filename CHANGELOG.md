@@ -11,6 +11,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - New property `SQLDataService.ProviderFactory` to create the data source objects.
 
 ### Changed
+- Upgrade SharpZipLib@1.3.3.
+- Upgrade NewPlatform.Flexberry.LogService@2.1.0.
+- Upgrade Microsoft.Spatial@7.10.0.
 
 ### Deprecated
 
