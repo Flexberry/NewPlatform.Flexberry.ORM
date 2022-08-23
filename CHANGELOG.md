@@ -13,7 +13,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Upgrade SharpZipLib@1.3.3.
 - Upgrade NewPlatform.Flexberry.LogService@2.1.0.
-- Upgrade Microsoft.Spatial@7.10.0.
 
 ### Deprecated
 
