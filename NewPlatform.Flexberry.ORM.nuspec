@@ -17,6 +17,8 @@
       2. Feature GeoDistance is implemented.
       3. UTC time enable flag as property in IAuditService.
       4. DbProviderFactory
+      Changed
+      1.Upgrade NewPlatform.Flexberry.LogService@2.1.0 (log4net@2.0.15).
       Fixed
       1. Resolve hierarchy references for Created master only (removed excess UPDATE).
       2. Update data objects with static properties inherited from DataObject.
@@ -32,7 +34,7 @@
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="NewPlatform.Flexberry.LogService" version="2.0.0" />
+        <dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
         <dependency id="Microsoft.Spatial" version="7.7.2" />
         <dependency id="Remotion.Linq" version="2.2.0" />
         <dependency id="SharpZipLib" version="1.2.0" />
@@ -41,7 +43,7 @@
         <dependency id="Unity.Container" version="5.11.8" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="NewPlatform.Flexberry.LogService" version="2.0.0" />
+        <dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
         <dependency id="Microsoft.Spatial" version="7.7.2" />
         <dependency id="Remotion.Linq" version="2.2.0" />
         <dependency id="SharpZipLib" version="1.2.0" />

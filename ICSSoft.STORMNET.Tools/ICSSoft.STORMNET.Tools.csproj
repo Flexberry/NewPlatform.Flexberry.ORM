@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0" />
+    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.1.0" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />
   </ItemGroup>
 

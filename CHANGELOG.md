@@ -18,13 +18,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Performance
 
-## [6.1.0] - 2022-08-22
+## [6.1.0] - 2022-08-23
 
 ### Added
 - `IComparableType` implementation to `WebFile` class.
 - Feature GeoDistance is implemented.
 - `IAuditService` UTC time enable flag as property.
 - New property `SQLDataService.ProviderFactory` to create the data source objects.
+
+### Changed
+- Upgrade NewPlatform.Flexberry.LogService@2.1.0 (log4net@2.0.15).
 
 ### Fixed
 - Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
