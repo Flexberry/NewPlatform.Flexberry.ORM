@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Spatial" Version="7.7.2" />
-    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.0.0" />
+    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.1.0" />
     <PackageReference Include="Unity.Abstractions" Version="5.11.6" />
   </ItemGroup>
 
