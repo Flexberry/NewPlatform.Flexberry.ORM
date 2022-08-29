@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Data;
     using System.Data.Common;
     using System.Threading.Tasks;
@@ -124,7 +125,8 @@
 
             try
             {
-                if (Connection.State != ConnectionState.Open)
+                bool connectionIsOpen = Connection.State.HasFlag(ConnectionState.Open);
+                if (!connectionIsOpen)
                 {
                     await Connection.OpenAsync()
                         .ConfigureAwait(false);
@@ -145,7 +147,5 @@
 
             return _transaction;
         }
-
-        public static explicit operator DbTransactionWrapper(DbTransactionWrapperAsync dbTransactionWrapperAsync) => new DbTransactionWrapper(dbTransactionWrapperAsync.Connection, dbTransactionWrapperAsync._transaction);
     }
 }

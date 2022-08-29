@@ -2,15 +2,11 @@
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Data;
     using System.Data.Common;
-    using System.Linq;
     using System.Threading.Tasks;
+
     using ICSSoft.STORMNET.Exceptions;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-    using ICSSoft.STORMNET.KeyGen;
+
     using NewPlatform.Flexberry.ORM;
 
     /// <summary>
@@ -65,9 +61,16 @@
             }
         }
 
-        /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)"/>
-        /// <summary>Асинхронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.</summary>
+        /// <summary>
+        /// Асинхронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.
+        /// </summary>
+        /// <param name="dataObject">Объект данных, который требуется загрузить.</param>
+        /// <param name="dataObjectView">Представление, по которому загружается объект. Если null, будут загружены все атрибуты объекта, без детейлов (см. <see cref="View.ReadType.OnlyThatObject"/>).</param>
+        /// <param name="clearDataObject">Очистить объект перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
+        /// <param name="dataObjectCache">Кэш объектов (если null, будет использован временный кеш, созданный внутри метода).</param>
         /// <param name="dbTransactionWrapperAsync">Содержит коннекцию и транзакцию, через которые будет происходить зачитка.</param>
+        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
         public virtual async Task LoadObjectByExtConnAsync(
             DataObject dataObject,
             View dataObjectView,
@@ -76,6 +79,27 @@
             DataObjectCache dataObjectCache,
             DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
+            if (dataObject == null)
+            {
+                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки. Обратитесь к разработчику.");
+            }
+
+            if (dataObjectView == null)
+            {
+                var doType = dataObject.GetType();
+                dataObjectView = new View(doType, View.ReadType.OnlyThatObject);
+            }
+
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
+            if (dbTransactionWrapperAsync == null)
+            {
+                throw new ArgumentNullException(nameof(dbTransactionWrapperAsync), "Не указан DbTransactionWrapperAsync. Обратитесь к разработчику.");
+            }
+
             dataObjectCache.StartCaching(false);
             try
             {
@@ -103,7 +127,6 @@
                 string query = GenerateSQLSelect(lcs, false, out storageStruct, false);
 
                 // Получаем данные.
-                var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
                 object[][] resValue = await ReadByExtConnAsync(query, 0, dbTransactionWrapperAsync)
                     .ConfigureAwait(false);
 
@@ -121,7 +144,7 @@
 
                 DataObject[] helpDataObjectArray = { dataObject };
 
-                transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
+                var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
                 Utils.ProcessingRowsetDataRef(
                     resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, clearDataObject, dataObjectCache, SecurityManager, dbTransactionWrapperAsync.Connection, transaction);
 
@@ -182,117 +205,6 @@
             }
         }
 
-        /// <summary>
-        /// Сгенерировать <see cref="LoadingCustomizationStruct"/> - результат представляет собой ограничение "Один из переданных объектов данных".
-        /// Используется в дальнейшем для генерации SQL.
-        /// </summary>
-        /// <param name="dataObjects">Объекты данных, по которым будет генерироваться <see cref="LoadingCustomizationStruct"/>.</param>
-        /// <param name="dataObjectView">Представление, по которому будет генерироваться <see cref="LoadingCustomizationStruct"/>.</param>
-        /// <param name="allObjectsKeys">Вспомогательная структура для дальнейшей вычитки.</param>
-        /// <param name="readingKeys">Вспомогательная структура для дальнеишей вычитки.</param>
-        /// <returns>Итоговое ограничение.</returns>
-        protected virtual LoadingCustomizationStruct GetCustomizationStruct(DataObject[] dataObjects, View dataObjectView, out SortedList allObjectsKeys, out SortedList readingKeys)
-        {
-            List<Type> types = new List<Type>();
-            List<object> keys = new List<object>();
-            SortedList _allObjectsKeys = new SortedList();
-            SortedList _readingKeys = new SortedList();
-
-            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
-            FunctionalLanguage.VariableDef var = new FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
-            keys.Add(var);
-
-            for (int i = 0; i < dataObjects.Length; i++)
-            {
-                DataObject dobject = dataObjects[i];
-                Type dotype = dobject.GetType();
-                bool addobj = false;
-                if (types.Contains(dotype))
-                {
-                    addobj = true;
-                }
-                else
-                {
-                    if ((dotype == dataObjectView.DefineClassType || dotype.IsSubclassOf(dataObjectView.DefineClassType)) && Information.IsStoredType(dotype))
-                    {
-                        types.Add(dotype);
-                        addobj = true;
-                    }
-                }
-
-                if (addobj)
-                {
-                    object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
-                    keys.Add(readingKey);
-                    _allObjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
-                    _readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
-                }
-            }
-
-            allObjectsKeys = _allObjectsKeys;
-            readingKeys = _readingKeys;
-
-            LoadingCustomizationStruct customizationStruct = new LoadingCustomizationStruct(GetInstanceId());
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys.ToArray());
-            customizationStruct.Init(null, func, types.ToArray(), dataObjectView, null);
-
-            return customizationStruct;
-        }
-
-        /// <summary>
-        /// Конвертировать результат вычитки методов Read/ReadAsync в массив объектов данных.
-        /// </summary>
-        /// <param name="result">Результат вычитки, который будет сконвертирован.</param>
-        protected virtual void ConvertReadResult(object[][] result, DataObject[] dataObjects, LoadingCustomizationStruct customizationStruct, StorageStructForView[] storageStructs, SortedList allObjectKeys, SortedList readingKeys, bool clearDataObject, DataObjectCache dataObjectCache)
-        {
-            if (result != null && result.Length != 0)
-            {
-                DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[result.Length];
-                int objectTypeIndexPOs = result[0].Length - 1;
-                int keyIndex = storageStructs[0].props.Length - 1;
-                while (storageStructs[0].props[keyIndex].MultipleProp)
-                {
-                    keyIndex--;
-                }
-
-                keyIndex++;
-
-                for (int i = 0; i < result.Length; i++)
-                {
-                    Type tp = customizationStruct.LoadingTypes[Convert.ToInt64(result[i][objectTypeIndexPOs].ToString())];
-                    object ky = result[i][keyIndex];
-                    ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
-                    int indexobj = allObjectKeys.IndexOfKey(tp.FullName + ky.ToString());
-                    if (indexobj > -1)
-                    {
-                        loadobjects[i] = dataObjects[(int)allObjectKeys.GetByIndex(indexobj)];
-                        if (clearDataObject)
-                        {
-                            loadobjects[i].Clear();
-                        }
-
-                        dataObjectCache.AddDataObject(loadobjects[i]);
-                    }
-                    else
-                    {
-                        loadobjects[i] = null;
-                    }
-                }
-
-                Utils.ProcessingRowsetDataRef(result, customizationStruct.LoadingTypes, storageStructs, customizationStruct, loadobjects, this, Types, clearDataObject, dataObjectCache, SecurityManager);
-                foreach (DataObject dobj in loadobjects)
-                {
-                    if (dobj != null && dobj.Prototyped)
-                    {
-                        dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
-                        dobj.SetStatus(ObjectStatus.Created);
-                        dobj.SetLoadingState(LoadingState.NotLoaded);
-                    }
-                }
-            }
-        }
-
         /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(LoadingCustomizationStruct, DataObjectCache)"/>
         public virtual async Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
         {
@@ -320,6 +232,21 @@
             DataObjectCache dataObjectCache,
             DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
+            if (customizationStruct == null)
+            {
+                throw new ArgumentNullException(nameof(customizationStruct));
+            }
+
+            if (dbTransactionWrapperAsync == null)
+            {
+                throw new ArgumentNullException(nameof(dbTransactionWrapperAsync));
+            }
+
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
             dataObjectCache.StartCaching(false);
             try
             {
@@ -362,6 +289,11 @@
         /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(View, DataObjectCache)"/>
         public virtual Task<DataObject[]> LoadObjectsAsync(View dataObjectView, DataObjectCache dataObjectCache = null)
         {
+            if (dataObjectView == null)
+            {
+                throw new ArgumentNullException(nameof(dataObjectView));
+            }
+
             if (dataObjectCache == null)
             {
                 dataObjectCache = new DataObjectCache();
@@ -397,61 +329,57 @@
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
         public virtual async Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
+            if (dbTransactionWrapperAsync == null)
+            {
+                throw new ArgumentNullException(nameof(dbTransactionWrapperAsync));
+            }
+
             object task = BusinessTaskMonitor.BeginTask("Reading data asynchronously" + Environment.NewLine + query);
 
-            DbDataReader reader = null;
-            var connection = dbTransactionWrapperAsync?.Connection;
             try
             {
-                bool connectionIsOpen = connection.State.HasFlag(ConnectionState.Open);
-                if (!connectionIsOpen)
-                {
-                    await connection.OpenAsync()
-                        .ConfigureAwait(false);
-                }
-
                 DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync(query)
                     .ConfigureAwait(false);
                 CustomizeCommand(command);
 
-                reader = await command.ExecuteReaderAsync()
-                    .ConfigureAwait(false);
-
-                var hasRows = await reader.ReadAsync()
-                    .ConfigureAwait(false);
-
-                if (hasRows)
+                using (DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    var arl = new ArrayList();
-                    int i = 1;
-                    int fieldCount = reader.FieldCount;
+                    var hasRows = await reader.ReadAsync()
+                        .ConfigureAwait(false);
 
-                    // Порционная вычитка:
-                    while (i <= loadingBufferSize || loadingBufferSize == 0)
+                    if (hasRows)
                     {
-                        if (i > 1)
-                        {
-                            var hasMoreRows = await reader.ReadAsync()
-                                .ConfigureAwait(false);
+                        var arl = new ArrayList();
+                        int i = 1;
+                        int fieldCount = reader.FieldCount;
 
-                            if (!hasMoreRows)
+                        // Порционная вычитка:
+                        while (i <= loadingBufferSize || loadingBufferSize == 0)
+                        {
+                            if (i > 1)
                             {
-                                break;
+                                var hasMoreRows = await reader.ReadAsync()
+                                    .ConfigureAwait(false);
+
+                                if (!hasMoreRows)
+                                {
+                                    break;
+                                }
                             }
+
+                            object[] tmp = new object[fieldCount];
+                            reader.GetValues(tmp);
+                            arl.Add(tmp);
+                            i++;
                         }
 
-                        object[] tmp = new object[fieldCount];
-                        reader.GetValues(tmp);
-                        arl.Add(tmp);
-                        i++;
+                        object[][] result = (object[][])arl.ToArray(typeof(object[]));
+                        return result;
                     }
-
-                    object[][] result = (object[][])arl.ToArray(typeof(object[]));
-                    return result;
-                }
-                else
-                {
-                    return null;
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             catch (Exception e)
@@ -460,24 +388,6 @@
             }
             finally
             {
-                if (reader is not null)
-                {
-#if NETSTANDARD2_1
-                    await reader.CloseAsync().ConfigureAwait(false);
-#else
-                    reader.Close();
-#endif
-                }
-
-                if (connection is not null)
-                {
-#if NETSTANDARD2_1
-                    await connection.CloseAsync().ConfigureAwait(false);
-#else
-                    connection.Close();
-#endif
-                }
-
                 BusinessTaskMonitor.EndTask(task);
             }
         }

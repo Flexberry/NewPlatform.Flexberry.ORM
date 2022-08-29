@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
 
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
@@ -3862,31 +3863,28 @@
         /// Детейлы, на которые навешены бизнес-сервера
         /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).
         /// </param>
-        /// <param name="DeleteTables">
+        /// <param name="deleteTables">
         /// The delete tables.
         /// </param>
-        /// <param name="TableOperations">
+        /// <param name="tableOperations">
         /// The table operations.
         /// </param>
-        /// <param name="DataObjectCache">
+        /// <param name="dataObjectCache">
         /// The data object cache.
         /// </param>
         /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
-        /// <returns>
-        /// Набор объектов, которые необходимо занести в аудит.
-        /// </returns>
-        private IEnumerable<DataObject> AddDeletedViewToDeleteDictionary(
+        /// <returns>Кортеж. Первое значение - набор объектов, которые необходимо занести в аудит. Второе - детейлы, на которые навешены бизнес-сервера (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).</returns>
+        private Tuple<IEnumerable<DataObject>, DataObject[]> AddDeletedViewToDeleteDictionary(
             STORMDO.View view,
             IDictionary<string, List<string>> deleteDictionary,
             object mainkey,
-            out DataObject[] updateobjects,
-            StringCollection DeleteTables,
-            SortedList TableOperations,
-            DataObjectCache DataObjectCache,
+            StringCollection deleteTables,
+            SortedList tableOperations,
+            DataObjectCache dataObjectCache,
             DbTransactionWrapper dbTransactionWrapper)
         {
             List<DataObject> extraProcessingObjects = new List<DataObject>();
-            updateobjects = new DataObject[0];
+            DataObject[] updateObjects = new DataObject[0];
             string prkeyStorName = view.Properties[1].Name;
 
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
@@ -3903,7 +3901,7 @@
             if (bs != null && bs.Length > 0)
             {
                 // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                updateobjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                updateObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
             }
             else
             {
@@ -3913,7 +3911,7 @@
                     * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                     * а бизнес-сервера основного объекта уже выполнились.
                     */
-                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, DataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                     if (detailObjects != null)
                     {
                         foreach (var detailObject in detailObjects)
@@ -3938,7 +3936,7 @@
                         if (!deleteDictionary.ContainsKey(tableName))
                         {
                             deleteDictionary.Add(tableName, new List<string>());
-                            AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
+                            AddOpertaionOnTable(deleteTables, tableOperations, tableName, OperationType.Delete);
                         }
 
                         var prevDicValue = deleteDictionary[tableName];
@@ -3952,7 +3950,7 @@
                     if (!deleteDictionary.ContainsKey(tableName))
                     {
                         deleteDictionary.Add(tableName, new List<string>());
-                        AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
+                        AddOpertaionOnTable(deleteTables, tableOperations, tableName, OperationType.Delete);
                     }
 
                     var prevDicValue = deleteDictionary[tableName];
@@ -3960,7 +3958,7 @@
                 }
             }
 
-            return extraProcessingObjects;
+            return new Tuple<IEnumerable<DataObject>, DataObject[]>(extraProcessingObjects, updateObjects);
         }
 
         /// <summary>
@@ -4020,7 +4018,7 @@
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств. </param>
         /// <param name="processingObjects"> The processing Objects. </param>
         /// <param name="dataObjectCache"> The Data Object Cache.</param>
-        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" /> или <see cref="DbTransactionWrapperAsync" />.</param>
         /// <param name="dobjects"> Для чего генерим запросы. </param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4036,7 +4034,7 @@
             bool checkLoadedProps,
             System.Collections.ArrayList processingObjects,
             DataObjectCache dataObjectCache,
-            DbTransactionWrapper dbTransactionWrapper,
+            object dbTransactionWrapper,
             params ICSSoft.STORMNET.DataObject[] dobjects)
         {
             GenerateQueriesForUpdateObjects(
@@ -4659,7 +4657,7 @@
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="auditObjects">Список объектов, которые необходимо записать в аудит (выходной параметр). Заполняется в том случае, когда
         /// передан не null и текущий сервис аудита включен.</param>
-        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" /> или <see cref="DbTransactionWrapperAsync" />.</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
         public virtual void GenerateQueriesForUpdateObjects(
             StringCollection deleteQueries,
@@ -4676,7 +4674,7 @@
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             List<DataObject> auditObjects,
-            DbTransactionWrapper dbTransactionWrapper,
+            object dbTransactionWrapper,
             params DataObject[] dobjects)
         {
             string nl = Environment.NewLine;
@@ -4771,9 +4769,15 @@
 
                             foreach (STORMDO.View subview in views)
                             {
-                                DataObject[] detailsObjects;
-                                IEnumerable<DataObject> extraProcessingObjects =
-                                    AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, out detailsObjects, deleteTables, tableOperations, dataObjectCache, dbTransactionWrapper);
+                                var result = dbTransactionWrapper switch
+                                {
+                                    DbTransactionWrapper syncWrapper => AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, deleteTables, tableOperations, dataObjectCache, syncWrapper),
+                                    DbTransactionWrapperAsync asyncWrapper => Task.Run(() => AddDeletedViewToDeleteDictionaryAsync(subview, deleteDictionary, processingObject.__PrimaryKey, deleteTables, tableOperations, dataObjectCache, asyncWrapper)).GetAwaiter().GetResult(),
+                                    _ => throw new ArgumentException("Параметр dbTransactionWrapper имеет неправильный тип (должен быть ICSSoft.STORMNET.Business.DbTransactionWrapper или ICSSoft.STORMNET.Business.DbTransactionWrapperAsync", nameof(dbTransactionWrapper))
+                                };
+                                IEnumerable<DataObject> extraProcessingObjects = result.Item1;
+                                DataObject[] detailsObjects = result.Item2;
+
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
                                 foreach (DataObject detobj in detailsObjects)

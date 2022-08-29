@@ -1,10 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
-    using ICSSoft.STORMNET.Business.Audit.HelpStructures;
-    using ICSSoft.STORMNET.Business.Audit.Objects;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-    using ICSSoft.STORMNET.Security;
-    using NewPlatform.Flexberry.ORM;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -12,6 +7,11 @@
     using System.Data.Common;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using ICSSoft.STORMNET.Business.Audit.HelpStructures;
+    using ICSSoft.STORMNET.Business.Audit.Objects;
+
+    using NewPlatform.Flexberry.ORM;
 
     /// <summary>
     /// Data service for SQL storage.
@@ -21,6 +21,16 @@
         /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
         public virtual async Task UpdateObjectsAsync(DataObject[] objects, bool alwaysThrowException = false, DataObjectCache dataObjectCache = null)
         {
+            if (objects == null)
+            {
+                throw new ArgumentNullException(nameof(objects));
+            }
+
+            if (!objects.Any())
+            {
+                return;
+            }
+
             if (dataObjectCache == null)
             {
                 dataObjectCache = new DataObjectCache();
@@ -54,11 +64,37 @@
             }
         }
 
-        /// <inheritdoc cref="IAsyncDataService.UpdateObjectsAsync(DataObject[], bool, DataObjectCache)"/>
-        /// <summary>Обновление объекта данных с использованием указанной коннекцией в рамках указанной транзакции.</summary>
+        /// <summary>
+        /// Сохранение объектов данных.
+        /// </summary>
+        /// <remarks><i>Атрибуты loadingState и status у обрабатываемых объектов обновляются в процессе работы.</i></remarks>
+        /// <param name="objects">Объекты данных, которые требуется обновить.</param>
+        /// <param name="dataObjectCache">Кэш объектов (если null, будет использован временный кеш, созданный внутри метода).</param>
+        /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
         /// <param name="dbTransactionWrapperAsync">Используемые коннекция и транзакция.</param>
+        /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
         public virtual async Task UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
+            if (objects == null)
+            {
+                throw new ArgumentNullException(nameof(objects));
+            }
+
+            if (!objects.Any())
+            {
+                return;
+            }
+
+            if (dbTransactionWrapperAsync == null)
+            {
+                throw new ArgumentNullException(nameof(dbTransactionWrapperAsync), "Не указан DbTransactionWrapperAsync. Обратитесь к разработчику.");
+            }
+
+            if (dataObjectCache == null)
+            {
+                dataObjectCache = new DataObjectCache();
+            }
+
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
             var deleteQueries = new StringCollection();
@@ -78,7 +114,7 @@
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
 
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, (DbTransactionWrapper)dbTransactionWrapperAsync, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapperAsync, objects);
 
             extraProcessingList = await GenerateAuditForAggregatorsAsync(allQueriedObjects, dataObjectCache, dbTransactionWrapperAsync).ConfigureAwait(false);
 
@@ -121,7 +157,8 @@
                 try
                 {
                     Exception ex = null;
-                    DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync();
+                    DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync()
+                        .ConfigureAwait(false);
 
                     // прошли вглубь обрабатывая only Update||Insert
                     bool go = true;
@@ -325,263 +362,6 @@
             {
                 AfterUpdateObjects(this, new DataObjectsEventArgs(objects));
             }
-        }
-
-        protected virtual async Task<Exception> RunCommandsAsync(StringCollection queries, StringCollection tables,
-            string table, DbCommand command,
-            object businessID, bool alwaysThrowException)
-        {
-            int i = 0;
-            bool res = true;
-            Exception ex = null;
-            while (i < queries.Count && ex == null)
-            {
-                if (tables[i] == table)
-                {
-                    string query = queries[i];
-                    command.CommandText = query;
-                    command.Parameters.Clear();
-                    CustomizeCommand(command);
-                    object subTask = BusinessTaskMonitor.BeginSubTask(query, businessID);
-                    try
-                    {
-                        await command.ExecuteNonQueryAsync().ConfigureAwait(false);
-                        queries.RemoveAt(i);
-                        tables.RemoveAt(i);
-                    }
-                    catch (Exception exc)
-                    {
-                        i++;
-                        ex = new ExecutingQueryException(query, string.Empty, exc);
-                    }
-
-                    BusinessTaskMonitor.EndSubTask(subTask);
-                }
-                else
-                {
-                    i++;
-                }
-            }
-
-            if (alwaysThrowException && ex != null)
-            {
-                return null;
-                throw ex;
-            }
-
-            return ex;
-        }
-
-        protected virtual async Task<List<DataObject>> GenerateAuditForAggregatorsAsync(
-            ArrayList processingObjects,
-            DataObjectCache dataObjectCache,
-            DbTransactionWrapperAsync dbTransactionWrapper = null)
-        {
-            var auditObjects = new List<DataObject>();
-
-            if (!AuditService.IsAuditEnabled)
-            {
-                return auditObjects;
-            }
-
-            var processingObjectsList = processingObjects.Cast<DataObject>().ToList();
-
-            // Занесение агрегаторов обновляемых объектов в аудит, если они есть.
-            foreach (var dataObject in processingObjectsList)
-            {
-                var dataObjectType = dataObject.GetType();
-
-                var aggregatorPropertyName = Information.GetAgregatePropertyName(dataObjectType);
-                if (string.IsNullOrEmpty(aggregatorPropertyName))
-                {
-                    continue;
-                }
-
-                Type aggregatorType = Information.GetPropertyType(dataObjectType, aggregatorPropertyName);
-
-                string detailArrayPropertyName = Information.GetDetailArrayPropertyName(aggregatorType, dataObjectType);
-
-                View aggregatorAuditView = AuditService.GetAuditViewByType(aggregatorType, tTypeOfAuditOperation.UPDATE);
-
-                // Если данного детейла в представлении аудита агрегатора нет, значит и аудит агрегатора при
-                // изменении этого детейла вести не нужно.
-                if (aggregatorAuditView == null || !aggregatorAuditView.CheckPropname(detailArrayPropertyName, true))
-                {
-                    continue;
-                }
-
-                // Определение прежнего агрегатора (если объект только что создан, то его нет).
-                DataObject oldAggregator = null;
-                if (dataObject.GetStatus() != ObjectStatus.Created)
-                {
-                    oldAggregator =
-                        (DataObject)Information.GetPropValueByName(dataObject.GetDataCopy(), aggregatorPropertyName);
-                    if (oldAggregator == null)
-                    {
-                        // Загрузка агрегатора из БД. Производится во временный объект, так как в оригинальном объекте
-                        // может храниться ссылка на новый агрегатор.
-                        var tempObject = (DataObject)Activator.CreateInstance(dataObjectType);
-                        tempObject.SetExistObjectPrimaryKey(dataObject.__PrimaryKey);
-                        var tempView = new View { Name = "AggregatorLoadingView", DefineClassType = dataObjectType };
-                        tempView.AddProperty(aggregatorPropertyName);
-
-                        if (dbTransactionWrapper == null)
-                        {
-                            await LoadObjectAsync(tempObject, tempView, true, true, dataObjectCache).ConfigureAwait(false);
-                        }
-                        else
-                        {
-                            await LoadObjectByExtConnAsync(tempObject, tempView, true, false, dataObjectCache, dbTransactionWrapper)
-                                .ConfigureAwait(false);
-                        }
-
-                        oldAggregator =
-                            (DataObject)Information.GetPropValueByName(tempObject, aggregatorPropertyName);
-                    }
-                    else
-                    {
-                        // Для корректной обработки аудитом объект не должен являться копией данных, поэтому, если он был взят
-                        // из копии, то нужно создать новый объект.
-                        var tempPrimaryKey = oldAggregator.__PrimaryKey;
-                        oldAggregator = (DataObject)Activator.CreateInstance(aggregatorType);
-                        oldAggregator.SetExistObjectPrimaryKey(tempPrimaryKey);
-                        oldAggregator.SetStatus(ObjectStatus.Altered);
-                    }
-                }
-
-                // Определение нового агрегатора (если объект удален, то он нам не нужен).
-                DataObject newAggregator = null;
-                if (dataObject.GetStatus() != ObjectStatus.Deleted)
-                {
-                    newAggregator =
-                        (DataObject)Information.GetPropValueByName(dataObject, aggregatorPropertyName)
-                        ?? oldAggregator;
-                }
-
-                // Агрегаторы уже могут быть в списке аудита, надо это проверить.
-                DataObject existingObj;
-                if (newAggregator != null)
-                {
-                    if ((existingObj = GetDataObjectFromSearchedList(auditObjects, newAggregator)) != null)
-                    {
-                        newAggregator = existingObj;
-                    }
-                    else
-                    {
-                        auditObjects.Add(newAggregator);
-                    }
-                }
-
-                if (oldAggregator != null)
-                {
-                    if ((existingObj = GetDataObjectFromSearchedList(auditObjects, oldAggregator)) != null)
-                    {
-                        oldAggregator = existingObj;
-                    }
-                    else
-                    {
-                        auditObjects.Add(oldAggregator);
-                    }
-                }
-
-                // Загрузка детейлов в агрегаторы, если они еще не были загружены.
-                var aggregatorView = new View
-                {
-                    Name = "DetailsLoadingView",
-                    DefineClassType = aggregatorType,
-                };
-
-                DetailInView detailInView = aggregatorAuditView.GetDetail(detailArrayPropertyName);
-                aggregatorView.AddDetailInView(detailInView.Name, detailInView.View, true);
-                var aggregatorsToLoad = new List<DataObject>();
-
-                if (oldAggregator != null && !oldAggregator.CheckLoadedProperty(detailArrayPropertyName))
-                {
-                    aggregatorsToLoad.Add(oldAggregator);
-                }
-
-                if (newAggregator != null && newAggregator != oldAggregator
-                    && !newAggregator.CheckLoadedProperty(detailArrayPropertyName))
-                {
-                    aggregatorsToLoad.Add(newAggregator);
-                }
-
-                foreach (DataObject aggregator in aggregatorsToLoad)
-                {
-                    DataObject tempAggregator = (DataObject)Activator.CreateInstance(aggregatorType);
-                    tempAggregator.SetExistObjectPrimaryKey(aggregator.__PrimaryKey);
-
-                    if (dbTransactionWrapper == null)
-                    {
-                        await LoadObjectAsync(tempAggregator, aggregatorView, true, false, dataObjectCache).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        await LoadObjectByExtConnAsync(tempAggregator, aggregatorView, true, false, dataObjectCache, dbTransactionWrapper)
-                            .ConfigureAwait(false);
-                    }
-
-                    DetailArray tempAggregatorDetailArray =
-                        (DetailArray)Information.GetPropValueByName(tempAggregator, detailArrayPropertyName),
-                        aggregatorDetailArray =
-                            (DetailArray)Information.GetPropValueByName(aggregator, detailArrayPropertyName);
-                    while (tempAggregatorDetailArray.Count > 0)
-                    {
-                        var detail = tempAggregatorDetailArray.ItemByIndex(0);
-                        tempAggregatorDetailArray.RemoveByIndex(0);
-                        aggregatorDetailArray.AddObject(detail);
-                    }
-
-                    aggregator.AddLoadedProperties(detailArrayPropertyName);
-                }
-
-                var oldAggregatorDetailArray = oldAggregator == null
-                                                ? null
-                                                : (DetailArray)Information.GetPropValueByName(oldAggregator, detailArrayPropertyName);
-                var newAggregatorDetailArray = newAggregator == null
-                                                ? null
-                                                : (DetailArray)Information.GetPropValueByName(newAggregator, detailArrayPropertyName);
-
-                DataObject deletedObj = oldAggregatorDetailArray != null ? oldAggregatorDetailArray.GetByKey(dataObject.__PrimaryKey) : null;
-                switch (dataObject.GetStatus())
-                {
-                    case ObjectStatus.Altered:
-                        if (oldAggregator != newAggregator && deletedObj != null)
-                        {
-                            deletedObj.SetStatus(ObjectStatus.Deleted);
-                            oldAggregator.GetStatus(true);
-                        }
-
-                        if (dataObject.GetDetailArray() == null)
-                        {
-                            newAggregatorDetailArray.SetByKey(dataObject.__PrimaryKey, dataObject);
-                        }
-
-                        break;
-                    case ObjectStatus.Deleted:
-                        if (deletedObj != null)
-                        {
-                            deletedObj.SetStatus(ObjectStatus.Deleted);
-                            oldAggregator.GetStatus(true);
-                        }
-
-                        break;
-                    case ObjectStatus.Created:
-                        if (dataObject.GetDetailArray() == null)
-                        {
-                            newAggregatorDetailArray.SetByKey(dataObject.__PrimaryKey, dataObject);
-                        }
-
-                        break;
-                }
-
-                if (newAggregator != null)
-                {
-                    newAggregator.GetStatus(true);
-                }
-            }
-
-            return auditObjects;
         }
     }
 }
