@@ -6,12 +6,14 @@
     using System.Collections.Specialized;
     using System.Data.Common;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
 
     using ICSSoft.STORMNET.Business.Audit.Objects;
+    using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.KeyGen;
-
+    using ICSSoft.STORMNET.Security;
     using NewPlatform.Flexberry.ORM;
 
     /// <summary>
@@ -20,24 +22,18 @@
     public abstract partial class SQLDataService : System.ComponentModel.Component, IDataService, IAsyncDataService
     {
         /// <summary>
-        /// Выполнить запросы <paramref name="queries"/> на указанной таблице <paramref name="table"/>.
+        /// Выполнить запросы <paramref name="queries"/>./>.
         /// </summary>
+        /// <param name="queries">Список запросов, которые нужно выполнить.</param>
+        /// <param name="command">Команда, с помощью которой выполнится запрос.</param>
+        /// <param name="businessID">ID операции (см. <see cref="BusinessTaskMonitor.BeginTask(string)"/>).</param>
+        /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
         /// <returns>Возникла ошибка - возвращается <see cref="ExecutingQueryException"/>. Сработало без ошибок - возвращается <see langword="null" />.</returns>
-        protected virtual async Task<Exception> RunCommandsAsync(StringCollection queries, StringCollection tables, string table, DbCommand command, object businessID, bool alwaysThrowException)
+        protected virtual Exception RunCommands(List<string> queries, System.Data.IDbCommand command, object businessID, bool alwaysThrowException)
         {
             if (queries == null)
             {
                 throw new ArgumentNullException(nameof(queries));
-            }
-
-            if (tables == null)
-            {
-                throw new ArgumentNullException(nameof(tables));
-            }
-
-            if (table == null)
-            {
-                throw new ArgumentNullException(nameof(table));
             }
 
             if (command == null)
@@ -45,35 +41,77 @@
                 throw new ArgumentNullException(nameof(command));
             }
 
-            int i = 0;
             Exception ex = null;
-            while (i < queries.Count && ex == null)
+            for (int i = 0; i < queries.Count; i++)
             {
-                if (tables[i] == table)
+                string query = queries[i];
+                command.CommandText = query;
+                command.Parameters.Clear();
+                CustomizeCommand(command);
+                object subTask = BusinessTaskMonitor.BeginSubTask(query, businessID);
+                try
                 {
-                    string query = queries[i];
-                    command.CommandText = query;
-                    command.Parameters.Clear();
-                    CustomizeCommand(command);
-                    object subTask = BusinessTaskMonitor.BeginSubTask(query, businessID);
-                    try
-                    {
-                        await command.ExecuteNonQueryAsync().ConfigureAwait(false);
-                        queries.RemoveAt(i);
-                        tables.RemoveAt(i);
-                    }
-                    catch (Exception exc)
-                    {
-                        i++;
-                        ex = new ExecutingQueryException(query, string.Empty, exc);
-                    }
+                    command.ExecuteNonQuery();
+                    queries.RemoveAt(i);
+                }
+                catch (Exception exc)
+                {
+                    ex = new ExecutingQueryException(query, string.Empty, exc);
+                    break;
+                }
 
-                    BusinessTaskMonitor.EndSubTask(subTask);
-                }
-                else
+                BusinessTaskMonitor.EndSubTask(subTask);
+            }
+
+            if (alwaysThrowException && ex != null)
+            {
+                throw ex;
+            }
+
+            return ex;
+        }
+
+        /// <summary>
+        /// Выполнить запросы <paramref name="queries"/>./> (асинхронно).
+        /// </summary>
+        /// <param name="queries">Список запросов, которые нужно выполнить.</param>
+        /// <param name="command">Команда, с помощью которой выполнится запрос.</param>
+        /// <param name="businessID">ID операции (см. <see cref="BusinessTaskMonitor.BeginTask(string)"/>).</param>
+        /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
+        /// <returns>Возникла ошибка - возвращается <see cref="ExecutingQueryException"/>. Сработало без ошибок - возвращается <see langword="null" />.</returns>
+        protected virtual async Task<Exception> RunCommandsAsync(List<string> queries, DbCommand command, object businessID, bool alwaysThrowException)
+        {
+            if (queries == null)
+            {
+                throw new ArgumentNullException(nameof(queries));
+            }
+
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            Exception ex = null;
+
+            for (int i = 0; i < queries.Count; i++)
+            {
+                string query = queries[i];
+                command.CommandText = query;
+                command.Parameters.Clear();
+                CustomizeCommand(command);
+                object subTask = BusinessTaskMonitor.BeginSubTask(query, businessID);
+                try
                 {
-                    i++;
+                    await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    queries.RemoveAt(i);
                 }
+                catch (Exception exc)
+                {
+                    ex = new ExecutingQueryException(query, string.Empty, exc);
+                    break;
+                }
+
+                BusinessTaskMonitor.EndSubTask(subTask);
             }
 
             if (alwaysThrowException && ex != null)
@@ -418,23 +456,150 @@
         }
 
         /// <summary>
+        /// Проверка прав пользователя перед изменением объектов (выбрасывает исключение если доступ закрыт).
+        /// </summary>
+        /// <param name="securityManager">Менеджер полномочий, выполняющий проверку.</param>
+        /// <param name="dataObjects">Изменённые объекты (проверяются права на изменение этих объектов).</param>
+        public static void AccessCheckBeforeUpdate(ISecurityManager securityManager, ArrayList dataObjects)
+        {
+            foreach (DataObject dtob in dataObjects)
+            {
+                Type dobjType = dtob.GetType();
+                if (!securityManager.AccessObjectCheck(dobjType, tTypeAccess.Full, false))
+                {
+                    switch (dtob.GetStatus(false))
+                    {
+                        case ObjectStatus.Created:
+                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Insert, true);
+                            break;
+                        case ObjectStatus.Altered:
+                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Update, true);
+                            break;
+                        case ObjectStatus.Deleted:
+                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Delete, true);
+                            break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Данная функция либо возвращает объекты детейлов, если есть навешенные на них бизнес-сервера,
+        /// иначе формирует запрос на удаление всех детейлов определённого типа у объекта.
+        /// </summary>
+        /// <param name="view">Представление, соответствующее детейлу.</param>
+        /// <param name="deleteDictionary">Запросы на удаление.</param>
+        /// <param name="mainkey">Первичный ключ агрегатора детейлов.</param>
+        /// <param name="tableOperations">Список операций над таблицами.</param>
+        /// <param name="dataObjectCache">Кеш.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapperAsync" />.</param>
+        /// <returns>Кортеж. Первое значение - набор объектов, которые необходимо занести в аудит. Второе - детейлы, на которые навешены бизнес-сервера (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).</returns>
+        private Tuple<IEnumerable<DataObject>, DataObject[]> AddDeletedViewToDeleteDictionary(
+            View view,
+            IDictionary<string, List<string>> deleteDictionary,
+            object mainkey,
+            SortedList tableOperations,
+            DataObjectCache dataObjectCache,
+            DbTransactionWrapper dbTransactionWrapper)
+        {
+            List<DataObject> extraProcessingObjects = new List<DataObject>();
+            DataObject[] updateObjects = new DataObject[0];
+            string prkeyStorName = view.Properties[1].Name;
+
+            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+
+            FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
+                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
+            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
+
+            LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
+
+            cs.Init(new ColumnsSortDef[0], func, new Type[] { view.DefineClassType }, view, new string[0]);
+            object state = null;
+            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
+            if (bs != null && bs.Length > 0)
+            {
+                // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
+                updateObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+            }
+            else
+            {
+                if (AuditService.IsTypeAuditable(view.DefineClassType))
+                {
+                    /* Аудиту необходимо зафиксировать удаление детейлов.
+                    * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
+                    * а бизнес-сервера основного объекта уже выполнились.
+                    */
+                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    if (detailObjects != null)
+                    {
+                        foreach (var detailObject in detailObjects)
+                        {
+                            // Мы будем сии детейлы удалять, поэтому им необходимо проставить соответствующий статус
+                            detailObject.SetStatus(ObjectStatus.Deleted);
+                        }
+
+                        extraProcessingObjects.AddRange(detailObjects);
+                    }
+                }
+
+                string sq = GenerateSQLSelect(cs, false);
+
+                if (StorageType == StorageTypeEnum.HierarchicalStorage)
+                {
+                    Type[] types = Information.GetCompatibleTypesForTypeConvertion(view.DefineClassType);
+                    for (int i = 0; i < types.Length; i++)
+                    {
+                        string tableName = Information.GetClassStorageName(types[i]);
+                        AddToDeleteDictionary(deleteDictionary, tableName, view, sq, tableOperations);
+                    }
+                }
+                else
+                {
+                    string tableName = Information.GetClassStorageName(view.DefineClassType);
+                    AddToDeleteDictionary(deleteDictionary, tableName, view, sq, tableOperations);
+                }
+            }
+
+            return new Tuple<IEnumerable<DataObject>, DataObject[]>(extraProcessingObjects, updateObjects);
+        }
+
+        private void AddToDeleteDictionary(IDictionary<string, List<string>> deleteDictionary, string tableName, View view, string innerSelectQuery, SortedList tableOperations)
+        {
+            StringBuilder sb = new StringBuilder();
+            var pkIdentifier = Information.GetPrimaryKeyStorageName(view.DefineClassType);
+            sb.Append(PutIdentifierIntoBrackets(pkIdentifier));
+            sb.Append(" IN ( SELECT ");
+            sb.Append(PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey));
+            sb.AppendFormat(" FROM ({0} ) a )", innerSelectQuery);
+            string selectQuery = sb.ToString();
+
+            if (!deleteDictionary.ContainsKey(tableName))
+            {
+                deleteDictionary.Add(tableName, new List<string>());
+                AddOperationOnTable(tableOperations, tableName, OperationType.Delete);
+            }
+
+            var prevDicValue = deleteDictionary[tableName];
+            prevDicValue.Add(selectQuery);
+        }
+
+        /// <summary>
         /// У основного представления есть связь на представление на детейлы. Часть из них вообще не загружалась, данная функция обрабатывает как раз их.
         /// Данная функция либо возвращает объекты детейлов, если есть навешенные на них бизнес-сервера,
         /// иначе формирует запрос на удаление всех детейлов определённого типа у объекта.
         /// </summary>
         /// <param name="view">Представление, соответствующее детейлу.</param>
-        /// <param name="deleteDictionary">The delete dictionary.</param>
+        /// <param name="deleteDictionary">Запросы на удаление.</param>
         /// <param name="mainkey">Первичный ключ агрегатора детейлов.</param>
-        /// <param name="deleteTables">The delete tables.</param>
-        /// <param name="tableOperations">The table operations.</param>
-        /// <param name="dataObjectCache">The data object cache.</param>
+        /// <param name="tableOperations">Список операций над таблицами.</param>
+        /// <param name="dataObjectCache">Кеш.</param>
         /// <param name="dbTransactionWrapperAsync">Экземпляр <see cref="DbTransactionWrapperAsync" />.</param>
         /// <returns>Кортеж. Первое значение - набор объектов, которые необходимо занести в аудит. Второе - детейлы, на которые навешены бизнес-сервера (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).</returns>
         private async Task<Tuple<IEnumerable<DataObject>, DataObject[]>> AddDeletedViewToDeleteDictionaryAsync(
             View view,
             IDictionary<string, List<string>> deleteDictionary,
             object mainkey,
-            StringCollection deleteTables,
             SortedList tableOperations,
             DataObjectCache dataObjectCache,
             DbTransactionWrapperAsync dbTransactionWrapperAsync)
@@ -495,7 +660,7 @@
                         if (!deleteDictionary.ContainsKey(tableName))
                         {
                             deleteDictionary.Add(tableName, new List<string>());
-                            AddOpertaionOnTable(deleteTables, tableOperations, tableName, OperationType.Delete);
+                            AddOperationOnTable(tableOperations, tableName, OperationType.Delete);
                         }
 
                         var prevDicValue = deleteDictionary[tableName];
@@ -509,7 +674,7 @@
                     if (!deleteDictionary.ContainsKey(tableName))
                     {
                         deleteDictionary.Add(tableName, new List<string>());
-                        AddOpertaionOnTable(deleteTables, tableOperations, tableName, OperationType.Delete);
+                        AddOperationOnTable(tableOperations, tableName, OperationType.Delete);
                     }
 
                     var prevDicValue = deleteDictionary[tableName];
@@ -518,6 +683,85 @@
             }
 
             return new Tuple<IEnumerable<DataObject>, DataObject[]>(extraProcessingObjects, updateObjects);
+        }
+
+        /// <summary>
+        /// Добавить ограничение доступа (у текущего пользователя) к lcs.
+        /// </summary>
+        /// <param name="lc">Lcs, к которому добавится ограничение.</param>
+        private void ApplyLimitForAccess(LoadingCustomizationStruct lc)
+        {
+            object limitObject;
+            bool canAccess;
+            var operationResult = SecurityManager.GetLimitForAccess(lc.View.DefineClassType, tTypeAccess.Read, out limitObject, out canAccess);
+            Function limit = limitObject as Function;
+            if (operationResult == OperationResult.Успешно)
+            {
+                if (limit != null)
+                {
+                    SQLWhereLanguageDef ldef = SQLWhereLanguageDef.LanguageDef;
+                    lc.LimitFunction = ldef.GetFunction(ldef.funcAND, lc.LimitFunction, limit);
+                }
+            }
+            else
+            {
+                // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
+                LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
+            }
+        }
+
+        /// <summary>
+        /// Получить ограничение по первичному ключу для объекта данных.
+        /// </summary>
+        /// <param name="dataObject">Объект данных.</param>
+        /// <param name="dataObjectView">Представление для ограничения.</param>
+        /// <returns>Ограничение по первичному ключу.</returns>
+        private LoadingCustomizationStruct GetLcsPrimaryKey(DataObject dataObject, View dataObjectView)
+        {
+            var doType = dataObject.GetType();
+
+            LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
+            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
+            VariableDef var = new VariableDef(
+                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), SQLWhereLanguageDef.StormMainObjectKey);
+            object readingkey = dataObject.__PrimaryKey;
+            if (dataObject.Prototyped)
+            {
+                readingkey = dataObject.__PrototypeKey;
+            }
+
+            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
+
+            lc.Init(new ColumnsSortDef[0], func, new Type[] { doType }, dataObjectView, new string[0]);
+
+            return lc;
+        }
+
+        /// <summary>
+        /// Изменить строку соединения, согласно делегату <see cref="ChangeCustomizationString"/>.
+        /// </summary>
+        /// <param name="dataObjects">Загружаемые объекты - по списку их типов будет изменена строка соединения.</param>
+        private void RunChangeCustomizationString(DataObject[] dataObjects)
+        {
+            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            {
+                var types = dataObjects.Select(x => x.GetType()).Distinct().ToArray();
+                string cs = ChangeCustomizationString(types);
+                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+            }
+        }
+
+        /// <summary>
+        /// Изменить строку соединения, согласно делегату <see cref="ChangeCustomizationString"/>.
+        /// </summary>
+        /// <param name="types">Типы загружаемых объектов - по ним будет изменена строка соединения.</param>
+        private void RunChangeCustomizationString(Type[] types)
+        {
+            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
+            {
+                string cs = ChangeCustomizationString(types);
+                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+            }
         }
     }
 }

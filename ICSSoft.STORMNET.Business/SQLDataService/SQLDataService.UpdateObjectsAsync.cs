@@ -71,7 +71,7 @@
         /// <param name="objects">Объекты данных, которые требуется обновить.</param>
         /// <param name="dataObjectCache">Кэш объектов (если null, будет использован временный кеш, созданный внутри метода).</param>
         /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
-        /// <param name="dbTransactionWrapperAsync">Используемые коннекция и транзакция.</param>
+        /// <param name="dbTransactionWrapperAsync">Используемые объект подключения и транзакция.</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
         public virtual async Task UpdateObjectsByExtConnAsync(DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
@@ -97,15 +97,12 @@
 
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
-            var deleteQueries = new StringCollection();
-            var updateQueries = new StringCollection();
-            var updateFirstQueries = new StringCollection();
-            var updateLastQueries = new StringCollection();
-            var insertQueries = new StringCollection();
+            var deleteQueries = new Dictionary<string, List<string>>();
+            var updateQueries = new Dictionary<string, List<string>>();
+            var updateFirstQueries = new Dictionary<string, List<string>>();
+            var updateLastQueries = new Dictionary<string, List<string>>();
+            var insertQueries = new Dictionary<string, List<string>>();
 
-            var deleteTables = new StringCollection();
-            var updateTables = new StringCollection();
-            var insertTables = new StringCollection();
             var tableOperations = new SortedList();
             var queryOrder = new StringCollection();
 
@@ -114,7 +111,7 @@
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
 
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapperAsync, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, updateQueries, updateFirstQueries, updateLastQueries, insertQueries, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapperAsync, objects);
 
             extraProcessingList = await GenerateAuditForAggregatorsAsync(allQueriedObjects, dataObjectCache, dbTransactionWrapperAsync).ConfigureAwait(false);
 
@@ -161,7 +158,6 @@
                         .ConfigureAwait(false);
 
                     // прошли вглубь обрабатывая only Update||Insert
-                    bool go = true;
                     do
                     {
                         string table = queryOrder[0];
@@ -177,43 +173,38 @@
                             // Смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
                             {
-                                if ((ex = await RunCommandsAsync(insertQueries, insertTables, table, command, id, alwaysThrowException).ConfigureAwait(false)) == null)
+                                if ((ex = await RunCommandsAsync(insertQueries[table], command, id, alwaysThrowException).ConfigureAwait(false)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
                                     tableOperations[table] = ops;
                                 }
                                 else
                                 {
-                                    go = false;
+                                    break;
                                 }
                             }
 
                             // Смотрим есть ли Update
-                            if (go && ((ops & OperationType.Update) == OperationType.Update))
+                            if ((ops & OperationType.Update) == OperationType.Update)
                             {
-                                if ((ex = await RunCommandsAsync(updateQueries, updateTables, table, command, id, alwaysThrowException).ConfigureAwait(false)) == null)
+                                if ((ex = await RunCommandsAsync(updateQueries[table], command, id, alwaysThrowException).ConfigureAwait(false)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Update);
                                     tableOperations[table] = ops;
                                 }
                                 else
                                 {
-                                    go = false;
+                                    break;
                                 }
                             }
 
-                            if (go)
-                            {
-                                queryOrder.RemoveAt(0);
-                                go = queryOrder.Count > 0;
-                            }
-                        }
-                        else
+                            queryOrder.RemoveAt(0);
+                        } else
                         {
-                            go = false;
+                            break;
                         }
                     }
-                    while (go);
+                    while (queryOrder.Count > 0);
 
                     if (ex != null)
                     {
@@ -223,7 +214,6 @@
                     if (queryOrder.Count > 0)
                     {
                         // сзади чистые Update
-                        go = true;
                         int queryOrderIndex = queryOrder.Count - 1;
                         do
                         {
@@ -234,33 +224,25 @@
 
                                 if (ops == OperationType.Update && updateLastQueries.Count == 0)
                                 {
-                                    if ((ex = await RunCommandsAsync(updateQueries, updateTables, table, command, id, alwaysThrowException).ConfigureAwait(false)) == null)
+                                    if ((ex = await RunCommandsAsync(updateQueries[table], command, id, alwaysThrowException).ConfigureAwait(false)) == null)
                                     {
                                         ops = Minus(ops, OperationType.Update);
                                         tableOperations[table] = ops;
                                     }
                                     else
                                     {
-                                        go = false;
-                                    }
-
-                                    if (go)
-                                    {
-                                        queryOrderIndex--;
-                                        go = queryOrderIndex >= 0;
+                                        break;
                                     }
                                 }
                                 else
                                 {
-                                    go = false;
+                                    break;
                                 }
                             }
-                            else
-                            {
-                                queryOrderIndex--;
-                            }
+
+                            queryOrderIndex--;
                         }
-                        while (go);
+                        while (queryOrderIndex >= 0);
                     }
 
                     if (ex != null)
@@ -270,26 +252,26 @@
 
                     foreach (string table in queryOrder)
                     {
-                        await RunCommandsAsync(updateFirstQueries, updateTables, table, command, id, alwaysThrowException).ConfigureAwait(false);
+                        await RunCommandsAsync(updateFirstQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
                     }
 
                     // Удаляем в обратном порядке.
                     for (int i = queryOrder.Count - 1; i >= 0; i--)
                     {
                         string table = queryOrder[i];
-                        await RunCommandsAsync(deleteQueries, deleteTables, table, command, id, alwaysThrowException).ConfigureAwait(false);
+                        await RunCommandsAsync(deleteQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
                     }
 
                     // А теперь опять с начала
                     foreach (string table in queryOrder)
                     {
-                        await RunCommandsAsync(insertQueries, insertTables, table, command, id, alwaysThrowException).ConfigureAwait(false);
-                        await RunCommandsAsync(updateQueries, updateTables, table, command, id, alwaysThrowException).ConfigureAwait(false);
+                        await RunCommandsAsync(insertQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
+                        await RunCommandsAsync(updateQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
                     }
 
                     foreach (string table in queryOrder)
                     {
-                        await RunCommandsAsync(updateLastQueries, updateTables, table, command, id, alwaysThrowException).ConfigureAwait(false);
+                        await RunCommandsAsync(updateLastQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
                     }
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)

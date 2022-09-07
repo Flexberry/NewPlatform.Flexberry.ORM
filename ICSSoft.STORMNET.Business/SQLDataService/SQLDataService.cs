@@ -8,7 +8,6 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
 
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
@@ -286,33 +285,6 @@
                 }
 
                 return ICSSoft.STORMNET.Business.Audit.AuditService.Current;
-            }
-        }
-
-        /// <summary>
-        /// Изменить строку соединения (согласно настройкам <see cref="DoNotChangeCustomizationString"/> и <see cref="ChangeCustomizationString"/>).
-        /// </summary>
-        /// <param name="types">Типы загружаемых объектов - по ним будет изменена строка соединения.</param>
-        private void RunChangeCustomizationString(Type[] types)
-        {
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                string cs = ChangeCustomizationString(types);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
-        }
-
-        /// <summary>
-        /// Изменить строку соединения (согласно настройкам <see cref="DoNotChangeCustomizationString"/> и <see cref="ChangeCustomizationString"/>).
-        /// </summary>
-        /// <param name="dataObjects">Загружаемые объекты - по списку их типов будет изменена строка соединения.</param>
-        private void RunChangeCustomizationString(DataObject[] dataObjects)
-        {
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                var types = dataObjects.Select(x => x.GetType()).Distinct().ToArray();
-                string cs = ChangeCustomizationString(types);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
             }
         }
 
@@ -595,47 +567,32 @@
             }
         }
 
-        /// <summary>
-        /// Загрузка одного объекта данных.
-        /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <inheritdoc cref="IDataService.LoadObject(DataObject, bool, bool, DataObjectCache)"/>
         public virtual void LoadObject(
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
         {
-            LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, ClearDataObject, CheckExistingObject, DataObjectCache);
+            LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, clearDataObject, checkExistingObject, dataObjectCache);
         }
 
-        /// <summary>
-        /// Загрузка одного объекта данных.
-        /// </summary>
-        /// <param name="dataObjectViewName">наименование представления.</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <inheritdoc cref="IDataService.LoadObject(string, DataObject, bool, bool, DataObjectCache)"/>
         public virtual void LoadObject(
             string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache)
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache)
         {
-            LoadObject(STORMDO.Information.GetView(dataObjectViewName, dobject.GetType()), dobject, ClearDataObject, CheckExistingObject, DataObjectCache);
+            LoadObject(STORMDO.Information.GetView(dataObjectViewName, dobject.GetType()), dobject, clearDataObject, checkExistingObject, dataObjectCache);
         }
 
-        /// <summary>
-        /// Загрузка одного объекта данных.
-        /// </summary>
-        /// <param name="dataObjectView">представление объекта.</param>
-        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        /// <inheritdoc cref="IDataService.LoadObject(View, DataObject, DataObjectCache)"/>
         public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+            ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache)
         {
-            LoadObject(dataObjectView, dobject, true, true, DataObjectCache);
+            LoadObject(dataObjectView, dobject, true, true, dataObjectCache);
         }
 
         private ChangeViewForTypeDelegate fchangeViewForTypeDelegate = null;
 
-        protected void prv_AddMasterObjectsToCache(DataObject dataobject, System.Collections.ArrayList arrl, DataObjectCache DataObjectCache)
+        protected void prv_AddMasterObjectsToCache(DataObject dataobject, System.Collections.ArrayList arrl, DataObjectCache dataObjectCache)
         {
             arrl.Add(dataobject);
             Type type = dataobject.GetType();
@@ -650,9 +607,9 @@
                     {
                         DataObject master = (DataObject)val;
 
-                        DataObjectCache.AddDataObject(master);
+                        dataObjectCache.AddDataObject(master);
 
-                        prv_AddMasterObjectsToCache(master, arrl, DataObjectCache);
+                        prv_AddMasterObjectsToCache(master, arrl, dataObjectCache);
                     }
                 }
             }
@@ -663,11 +620,11 @@
         /// </summary>
         /// <param name="dataObjectView">Представление, по которому будет зачитываться объект.</param>
         /// <param name="dobject">Объект, который будет дочитываться/зачитываться.</param>
-        /// <param name="сlearDataObject">Следует ли при зачитке очистить поля существующего объекта данных.</param>
-        /// <param name="сheckExistingObject">Проверить существовние встречающихся при зачитке объектов.</param>
+        /// <param name="сlearDataObject">Следует ли при вычитке очистить поля существующего объекта данных.</param>
+        /// <param name="сheckExistingObject">Проверить существовние встречающихся при вычитке объектов.</param>
         /// <param name="dataObjectCache">Кэш объектов.</param>
-        /// <param name="connection">Коннекция, через которую будет происходить зачитка.</param>
-        /// <param name="transaction">Транзакция, в рамках которой будет проходить зачитка.</param>
+        /// <param name="connection">Коннекция, через которую будет происходить вычитка.</param>
+        /// <param name="transaction">Транзакция, в рамках которой будет проходить вычитка.</param>
         public virtual void LoadObjectByExtConn(
             View dataObjectView,
             DataObject dobject,
@@ -739,7 +696,7 @@
         /// </summary>
         /// <param name="dataObjectView">представление.</param>
         /// <param name="dataObject">объект данных, который требуется загрузить.</param>
-        /// <param name="clearDataObject">очищать ли объект.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
         /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         /// <param name="dataObjectCache">свой кеш объектов.</param>
         public virtual void LoadObject(
@@ -977,71 +934,18 @@
         /// <param name="dobject">объект данных, который требуется загрузить.</param>
         public virtual void LoadObject(
             string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+            ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache)
         {
-            LoadObject(STORMDO.Information.GetView(dataObjectViewName, dobject.GetType()), dobject, true, true, DataObjectCache);
+            LoadObject(STORMDO.Information.GetView(dataObjectViewName, dobject.GetType()), dobject, true, true, dataObjectCache);
         }
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        public virtual void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+        public virtual void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache)
         {
-            LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, true, true, DataObjectCache);
-        }
-
-        /// <summary>
-        /// Получить ограничение по первичному ключу для объекта данных.
-        /// </summary>
-        /// <param name="dataObject">Объект данных.</param>
-        /// <param name="dataObjectView">Представление для ограничения.</param>
-        /// <returns>Ограничение по первичному ключу.</returns>
-        private LoadingCustomizationStruct GetLcsPrimaryKey(DataObject dataObject, View dataObjectView)
-        {
-            var doType = dataObject.GetType();
-
-            LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
-            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
-            VariableDef var = new VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), SQLWhereLanguageDef.StormMainObjectKey);
-            object readingkey = dataObject.__PrimaryKey;
-            if (dataObject.Prototyped)
-            {
-                readingkey = dataObject.__PrototypeKey;
-            }
-
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
-
-            // ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef fd = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-            lc.Init(new ColumnsSortDef[0], func, new Type[] { doType }, dataObjectView, new string[0]);
-
-            return lc;
-        }
-
-        /// <summary>
-        /// Добавить ограничение доступа (у текущего пользователя) к lcs.
-        /// </summary>
-        /// <param name="lc">Lcs, к которому добавится ограничение.</param>
-        private void ApplyLimitForAccess(LoadingCustomizationStruct lc)
-        {
-            object limitObject;
-            bool canAccess;
-            var operationResult = SecurityManager.GetLimitForAccess(lc.View.DefineClassType, tTypeAccess.Read, out limitObject, out canAccess);
-            STORMFunction limit = limitObject as STORMFunction;
-            if (operationResult == OperationResult.Успешно)
-            {
-                if (limit != null)
-                {
-                    SQLWhereLanguageDef ldef = SQLWhereLanguageDef.LanguageDef;
-                    lc.LimitFunction = ldef.GetFunction(ldef.funcAND, lc.LimitFunction, limit);
-                }
-            }
-            else
-            {
-                // TODO: тут надо подумать что будем делать. Наверное надо вызывать исключение и не давать ничего. Пока просто запишем в лог и не будем показывать ошибку.
-                LogService.LogError(string.Format("SecurityManager.GetLimitForAccess: {0}", operationResult));
-            }
+            LoadObject(new STORMDO.View(dobject.GetType(), STORMDO.View.ReadType.OnlyThatObject), dobject, true, true, dataObjectCache);
         }
 
         /// <summary>
@@ -1711,10 +1615,10 @@
         /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
         /// <returns></returns>
         public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(
-            LoadingCustomizationStruct customizationStruct, DataObjectCache DataObjectCache)
+            LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache)
         {
             object state = null;
-            ICSSoft.STORMNET.DataObject[] res = LoadObjects(customizationStruct, ref state, DataObjectCache);
+            ICSSoft.STORMNET.DataObject[] res = LoadObjects(customizationStruct, ref state, dataObjectCache);
             return res;
         }
 
@@ -1833,9 +1737,9 @@
         /// </summary>
         /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
         /// <param name="state">Состояние вычитки (для последующей дочитки).</param>
-        /// <param name="dataObjectCache">Кэш объектов для зачитки.</param>
+        /// <param name="dataObjectCache">Кэш объектов для вычитки.</param>
         /// <param name="connection">Коннекция, через которую будут выполнена зачитска.</param>
-        /// <param name="transaction">Транзакция, в рамках которой будет выполнена зачитка.</param>
+        /// <param name="transaction">Транзакция, в рамках которой будет выполнена вычитка.</param>
         /// <returns>Загруженные данные.</returns>
         public virtual DataObject[] LoadObjectsByExtConn(
             LoadingCustomizationStruct customizationStruct,
@@ -1944,20 +1848,20 @@
         /// <summary>
         /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="State">Состояние вычитки( для последующей дочитки).</param>
+        /// <param name="state">Состояние вычитки( для последующей дочитки).</param>
         /// <returns></returns>
-        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache DataObjectCache)
+        public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(ref object state, DataObjectCache dataObjectCache)
         {
-            if (State == null)
+            if (state == null)
             {
                 return new DataObject[0];
             }
 
-            DataObjectCache.StartCaching(false);
+            dataObjectCache.StartCaching(false);
             try
             {
                 // получаем данные
-                object[] stateArr = (object[])State;
+                object[] stateArr = (object[])state;
                 ICSSoft.STORMNET.DataObject[] res = null;
                 if (stateArr[0] == null)
                 {
@@ -1972,16 +1876,16 @@
                     }
                     else
                     {
-                        res = Utils.ProcessingRowsetData(resValue, (System.Type[])stateArr[1], (STORMNET.Business.StorageStructForView[])stateArr[2], (LoadingCustomizationStruct)stateArr[3], this, Types, DataObjectCache, SecurityManager);
+                        res = Utils.ProcessingRowsetData(resValue, (System.Type[])stateArr[1], (STORMNET.Business.StorageStructForView[])stateArr[2], (LoadingCustomizationStruct)stateArr[3], this, Types, dataObjectCache, SecurityManager);
                     }
                 }
 
-                DataObjectCache.StopCaching();
+                dataObjectCache.StopCaching();
                 return res;
             }
             finally
             {
-                DataObjectCache.StopCaching();
+                dataObjectCache.StopCaching();
             }
         }
 
@@ -3570,19 +3474,19 @@
             state = null;
         }
 
-        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache)
         {
-            UpdateObject(ref dobject, DataObjectCache, false);
+            UpdateObject(ref dobject, dataObjectCache, false);
         }
 
         /// <summary>
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache, bool AlwaysThrowException)
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache, bool alwaysThrowException)
         {
             STORMDO.DataObject[] arr = new STORMDO.DataObject[] { dobject };
-            UpdateObjects(ref arr, DataObjectCache, AlwaysThrowException);
+            UpdateObjects(ref arr, dataObjectCache, alwaysThrowException);
             if (arr != null && arr.Length > 0)
             {
                 dobject = arr[0];
@@ -3602,18 +3506,18 @@
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache)
+        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache)
         {
-            UpdateObject(ref dobject, DataObjectCache);
+            UpdateObject(ref dobject, dataObjectCache);
         }
 
         /// <summary>
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException)
+        public virtual void UpdateObject(ICSSoft.STORMNET.DataObject dobject, bool alwaysThrowException)
         {
-            UpdateObject(ref dobject, new DataObjectCache(), AlwaysThrowException);
+            UpdateObject(ref dobject, new DataObjectCache(), alwaysThrowException);
         }
 
         /// <summary>
@@ -3769,18 +3673,17 @@
             masterObjects = (DataObject[])masters.ToArray(typeof(DataObject));
         }
 
-        private void AddOpertaionOnTable(StringCollection OpTables, SortedList TableOperations, string Table, OperationType op)
+        private void AddOperationOnTable(SortedList tableOperations, string table, OperationType op)
         {
-            OpTables.Add(Table);
-            if (TableOperations.ContainsKey(Table))
+            if (tableOperations.ContainsKey(table))
             {
-                OperationType ot = (OperationType)TableOperations[Table];
+                OperationType ot = (OperationType)tableOperations[table];
                 ot = ot | op;
-                TableOperations[Table] = ot;
+                tableOperations[table] = ot;
             }
             else
             {
-                TableOperations.Add(Table, op);
+                tableOperations.Add(table, op);
             }
         }
 
@@ -3790,175 +3693,56 @@
         /// <param name="dobject">
         /// Удаляемый объект.
         /// </param>
-        /// <param name="UpdaterFunction">
+        /// <param name="updaterFunction">
         /// Функция обновления.
         /// </param>
-        /// <param name="DeleteList">
-        /// Соответствие между таблицей и первичными ключами удаляемых объектов.
+        /// <param name="deleteObjectsLimits">
+        /// Соответствие между таблицей и ограничениями на первичные ключи удаляемых объектов в соответствующей таблице.
         /// </param>
-        /// <param name="DeleteTables">
-        /// The delete tables.
-        /// </param>
-        /// <param name="TableOperations">
+        /// <param name="tableOperations">
         /// The table operations.
         /// </param>
         private void AddDeletedObjectToDeleteDictionary(
             DataObject dobject,
-            Function UpdaterFunction,
-            SortedList DeleteList,
-            StringCollection DeleteTables,
-            SortedList TableOperations)
+            Function updaterFunction,
+            Dictionary<string, Function> deleteObjectsLimits,
+            SortedList tableOperations)
         {
             var doType = dobject.GetType();
             System.Type[] dots = (StorageType == StorageTypeEnum.HierarchicalStorage)
                 ? Information.GetCompatibleTypesForTypeConvertion(doType)
                 : new Type[] { doType };
+
             for (int i = 0; i < dots.Length; i++)
             {
                 string tableName = Information.GetClassStorageName(dots[i]);
                 SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
-                if (!DeleteList.ContainsKey(tableName))
+                if (!deleteObjectsLimits.ContainsKey(tableName))
                 {
                     string prkeyStorName = Information.GetPrimaryKeyStorageName(dots[i]);
                     VariableDef var = new VariableDef(lang.GetObjectTypeForNetType(KeyGenerator.KeyType(doType)), prkeyStorName);
                     Function func = lang.GetFunction(lang.funcEQ, var, dobject.__PrimaryKey);
 
-                    if (UpdaterFunction != null)
+                    if (updaterFunction != null)
                     {
-                        func = UpdaterFunction;
+                        func = updaterFunction;
                     }
 
-                    DeleteList.Add(tableName, func);
-                    AddOpertaionOnTable(DeleteTables, TableOperations, tableName, OperationType.Delete);
+                    deleteObjectsLimits[tableName] = func;
+                    AddOperationOnTable(tableOperations, tableName, OperationType.Delete);
                 }
                 else
                 {
-                    Function func = (Function)DeleteList[tableName];
+                    Function func = (Function)deleteObjectsLimits[tableName];
                     if (func.FunctionDef.StringedView == lang.funcEQ)
                     {
                         func = lang.GetFunction(lang.funcIN, func.Parameters[0], func.Parameters[1]);
-                        DeleteList[tableName] = func;
+                        deleteObjectsLimits[tableName] = func;
                     }
 
                     func.Parameters.Add(dobject.__PrimaryKey);
                 }
             }
-        }
-
-        /// <summary>
-        /// У основного представления есть связь на представление на детейлы. Часть из них вообще не загружалась, данная функция обрабатывает как раз их.
-        /// Данная функция либо возвращает объекты детейлов, если есть навешенные на них бизнес-сервера,
-        /// иначе формирует запрос на удаление всех детейлов определённого типа у объекта.
-        /// </summary>
-        /// <param name="view">
-        /// Представление, соответствующее детейлу.
-        /// </param>
-        /// <param name="deleteDictionary">
-        /// The delete dictionary.
-        /// </param>
-        /// <param name="mainkey">
-        /// Первичный ключ агрегатора детейлов.
-        /// </param>
-        /// <param name="updateobjects">
-        /// Детейлы, на которые навешены бизнес-сервера
-        /// (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).
-        /// </param>
-        /// <param name="deleteTables">
-        /// The delete tables.
-        /// </param>
-        /// <param name="tableOperations">
-        /// The table operations.
-        /// </param>
-        /// <param name="dataObjectCache">
-        /// The data object cache.
-        /// </param>
-        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" />.</param>
-        /// <returns>Кортеж. Первое значение - набор объектов, которые необходимо занести в аудит. Второе - детейлы, на которые навешены бизнес-сервера (соответственно, их массово удалить нельзя, необходимо каждый пропустить через бизнес-сервер).</returns>
-        private Tuple<IEnumerable<DataObject>, DataObject[]> AddDeletedViewToDeleteDictionary(
-            STORMDO.View view,
-            IDictionary<string, List<string>> deleteDictionary,
-            object mainkey,
-            StringCollection deleteTables,
-            SortedList tableOperations,
-            DataObjectCache dataObjectCache,
-            DbTransactionWrapper dbTransactionWrapper)
-        {
-            List<DataObject> extraProcessingObjects = new List<DataObject>();
-            DataObject[] updateObjects = new DataObject[0];
-            string prkeyStorName = view.Properties[1].Name;
-
-            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-
-            FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
-
-            LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
-
-            cs.Init(new ColumnsSortDef[0], func, new Type[] { view.DefineClassType }, view, new string[0]);
-            object state = null;
-            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
-            if (bs != null && bs.Length > 0)
-            {
-                // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                updateObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
-            }
-            else
-            {
-                if (AuditService.IsTypeAuditable(view.DefineClassType))
-                {
-                    /* Аудиту необходимо зафиксировать удаление детейлов.
-                    * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
-                    * а бизнес-сервера основного объекта уже выполнились.
-                    */
-                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
-                    if (detailObjects != null)
-                    {
-                        foreach (var detailObject in detailObjects)
-                        {
-                            // Мы будем сии детейлы удалять, поэтому им необходимо проставить соответствующий статус
-                            detailObject.SetStatus(ObjectStatus.Deleted);
-                        }
-
-                        extraProcessingObjects.AddRange(detailObjects);
-                    }
-                }
-
-                string sq = GenerateSQLSelect(cs, false);
-
-                if (StorageType == StorageTypeEnum.HierarchicalStorage)
-                {
-                    Type[] types = Information.GetCompatibleTypesForTypeConvertion(view.DefineClassType);
-                    for (int i = 0; i < types.Length; i++)
-                    {
-                        string tableName = Information.GetClassStorageName(types[i]);
-                        string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey) + " FROM (" + sq + " ) a )";
-                        if (!deleteDictionary.ContainsKey(tableName))
-                        {
-                            deleteDictionary.Add(tableName, new List<string>());
-                            AddOpertaionOnTable(deleteTables, tableOperations, tableName, OperationType.Delete);
-                        }
-
-                        var prevDicValue = deleteDictionary[tableName];
-                        prevDicValue.Add(selectQuery);
-                    }
-                }
-                else
-                {
-                    string tableName = Information.GetClassStorageName(view.DefineClassType);
-                    string selectQuery = PutIdentifierIntoBrackets(Information.GetPrimaryKeyStorageName(view.DefineClassType)) + " IN ( SELECT " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey) + " FROM (" + sq + " ) a )";
-                    if (!deleteDictionary.ContainsKey(tableName))
-                    {
-                        deleteDictionary.Add(tableName, new List<string>());
-                        AddOpertaionOnTable(deleteTables, tableOperations, tableName, OperationType.Delete);
-                    }
-
-                    var prevDicValue = deleteDictionary[tableName];
-                    prevDicValue.Add(selectQuery);
-                }
-            }
-
-            return new Tuple<IEnumerable<DataObject>, DataObject[]>(extraProcessingObjects, updateObjects);
         }
 
         /// <summary>
@@ -4006,13 +3790,10 @@
         /// Генерация запросов для изменения объектов.
         /// </summary>
         /// <param name="deleteQueries"> Запросы для удаление. </param>
-        /// <param name="deleteTables"> The Delete Tables. </param>
         /// <param name="updateQueries"> Запросы для изменения. </param>
         /// <param name="updateFirstQueries"> Запросы для изменения, выполняемые до остальных запросов. </param>
         /// <param name="updateLastQueries"> Запросы для изменения, выполняемые после остальных запросов.</param>
-        /// <param name="updateTables"> The Update Tables. </param>
         /// <param name="insertQueries"> Запросы для добавления. </param>
-        /// <param name="insertTables"> The Insert Tables. </param>
         /// <param name="tableOperations"> The Table Operations. </param>
         /// <param name="queryOrder"> The Query Order. </param>
         /// <param name="checkLoadedProps"> Проверять ли загруженность свойств. </param>
@@ -4021,31 +3802,26 @@
         /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" /> или <see cref="DbTransactionWrapperAsync" />.</param>
         /// <param name="dobjects"> Для чего генерим запросы. </param>
         public virtual void GenerateQueriesForUpdateObjects(
-            StringCollection deleteQueries,
-            StringCollection deleteTables,
-            StringCollection updateQueries,
-            StringCollection updateFirstQueries,
-            StringCollection updateLastQueries,
-            StringCollection updateTables,
-            StringCollection insertQueries,
-            StringCollection insertTables,
+            Dictionary<string, List<string>> deleteQueries,
+            Dictionary<string, List<string>> updateQueries,
+            Dictionary<string, List<string>> updateFirstQueries,
+            Dictionary<string, List<string>> updateLastQueries,
+            Dictionary<string, List<string>> insertQueries,
             SortedList tableOperations,
             StringCollection queryOrder,
             bool checkLoadedProps,
-            System.Collections.ArrayList processingObjects,
+            ArrayList processingObjects,
             DataObjectCache dataObjectCache,
             object dbTransactionWrapper,
             params ICSSoft.STORMNET.DataObject[] dobjects)
+
         {
             GenerateQueriesForUpdateObjects(
                 deleteQueries,
-                deleteTables,
                 updateQueries,
                 updateFirstQueries,
                 updateLastQueries,
-                updateTables,
                 insertQueries,
-                insertTables,
                 tableOperations,
                 queryOrder,
                 checkLoadedProps,
@@ -4641,14 +4417,11 @@
         /// Генерация запросов для изменения объектов
         /// (дополнительно возвращается список объектов, для которых необходимо создание записей аудита).
         /// </summary>
-        /// <param name="deleteQueries">Запросы для удаление (выходной параметр).</param>
-        /// <param name="deleteTables">Таблицы, из которых будет проведено удаление данных (выходной параметр).</param>
+        /// <param name="deleteQueries">Ключ - название таблицы; значение - список запросов на удаление в этой таблице (выходной параметр).</param>
         /// <param name="updateQueries">Сгенерированные запросы для изменения (выходной параметр).</param>
         /// <param name="updateFirstQueries"> Сгенерированные запросы для изменения (выходной параметр), выполняемые до остальных запросов. </param>
         /// <param name="updateLastQueries"> Запросы для изменения, выполняемые после остальных запросов.</param>
-        /// <param name="updateTables">Таблицы, в которых будет проведено изменение данных (выходной параметр).</param>
         /// <param name="insertQueries">Сгенерированные запросы для добавления (выходной параметр).</param>
-        /// <param name="insertTables">Таблицы, в которые будет проведена вставка данных (выходной параметр).</param>
         /// <param name="tableOperations">Операции, которые будут произведены над таблицами (выходной параметр).</param>
         /// <param name="queryOrder">Порядок исполнения генерируемых запросов, задаваемый именами таблиц (выходной параметр).</param>
         /// <param name="checkLoadedProps">Проверять ли загруженность свойств.</param>
@@ -4660,14 +4433,11 @@
         /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapper" /> или <see cref="DbTransactionWrapperAsync" />.</param>
         /// <param name="dobjects">Объекты, для которых генерируются запросы.</param>
         public virtual void GenerateQueriesForUpdateObjects(
-            StringCollection deleteQueries,
-            StringCollection deleteTables,
-            StringCollection updateQueries,
-            StringCollection updateFirstQueries,
-            StringCollection updateLastQueries,
-            StringCollection updateTables,
-            StringCollection insertQueries,
-            StringCollection insertTables,
+            Dictionary<string, List<string>> deleteQueries,
+            Dictionary<string, List<string>> updateQueries,
+            Dictionary<string, List<string>> updateFirstQueries,
+            Dictionary<string, List<string>> updateLastQueries,
+            Dictionary<string, List<string>> insertQueries,
             SortedList tableOperations,
             StringCollection queryOrder,
             bool checkLoadedProps,
@@ -4679,8 +4449,8 @@
         {
             string nl = Environment.NewLine;
             string nlk = ",";
-            var deleteList = new System.Collections.SortedList();
-            var deleteDictionary = new Dictionary<string, List<string>>();
+            var deleteObjectsLimits = new Dictionary<string, Function>();
+            var deleteDetailsLimits = new Dictionary<string, List<string>>();
             var extraProcessingList = new List<DataObject>();
             var createdList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
             var alteredList = new Dictionary<DataObject, Collections.CaseSensivityStringDictionary>();
@@ -4736,8 +4506,7 @@
                             AddDeletedObjectToDeleteDictionary(
                                 processingObject,
                                 updaterobject != null ? updaterobject.Function : null,
-                                deleteList,
-                                deleteTables,
+                                deleteObjectsLimits,
                                 tableOperations);
                             STORMDO.DataObject[] subobjects;
                             STORMDO.DataObject[] smastersObj;
@@ -4771,8 +4540,8 @@
                             {
                                 var result = dbTransactionWrapper switch
                                 {
-                                    DbTransactionWrapper syncWrapper => AddDeletedViewToDeleteDictionary(subview, deleteDictionary, processingObject.__PrimaryKey, deleteTables, tableOperations, dataObjectCache, syncWrapper),
-                                    DbTransactionWrapperAsync asyncWrapper => Task.Run(() => AddDeletedViewToDeleteDictionaryAsync(subview, deleteDictionary, processingObject.__PrimaryKey, deleteTables, tableOperations, dataObjectCache, asyncWrapper)).GetAwaiter().GetResult(),
+                                    DbTransactionWrapper syncWrapper => AddDeletedViewToDeleteDictionary(subview, deleteDetailsLimits, processingObject.__PrimaryKey, tableOperations, dataObjectCache, syncWrapper),
+                                    DbTransactionWrapperAsync asyncWrapper => AddDeletedViewToDeleteDictionaryAsync(subview, deleteDetailsLimits, processingObject.__PrimaryKey, tableOperations, dataObjectCache, asyncWrapper).GetAwaiter().GetResult(),
                                     _ => throw new ArgumentException("Параметр dbTransactionWrapper имеет неправильный тип (должен быть ICSSoft.STORMNET.Business.DbTransactionWrapper или ICSSoft.STORMNET.Business.DbTransactionWrapperAsync", nameof(dbTransactionWrapper))
                                 };
                                 IEnumerable<DataObject> extraProcessingObjects = result.Item1;
@@ -4780,13 +4549,13 @@
 
                                 extraProcessingList.AddRange(extraProcessingObjects);
 
-                                foreach (DataObject detobj in detailsObjects)
+                                foreach (DataObject detailObject in detailsObjects)
                                 {
-                                    detobj.SetStatus(STORMDO.ObjectStatus.Deleted);
-                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detobj))
+                                    detailObject.SetStatus(STORMDO.ObjectStatus.Deleted);
+                                    if (!ContainsKeyINProcessing(processingObjectsKeys, detailObject))
                                     {
-                                        processingObjects.Add(detobj);
-                                        AddToProcessingObjectsKeys(processingObjectsKeys, detobj);
+                                        processingObjects.Add(detailObject);
+                                        AddToProcessingObjectsKeys(processingObjectsKeys, detailObject);
                                     }
                                 }
                             }
@@ -4974,7 +4743,7 @@
                 alteredFirstList.Add(processingObject, propsWithValues);
                 updateFirstList.Add(processingObject, updaterobject);
 
-                GenerateUpdateQueries(alteredFirstList, updateFirstList, updateTables, tableOperations, updateFirstQueries);
+                GenerateUpdateQueries(alteredFirstList, updateFirstList, tableOperations, updateFirstQueries);
             }
 
             List<Type> depList = GetOrderFromDependencies(dependencies);
@@ -5037,8 +4806,14 @@
                                 string values = string.Join(nlk, propsInTable.Select(p => propsWithValues[p]));
 
                                 string query = $"INSERT INTO {PutIdentifierIntoBrackets(tableName)}{nl} ( {nl}{columns}{nl} ) {nl} VALUES ({nl}{values}{nl})";
-                                AddOpertaionOnTable(insertTables, tableOperations, tableName, OperationType.Insert);
-                                insertQueries.Add(query);
+                                AddOperationOnTable(tableOperations, tableName, OperationType.Insert);
+
+                                if (!insertQueries.ContainsKey(tableName))
+                                {
+                                    insertQueries[tableName] = new List<string>();
+                                }
+
+                                insertQueries[tableName].Add(query);
                             }
                         }
                         else
@@ -5049,8 +4824,14 @@
                             string values = string.Join(nlk, cols.Select(p => propsWithValues[p]));
 
                             string query = $"INSERT INTO {PutIdentifierIntoBrackets(mainTableName)}{nl} ( {nl}{columns}{nl} ) {nl} VALUES ({nl}{values}{nl})";
-                            AddOpertaionOnTable(insertTables, tableOperations, mainTableName, OperationType.Insert);
-                            insertQueries.Add(query);
+                            AddOperationOnTable(tableOperations, mainTableName, OperationType.Insert);
+
+                            if (!insertQueries.ContainsKey(mainTableName))
+                            {
+                                insertQueries[mainTableName] = new List<string>();
+                            }
+
+                            insertQueries[mainTableName].Add(query);
                         }
                     }
                 }
@@ -5058,44 +4839,28 @@
 
             if (alteredList.Count > 0)
             {
-                GenerateUpdateQueries(alteredList, updateList, updateTables, tableOperations, updateQueries);
+                GenerateUpdateQueries(alteredList, updateList, tableOperations, updateQueries);
             }
 
             if (alteredLastList.Count > 0)
             {
-                GenerateUpdateQueries(alteredLastList, updateList, updateTables, tableOperations, updateLastQueries);
+                GenerateUpdateQueries(alteredLastList, updateList, tableOperations, updateLastQueries);
             }
 
-            deleteTables.Clear();
-            if (deleteList.Count > 0)
+            deleteQueries = new Dictionary<string, List<string>>();
+            if (deleteObjectsLimits.Count > 0)
             {
-                for (int j = 0; j < queryOrder.Count; j++)
-                {
-                    string identifier = queryOrder[j];
-                    if (deleteList.ContainsKey(identifier))
-                    {
-                        FunctionalLanguage.Function func = (STORMFunction)deleteList[identifier];
-                        string query = $"DELETE FROM {PutIdentifierIntoBrackets(identifier)} WHERE {LimitFunction2SQLWhere(func)}";
-                        if (!deleteQueries.Contains(query))
-                        {
-                            deleteTables.Add(identifier);
-                            deleteQueries.Add(query);
-                        }
-                    }
+                var tables = deleteObjectsLimits.Keys.Concat(deleteDetailsLimits.Keys).Distinct();
 
-                    if (deleteDictionary.ContainsKey(identifier))
-                    {
-                        var deleteDetailQueries = deleteDictionary[identifier];
-                        foreach (string s in deleteDetailQueries)
-                        {
-                            string query = $"DELETE FROM {PutIdentifierIntoBrackets(identifier)} WHERE {s}";
-                            if (!deleteQueries.Contains(query))
-                            {
-                                deleteTables.Add(identifier);
-                                deleteQueries.Add(query);
-                            }
-                        }
-                    }
+                foreach (string table in tables)
+                {
+                    deleteQueries[table] = new List<string>();
+                    deleteQueries[table].Add($"DELETE FROM {PutIdentifierIntoBrackets(table)} WHERE {LimitFunction2SQLWhere(deleteObjectsLimits[table])}");
+                    var deleteDetailsQueries = deleteDetailsLimits[table]
+                            .Select(query => $"DELETE FROM {PutIdentifierIntoBrackets(table)} WHERE {query}");
+                    deleteQueries[table].AddRange(deleteDetailsQueries);
+
+                    deleteQueries[table] = deleteQueries[table].Distinct().ToList();
                 }
             }
 
@@ -5155,15 +4920,13 @@
         /// </summary>
         /// <param name="alteredList">Измененные данные со значениями, для которых строятся запросы.</param>
         /// <param name="updateList">Спецклассы, предназначенный для выполнения групповых операций.</param>
-        /// <param name="updateTables">Таблицы, в которых будет проведено изменение данных (выходной параметр).</param>
         /// <param name="tableOperations">Операции, которые будут произведены над таблицами (выходной параметр).</param>
         /// <param name="updateQueries">Сгенерированные запросы для изменения (выходной параметр).</param>
         private void GenerateUpdateQueries(
             Dictionary<DataObject, Collections.CaseSensivityStringDictionary> alteredList,
             Dictionary<DataObject, UpdaterObject> updateList,
-            StringCollection updateTables,
             SortedList tableOperations,
-            StringCollection updateQueries)
+            Dictionary<string, List<string>> updateQueries)
         {
             string nl = Environment.NewLine;
             string nlk = ",";
@@ -5214,11 +4977,14 @@
                             }
 
                             string query = $"UPDATE {PutIdentifierIntoBrackets(tableName)} SET {nl}{values}{nl} WHERE {LimitFunction2SQLWhere(func)}";
-                            AddOpertaionOnTable(updateTables, tableOperations, tableName, OperationType.Update);
-                            if (!updateQueries.Contains(query))
+                            AddOperationOnTable(tableOperations, tableName, OperationType.Update);
+
+                            if (!updateQueries.ContainsKey(tableName))
                             {
-                                updateQueries.Add(query);
+                                updateQueries[tableName] = new List<string>();
                             }
+
+                            updateQueries[tableName].Add(query);
                         }
                     }
                     else
@@ -5233,11 +4999,14 @@
                         }
 
                         string query = $"UPDATE {PutIdentifierIntoBrackets(mainTableName)} SET {nl}{values}{nl} WHERE {LimitFunction2SQLWhere(func)}";
-                        AddOpertaionOnTable(updateTables, tableOperations, mainTableName, OperationType.Update);
-                        if (!updateQueries.Contains(query))
+                        AddOperationOnTable(tableOperations, mainTableName, OperationType.Update);
+
+                        if (!updateQueries.ContainsKey(mainTableName))
                         {
-                            updateQueries.Add(query);
+                            updateQueries[mainTableName] = new List<string>();
                         }
+
+                        updateQueries[mainTableName].Add(query);
                     }
                 }
             }
@@ -5279,63 +5048,6 @@
             if (OnCreateCommand != null)
             {
                 OnCreateCommand(this, new ICSSoft.STORMNET.Business.CreateCommandEventArgs(cmd));
-            }
-        }
-
-        protected virtual Exception RunCommands(StringCollection queries, StringCollection tables,
-            string table, System.Data.IDbCommand command,
-            object businessID, bool AlwaysThrowException)
-        {
-            int i = 0;
-            bool res = true;
-            Exception ex = null;
-            while (i < queries.Count)
-            {
-                if (tables[i] == table)
-                {
-                    string query = queries[i];
-                    command.CommandText = query;
-                    command.Parameters.Clear();
-                    CustomizeCommand(command);
-                    object subTask = BusinessTaskMonitor.BeginSubTask(query, businessID);
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        queries.RemoveAt(i);
-                        tables.RemoveAt(i);
-                    }
-                    catch (Exception exc)
-                    {
-                        i++;
-                        res = false;
-                        ex = new ExecutingQueryException(query, string.Empty, exc);
-                        if (AlwaysThrowException)
-                        {
-                            BusinessTaskMonitor.EndSubTask(subTask);
-                            throw ex;
-                        }
-                    }
-
-                    BusinessTaskMonitor.EndSubTask(subTask);
-                }
-                else
-                {
-                    i++;
-                }
-            }
-
-            if (!res)
-            {
-                if (AlwaysThrowException)
-                {
-                    throw ex;
-                }
-
-                return ex;
-            }
-            else
-            {
-                return null;
             }
         }
 
@@ -5397,15 +5109,12 @@
         {
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
-            var deleteQueries = new StringCollection();
-            var updateQueries = new StringCollection();
-            var updateFirstQueries = new StringCollection();
-            var updateLastQueries = new StringCollection();
-            var insertQueries = new StringCollection();
+            var deleteQueries = new Dictionary<string, List<string>>();
+            var updateQueries = new Dictionary<string, List<string>>();
+            var updateFirstQueries = new Dictionary<string, List<string>>();
+            var updateLastQueries = new Dictionary<string, List<string>>();
+            var insertQueries = new Dictionary<string, List<string>>();
 
-            var deleteTables = new StringCollection();
-            var updateTables = new StringCollection();
-            var insertTables = new StringCollection();
             var tableOperations = new SortedList();
             var queryOrder = new StringCollection();
 
@@ -5414,7 +5123,7 @@
             var auditOperationInfoList = new List<AuditAdditionalInfo>();
             var extraProcessingList = new List<DataObject>();
 
-            GenerateQueriesForUpdateObjects(deleteQueries, deleteTables, updateQueries, updateFirstQueries, updateLastQueries, updateTables, insertQueries, insertTables, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
+            GenerateQueriesForUpdateObjects(deleteQueries, updateQueries, updateFirstQueries, updateLastQueries, insertQueries, tableOperations, queryOrder, true, allQueriedObjects, dataObjectCache, extraProcessingList, dbTransactionWrapper, objects);
 
             GenerateAuditForAggregators(allQueriedObjects, dataObjectCache, ref extraProcessingList, dbTransactionWrapper);
 
@@ -5458,7 +5167,6 @@
                     IDbCommand command = dbTransactionWrapper.CreateCommand();
 
                     // прошли вглубь обрабатывая only Update||Insert
-                    bool go = true;
                     do
                     {
                         string table = queryOrder[0];
@@ -5474,43 +5182,38 @@
                             // Смотрим есть ли Инсерты
                             if ((ops & OperationType.Insert) == OperationType.Insert)
                             {
-                                if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) == null)
+                                if ((ex = RunCommands(insertQueries[table], command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Insert);
                                     tableOperations[table] = ops;
                                 }
                                 else
                                 {
-                                    go = false;
+                                    break;
                                 }
                             }
 
                             // Смотрим есть ли Update
-                            if (go && ((ops & OperationType.Update) == OperationType.Update))
+                            if ((ops & OperationType.Update) == OperationType.Update)
                             {
-                                if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
+                                if ((ex = RunCommands(updateQueries[table], command, id, alwaysThrowException)) == null)
                                 {
                                     ops = Minus(ops, OperationType.Update);
                                     tableOperations[table] = ops;
                                 }
                                 else
                                 {
-                                    go = false;
+                                    break;
                                 }
                             }
 
-                            if (go)
-                            {
-                                queryOrder.RemoveAt(0);
-                                go = queryOrder.Count > 0;
-                            }
-                        }
-                        else
+                            queryOrder.RemoveAt(0);
+                        } else
                         {
-                            go = false;
+                            break;
                         }
                     }
-                    while (go);
+                    while (queryOrder.Count > 0);
 
                     if (ex != null)
                     {
@@ -5520,7 +5223,6 @@
                     if (queryOrder.Count > 0)
                     {
                         // сзади чистые Update
-                        go = true;
                         int queryOrderIndex = queryOrder.Count - 1;
                         do
                         {
@@ -5531,33 +5233,25 @@
 
                                 if (ops == OperationType.Update && updateLastQueries.Count == 0)
                                 {
-                                    if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) == null)
+                                    if ((ex = RunCommands(updateQueries[table], command, id, alwaysThrowException)) == null)
                                     {
                                         ops = Minus(ops, OperationType.Update);
                                         tableOperations[table] = ops;
                                     }
                                     else
                                     {
-                                        go = false;
-                                    }
-
-                                    if (go)
-                                    {
-                                        queryOrderIndex--;
-                                        go = queryOrderIndex >= 0;
+                                        break;
                                     }
                                 }
                                 else
                                 {
-                                    go = false;
+                                    break;
                                 }
                             }
-                            else
-                            {
-                                queryOrderIndex--;
-                            }
+
+                            queryOrderIndex--;
                         }
-                        while (go);
+                        while (queryOrderIndex >= 0);
                     }
 
                     if (ex != null)
@@ -5567,7 +5261,7 @@
 
                     foreach (string table in queryOrder)
                     {
-                        if ((ex = RunCommands(updateFirstQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        if ((ex = RunCommands(updateFirstQueries[table], command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
@@ -5577,7 +5271,7 @@
                     for (int i = queryOrder.Count - 1; i >= 0; i--)
                     {
                         string table = queryOrder[i];
-                        if ((ex = RunCommands(deleteQueries, deleteTables, table, command, id, alwaysThrowException)) != null)
+                        if ((ex = RunCommands(deleteQueries[table], command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
@@ -5586,12 +5280,12 @@
                     // А теперь опять с начала
                     foreach (string table in queryOrder)
                     {
-                        if ((ex = RunCommands(insertQueries, insertTables, table, command, id, alwaysThrowException)) != null)
+                        if ((ex = RunCommands(insertQueries[table], command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
 
-                        if ((ex = RunCommands(updateQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        if ((ex = RunCommands(updateQueries[table], command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
@@ -5599,7 +5293,7 @@
 
                     foreach (string table in queryOrder)
                     {
-                        if ((ex = RunCommands(updateLastQueries, updateTables, table, command, id, alwaysThrowException)) != null)
+                        if ((ex = RunCommands(updateLastQueries[table], command, id, alwaysThrowException)) != null)
                         {
                             throw ex;
                         }
@@ -5749,12 +5443,12 @@
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         public virtual void LoadObject(
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject)
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject)
         {
-            LoadObject(dobject, ClearDataObject, CheckExistingObject, new DataObjectCache());
+            LoadObject(dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
 
         /// <summary>
@@ -5762,13 +5456,13 @@
         /// </summary>
         /// <param name="dataObjectViewName">наименование представления.</param>
         /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         public virtual void LoadObject(
             string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject)
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject)
         {
-            LoadObject(dataObjectViewName, dobject, ClearDataObject, CheckExistingObject, new DataObjectCache());
+            LoadObject(dataObjectViewName, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
 
         /// <summary>
@@ -5776,13 +5470,13 @@
         /// </summary>
         /// <param name="dataObjectView">представление.</param>
         /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         public virtual void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject)
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject)
         {
-            LoadObject(dataObjectView, dobject, ClearDataObject, CheckExistingObject, new DataObjectCache());
+            LoadObject(dataObjectView, dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
 
         //-----------------------------------------------------
@@ -5792,11 +5486,11 @@
         /// </summary>
         /// <param name="dataobjects">исходные объекты.</param>
         /// <param name="dataObjectView">представлене.</param>
-        /// <param name="ClearDataobject">очищать ли существующие.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
         public virtual void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
-            ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject)
+            ICSSoft.STORMNET.View dataObjectView, bool clearDataObject)
         {
-            LoadObjects(dataobjects, dataObjectView, ClearDataobject, new DataObjectCache());
+            LoadObjects(dataobjects, dataObjectView, clearDataObject, new DataObjectCache());
         }
 
         /// <summary>
@@ -5843,9 +5537,9 @@
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException)
+        public virtual void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool alwaysThrowException)
         {
-            UpdateObject(ref dobject, new DataObjectCache(), AlwaysThrowException);
+            UpdateObject(ref dobject, new DataObjectCache(), alwaysThrowException);
         }
 
         /// <summary>
@@ -5906,34 +5600,6 @@
                    && Regex.IsMatch(
                        expression.Trim(),
                        string.Format(@"^{0}$", SecurityManager.AttributeCheckExpressionPattern));
-        }
-
-        /// <summary>
-        /// Проверка прав пользователя перед изменением объектов (выбрасывает исключение если доступ закрыт).
-        /// </summary>
-        /// <param name="securityManager">Менеджер полномочий, выполняющий проверку.</param>
-        /// <param name="dataObjects">Изменённые объекты (проверяются права на изменение этих объектов).</param>
-        public static void AccessCheckBeforeUpdate(ISecurityManager securityManager, ArrayList dataObjects)
-        {
-            foreach (DataObject dtob in dataObjects)
-            {
-                Type dobjType = dtob.GetType();
-                if (!securityManager.AccessObjectCheck(dobjType, tTypeAccess.Full, false))
-                {
-                    switch (dtob.GetStatus(false))
-                    {
-                        case ObjectStatus.Created:
-                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Insert, true);
-                            break;
-                        case ObjectStatus.Altered:
-                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Update, true);
-                            break;
-                        case ObjectStatus.Deleted:
-                            securityManager.AccessObjectCheck(dobjType, tTypeAccess.Delete, true);
-                            break;
-                    }
-                }
-            }
         }
     }
 
