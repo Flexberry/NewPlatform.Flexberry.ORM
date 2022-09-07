@@ -154,7 +154,7 @@
                 var usersToLoad = new Пользователь[] { user1ToLoad, user2ToLoad };
                 await ds.LoadObjectsAsync(usersToLoad, view);
 
-                //Assert
+                // Assert.
                 Assert.Equal(user1.ФИО, usersToLoad[0].ФИО);
                 Assert.Equal(user2.ФИО, usersToLoad[1].ФИО);
             }
@@ -175,7 +175,7 @@
                 var user4 = new Пользователь { ФИО = "Поклонский Андрей Иванович", Логин = "andrew44", ДатаРегистрации = NullableDateTime.Parse("1995-03-01") };
                 var dObjects = new ICSSoft.STORMNET.DataObject[] { user1, user2, user3, user4 };
 
-                //Act
+                // Act.
                 await ds.UpdateObjectsAsync(dObjects);
 
                 var view = new View { DefineClassType = typeof(Пользователь) };
@@ -184,14 +184,14 @@
                     Information.ExtractPropertyPath<Пользователь>(x => x.Логин),
                     Information.ExtractPropertyPath<Пользователь>(x => x.ДатаРегистрации));
 
-                //Assert #1: saved correctly
+                // Assert #1: saved correctly.
                 var loadedObjects = await ds.LoadObjectsAsync(view);
                 Assert.Contains(loadedObjects, x => (x as Пользователь).Логин == "max33");
 
-                //Assert #2: status updated correctly
+                // Assert #2: status updated correctly.
                 Assert.True(user3.GetStatus() == ObjectStatus.UnAltered);
 
-                //Assert #3: loaded correctly
+                // Assert #3: loaded correctly.
                 var maxUser = loadedObjects.FirstOrDefault(x => (x as Пользователь).Логин == "max33") as Пользователь;
                 maxUser.ФИО = "Тестовый Тест Тестович";
                 await ds.UpdateObjectsAsync(loadedObjects.ToArray());

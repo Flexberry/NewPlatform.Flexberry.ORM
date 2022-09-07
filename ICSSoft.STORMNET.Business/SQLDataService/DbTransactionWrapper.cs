@@ -11,7 +11,7 @@
         /// <summary>
         /// Транзакция.
         /// </summary>
-        protected IDbTransaction _transaction;
+        private IDbTransaction _transaction;
 
         /// <summary>
         /// Initializes instance of <see cref="DbTransactionWrapper" />.

@@ -1,20 +1,19 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Data;
     using System.Data.Common;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Обёртка над <see cref="DbConnection" /> и <see cref="DbTransaction" />.
+    /// Асинхронная обёртка над <see cref="DbConnection" /> и <see cref="DbTransaction" />.
     /// </summary>
     public class DbTransactionWrapperAsync : IDisposable
     {
         private DbTransaction _transaction;
 
         /// <summary>
-        /// Initializes instance of <see cref="DbTransactionWrapper" />.
+        /// Initializes a new instance of the <see cref="DbTransactionWrapper" /> class.
         /// </summary>
         /// <param name="dataService">The instance of <see cref="SQLDataService" /> class.</param>
         public DbTransactionWrapperAsync(SQLDataService dataService)
@@ -27,14 +26,20 @@
             Connection = dataService.GetDbConnection();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbTransactionWrapper" /> class.
+        /// </summary>
+        /// <param name="connection">Объект соединения, который будет использоваться в обёртке.</param>
+        /// <param name="transaction">Транзакция.</param>
         public DbTransactionWrapperAsync(DbConnection connection, DbTransaction transaction = null)
         {
             Connection = connection ?? throw new ArgumentNullException(nameof(connection));
             _transaction = transaction;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Объект соединения, используемый обёрткой.
+        /// </summary>
         public DbConnection Connection { get; }
 
         /// <summary>

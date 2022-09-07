@@ -15,7 +15,7 @@
     public abstract partial class SQLDataService : IAsyncDataService
     {
         /// <summary>
-        /// Функция должна возвращать соединение <see cref="DbConnection"/>.
+        /// Метод должен возвращать соединение <see cref="DbConnection"/>.
         /// </summary>
         /// <returns>Соединение <see cref="DbConnection"/>.</returns>
         public abstract DbConnection GetDbConnection();
@@ -35,12 +35,12 @@
             return res == null ? 0 : (int)Convert.ChangeType(res[0][0], typeof(int));
         }
 
-        /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)"></inheritdoc>
+        /// <inheritdoc cref="IAsyncDataService.LoadObjectAsync(DataObject, View, bool, bool, DataObjectCache)" />
         public virtual async Task LoadObjectAsync(DataObject dataObject, View dataObjectView = null, bool clearDataObject = true, bool checkExistingObject = true, DataObjectCache dataObjectCache = null)
         {
             if (dataObject == null)
             {
-                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки.");
             }
 
             if (dataObjectView == null)
@@ -62,14 +62,14 @@
         }
 
         /// <summary>
-        /// Асинхронная загрузка объекта с указанной коннекцией в рамках указанной транзакции.
+        /// Асинхронная загрузка объекта с указанным объектом подключения в рамках указанной транзакции.
         /// </summary>
         /// <param name="dataObject">Объект данных, который требуется загрузить.</param>
         /// <param name="dataObjectView">Представление, по которому загружается объект. Если null, будут загружены все атрибуты объекта, без детейлов (см. <see cref="View.ReadType.OnlyThatObject"/>).</param>
-        /// <param name="clearDataObject">Очистить объект перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
         /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
         /// <param name="dataObjectCache">Кэш объектов (если null, будет использован временный кеш, созданный внутри метода).</param>
-        /// <param name="dbTransactionWrapperAsync">Содержит коннекцию и транзакцию, через которые будет происходить зачитка.</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит объект подключения и транзакцию, через которые будет происходить вычитка.</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
         public virtual async Task LoadObjectByExtConnAsync(
             DataObject dataObject,
@@ -81,7 +81,12 @@
         {
             if (dataObject == null)
             {
-                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки. Обратитесь к разработчику.");
+                throw new ArgumentNullException(nameof(dataObject), "Не указан объект для загрузки.");
+            }
+
+            if (dbTransactionWrapperAsync == null)
+            {
+                throw new ArgumentNullException(nameof(dbTransactionWrapperAsync), "Не указан DbTransactionWrapperAsync.");
             }
 
             if (dataObjectView == null)
@@ -93,11 +98,6 @@
             if (dataObjectCache == null)
             {
                 dataObjectCache = new DataObjectCache();
-            }
-
-            if (dbTransactionWrapperAsync == null)
-            {
-                throw new ArgumentNullException(nameof(dbTransactionWrapperAsync), "Не указан DbTransactionWrapperAsync. Обратитесь к разработчику.");
             }
 
             dataObjectCache.StartCaching(false);
@@ -221,11 +221,11 @@
         }
 
         /// <summary>
-        /// Асинхронная загрузка объектов с использованием указанной коннекции и транзакции.
+        /// Асинхронная загрузка объектов с использованием указанного объекта подключения и транзакции.
         /// </summary>
         /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
-        /// <param name="dataObjectCache">Кэш объектов для зачитки.</param>
-        /// <param name="dbTransactionWrapperAsync">Коннекция и транзакция, через которые будут выполнена зачитка.</param>
+        /// <param name="dataObjectCache">Кэш объектов для вычитки.</param>
+        /// <param name="dbTransactionWrapperAsync">Объект подключения и транзакция, через которые будут выполнена вычитка.</param>
         /// <returns>Загруженные данные.</returns>
         public virtual async Task<DataObject[]> LoadObjectsByExtConnAsync(
             LoadingCustomizationStruct customizationStruct,
@@ -258,14 +258,13 @@
                 Type[] dataObjectType = customizationStruct.LoadingTypes;
                 StorageStructForView[] storageStruct;
 
-                string selectString = string.Empty;
-                selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
+                string selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
 
                 // Получаем данные.
                 object[][] resValue = await ReadByExtConnAsync(selectString, customizationStruct.LoadingBufferSize, dbTransactionWrapperAsync)
                     .ConfigureAwait(false);
 
-                DataObject[] res = null;
+                DataObject[] res;
                 if (resValue == null)
                 {
                     res = new DataObject[0];
