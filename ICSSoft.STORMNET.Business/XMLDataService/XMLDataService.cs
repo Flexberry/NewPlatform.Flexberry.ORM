@@ -475,7 +475,7 @@
         }
 
         public void LoadObjects(DataObject[] dataobjects, View dataObjectView,
-                                bool clearDataobject, DataObjectCache dataObjectCache)
+                                bool clearDataObject, DataObjectCache dataObjectCache)
         {
             dataObjectCache.StartCaching(false);
 
@@ -539,7 +539,7 @@
                         {
                             loadobjects[i] = dataobjects[(int)aLobjectsKeys.GetByIndex(indexobj)];
 
-                            if (clearDataobject)
+                            if (clearDataObject)
                             {
                                 loadobjects[i].Clear();
                             }
@@ -553,7 +553,7 @@
                     }
 
                     Utils.ProcessingRowsetDataRef(resValue, types, storageStruct, customizationStruct, loadobjects,
-                                                  this, null, clearDataobject, dataObjectCache, SecurityManager);
+                                                  this, null, clearDataObject, dataObjectCache, SecurityManager);
                 }
             }
             finally
@@ -653,9 +653,9 @@
             return LoadObjects(dataObjectView);
         }
 
-        public virtual void LoadObjects(DataObject[] dataobjects, View dataObjectView, bool clearDataobject)
+        public virtual void LoadObjects(DataObject[] dataobjects, View dataObjectView, bool clearDataObject)
         {
-            LoadObjects(dataobjects, dataObjectView, clearDataobject, new DataObjectCache());
+            LoadObjects(dataobjects, dataObjectView, clearDataObject, new DataObjectCache());
         }
 
         public virtual DataObject[] LoadObjects(View[] dataObjectViews)

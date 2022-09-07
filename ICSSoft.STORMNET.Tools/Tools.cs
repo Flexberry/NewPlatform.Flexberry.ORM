@@ -314,13 +314,13 @@
         /// <param name="xmlEl"> Текущий элемент xml. </param>
         /// <param name="dataObject"> Текущий объект данных. </param>
         /// <param name="assemblies"> Необходимые сборки. </param>
-        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="dataObjectCache"> DataObjectCache. </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_XmlElement2DataObject(
             XmlElement xmlEl,
             ICSSoft.STORMNET.DataObject dataObject,
             SortedList assemblies,
-            DataObjectCache DataObjectCache,
+            DataObjectCache dataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
             if (!deserializedObjectsList.ContainsKey(dataObject.__PrimaryKey.ToString()))
@@ -403,14 +403,14 @@
         /// <param name="dataObject"> Текущий объект данных. </param>
         /// <param name="propname"> Читаемое свойство объекта. </param>
         /// <param name="assemblies"> Необходимые сборки. </param>
-        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="dataObjectCache"> DataObjectCache. </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_ReadProperty(
             XmlElement xmlEl,
             ICSSoft.STORMNET.DataObject dataObject,
             string propname,
             SortedList assemblies,
-            DataObjectCache DataObjectCache,
+            DataObjectCache dataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
             Type proptype = Information.GetPropertyType(dataObject.GetType(), propname);
@@ -451,13 +451,13 @@
         /// <param name="masternode"> Текущий элемент xml. </param>
         /// <param name="dataObject"> Текущий объект данных. </param>
         /// <param name="assemblies"> Необходимые сборки. </param>
-        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="dataObjectCache"> DataObjectCache. </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_ReadMaster(
             XmlNode masternode,
             ICSSoft.STORMNET.DataObject dataObject,
             SortedList assemblies,
-            DataObjectCache DataObjectCache,
+            DataObjectCache dataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
             XmlNode specialTypeNode = masternode.Attributes.GetNamedItem("__Type");
@@ -490,13 +490,13 @@
         /// <param name="xmldetailobjects"> Текущий элемент xml. </param>
         /// <param name="detail"> Текущий список детейлов. </param>
         /// <param name="assemblies"> Необходимые сборки. </param>
-        /// <param name="DataObjectCache"> DataObjectCache. </param>
+        /// <param name="dataObjectCache"> DataObjectCache. </param>
         /// <param name="deserializedObjectsList"> Словарь десериализованных объектов с их первичными ключами. </param>
         private static void prv_ReadDetail(
             XmlNodeList xmldetailobjects,
             DetailArray detail,
             SortedList assemblies,
-            DataObjectCache DataObjectCache,
+            DataObjectCache dataObjectCache,
             Dictionary<string, ICSSoft.STORMNET.DataObject> deserializedObjectsList)
         {
             for (int j = 0; j < xmldetailobjects.Count; j++)

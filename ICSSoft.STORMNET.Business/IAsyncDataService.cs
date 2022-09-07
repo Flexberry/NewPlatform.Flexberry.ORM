@@ -11,9 +11,9 @@
     public interface IAsyncDataService : ICloneable
     {
         /// <summary>
-        /// Возвращает количество объектов удовлетворяющих запросу.
+        /// Получение количества объектов удовлетворяющих запросу.
         /// </summary>
-        /// <param name="customizationStruct">Что выбираем.</param>
+        /// <param name="customizationStruct">Объект <see cref="LoadingCustomizationStruct"/> для спецификации запроса.</param>
         /// <returns>
         /// <see cref="Task"/> - результат операции содержит количество объектов.
         /// </returns>
@@ -25,7 +25,7 @@
         /// <remarks><i>Атрибуты loadingState и status у загружаемого объекта обновляются в процессе работы.</i></remarks>
         /// <param name="dataObject">Объект данных, который требуется загрузить.</param>
         /// <param name="dataObjectView">Представление, по которому загружается объект. Если <see langword="null"/>, будут загружены все атрибуты объекта, без детейлов (см. <see cref="View.ReadType.OnlyThatObject"/>).</param>
-        /// <param name="clearDataObject">Очистить объект перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
         /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
         /// <param name="dataObjectCache">Кэш объектов (если <see langword="null"/>, будет использован временный кеш).</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
@@ -37,7 +37,7 @@
         /// <remarks><i>Атрибуты loadingState и status у обрабатываемых объектов обновляются в процессе работы.</i></remarks>
         /// <param name="dataObjects">Объекты данных, которые требуется загрузить.</param>
         /// <param name="dataObjectView">Представление, по которому загружаются объекты.</param>
-        /// <param name="clearDataObject">Очистить объект перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
         /// <param name="dataObjectCache">Кэш объектов (если <see langword="null"/>, будет использован временный кеш).</param>
         /// <returns>Объект <see cref="Task"/>, представляющий асинхронную операцию.</returns>
         Task LoadObjectsAsync(DataObject[] dataObjects, View dataObjectView, bool clearDataObject = true, DataObjectCache dataObjectCache = null);

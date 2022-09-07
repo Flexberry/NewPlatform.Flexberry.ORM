@@ -438,7 +438,7 @@
         /// Установить первичный ключ.
         /// </summary>
         /// <param name="value"></param>
-        private void SetKey1(object value, DataObjectCache DataObjectCache)
+        private void SetKey1(object value, DataObjectCache dataObjectCache)
         {
             if (value != null && !value.Equals(primaryKey))
             {
@@ -783,7 +783,7 @@
             return Information.GetSetHandler(thisType, fi);
         }
 
-        private void prvCopyTo_initDataCopy(DataObject toObject, DataObjectCache DataObjectCache)
+        private void prvCopyTo_initDataCopy(DataObject toObject, DataObjectCache dataObjectCache)
         {
             System.Type thisType = this.GetType();
             toObject.Clear();
@@ -1313,9 +1313,9 @@
         /// или ограничиться копированием ссылки.</param>
         /// <param name="PrimaryKeyCopy">Копировать ли первичные ключи.</param>
         /// <param name="UseParentCaching">Использовать ли вышеустановленное кеширование.</param>
-        public virtual void CopyTo(DataObject toObject, bool CreateDataObjectsCopy, bool PrimaryKeyCopy, bool UseParentCaching, DataObjectCache DataObjectCache)
+        public virtual void CopyTo(DataObject toObject, bool CreateDataObjectsCopy, bool PrimaryKeyCopy, bool UseParentCaching, DataObjectCache dataObjectCache)
         {
-            // DataObjectCache DataObjectCache = new DataObjectCache();
+            // DataObjectCache dataObjectCache = new DataObjectCache();
             DataObjectCache.StartCaching(!UseParentCaching);
             try
             {
@@ -1455,12 +1455,12 @@
         internal bool ClippingCacheOnCopy = true;
 
         /// <summary>
-        /// Не инициализировать копию данных объекта при зачитке. По-умолчанию инициализируется.
+        /// Не инициализировать копию данных объекта при вычитке. По-умолчанию инициализируется.
         /// </summary>
         private bool DisabledInitDataCopy = false;
 
         /// <summary>
-        /// Не инициализировать копию данных объекта при зачитке. По-умолчанию инициализируется.
+        /// Не инициализировать копию данных объекта при вычитке. По-умолчанию инициализируется.
         /// </summary>
         public void DisableInitDataCopy()
         {
@@ -1468,7 +1468,7 @@
         }
 
         /// <summary>
-        /// Включить инициализацию копии данных объекта при зачитке. По-умолчанию инициализируется.
+        /// Включить инициализацию копии данных объекта при вычитке. По-умолчанию инициализируется.
         /// </summary>
         public void EnableInitDataCopy()
         {
@@ -1491,7 +1491,7 @@
         /// <summary>
         /// Проинициализировать копию данных.
         /// </summary>
-        public void InitDataCopy(DataObjectCache DataObjectCache)
+        public void InitDataCopy(DataObjectCache dataObjectCache)
         {
             if (DisabledInitDataCopy)
             {

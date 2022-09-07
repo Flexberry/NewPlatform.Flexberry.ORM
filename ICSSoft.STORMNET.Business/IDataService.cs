@@ -55,57 +55,57 @@
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dobject">Объект данных, который требуется загрузить.</param>
-        void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+        void LoadObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">имя представления объекта.</param>
-        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        /// <param name="dataObjectViewName">Имя представления объекта.</param>
+        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
         void LoadObject(
             string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+            ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление объекта.</param>
-        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        /// <param name="dataObjectView">Представление объекта.</param>
+        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+            ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Проверять ли существование объекта в хранилище.</param>
         void LoadObject(
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">наименование представления.</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="dataObjectViewName">Наименование представления.</param>
+        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Проверять ли существование объекта в хранилище.</param>
         void LoadObject(
             string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление.</param>
-        /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
-        /// <param name="DataObjectCache">Кеш объектов данных.</param>
+        /// <param name="dataObjectView">Представление объекта.</param>
+        /// <param name="dobject">Объект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Проверять ли существование объекта в хранилище.</param>
+        /// <param name="dataObjectCache">Кеш объектов данных.</param>
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject, DataObjectCache DataObjectCache);
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject, DataObjectCache dataObjectCache);
 
         //-----------------------------------------------------
 
@@ -114,14 +114,14 @@
         /// </summary>
         /// <param name="dataObjectView">представление объекта.</param>
         /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать копию объекта данных.</param>
-        /// <param name="CheckExistingObject">проверять существование.</param>
-        /// <param name="DataObjectCache">использовать кеш.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять существование.</param>
+        /// <param name="dataObjectCache">использовать кеш.</param>
         /// <param name="changeViewForTypeDelegate">делегат для изменения View для типа.</param>
         // void LoadObject(
         //    ICSSoft.STORMNET.View dataObjectView,
-        //    ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject,
-        //    DataObjectCache DataObjectCache, ChangeViewForTypeDelegate changeViewForTypeDelegate);
+        //    ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject,
+        //    DataObjectCache dataObjectCache, ChangeViewForTypeDelegate changeViewForTypeDelegate);
         ////-----------------------------------------------------
 
         /// <summary>
@@ -129,8 +129,8 @@
         /// </summary>
         /// <param name="dataobjects">исходные объекты</param>
         /// <param name="dataObjectView">представлене</param>
-        /// <param name="ClearDataobject">очищать ли существующие</param>
-        void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects, ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject, DataObjectCache DataObjectCache);
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects, ICSSoft.STORMNET.View dataObjectView, bool clearDataObject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка объектов данных.
@@ -138,7 +138,7 @@
         /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
         /// <returns>результат запроса.</returns>
         ICSSoft.STORMNET.DataObject[] LoadObjects(
-            LoadingCustomizationStruct customizationStruct, DataObjectCache DataObjectCache);
+            LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка объектов данных.
@@ -148,14 +148,14 @@
         /// <returns></returns>
         ICSSoft.STORMNET.DataObject[] LoadObjects(
             LoadingCustomizationStruct customizationStruct,
-            ref object State, DataObjectCache DataObjectCache);
+            ref object State, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Загрузка объектов данных.
         /// </summary>
         /// <param name="State">Состояние вычитки( для последующей дочитки).</param>
         /// <returns></returns>
-        ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache DataObjectCache);
+        ICSSoft.STORMNET.DataObject[] LoadObjects(ref object State, DataObjectCache dataObjectCache);
 
         //-------LOAD separated string Objetcs ------------------------------------
 
@@ -196,7 +196,7 @@
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+        void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Обновление объекта данных.
@@ -208,31 +208,31 @@
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        void UpdateObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache);
+        void UpdateObject(ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache);
 
         /// <summary>
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache DataObjectCache, bool AlwaysThrowException);
+        void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, DataObjectCache dataObjectCache, bool alwaysThrowException);
 
         /// <summary>
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        void UpdateObject(ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException);
+        void UpdateObject(ICSSoft.STORMNET.DataObject dobject, bool alwaysThrowException);
 
         void UpdateObjects(
-            ref ICSSoft.STORMNET.DataObject[] objects, DataObjectCache DataObjectCache);
+            ref ICSSoft.STORMNET.DataObject[] objects, DataObjectCache dataObjectCache);
 
         void UpdateObjects(
-            ref ICSSoft.STORMNET.DataObject[] objects, DataObjectCache DataObjectCache, bool AlwaysThrowException);
+            ref ICSSoft.STORMNET.DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException);
 
         void UpdateObjects(
             ref ICSSoft.STORMNET.DataObject[] objects);
 
         void UpdateObjects(
-            ref ICSSoft.STORMNET.DataObject[] objects, bool AlwaysThrowException);
+            ref ICSSoft.STORMNET.DataObject[] objects, bool alwaysThrowException);
 
         /// <summary>
         /// возвращает количество объектов удовлетворяющих запросу.
@@ -272,32 +272,32 @@
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         void LoadObject(
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject);
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dataObjectViewName">наименование представления.</param>
         /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         void LoadObject(
             string dataObjectViewName,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject);
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject);
 
         /// <summary>
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dataObjectView">представление.</param>
         /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="ClearDataObject">очищать ли объект.</param>
-        /// <param name="CheckExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         void LoadObject(
             ICSSoft.STORMNET.View dataObjectView,
-            ICSSoft.STORMNET.DataObject dobject, bool ClearDataObject, bool CheckExistingObject);
+            ICSSoft.STORMNET.DataObject dobject, bool clearDataObject, bool checkExistingObject);
 
         //-----------------------------------------------------
 
@@ -306,9 +306,9 @@
         /// </summary>
         /// <param name="dataobjects">исходные объекты.</param>
         /// <param name="dataObjectView">представлене.</param>
-        /// <param name="ClearDataobject">очищать ли существующие.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
         void LoadObjects(ICSSoft.STORMNET.DataObject[] dataobjects,
-            ICSSoft.STORMNET.View dataObjectView, bool ClearDataobject);
+            ICSSoft.STORMNET.View dataObjectView, bool clearDataObject);
 
         /// <summary>
         /// Загрузка объектов данных по представлению.
@@ -392,6 +392,6 @@
         /// Обновление объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется обновить.</param>
-        void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool AlwaysThrowException);
+        void UpdateObject(ref ICSSoft.STORMNET.DataObject dobject, bool alwaysThrowException);
     }
 }

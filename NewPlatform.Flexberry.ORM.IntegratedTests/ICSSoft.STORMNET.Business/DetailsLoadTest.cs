@@ -17,7 +17,7 @@
     using Xunit.Abstractions;
 
     /// <summary>
-    /// Проверка логики зачитки детейлов.
+    /// Проверка логики вычитки детейлов.
     /// </summary>
     public class DetailsLoadTest : BaseIntegratedTest
     {

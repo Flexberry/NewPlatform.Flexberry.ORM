@@ -38,10 +38,4 @@
     <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="SQLDataService\SQLDataService.UpdateObjectsAsync.cs">
-      <SubType>Component</SubType>
-    </Compile>
-  </ItemGroup>
-
 </Project>

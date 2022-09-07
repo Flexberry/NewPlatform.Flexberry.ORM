@@ -594,7 +594,7 @@
             ICSSoft.STORMNET.Business.StorageStructForView.PropSource source,
             System.Collections.SortedList sourceToDataObjectList,
             System.Collections.SortedList TypesByKeys,
-            DataObjectCache DataObjectCache)
+            DataObjectCache dataObjectCache)
         {
             foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
@@ -696,8 +696,8 @@
         /// <param name="сlearDataObjects">Очищать ли существующие объекты.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        /// <param name="connection">Коннекция, через которую желательно выполнять все зачитки объектов.</param>
-        /// <param name="transaction">Транзакция, через которую желательно выполнять все зачитки объектов.</param>
+        /// <param name="connection">Коннекция, через которую желательно выполнять все вычитки объектов.</param>
+        /// <param name="transaction">Транзакция, через которую желательно выполнять все вычитки объектов.</param>
         public static void ProcessingRowsetDataRef(
             object[][] value,
             Type[] dataObjectType,
@@ -761,7 +761,7 @@
                 detnames = Information.SortByLoadingOrder(customizationStruct.View.DefineClassType, detnames);
                 for (int i = 0; i < detnames.Length; i++)
                 {
-                    // Баг с зачиткой нехранимых детейлов в гроупэдите: проверю на хранимость детейла
+                    // Баг с вычиткой нехранимых детейлов в гроупэдите: проверю на хранимость детейла
                     if (!Information.IsStoredProperty(customizationStruct.View.DefineClassType, detnames[i]))
                     {
                         break; // если не хранимый, то пропустим
@@ -940,7 +940,7 @@
 
                                             DataObject[] detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
 
-                                            // Братчиков 2009-07-08 - Баг при зачитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
+                                            // Братчиков 2009-07-08 - Баг при вычитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
                                             {
                                                 View view4Load = dcs.View;
                                                 if (detailObjects1.Length > 0 && !(detailObjects1[0].GetType().Equals(view4Load.DefineClassType) || detailObjects1[0].GetType().IsSubclassOf(view4Load.DefineClassType)))
@@ -1173,10 +1173,10 @@
         /// <param name="customizationStruct"></param>
         /// <param name="dataService"></param>
         /// <param name="TypesByKeys"></param>
-        /// <param name="DataObjectCache">Кэш объектов данных.</param>
+        /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        /// <param name="connection">Коннекция, через которую желательно выполнять все зачитки объектов.</param>
-        /// <param name="transaction">Транзакция, через которую желательно выполнять все зачитки объектов.</param>
+        /// <param name="connection">Коннекция, через которую желательно выполнять все вычитки объектов.</param>
+        /// <param name="transaction">Транзакция, через которую желательно выполнять все вычитки объектов.</param>
         /// <returns></returns>
         public static ICSSoft.STORMNET.DataObject[] ProcessingRowsetData(
             object[][] value,
@@ -1185,7 +1185,7 @@
             LoadingCustomizationStruct customizationStruct,
             IDataService dataService,
             System.Collections.SortedList TypesByKeys,
-            DataObjectCache DataObjectCache,
+            DataObjectCache dataObjectCache,
             ISecurityManager securityManager,
             IDbConnection connection = null,
             IDbTransaction transaction = null)
@@ -1302,7 +1302,7 @@
         /// </summary>
         /// <param name="dobj">объект.</param>
         /// <param name="UpLevel">верхнего ли уровня.</param>
-        public static void UpdateInternalDataInObjects(STORMDO.DataObject dobj, bool UpLevel, DataObjectCache DataObjectCache)
+        public static void UpdateInternalDataInObjects(STORMDO.DataObject dobj, bool UpLevel, DataObjectCache dataObjectCache)
         {
             STORMDO.ObjectStatus objestat = dobj.GetStatus(false);
             System.Type dobjtype = dobj.GetType();

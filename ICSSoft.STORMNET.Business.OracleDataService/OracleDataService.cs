@@ -1,18 +1,20 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Security.Cryptography;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using static Windows.Forms.ExternalLangDef;
-    using Services;
-    using System.Collections;
-    using Security;
-    using Audit;
+
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
     using Oracle.ManagedDataAccess.Client;
+
+    using static ICSSoft.STORMNET.Windows.Forms.ExternalLangDef;
 
     /// <summary>
     /// Сервис данных для доступа к данным Oracle.
@@ -389,6 +391,7 @@
             return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
         }
 
+        /// <inheritdoc cref="SQLDataService.GetDbConnection"/>
         public override System.Data.Common.DbConnection GetDbConnection()
         {
             return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
