@@ -61,21 +61,27 @@
             return cmd;
         }
 
+#if NETSTANDARD2_1
         /// <summary>
         /// Commits the database transaction.
         /// FYI: does nothing if the transaction has not begun.
         /// Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`.
         /// </summary>
-#if NETSTANDARD2_1
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task CommitTransaction()
         {
             if (_transaction?.Connection != null)
             {
-                await _transaction?.CommitAsync()
+                await _transaction.CommitAsync()
                     .ConfigureAwait(false);
             }
         }
 #else
+        /// <summary>
+        /// Commits the database transaction.
+        /// FYI: does nothing if the transaction has not begun.
+        /// Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`.
+        /// </summary>
         public virtual void CommitTransaction()
         {
             if (_transaction?.Connection != null)
@@ -85,21 +91,27 @@
         }
 #endif
 
+#if NETSTANDARD2_1
         /// <summary>
         /// Rolls back a transaction from a pending state.
         /// FYI: does nothing if the transaction has not begun.
         /// Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`.
         /// </summary>
-#if NETSTANDARD2_1
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task RollbackTransaction()
         {
             if (_transaction?.Connection != null)
             {
-                await _transaction?.RollbackAsync()
+                await _transaction.RollbackAsync()
                     .ConfigureAwait(false);
             }
         }
 #else
+        /// <summary>
+        /// Rolls back a transaction from a pending state.
+        /// FYI: does nothing if the transaction has not begun.
+        /// Для защиты от `This NpgsqlTransaction has completed; it is no longer usable.`.
+        /// </summary>
         public virtual void RollbackTransaction()
         {
             if (_transaction?.Connection != null)

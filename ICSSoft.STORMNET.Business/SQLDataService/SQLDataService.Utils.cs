@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Data.Common;
     using System.Linq;
     using System.Text;
@@ -122,6 +121,13 @@
             return ex;
         }
 
+        /// <summary>
+        /// Сгенерировать объекты для учета аудита агрегаторов обновляемых объектов, если они обновляются отдельно от агрегатора.
+        /// </summary>
+        /// <param name="processingObjects">Объекты, которые необходимо обработать.</param>
+        /// <param name="dataObjectCache">Кэш объектов данных.</param>
+        /// <param name="dbTransactionWrapper">Экземпляр <see cref="DbTransactionWrapperAsync" />.</param>
+        /// <returns><see cref="Task"/> - результат операции содержит объекты данных для подсистемы аудита.</returns>
         protected virtual async Task<List<DataObject>> GenerateAuditForAggregatorsAsync(
             ArrayList processingObjects,
             DataObjectCache dataObjectCache,
@@ -292,7 +298,7 @@
                                                 ? null
                                                 : (DetailArray)Information.GetPropValueByName(newAggregator, detailArrayPropertyName);
 
-                DataObject deletedObj = oldAggregatorDetailArray != null ? oldAggregatorDetailArray.GetByKey(dataObject.__PrimaryKey) : null;
+                DataObject deletedObj = oldAggregatorDetailArray?.GetByKey(dataObject.__PrimaryKey);
                 switch (dataObject.GetStatus())
                 {
                     case ObjectStatus.Altered:
@@ -338,51 +344,95 @@
         /// Конвертировать результат вычитки методов Read/ReadAsync в массив объектов данных.
         /// </summary>
         /// <param name="result">Результат вычитки, который будет сконвертирован.</param>
-        protected virtual void ConvertReadResult(object[][] result, DataObject[] dataObjects, LoadingCustomizationStruct customizationStruct, StorageStructForView[] storageStructs, SortedList allObjectKeys, SortedList readingKeys, bool clearDataObject, DataObjectCache dataObjectCache)
+        /// <param name="dataObjects">исходные объекты.</param>
+        /// <param name="customizationStruct">настройка выборки.</param>
+        /// <param name="storageStructs">Коллекция структур для отображения представления в данные.</param>
+        /// <param name="allObjectKeys">Вспомогательная структура для дальнейшей вычитки.</param>
+        /// <param name="readingKeys">Вспомогательная структура для дальнеишей вычитки.</param>
+        /// <param name="clearDataObject">очищать ли существующие.</param>
+        /// <param name="dataObjectCache">Кеш.</param>
+        protected virtual void ConvertReadResult(
+            object[][] result,
+            DataObject[] dataObjects,
+            LoadingCustomizationStruct customizationStruct,
+            StorageStructForView[] storageStructs,
+            SortedList allObjectKeys,
+            SortedList readingKeys,
+            bool clearDataObject,
+            DataObjectCache dataObjectCache)
         {
-            if (result != null && result.Length != 0)
+            if (result == null || result.Length == 0)
             {
-                DataObject[] loadobjects = new ICSSoft.STORMNET.DataObject[result.Length];
-                int objectTypeIndexPOs = result[0].Length - 1;
-                int keyIndex = storageStructs[0].props.Length - 1;
-                while (storageStructs[0].props[keyIndex].MultipleProp)
+                return;
+            }
+
+            if (dataObjects == null || dataObjects.Length == 0)
+            {
+                return;
+            }
+
+            if (customizationStruct == null)
+            {
+                throw new ArgumentNullException(nameof(customizationStruct));
+            }
+
+            if (storageStructs == null)
+            {
+                throw new ArgumentNullException(nameof(storageStructs));
+            }
+
+            if (allObjectKeys == null)
+            {
+                throw new ArgumentNullException(nameof(allObjectKeys));
+            }
+
+            if (readingKeys == null)
+            {
+                throw new ArgumentNullException(nameof(readingKeys));
+            }
+
+            dataObjectCache ??= new DataObjectCache();
+
+            DataObject[] loadobjects = new DataObject[result.Length];
+            int objectTypeIndexPOs = result[0].Length - 1;
+            int keyIndex = storageStructs[0].props.Length - 1;
+            while (storageStructs[0].props[keyIndex].MultipleProp)
+            {
+                keyIndex--;
+            }
+
+            keyIndex++;
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                Type tp = customizationStruct.LoadingTypes[Convert.ToInt64(result[i][objectTypeIndexPOs].ToString())];
+                object ky = result[i][keyIndex];
+                ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
+                int indexobj = allObjectKeys.IndexOfKey(tp.FullName + ky.ToString());
+                if (indexobj > -1)
                 {
-                    keyIndex--;
+                    loadobjects[i] = dataObjects[(int)allObjectKeys.GetByIndex(indexobj)];
+                    if (clearDataObject)
+                    {
+                        loadobjects[i].Clear();
+                    }
+
+                    dataObjectCache.AddDataObject(loadobjects[i]);
                 }
-
-                keyIndex++;
-
-                for (int i = 0; i < result.Length; i++)
+                else
                 {
-                    Type tp = customizationStruct.LoadingTypes[Convert.ToInt64(result[i][objectTypeIndexPOs].ToString())];
-                    object ky = result[i][keyIndex];
-                    ky = Information.TranslateValueToPrimaryKeyType(tp, ky);
-                    int indexobj = allObjectKeys.IndexOfKey(tp.FullName + ky.ToString());
-                    if (indexobj > -1)
-                    {
-                        loadobjects[i] = dataObjects[(int)allObjectKeys.GetByIndex(indexobj)];
-                        if (clearDataObject)
-                        {
-                            loadobjects[i].Clear();
-                        }
-
-                        dataObjectCache.AddDataObject(loadobjects[i]);
-                    }
-                    else
-                    {
-                        loadobjects[i] = null;
-                    }
+                    loadobjects[i] = null;
                 }
+            }
 
-                Utils.ProcessingRowsetDataRef(result, customizationStruct.LoadingTypes, storageStructs, customizationStruct, loadobjects, this, Types, clearDataObject, dataObjectCache, SecurityManager);
-                foreach (DataObject dobj in loadobjects)
+            Utils.ProcessingRowsetDataRef(result, customizationStruct.LoadingTypes, storageStructs, customizationStruct, loadobjects, this, Types, clearDataObject, dataObjectCache, SecurityManager);
+            foreach (DataObject dobj in loadobjects)
+            {
+                if (dobj != null && dobj.Prototyped)
                 {
-                    if (dobj != null && dobj.Prototyped)
-                    {
-                        dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
-                        dobj.SetStatus(ObjectStatus.Created);
-                        dobj.SetLoadingState(LoadingState.NotLoaded);
-                    }
+                    dobj.__PrimaryKey = readingKeys[dobj.__PrimaryKey.ToString()];
+                    dobj.SetStatus(ObjectStatus.Created);
+                    dobj.SetLoadingState(LoadingState.NotLoaded);
                 }
             }
         }
@@ -410,11 +460,11 @@
 
             List<Type> types = new List<Type>();
             List<object> keys = new List<object>();
-            SortedList _allObjectsKeys = new SortedList();
-            SortedList _readingKeys = new SortedList();
+            allObjectsKeys = new SortedList();
+            readingKeys = new SortedList();
 
             SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
-            FunctionalLanguage.VariableDef var = new FunctionalLanguage.VariableDef(
+            VariableDef var = new VariableDef(
                 lang.GetObjectTypeForNetType(KeyGenerator.KeyType(dataObjectView.DefineClassType)), SQLWhereLanguageDef.StormMainObjectKey);
             keys.Add(var);
 
@@ -440,16 +490,13 @@
                 {
                     object readingKey = dobject.Prototyped ? dobject.__PrototypeKey : dobject.__PrimaryKey;
                     keys.Add(readingKey);
-                    _allObjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
-                    _readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
+                    allObjectsKeys.Add(dotype.FullName + readingKey.ToString(), i);
+                    readingKeys.Add(readingKey.ToString(), dobject.__PrimaryKey);
                 }
             }
 
-            allObjectsKeys = _allObjectsKeys;
-            readingKeys = _readingKeys;
-
             LoadingCustomizationStruct customizationStruct = new LoadingCustomizationStruct(GetInstanceId());
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcIN, keys.ToArray());
+            Function func = lang.GetFunction(lang.funcIN, keys.ToArray());
             customizationStruct.Init(null, func, types.ToArray(), dataObjectView, null);
 
             return customizationStruct;
@@ -462,6 +509,11 @@
         /// <param name="dataObjects">Изменённые объекты (проверяются права на изменение этих объектов).</param>
         public static void AccessCheckBeforeUpdate(ISecurityManager securityManager, ArrayList dataObjects)
         {
+            if (securityManager == null)
+            {
+                throw new ArgumentNullException(nameof(securityManager));
+            }
+
             foreach (DataObject dtob in dataObjects)
             {
                 Type dobjType = dtob.GetType();
@@ -506,11 +558,11 @@
             DataObject[] updateObjects = new DataObject[0];
             string prkeyStorName = view.Properties[1].Name;
 
-            FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
+            SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
 
-            FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
+            VariableDef var = new VariableDef(
+                lang.GetObjectTypeForNetType(KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
+            Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
 
             LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
 
@@ -610,9 +662,9 @@
 
             SQLWhereLanguageDef lang = SQLWhereLanguageDef.LanguageDef;
 
-            FunctionalLanguage.VariableDef var = new ICSSoft.STORMNET.FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
+            VariableDef var = new VariableDef(
+                lang.GetObjectTypeForNetType(KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
+            Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
 
             LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
 
@@ -730,7 +782,7 @@
                 readingkey = dataObject.__PrototypeKey;
             }
 
-            FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
+            Function func = lang.GetFunction(lang.funcEQ, var, readingkey);
 
             lc.Init(new ColumnsSortDef[0], func, new Type[] { doType }, dataObjectView, new string[0]);
 

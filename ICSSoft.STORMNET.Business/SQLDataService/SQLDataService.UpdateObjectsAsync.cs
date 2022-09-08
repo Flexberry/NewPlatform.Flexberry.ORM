@@ -31,10 +31,7 @@
                 return;
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             RunChangeCustomizationString(objects);
 
@@ -90,10 +87,7 @@
                 throw new ArgumentNullException(nameof(dbTransactionWrapperAsync), "Не указан DbTransactionWrapperAsync. Обратитесь к разработчику.");
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             object id = BusinessTaskMonitor.BeginTask("Update objects");
 
@@ -199,7 +193,8 @@
                             }
 
                             queryOrder.RemoveAt(0);
-                        } else
+                        }
+                        else
                         {
                             break;
                         }

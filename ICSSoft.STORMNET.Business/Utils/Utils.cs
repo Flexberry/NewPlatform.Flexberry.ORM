@@ -605,7 +605,7 @@
                         if (dataObject == null)
                         {
                             keyindex++;
-                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, dataObjectCache);
                         }
                         else if (keysarr[keyindex] != null && keysarr[keyindex] != DBNull.Value)
                         {
@@ -619,12 +619,12 @@
                                     if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
                                         && exmasterobj.GetType() == subSource.storage[j].ownerType)
                                     {
-                                        DataObjectCache.AddDataObject(exmasterobj);
+                                        dataObjectCache.AddDataObject(exmasterobj);
                                         masterobj = exmasterobj;
                                     }
                                     else
                                     {
-                                        masterobj = DataObjectCache.CreateDataObject(
+                                        masterobj = dataObjectCache.CreateDataObject(
                                             subSource.storage[j].ownerType, masterkey);
 
                                         // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
@@ -639,12 +639,12 @@
                                     if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
                                         && exmasterobj.GetType() == (Type)TypesByKeys[mastertype])
                                     {
-                                        DataObjectCache.AddDataObject(exmasterobj);
+                                        dataObjectCache.AddDataObject(exmasterobj);
                                         masterobj = exmasterobj;
                                     }
                                     else
                                     {
-                                        masterobj = DataObjectCache.CreateDataObject(
+                                        masterobj = dataObjectCache.CreateDataObject(
                                             (Type)TypesByKeys[mastertype], masterkey);
 
                                         // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
@@ -656,7 +656,7 @@
                                 {
                                     masterobj.SetLoadingState(LoadingState.LightLoaded);
                                     masterobj.SetStatus(ObjectStatus.UnAltered);
-                                    masterobj.InitDataCopy(DataObjectCache);
+                                    masterobj.InitDataCopy(dataObjectCache);
                                     masterobj.AddLoadedProperties("__PrimaryKey");
                                 }
 
@@ -671,12 +671,12 @@
                                 sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
                             }
 
-                            CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, dataObjectCache);
                         }
                         else
                         {
                             keyindex++;
-                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, dataObjectCache);
                         }
                     }
                 }
@@ -1192,7 +1192,7 @@
         {
             var res = new DataObject[value.Length];
             ProcessingRowsetDataRef(
-                value, dataObjectType, StorageStruct, customizationStruct, res, dataService, TypesByKeys, true, DataObjectCache, securityManager, connection, transaction);
+                value, dataObjectType, StorageStruct, customizationStruct, res, dataService, TypesByKeys, true, dataObjectCache, securityManager, connection, transaction);
             return res;
         }
 
@@ -1325,10 +1325,10 @@
                                     switch (os)
                                     {
                                         case STORMDO.ObjectStatus.Altered:
-                                            UpdateInternalDataInObjects(detobj, false, DataObjectCache);
+                                            UpdateInternalDataInObjects(detobj, false, dataObjectCache);
                                             break;
                                         case STORMDO.ObjectStatus.Created:
-                                            UpdateInternalDataInObjects(detobj, false, DataObjectCache);
+                                            UpdateInternalDataInObjects(detobj, false, dataObjectCache);
                                             break;
                                         case STORMDO.ObjectStatus.Deleted:
                                             da.RemoveByIndex(i);
@@ -1351,7 +1351,7 @@
                         dobj.SetStatus(STORMDO.ObjectStatus.UnAltered);
                         if (UpLevel)
                         {
-                            dobj.InitDataCopy(DataObjectCache);
+                            dobj.InitDataCopy(dataObjectCache);
                         }
                         else
                         {

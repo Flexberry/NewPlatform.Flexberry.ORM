@@ -460,7 +460,7 @@
                 primaryKey = value;
                 if (oldkey != null)
                 {
-                    DataObjectCache.ChangeKeyForLivingDataObject(this, oldkey);
+                    dataObjectCache.ChangeKeyForLivingDataObject(this, oldkey);
                 }
             }
         }
@@ -832,11 +832,11 @@
                         {
                             System.Type motype = fieldval.GetType();
                             object primKey = ((DataObject)fieldval).__PrimaryKey;
-                            DataObject newobj = DataObjectCache.GetLivingDataObject(motype, primKey);
+                            DataObject newobj = dataObjectCache.GetLivingDataObject(motype, primKey);
                             if (newobj == null)
                             {
-                                newobj = DataObjectCache.CreateDataObject(motype, primKey);
-                                ((DataObject)fieldval).prvCopyTo_initDataCopy(newobj, DataObjectCache);
+                                newobj = dataObjectCache.CreateDataObject(motype, primKey);
+                                ((DataObject)fieldval).prvCopyTo_initDataCopy(newobj, dataObjectCache);
                             }
 
                             newobj.IsDataCopy = true;
@@ -858,13 +858,13 @@
                             old.ClippingCacheOnCopy = false;
                             if (old.dataCopy == null)
                             {
-                                old.InitDataCopy(DataObjectCache);
+                                old.InitDataCopy(dataObjectCache);
                             }
                             else if (
-                                DataObjectCache.GetLivingDataObject(old.dataCopy.GetType(),
+                                dataObjectCache.GetLivingDataObject(old.dataCopy.GetType(),
                                                                     old.dataCopy.__PrimaryKey) != old)
                             {
-                                DataObjectCache.AddDataObject(old.dataCopy);
+                                dataObjectCache.AddDataObject(old.dataCopy);
                             }
 
                             old.ClippingCacheOnCopy = prevClipping;
@@ -893,29 +893,29 @@
                             arobject.ClippingCacheOnCopy = false;
                             if (arobject.dataCopy != null)
                             {
-                                DataObject livingDataObject = DataObjectCache.GetLivingDataObject(arobject.dataCopy.GetType(), arobject.dataCopy.__PrimaryKey);
+                                DataObject livingDataObject = dataObjectCache.GetLivingDataObject(arobject.dataCopy.GetType(), arobject.dataCopy.__PrimaryKey);
                                 if (livingDataObject != arobject)
                                 {
                                     // Братчиков 2011-08-16: т.к. мастер при создании инициализирует уже свою копию, раньше этот метод дополнительно не выполнялся. Это приводило к тому, что у детейлов с иерархией попадались такие у которых копия данных была неполная после LoadObjects
                                     if (arobject.DynamicProperties.ContainsKey("MasterInitDataCopy"))
                                     {
-                                        arobject.InitDataCopy(DataObjectCache);
+                                        arobject.InitDataCopy(dataObjectCache);
                                         arobject.DynamicProperties.Remove("MasterInitDataCopy");
                                     }
                                     else if (arobject.GetStatus(false) == ObjectStatus.UnAltered
                                         && arobject.GetLoadedProperties().Length != arobject.dataCopy.GetLoadedProperties().Length)
                                     {
-                                        arobject.InitDataCopy(DataObjectCache);
+                                        arobject.InitDataCopy(dataObjectCache);
                                     }
 
                                     // arobject.InitDataCopy(DataObjectCache);
                                     // Братчиков
-                                    DataObjectCache.AddDataObject(arobject);
+                                    dataObjectCache.AddDataObject(arobject);
                                 }
                             }
                             else
                             {
-                                arobject.InitDataCopy(DataObjectCache);
+                                arobject.InitDataCopy(dataObjectCache);
                             }
 
                             arobject.ClippingCacheOnCopy = prevClipping;
@@ -1316,14 +1316,14 @@
         public virtual void CopyTo(DataObject toObject, bool CreateDataObjectsCopy, bool PrimaryKeyCopy, bool UseParentCaching, DataObjectCache dataObjectCache)
         {
             // DataObjectCache dataObjectCache = new DataObjectCache();
-            DataObjectCache.StartCaching(!UseParentCaching);
+            dataObjectCache.StartCaching(!UseParentCaching);
             try
             {
-                PrvCopyToCopyObject(toObject, CreateDataObjectsCopy, PrimaryKeyCopy, DataObjectCache);
+                PrvCopyToCopyObject(toObject, CreateDataObjectsCopy, PrimaryKeyCopy, dataObjectCache);
             }
             finally
             {
-                DataObjectCache.StopCaching();
+                dataObjectCache.StopCaching();
             }
         }
 
@@ -1508,16 +1508,16 @@
             SetStatus(ObjectStatus.UnAltered);
             if (GetStatus(false) != ObjectStatus.Created)
             {
-                DataObjectCache.StartCaching(ClippingCacheOnCopy);
+                dataObjectCache.StartCaching(ClippingCacheOnCopy);
                 try
                 {
-                    dataCopy = DataObjectCache.CreateDataObject(this.GetType(), __PrimaryKey);
+                    dataCopy = dataObjectCache.CreateDataObject(this.GetType(), __PrimaryKey);
 
-                    prvCopyTo_initDataCopy(dataCopy, DataObjectCache);
+                    prvCopyTo_initDataCopy(dataCopy, dataObjectCache);
                 }
                 finally
                 {
-                    DataObjectCache.StopCaching();
+                    dataObjectCache.StopCaching();
                 }
 
                 if (dataCopy != null)
@@ -1540,7 +1540,7 @@
                             {
                                 foreach (DataObject d in dar)
                                 {
-                                    d.InitDataCopy(DataObjectCache);
+                                    d.InitDataCopy(dataObjectCache);
                                 }
                             }
                         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Data.Common;
     using System.Threading.Tasks;
 
@@ -28,9 +29,9 @@
             // Применим полномочия на строки
             ApplyReadPermissions(customizationStruct, SecurityManager);
 
-            string query = string.Format(
-                "Select count(*) from ({0}) QueryForGettingCount", GenerateSQLSelect(customizationStruct, true));
-            object[][] res = await ReadAsync(query, customizationStruct.LoadingBufferSize)
+            string selectQuery = GenerateSQLSelect(customizationStruct, true);
+            string countQuery = $"Select count(*) from ({selectQuery}) QueryForGettingCount";
+            object[][] res = await ReadAsync(countQuery, customizationStruct.LoadingBufferSize)
                 .ConfigureAwait(false);
             return res == null ? 0 : (int)Convert.ChangeType(res[0][0], typeof(int));
         }
@@ -49,10 +50,7 @@
                 dataObjectView = new View(doType, View.ReadType.OnlyThatObject);
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             using (var dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
             {
@@ -95,10 +93,7 @@
                 dataObjectView = new View(doType, View.ReadType.OnlyThatObject);
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             dataObjectCache.StartCaching(false);
             try
@@ -169,23 +164,20 @@
                 throw new ArgumentNullException(nameof(dataObjectView));
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
-
             if (dataObjects == null || dataObjects.Length == 0)
             {
                 return;
             }
+
+            dataObjectCache ??= new DataObjectCache();
 
             dataObjectCache.StartCaching(false);
             try
             {
                 RunChangeCustomizationString(dataObjects);
 
-                SortedList allObjectKeys = new SortedList();
-                SortedList readingKeys = new SortedList();
+                SortedList allObjectKeys;
+                SortedList readingKeys;
                 LoadingCustomizationStruct customizationStruct = GetCustomizationStruct(dataObjects, dataObjectView, out allObjectKeys, out readingKeys);
                 ApplyReadPermissions(customizationStruct, SecurityManager);
 
@@ -208,10 +200,7 @@
         /// <inheritdoc cref="IAsyncDataService.LoadObjectsAsync(LoadingCustomizationStruct, DataObjectCache)"/>
         public virtual async Task<DataObject[]> LoadObjectsAsync(LoadingCustomizationStruct customizationStruct, DataObjectCache dataObjectCache = null)
         {
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             using (DbTransactionWrapperAsync wrapper = new DbTransactionWrapperAsync(this))
             {
@@ -242,10 +231,7 @@
                 throw new ArgumentNullException(nameof(dbTransactionWrapperAsync));
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             dataObjectCache.StartCaching(false);
             try
@@ -293,10 +279,7 @@
                 throw new ArgumentNullException(nameof(dataObjectView));
             }
 
-            if (dataObjectCache == null)
-            {
-                dataObjectCache = new DataObjectCache();
-            }
+            dataObjectCache ??= new DataObjectCache();
 
             LoadingCustomizationStruct lc = new LoadingCustomizationStruct(GetInstanceId());
             lc.View = dataObjectView;
@@ -348,7 +331,7 @@
 
                     if (hasRows)
                     {
-                        var arl = new ArrayList();
+                        var arl = new List<object[]>();
                         int i = 1;
                         int fieldCount = reader.FieldCount;
 
@@ -372,8 +355,7 @@
                             i++;
                         }
 
-                        object[][] result = (object[][])arl.ToArray(typeof(object[]));
-                        return result;
+                        return arl.ToArray();
                     }
                     else
                     {

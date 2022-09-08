@@ -334,7 +334,7 @@
 
             foreach (string propname in order)
             { // Прочитка в соответствии с указанным порядком
-                prv_ReadProperty(xmlEl, dataObject, propname, assemblies, DataObjectCache, deserializedObjectsList);
+                prv_ReadProperty(xmlEl, dataObject, propname, assemblies, dataObjectCache, deserializedObjectsList);
             }
 
             XmlAttributeCollection xmlattributes = xmlEl.Attributes;
@@ -358,7 +358,7 @@
                     Type proptype = Information.GetPropertyType(dataObject.GetType(), xmlchild.Name);
                     if (proptype.IsSubclassOf(typeof(DataObject)))
                     { // Это мастер
-                        prv_ReadMaster(xmlchild, dataObject, assemblies, DataObjectCache, deserializedObjectsList);
+                        prv_ReadMaster(xmlchild, dataObject, assemblies, dataObjectCache, deserializedObjectsList);
                     }
                     else
                     { // Это детейл
@@ -368,7 +368,7 @@
                             XmlNodeList xmldetailobjects = xmlchild.ChildNodes;
                             if (xmldetailobjects != null)
                             {
-                                prv_ReadDetail(xmldetailobjects, detail, assemblies, DataObjectCache, deserializedObjectsList);
+                                prv_ReadDetail(xmldetailobjects, detail, assemblies, dataObjectCache, deserializedObjectsList);
                             }
                         }
                     }
@@ -417,7 +417,7 @@
             if (proptype.IsSubclassOf(typeof(DataObject)))
             { // Значит, мастер
                 XmlNode masternode = xmlEl.GetElementsByTagName(propname)[0];
-                prv_ReadMaster(masternode, dataObject, assemblies, DataObjectCache, deserializedObjectsList);
+                prv_ReadMaster(masternode, dataObject, assemblies, dataObjectCache, deserializedObjectsList);
             }
             else
             {
@@ -430,7 +430,7 @@
                         XmlNodeList xmldetailobjects = detailnode.ChildNodes;
                         if (xmldetailobjects != null)
                         {
-                            prv_ReadDetail(xmldetailobjects, detail, assemblies, DataObjectCache, deserializedObjectsList);
+                            prv_ReadDetail(xmldetailobjects, detail, assemblies, dataObjectCache, deserializedObjectsList);
                         }
                     }
                 }
@@ -473,11 +473,11 @@
                 string asmName = (string)assemblies[stype];
                 Assembly asm = AssemblyLoader.LoadAssembly(asmName);
                 Type mastertype = asm.GetType(stype);
-                masterobject = DataObjectCache.CreateDataObject(mastertype, Information.TranslateValueToPrimaryKeyType(mastertype, skey));
+                masterobject = dataObjectCache.CreateDataObject(mastertype, Information.TranslateValueToPrimaryKeyType(mastertype, skey));
                 if (specialTypeNode != null)
                 { // То есть это был особым образом сериализованный мастер
                     prv_XmlElement2DataObject(
-                        (XmlElement)masternode, masterobject, assemblies, DataObjectCache, deserializedObjectsList);
+                        (XmlElement)masternode, masterobject, assemblies, dataObjectCache, deserializedObjectsList);
                 }
             }
 
@@ -504,8 +504,8 @@
                 XmlNode xmldetailobject = xmldetailobjects[j];
                 Assembly asm = AssemblyLoader.LoadAssembly((string)assemblies[xmldetailobject.Name]);
                 System.Type dotype = asm.GetType(xmldetailobject.Name);
-                DataObject detailobject = DataObjectCache.CreateDataObject(dotype, Information.TranslateValueToPrimaryKeyType(dotype, ((XmlElement)xmldetailobject).GetAttribute("__PrimaryKey")));
-                prv_XmlElement2DataObject((XmlElement)xmldetailobject, detailobject, assemblies, DataObjectCache, deserializedObjectsList);
+                DataObject detailobject = dataObjectCache.CreateDataObject(dotype, Information.TranslateValueToPrimaryKeyType(dotype, ((XmlElement)xmldetailobject).GetAttribute("__PrimaryKey")));
+                prv_XmlElement2DataObject((XmlElement)xmldetailobject, detailobject, assemblies, dataObjectCache, deserializedObjectsList);
                 detail.AddObject(detailobject);
             }
         }
