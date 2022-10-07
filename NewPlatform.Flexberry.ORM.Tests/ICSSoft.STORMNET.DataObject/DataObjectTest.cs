@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using ICSSoft.STORMNET;
+    using System.Diagnostics;
     using Xunit;
 
     /// <summary>
@@ -67,6 +68,34 @@
             string resultToString = client.ToStringForAudit(view);
 
             Assert.Equal(expectedToString, resultToString);
+        }
+
+        /// <summary>
+        /// Тест метода <see cref="DataObject.Prototyping"/>.
+        /// Проверяем, что детейлы прототипируются без утечек памяти.
+        /// </summary>
+        [Fact]
+        public void PrototypingTest()
+        {
+            // Arrange.
+            Медведь bear = new Медведь() { ПорядковыйНомер = 1 };
+            Берлога den = new Берлога() { Наименование = "Под сосной" };
+            bear.Берлога.Add(den);
+            den.DisableInitDataCopy();
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Act.
+            for (int i = 0; i < 1000000; i++)
+            {
+                den.Prototyping(false);
+            }
+
+            stopwatch.Stop();
+
+            // Assert.
+            Debug.WriteLine(stopwatch.ElapsedMilliseconds);
+            Assert.True(stopwatch.ElapsedMilliseconds < 1000);
         }
     }
 }
