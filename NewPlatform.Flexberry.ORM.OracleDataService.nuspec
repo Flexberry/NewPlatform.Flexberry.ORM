@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.OracleDataService</id>
-    <version>6.0.0</version>
+    <version>6.1.0-beta05</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,17 +13,17 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
       Added
-      - OracleDataService in it's own NuGet package.
+      1. DbProviderFactory
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="6.1.0-beta03" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="6.1.0-beta03" />
         <dependency id="Oracle.ManagedDataAccess.Core" version="2.19.3" />
       </group>
     </dependencies>

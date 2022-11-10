@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>6.1.0-beta03</version>
+    <version>6.1.0-beta05</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,6 +12,8 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
+      Added
+      1. DbProviderFactory
       Performance
       1. Remove `order by stormmainobjectkey` for inner query.
       Fixed
@@ -20,7 +22,7 @@
     <copyright>Copyright New Platform Ltd 2021</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0" />
+      <dependency id="NewPlatform.Flexberry.ORM" version="6.1.0-beta03" />
       <dependency id="Npgsql" version="3.2.6" />
     </dependencies>
   </metadata>

@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.Common;
     using System.Globalization;
     using System.Linq;
     using System.Text;
@@ -140,6 +141,11 @@
         /// </summary>
         /// <returns>Коннекция к БД.</returns>
         public abstract System.Data.IDbConnection GetConnection();
+
+        /// <summary>
+        /// A factory to create instances of the data source classes.
+        /// </summary>
+        public abstract DbProviderFactory ProviderFactory { get; }
 
         ////-----------------------------------------------------
 
@@ -2167,7 +2173,7 @@
             FromPart = string.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
                 GetJoinTableModifierExpression(),
                 subJoins,
-                nl, " ON ", parentAliasWithKey, " = ", joinCondition);
+                nl, " ON ", joinCondition);
             WherePart = string.Empty;
         }
 

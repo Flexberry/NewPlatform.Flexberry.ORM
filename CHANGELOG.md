@@ -7,8 +7,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `IComparableType` implementation to `WebFile` class.
 - Feature GeoDistance is implemented.
+- `IAuditService` UTC time enable flag as property.
+- New property `SQLDataService.ProviderFactory` to create the data source objects.
 
 ### Changed
+- Upgrade SharpZipLib@1.3.3.
+- Upgrade NewPlatform.Flexberry.LogService@2.1.0.
 
 ### Deprecated
 

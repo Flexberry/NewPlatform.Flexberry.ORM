@@ -386,16 +386,20 @@
             return PrepareIdentifier(identifier);
         }
 
+        /// <inheritdoc />
         public override System.Data.IDbConnection GetConnection()
         {
-            return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
+            return new OracleConnection(this.CustomizationString);
         }
 
         /// <inheritdoc cref="SQLDataService.GetDbConnection"/>
         public override System.Data.Common.DbConnection GetDbConnection()
         {
-            return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
+            return new OracleConnection(this.CustomizationString);
         }
+
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => OracleClientFactory.Instance;
 
         /// <summary>
         /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL).
