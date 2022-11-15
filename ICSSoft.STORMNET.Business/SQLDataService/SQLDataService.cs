@@ -622,7 +622,7 @@
         }
 
         /// <summary>
-        /// Загрузка объекта с указанной коннекцией в рамках указанной транзакции.
+        /// Загрузка объекта с указанной коннекцией в рамках указанной транзакции (с помощью <see cref="DbTransactionWrapper"/>).
         /// </summary>
         /// <param name="dataObjectView">Представление, по которому будет зачитываться объект.</param>
         /// <param name="dobject">Объект, который будет дочитываться/зачитываться.</param>
@@ -637,7 +637,8 @@
             bool сlearDataObject,
             bool сheckExistingObject,
             DataObjectCache dataObjectCache,
-            DbTransactionWrapper dbTransactionWrapper)
+            IDbConnection connection,
+            IDbTransaction transaction)
         {
             dataObjectCache.StartCaching(false);
             try
@@ -665,7 +666,7 @@
 
                 // Получаем данные.
                 object state = null;
-                object[][] resValue = ReadFirstByExtConn(query, ref state, 0, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                object[][] resValue = ReadFirstByExtConn(query, ref state, 0, connection, transaction);
 
                 if (resValue == null)
                 {
@@ -682,7 +683,7 @@
                 DataObject[] helpDataObjectArray = { dobject };
 
                 Utils.ProcessingRowsetDataRef(
-                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, сlearDataObject, dataObjectCache, SecurityManager, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, сlearDataObject, dataObjectCache, SecurityManager, connection, transaction);
 
                 if (dobject.Prototyped)
                 {
@@ -724,7 +725,7 @@
 
             using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
             {
-                LoadObjectByExtConn(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapper);
+                LoadObjectByExtConn(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
             }
         }
 
