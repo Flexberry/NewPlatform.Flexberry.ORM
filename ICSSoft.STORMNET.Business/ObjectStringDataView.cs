@@ -5,7 +5,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// В виде этой структуры приходят строковое предстваление объектов.
+    /// В виде этой структуры приходят строковое предствление объектов.
     /// </summary>
     [Serializable]
     public struct ObjectStringDataView : ISerializable
