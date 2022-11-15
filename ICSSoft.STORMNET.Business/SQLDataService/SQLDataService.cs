@@ -637,8 +637,7 @@
             bool сlearDataObject,
             bool сheckExistingObject,
             DataObjectCache dataObjectCache,
-            IDbConnection connection,
-            IDbTransaction transaction)
+            DbTransactionWrapper dbTransactionWrapper)
         {
             dataObjectCache.StartCaching(false);
             try
@@ -666,7 +665,8 @@
 
                 // Получаем данные.
                 object state = null;
-                object[][] resValue = ReadFirstByExtConn(query, ref state, 0, connection, transaction);
+                object[][] resValue = ReadFirstByExtConn(query, ref state, 0, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+
                 if (resValue == null)
                 {
                     if (сheckExistingObject)
@@ -682,7 +682,7 @@
                 DataObject[] helpDataObjectArray = { dobject };
 
                 Utils.ProcessingRowsetDataRef(
-                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, сlearDataObject, dataObjectCache, SecurityManager, connection, transaction);
+                    resValue, new[] { dataObjectType }, storageStruct, lcs, helpDataObjectArray, this, Types, сlearDataObject, dataObjectCache, SecurityManager, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
 
                 if (dobject.Prototyped)
                 {
@@ -722,7 +722,10 @@
             Type doType = dataObject.GetType();
             RunChangeCustomizationString(new Type[] { doType });
 
-            LoadObjectByExtConn(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, GetConnection(), null);
+            using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
+            {
+                LoadObjectByExtConn(dataObjectView, dataObject, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapper);
+            }
         }
 
         /// <summary>
@@ -1895,26 +1898,25 @@
             }
         }
 
-        public virtual object[][] ReadFirstByExtConn(string Query, ref object State, int LoadingBufferSize, IDbConnection Connection, IDbTransaction Transaction)
+        public virtual object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, IDbConnection connection, IDbTransaction transaction)
         {
-            object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + Query);
+            object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + query);
             try
             {
-                using (IDbCommand myCommand = Connection.CreateCommand())
+                using (IDbCommand myCommand = connection.CreateCommand())
                 {
-                    myCommand.CommandText = Query;
-                    myCommand.Transaction = Transaction;
+                    myCommand.CommandText = query;
+                    myCommand.Transaction = transaction;
                     CustomizeCommand(myCommand);
 
-                    // Connection.Open();
                     IDataReader myReader = myCommand.ExecuteReader();
-                    State = new object[] { Connection, myReader };
-                    return ReadNextByExtConn(ref State, LoadingBufferSize);
+                    state = new object[] { connection, myReader };
+                    return ReadNextByExtConn(ref state, loadingBufferSize);
                 }
             }
             catch (Exception e)
             {
-                throw new ExecutingQueryException(Query, string.Empty, e);
+                throw new ExecutingQueryException(query, string.Empty, e);
             }
             finally
             {
@@ -1969,14 +1971,12 @@
                 return null;
             }
 
-            System.Data.IDataReader myReader = (System.Data.IDataReader)((object[])State)[1];
+            IDataReader myReader = (IDataReader)((object[])State)[1];
             if (myReader.Read())
             {
-                System.Collections.ArrayList arl = new System.Collections.ArrayList();
+                ArrayList arl = new ArrayList();
                 int i = 1;
-                int FieldCount = myReader.FieldCount;
-
-                // object[][] resar = new object[LoadingBufferSize][];
+                int fieldCount = myReader.FieldCount;
 
                 while (i <= LoadingBufferSize || LoadingBufferSize == 0)
                 {
@@ -1988,33 +1988,19 @@
                         }
                     }
 
-                    object[] tmp = new object[FieldCount];
+                    object[] tmp = new object[fieldCount];
                     myReader.GetValues(tmp);
                     arl.Add(tmp);
 
-                    // resar[i-1]= tmp;
                     i++;
                 }
 
                 object[][] result = null;
-
-                // if (i<LoadingBufferSize)
-                //              {
-                //                  result = new object[i-1][];
-                //                  for (int j=0;j<i-1;j++)
-                //                      result[j]=resar[j];
-                //
-                //              }
-                //              else
-                //                  result = resar;
                 result = (object[][])arl.ToArray(typeof(object[]));
 
                 if (i < LoadingBufferSize || LoadingBufferSize == 0)
                 {
                     myReader.Close();
-
-                    // System.Data.IDbConnection myConnection = (System.Data.IDbConnection)((object[])State)[0];
-                    // myConnection.Close();
                     State = null;
                 }
 
@@ -2023,8 +2009,6 @@
             else
             {
                 myReader.Close();
-
-                // myConnection.Close();
                 State = null;
                 return null;
             }
