@@ -29,10 +29,11 @@
             foreach (SQLDataService ds in DataServices)
             {
                 // Arrange.
-                var user1 = new Пользователь { ФИО = "Петриченко Максим Андреевич", Логин = "petr", ДатаРегистрации = NullableDateTime.Parse("2020-01-01") };
+                var user1 = new Пользователь { ФИО = "Петриченко Максим Андреевич", Логин = "petr", ДатаРегистрации = NullableDateTime.Parse("2020-11-21") };
                 var user2 = new Пользователь { ФИО = "Катаев Владимир Владимирович", Логин = "vlad", ДатаРегистрации = NullableDateTime.Parse("2021-10-28") };
                 var user3 = new Пользователь { ФИО = "Кутузов Максим Юрьевич", Логин = "max", ДатаРегистрации = NullableDateTime.Parse("1999-10-10") };
-                var dObjects = new ICSSoft.STORMNET.DataObject[] { user1, user2, user3 };
+                var user4 = new Пользователь { ФИО = "Тестовый Тест Тестович", Логин = "test", ДатаРегистрации = NullableDateTime.Parse("2022-12-23") };
+                var dObjects = new ICSSoft.STORMNET.DataObject[] { user1, user2, user3, user4 };
 
                 var view = new View { DefineClassType = typeof(Пользователь) };
                 view.AddProperties(
@@ -48,7 +49,7 @@
                 var count = await ds.GetObjectsCountAsync(lcsDateAfter2000);
 
                 // Assert.
-                Assert.Equal(2, count);
+                Assert.Equal(3, count);
             }
         }
 

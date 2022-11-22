@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data;
     using System.Data.Common;
     using System.Globalization;
     using System.Linq;
@@ -645,6 +646,33 @@
         /// <returns>The readed objects from database.</returns>
         public override object[][] ReadFirst(string query, ref object state, int loadingBufferSize)
         {
+            PrepareQuery(ref query);
+
+            return base.ReadFirst(query, ref state, loadingBufferSize);
+        }
+
+        /// <summary>
+        /// Reading data from database: read first part (by external connection).
+        /// </summary>
+        /// <param name="query">The SQL query.</param>
+        /// <param name="state">The reading state.</param>
+        /// <param name="loadingBufferSize">The loading buffer size.</param>
+        /// <param name="connection">Connection to use (you have to open and close it yourself).</param>
+        /// <param name="transaction">Transaction to use.</param>
+        /// <returns>The readed objects from database.</returns>
+        public override object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, IDbConnection connection, IDbTransaction transaction)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadFirstByExtConn(query, ref state, loadingBufferSize, connection, transaction);
+        }
+
+        /// <summary>
+        /// Предобработка запроса (функция конкретного датасервиса).
+        /// </summary>
+        /// <param name="query">Запрос который нужно подготовить.</param>
+        private void PrepareQuery(ref string query)
+        {
             query = query.Replace("count(*)", "cast(count(*) as int)");
 
             if (query.IndexOf("TOP ", StringComparison.InvariantCultureIgnoreCase) > -1)
@@ -662,8 +690,6 @@
                     }
                 }
             }
-
-            return base.ReadFirst(query, ref state, loadingBufferSize);
         }
 
         /// <summary>

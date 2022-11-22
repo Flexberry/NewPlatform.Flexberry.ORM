@@ -1,16 +1,16 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
-    using System;
-    using System.Collections;
-    using System.Data.Common;
-    using System.Data.SqlClient;
-
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
     using ICSSoft.STORMNET.Windows.Forms;
+
+    using System;
+    using System.Collections;
+    using System.Data.Common;
+    using System.Data.SqlClient;
 
     /// <summary>
     /// Сервис данных для работы с Microsoft SQL Server.

@@ -28,7 +28,7 @@
         /// <param name="businessID">ID операции (см. <see cref="BusinessTaskMonitor.BeginTask(string)"/>).</param>
         /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
         /// <returns>Возникла ошибка - возвращается <see cref="ExecutingQueryException"/>. Сработало без ошибок - возвращается <see langword="null" />.</returns>
-        protected virtual Exception RunCommands(List<string> queries, System.Data.IDbCommand command, object businessID, bool alwaysThrowException)
+        internal virtual Exception RunCommands(List<string> queries, System.Data.IDbCommand command, object businessID, bool alwaysThrowException)
         {
             if (queries == null)
             {
@@ -41,9 +41,10 @@
             }
 
             Exception ex = null;
-            for (int i = 0; i < queries.Count; i++)
+
+            while (queries.Count > 0)
             {
-                string query = queries[i];
+                string query = queries.First();
                 command.CommandText = query;
                 command.Parameters.Clear();
                 CustomizeCommand(command);
@@ -51,7 +52,7 @@
                 try
                 {
                     command.ExecuteNonQuery();
-                    queries.RemoveAt(i);
+                    queries.RemoveAt(0);
                 }
                 catch (Exception exc)
                 {
@@ -92,9 +93,9 @@
 
             Exception ex = null;
 
-            for (int i = 0; i < queries.Count; i++)
+            while (queries.Count > 0)
             {
-                string query = queries[i];
+                string query = queries.First();
                 command.CommandText = query;
                 command.Parameters.Clear();
                 CustomizeCommand(command);
@@ -102,7 +103,7 @@
                 try
                 {
                     await command.ExecuteNonQueryAsync().ConfigureAwait(false);
-                    queries.RemoveAt(i);
+                    queries.RemoveAt(0);
                 }
                 catch (Exception exc)
                 {

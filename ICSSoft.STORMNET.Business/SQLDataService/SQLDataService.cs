@@ -1748,7 +1748,7 @@
         /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
         /// <param name="state">Состояние вычитки (для последующей дочитки).</param>
         /// <param name="dataObjectCache">Кэш объектов для вычитки.</param>
-        /// <param name="connection">Коннекция, через которую будут выполнена зачитска.</param>
+        /// <param name="connection">Коннекция, через которую будут выполнена вычитка.</param>
         /// <param name="transaction">Транзакция, в рамках которой будет выполнена вычитка.</param>
         /// <returns>Загруженные данные.</returns>
         public virtual DataObject[] LoadObjectsByExtConn(
@@ -1804,7 +1804,10 @@
             ref object state, DataObjectCache dataObjectCache)
         {
             RunChangeCustomizationString(customizationStruct.LoadingTypes);
-            return LoadObjectsByExtConn(customizationStruct, ref state, dataObjectCache, GetConnection());
+            using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
+            {
+                return LoadObjectsByExtConn(customizationStruct, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+            }
         }
 
         /// <summary>
@@ -3740,7 +3743,7 @@
         /// The operation type.
         /// </summary>
         [Flags]
-        protected enum OperationType : short
+        internal enum OperationType : short
         {
             None = 0,
             Update = 1,
@@ -4838,21 +4841,17 @@
                 GenerateUpdateQueries(alteredLastList, updateList, tableOperations, updateLastQueries);
             }
 
-            deleteQueries = new Dictionary<string, List<string>>();
-            if (deleteObjectsLimits.Count > 0)
+            var deleteObjectsSQLLimits = deleteObjectsLimits.Select(x =>
+                new KeyValuePair<string, string>(x.Key, LimitFunction2SQLWhere(deleteObjectsLimits[x.Key])));
+
+            var deleteDetailsSQLLimits = deleteDetailsLimits.SelectMany(x =>
+                x.Value.Select(limit => new KeyValuePair<string, string>(x.Key, limit)));
+
+            var deleteQueriesGenerated = GenerateDeleteQueries(deleteObjectsSQLLimits.Concat(deleteDetailsSQLLimits));
+
+            foreach (var kvp in deleteQueriesGenerated)
             {
-                var tables = deleteObjectsLimits.Keys.Concat(deleteDetailsLimits.Keys).Distinct();
-
-                foreach (string table in tables)
-                {
-                    deleteQueries[table] = new List<string>();
-                    deleteQueries[table].Add($"DELETE FROM {PutIdentifierIntoBrackets(table)} WHERE {LimitFunction2SQLWhere(deleteObjectsLimits[table])}");
-                    var deleteDetailsQueries = deleteDetailsLimits[table]
-                            .Select(query => $"DELETE FROM {PutIdentifierIntoBrackets(table)} WHERE {query}");
-                    deleteQueries[table].AddRange(deleteDetailsQueries);
-
-                    deleteQueries[table] = deleteQueries[table].Distinct().ToList();
-                }
+                deleteQueries.Add(kvp.Key, kvp.Value);
             }
 
             if (AuditService.IsAuditEnabled && auditObjects != null)
@@ -4862,6 +4861,34 @@
                 auditObjects.AddRange(processingObjectsList);
                 auditObjects.AddRange(extraProcessingList.Where(dataObject => !ContainsKeyINProcessing(processingObjectsKeys, dataObject)));
             }
+        }
+
+        /// <summary>
+        /// Сгенерировать запросы на удаление.
+        /// </summary>
+        /// <param name="tableLimits">Ключ - название таблицы. Значение - SQL ограничение на удаляемые записи в этой таблице.</param>
+        /// <returns>Запросы на удаление. Ключ - название таблицы. Значение - список запросов на удаление для этой таблицы.</returns>
+        public Dictionary<string, List<string>> GenerateDeleteQueries(IEnumerable<KeyValuePair<string, string>> tableLimits)
+        {
+            // Запросы должны быть без дубликатов:
+            tableLimits = tableLimits.Distinct();
+
+            // Инициализируем deleteQueries:
+            var deleteQueries = new Dictionary<string, List<string>>();
+            foreach (string tableName in tableLimits.Select(x => x.Key).Distinct())
+            {
+                deleteQueries[tableName] = new List<string>();
+            }
+
+            // Заполняем запросами:
+            foreach (var t in tableLimits)
+            {
+                string tableName = t.Key;
+                string limit = t.Value;
+                deleteQueries[tableName].Add($"DELETE FROM {PutIdentifierIntoBrackets(tableName)} WHERE {limit}");
+            }
+
+            return deleteQueries;
         }
 
         private void ProcessBusinessServer(DataObject processingObject, Type typeOfProcessingObject, BusinessServer bs, ArrayList processingObjects, Dictionary<TypeKeyPair, bool> processingObjectsKeys, ref ObjectStatus curObjectStatus)
@@ -5130,6 +5157,8 @@
 
             AccessCheckBeforeUpdate(SecurityManager, allQueriedObjects);
 
+            var queryRunner = new QueryRunner(deleteQueries, updateQueries, updateFirstQueries, updateLastQueries, insertQueries, tableOperations, this);
+
             // Порядок выполнения запросов: delete, insert, update.
             if (deleteQueries.Count > 0 || updateQueries.Count > 0 || insertQueries.Count > 0)
             {
@@ -5154,141 +5183,7 @@
                 object subTask = null;
                 try
                 {
-                    Exception ex = null;
-                    IDbCommand command = dbTransactionWrapper.CreateCommand();
-
-                    // прошли вглубь обрабатывая only Update||Insert
-                    do
-                    {
-                        string table = queryOrder[0];
-                        if (!tableOperations.ContainsKey(table))
-                        {
-                            tableOperations.Add(table, OperationType.None);
-                        }
-
-                        var ops = (OperationType)tableOperations[table];
-
-                        if ((ops & OperationType.Delete) != OperationType.Delete && updateLastQueries.Count == 0)
-                        {
-                            // Смотрим есть ли Инсерты
-                            if ((ops & OperationType.Insert) == OperationType.Insert)
-                            {
-                                if ((ex = RunCommands(insertQueries[table], command, id, alwaysThrowException)) == null)
-                                {
-                                    ops = Minus(ops, OperationType.Insert);
-                                    tableOperations[table] = ops;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            // Смотрим есть ли Update
-                            if ((ops & OperationType.Update) == OperationType.Update)
-                            {
-                                if ((ex = RunCommands(updateQueries[table], command, id, alwaysThrowException)) == null)
-                                {
-                                    ops = Minus(ops, OperationType.Update);
-                                    tableOperations[table] = ops;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            queryOrder.RemoveAt(0);
-                        } else
-                        {
-                            break;
-                        }
-                    }
-                    while (queryOrder.Count > 0);
-
-                    if (ex != null)
-                    {
-                        throw ex;
-                    }
-
-                    if (queryOrder.Count > 0)
-                    {
-                        // сзади чистые Update
-                        int queryOrderIndex = queryOrder.Count - 1;
-                        do
-                        {
-                            string table = queryOrder[queryOrderIndex];
-                            if (tableOperations.ContainsKey(table))
-                            {
-                                var ops = (OperationType)tableOperations[table];
-
-                                if (ops == OperationType.Update && updateLastQueries.Count == 0)
-                                {
-                                    if ((ex = RunCommands(updateQueries[table], command, id, alwaysThrowException)) == null)
-                                    {
-                                        ops = Minus(ops, OperationType.Update);
-                                        tableOperations[table] = ops;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            queryOrderIndex--;
-                        }
-                        while (queryOrderIndex >= 0);
-                    }
-
-                    if (ex != null)
-                    {
-                        throw ex;
-                    }
-
-                    foreach (string table in queryOrder)
-                    {
-                        if ((ex = RunCommands(updateFirstQueries[table], command, id, alwaysThrowException)) != null)
-                        {
-                            throw ex;
-                        }
-                    }
-
-                    // Удаляем в обратном порядке.
-                    for (int i = queryOrder.Count - 1; i >= 0; i--)
-                    {
-                        string table = queryOrder[i];
-                        if ((ex = RunCommands(deleteQueries[table], command, id, alwaysThrowException)) != null)
-                        {
-                            throw ex;
-                        }
-                    }
-
-                    // А теперь опять с начала
-                    foreach (string table in queryOrder)
-                    {
-                        if ((ex = RunCommands(insertQueries[table], command, id, alwaysThrowException)) != null)
-                        {
-                            throw ex;
-                        }
-
-                        if ((ex = RunCommands(updateQueries[table], command, id, alwaysThrowException)) != null)
-                        {
-                            throw ex;
-                        }
-                    }
-
-                    foreach (string table in queryOrder)
-                    {
-                        if ((ex = RunCommands(updateLastQueries[table], command, id, alwaysThrowException)) != null)
-                        {
-                            throw ex;
-                        }
-                    }
+                    queryRunner.RunQueries(queryOrder, dbTransactionWrapper, alwaysThrowException, id);
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     {
