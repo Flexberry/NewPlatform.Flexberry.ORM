@@ -5069,7 +5069,7 @@
             }
         }
 
-        protected OperationType Minus(OperationType ops, OperationType value)
+        internal OperationType Minus(OperationType ops, OperationType value)
         {
             return ops & (~value);
         }
