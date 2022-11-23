@@ -9,7 +9,7 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-
+    using System.Threading.Tasks;
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.FunctionalLanguage;
@@ -665,6 +665,20 @@
             PrepareQuery(ref query);
 
             return base.ReadFirstByExtConn(query, ref state, loadingBufferSize, connection, transaction);
+        }
+
+        /// <summary>
+        /// Асинхронная вычитка данных.
+        /// </summary>
+        /// <param name="query">Запрос для вычитки.</param>
+        /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит соединение и транзакцию, в рамках которых нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
+        /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
+        public override Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync);
         }
 
         /// <summary>
