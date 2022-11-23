@@ -5,7 +5,9 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data;
+    using System.Data.Common;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using static ICSSoft.STORMNET.Business.SQLDataService;
 
@@ -18,18 +20,18 @@
         /// Список запросов на выполнение для каждой таблицы.
         /// </summary>
         /// <remarks>Ключ - название таблицы. Значение - все запросы этой таблицы.</remarks>
-        private Dictionary<string, List<Query>> queries;
+        private readonly Dictionary<string, List<Query>> queries;
 
         /// <summary>
         /// Список запланированных операций для каждой таблицы.
         /// </summary>
         /// <remarks>Ключ - название таблицы. Значение - все операции этой таблицы.</remarks>
-        private Dictionary<string, OperationType> tableOperations;
+        private readonly Dictionary<string, OperationType> tableOperations;
 
         /// <summary>
         /// SQLDataService, используемый для запуска запросов (необходим только для запуска <see cref="SQLDataService.CustomizeCommand(IDbCommand)"/>).
         /// </summary>
-        private SQLDataService sqlDataService;
+        private readonly SQLDataService sqlDataService;
 
         /// <summary>
         /// Класс для запуска запросов.
@@ -238,6 +240,135 @@
         }
 
         /// <summary>
+        /// Запустить запросы в указанном порядке (асинхронно).
+        /// </summary>
+        /// <param name="queryOrder">Порядок таблиц, в котором будут выполняться запросы.</param>
+        /// <param name="dbTransactionWrapperAsync">Экземпляр <see cref="DbTransactionWrapperAsync"/>.</param>
+        /// <param name="alwaysThrowException">Выбрасывать исключение (вместо того, чтобы возвращать его).</param>
+        /// <param name="taskID">ID бизнес-задачи, в рамках которой выполняется запрос.</param>
+        /// <returns>Исключение.</returns>
+        internal async Task<Exception> RunQueriesAsync(StringCollection queryOrder, DbTransactionWrapperAsync dbTransactionWrapperAsync, bool alwaysThrowException = false, object taskID = null)
+        {
+            // Заполним tableOperations значениями OperationType.None для всех таблиц, у которых нет операций.
+            foreach (var tableName in queryOrder)
+            {
+                if (!tableOperations.ContainsKey(tableName))
+                {
+                    tableOperations.Add(tableName, OperationType.None);
+                }
+
+                if (!queries.ContainsKey(tableName))
+                {
+                    queries.Add(tableName, new List<Query>());
+                }
+            }
+
+            Exception ex = null;
+            DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync();
+            do
+            {
+                string tableName = queryOrder[0];
+
+                bool hasPendingDeletes = tableOperations[tableName].HasFlag(OperationType.Delete);
+                bool hasUpdateLast = queries[tableName].Any(x => x.operationType == OperationType.Update && x.priority == QueryPriority.Last);
+                if (hasPendingDeletes || hasUpdateLast)
+                {
+                    break;
+                }
+
+                ex = await RunQueryAsync(tableName, command, OperationType.Insert, QueryPriority.Normal, alwaysThrowException, taskID);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+
+                ex = await RunQueryAsync(tableName, command, OperationType.Update, QueryPriority.Normal, alwaysThrowException, taskID);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+
+                queryOrder.RemoveAt(0);
+            }
+            while (queryOrder.Count > 0);
+
+            // сзади чистые Update
+            int queryOrderIndex = queryOrder.Count - 1;
+            while (queryOrderIndex >= 0)
+            {
+                string tableName = queryOrder[queryOrderIndex];
+                bool hasUpdateLast = queries[tableName].Any(x => x.operationType == OperationType.Update && x.priority == QueryPriority.Last);
+                bool isUpdateOnly = tableOperations[tableName] == OperationType.Update || tableOperations[tableName] == OperationType.None;
+                if (hasUpdateLast || !isUpdateOnly)
+                {
+                    break;
+                }
+
+                ex = await RunQueryAsync(tableName, command, OperationType.Update, QueryPriority.Normal, alwaysThrowException, taskID, exactType: true);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+
+                queryOrderIndex--;
+            }
+
+            foreach (string tableName in queryOrder)
+            {
+                ex = await RunQueryAsync(tableName, command, OperationType.Update, QueryPriority.First, alwaysThrowException, taskID, checkTableOperations: false);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+            }
+
+            // delete запросы выполняются в обратном порядке
+            foreach (string tableName in queryOrder.Cast<string>().Reverse())
+            {
+                ex = await RunQueryAsync(tableName, command, OperationType.Delete, QueryPriority.Normal, alwaysThrowException, taskID);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+            }
+
+            // А теперь опять с начала
+            foreach (string tableName in queryOrder)
+            {
+                ex = await RunQueryAsync(tableName, command, OperationType.Insert, QueryPriority.Normal, alwaysThrowException, taskID);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+
+                ex = await RunQueryAsync(tableName, command, OperationType.Update, QueryPriority.Normal, alwaysThrowException, taskID);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+            }
+
+            foreach (string tableName in queryOrder)
+            {
+                ex = await RunQueryAsync(tableName, command, OperationType.Update, QueryPriority.Last, alwaysThrowException, taskID, checkTableOperations: false);
+
+                if (ex != null)
+                {
+                    throw ex;
+                }
+            }
+
+            return ex;
+        }
+
+        /// <summary>
         /// Запустить запросы указанного типа в указанной таблице.
         /// </summary>
         /// <param name="tableName">Название таблицы (в которой нужно запустить запросы).</param>
@@ -275,6 +406,55 @@
                     .ToList();
 
                 ex = sqlDataService.RunCommands(queriesToRun, command, taskID, alwaysThrowException);
+
+                bool queriesWereExecuted = queriesToRun.Count > 0 && ex == null;
+                if (queriesWereExecuted)
+                {
+                    tableOperations[tableName] = Minus(tableOperations[tableName], operationType);
+                }
+            }
+
+            return ex;
+        }
+
+        /// <summary>
+        /// Запустить запросы указанного типа в указанной таблице (асинхронно).
+        /// </summary>
+        /// <param name="tableName">Название таблицы (в которой нужно запустить запросы).</param>
+        /// <param name="command">Команда к БД.</param>
+        /// <param name="operationType">Категория запросов, которые нужно выполнить (выполняются все запросы указанной категории).</param>
+        /// <param name="priority">Приоритет (порядок выполнения).</param>
+        /// <param name="alwaysThrowException">Выбрасывать исключение (вместо того, чтобы возвращать его).</param>
+        /// <param name="taskID">ID бизнес-задачи, в рамках которой выполняется запрос.</param>
+        /// <param name="exactType">true - точное совпадение типа операции; false - разрешается частичное совпадение (в смешанных операциях напр. insert + update).</param>
+        /// <param name="checkTableOperations">Проверять наличие операции в таблице операций. Если запросы указанного типа для текущей таблицы не были запланированы - они выполнены не будут.</param>
+        /// <returns>Исключение.</returns>
+        internal async Task<Exception> RunQueryAsync(
+            string tableName,
+            DbCommand command,
+            OperationType operationType,
+            QueryPriority priority = QueryPriority.Normal,
+            bool alwaysThrowException = false,
+            object taskID = null,
+            bool exactType = false,
+            bool checkTableOperations = true)
+        {
+            Exception ex = null;
+
+            OperationType operations = tableOperations[tableName];
+            bool isOperationPlanned = operations.HasFlag(operationType) || !checkTableOperations;
+            if (isOperationPlanned)
+            {
+                var queriesToRun = queries[tableName]
+                    .Where(x =>
+                        (exactType ?
+                            x.operationType == operationType :
+                            x.operationType.HasFlag(operationType))
+                        && x.priority == priority)
+                    .Select(x => x.text)
+                    .ToList();
+
+                ex = await sqlDataService.RunCommandsAsync(queriesToRun, command, taskID, alwaysThrowException);
 
                 bool queriesWereExecuted = queriesToRun.Count > 0 && ex == null;
                 if (queriesWereExecuted)

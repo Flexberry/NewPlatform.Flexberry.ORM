@@ -121,6 +121,8 @@
 
             AccessCheckBeforeUpdate(SecurityManager, allQueriedObjects);
 
+            var queryRunner = new QueryRunner(deleteQueries, updateQueries, updateFirstQueries, updateLastQueries, insertQueries, tableOperations, this);
+
             // Порядок выполнения запросов: delete, insert, update.
             if (deleteQueries.Count > 0 || updateQueries.Count > 0 || insertQueries.Count > 0)
             {
@@ -147,127 +149,7 @@
                 object subTask = null;
                 try
                 {
-                    Exception ex = null;
-                    DbCommand command = await dbTransactionWrapperAsync.CreateCommandAsync()
-                        .ConfigureAwait(false);
-
-                    // прошли вглубь обрабатывая only Update||Insert
-                    do
-                    {
-                        string table = queryOrder[0];
-                        if (!tableOperations.ContainsKey(table))
-                        {
-                            tableOperations.Add(table, OperationType.None);
-                        }
-
-                        var ops = (OperationType)tableOperations[table];
-
-                        if ((ops & OperationType.Delete) != OperationType.Delete && updateLastQueries.Count == 0)
-                        {
-                            // Смотрим есть ли Инсерты
-                            if ((ops & OperationType.Insert) == OperationType.Insert)
-                            {
-                                if ((ex = await RunCommandsAsync(insertQueries[table], command, id, alwaysThrowException).ConfigureAwait(false)) == null)
-                                {
-                                    ops = Minus(ops, OperationType.Insert);
-                                    tableOperations[table] = ops;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            // Смотрим есть ли Update
-                            if ((ops & OperationType.Update) == OperationType.Update)
-                            {
-                                if ((ex = await RunCommandsAsync(updateQueries[table], command, id, alwaysThrowException).ConfigureAwait(false)) == null)
-                                {
-                                    ops = Minus(ops, OperationType.Update);
-                                    tableOperations[table] = ops;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            queryOrder.RemoveAt(0);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    while (queryOrder.Count > 0);
-
-                    if (ex != null)
-                    {
-                        throw ex;
-                    }
-
-                    if (queryOrder.Count > 0)
-                    {
-                        // сзади чистые Update
-                        int queryOrderIndex = queryOrder.Count - 1;
-                        do
-                        {
-                            string table = queryOrder[queryOrderIndex];
-                            if (tableOperations.ContainsKey(table))
-                            {
-                                var ops = (OperationType)tableOperations[table];
-
-                                if (ops == OperationType.Update && updateLastQueries.Count == 0)
-                                {
-                                    if ((ex = await RunCommandsAsync(updateQueries[table], command, id, alwaysThrowException).ConfigureAwait(false)) == null)
-                                    {
-                                        ops = Minus(ops, OperationType.Update);
-                                        tableOperations[table] = ops;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            queryOrderIndex--;
-                        }
-                        while (queryOrderIndex >= 0);
-                    }
-
-                    if (ex != null)
-                    {
-                        throw ex;
-                    }
-
-                    foreach (string table in queryOrder)
-                    {
-                        await RunCommandsAsync(updateFirstQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
-                    }
-
-                    // Удаляем в обратном порядке.
-                    for (int i = queryOrder.Count - 1; i >= 0; i--)
-                    {
-                        string table = queryOrder[i];
-                        await RunCommandsAsync(deleteQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
-                    }
-
-                    // А теперь опять с начала
-                    foreach (string table in queryOrder)
-                    {
-                        await RunCommandsAsync(insertQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
-                        await RunCommandsAsync(updateQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
-                    }
-
-                    foreach (string table in queryOrder)
-                    {
-                        await RunCommandsAsync(updateLastQueries[table], command, id, alwaysThrowException).ConfigureAwait(false);
-                    }
+                    await queryRunner.RunQueriesAsync(queryOrder, dbTransactionWrapperAsync, alwaysThrowException, id);
 
                     if (AuditService.IsAuditEnabled && auditOperationInfoList.Count > 0)
                     {

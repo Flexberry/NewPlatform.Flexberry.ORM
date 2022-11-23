@@ -79,7 +79,7 @@
         /// <param name="businessID">ID операции (см. <see cref="BusinessTaskMonitor.BeginTask(string)"/>).</param>
         /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
         /// <returns>Возникла ошибка - возвращается <see cref="ExecutingQueryException"/>. Сработало без ошибок - возвращается <see langword="null" />.</returns>
-        protected virtual async Task<Exception> RunCommandsAsync(List<string> queries, DbCommand command, object businessID, bool alwaysThrowException)
+        internal virtual async Task<Exception> RunCommandsAsync(List<string> queries, DbCommand command, object businessID, bool alwaysThrowException)
         {
             if (queries == null)
             {
