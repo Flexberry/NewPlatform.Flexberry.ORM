@@ -573,7 +573,7 @@
             if (bs != null && bs.Length > 0)
             {
                 // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
-                updateObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                updateObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper);
             }
             else
             {
@@ -583,7 +583,7 @@
                     * Здесь в аудит идут уже актуальные детейлы, поскольку на них нет бизнес-серверов,
                     * а бизнес-сервера основного объекта уже выполнились.
                     */
-                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                    DataObject[] detailObjects = LoadObjectsByExtConn(cs, ref state, dataObjectCache, dbTransactionWrapper);
                     if (detailObjects != null)
                     {
                         foreach (var detailObject in detailObjects)

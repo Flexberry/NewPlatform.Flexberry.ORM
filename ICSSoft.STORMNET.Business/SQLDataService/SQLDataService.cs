@@ -1753,7 +1753,7 @@
         /// <returns>Загруженные данные.</returns>
         public virtual DataObject[] LoadObjectsByExtConn(
             LoadingCustomizationStruct customizationStruct,
-            ref object state, // TODO: разобраться, что это за параметр.
+            ref object state,
             DataObjectCache dataObjectCache,
             IDbConnection connection,
             IDbTransaction transaction = null)
@@ -1794,6 +1794,55 @@
         }
 
         /// <summary>
+        /// Загрузка объектов с использованием обёртки с коннекцией и транзакцией.
+        /// </summary>
+        /// <param name="customizationStruct">Структура, определяющая, что и как грузить.</param>
+        /// <param name="state">Состояние вычитки (для последующей дочитки).</param>
+        /// <param name="dataObjectCache">Кэш объектов для вычитки.</param>
+        /// <param name="dbTransactionWrapper">Обёртка с коннекцией и тразакцией.</param>
+        /// <returns>Загруженные данные.</returns>
+        private DataObject[] LoadObjectsByExtConn(
+            LoadingCustomizationStruct customizationStruct,
+            ref object state,
+            DataObjectCache dataObjectCache,
+            DbTransactionWrapper dbTransactionWrapper)
+        {
+            dataObjectCache.StartCaching(false);
+            try
+            {
+                // Применим полномочия на строки.
+                ApplyReadPermissions(customizationStruct, SecurityManager);
+
+                Type[] dataObjectType = customizationStruct.LoadingTypes;
+                StorageStructForView[] storageStruct;
+
+                string selectString = string.Empty;
+                selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
+
+                // Получаем данные.
+                object[][] resValue = ReadFirstByExtConn(
+                                            selectString, ref state, customizationStruct.LoadingBufferSize, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, customizationString };
+                DataObject[] res = null;
+                if (resValue == null)
+                {
+                    res = new DataObject[0];
+                }
+                else
+                {
+                    res = Utils.ProcessingRowsetData(
+                            resValue, dataObjectType, storageStruct, customizationStruct, this, Types, dataObjectCache, SecurityManager, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                }
+
+                return res;
+            }
+            finally
+            {
+                dataObjectCache.StopCaching();
+            }
+        }
+
+        /// <summary>
         /// Загрузка объектов данных.
         /// </summary>
         /// <param name="customizationStruct">настроичная структура для выборки<see cref="LoadingCustomizationStruct"/>.</param>
@@ -1806,7 +1855,7 @@
             RunChangeCustomizationString(customizationStruct.LoadingTypes);
             using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
             {
-                return LoadObjectsByExtConn(customizationStruct, ref state, dataObjectCache, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                return LoadObjectsByExtConn(customizationStruct, ref state, dataObjectCache, dbTransactionWrapper);
             }
         }
 
@@ -1861,7 +1910,7 @@
         /// <summary>
         /// Загрузка объектов данных.
         /// </summary>
-        /// <param name="state">Состояние вычитки( для последующей дочитки).</param>
+        /// <param name="state">Состояние вычитки (для последующей дочитки).</param>
         /// <returns></returns>
         public virtual ICSSoft.STORMNET.DataObject[] LoadObjects(ref object state, DataObjectCache dataObjectCache)
         {
@@ -1902,6 +1951,16 @@
             }
         }
 
+        /// <summary>
+        /// Выполнить вычитку.
+        /// </summary>
+        /// <param name="query">Запрос, используемый для вычитки.</param>
+        /// <param name="state">Параметр для дочиток.</param>
+        /// <param name="loadingBufferSize">Кол-во строк, которые нужно загрузить за одну вычитку.</param>
+        /// <param name="connection">Соединение, в рамках которого выполняется вычитка.</param>
+        /// <param name="transaction">Транзакция, в рамках которой выполняется вычитка.</param>
+        /// <returns>Результат вычитки.</returns>
+        /// <exception cref="ExecutingQueryException">Ошибка выполнения запроса.</exception>
         public virtual object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, IDbConnection connection, IDbTransaction transaction)
         {
             object taskid = BusinessTaskMonitor.BeginTask("Reading data" + Environment.NewLine + query);
@@ -1926,6 +1985,20 @@
             {
                 BusinessTaskMonitor.EndTask(taskid);
             }
+        }
+
+        /// <summary>
+        /// Выполнить вычитку.
+        /// </summary>
+        /// <param name="query">Запрос, используемый для вычитки.</param>
+        /// <param name="state">Параметр для дочиток.</param>
+        /// <param name="loadingBufferSize">Кол-во строк, которые нужно загрузить за одну вычитку.</param>
+        /// <param name="dbTransactionWrapper">Обёртка с коннекцией и транзакцией для вычитки.</param>
+        /// <returns>Результат вычитки.</returns>
+        /// <exception cref="ExecutingQueryException">Ошибка выполнения запроса.</exception>
+        public virtual object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, DbTransactionWrapper dbTransactionWrapper)
+        {
+            return ReadFirstByExtConn(query, ref state, loadingBufferSize, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
         }
 
         /// <summary>
