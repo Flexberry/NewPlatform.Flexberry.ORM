@@ -56,6 +56,8 @@
         private static HashSet<string> symbolsToEscape =
             new HashSet<string>() { "{", "}", "?", "+", "(", ")", "[", "]", "|", "^", "$", "." };
 
+        private static readonly Lazy<CompoundNodeTypeProvider> nodeTypeProvider = new Lazy<CompoundNodeTypeProvider>(ExpressionTreeParser.CreateDefaultNodeTypeProvider);
+
         #region Static Fields
 
         /// <summary>
@@ -109,11 +111,10 @@
         /// </returns>
         public static IQueryParser CreateQueryParser()
         {
-            CompoundNodeTypeProvider nodeTypeProvider = ExpressionTreeParser.CreateDefaultNodeTypeProvider();
             var earlyTransformerRegistry = new ExpressionTransformerRegistry();
             earlyTransformerRegistry.Register(new DateTimeEarlyExpressionTransformer());
             CompoundExpressionTreeProcessor processor = CreateDefaultProcessor(earlyTransformerRegistry);
-            var expressionTreeParser = new ExpressionTreeParser(nodeTypeProvider, processor);
+            var expressionTreeParser = new ExpressionTreeParser(nodeTypeProvider.Value, processor);
             var queryParser = new QueryParser(expressionTreeParser);
             return queryParser;
         }

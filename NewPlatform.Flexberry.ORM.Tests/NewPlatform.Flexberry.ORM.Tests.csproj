@@ -1,29 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
-    <Configurations>Debug;Release</Configurations>
-    <LangVersion>latest</LangVersion>
+    <TargetFrameworks>net6.0;net461;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>NewPlatform.Flexberry.ORM.Tests</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.Tests</AssemblyName>
-    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.Tests.snk</AssemblyOriginatorKeyFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Moq" Version="4.14.1" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -31,12 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="StyleCop.Cache" />
+  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP))">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
   </ItemGroup>
 
   <ItemGroup>

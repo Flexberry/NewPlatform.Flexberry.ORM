@@ -7,8 +7,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `IComparableType` implementation to `WebFile` class.
 - Feature GeoDistance is implemented.
+- `IAuditService` UTC time enable flag as property.
+- New property `SQLDataService.ProviderFactory` to create the data source objects.
 
 ### Changed
+- Upgrade SharpZipLib@1.3.3.
+- Upgrade NewPlatform.Flexberry.LogService@2.1.0.
 
 ### Deprecated
 
@@ -20,11 +24,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
 - Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
 - Nullable bool isnull limit.
-    
+- Fix `ExternalLangDef` concurrency.
+
 ### Security
 
 ### Performance
 - Optimize query (select, update, delete) generation.
+- Optimize `Utils.FillRowSetToDataObject`.
+- Optimize `GetHandler` and `SetHandler` usage.
 
 ## [6.0.0] - 2021-05-25
 

@@ -10,8 +10,8 @@
     [Serializable]
     public class TypeBaseCollection : ISerializable
     {
-        private System.Collections.ArrayList types = new System.Collections.ArrayList();
-        private System.Collections.ArrayList values = new System.Collections.ArrayList();
+        private readonly List<Type> types = new List<Type>();
+        private readonly List<object> values = new List<object>();
 
         /// <summary>
         ///
@@ -50,12 +50,12 @@
         {
             lock (types)
             {
-                info.AddValue("types", types.ToArray(typeof(Type)));
+                info.AddValue("types", types.ToArray());
             }
 
             lock (values)
             {
-                info.AddValue("values", values.ToArray(typeof(object)));
+                info.AddValue("values", values.ToArray());
             }
         }
 
@@ -336,7 +336,7 @@
         /// <returns></returns>
         public object[] GetCompatible(Type key)
         {
-            System.Collections.ArrayList res = new System.Collections.ArrayList();
+            List<Type> res = new List<Type>();
             lock (types)
             {
                 foreach (Type curType in types)
@@ -348,9 +348,7 @@
                 }
             }
 
-            object[] resa = new object[res.Count];
-            res.CopyTo(resa);
-            return resa;
+            return res.ToArray();
         }
 
         /// <summary>

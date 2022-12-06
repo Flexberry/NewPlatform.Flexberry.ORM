@@ -32,6 +32,8 @@
         /// </summary>
         private const string TypeNameForIDataService = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
 
+        private static readonly Type DataServiceType = Type.GetType(TypeNameForIDataService);
+
         /// <summary>
         /// Конструктор по-умолчанию (CaseInsensitive берётся из конфига с флагом CaseInsensitive).
         /// </summary>
@@ -389,27 +391,30 @@
         /// <summary>
         /// Перенаправитель для обработки параметров: value is Function или value is VariableDef или это просто значение.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="convertValue"></param>
-        /// <param name="convertIdentifier"></param>
-        /// <param name="dataService"></param>
+        /// <param name="value">Параметр для преобразования.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
+        public virtual string SQLTranslSwitch(
+            object value,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            object dataService = null)
         {
-            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
+            if (dataService != null && !DataServiceType.IsInstanceOfType(dataService))
             {
                 throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
             }
 
-            if (value is Function)
+            if (value is Function function)
             {
-                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier, dataService);
+                return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
             }
 
-            if (value is VariableDef)
+            if (value is VariableDef vardef)
             {
-                if ((value as VariableDef).Language != null)
+                if (vardef.Language != null)
                 {
                     // if ((value as VariableDef).Type==SQLWhereLanguageDef.LanguageDef.BoolType)
                     //                  {
@@ -417,12 +422,12 @@
                     //                  }
                     //                  else
                     //                  {
-                    return ((value as VariableDef).Language as SQLWhereLanguageDef).SQLTranslVariable(value as VariableDef, convertValue, convertIdentifier);
+                    return (vardef.Language as SQLWhereLanguageDef).SQLTranslVariable(vardef, convertValue, convertIdentifier);
 
                     // }
                 }
 
-                return SQLTranslVariable(value as VariableDef, convertValue, convertIdentifier);
+                return SQLTranslVariable(vardef, convertValue, convertIdentifier);
             }
 
             return convertValue(value);
@@ -701,12 +706,13 @@
         /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        public static string ToSQLString(Function function,
+        public static string ToSQLString(
+            Function function,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
             object dataService = null)
         {
-            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
+            if (dataService != null && !DataServiceType.IsInstanceOfType(dataService))
             {
                 throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
             }

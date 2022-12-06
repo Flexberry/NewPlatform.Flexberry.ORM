@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.Common;
     using System.Globalization;
     using System.Linq;
     using System.Text;
@@ -140,6 +141,11 @@
         /// </summary>
         /// <returns>Коннекция к БД.</returns>
         public abstract System.Data.IDbConnection GetConnection();
+
+        /// <summary>
+        /// A factory to create instances of the data source classes.
+        /// </summary>
+        public abstract DbProviderFactory ProviderFactory { get; }
 
         ////-----------------------------------------------------
 
@@ -1474,10 +1480,14 @@
                 }
                 #endregion
 
-                string colsPart = Query.Substring(Query.IndexOf(Regex.Match(Query,
-                    @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey)).Value));
+                string colsPart = null;
                 if (mustNewgenerate)
                 {
+                    var match = Regex.Match(
+                        Query,
+                        @"([.]*(\""\w*\b\""))* as " + PutIdentifierIntoBrackets(SQLWhereLanguageDef.StormMainObjectKey));
+                    colsPart = Query.Substring(Query.IndexOf(match.Value));
+
                     Query = "SELECT ";
                     if (customizationStruct.Distinct /*&& ForReadValues*/)
                     {
@@ -2436,7 +2446,7 @@
             FromPart = string.Concat(nl, " INNER JOIN ", subTable, " ", PutIdentifierIntoBrackets(subTableAlias),
                 GetJoinTableModifierExpression(),
                 subJoins,
-                nl, " ON ", parentAliasWithKey, " = ", joinCondition);
+                nl, " ON ", joinCondition);
             WherePart = string.Empty;
         }
 
@@ -4518,6 +4528,11 @@
         {
             string[] props = Information.GetAllPropertyNames(currentType);
 
+            // Smirnov: GetStatus довольно тяжелая операция, при исполнении в цикле имеет значительное воздействие.
+            // В общем GetStatus мб лишним только в случае отсутствия детейлов и мастеров в типе,
+            // такими случаями можно пренебречь `for the greater good`.
+            ObjectStatus? objectStatus = currentObject?.GetStatus();
+
             // Смотрим мастера и детейлы для выявления зависимостей.
             foreach (string prop in props)
             {
@@ -4538,7 +4553,7 @@
                         }
                     }
 
-                    if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted)
+                    if (objectStatus == ObjectStatus.Deleted)
                     {
                         foreach (DataObject detail in (DetailArray)Information.GetPropValueByName(currentObject, prop))
                         {
@@ -4573,7 +4588,7 @@
                             }
                         }
                     }
-                    else if (currentObject != null && currentObject.GetStatus() == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
+                    else if (objectStatus == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
                     {
                         extraUpdateList.Add(currentObject);
                     }
@@ -5552,14 +5567,19 @@
             }
         }
 
-        protected virtual Exception RunCommands(StringCollection queries, StringCollection tables,
-            string table, System.Data.IDbCommand command,
-            object businessID, bool AlwaysThrowException)
+        protected virtual Exception RunCommands(
+            StringCollection queries,
+            StringCollection tables,
+            string table,
+            System.Data.IDbCommand command,
+            object businessID,
+            bool AlwaysThrowException)
         {
             int i = 0;
-            bool res = true;
+
+            // if exception is set then transaction is a broken state.
             Exception ex = null;
-            while (i < queries.Count)
+            while (i < queries.Count && ex == null)
             {
                 if (tables[i] == table)
                 {
@@ -5577,13 +5597,7 @@
                     catch (Exception exc)
                     {
                         i++;
-                        res = false;
                         ex = new ExecutingQueryException(query, string.Empty, exc);
-                        if (AlwaysThrowException)
-                        {
-                            BusinessTaskMonitor.EndSubTask(subTask);
-                            throw ex;
-                        }
                     }
 
                     BusinessTaskMonitor.EndSubTask(subTask);
@@ -5594,19 +5608,12 @@
                 }
             }
 
-            if (!res)
+            if (AlwaysThrowException && ex != null)
             {
-                if (AlwaysThrowException)
-                {
-                    throw ex;
-                }
+                throw ex;
+            }
 
-                return ex;
-            }
-            else
-            {
-                return null;
-            }
+            return ex;
         }
 
         protected OperationType Minus(OperationType ops, OperationType value)

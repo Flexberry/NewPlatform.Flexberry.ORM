@@ -1,14 +1,15 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
+    using ICSSoft.STORMNET.Security;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data;
     using System.Linq;
-    using Security;
-    using STORMDO = STORMNET;
-    using STORMFunction = FunctionalLanguage.Function;
+
+    using STORMDO = ICSSoft.STORMNET;
+    using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
@@ -801,14 +802,16 @@
                         var alPars = new ArrayList();
                         alPars.Add(vd);
                         var alagrObjects = new ArrayList();
-                        if (div.Name.IndexOf(".") <= 0)
+                        string divname = div.Name;
+                        int divnameDotIndex = divname.IndexOf(".", StringComparison.Ordinal);
+                        if (divnameDotIndex <= 0)
                         {
                             alPars.AddRange(keys);
                             alagrObjects.AddRange(res);
                         }
                         else
                         {
-                            string mprop = div.Name.Substring(0, div.Name.IndexOf("."));
+                            string mprop = div.Name.Substring(0, divnameDotIndex);
                             for (int k = 0; k < keys.Length; k++)
                             {
                                 var dobj = (DataObject)Information.GetPropValueByName(res[k], mprop);
@@ -851,10 +854,9 @@
 
                         // собираем типы данных для детейла
                         var dcs = new LoadingCustomizationStruct(dataService.GetInstanceId());
-                        string divname = div.Name;
-                        if (divname.IndexOf(".") >= 0)
+                        if (divnameDotIndex >= 0)
                         {
-                            divname = divname.Substring(divname.IndexOf(".") + 1);
+                            divname = divname.Substring(divnameDotIndex + 1);
                         }
 
                         for (int j = 0; j < alagrObjects.Count; j++)
