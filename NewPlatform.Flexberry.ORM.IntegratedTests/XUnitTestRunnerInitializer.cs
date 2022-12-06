@@ -29,6 +29,12 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
             string outputConfigFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
             File.Copy(configFile, outputConfigFile, true);
 #endif
+            var assemblies = new[]
+            {
+                typeof(NewPlatform.Flexberry.ORM.Tests.Salad2).Assembly,
+            };
+
+            ICSSoft.STORMNET.Business.Interfaces.InterfaceBusinessServer.SetupAdditionalAssemblies(assemblies);
         }
     }
 }

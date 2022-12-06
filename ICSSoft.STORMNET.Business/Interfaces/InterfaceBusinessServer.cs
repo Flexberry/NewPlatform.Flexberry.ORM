@@ -16,46 +16,108 @@
     public class InterfaceBusinessServer : BusinessServer
     {
         /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// </summary>
+        private static IEnumerable<Assembly> assembliesForIReferencesNullDeleteSearch;
+
+        /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// </summary>
+        private static IEnumerable<Assembly> assembliesForIReferencesCascadeDeleteSearch;
+
+        /// <summary>
+        /// Кеш соответствия типа и списка типов, для которых он является мастером.
+        /// </summary>
+        private static Dictionary<Type, List<ReferencePropertyInfo>> cacheForReferencePropertyInfoLists;
+
+        /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesNullDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// При изменении данного свойства сбрасывается кеш соответствия типа и списка типов, для которых он является мастером.
+        /// </summary>
+        public static IEnumerable<Assembly> AssembliesForIReferencesNullDeleteSearch
+        {
+            get
+            {
+                return assembliesForIReferencesNullDeleteSearch;
+            }
+
+            set
+            {
+                if (assembliesForIReferencesNullDeleteSearch != value)
+                {
+                    cacheForReferencePropertyInfoLists = null;
+                }
+
+                assembliesForIReferencesNullDeleteSearch = value;
+            }
+        }
+
+        /// <summary>
+        /// Список сборок, где осуществляется поиск объектов, для которых переданный является мастером, при обработке интерфейса <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>.
+        /// Если задано <c>null</c>, то поиск осуществляется только в сборке с удаляемым объектом.
+        /// При изменении данного свойства сбрасывается кеш соответствия типа и списка типов, для которых он является мастером.
+        /// </summary>
+        public static IEnumerable<Assembly> AssembliesForIReferencesCascadeDeleteSearch
+        {
+            get
+            {
+                return assembliesForIReferencesCascadeDeleteSearch;
+            }
+
+            set
+            {
+                if (assembliesForIReferencesCascadeDeleteSearch != value)
+                {
+                    cacheForReferencePropertyInfoLists = null;
+                }
+
+                assembliesForIReferencesCascadeDeleteSearch = value;
+            }
+        }
+
+        /// <summary>
+        /// Задание списка сборок, где будет осуществляться поиск объектов, для которых переданный является мастером,
+        /// при обработке интерфейсов <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/>
+        /// и <see cref="ICSSoft.STORMNET.Business.Interfaces.IReferencesCascadeDelete"/> .
+        /// Если настройка не будет задана, то поиск будет осуществляться только в сборке с удаляемым объектом.
+        /// </summary>
+        /// <param name="searchAssemblies">Список сборок.</param>
+        public static void SetupAdditionalAssemblies(IEnumerable<Assembly> searchAssemblies)
+        {
+            AssembliesForIReferencesNullDeleteSearch = searchAssemblies;
+            AssembliesForIReferencesCascadeDeleteSearch = searchAssemblies;
+        }
+
+        /// <summary>
         /// Определяем набор объектов, для которых переданный является мастером.
         /// </summary>
         /// <param name="masterObject">Объект, для которого мы будем искать набор объектов, чьим мастером он является.</param>
+        /// <param name="searchAssemblies">Список сборок, где осуществляется поиск объектов, для которых переданный является мастером. Если <c>null</c>, то поиск осуществляется только в сборке класса <paramref name="masterObject"/>.</param>
         /// <returns>Набор объектов, для которых переданный является мастером.</returns>
-        public static List<ReferencePropertyInfo> GetReferencedDataObjectsInfo(DataObject masterObject)
+        public static List<ReferencePropertyInfo> GetReferencedDataObjectsInfo(
+            DataObject masterObject, IEnumerable<Assembly> searchAssemblies = null)
         {
-            var referencePropertyInfos = new List<ReferencePropertyInfo>();
-            Type realMasterObjectType = masterObject.GetType();
-            string masterObjectAssemblyLocation = realMasterObjectType.Assembly.Location;
-            string directoryPath;
-            if (!string.IsNullOrEmpty(masterObjectAssemblyLocation)
-                && !string.IsNullOrEmpty(directoryPath = Path.GetDirectoryName(masterObjectAssemblyLocation))
-                && Directory.Exists(directoryPath))
+            var realMasterObjectType = masterObject.GetType();
+            var cache = GetCacheForReferencePropertyInfoLists();
+            if (cache.ContainsKey(realMasterObjectType))
             {
-                List<Assembly> assembliesThatMayContainDataObjects = new List<Assembly>();
-                foreach (FileInfo assemblyFileInfo in new DirectoryInfo(directoryPath).GetFiles("*.dll"))
-                {
-                    Assembly assembly = null;
-
-                    try
-                    {
-                        assembly = Assembly.LoadFile(assemblyFileInfo.FullName);
-                    }
-                    catch (Exception ex)
-                    {
-                        LogService.LogError($"При попытке загрузить сборку \"{assemblyFileInfo.FullName}\" произошла ошибка.", ex);
-                    }
-
-                    if (assembly != null)
-                    {
-                        assembliesThatMayContainDataObjects.Add(assembly);
-                    }
-                }
-
-                foreach (Assembly assembly in assembliesThatMayContainDataObjects)
-                {
-                    referencePropertyInfos.AddRange(ReferencePropertyInfo.FormList(assembly, realMasterObjectType));
-                }
+                return cache[realMasterObjectType];
             }
 
+            var referencePropertyInfos = new List<ReferencePropertyInfo>();
+            var searchAssemblyArray = searchAssemblies == null
+                                        ? new[] { realMasterObjectType.Assembly }
+                                        : searchAssemblies;
+
+            foreach (Assembly assembly in searchAssemblyArray)
+            {
+                referencePropertyInfos.AddRange(ReferencePropertyInfo.FormList(assembly, realMasterObjectType));
+            }
+
+            cache[realMasterObjectType] = referencePropertyInfos;
             return referencePropertyInfos;
         }
 
@@ -187,7 +249,7 @@
             }
 
             List<ReferencePropertyInfo> referencePropertyInfos;
-            var referenceObjectList = GetReferencedDataObjects(updatedDataObject, out referencePropertyInfos);
+            var referenceObjectList = GetReferencedDataObjects(updatedDataObject, out referencePropertyInfos, AssembliesForIReferencesCascadeDeleteSearch);
             foreach (DataObject dataObject in referenceObjectList)
             {
                 dataObject.SetStatus(ObjectStatus.Deleted);
@@ -216,7 +278,8 @@
             }
 
             List<ReferencePropertyInfo> referencePropertyInfos;
-            var referenceObjectList = GetReferencedDataObjects(updatedDataObject, out referencePropertyInfos);
+            var referenceObjectList = GetReferencedDataObjects(
+                updatedDataObject, out referencePropertyInfos, AssembliesForIReferencesNullDeleteSearch);
             NullifyMasterReferences(updatedDataObject, referenceObjectList, referencePropertyInfos);
             return referenceObjectList.ToArray();
         }
@@ -226,10 +289,14 @@
         /// </summary>
         /// <param name="masterObject">Объект, ссылающиеся на который объекты мы будем искать.</param>
         /// <param name="referencePropertyInfos">Набор информации о классах, для которых переданный объект может являться мастером, и соответствующие свойства, которыми они могут ссылаться на мастера.</param>
+        /// <param name="searchAssemblies">Список сборок, где осуществляется поиск объектов, для которых переданный является мастером. Если <c>null</c>, то поиск осуществляется только в сборке класса <paramref name="masterObject"/>.</param>
         /// <returns>Список найденных объектов.</returns>
-        public List<DataObject> GetReferencedDataObjects(DataObject masterObject, out List<ReferencePropertyInfo> referencePropertyInfos)
+        public List<DataObject> GetReferencedDataObjects(
+            DataObject masterObject,
+            out List<ReferencePropertyInfo> referencePropertyInfos,
+            IEnumerable<Assembly> searchAssemblies = null)
         {
-            referencePropertyInfos = GetReferencedDataObjectsInfo(masterObject);
+            referencePropertyInfos = GetReferencedDataObjectsInfo(masterObject, searchAssemblies);
 
             if (!referencePropertyInfos.Any())
             {
@@ -299,12 +366,12 @@
             {
                 if (assembly == null)
                 {
-                    throw new ArgumentNullException("assembly");
+                    throw new ArgumentNullException(nameof(assembly));
                 }
 
                 if (masterPropertyType == null)
                 {
-                    throw new ArgumentNullException("masterPropertyType");
+                    throw new ArgumentNullException(nameof(masterPropertyType));
                 }
 
                 List<Type> dataObjectTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(DataObject))).ToList();
@@ -320,5 +387,19 @@
         }
 
         #endregion Вспомогательный класс.
+
+        /// <summary>
+        /// Получение кеша соответствия типа и списка типов, для которых он является мастером.
+        /// </summary>
+        /// <returns>Кеш соответствия типа и списка типов, для которых он является мастером.</returns>
+        private static Dictionary<Type, List<ReferencePropertyInfo>> GetCacheForReferencePropertyInfoLists()
+        {
+            if (cacheForReferencePropertyInfoLists == null)
+            {
+                cacheForReferencePropertyInfoLists = new Dictionary<Type, List<ReferencePropertyInfo>>();
+            }
+
+            return cacheForReferencePropertyInfoLists;
+        }
     }
 }
