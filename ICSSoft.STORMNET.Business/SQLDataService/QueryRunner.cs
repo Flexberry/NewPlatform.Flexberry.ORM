@@ -20,18 +20,18 @@
         /// Список запросов на выполнение для каждой таблицы.
         /// </summary>
         /// <remarks>Ключ - название таблицы. Значение - все запросы этой таблицы.</remarks>
-        private readonly Dictionary<string, List<Query>> queries;
+        private readonly Dictionary<string, List<Query>> _queries;
 
         /// <summary>
         /// Список запланированных операций для каждой таблицы.
         /// </summary>
         /// <remarks>Ключ - название таблицы. Значение - все операции этой таблицы.</remarks>
-        private readonly Dictionary<string, OperationType> tableOperations;
+        private readonly Dictionary<string, OperationType> _tableOperations;
 
         /// <summary>
         /// SQLDataService, используемый для запуска запросов (необходим только для запуска <see cref="SQLDataService.CustomizeCommand(IDbCommand)"/>).
         /// </summary>
-        private readonly SQLDataService sqlDataService;
+        private readonly SQLDataService _sqlDataService;
 
         /// <summary>
         /// Класс для запуска запросов.
@@ -52,7 +52,7 @@
             SortedList tableOperations,
             SQLDataService sqlDataService)
         {
-            queries = new Dictionary<string, List<Query>>();
+            _queries = new Dictionary<string, List<Query>>();
 
             IEnumerable<string> tableNames = new[]
             {
@@ -65,49 +65,49 @@
 
             foreach (string tableName in tableNames)
             {
-                queries[tableName] = new List<Query>();
+                _queries[tableName] = new List<Query>();
             }
 
             foreach (var q in deleteQueries)
             {
-                queries[q.Key].AddRange(
+                _queries[q.Key].AddRange(
                     q.Value.Select(x => new Query(x, OperationType.Delete)));
             }
 
             foreach (var q in updateQueries)
             {
-                queries[q.Key].AddRange(
+                _queries[q.Key].AddRange(
                     q.Value.Select(x => new Query(x, OperationType.Update)));
             }
 
             foreach (var q in updateFirstQueries)
             {
-                queries[q.Key].AddRange(
+                _queries[q.Key].AddRange(
                     q.Value.Select(x => new Query(x, OperationType.Update, QueryPriority.First)));
             }
 
             foreach (var q in updateLastQueries)
             {
-                queries[q.Key].AddRange(
+                _queries[q.Key].AddRange(
                     q.Value.Select(x => new Query(x, OperationType.Update, QueryPriority.Last)));
             }
 
             foreach (var q in insertQueries)
             {
-                queries[q.Key].AddRange(
+                _queries[q.Key].AddRange(
                     q.Value.Select(x => new Query(x, OperationType.Insert)));
             }
 
-            this.tableOperations = new Dictionary<string, OperationType>();
+            _tableOperations = new Dictionary<string, OperationType>();
 
             for (int i = 0; i < tableOperations.Count; i++)
             {
-                this.tableOperations.Add(
+                _tableOperations.Add(
                     (string)tableOperations.GetKey(i),
                     (OperationType)tableOperations.GetByIndex(i));
             }
 
-            this.sqlDataService = sqlDataService;
+            _sqlDataService = sqlDataService;
         }
 
         /// <summary>
@@ -123,14 +123,14 @@
             // Заполним tableOperations значениями OperationType.None для всех таблиц, у которых нет операций.
             foreach (var tableName in queryOrder)
             {
-                if (!tableOperations.ContainsKey(tableName))
+                if (!_tableOperations.ContainsKey(tableName))
                 {
-                    tableOperations.Add(tableName, OperationType.None);
+                    _tableOperations.Add(tableName, OperationType.None);
                 }
 
-                if (!queries.ContainsKey(tableName))
+                if (!_queries.ContainsKey(tableName))
                 {
-                    queries.Add(tableName, new List<Query>());
+                    _queries.Add(tableName, new List<Query>());
                 }
             }
 
@@ -140,8 +140,8 @@
             {
                 string tableName = queryOrder[0];
 
-                bool hasPendingDeletes = tableOperations[tableName].HasFlag(OperationType.Delete);
-                bool hasUpdateLast = queries[tableName].Any(x => x.operationType == OperationType.Update && x.priority == QueryPriority.Last);
+                bool hasPendingDeletes = _tableOperations[tableName].HasFlag(OperationType.Delete);
+                bool hasUpdateLast = _queries[tableName].Any(x => x.OperationType == OperationType.Update && x.Priority == QueryPriority.Last);
                 if (hasPendingDeletes || hasUpdateLast)
                 {
                     break;
@@ -170,8 +170,8 @@
             while (queryOrderIndex >= 0)
             {
                 string tableName = queryOrder[queryOrderIndex];
-                bool hasUpdateLast = queries[tableName].Any(x => x.operationType == OperationType.Update && x.priority == QueryPriority.Last);
-                bool isUpdateOnly = tableOperations[tableName] == OperationType.Update || tableOperations[tableName] == OperationType.None;
+                bool hasUpdateLast = _queries[tableName].Any(x => x.OperationType == OperationType.Update && x.Priority == QueryPriority.Last);
+                bool isUpdateOnly = _tableOperations[tableName] == OperationType.Update || _tableOperations[tableName] == OperationType.None;
                 if (hasUpdateLast || !isUpdateOnly)
                 {
                     break;
@@ -252,14 +252,14 @@
             // Заполним tableOperations значениями OperationType.None для всех таблиц, у которых нет операций.
             foreach (var tableName in queryOrder)
             {
-                if (!tableOperations.ContainsKey(tableName))
+                if (!_tableOperations.ContainsKey(tableName))
                 {
-                    tableOperations.Add(tableName, OperationType.None);
+                    _tableOperations.Add(tableName, OperationType.None);
                 }
 
-                if (!queries.ContainsKey(tableName))
+                if (!_queries.ContainsKey(tableName))
                 {
-                    queries.Add(tableName, new List<Query>());
+                    _queries.Add(tableName, new List<Query>());
                 }
             }
 
@@ -269,8 +269,8 @@
             {
                 string tableName = queryOrder[0];
 
-                bool hasPendingDeletes = tableOperations[tableName].HasFlag(OperationType.Delete);
-                bool hasUpdateLast = queries[tableName].Any(x => x.operationType == OperationType.Update && x.priority == QueryPriority.Last);
+                bool hasPendingDeletes = _tableOperations[tableName].HasFlag(OperationType.Delete);
+                bool hasUpdateLast = _queries[tableName].Any(x => x.OperationType == OperationType.Update && x.Priority == QueryPriority.Last);
                 if (hasPendingDeletes || hasUpdateLast)
                 {
                     break;
@@ -299,8 +299,8 @@
             while (queryOrderIndex >= 0)
             {
                 string tableName = queryOrder[queryOrderIndex];
-                bool hasUpdateLast = queries[tableName].Any(x => x.operationType == OperationType.Update && x.priority == QueryPriority.Last);
-                bool isUpdateOnly = tableOperations[tableName] == OperationType.Update || tableOperations[tableName] == OperationType.None;
+                bool hasUpdateLast = _queries[tableName].Any(x => x.OperationType == OperationType.Update && x.Priority == QueryPriority.Last);
+                bool isUpdateOnly = _tableOperations[tableName] == OperationType.Update || _tableOperations[tableName] == OperationType.None;
                 if (hasUpdateLast || !isUpdateOnly)
                 {
                     break;
@@ -392,25 +392,25 @@
         {
             Exception ex = null;
 
-            OperationType operations = tableOperations[tableName];
+            OperationType operations = _tableOperations[tableName];
             bool isOperationPlanned = operations.HasFlag(operationType) || !checkTableOperations;
             if (isOperationPlanned)
             {
-                var queriesToRun = queries[tableName]
+                var queriesToRun = _queries[tableName]
                     .Where(x =>
                         (exactType ?
-                            x.operationType == operationType :
-                            x.operationType.HasFlag(operationType))
-                        && x.priority == priority)
-                    .Select(x => x.text)
+                            x.OperationType == operationType :
+                            x.OperationType.HasFlag(operationType))
+                        && x.Priority == priority)
+                    .Select(x => x.Text)
                     .ToList();
 
-                ex = sqlDataService.RunCommands(queriesToRun, command, taskID, alwaysThrowException);
+                ex = _sqlDataService.RunCommands(queriesToRun, command, taskID, alwaysThrowException);
 
                 bool queriesWereExecuted = queriesToRun.Count > 0 && ex == null;
                 if (queriesWereExecuted)
                 {
-                    tableOperations[tableName] = Minus(tableOperations[tableName], operationType);
+                    _tableOperations[tableName] = Minus(_tableOperations[tableName], operationType);
                 }
             }
 
@@ -441,25 +441,25 @@
         {
             Exception ex = null;
 
-            OperationType operations = tableOperations[tableName];
+            OperationType operations = _tableOperations[tableName];
             bool isOperationPlanned = operations.HasFlag(operationType) || !checkTableOperations;
             if (isOperationPlanned)
             {
-                var queriesToRun = queries[tableName]
+                var queriesToRun = _queries[tableName]
                     .Where(x =>
                         (exactType ?
-                            x.operationType == operationType :
-                            x.operationType.HasFlag(operationType))
-                        && x.priority == priority)
-                    .Select(x => x.text)
+                            x.OperationType == operationType :
+                            x.OperationType.HasFlag(operationType))
+                        && x.Priority == priority)
+                    .Select(x => x.Text)
                     .ToList();
 
-                ex = await sqlDataService.RunCommandsAsync(queriesToRun, command, taskID, alwaysThrowException);
+                ex = await _sqlDataService.RunCommandsAsync(queriesToRun, command, taskID, alwaysThrowException);
 
                 bool queriesWereExecuted = queriesToRun.Count > 0 && ex == null;
                 if (queriesWereExecuted)
                 {
-                    tableOperations[tableName] = Minus(tableOperations[tableName], operationType);
+                    _tableOperations[tableName] = Minus(_tableOperations[tableName], operationType);
                 }
             }
 
@@ -477,16 +477,33 @@
     /// </summary>
     internal class Query
     {
+        /// <summary>
+        /// Конструктор запроса.
+        /// </summary>
+        /// <param name="text">Текст команды запроса.</param>
+        /// <param name="operationType">Тип запроса (None/Update/Delete/Insert).</param>
+        /// <param name="priority">Приоритет выполнения запроса.</param>
         internal Query(string text, OperationType operationType, QueryPriority priority = QueryPriority.Normal)
         {
-            this.text = text;
-            this.operationType = operationType;
-            this.priority = priority;
+            this.Text = text;
+            this.OperationType = operationType;
+            this.Priority = priority;
         }
 
-        internal string text;
-        internal OperationType operationType;
-        internal QueryPriority priority;
+        /// <summary>
+        /// Текст команды запроса.
+        /// </summary>
+        internal string Text { get; set; }
+
+        /// <summary>
+        /// Тип запроса (None/Update/Delete/Insert).
+        /// </summary>
+        internal OperationType OperationType { get; set; }
+
+        /// <summary>
+        /// Приоритет выполнения запроса.
+        /// </summary>
+        internal QueryPriority Priority { get; set; }
     }
 
     /// <summary>
