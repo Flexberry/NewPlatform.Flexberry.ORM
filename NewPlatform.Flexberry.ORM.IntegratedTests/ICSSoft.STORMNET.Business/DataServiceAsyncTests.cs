@@ -1,15 +1,13 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
+    using System.Linq;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-    using Xunit;
-    using Xunit.Abstractions;
     using ICSSoft.STORMNET.UserDataTypes;
     using NewPlatform.Flexberry.ORM.Tests;
-    using System.Linq;
-    using System;
+    using Xunit;
 
     /// <summary>
     /// Тесты асинхронных методов.
