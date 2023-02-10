@@ -28,7 +28,7 @@
         /// <param name="businessID">ID операции (см. <see cref="BusinessTaskMonitor.BeginTask(string)"/>).</param>
         /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
         /// <returns>Возникла ошибка - возвращается <see cref="ExecutingQueryException"/>. Сработало без ошибок - возвращается <see langword="null" />.</returns>
-        internal virtual Exception RunCommands(List<string> queries, System.Data.IDbCommand command, object businessID, bool alwaysThrowException)
+        internal virtual Exception RunCommands(IList<string> queries, System.Data.IDbCommand command, object businessID, bool alwaysThrowException)
         {
             if (queries == null)
             {
@@ -42,9 +42,8 @@
 
             Exception ex = null;
 
-            while (queries.Count > 0)
+            foreach (string query in queries)
             {
-                string query = queries.First();
                 command.CommandText = query;
                 command.Parameters.Clear();
                 CustomizeCommand(command);
@@ -52,7 +51,6 @@
                 try
                 {
                     command.ExecuteNonQuery();
-                    queries.RemoveAt(0);
                 }
                 catch (Exception exc)
                 {
@@ -79,7 +77,7 @@
         /// <param name="businessID">ID операции (см. <see cref="BusinessTaskMonitor.BeginTask(string)"/>).</param>
         /// <param name="alwaysThrowException">true - выбрасывать исключение при первой же ошибке. false - при ошибке в одном из запросов, остальные запросы всё равно будут выполнены; выбрасывается только последнее исключение в самом конце.</param>
         /// <returns>Возникла ошибка - возвращается <see cref="ExecutingQueryException"/>. Сработало без ошибок - возвращается <see langword="null" />.</returns>
-        internal virtual async Task<Exception> RunCommandsAsync(List<string> queries, DbCommand command, object businessID, bool alwaysThrowException)
+        internal virtual async Task<Exception> RunCommandsAsync(IList<string> queries, DbCommand command, object businessID, bool alwaysThrowException)
         {
             if (queries == null)
             {
@@ -93,9 +91,8 @@
 
             Exception ex = null;
 
-            while (queries.Count > 0)
+            foreach (string query in queries)
             {
-                string query = queries.First();
                 command.CommandText = query;
                 command.Parameters.Clear();
                 CustomizeCommand(command);
@@ -103,7 +100,6 @@
                 try
                 {
                     await command.ExecuteNonQueryAsync().ConfigureAwait(false);
-                    queries.RemoveAt(0);
                 }
                 catch (Exception exc)
                 {

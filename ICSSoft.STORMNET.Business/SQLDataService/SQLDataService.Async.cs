@@ -52,6 +52,7 @@
 
             dataObjectCache ??= new DataObjectCache();
 
+            RunChangeCustomizationString(new DataObject[] { dataObject });
             using (var dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
             {
                 await LoadObjectByExtConnAsync(dataObject, dataObjectView, clearDataObject, checkExistingObject, dataObjectCache, dbTransactionWrapperAsync)
@@ -99,7 +100,6 @@
             try
             {
                 Type dataObjectType = dataObject.GetType();
-                RunChangeCustomizationString(new Type[] { dataObjectType });
 
                 dataObjectCache.AddDataObject(dataObject);
 
@@ -202,6 +202,7 @@
         {
             dataObjectCache ??= new DataObjectCache();
 
+            RunChangeCustomizationString(customizationStruct.LoadingTypes);
             using (DbTransactionWrapperAsync wrapper = new DbTransactionWrapperAsync(this))
             {
                 return await LoadObjectsByExtConnAsync(customizationStruct, dataObjectCache, wrapper)
@@ -236,8 +237,6 @@
             dataObjectCache.StartCaching(false);
             try
             {
-                RunChangeCustomizationString(customizationStruct.LoadingTypes);
-
                 // Применим полномочия на строки.
                 ApplyReadPermissions(customizationStruct, SecurityManager);
 
@@ -293,7 +292,7 @@
         /// <param name="query">Запрос для вычитки.</param>
         /// <param name="loadingBufferSize">Ограничение на количество строк, которые будут загружены.</param>
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
-        public virtual async Task<object[][]> ReadAsync(string query, int loadingBufferSize)
+        protected virtual async Task<object[][]> ReadAsync(string query, int loadingBufferSize)
         {
             using (DbTransactionWrapperAsync dbTransactionWrapperAsync = new DbTransactionWrapperAsync(this))
             {
@@ -309,7 +308,7 @@
         /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
         /// <param name="dbTransactionWrapperAsync">Содержит соединение и транзакцию, в рамках которых нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
         /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
-        public virtual async Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
+        protected virtual async Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
         {
             if (dbTransactionWrapperAsync == null)
             {
