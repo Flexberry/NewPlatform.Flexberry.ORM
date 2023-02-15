@@ -1,14 +1,15 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
+    using ICSSoft.STORMNET.Security;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data;
     using System.Linq;
-    using Security;
-    using STORMDO = STORMNET;
-    using STORMFunction = FunctionalLanguage.Function;
+
+    using STORMDO = ICSSoft.STORMNET;
+    using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
@@ -20,7 +21,7 @@
         }
 
         /// <summary>
-        /// проверить - системный ли тип
+        /// проверить - системный ли тип.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -48,9 +49,9 @@
         }
 
         /// <summary>
-        /// Вычислить количество мастеровых ключей в запросе к хранилищу
+        /// Вычислить количество мастеровых ключей в запросе к хранилищу.
         /// </summary>
-        /// <param name="storStruct"><see cref="STORMDO.Business.StorageStructForView"/></param>
+        /// <param name="storStruct"><see cref="STORMDO.Business.StorageStructForView"/>.</param>
         /// <returns></returns>
         public static int CountMasterKeysInSelect(STORMDO.Business.StorageStructForView storStruct)
         {
@@ -103,21 +104,21 @@
         }
 
         /// <summary>
-        /// Преобразование RowSet к <see cref="ObjectStringDataView"/>
+        /// Преобразование RowSet к <see cref="ObjectStringDataView"/>.
         /// </summary>
-        /// <param name="resValue">сами данные</param>
+        /// <param name="resValue">сами данные.</param>
         /// <param name="forReadValues"></param>
-        /// <param name="dataObjectType">типы объекта данных</param>
-        /// <param name="propCount">количество свойств</param>
-        /// <param name="separator">разделитель</param>
-        /// <param name="customizationStruct">структура настройки выборки</param>
-        /// <param name="storageStruct">структура хранилища</param>
-        /// <param name="dataService">сервис данный, выполнивший запрос</param>
+        /// <param name="dataObjectType">типы объекта данных.</param>
+        /// <param name="propCount">количество свойств.</param>
+        /// <param name="separator">разделитель.</param>
+        /// <param name="customizationStruct">структура настройки выборки.</param>
+        /// <param name="storageStruct">структура хранилища.</param>
+        /// <param name="dataService">сервис данный, выполнивший запрос.</param>
         /// <param name="typesByKeys"></param>
-        /// <param name="prevState">Предыдущее состояние вычитки для порционного чтения</param>
-        /// <param name="dataObjectCache">кэш объектов данных</param>
+        /// <param name="prevState">Предыдущее состояние вычитки для порционного чтения.</param>
+        /// <param name="dataObjectCache">кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        /// <returns><see cref="ObjectStringDataView"/></returns>
+        /// <returns><see cref="ObjectStringDataView"/>.</returns>
         public static ObjectStringDataView[] ProcessingRowSet2StringedView(
             object[][] resValue,
             bool forReadValues,
@@ -338,12 +339,12 @@
 
             int objectTypeIndexPOs = resValue[0].Length - 1;
 
- // #if NETFX_35
+            // #if NETFX_35
             for (int i = 0; i < resValueLength; i++)
 
- // #else
- //           System.Threading.Tasks.Parallel.For(0, resValueLength, i =>
- //       #endif
+            // #else
+            //           System.Threading.Tasks.Parallel.For(0, resValueLength, i =>
+            //       #endif
             {
                 // object objectIndex = resValue[i][ObjectTypeIndexPOs];
                 long index = 0;
@@ -386,6 +387,7 @@
                         {
                             testDos[index].Clear();
                         }
+
                         /*Utils.*/
                         FillRowSetToDataObject(testDos[index], keysarr, storageStructForView, customizationStruct, typesByKeys, advansedColumns, dataObjectCache, securityManager);
                         int count = nspsAtThisIndex.Count;
@@ -451,8 +453,11 @@
                                 bool found = false;
                                 foreach (MasterObjStruct mos1 in al)
                                 {
-                                    if (mos1.PropertyName == ps.Name) { found = true;
-                                        break; }
+                                    if (mos1.PropertyName == ps.Name)
+                                    {
+                                        found = true;
+                                        break;
+                                    }
                                 }
 
                                 if (!found)
@@ -536,14 +541,14 @@
         }
 
         /// <summary>
-        /// Построить структуру мастеров
+        /// Построить структуру мастеров.
         /// </summary>
-        /// <param name="keysarr">массив ключей</param>
-        /// <param name="keyindex">текущий индекс</param>
-        /// <param name="index">индекс вышестоящего источника</param>
-        /// <param name="source">текущий источник</param>
-        /// <param name="res">дин.массив, куда складываем пезультат</param>
-        /// <param name="nameSpace">текущий NameSpace</param>
+        /// <param name="keysarr">массив ключей.</param>
+        /// <param name="keyindex">текущий индекс.</param>
+        /// <param name="index">индекс вышестоящего источника.</param>
+        /// <param name="source">текущий источник.</param>
+        /// <param name="res">дин.массив, куда складываем пезультат.</param>
+        /// <param name="nameSpace">текущий NameSpace.</param>
         public static void GetMasterObjectStructs(object[] keysarr, ref int keyindex, int index,
             StorageStructForView.PropSource source, ArrayList res, string nameSpace)
         {
@@ -720,7 +725,7 @@
             Array.Clear(readedTypes, 0, readedTypes.Length);
 
             // #if NETFX_35
-                for (int i = 0; i < value.Length; i++)
+            for (int i = 0; i < value.Length; i++)
 
             // #else
             //    System.Threading.Tasks.Parallel.For(0, value.Length, i =>
@@ -797,14 +802,16 @@
                         var alPars = new ArrayList();
                         alPars.Add(vd);
                         var alagrObjects = new ArrayList();
-                        if (div.Name.IndexOf(".") <= 0)
+                        string divname = div.Name;
+                        int divnameDotIndex = divname.IndexOf(".", StringComparison.Ordinal);
+                        if (divnameDotIndex <= 0)
                         {
                             alPars.AddRange(keys);
                             alagrObjects.AddRange(res);
                         }
                         else
                         {
-                            string mprop = div.Name.Substring(0, div.Name.IndexOf("."));
+                            string mprop = div.Name.Substring(0, divnameDotIndex);
                             for (int k = 0; k < keys.Length; k++)
                             {
                                 var dobj = (DataObject)Information.GetPropValueByName(res[k], mprop);
@@ -829,7 +836,7 @@
                                 new ColumnsSortDef[]
                                 {
                                     new ColumnsSortDef(agregatorName, SortOrder.Asc),
-                                    new ColumnsSortDef(sortprop, SortOrder.Asc)
+                                    new ColumnsSortDef(sortprop, SortOrder.Asc),
                                 });
                         }
                         else
@@ -847,10 +854,9 @@
 
                         // собираем типы данных для детейла
                         var dcs = new LoadingCustomizationStruct(dataService.GetInstanceId());
-                        string divname = div.Name;
-                        if (divname.IndexOf(".") >= 0)
+                        if (divnameDotIndex >= 0)
                         {
-                            divname = divname.Substring(divname.IndexOf(".") + 1);
+                            divname = divname.Substring(divnameDotIndex + 1);
                         }
 
                         for (int j = 0; j < alagrObjects.Count; j++)
@@ -1105,21 +1111,21 @@
 
             if (customizationStruct.InitDataCopy)
             {
-            // #if NETFX_35
+                // #if NETFX_35
                 foreach (DataObject dobj in res)
 
-            // #else
-            //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
-            // #endif
+                // #else
+                //    System.Threading.Tasks.Parallel.ForEach(res, dobj =>
+                // #endif
                 {
                     dobj.SetStatus(ObjectStatus.UnAltered);
                     dobj.InitDataCopy(dataObjectCache);
                 }
 
-            // #if NETFX_35
-            // #else
-            //    );
-            // #endif
+                // #if NETFX_35
+                // #else
+                //    );
+                // #endif
             }
         }
 
@@ -1160,7 +1166,7 @@
         #endregion Вспомогательные методы для подгрузки данных (используется для определения того, как правильно грузить, с транзакцией или без).
 
         /// <summary>
-        /// Преобразовать рекордсета в объекты
+        /// Преобразовать рекордсета в объекты.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="dataObjectType"></param>
@@ -1192,7 +1198,7 @@
         }
 
         /// <summary>
-        /// Получить детейловые объекты
+        /// Получить детейловые объекты.
         /// </summary>
         /// <param name="dataService"></param>
         /// <param name="dobject"></param>
@@ -1293,10 +1299,10 @@
         }
 
         /// <summary>
-        /// Обновить внутренние данные объекта
+        /// Обновить внутренние данные объекта.
         /// </summary>
-        /// <param name="dobj">объект</param>
-        /// <param name="UpLevel">верхнего ли уровня</param>
+        /// <param name="dobj">объект.</param>
+        /// <param name="UpLevel">верхнего ли уровня.</param>
         public static void UpdateInternalDataInObjects(STORMDO.DataObject dobj, bool UpLevel, DataObjectCache DataObjectCache)
         {
             STORMDO.ObjectStatus objestat = dobj.GetStatus(false);
@@ -1417,12 +1423,12 @@
         }
 
         /// <summary>
-        /// Сравнение двух массивов
+        /// Сравнение двух массивов.
         /// </summary>
-        /// <typeparam name="T">Тип элементов массива</typeparam>
-        /// <param name="a1">Массив 1</param>
-        /// <param name="a2">Массив 2</param>
-        /// <returns>Равны или нет</returns>
+        /// <typeparam name="T">Тип элементов массива.</typeparam>
+        /// <param name="a1">Массив 1.</param>
+        /// <param name="a2">Массив 2.</param>
+        /// <returns>Равны или нет.</returns>
         public static bool ArraysEqual<T>(T[] a1, T[] a2)
         {
             if (ReferenceEquals(a1, a2))

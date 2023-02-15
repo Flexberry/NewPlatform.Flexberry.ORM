@@ -4,7 +4,7 @@ using System.Xml.Linq;
 namespace ICSSoft.STORMNET.UserDataTypes
 {
     /// <summary>
-    /// Пользовательский тип - изображение;
+    /// Пользовательский тип - изображение;.
     /// </summary>
     [StoreInstancesInType("ICSSoft.STORMNET.Business.C2RDataService.C2RDataService, ICSSoft.STORMNET.Business.C2RDataService",
                           "ICSSoft.STORMNET.UserDataTypes.Record, ICSSoft.STORMNET.UserDataTypes")]
@@ -13,22 +13,22 @@ namespace ICSSoft.STORMNET.UserDataTypes
     public class Image : IComparableType
     {
         /// <summary>
-        /// Имя файла - изображения
+        /// Имя файла - изображения.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Формат изображения
+        /// Формат изображения.
         /// </summary>
         public string Format { get; set; }
 
         /// <summary>
-        /// Ширина изображения
+        /// Ширина изображения.
         /// </summary>
         public int Width { get; set; }
 
         /// <summary>
-        /// Высота изображения
+        /// Высота изображения.
         /// </summary>
         public int Height { get; set; }
 
@@ -45,10 +45,10 @@ namespace ICSSoft.STORMNET.UserDataTypes
         public string URL { get; set; }
 
         /// <summary>
-        /// Сравнение объектов по содержанию, а не по ссылке
+        /// Сравнение объектов по содержанию, а не по ссылке.
         /// </summary>
-        /// <param name="obj">Картинка для сравнения с текущей</param>
-        /// <returns>Результат сравнения</returns>
+        /// <param name="obj">Картинка для сравнения с текущей.</param>
+        /// <returns>Результат сравнения.</returns>
         public int Compare(object obj)
         {
             var image = (Image)obj;

@@ -4,7 +4,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Дополнительная колоночка
+    /// Дополнительная колоночка.
     /// </summary>
     [Serializable]
     public struct AdvansedColumn : ISerializable
@@ -70,7 +70,7 @@
         #region Public Properties
 
         /// <summary>
-        /// Выражение
+        /// Выражение.
         /// </summary>
         public string Expression
         {
@@ -86,7 +86,7 @@
         }
 
         /// <summary>
-        /// Наименование колонки
+        /// Наименование колонки.
         /// </summary>
         public string Name
         {
@@ -102,7 +102,7 @@
         }
 
         /// <summary>
-        /// ????????????????????????????
+        /// ????????????????????????????.
         /// </summary>
         public string StorageSourceModification
         {

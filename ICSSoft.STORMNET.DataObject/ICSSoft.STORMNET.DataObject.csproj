@@ -1,211 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <RootNamespace>ICSSoft.STORMNET</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.DataObject</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.DataObject.snk</AssemblyOriginatorKeyFile>
-    <DefaultClientScript>JScript</DefaultClientScript>
-    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
-    <DefaultTargetSchema>IE50</DefaultTargetSchema>
-    <DelaySign>false</DelaySign>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ICSSoft.STORMNET.DataObject</RootNamespace>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <PublishUrl>http://localhost/ICSSoft.STORMNET.DataObject/</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net45\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_45</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Debug-Net45\ICSSoft.STORMNET.DataObject.xml</DocumentationFile>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>full</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release-Net45\</OutputPath>
-    <DefineConstants>TRACE;NETFX_45</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Release-Net45\ICSSoft.STORMNET.DataObject.xml</DocumentationFile>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net35-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="LogService">
-      <HintPath>..\packages\NewPlatform.Flexberry.LogService.1.1.0\lib\net35\LogService.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Spatial, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Spatial.6.15.0\lib\portable-net45+win+wpa81\Microsoft.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System">
-      <Name>System</Name>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.Abstractions.3.3.0\lib\net45\Unity.Abstractions.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.Spatial" Version="7.7.2" />
+    <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.1.0" />
+    <PackageReference Include="Unity.Abstractions" Version="5.11.6" />
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0" />
+  </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Attributes\PublishNameAttribute.cs" />
-    <Compile Include="Delegates\CheckCompatiblePropertyStorageTypesDelegate.cs" />
-    <Compile Include="Delegates\TuneStaticViewDelegate.cs" />
-    <Compile Include="EnumCaption.cs" />
-    <Compile Include="Attributes\IsHTMLAttribute.cs" />
-    <Compile Include="ControlProviderAttribute.cs" />
-    <Compile Include="DataObjectExtension.cs" />
-    <Compile Include="DOCacheNotFoundException.cs" />
-    <Compile Include="DOCacheObjectAlreadyExistsException.cs" />
-    <Compile Include="DynamicMethodCompiler.cs" />
-    <Compile Include="ExtendedView.cs" />
-    <Compile Include="Formatter.cs" />
-    <Compile Include="Interfaces\IComparableType.cs" />
-    <Compile Include="Interfaces\IContainsAcceptablePossibleValues.cs" />
-    <Compile Include="Interfaces\IConverterToQueryValueString.cs" />
-    <Compile Include="Interfaces\IConvertibleToQueryValueString.cs" />
-    <Compile Include="Interfaces\ISpecialEmptyValue.cs" />
-    <Compile Include="KeyGen\BaseKeyGenerator.cs" />
-    <Compile Include="KeyGen\GUIDGenerator.cs" />
-    <Compile Include="KeyGen\KeyGuid.cs" />
-    <Compile Include="KeyGen\SystemGuidGenerator.cs" />
-    <Compile Include="MasterPropertyPath.cs" />
-    <Compile Include="ObjectCreator.cs" />
-    <Compile Include="PKHelper\FastAllocator.cs" />
-    <Compile Include="PKHelper\PKComparer.cs" />
-    <Compile Include="PKHelper\PKHelper.cs" />
-    <Compile Include="Properties\InternalsVisibleTo.cs" />
-    <Compile Include="PseudoDetailInExtendedView.cs" />
-    <Compile Include="Security\AccessAndRole.cs" />
-    <Compile Include="Security\AccessType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Attributes\Attributes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Design\ClassWithDinamicProperties.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataObjectCache.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Exceptions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Information.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="KeyGen\KeyGen.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="InOperatorsConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\EmptySecurityManager.cs" />
-    <Compile Include="Security\IAccessErrorNameConverter.cs" />
-    <Compile Include="Security\ISecurityManager.cs" />
-    <Compile Include="Security\ISecurityService.cs" />
-    <Compile Include="Security\OperationResult.cs" />
-    <Compile Include="Security\SessionNotFoundException.cs" />
-    <Compile Include="Security\tTypeAccess.cs" />
-    <Compile Include="Security\UnauthorizedAccessException.cs" />
-    <Compile Include="Security\UpdateResult.cs" />
-    <Compile Include="TypeKeyPair.cs" />
-    <Compile Include="TypeKeyPairEqualityComparer.cs" />
-    <Compile Include="TypePropertyAtrValue.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TypeUsageProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="View.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
+    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222D225-707C-41E9-A494-8A849CFFFBBA}</Project>
-      <Name>ICSSoft.STORMNET.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnityFactory\UnityFactory.csproj">
-      <Project>{ba7026d6-5a82-4e03-a26a-5e780b7ad64e}</Project>
-      <Name>UnityFactory</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ICSSoft.STORMNET.DataObject.snk" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

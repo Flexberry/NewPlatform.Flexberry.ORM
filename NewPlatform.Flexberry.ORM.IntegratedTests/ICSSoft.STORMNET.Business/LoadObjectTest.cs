@@ -17,7 +17,6 @@
     /// <summary>
     /// Проверка логики по зачитке объектов.
     /// </summary>
-
     public class LoadObjectTest : BaseIntegratedTest
     {
         /// <summary>
@@ -29,8 +28,8 @@
         }
 
         /// <summary>
-        /// Проверка зачитки объекта по представлению, где нет свойств мастера, 
-        /// с установленным в конструкторе этим свойством мастера. Вычитка через lcs. 
+        /// Проверка зачитки объекта по представлению, где нет свойств мастера,
+        /// с установленным в конструкторе этим свойством мастера. Вычитка через lcs.
         /// TODO: нужно сделать чтобы обязательно выполнялся.
         /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
@@ -40,7 +39,7 @@
             foreach (IDataService dataService in DataServices)
             {
                 string[] props = new[]
-                {"Название", "Площадь", "Страна" /*,"Страна.__PrimaryKey"*/, /*"Страна.Название",*/ "Заповедник"};
+                { "Название", "Площадь", "Страна" /*,"Страна.__PrimaryKey"*/, /*"Страна.Название",*/ "Заповедник" };
                 SQLDataService ds = (SQLDataService)dataService;
 
                 Assert.NotNull(ds);
@@ -61,7 +60,7 @@
         }
 
         /// <summary>
-        /// Проверка зачитки объекта по представлению где нет свойств мастера 
+        /// Проверка зачитки объекта по представлению где нет свойств мастера
         /// с установленным в конструкторе этим свойством мастера. Вычитка одного объекта.
         /// </summary>
         [Fact]
@@ -76,7 +75,7 @@
                     Information.ExtractPropertyPath<Лес>(x => x.Название),
                     Information.ExtractPropertyPath<Лес>(x => x.Площадь),
                     Information.ExtractPropertyPath<Лес>(x => x.Страна),
-                    Information.ExtractPropertyPath<Лес>(x => x.Заповедник)
+                    Information.ExtractPropertyPath<Лес>(x => x.Заповедник),
                 };
 
                 var view = new View();
@@ -103,7 +102,7 @@
 
         /// <summary>
         /// Тестовый метод для проверки определения индексов объектов в выборке.
-        /// На примере медведей проверяется корректность определения индекса одного 
+        /// На примере медведей проверяется корректность определения индекса одного
         /// объекта и нескольких объектов.
         /// </summary>
         [Fact]
@@ -197,9 +196,11 @@
             foreach (IDataService dataService in DataServices)
             {
                 if (dataService is OracleDataService)
+                {
                     continue;
-                else
-                    Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
+                }
+
+                Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
             }
         }
 
@@ -217,7 +218,9 @@
             var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
 
             foreach (IDataService dataService in DataServices)
+            {
                 Assert.Equal(0, PageOrderingTest((SQLDataService)dataService, lcs));
+            }
         }
 
         private int PageOrderingTest(SQLDataService ds, LoadingCustomizationStruct lcs)
@@ -253,12 +256,12 @@
                 .Select(y => new { Element = y.Key, Counter = y.Count() })
                 .ToList();
 
-           return query.Count;
+            return query.Count;
         }
 
         /// <summary>
         /// Тестовый метод для проверки получения индексов объектов данных с первичными ключами
-        /// при нулевых (<c>null</c>) аргументах. Не должно быть выброшено исключений и должен 
+        /// при нулевых (<c>null</c>) аргументах. Не должно быть выброшено исключений и должен
         /// быть возвращен пустой список результатов.
         /// </summary>
         [Fact]
@@ -358,7 +361,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для вычислимого поля 
+        /// Тестовый метод для вычислимого поля
         /// с использованием dataService.LoadStringedObjectView('\t', lcs).
         /// </summary>
         [Fact(Skip = "Раскоментить после решения задачи 4009.")]
@@ -377,13 +380,12 @@
             view.AddProperties(
                 new string[1]
                         {
-                            "ВычислимоеПоле"
+                            "ВычислимоеПоле",
                         });
 
             // Загрузка объектов.
             IQueryable<Медведь> dataМедведи =
                 dataService.Query<Медведь>(view).Where(w => w.__PrimaryKey == тестовыйМедведь.__PrimaryKey);
-
 
             var lcs = LinqToLcs.GetLcs(dataМедведи.Expression, view);
             lcs.View = view;
@@ -412,7 +414,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для вычислимого поля 
+        /// Тестовый метод для вычислимого поля
         /// с использованием dataService.LoadObjects(lcs).
         /// </summary>
         [Fact(Skip = "Раскоментить после решения задачи 4009.")]
@@ -432,13 +434,12 @@
             view.AddProperties(
                 new string[1]
                         {
-                            "ВычислимоеПоле"
+                            "ВычислимоеПоле",
                         });
 
             // Загрузка объектов.
             IQueryable<Медведь> dataМедведи =
                 dataService.Query<Медведь>(view).Where(w => w.__PrimaryKey == тестовыйМедведь.__PrimaryKey);
-
 
             var lcs = LinqToLcs.GetLcs(dataМедведи.Expression, view);
             lcs.View = view;
@@ -467,7 +468,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для вычислимого поля 
+        /// Тестовый метод для вычислимого поля
         /// с использованием dataService.GetObjectsCount(lcs).
         /// </summary>
         [Fact(Skip = "Раскоментить после решения задачи 4009.")]
@@ -487,13 +488,12 @@
             view.AddProperties(
                 new string[1]
                         {
-                            "ВычислимоеПоле"
+                            "ВычислимоеПоле",
                         });
 
             // Загрузка объектов.
             IQueryable<Медведь> dataМедведи =
                 dataService.Query<Медведь>(view).Where(w => w.__PrimaryKey == тестовыйМедведь.__PrimaryKey);
-
 
             var lcs = LinqToLcs.GetLcs(dataМедведи.Expression, view);
             lcs.View = view;
@@ -575,9 +575,12 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
+
                 // Arrange
                 SQLDataService ds = (SQLDataService)dataService;
 
@@ -594,7 +597,7 @@
                         ДатаРождения = (NullableDateTime)DateTime.Now,
                         Тип = ТипКошки.Дикая,
                         Порода = new Порода { Название = "Чеширская" + i },
-                        Кличка = "Мурка" + i
+                        Кличка = "Мурка" + i,
                     };
                     aggregator.Лапа.AddRange(
                         new Лапа { Цвет = First },
@@ -648,7 +651,7 @@
                         ДатаРождения = (NullableDateTime)DateTime.Now,
                         Тип = ТипКошки.Дикая,
                         Порода = new Порода { Название = "Чеширская" + i },
-                        Кличка = "Мурка" + i
+                        Кличка = "Мурка" + i,
                     };
                     aggregator.Лапа.AddRange(
                         new Лапа { Цвет = First },
@@ -708,7 +711,7 @@
 
                 objectsToUpdate.AddRange(new ICSSoft.STORMNET.DataObject[]
                 {
-                    testMasterObject, testObj1, testObj2, testObj3
+                    testMasterObject, testObj1, testObj2, testObj3,
                 });
 
                 ICSSoft.STORMNET.DataObject[] objectsToUpdateArray = objectsToUpdate.ToArray();
@@ -717,7 +720,7 @@
                 // Контролдьная дата-время.
                 var gaugeNullableDateTime = new NullableDateTime
                 {
-                    Value = DateTime.Today.AddDays(-7)
+                    Value = DateTime.Today.AddDays(-7),
                 };
 
                 // Act.
@@ -809,7 +812,7 @@
                         ДатаРождения = (NullableDateTime)DateTime.Now.AddDays(random.Next(29)).AddMonths(random.Next(13)).AddYears(random.Next(catCount)),
                         Тип = ТипКошки.Дикая,
                         Порода = new Порода { Название = "Чеширская" + i },
-                        Кличка = "Мурка" + i
+                        Кличка = "Мурка" + i,
                     };
                     objectsToUpdate.Add(cat);
                 }
@@ -818,7 +821,7 @@
                 ds.UpdateObjects(ref dataObjects);
 
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
-                lcs.ColumnsSort = new[] { new ColumnsSortDef(nameof(Кошка.ДатаРождения), SortOrder.Asc), new ColumnsSortDef(SQLWhereLanguageDef.StormMainObjectKey, SortOrder.Asc)};
+                lcs.ColumnsSort = new[] { new ColumnsSortDef(nameof(Кошка.ДатаРождения), SortOrder.Asc), new ColumnsSortDef(SQLWhereLanguageDef.StormMainObjectKey, SortOrder.Asc) };
                 int returnTop = catCount / 2;
                 lcs.ReturnTop = returnTop;
                 lcs.RowNumber = new RowNumberDef(1, returnTop);
@@ -847,6 +850,49 @@
                 }
 
                 Assert.True(ordered);
+            }
+        }
+
+        /// <summary>
+        /// Проверка зачитки объекта по ограничению с Nullable атрибутами.
+        /// </summary>
+        [Fact]
+        public void NullableLimitLoadingTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                string[] props = new[]
+                {
+                    Information.ExtractPropertyPath<FullTypesMaster1>(x => x.PoleNullChar),
+                    Information.ExtractPropertyPath<FullTypesMaster1>(x => x.PoleInt),
+                };
+
+                var view = new View();
+                view.DefineClassType = typeof(FullTypesMaster1);
+                foreach (string prop in props)
+                {
+                    view.AddProperty(prop);
+                }
+
+                DataObject[] objectsForUpdate = new DataObject[]
+                {
+                    new FullTypesMaster1() { PoleNullChar = 'W', PoleInt = 1 },
+                    new FullTypesMaster1() { PoleNullChar = null, PoleInt = 2 },
+                };
+                dataService.UpdateObjects(ref objectsForUpdate);
+
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMaster1), view);
+
+                SQLWhereLanguageDef langDef = SQLWhereLanguageDef.LanguageDef;
+                lcs.LimitFunction = langDef.GetFunction(langDef.funcIsNull, new VariableDef(langDef.BoolType, nameof(FullTypesMaster1.PoleNullChar)));
+
+                // Act.
+                DataObject[] loadedObjects = dataService.LoadObjects(lcs);
+
+                // Assert.
+                Assert.Single(loadedObjects);
+                Assert.Equal(2, (loadedObjects[0] as FullTypesMaster1).PoleInt);
             }
         }
 

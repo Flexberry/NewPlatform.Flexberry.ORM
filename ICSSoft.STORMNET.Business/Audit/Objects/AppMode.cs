@@ -3,7 +3,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Режим работы приложения
+    /// Режим работы приложения.
     /// </summary>
     [DataContract]
     public enum AppMode
@@ -24,6 +24,6 @@
         /// То есть приложение запущено под web
         /// </summary>
         [EnumMemberAttribute]
-        Web
+        Web,
     }
 }

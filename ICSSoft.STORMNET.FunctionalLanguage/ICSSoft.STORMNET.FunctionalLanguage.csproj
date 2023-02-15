@@ -1,156 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{329C3DA0-05F7-45C4-B081-9DAF7B78733F}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <RootNamespace>ICSSoft.STORMNET.FunctionalLanguage</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.FunctionalLanguage</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.FunctionalLanguage.snk</AssemblyOriginatorKeyFile>
-    <DefaultClientScript>JScript</DefaultClientScript>
-    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
-    <DefaultTargetSchema>IE50</DefaultTargetSchema>
-    <DelaySign>false</DelaySign>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ICSSoft.STORMNET.FunctionalLanguage</RootNamespace>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <PublishUrl>http://localhost/ICSSoft.STORMNET.FunctionalLanguage/</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net45\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Debug-Net45\ICSSoft.STORMNET.FunctionalLanguage.xml</DocumentationFile>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>full</DebugType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release-Net45\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>bin\Release-Net45\ICSSoft.STORMNET.FunctionalLanguage.XML</DocumentationFile>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System">
-      <Name>System</Name>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionForControls.cs" />
-    <Compile Include="FunctionForControlsConverter.cs" />
-    <Compile Include="FunctionLanguageDef\CompatibilityTypeTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\FunctionalLanguageDef.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\FunctionDef.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\FunctionParameterDef.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\ObjectType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\TypedObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\VariableDef.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionLanguageDef\ViewedObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Function.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NullFunctionDefException.cs" />
-    <Compile Include="ParameterCountException.cs" />
-    <Compile Include="SQLWhereLanguageDef.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UncompatibleParameterTypeException.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ICSSoft.STORMNET.FunctionalLanguage.snk" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj">
-      <Project>{6222d225-707c-41e9-a494-8a849cfffbba}</Project>
-      <Name>ICSSoft.STORMNET.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj">
-      <Project>{3D5D3908-BCB7-4F22-A5B0-BD626D67D1AE}</Project>
-      <Name>ICSSoft.STORMNET.DataObject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Tools\ICSSoft.STORMNET.Tools.csproj">
-      <Project>{D58C2E43-59EF-4D6F-B006-1A7BB6508689}</Project>
-      <Name>ICSSoft.STORMNET.Tools</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

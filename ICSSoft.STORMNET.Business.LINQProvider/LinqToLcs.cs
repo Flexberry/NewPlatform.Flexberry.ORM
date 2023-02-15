@@ -49,7 +49,8 @@
         public static LoadingCustomizationStruct GetLcs<Q>(Expression queryExpression, View view, IEnumerable<View> resolvingViews)
             where Q : IQueryModelVisitor
         {
-            var queryModel = UtilsLcs.CreateQueryParser().GetParsedQuery(queryExpression);
+            var queryParser = UtilsLcs.CreateQueryParser();
+            var queryModel = queryParser.GetParsedQuery(queryExpression);
             return GetQueryModelVisitor<Q>(false, view, resolvingViews).GenerateLcs(queryModel);
         }
 
@@ -59,7 +60,8 @@
         /// <param name="queryExpression">Linq-выражение, по которому будет сформирован <see cref="LoadingCustomizationStruct"/>.</param>
         /// <returns><see cref="LoadingCustomizationStruct"/>, полученный для указанного linq-выражения с динамически созданным представлением.</returns>
         public static LoadingCustomizationStruct GetLcs<T, Q>(Expression queryExpression)
-            where T : DataObject where Q : IQueryModelVisitor
+            where T : DataObject
+            where Q : IQueryModelVisitor
         {
             return GetLcs<Q>(queryExpression, typeof(T));
         }
@@ -73,7 +75,8 @@
         public static LoadingCustomizationStruct GetLcs<Q>(Expression queryExpression, Type type)
             where Q : IQueryModelVisitor
         {
-            var queryModel = UtilsLcs.CreateQueryParser().GetParsedQuery(queryExpression);
+            var queryParser = UtilsLcs.CreateQueryParser();
+            var queryModel = queryParser.GetParsedQuery(queryExpression);
 
             if (!type.IsSubclassOf(typeof(DataObject)))
             {
@@ -83,7 +86,7 @@
             var view = new View
             {
                 DefineClassType = type,
-                Name = string.Format("DynamicViewFor{0}", type.FullName)
+                Name = string.Format("DynamicViewFor{0}", type.FullName),
             };
 
             return GetQueryModelVisitor<Q>(true, view, null).GenerateLcs(queryModel);
@@ -156,13 +159,13 @@
         }
 
         /// <summary>
-        /// Возвращает IQueryable, делающий запросы к SQLDataService
+        /// Возвращает IQueryable, делающий запросы к SQLDataService.
         /// </summary>
         /// <typeparam name="T">
-        /// Тип объектов для загрузки
+        /// Тип объектов для загрузки.
         /// </typeparam>
         /// <param name="ds">
-        /// Сервис данных
+        /// Сервис данных.
         /// </param>
         /// <param name="view">
         /// The view.
@@ -171,7 +174,7 @@
         /// The resolving Views.
         /// </param>
         /// <returns>
-        /// IQueryable
+        /// IQueryable.
         /// </returns>
         public static IQueryable<T> Query<T>(this IDataService ds, View view, IEnumerable<View> resolvingViews = null)
             where T : DataObject
@@ -180,11 +183,11 @@
         }
 
         /// <summary>
-        /// Возвращает IQueryable, делающий запросы к SQLDataService, динамически формируя представление
+        /// Возвращает IQueryable, делающий запросы к SQLDataService, динамически формируя представление.
         /// </summary>
-        /// <typeparam name="T">Тип объектов для загрузки</typeparam>
-        /// <param name="ds">Сервис данных</param>
-        /// <returns>IQueryable</returns>
+        /// <typeparam name="T">Тип объектов для загрузки.</typeparam>
+        /// <param name="ds">Сервис данных.</param>
+        /// <returns>IQueryable.</returns>
         public static IQueryable<T> Query<T>(this IDataService ds) where T : DataObject
         {
             return new LcsQuery<T, LcsGeneratorQueryModelVisitor>(new LcsQueryProvider<T, LcsGeneratorQueryModelVisitor>(ds, null, null));
@@ -205,7 +208,7 @@
         /// The <see cref="IQueryable"/>.
         /// </returns>
         /// <exception cref="CantFindViewException">
-        /// Представление не может быть найдено
+        /// Представление не может быть найдено.
         /// </exception>
         public static IQueryable<T> Query<T>(this IDataService ds, string viewName) where T : DataObject
         {

@@ -431,7 +431,7 @@
         }
 
         /// <summary>
-        /// Check success footprint for <see cref="Homer"/>.
+        /// Check success footprint for <see cref="Mailman"/>.
         /// </summary>
         /// <param name="dataService">Data service for update operation.</param>
         /// <param name="dataObject">Data object for checking.</param>

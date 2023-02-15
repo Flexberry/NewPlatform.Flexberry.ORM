@@ -19,6 +19,6 @@
         /// <summary>
         /// По убыванию.
         /// </summary>
-        Desc
+        Desc,
     }
 }

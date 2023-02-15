@@ -12,36 +12,43 @@
     public class FunctionalLanguageTest
     {
         [Fact]
-        
+
         public void SqlWhereLangDefInitializationTest()
         {
-            SQLWhereLanguageDef langdef = SQLWhereLanguageDef.LanguageDef;    
+            SQLWhereLanguageDef langdef = SQLWhereLanguageDef.LanguageDef;
 
             Assert.True(langdef != null, "LanguageDef of SQLWhereLanguageDef could not be initialized");
-            //проверим id функций, чтобы они не повторялись
+
+            // проверим id функций, чтобы они не повторялись
             var funcIds = new List<int>(langdef.Functions.Count);
             foreach (FunctionDef func in langdef.Functions)
             {
                 if (funcIds.Contains(func.ID))
+                {
                     Assert.True(false, String.Format("Functions in SQLWhereLanguageDef with the same id({0}) defined", func.ID));
+                }
+
                 funcIds.Add(func.ID);
             }
         }
 
         [Fact]
-        
+
         public void ExternalLangDefInitializationTest()
         {
             ExternalLangDef langdef = ExternalLangDef.LanguageDef;
 
             Assert.True(langdef != null, "LanguageDef of ExternalLangDef could not be initialized");
 
-            //проверим id функций, чтобы они не повторялись
+            // проверим id функций, чтобы они не повторялись
             var funcIds = new List<int>(langdef.Functions.Count);
             foreach (FunctionDef func in langdef.Functions)
             {
                 if (funcIds.Contains(func.ID))
+                {
                     Assert.True(false, String.Format("Functions in ExternalLangDef with the same id({0}) defined", func.ID));
+                }
+
                 funcIds.Add(func.ID);
             }
         }
@@ -52,7 +59,6 @@
         /// Проверка показа\скрытия стандартного редактора ограничений
         /// </summary>
         [Fact]
-        
         public void StandartEditorTest()
         {
             //Test driven development of StandardViewControl
@@ -276,7 +282,7 @@
             //(Существуют такие (Ф4) , что (ДатаПодачиЗаявки СРЕДИ {СЕГОДНЯ(), ДатаПодачиЗаявки , 08.07.2011 0:00:00}))
             var func16 = langDef.GetFunction(langDef.funcExist,
                                              detailVarDefDate,
-                                             langDef.GetFunction(langDef.funcIN, 
+                                             langDef.GetFunction(langDef.funcIN,
                                                                  langDef.GetFunction(langDef.paramTODAY),
                                                                  varDefDate,
                                                                  DateTime.Parse("08.07.2011")));
@@ -305,11 +311,12 @@
 
         }
         */
+
         /// <summary>
-        /// Проверка обработки null, переданного в качестве параметра при построении функции
+        /// Проверка обработки null, переданного в качестве параметра при построении функции.
         /// </summary>
         [Fact]
-        
+
         public void NullParametersTest()
         {
             var ldef = ExternalLangDef.LanguageDef;

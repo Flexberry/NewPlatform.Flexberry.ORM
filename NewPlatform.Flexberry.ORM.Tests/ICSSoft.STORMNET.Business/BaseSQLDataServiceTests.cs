@@ -1,8 +1,11 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
+    using System;
     using System.Collections.Generic;
 
     using ICSSoft.STORMNET.Business;
+
+    using Xunit.Abstractions;
 
     public abstract class BaseSQLDataServiceTests
     {
@@ -12,15 +15,26 @@
         private readonly List<SQLDataService> _dataServices = new List<SQLDataService>();
 
         /// <summary>
-        /// Data services for temp databases.
+        /// Initializes a new instance of the <see cref="BaseSQLDataServiceTests" /> class.
         /// </summary>
-        protected IEnumerable<SQLDataService> DataServices => _dataServices;
-
-        protected BaseSQLDataServiceTests()
+        /// <param name="testOutputHelper">Поток вывода теста.</param>
+        protected BaseSQLDataServiceTests(ITestOutputHelper testOutputHelper)
         {
+            TestOutputHelper = testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
+
             _dataServices.Add(new MSSQLDataService());
             _dataServices.Add(new PostgresDataService());
             _dataServices.Add(new OracleDataService());
         }
+
+        /// <summary>
+        /// Data services for temp databases.
+        /// </summary>
+        protected IEnumerable<SQLDataService> DataServices => _dataServices;
+
+        /// <summary>
+        /// Поток вывода теста.
+        /// </summary>
+        protected ITestOutputHelper TestOutputHelper { get; }
     }
 }

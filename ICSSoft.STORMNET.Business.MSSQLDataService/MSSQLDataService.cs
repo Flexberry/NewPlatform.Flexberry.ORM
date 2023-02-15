@@ -1,14 +1,16 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Security;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using Services;
     using System.Collections;
+    using System.Data.Common;
+    using System.Data.SqlClient;
+
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
 
     /// <summary>
     /// Сервис данных для работы с Microsoft SQL Server.
@@ -71,12 +73,15 @@
             return new System.Data.SqlClient.SqlConnection(CustomizationString);
         }
 
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => SqlClientFactory.Instance;
+
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public override string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -361,7 +366,7 @@
                     return "'" + dateTime.ToString("yyyyMMdd HH:mm:ss.fff") + "'";
                 }
 
-                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
                 {
                     return $"'{value.ToString()}'";
                 }

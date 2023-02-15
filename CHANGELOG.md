@@ -16,6 +16,78 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
+### Performance
+
+## [6.1.0] - 2023-02-14
+
+### Added
+- `IComparableType` implementation to `WebFile` class.
+- Feature GeoDistance is implemented.
+- `IAuditService` UTC time enable flag as property.
+- New property `SQLDataService.ProviderFactory` to create the data source objects.
+
+### Changed
+- Upgrade SharpZipLib@1.3.3.
+- Upgrade NewPlatform.Flexberry.LogService@2.1.0.
+
+### Fixed
+- Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
+- Update data objects with static properties inherited from DataObject.
+- Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
+- Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
+- Nullable bool isnull limit.
+- Fix `ExternalLangDef` concurrency.
+
+### Performance
+- Optimize query (select, update, delete) generation.
+- Optimize `Utils.FillRowSetToDataObject`.
+- Optimize `GetHandler` and `SetHandler` usage.
+
+## [6.0.0] - 2021-05-25
+
+### Added
+- .NET Standard 2.0 implementation. NuGet package contains `net45` and `netstandard2.0` targets.
+
+### Changed
+- MSSQLDataService, PostgresDataService, OracleDataService in it's own NuGet packages.
+- `ToolXML.DataObject2XMLDocument` uses `ToolBinarySerializer` for serialize `DynamicProperties`.
+- `CurrentUserService` support only windows users.
+- `DataServiceProvider.IsWebApp` now always return `false`.
+- `ChangesToSqlBTMonitor` class moved to `ICSSoft.STORMNET.Business` assembly.
+- `DRDataService` class moved to `ICSSoft.STORMNET.Business.MSSQLDataService` assembly.
+- Assembly `ExternalLangDef` renamed to `ICSSoft.STORMNET.Business.ExternalLangDef`.
+- Assembly `CurrentUserService` renamed to `NewPlatform.Flexberry.ORM.CurrentUserService`.
+- Assembly `UnityFactory` renamed to `NewPlatform.Flexberry.ORM.UnityFactory`.
+
+### Removed
+- `Information.GetPropertyDataFormat` method.
+- `CurrentWebHttpUser` class.
+- `ServiceContract` for `IAudit`, `IAuditWcfService` interfaces.
+- `RemoteAuditController` class.
+- `CurrentUserFromLockService` class.
+- `ICSSoft.STORMNET.Business.ODBCDataService` assembly.
+
+### Fixed
+- `ControlProviderAttribute(string)` constructor ignores type loading error.
+- Multiple concurrency fixes.
+
+## [5.1.3] - 2021-06-25
+
+### Fixed
+
+- Update data objects with static properties inherited from DataObject.
+
+## [5.1.2] - 2021-06-07
+
+### Added
+
+- IComparableType implementation to WebFile class.
+
+## [5.1.1] - 2021-05-17
+
+### Fixed
+
+- Delete agregator with not loaded details.
 
 ## [5.1.0] - 2021-04-06
 

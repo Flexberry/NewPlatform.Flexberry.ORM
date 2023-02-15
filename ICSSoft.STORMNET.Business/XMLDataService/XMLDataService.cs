@@ -1,5 +1,11 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Exceptions;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
     using System;
     using System.Collections;
     using System.Collections.Specialized;
@@ -7,16 +13,9 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using ICSSoft.Services;
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Exceptions;
-    using ICSSoft.STORMNET.Security;
+    using Unity;
 
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-
-    using Unity;
 
     /// <summary>
     /// Сервис данных для XML.
@@ -97,7 +96,7 @@
             /// <summary>
             /// Работа с памятью.
             /// </summary>
-            InMemory
+            InMemory,
         }
 
         /// <summary>
@@ -182,11 +181,11 @@
         #region IDataService Members
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public virtual string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -258,9 +257,9 @@
         }
 
         /// <summary>
-        /// возвращает количество объектов удовлетворяющих запросу
+        /// возвращает количество объектов удовлетворяющих запросу.
         /// </summary>
-        /// <param name="customizationStruct">что выбираем</param>
+        /// <param name="customizationStruct">что выбираем.</param>
         /// <returns></returns>
         public int GetObjectsCount(LoadingCustomizationStruct customizationStruct)
         {
@@ -296,7 +295,7 @@
                 var lc = new LoadingCustomizationStruct(GetInstanceId());
                 var lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
                 var var = new FunctionalLanguage.VariableDef(
-                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(doType).KeyType), "STORMMainObjectKey");
+                    lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(doType)), "STORMMainObjectKey");
                 object prevPrimaryKey = null;
 
                 if (dobject.Prototyped)
@@ -385,52 +384,52 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
         public virtual void LoadObject(DataObject dobject)
         {
             LoadObject(dobject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">имя представления объекта</param>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
+        /// <param name="dataObjectViewName">имя представления объекта.</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
         public virtual void LoadObject(string dataObjectViewName, DataObject dobject)
         {
             LoadObject(dataObjectViewName, dobject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление объекта</param>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
+        /// <param name="dataObjectView">представление объекта.</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
         public virtual void LoadObject(View dataObjectView, DataObject dobject)
         {
             LoadObject(dataObjectView, dobject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется загрузить</param>
-        /// <param name="clearDataObject">очищать ли объект</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище</param>
+        /// <param name="dobject">объект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">очищать ли объект.</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         public virtual void LoadObject(DataObject dobject, bool clearDataObject, bool checkExistingObject)
         {
             LoadObject(dobject, clearDataObject, checkExistingObject, new DataObjectCache());
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectViewName">наименование представления</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
-        /// <param name="clearDataObject">очищать ли объект</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище</param>
+        /// <param name="dataObjectViewName">наименование представления.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">очищать ли объект.</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         public virtual void LoadObject(string dataObjectViewName, DataObject dobject,
                                        bool clearDataObject, bool checkExistingObject)
         {
@@ -438,12 +437,12 @@
         }
 
         /// <summary>
-        /// Загрузка одного объекта данных
+        /// Загрузка одного объекта данных.
         /// </summary>
-        /// <param name="dataObjectView">представление</param>
-        /// <param name="dobject">бъект данных, который требуется загрузить</param>
-        /// <param name="clearDataObject">очищать ли объект</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище</param>
+        /// <param name="dataObjectView">представление.</param>
+        /// <param name="dobject">бъект данных, который требуется загрузить.</param>
+        /// <param name="clearDataObject">очищать ли объект.</param>
+        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
         public virtual void LoadObject(View dataObjectView, DataObject dobject,
                                        bool clearDataObject, bool checkExistingObject)
         {
@@ -513,7 +512,7 @@
 
                 var customizationStruct = new LoadingCustomizationStruct(_instanceId);
                 FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
-                var var = new FunctionalLanguage.VariableDef(lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(dataObjectView.DefineClassType).KeyType),
+                var var = new FunctionalLanguage.VariableDef(lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(dataObjectView.DefineClassType)),
                                                              "STORMMainObjectKey");
                 var keys = new object[alKeys.Count + 1];
                 alKeys.CopyTo(keys, 1);
@@ -772,7 +771,7 @@
         }
 
         /// <summary>
-        /// Сохранить объект данных в XML-файл
+        /// Сохранить объект данных в XML-файл.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="dataObjectCache"></param>
@@ -783,7 +782,7 @@
         }
 
         /// <summary>
-        /// Сохранить объект данных в XML-файл
+        /// Сохранить объект данных в XML-файл.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="dataObjectCache"></param>
@@ -802,7 +801,7 @@
         }
 
         /// <summary>
-        /// Сохранить объект данных в XML-файл
+        /// Сохранить объект данных в XML-файл.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="dataObjectCache"></param>
@@ -812,7 +811,7 @@
         }
 
         /// <summary>
-        /// Сохранить объект данных в XML-файл
+        /// Сохранить объект данных в XML-файл.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <param name="alwaysThrowException"></param>
@@ -822,9 +821,9 @@
         }
 
         /// <summary>
-        /// Обновление объекта данных
+        /// Обновление объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется обновить</param>
+        /// <param name="dobject">объект данных, который требуется обновить.</param>
         /// <param name="alwaysThrowException"></param>
         public virtual void UpdateObject(ref DataObject dobject, bool alwaysThrowException)
         {
@@ -832,9 +831,9 @@
         }
 
         /// <summary>
-        /// Обновление объекта данных
+        /// Обновление объекта данных.
         /// </summary>
-        /// <param name="dobject">объект данных, который требуется обновить</param>
+        /// <param name="dobject">объект данных, который требуется обновить.</param>
         public virtual void UpdateObject(ref DataObject dobject)
         {
             UpdateObject(ref dobject, new DataObjectCache());
@@ -846,7 +845,7 @@
         }
 
         /// <summary>
-        /// Сохранить объект данных в XML-файл
+        /// Сохранить объект данных в XML-файл.
         /// </summary>
         /// <param name="dataObject"></param>
         public void UpdateObject(DataObject dataObject)
@@ -867,11 +866,11 @@
         }
 
         /// <summary>
-        /// Корректное преобразование строкового значения к указанному типу
+        /// Корректное преобразование строкового значения к указанному типу.
         /// </summary>
-        /// <param name="sValue">Строковое значение для приведения</param>
-        /// <param name="castType">Тип к которому преобразуем</param>
-        /// <returns>Преобразованное значение</returns>
+        /// <param name="sValue">Строковое значение для приведения.</param>
+        /// <param name="castType">Тип к которому преобразуем.</param>
+        /// <returns>Преобразованное значение.</returns>
         public static object ChangeType(string sValue, Type castType)
         {
             MethodInfo methodInfo = castType.GetMethod("Parse", new[] { typeof(string) });
@@ -1207,7 +1206,7 @@
             // string prevDicValue = "";
             FunctionalLanguage.SQLWhere.SQLWhereLanguageDef lang = FunctionalLanguage.SQLWhere.SQLWhereLanguageDef.LanguageDef;
             var var = new FunctionalLanguage.VariableDef(
-                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.Generator(view.DefineClassType).KeyType), prkeyStorName);
+                lang.GetObjectTypeForNetType(KeyGen.KeyGenerator.KeyType(view.DefineClassType)), prkeyStorName);
             FunctionalLanguage.Function func = lang.GetFunction(lang.funcEQ, var, mainkey);
             var cs = new LoadingCustomizationStruct(GetInstanceId());
             cs.Init(new ColumnsSortDef[0], func, new[] { view.DefineClassType }, view, new string[0]);
@@ -1546,21 +1545,21 @@
         public object Clone()
         {
             return new XMLFileDataService
-                {
-                    _altdataSet = _altdataSet,
-                    _changeViewForTypeDelegate = _changeViewForTypeDelegate,
-                    _customizationString = _customizationString,
-                    _dataSet = _dataSet,
-                    _dataStream = _dataStream,
-                    _dataWorkMode = _dataWorkMode,
-                    _fieldLoadingBufferSize = _fieldLoadingBufferSize,
-                    _instanceId = _instanceId,
-                    _ldTypeUsage = _ldTypeUsage,
-                    _schemaStream = _schemaStream,
-                    _schemaWorkMode = _schemaWorkMode,
-                    DataBaseName = DataBaseName,
-                    Folder = Folder
-                };
+            {
+                _altdataSet = _altdataSet,
+                _changeViewForTypeDelegate = _changeViewForTypeDelegate,
+                _customizationString = _customizationString,
+                _dataSet = _dataSet,
+                _dataStream = _dataStream,
+                _dataWorkMode = _dataWorkMode,
+                _fieldLoadingBufferSize = _fieldLoadingBufferSize,
+                _instanceId = _instanceId,
+                _ldTypeUsage = _ldTypeUsage,
+                _schemaStream = _schemaStream,
+                _schemaWorkMode = _schemaWorkMode,
+                DataBaseName = DataBaseName,
+                Folder = Folder,
+            };
         }
 
         /// <summary>

@@ -12,7 +12,7 @@
     using Remotion.Linq.Clauses.ResultOperators;
 
     /// <summary>
-    /// Visitor, который обходит распарсенноое дерево (в большинстве случаев подходит эта реализация)
+    /// Visitor, который обходит распарсенноое дерево (в большинстве случаев подходит эта реализация).
     /// </summary>
     public class LcsGeneratorExpressionTreeVisitorCommon : LcsGeneratorExpressionTreeVisitorBase
     {
@@ -58,7 +58,7 @@
         /// <returns>Функция ограничения для <see cref="LoadingCustomizationStruct"/>.</returns>
         public override Function GetLcsExpression(Expression linqExpression)
         {
-            VisitExpression(linqExpression);
+            Visit(linqExpression);
             return GetLcsExpression();
         }
 
@@ -67,7 +67,7 @@
         /// </summary>
         /// <param name="expression"> Выражение-подзапрос. </param>
         /// <returns> Фактически возвращается то же выражение-подзапрос, но при этом в стеке появляется необходимая lcs. </returns>
-        protected override Expression VisitSubQueryExpression(SubQueryExpression expression)
+        protected override Expression VisitSubQuery(SubQueryExpression expression)
         {
             var resultExpression = VisitSubQueryExpressionHelper(expression);
 
@@ -93,9 +93,9 @@
         /// </summary>
         /// <param name="expression"> Выражение, соответствующему свойству элемента. </param>
         /// <returns> Фактически возвращается то же выражение, но при этом в стеке появляются необходимые данные. </returns>
-        protected override Expression VisitMemberExpression(MemberExpression expression)
+        protected override Expression VisitMember(MemberExpression expression)
         {
-            VisitExpression(expression.Expression);
+            Visit(expression.Expression);
             return VisitMemberExpressionHelper(expression);
         }
 
@@ -128,7 +128,7 @@
             }
 
             // Положим VariableDef в stack
-            VisitExpression(itemWithMemeber);
+            Visit(itemWithMemeber);
             var varDef = _stacksHolder.PopParam();
 
             var listToQuery = new List<object> { varDef };

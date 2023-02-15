@@ -3,17 +3,21 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data.Common;
     using System.Globalization;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using FunctionalLanguage;
-    using FunctionalLanguage.SQLWhere;
+
+    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
     using Npgsql;
-    using Services;
-    using Windows.Forms;
+
     using static Windows.Forms.ExternalLangDef;
 
     /// <summary>
@@ -47,12 +51,12 @@
                 new[] { "smallint", "int2" },
                 new[] { "smallserial", "serial2" },
                 new[] { "serial", "serial4" },
-                 };
+            };
 
         /// <summary>
         /// The postgres reserved words.
         /// </summary>
-        private static readonly List<string> PostgresReservedWords = new List<string>
+        private static readonly HashSet<string> PostgresReservedWords = new HashSet<string>
             {
                "WINDOW",
                "ALL",
@@ -150,7 +154,7 @@
                "VERBOSE",
                "WHEN",
                "WHERE",
-               "WITH"
+               "WITH",
             };
 
         /// <summary>
@@ -170,7 +174,6 @@
         /// </summary>
         static PostgresDataService()
         {
-            PostgresReservedWords.Sort();
         }
 
         /// <summary>
@@ -300,7 +303,7 @@
         /// </returns>
         public static string PrepareIdentifier(string identifier)
         {
-            if (PostgresReservedWords.BinarySearch(identifier.ToUpper()) >= 0)
+            if (PostgresReservedWords.Contains(identifier.ToUpper()))
             {
                 identifier = "\"" + identifier + "\"";
             }
@@ -309,11 +312,11 @@
         }
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public override string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -538,6 +541,9 @@
             return new NpgsqlConnection(CustomizationString);
         }
 
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => NpgsqlFactory.Instance;
+
         /// <summary>
         /// Put identifier into brackets.
         /// </summary>
@@ -545,34 +551,7 @@
         /// <returns>Identifier with brackets.</returns>
         public override string PutIdentifierIntoBrackets(string identifier)
         {
-            string postgresIdentifier = PrepareIdentifier(identifier);
-
-            // Multithreading app with single DS may be failed.
-            if (!isGenerateSqlSelect)
-            {
-                return postgresIdentifier;
-            }
-
-            if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
-            {
-                dictionaryShortNames[postgresIdentifier] = null;
-            }
-
-            if (postgresIdentifier.IndexOf(".", StringComparison.Ordinal) != -1)
-            {
-                postgresIdentifier = "\"" + GenerateShortName(postgresIdentifier) + "\"";
-            }
-            else
-            {
-                if (dictionaryShortNames[postgresIdentifier] == null)
-                {
-                    dictionaryShortNames[postgresIdentifier] = GenerateShortName(postgresIdentifier);
-                }
-
-                postgresIdentifier = dictionaryShortNames[postgresIdentifier];
-            }
-
-            return postgresIdentifier;
+            return PutIdentifierIntoBrackets(identifier, isGenerateSqlSelect);
         }
 
         /// <summary>
@@ -621,7 +600,9 @@
                     return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
                 }
 
-                if (value.GetType().FullName == "Microsoft.OData.Edm.Library.Date")
+                Type valueType = value.GetType();
+
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
                 {
                     return $"date '{value.ToString()}'";
                 }
@@ -893,18 +874,22 @@
                     }
                 }
 
+                string query = resQuery;
                 string orderByExprForPaging = orderByExpr;
 
                 // It is necessary to add primary key field for maintaining rows order while ordering field contains similar values.
-                if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains("STORMMainObjectKey"))
-                    orderByExprForPaging += ", STORMMainObjectKey";
-                else if (!string.IsNullOrEmpty(orderByExprForPaging))
-                    orderByExprForPaging = orderByExpr;
-                else
-                    orderByExprForPaging = $"{nl}ORDER BY STORMMainObjectKey";
+                if (!string.IsNullOrEmpty(orderByExprForPaging) && !orderByExprForPaging.Contains(SQLWhereLanguageDef.StormMainObjectKey))
+                {
+                    orderByExprForPaging += $", {SQLWhereLanguageDef.StormMainObjectKey}";
+                    query = query.Replace(orderByExpr, orderByExprForPaging);
+                }
+                else if (string.IsNullOrEmpty(orderByExprForPaging))
+                {
+                    orderByExprForPaging = $"{nl}ORDER BY {SQLWhereLanguageDef.StormMainObjectKey}";
+                }
 
                 resQuery =
-                    $"{селектСамогоВерхнегоУр}{nl} FROM ({nl}{resQuery}) rn{nl}{orderByExprForPaging}{nl} OFFSET {offset} LIMIT {limit}";
+                    $"{селектСамогоВерхнегоУр}FROM ({nl}{query}) rn{nl}{orderByExprForPaging}{nl} OFFSET {offset} LIMIT {limit}";
             }
         }
 
@@ -916,8 +901,8 @@
         /// <param name="limitFunction">Функция ограничения, определяющая искомые объекты.</param>
         /// <param name="maxResults">
         /// Максимальное число возвращаемых результатов.
-        /// Этот параметр не соответствует <code>lcs.ReturnTop</code>, а устанавливает максимальное число
-        /// искомых объектов, тогда как <code>lcs.ReturnTop</code> ограничивает число объектов, в которых
+        /// Этот параметр не соответствует. <code>lcs.ReturnTop</code>, а устанавливает максимальное число
+        /// искомых объектов, тогда как. <code>lcs.ReturnTop</code> ограничивает число объектов, в которых
         /// проводится поиск.
         /// Если значение не определено (<c>null</c>), то возвращаются все найденные результаты.
         /// </param>
@@ -943,6 +928,195 @@
             }
 
             return ret;
+        }
+
+        /// <summary>
+        /// Создать join соединения.
+        /// </summary>
+        /// <param name="source">Источник с которого формируется соединение.</param>
+        /// <param name="parentAlias">Вышестоящий алиас.</param>
+        /// <param name="index">Индекс источника.</param>
+        /// <param name="keysandtypes">Ключи и типы.</param>
+        /// <param name="baseOutline">Смещение в запросе.</param>
+        /// <param name="joinscount">Количество соединений.</param>
+        /// <param name="FromPart">FROM-часть SQL-запроса.</param>
+        /// <param name="WherePart">WHERE-часть SQL-запроса.</param>
+        public override void CreateJoins(
+            StorageStructForView.PropSource source,
+            string parentAlias,
+            int index,
+            ArrayList keysandtypes,
+            string baseOutline,
+            out int joinscount,
+            out string FromPart,
+            out string WherePart)
+        {
+            string newOutLine = baseOutline + "\t";
+            joinscount = 0;
+            var fromParts = new List<string>();
+            WherePart = string.Empty;
+            foreach (StorageStructForView.PropSource subSource in source.LinckedStorages)
+            {
+                for (int j = 0; j < subSource.storage.Length; j++)
+                {
+                    StorageStructForView.ClassStorageDef classStorageDef = subSource.storage[j];
+                    if (classStorageDef.parentStorageindex == index)
+                    {
+                        joinscount++;
+                        string curAlias = subSource.Name + j;
+                        keysandtypes.Add(
+                            new string[]
+                            {
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.PrimaryKeyStorageName),
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.TypeStorageName),
+                                subSource.Name,
+                            });
+                        string link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.objectLinkStorageName);
+                        int subjoinscount;
+                        string subjoin = string.Empty;
+                        string temp;
+                        CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp);
+                        string fromStr, whereStr;
+
+                        // Проверка прав на мастера. Значение атрибута отображается пользователю,
+                        // если у данного пользователя есть права на операцию, описанную в специальном формате в DataServiceExpression,
+                        // иначе подставляем ссылку на фиктивного мастера - специальное значение из того же DataServiceExpression.
+                        if (SecurityManager.UseRightsOnAttribute)
+                        {
+                            string expression = Information.GetPropertyExpression(
+                                source.storage[index].ownerType,
+                                subSource.ObjectLink,
+                                this.GetType());
+
+                            if (!string.IsNullOrEmpty(expression) && !SecurityManager.CheckAccessToAttribute(expression, out string deniedAccessValue))
+                            {
+                                link = deniedAccessValue;
+                            }
+                        }
+
+                        string subTable = string.Concat(
+                            GenString("(", subjoinscount),
+                            " ",
+                            GetTableStorageExpression(classStorageDef.Storage, true));
+
+                        GetLeftJoinExpression(subTable, curAlias, link, classStorageDef.PrimaryKeyStorageName, subjoin, baseOutline, out fromStr, out whereStr);
+
+                        fromParts.Add(fromStr + ")");
+                    }
+                }
+            }
+
+            FromPart = string.Join(string.Empty, fromParts);
+        }
+
+        /// <summary>
+        /// создать join соединения.
+        /// </summary>
+        /// <param name="source">источник с которого формируется соединение.</param>
+        /// <param name="parentAlias">вышестоящий алиас.</param>
+        /// <param name="index">индекс источника.</param>
+        /// <param name="keysandtypes">ключи и типы.</param>
+        /// <param name="baseOutline">смещение в запросе.</param>
+        /// <param name="joinscount">количество соединений.</param>
+        /// <param name="FromPart">FROM-часть SQL-запроса.</param>
+        /// <param name="WherePart">WHERE-часть SQL-запроса.</param>
+        /// <param name="MustNewGenerate">Использовать генерацию SQL без вложенного подзапроса.</param>
+        public override void CreateJoins(
+            StorageStructForView.PropSource source,
+            string parentAlias,
+            int index,
+            ArrayList keysandtypes,
+            string baseOutline,
+            out int joinscount,
+            out string FromPart,
+            out string WherePart,
+            bool MustNewGenerate)
+        {
+            if (!MustNewGenerate)
+            {
+                CreateJoins(source, parentAlias, index, keysandtypes, baseOutline, out joinscount, out FromPart, out WherePart);
+                return;
+            }
+
+            string newOutLine = baseOutline + "\t";
+            joinscount = 0;
+            var fromParts = new List<string>();
+            WherePart = string.Empty;
+            foreach (StorageStructForView.PropSource subSource in source.LinckedStorages)
+            {
+                for (int j = 0; j < subSource.storage.Length; j++)
+                {
+                    StorageStructForView.ClassStorageDef classStorageDef = subSource.storage[j];
+                    if (classStorageDef.parentStorageindex == index)
+                    {
+                        joinscount++;
+                        string curAlias = subSource.Name + j;
+                        keysandtypes.Add(
+                            new string[]
+                            {
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.PrimaryKeyStorageName),
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.TypeStorageName),
+                                subSource.Name,
+                            });
+                        string link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.objectLinkStorageName);
+                        string subjoin = string.Empty;
+                        string temp;
+                        int subjoinscount = 0;
+                        string fromStr, whereStr;
+
+                        CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
+                        string subTable = GetTableStorageExpression(classStorageDef.Storage, true);
+
+                        GetLeftJoinExpression(subTable, curAlias, link, classStorageDef.PrimaryKeyStorageName, string.Empty, baseOutline, out fromStr, out whereStr);
+
+                        fromParts.Add(fromStr);
+                        if (!string.IsNullOrEmpty(subjoin))
+                        {
+                            fromParts.Add(subjoin);
+                        }
+                    }
+                }
+            }
+
+            FromPart = string.Join(string.Empty, fromParts);
+        }
+
+        /// <summary>
+        /// Put identifier into brackets.
+        /// </summary>
+        /// <param name="identifier">Identifier in query.</param>
+        /// <param name="isGenerateSqlSelectMode">The flag, indicating that generate SQL select mode is on.</param>
+        /// <returns>Identifier with brackets.</returns>
+        protected string PutIdentifierIntoBrackets(string identifier, bool isGenerateSqlSelectMode)
+        {
+            string postgresIdentifier = PrepareIdentifier(identifier);
+
+            // Multithreading app with single DS may be failed.
+            if (!isGenerateSqlSelectMode)
+            {
+                return postgresIdentifier;
+            }
+
+            if (!dictionaryShortNames.ContainsKey(postgresIdentifier))
+            {
+                dictionaryShortNames[postgresIdentifier] = null;
+            }
+
+            if (postgresIdentifier.IndexOf(".", StringComparison.Ordinal) != -1)
+            {
+                postgresIdentifier = "\"" + GenerateShortName(postgresIdentifier) + "\"";
+            }
+            else
+            {
+                if (dictionaryShortNames[postgresIdentifier] == null)
+                {
+                    dictionaryShortNames[postgresIdentifier] = GenerateShortName(postgresIdentifier);
+                }
+
+                postgresIdentifier = dictionaryShortNames[postgresIdentifier];
+            }
+
+            return postgresIdentifier;
         }
 
         private IDictionary<int, string> GetObjectIndexesWithPksImplementation(
@@ -985,7 +1159,6 @@
             int orderByIndex = usedSorting ? innerQuery.ToLower().LastIndexOf("order by ") : -1;
             string orderByExpr = string.Empty;
             string orderByExprWithoutOffset = string.Empty;
-
 
             if (orderByIndex > -1)
             {
@@ -1030,6 +1203,22 @@
             }
 
             return ret;
+        }
+
+        private string GenString(string stringBlock, int count)
+        {
+            if (count == 0)
+            {
+                return string.Empty;
+            }
+
+            StringBuilder sb = new StringBuilder(stringBlock.Length * count);
+            for (int i = 0; i < count; i++)
+            {
+                sb.Append(stringBlock);
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>

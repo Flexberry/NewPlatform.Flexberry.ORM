@@ -13,7 +13,6 @@
     /// <summary>
     /// Тесты класса <see cref="DataObjectValidator"/>.
     /// </summary>
-    
     public class TestDataObjectValidator
     {
         // TODO: написать по остальным типам.
@@ -34,7 +33,7 @@
             Guid primaryKey = Guid.NewGuid();
             var fullTypesMainAgregator = new FullTypesMainAgregator()
             {
-                __PrimaryKey = primaryKey
+                __PrimaryKey = primaryKey,
             };
             Function trueFunction = _languageDef.GetFunction(_languageDef.funcEQ, new VariableDef(_languageDef.GuidType, Information.ExtractPropertyPath<DataObject>(x => x.__PrimaryKey)), primaryKey);
             Function falseFunction = _languageDef.GetFunction(_languageDef.funcEQ, new VariableDef(_languageDef.GuidType, Information.ExtractPropertyPath<DataObject>(x => x.__PrimaryKey)), Guid.Empty);
@@ -61,7 +60,7 @@
 
             var fullTypesMainAgregator = new FullTypesMainAgregator()
             {
-                __PrimaryKey = primaryKey
+                __PrimaryKey = primaryKey,
             };
 
             Function trueFunction = _languageDef.GetFunction(_languageDef.funcOR, withFirstFunction, withSecondFunction);

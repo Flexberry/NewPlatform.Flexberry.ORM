@@ -4,7 +4,7 @@
     using System.Configuration;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Web;
+
     using ICSSoft.Services;
 
     using Unity;
@@ -22,35 +22,6 @@
         }
 
         /// <summary>
-        /// Static cache field for <see cref="IDataService"/> instance.
-        /// </summary>
-        private static IDataService _dataService;
-
-        /// <summary>
-        /// Private field for <see cref="AlwaysNewDS"/> property.
-        /// </summary>
-        private static bool _alwaysNewDS = IsWebApp;
-
-        /// <summary>
-        /// If <c>true</c> the <see cref="DataServiceProvider.DataService"/> returns new data service instance. Default <c>true</c> for web applications (<see cref="HttpContext.Current"/> is not null), <c>false</c> for other applications.
-        /// </summary>
-        public static bool AlwaysNewDS
-        {
-            get { return _alwaysNewDS; }
-            set { _alwaysNewDS = value; }
-        }
-
-        /// <summary>
-        /// Name of configuration settings for DataService type.
-        /// </summary>
-        public const string ConfigurationDataServiceType = "DataServiceType";
-
-        /// <summary>
-        /// Name of configuration settings for customization strings. Ussually is connection string.
-        /// </summary>
-        public const string ConfigurationCustomizationStrings = "CustomizationStrings";
-
-        /// <summary>
         /// Current <see cref="IDataService"/> instance.
         /// </summary>
         /// <exception cref="Exception">Throws if your configuration file has wrong parameters.</exception>
@@ -58,144 +29,53 @@
         {
             get
             {
-                if (_alwaysNewDS || _dataService == null)
+                // Может IDataService определено через Unity.
+                IUnityContainer container = UnityFactory.GetContainer();
+                if (container.IsRegistered<IDataService>())
                 {
-                    try
-                    {
-                        // Может IDataService определено через Unity.
-                        IUnityContainer container = UnityFactory.GetContainer();
-                        if (container.IsRegistered<IDataService>())
-                        {
-                            // Получаем тип сервиса данных.
-                            IDataService dataService = container.Resolve<IDataService>();
+                    // Получаем тип сервиса данных.
+                    IDataService dataService = container.Resolve<IDataService>();
 
-                            if (dataService.CustomizationString == null)
+                    if (dataService.CustomizationString == null)
+                    {
+                        // Пробуем получить строку соединения в web-стиле.
+                        string connectionStringName = ConfigurationManager.AppSettings["DefaultConnectionStringName"];
+                        string connectionString = null;
+                        if (!string.IsNullOrEmpty(connectionStringName))
+                        {
+                            ConnectionStringSettings connString = ConfigurationManager.ConnectionStrings[connectionStringName];
+                            if (connString != null)
                             {
-                                // Пробуем получить строку соединения в web-стиле.
-                                string connectionStringName = ConfigurationManager.AppSettings["DefaultConnectionStringName"];
-                                string connectionString = null;
-                                if (!string.IsNullOrEmpty(connectionStringName))
+                                string enc = ConfigurationManager.AppSettings["Encrypted"];
+                                if (!string.IsNullOrEmpty(enc) && enc.ToLower() == "true")
                                 {
-                                    ConnectionStringSettings connString = ConfigurationManager.ConnectionStrings[connectionStringName];
-                                    if (connString != null)
-                                    {
-                                        connectionString = connString.ConnectionString;
-                                    }
-                                    else
-                                    {
-                                        LogService.LogError(string.Format("Connection string '{0}' not found at configuration file.", connectionStringName));
-                                    }
+                                    connectionString = Decrypt(connString.ConnectionString, true);
                                 }
-
-                                // Получаем строку соединения в win-стиле.
-                                if (string.IsNullOrEmpty(connectionString))
+                                else
                                 {
-                                    connectionString = GetConnectionString();
+                                    connectionString = connString.ConnectionString;
                                 }
-
-                                dataService.CustomizationString = connectionString;
                             }
-
-                            _dataService = dataService;
-                            return dataService;
+                            else
+                            {
+                                LogService.LogError(string.Format("Connection string '{0}' not found at configuration file.", connectionStringName));
+                            }
                         }
-                    }
-                    catch (Exception exception)
-                    {
-                        LogService.LogError("IDataService is not resolved.", exception);
-                    }
-                }
 
-                // Web applications served by ICSSoft.STORMNET.Web.Tools.BridgeToDS class for support some extended features like multidatabase, etc.
-                if (_alwaysNewDS && IsWebApp)
+                        dataService.CustomizationString = connectionString;
+                    }
+
+                    return dataService;
+                }
+                else
                 {
-                    // Resolve ICSSoft.STORMNET.Web.Tools.BridgeToDS by reflection. It is allow resolve dependency to ICSSoft.STORMNET.Web.Tools in runtime.
-                    string typeName = "ICSSoft.STORMNET.Web.Tools.BridgeToDS,ICSSoft.STORMNET.Web.Tools";
-                    Type bridgeType = Type.GetType(typeName);
-                    if (bridgeType != null)
-                    {
-                        System.Reflection.MethodInfo methodinfo = bridgeType.GetMethod("GetDataService", new Type[] { });
-                        try
-                        {
-                            IDataService ds = (IDataService)methodinfo.Invoke(null, null);
-                            return ds;
-                        }
-                        catch (Exception ex)
-                        {
-                            string message = "Data service get method failed.";
-                            LogService.LogError(message, ex);
-                            throw new Exception(message, ex);
-                        }
-                    }
-
-                    string mess = "Type not found: " + typeName;
-                    LogService.LogError(mess);
-                    throw new Exception(mess);
+                    throw new ConfigurationErrorsException("IDataService is not resolved. Check app configuration Unity section.");
                 }
-
-                if (_alwaysNewDS || _dataService == null)
-                {
-                    string dataServiceTypeString = ConfigurationManager.AppSettings[ConfigurationDataServiceType];
-                    if (!string.IsNullOrEmpty(dataServiceTypeString))
-                    {
-                        Type type = Type.GetType(dataServiceTypeString);
-                        if (type == null)
-                        {
-                            throw new Exception(string.Format("DataService type name is invalid. Check your configuration file, settings name: {0}", ConfigurationDataServiceType));
-                        }
-
-                        _dataService = (IDataService)Activator.CreateInstance(type);
-                        _dataService.CustomizationString = GetConnectionString();
-                    }
-                    else
-                    {
-                        throw new Exception(string.Format("Can't find keys {0} and {1} in configuration file!", ConfigurationDataServiceType, ConfigurationCustomizationStrings));
-                    }
-                }
-
-                return _dataService;
             }
 
             set
             {
-                _dataService = value;
-            }
-        }
-
-        /// <summary>
-        /// Получаем строку соединения в win-стиле.
-        /// </summary>
-        /// <returns>Полученная строка соединения.</returns>
-        internal static string GetConnectionString()
-        {
-            string dataServiceCustomizationString = ConfigurationManager.AppSettings[ConfigurationCustomizationStrings];
-            string enc = ConfigurationManager.AppSettings["Encrypted"];
-            if (!string.IsNullOrEmpty(enc) && enc.ToLower() == "true")
-            {
-                dataServiceCustomizationString = Decrypt(dataServiceCustomizationString, true);
-            }
-
-            return dataServiceCustomizationString;
-        }
-
-        /// <summary>
-        /// Private field for <see cref="IsWebApp"/> property.
-        /// </summary>
-        private static bool? _isWebApp;
-
-        /// <summary>
-        /// Determinate is a web application. Will be check <see cref="HttpContext.Current"/> is not null for web applications.
-        /// </summary>
-        public static bool IsWebApp
-        {
-            get
-            {
-                if (_isWebApp == null)
-                {
-                    _isWebApp = HttpContext.Current != null;
-                }
-
-                return _isWebApp.Value;
+                throw new ConfigurationErrorsException("Use Unity for configure IDataService type mapping");
             }
         }
 
@@ -275,7 +155,7 @@
             {
                 Key = GetHash(useHashing),
                 Mode = CipherMode.ECB,
-                Padding = PaddingMode.PKCS7
+                Padding = PaddingMode.PKCS7,
             };
             return tdes;
         }

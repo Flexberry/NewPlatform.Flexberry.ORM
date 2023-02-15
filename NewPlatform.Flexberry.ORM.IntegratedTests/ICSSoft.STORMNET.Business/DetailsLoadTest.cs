@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Business
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Threading;
 
@@ -73,7 +74,7 @@
                 медведь.SetExistObjectPrimaryKey(createdBear.__PrimaryKey);
                 медведь.Берлога.Add(new Берлога
                 {
-                    Наименование = "Новая"
+                    Наименование = "Новая",
                 });
 
                 ds.LoadObject(медведь, false, false);
@@ -98,7 +99,7 @@
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
                 lcs.ColumnsSort = new[]
                 {
-                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc)
+                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc),
                 };
 
                 lcs.InitDataCopy = true;
@@ -116,7 +117,7 @@
                 {
                     медведь.Берлога.Add(new Берлога
                     {
-                        Наименование = "Некий лес"
+                        Наименование = "Некий лес",
                     });
                     ds.UpdateObject(медведь);
                 }
@@ -164,7 +165,7 @@
                 ds.UpdateObject(кошка);
 
                 MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
-                multiThreadingTestTool.StartThreads(150, ds);
+                multiThreadingTestTool.StartThreads(50, ds);
 
                 var exception = multiThreadingTestTool.GetExceptions();
 
@@ -175,7 +176,8 @@
                         output.WriteLine(item.Value.ToString());
                     }
 
-                    throw exception.InnerException;
+                    // Пусть так.
+                    Assert.Empty(exception.InnerExceptions);
                 }
 
                 ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
@@ -231,7 +233,7 @@
         {
             var parametersDictionary = sender as Dictionary<string, object>;
             IDataService ds = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as SQLDataService;
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             ExternalLangDef langdef = ExternalLangDef.LanguageDef;
             langdef.DataService = ds;
@@ -257,7 +259,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }

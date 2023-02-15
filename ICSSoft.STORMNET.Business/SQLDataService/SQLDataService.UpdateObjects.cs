@@ -14,7 +14,7 @@
         /// он true, всегда взводится ошибка. Иначе, выполнение продолжается.
         /// Однако, при этом есть опасность преждевременного окончания транзакции, с переходом для остальных
         /// запросов режима транзакционности в autocommit. Проявлением проблемы являются ошибки навроде:
-        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION
+        /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION.
         /// </summary>
         /// <param name="objects">Объекты для обновления.</param>
         /// <param name="DataObjectCache">Кэш объектов данных.</param>

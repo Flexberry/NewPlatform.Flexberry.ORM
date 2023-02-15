@@ -16,9 +16,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
 
         public PartliedDate()
         {
-            //
             // TODO: Add constructor logic here
-            //
         }
 
         public override string ToString()
@@ -26,7 +24,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             return fValue;
         }
 
-        static public PartliedDate Parse(string val)
+        public static PartliedDate Parse(string val)
         {
             PartliedDate p = new PartliedDate(val);
             return p;
@@ -38,14 +36,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         // строка вида 03.15.1222
         internal string pSSS;
 
-        static public explicit operator PartliedDate(PartliedDateTransformer value)
+        public static explicit operator PartliedDate(PartliedDateTransformer value)
         {
             PartliedDate p = new PartliedDate();
             p.fValue = value.pSSS.Substring(6) + "." + value.pSSS.Substring(3, 2) + "." + value.pSSS.Substring(0, 2);
             return p;
         }
 
-        static public explicit operator PartliedDateTransformer(PartliedDate value)
+        public static explicit operator PartliedDateTransformer(PartliedDate value)
         {
             PartliedDateTransformer p = new PartliedDateTransformer();
             p.pSSS = value.fValue.Substring(8) + "." + value.fValue.Substring(5, 2) + "." + value.fValue.Substring(0, 4);
@@ -57,7 +55,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
             return pSSS;
         }
 
-        static public PartliedDateTransformer Parse(string val)
+        public static PartliedDateTransformer Parse(string val)
         {
             PartliedDateTransformer p = new PartliedDateTransformer();
             p.pSSS = val;

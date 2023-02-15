@@ -45,7 +45,7 @@ namespace ICSSoft.STORMNET.Tools
 
                 var directorySearcher = new DirectorySearcher(directoryEntry)
                 {
-                    Filter = string.Format("(SAMAccountName={0})", userLogin)
+                    Filter = string.Format("(SAMAccountName={0})", userLogin),
                 };
                 var resultCollection = directorySearcher.FindAll();
                 if (resultCollection.Count > 0)

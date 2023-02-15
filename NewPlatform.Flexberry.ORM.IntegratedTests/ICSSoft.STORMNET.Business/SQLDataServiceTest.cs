@@ -8,25 +8,30 @@
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
+    using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
-    using Xunit;
+
     using NewPlatform.Flexberry.ORM.Tests;
-    using ICSSoft.STORMNET.Exceptions;
+
+    using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тестовый класс для <see cref="SQLDataService"/>.
     /// </summary>
-
-    public class SQLDataServiceTest : BaseIntegratedTest
+    public partial class SQLDataServiceTest : BaseIntegratedTest
     {
+        private readonly ITestOutputHelper output;
+
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public SQLDataServiceTest()
+        public SQLDataServiceTest(ITestOutputHelper output)
             : base("SQLDS")
         {
+            this.output = output ?? throw new ArgumentNullException(nameof(output));
         }
 
         /// <summary>
@@ -77,7 +82,7 @@
                     detail1.SetStatus(ObjectStatus.Deleted);
                     detail2.SetStatus(ObjectStatus.Deleted);
 
-                    var objectsToDelete = new DataObject[] {master, detail1, detail2};
+                    var objectsToDelete = new DataObject[] { master, detail1, detail2 };
 
                     dataService.UpdateObjects(ref objectsToDelete);
 
@@ -86,9 +91,9 @@
 
                 // После корректного срабатывания теста в базе не должно остаться ни одной записи.
                 var detailCount =
-                    ((SQLDataService) dataService).Query<SomeDetailClass>(SomeDetailClass.Views.ClassBE).Count();
+                    ((SQLDataService)dataService).Query<SomeDetailClass>(SomeDetailClass.Views.ClassBE).Count();
                 var masterCount =
-                    ((SQLDataService) dataService).Query<SomeMasterClass>(SomeMasterClass.Views.ClassAE).Count();
+                    ((SQLDataService)dataService).Query<SomeMasterClass>(SomeMasterClass.Views.ClassAE).Count();
 
                 Assert.True(detailCount == 0);
                 Assert.True(masterCount == 0);
@@ -104,16 +109,15 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-
-                var ds = (SQLDataService) dataService;
+                var ds = (SQLDataService)dataService;
 
                 for (int i = 0; i < 21; i++)
                     ds.UpdateObject(new Кошка
                     {
-                        ДатаРождения = (NullableDateTime) DateTime.Now,
+                        ДатаРождения = (NullableDateTime)DateTime.Now,
                         Тип = ТипКошки.Дикая,
-                        Порода = new Порода {Название = "Чеширская"},
-                        Кличка = "Мурка" + i
+                        Порода = new Порода { Название = "Чеширская" },
+                        Кличка = "Мурка" + i,
                     });
 
                 object state = null;
@@ -133,19 +137,22 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
+
                 // Arrange.
                 var client = new Клиент();
                 dataService.UpdateObject(client);
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Клиент), Клиент.Views.TestNotStoredGuid);
                 lcs.ReturnTop = 1;
 
-                // Act (выполнение не должно приводить к ошибкам). 
+                // Act (выполнение не должно приводить к ошибкам).
                 DataObject[] result = dataService.LoadObjects(lcs);
 
-                // Assert. 
+                // Assert.
                 Assert.Equal(1, result.Length);
             }
         }
@@ -164,7 +171,7 @@
                 createdBear1.ЦветГлаз = "Косолапый Мишка 1";
                 ds.UpdateObject(createdBear1);
 
-                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof (Медведь), Медведь.Views.МедведьL);
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), Медведь.Views.МедведьL);
 
                 SQLWhereLanguageDef langDef = SQLWhereLanguageDef.LanguageDef;
 
@@ -179,7 +186,7 @@
                 Assert.Equal(1, result.Count);
                 Assert.True(result[1].IndexOf("{") > -1);
 
-                Console.WriteLine(result[1]);
+                output.WriteLine(result[1]);
             }
         }
 
@@ -191,9 +198,12 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
+
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
                 SQLWhereLanguageDef langDef = SQLWhereLanguageDef.LanguageDef;
@@ -226,7 +236,7 @@
                     {
                         __PrimaryKey = pk,
                         ЦветГлаз = "Косолапый Мишка " + i,
-                        Вес = i
+                        Вес = i,
                     };
                     dataObjects.Add(createdBear);
                 }
@@ -275,23 +285,22 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange
-                SQLDataService ds = (SQLDataService) dataService;
+                SQLDataService ds = (SQLDataService)dataService;
 
                 const string First = "Первый";
                 const string Second = "Второй";
                 const string Third = "Третий";
                 const string Fourth = "Четвертый";
 
-                ТипЛапы передняяЛапа = new ТипЛапы {Актуально = true, Название = "Передняя"};
-                ТипЛапы задняяЛапа = new ТипЛапы {Актуально = true, Название = "Задняя"};
-
+                ТипЛапы передняяЛапа = new ТипЛапы { Актуально = true, Название = "Передняя" };
+                ТипЛапы задняяЛапа = new ТипЛапы { Актуально = true, Название = "Задняя" };
 
                 Кошка aggregator = new Кошка
                 {
-                    ДатаРождения = (NullableDateTime) DateTime.Now,
+                    ДатаРождения = (NullableDateTime)DateTime.Now,
                     Тип = ТипКошки.Дикая,
                     Порода = new Порода { Название = "Чеширская" },
-                    Кличка = "Мурка"
+                    Кличка = "Мурка",
                 };
                 aggregator.Лапа.AddRange(
                     new Лапа { Цвет = First, ТипЛапы = передняяЛапа },
@@ -347,7 +356,78 @@
         }
 
         /// <summary>
-        /// Тесты на формирование графа зависимостей методом <see cref="SQLDataService.GetDependencies"/>. 
+        /// Проверка механизма удаления незагруженного агрегатора с детейлами.
+        /// </summary>
+        [Fact]
+        public void AggregatorWithDetailsNotLoadedDeleteTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var aggregator = new Кошка
+                {
+                    ДатаРождения = NullableDateTime.UtcNow,
+                    Тип = ТипКошки.Дикая,
+                    Порода = new Порода { Название = "Чеширская" },
+                };
+                var detail0 = new Лапа { Номер = 0, };
+                var detail1 = new Лапа { Номер = 1, };
+                aggregator.Лапа.Add(detail0);
+                aggregator.Лапа.Add(detail1);
+
+                dataService.UpdateObject(aggregator);
+
+                LoadingCustomizationStruct lcsCat = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
+
+                // Act.
+                var agrForDelete = PKHelper.CreateDataObject<Кошка>(aggregator);
+                agrForDelete.SetStatus(ObjectStatus.Deleted);
+                dataService.UpdateObject(agrForDelete);
+
+                // Assert.
+                int countCatAfter = dataService.GetObjectsCount(lcsCat);
+                Assert.Equal(0, countCatAfter);
+            }
+        }
+
+        /// <summary>
+        /// Проверка механизма удаления загруженного агрегатора с детейлами.
+        /// </summary>
+        [Fact]
+        public void AggregatorWithDetailsLoadedDeleteTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var aggregator = new Кошка
+                {
+                    ДатаРождения = NullableDateTime.UtcNow,
+                    Тип = ТипКошки.Дикая,
+                    Порода = new Порода { Название = "Чеширская" },
+                };
+                var detail0 = new Лапа { Номер = 0, };
+                var detail1 = new Лапа { Номер = 1, };
+                aggregator.Лапа.Add(detail0);
+                aggregator.Лапа.Add(detail1);
+
+                dataService.UpdateObject(aggregator);
+
+                LoadingCustomizationStruct lcsCat = LoadingCustomizationStruct.GetSimpleStruct(typeof(Кошка), Кошка.Views.КошкаE);
+
+                // Act.
+                var agrForDelete = PKHelper.CreateDataObject<Кошка>(aggregator);
+                dataService.LoadObject(Кошка.Views.КошкаE, agrForDelete);
+                agrForDelete.SetStatus(ObjectStatus.Deleted);
+                dataService.UpdateObject(agrForDelete);
+
+                // Assert.
+                int countCatAfter = dataService.GetObjectsCount(lcsCat);
+                Assert.Equal(0, countCatAfter);
+            }
+        }
+
+        /// <summary>
+        /// Тесты на формирование графа зависимостей методом <see cref="SQLDataService.GetDependencies"/>.
         /// </summary>
         [Fact]
         public void GetDependenciesTest()
@@ -355,11 +435,11 @@
             foreach (IDataService dataService in DataServices)
             {
                 // Arrange
-                SQLDataService ds = (SQLDataService) dataService;
+                SQLDataService ds = (SQLDataService)dataService;
 
                 НаследникМ1 testDate = new НаследникМ1();
                 testDate.Name = "test1";
-                             
+
                 TestClassA testDate2 = new TestClassA();
                 testDate2.Мастер = testDate;
                 testDate2.Name = "test2";
@@ -381,10 +461,10 @@
                 view.AddProperty("Name");
                 view2.AddProperty("Name");
 
-                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof (НаследникМ1), view);
+                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(НаследникМ1), view);
                 var lcs2 = LoadingCustomizationStruct.GetSimpleStruct(typeof(TestClassA), view2);
 
-                var resultDate = ds.LoadObjects(lcs).Cast<НаследникМ1>().Select(x => x.Name).ToList();      
+                var resultDate = ds.LoadObjects(lcs).Cast<НаследникМ1>().Select(x => x.Name).ToList();
                 var resultDate2 = ds.LoadObjects(lcs2).Cast<TestClassA>().Select(x => x.Name).ToList();
 
                 // Assert.
@@ -407,7 +487,7 @@
                 Медведь bear = new Медведь { ЦветГлаз = "Карие", Вес = 50 };
                 DataObject[] dataObjectsForUpdate = new DataObject[]
                 {
-                    bear
+                    bear,
                 };
 
                 // Сохраняем созданный агрегатор без детейлов.
@@ -422,13 +502,13 @@
                     // Пытаемся удалить агрегатор через метод UpdateObjectsOrdered.
                     ds.UpdateObjectsOrdered(ref dataObjectsForUpdate);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     updateException = ex;
                 }
 
                 // Проверяем, что при удалении не возникло исключений.
-                Assert.True(updateException==null, "При удалении через UpdateObjectsOrdered не возникло исключений");
+                Assert.True(updateException == null, "При удалении через UpdateObjectsOrdered не возникло исключений");
 
                 // Пытаемся загрузить удаленный объект из БД.
                 Exception loadException = null;
@@ -464,11 +544,11 @@
                 {
                     ДатаРождения = (NullableDateTime)DateTime.Now,
                     Тип = ТипКошки.Дикая,
-                    Порода = new Порода { Название = "Чеширская"},
-                    Кличка = "Мурка"
+                    Порода = new Порода { Название = "Чеширская" },
+                    Кличка = "Мурка",
                 };
-                var лапа = new Лапа {Номер = 1};
-                var перелом = new Перелом() { Тип = ТипПерелома.Закрытый, Дата = DateTime.Now};
+                var лапа = new Лапа { Номер = 1 };
+                var перелом = new Перелом() { Тип = ТипПерелома.Закрытый, Дата = DateTime.Now };
                 кошка.Лапа.Add(лапа);
                 лапа.Перелом.Add(перелом);
                 ds.UpdateObject(кошка);
@@ -489,7 +569,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
@@ -536,7 +616,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
@@ -588,7 +668,7 @@
         }
 
         /// <summary>
-        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов 
+        /// Тестовый метод для проверки порядка обновления и удаления циклически связанных объектов
         /// с помощью метода <see cref="SQLDataService.UpdateObject"/>.
         /// </summary>
         [Fact]
@@ -647,17 +727,20 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
-                var masterBreedType = new ТипПороды {Название = "тип породы1", ДатаРегистрации = DateTime.Now};
-                var innerMasterBreed = new Порода { Название = "порода1", ТипПороды = masterBreedType};
+                }
+
+                var masterBreedType = new ТипПороды { Название = "тип породы1", ДатаРегистрации = DateTime.Now };
+                var innerMasterBreed = new Порода { Название = "порода1", ТипПороды = masterBreedType };
                 var innerMasterCat = new Кошка
                 {
                     Кличка = "кошка",
                     ДатаРождения = (NullableDateTime)DateTime.Now,
                     Тип = ТипКошки.Дикая,
-                    Порода = innerMasterBreed
+                    Порода = innerMasterBreed,
                 };
                 var innerKitten = new Котенок { КличкаКотенка = "котеночек", Кошка = innerMasterCat };
 
@@ -738,9 +821,11 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
 
                 var masterForest = new Лес { Название = "лес1" };
                 var aggregatorBear = new Медведь { ПорядковыйНомер = 1, ЛесОбитания = masterForest };
@@ -806,18 +891,20 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
 
-                var masterForest = new Лес { Название = "лес1"};
-                var detailDen = new Берлога {Наименование = "берлога1", ЛесРасположения = masterForest};
+                var masterForest = new Лес { Название = "лес1" };
+                var detailDen = new Берлога { Наименование = "берлога1", ЛесРасположения = masterForest };
                 var aggregatorBear = new Медведь { ПорядковыйНомер = 2, ЛесОбитания = masterForest };
                 aggregatorBear.Берлога.Add(detailDen);
 
                 ds.UpdateObject(aggregatorBear);
 
-                var aggregatorBearMother = new Медведь {ПорядковыйНомер = 2};
+                var aggregatorBearMother = new Медведь { ПорядковыйНомер = 2 };
                 aggregatorBear.Мама = aggregatorBearMother;
 
                 ds.UpdateObject(aggregatorBear);
@@ -874,9 +961,11 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
 
                 var masterCl = new Пользователь { ФИО = "фио" };
                 var aggregator = new Конкурс { Название = "название", Организатор = masterCl };
@@ -951,18 +1040,20 @@
                 // Arrange.
                 SQLDataService ds = dataService as SQLDataService;
 
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
 
                 var пользователь = new Пользователь { ФИО = "фио" };
                 var критерийОценки = new КритерийОценки { ПорядковыйНомер = 4 };
-                var конкурс =  new Конкурс { Название = "название", Организатор = пользователь };
+                var конкурс = new Конкурс { Название = "название", Организатор = пользователь };
                 конкурс.КритерииОценки.Add(критерийОценки);
-                var aggregatorIdea = new Идея{ Заголовок= "агрегатор1", Автор = пользователь, Конкурс = конкурс};
-                aggregatorIdea.Файлы.Add(new ФайлИдеи { Владелец = пользователь});
-                var masterAndDetail = new ЗначениеКритерия { Значение = "значение1", Критерий = критерийОценки};
-                aggregatorIdea.ОценкиЭкспертов.Add( new ОценкаЭксперта {ЗначениеОценки = 2, ЗначениеКритерия = masterAndDetail, Эксперт = пользователь});
+                var aggregatorIdea = new Идея { Заголовок = "агрегатор1", Автор = пользователь, Конкурс = конкурс };
+                aggregatorIdea.Файлы.Add(new ФайлИдеи { Владелец = пользователь });
+                var masterAndDetail = new ЗначениеКритерия { Значение = "значение1", Критерий = критерийОценки };
+                aggregatorIdea.ОценкиЭкспертов.Add(new ОценкаЭксперта { ЗначениеОценки = 2, ЗначениеКритерия = masterAndDetail, Эксперт = пользователь });
                 aggregatorIdea.ЗначенияКритериев.Add(masterAndDetail);
 
                 ds.UpdateObject(aggregatorIdea);
@@ -1137,6 +1228,43 @@
 
                 // Assert.
                 Assert.Equal(1, master.ПорядковыйНомер);
+            }
+        }
+
+        [Fact]
+        public void UpdateObjectByStaticPropertyTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                SQLDataService ds = dataService as SQLDataService;
+
+                Медведь bear = new Медведь
+                {
+                    ЦветГлаз = "Карие",
+                    Вес = 50,
+                    Друг = new Медведь { ЦветГлаз = "Серые", Вес = 60, },
+                };
+
+                var masterForest = new Лес { Название = "лес1" };
+                var detailDen = new Берлога { Наименование = "берлога1", ЛесРасположения = masterForest };
+                bear.Берлога.Add(detailDen);
+
+                DataObject[] dataObjectsForUpdate = new DataObject[]
+                {
+                    bear,
+                };
+
+                Exception updateException = null;
+                try
+                {
+                    ds.UpdateObjectsOrdered(ref dataObjectsForUpdate);
+                }
+                catch (Exception ex)
+                {
+                    updateException = ex;
+                }
+
+                Assert.True(updateException == null, "При создании через UpdateObjectsOrdered не возникло исключений");
             }
         }
     }

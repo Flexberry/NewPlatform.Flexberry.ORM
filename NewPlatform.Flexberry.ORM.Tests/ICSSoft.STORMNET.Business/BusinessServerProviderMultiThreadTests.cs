@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -13,7 +14,7 @@
     using Xunit.Abstractions;
 
     /// <summary>
-    /// Тесты <see cref="BusinessServerProvider" />
+    /// Тесты <see cref="BusinessServerProvider" />.
     /// </summary>
     public class BusinessServerProviderMultiThreadTests
     {
@@ -28,7 +29,7 @@
         }
 
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> для <see cref="ParallelEnumerable.AsParallel"/>.
         /// </summary>
         [Fact]
         public void GetBusinessServerMultiThreadAsParallelTest()
@@ -42,7 +43,7 @@
         }
 
         /// <summary>
-        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>
+        /// Многопоточный тест метода <see cref="BusinessServerProvider.GetBusinessServer(Type,DataServiceObjectEvents,IDataService)"/> с использованием <see cref="MultiThreadingTestTool"/>.
         /// </summary>
         [Fact]
         public void GetBusinessServerMultiThreadToolTest()
@@ -69,7 +70,7 @@
         private void MultiThreadMethod(object sender)
         {
             var parametersDictionary = sender as Dictionary<string, object>;
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             // Arrange.
             var processingObject = new ObjectsToUpdateMultiThreadClass();
@@ -89,7 +90,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }

@@ -6,17 +6,17 @@
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
 
     /// <summary>
-    /// Класс с данными аудита по полю объекта
+    /// Класс с данными аудита по полю объекта.
     /// </summary>
     [DataContract]
     public class CustomAuditField
     {
         /// <summary>
-        /// Конструктор класса
+        /// Конструктор класса.
         /// </summary>
-        /// <param name="fieldName">Имя поля</param>
-        /// <param name="oldValue">Старое значение поля</param>
-        /// <param name="newValue">Новое значение поля</param>
+        /// <param name="fieldName">Имя поля.</param>
+        /// <param name="oldValue">Старое значение поля.</param>
+        /// <param name="newValue">Новое значение поля.</param>
         public CustomAuditField(
             string fieldName,
             string oldValue,
@@ -38,7 +38,7 @@
         private string _fieldName;
 
         /// <summary>
-        /// Имя поля, по которому записаны данные аудита
+        /// Имя поля, по которому записаны данные аудита.
         /// </summary>
         [DataMember]
         public string FieldName
@@ -57,13 +57,13 @@
         }
 
         /// <summary>
-        /// Старое значение поля, по которому записаны данные аудита
+        /// Старое значение поля, по которому записаны данные аудита.
         /// </summary>
         [DataMember]
         public string OldFieldValue { get; set; }
 
         /// <summary>
-        /// Новое значение поля, по которому записаны данные аудита
+        /// Новое значение поля, по которому записаны данные аудита.
         /// </summary>
         [DataMember]
         public string NewFieldValue { get; set; }
