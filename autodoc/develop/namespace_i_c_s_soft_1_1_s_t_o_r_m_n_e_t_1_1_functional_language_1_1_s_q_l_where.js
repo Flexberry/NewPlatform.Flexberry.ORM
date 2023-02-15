@@ -1,4 +1,6 @@
 var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where =
 [
-    [ "SQLWhereLanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where_1_1_s_q_l_where_language_def.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where_1_1_s_q_l_where_language_def" ]
+    [ "SQLWhereLanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where_1_1_s_q_l_where_language_def.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where_1_1_s_q_l_where_language_def" ],
+    [ "delegateConvertValueToQueryValueString", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where.html#af2d65fa1f77d41942ad2df9036c53564", null ],
+    [ "delegatePutIdentifierToBrackets", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where.html#a3c73d43f8e7296ed54739d8ef7283ba1", null ]
 ];

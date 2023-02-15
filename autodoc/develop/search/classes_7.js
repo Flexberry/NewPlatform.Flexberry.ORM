@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['headercaption_1688',['HeaderCaption',['../class_new_platform_1_1_flexberry_1_1_header_caption.html',1,'NewPlatform::Flexberry']]]
+  ['headercaption_1714',['HeaderCaption',['../class_new_platform_1_1_flexberry_1_1_header_caption.html',1,'NewPlatform::Flexberry']]]
 ];

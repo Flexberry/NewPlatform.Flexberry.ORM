@@ -23,14 +23,14 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_servic
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aae55c6e15f4c147ce0823734dbcf8ed6", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a055df965dcb608335041bfaac00cc8b1", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a9806c0116951c5afa3211feee5610aff", null ],
-    [ "Current", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569", null ],
-    [ "IsAuditEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd", null ],
-    [ "IsAuditRemote", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c", null ],
     [ "ApplicationMode", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3f3bbe88604fecc73c760d588365d261", null ],
     [ "AppSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5bd2ef836436bd5db477d62048a49eb0", null ],
     [ "Audit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a4888ae347e1151a2a1ca06a8e59d5215", null ],
     [ "AuditConnectionStringName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac09c078055ad850d9c5d7f03ecd51194", null ],
+    [ "Current", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569", null ],
     [ "DetailedLogEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a375725ccfe491ad448e5c0675c81c5dc", null ],
+    [ "IsAuditEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd", null ],
+    [ "IsAuditRemote", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c", null ],
     [ "PersistUtcDates", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a68d16f4dfa5de27b86bce4d6c2ac939a", null ],
     [ "ShowPrimaryKey", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a6c5ec1793b221ed76ce1a2d554a4e094", null ]
 ];

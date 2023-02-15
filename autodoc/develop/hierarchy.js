@@ -4,7 +4,7 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Collections.ArrayOperations", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_array_operations.html", null ],
     [ "ICSSoft.STORMNET.Tools.AssemblyLoader", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_assembly_loader.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.AsyncAuditController", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_async_audit_controller.html", null ],
-    [ "Attribute", null, [
+    [ "System.Attribute", null, [
       [ "ICSSoft.STORMNET.AccessTypeAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_access_type_attribute.html", null ],
       [ "ICSSoft.STORMNET.AggregationFunctionAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_aggregation_function_attribute.html", null ],
       [ "ICSSoft.STORMNET.AgregatorAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_agregator_attribute.html", null ],
@@ -71,7 +71,7 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Tools.CaptionTool", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_caption_tool.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.HelpStructures.CheckHelper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_check_helper.html", null ],
     [ "ICSSoft.STORMNET.FunctionalLanguage.CompatibilityTypeTest", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_compatibility_type_test.html", null ],
-    [ "Component", null, [
+    [ "System.ComponentModel.Component", null, [
       [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", [
         [ "ICSSoft.STORMNET.Business.MSSQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_m_s_s_q_l_data_service.html", [
           [ "ICSSoft.STORMNET.Business.DRDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_d_r_data_service.html", null ]
@@ -79,6 +79,7 @@ var hierarchy =
         [ "ICSSoft.STORMNET.Business.OracleDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_oracle_data_service.html", null ],
         [ "ICSSoft.STORMNET.Business.PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html", null ]
       ] ],
+      [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
       [ "ICSSoft.STORMNET.Business.XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.Audit.HelpStructures.ConfigHelper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html", null ],
@@ -95,7 +96,9 @@ var hierarchy =
       [ "ICSSoft.STORMNET.Business.LockData", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_lock_data.html", null ],
       [ "ICSSoft.STORMNET.Business.UpdaterObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object.html", null ],
       [ "ICSSoft.STORMNET.FunctionalLanguage.FunctionalLanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_functional_language_def.html", [
-        [ "ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where_1_1_s_q_l_where_language_def.html", null ]
+        [ "ICSSoft.STORMNET.FunctionalLanguage.SQLWhere.SQLWhereLanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_s_q_l_where_1_1_s_q_l_where_language_def.html", [
+          [ "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html", null ]
+        ] ]
       ] ],
       [ "ICSSoft.STORMNET.FunctionalLanguage.ViewedObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_viewed_object.html", [
         [ "ICSSoft.STORMNET.FunctionalLanguage.ObjectType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_object_type.html", null ],
@@ -131,7 +134,9 @@ var hierarchy =
       [ "ICSSoft.STORMNET.Business.CreateCommandEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_create_command_event_args.html", null ],
       [ "ICSSoft.STORMNET.Business.DataObjectsEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_objects_event_args.html", null ],
       [ "ICSSoft.STORMNET.Business.GenerateSQLSelectQueryEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args.html", null ],
-      [ "ICSSoft.STORMNET.ItemsAddedEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_items_added_event_args.html", null ],
+      [ "ICSSoft.STORMNET.ItemsAddedEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_items_added_event_args.html", null ]
+    ] ],
+    [ "System.EventArgs", null, [
       [ "ICSSoft.STORMNET.UI.CloseEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_close_event_args.html", null ],
       [ "ICSSoft.STORMNET.UI.ContActionEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_cont_action_event_args.html", [
         [ "ICSSoft.STORMNET.UI.DataObjectEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i_1_1_data_object_event_args.html", [
@@ -209,7 +214,6 @@ var hierarchy =
     [ "ExpressionVisitor", null, [
       [ "ICSSoft.STORMNET.Business.LINQProvider.ReplacingExpressionTreeVisitorWithProperType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_replacing_expression_tree_visitor_with_proper_type.html", null ]
     ] ],
-    [ "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html", null ],
     [ "ICSSoft.STORMNET.Tools.ExternalModule", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_external_module.html", null ],
     [ "ICSSoft.STORMNET.FastAllocator< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_fast_allocator.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.HelpStructures.AuditAdditionalInfo.FieldValues", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info_1_1_field_values.html", null ],
@@ -235,6 +239,7 @@ var hierarchy =
     ] ],
     [ "ICloneable", null, [
       [ "ICSSoft.STORMNET.Business.IDataService", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_data_service.html", [
+        [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
         [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
         [ "ICSSoft.STORMNET.Business.XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", null ]
       ] ]
@@ -280,8 +285,8 @@ var hierarchy =
         [ "ICSSoft.STORMNET.Business.Audit.Objects.DetailArrayOfAuditClassSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_detail_array_of_audit_class_setting.html", null ],
         [ "ICSSoft.STORMNET.Business.Audit.Objects.DetailArrayOfAuditDSSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_detail_array_of_audit_d_s_setting.html", null ],
         [ "ICSSoft.STORMNET.Business.Audit.Objects.DetailArrayOfAuditFieldSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_detail_array_of_audit_field_setting.html", null ],
-        [ "ICSSoft.STORMNET.FunctionalLanguage.DetailArrayOfFunctionalParameterDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_detail_array_of_functional_parameter_def.html", null ],
         [ "ICSSoft.STORMNET.FunctionalLanguage.DetailArrayOfFunctionDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_detail_array_of_function_def.html", null ],
+        [ "ICSSoft.STORMNET.FunctionalLanguage.DetailArrayOfFunctionalParameterDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_detail_array_of_functional_parameter_def.html", null ],
         [ "ICSSoft.STORMNET.FunctionalLanguage.DetailArrayOfObjectType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_detail_array_of_object_type.html", null ],
         [ "ICSSoft.STORMNET.FunctionalLanguage.DetailArrayOfVariableDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_detail_array_of_variable_def.html", null ]
       ] ]
@@ -344,17 +349,27 @@ var hierarchy =
     ] ],
     [ "ICSSoft.STORMNET.Security.ISecurityService", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_i_security_service.html", null ],
     [ "ISerializable", null, [
-      [ "ICSSoft.STORMNET.Business.ColumnsSortDef", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_columns_sort_def.html", null ],
+      [ "ICSSoft.STORMNET.Business.AdvansedColumn", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column.html", null ],
+      [ "ICSSoft.STORMNET.Business.ColumnsSortDef", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_columns_sort_def.html", null ]
+    ] ],
+    [ "System.Runtime.Serialization.ISerializable", null, [
+      [ "ICSSoft.STORMNET.Business.ExecutingQueryException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception.html", null ],
       [ "ICSSoft.STORMNET.Business.LoadingCustomizationStruct", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_loading_customization_struct.html", null ],
       [ "ICSSoft.STORMNET.Business.MasterObjStruct", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_master_obj_struct.html", null ],
       [ "ICSSoft.STORMNET.Business.ObjectStringDataView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_object_string_data_view.html", null ],
       [ "ICSSoft.STORMNET.Business.RowNumberDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_row_number_def.html", null ],
+      [ "ICSSoft.STORMNET.Business.StorageStructForView", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view.html", null ],
+      [ "ICSSoft.STORMNET.Business.StorageStructForView.ClassStorageDef", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_class_storage_def.html", null ],
       [ "ICSSoft.STORMNET.Business.StorageStructForView.PropSource", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_source.html", null ],
+      [ "ICSSoft.STORMNET.Business.StorageStructForView.PropStorage", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_storage.html", null ],
       [ "ICSSoft.STORMNET.Collections.NameObjectCollection", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html", null ],
       [ "ICSSoft.STORMNET.Collections.TypeBaseCollection", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_type_base_collection.html", null ],
       [ "ICSSoft.STORMNET.DetailInView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_detail_in_view.html", null ],
       [ "ICSSoft.STORMNET.Exceptions.CantFindDataObjectException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_data_object_exception.html", null ],
+      [ "ICSSoft.STORMNET.Exceptions.CantUpdateNotLoadedPropertiesException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html", null ],
       [ "ICSSoft.STORMNET.Exceptions.DataServiceNotFoundException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_data_service_not_found_exception.html", null ],
+      [ "ICSSoft.STORMNET.Exceptions.ObjectNotAlteredException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_object_not_altered_exception.html", null ],
+      [ "ICSSoft.STORMNET.Exceptions.PropertyCouldnotBeNullException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_property_couldnot_be_null_exception.html", null ],
       [ "ICSSoft.STORMNET.ExtendedView", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_extended_view.html", null ],
       [ "ICSSoft.STORMNET.FunctionalLanguage.Function", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function.html", null ],
       [ "ICSSoft.STORMNET.MasterInView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_master_in_view.html", null ],
@@ -362,23 +377,13 @@ var hierarchy =
       [ "ICSSoft.STORMNET.PseudoDetailInExtendedView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_pseudo_detail_in_extended_view.html", null ],
       [ "ICSSoft.STORMNET.View", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html", null ]
     ] ],
-    [ "ISerializable", null, [
-      [ "ICSSoft.STORMNET.Business.AdvansedColumn", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column.html", null ],
-      [ "ICSSoft.STORMNET.Business.ExecutingQueryException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception.html", null ],
-      [ "ICSSoft.STORMNET.Business.StorageStructForView", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view.html", null ],
-      [ "ICSSoft.STORMNET.Business.StorageStructForView.ClassStorageDef", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_class_storage_def.html", null ],
-      [ "ICSSoft.STORMNET.Business.StorageStructForView.PropStorage", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_storage_struct_for_view_1_1_prop_storage.html", null ],
-      [ "ICSSoft.STORMNET.Exceptions.CantUpdateNotLoadedPropertiesException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html", null ],
-      [ "ICSSoft.STORMNET.Exceptions.ObjectNotAlteredException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_object_not_altered_exception.html", null ],
-      [ "ICSSoft.STORMNET.Exceptions.PropertyCouldnotBeNullException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_property_couldnot_be_null_exception.html", null ]
-    ] ],
     [ "ICSSoft.STORMNET.ISpecialEmptyValue", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_special_empty_value.html", null ],
     [ "ICSSoft.Services.CurrentUserService.IUser", "interface_i_c_s_soft_1_1_services_1_1_current_user_service_1_1_i_user.html", [
       [ "ICSSoft.Services.CurrentUser", "class_i_c_s_soft_1_1_services_1_1_current_user.html", null ],
       [ "ICSSoft.Services.CurrentWindowsUser", "class_i_c_s_soft_1_1_services_1_1_current_windows_user.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Windows.Forms.IViewGenerator", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_i_view_generator.html", null ],
-    [ "IXmlSerializable", null, [
+    [ "System.Xml.Serialization.IXmlSerializable", null, [
       [ "ICSSoft.STORMNET.UserDataTypes.NullableDateTime", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html", null ],
       [ "ICSSoft.STORMNET.UserDataTypes.NullableDecimal", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html", null ],
       [ "ICSSoft.STORMNET.UserDataTypes.NullableInt", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html", null ]
@@ -391,7 +396,7 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Tools.MapiRecipDesc", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_recip_desc.html", null ],
     [ "ICSSoft.STORMNET.Tools.MAPIWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html", null ],
     [ "ICSSoft.STORMNET.MasterPropertyPath", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_master_property_path.html", null ],
-    [ "NameObjectCollectionBase", null, [
+    [ "System.Collections.Specialized.NameObjectCollectionBase", null, [
       [ "ICSSoft.STORMNET.Collections.CaseSensivityStringDictionary", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html", null ],
       [ "ICSSoft.STORMNET.Collections.NameObjectCollection", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html", null ]
     ] ],
@@ -417,7 +422,7 @@ var hierarchy =
     [ "ICSSoft.STORMNET.UserDataTypes.Record", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_record.html", null ],
     [ "ICSSoft.STORMNET.Business.Interfaces.InterfaceBusinessServer.ReferencePropertyInfo", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server_1_1_reference_property_info.html", null ],
     [ "ICSSoft.STORMNET.Security.RoleWithAccesses", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_security_1_1_role_with_accesses.html", null ],
-    [ "SerializationBinder", null, [
+    [ "System.Runtime.Serialization.SerializationBinder", null, [
       [ "ICSSoft.STORMNET.Tools.AllowAllAssemblyVersionsDeserializationBinder", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_allow_all_assembly_versions_deserialization_binder.html", null ]
     ] ],
     [ "ThrowingExpressionVisitor", null, [

@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flexberry ORM 6.1.0-beta03: Класс ICSSoft.STORMNET.Business.Audit.AuditService</title>
+<title>Flexberry ORM 6.1.0: Класс ICSSoft.STORMNET.Business.Audit.AuditService</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 6.1.0-beta03
+   <div id="projectname">Flexberry ORM 6.1.0
    </div>
   </td>
  </tr>
@@ -34,10 +34,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.17 -->
+<!-- Создано системой Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -86,8 +86,6 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 <a href="#nested-classes">Классы</a> &#124;
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="#pub-static-methods">Открытые статические члены</a> &#124;
-<a href="#pub-attribs">Открытые атрибуты</a> &#124;
-<a href="#pub-static-attribs">Статические открытые данные</a> &#124;
 <a href="#pro-methods">Защищенные члены</a> &#124;
 <a href="#properties">Свойства</a> &#124;
 <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service-members.html">Полный список членов класса</a>  </div>
@@ -171,21 +169,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a36a7295a96e67615e1479aaa17157067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализация текущего сервиса аудита.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a36a7295a96e67615e1479aaa17157067">Подробнее...</a><br /></td></tr>
 <tr class="separator:a36a7295a96e67615e1479aaa17157067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Открытые атрибуты</h2></td></tr>
-<tr class="memitem:aa1e0664d0e24257013fe7b23c86aa0fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd">IsAuditEnabled</a> =&gt; <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5bd2ef836436bd5db477d62048a49eb0">AppSetting</a> != null &amp;&amp; AppSetting.AuditEnabled</td></tr>
-<tr class="memdesc:aa1e0664d0e24257013fe7b23c86aa0fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Включён ли аудит для приложения.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd">Подробнее...</a><br /></td></tr>
-<tr class="separator:aa1e0664d0e24257013fe7b23c86aa0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac92feed494a03abbb4b141689d0c2d5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c">IsAuditRemote</a> =&gt; !string.IsNullOrEmpty(AppSetting.AuditWinServiceUrl)</td></tr>
-<tr class="memdesc:ac92feed494a03abbb4b141689d0c2d5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется ли аудит удалённо (то есть через вызов AuditWinService).  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c">Подробнее...</a><br /></td></tr>
-<tr class="separator:ac92feed494a03abbb4b141689d0c2d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Статические открытые данные</h2></td></tr>
-<tr class="memitem:ad3a5bc13ccfc9f3a8a691c87b294e569"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html">IAuditService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569">Current</a> =&gt; _currentAuditService ?? (_currentAuditService = new <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html">AuditService</a>())</td></tr>
-<tr class="memdesc:ad3a5bc13ccfc9f3a8a691c87b294e569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущий класс для работы с сервисом аудита.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569">Подробнее...</a><br /></td></tr>
-<tr class="separator:ad3a5bc13ccfc9f3a8a691c87b294e569"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Защищенные члены</h2></td></tr>
 <tr class="memitem:a1abdc4f43e6c19db28cf8744942b3457"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_common_audit_parameters.html">CommonAuditParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a1abdc4f43e6c19db28cf8744942b3457">GenerateCommonAuditParameters</a> (DataObject operationedObject, <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_data_service.html">IDataService</a> dataService, bool throwExceptions=true, IDbTransaction transaction=null)</td></tr>
@@ -206,9 +189,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Свойства</h2></td></tr>
+<tr class="memitem:ad3a5bc13ccfc9f3a8a691c87b294e569"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html">IAuditService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569">Current</a><code> [get]</code></td></tr>
+<tr class="memdesc:ad3a5bc13ccfc9f3a8a691c87b294e569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущий класс для работы с сервисом аудита.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad3a5bc13ccfc9f3a8a691c87b294e569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f3bbe88604fecc73c760d588365d261"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46a">AppMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3f3bbe88604fecc73c760d588365d261">ApplicationMode</a> = <a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aa88183b946cc5f0e8c96b2e66e1c74a7e">AppMode.Unknown</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a3f3bbe88604fecc73c760d588365d261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Режим, в котором работает приложение: win или web.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3f3bbe88604fecc73c760d588365d261">Подробнее...</a><br /></td></tr>
 <tr class="separator:a3f3bbe88604fecc73c760d588365d261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e0664d0e24257013fe7b23c86aa0fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd">IsAuditEnabled</a><code> [get]</code></td></tr>
+<tr class="memdesc:aa1e0664d0e24257013fe7b23c86aa0fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Включён ли аудит для приложения.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa1e0664d0e24257013fe7b23c86aa0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac92feed494a03abbb4b141689d0c2d5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c">IsAuditRemote</a><code> [get]</code></td></tr>
+<tr class="memdesc:ac92feed494a03abbb4b141689d0c2d5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выполняется ли аудит удалённо (то есть через вызов AuditWinService).  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac92feed494a03abbb4b141689d0c2d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac09c078055ad850d9c5d7f03ecd51194"><td class="memItemLeft" align="right" valign="top">string?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac09c078055ad850d9c5d7f03ecd51194">AuditConnectionStringName</a><code> [get]</code></td></tr>
 <tr class="memdesc:ac09c078055ad850d9c5d7f03ecd51194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение имени строки соединения с БД аудита. (используется для загрузки данных из БД). Если используется запись аудита через windows-сервис, то будет возвращено <code>null</code>.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac09c078055ad850d9c5d7f03ecd51194">Подробнее...</a><br /></td></tr>
 <tr class="separator:ac09c078055ad850d9c5d7f03ecd51194"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1241,63 +1233,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<h2 class="groupheader">Данные класса</h2>
-<a id="ad3a5bc13ccfc9f3a8a691c87b294e569"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3a5bc13ccfc9f3a8a691c87b294e569">&#9670;&nbsp;</a></span>Current</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html">IAuditService</a> ICSSoft.STORMNET.Business.Audit.AuditService.Current =&gt; _currentAuditService ?? (_currentAuditService = new <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html">AuditService</a>())</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Текущий класс для работы с сервисом аудита. </p>
-
-</div>
-</div>
-<a id="aa1e0664d0e24257013fe7b23c86aa0fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1e0664d0e24257013fe7b23c86aa0fd">&#9670;&nbsp;</a></span>IsAuditEnabled</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ICSSoft.STORMNET.Business.Audit.AuditService.IsAuditEnabled =&gt; <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5bd2ef836436bd5db477d62048a49eb0">AppSetting</a> != null &amp;&amp; AppSetting.AuditEnabled</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Включён ли аудит для приложения. </p>
-
-</div>
-</div>
-<a id="ac92feed494a03abbb4b141689d0c2d5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac92feed494a03abbb4b141689d0c2d5c">&#9670;&nbsp;</a></span>IsAuditRemote</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ICSSoft.STORMNET.Business.Audit.AuditService.IsAuditRemote =&gt; !string.IsNullOrEmpty(AppSetting.AuditWinServiceUrl)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Выполняется ли аудит удалённо (то есть через вызов AuditWinService). </p>
-
-</div>
-</div>
 <h2 class="groupheader">Полный список свойств</h2>
 <a id="a3f3bbe88604fecc73c760d588365d261"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f3bbe88604fecc73c760d588365d261">&#9670;&nbsp;</a></span>ApplicationMode</h2>
@@ -1395,6 +1330,30 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="ad3a5bc13ccfc9f3a8a691c87b294e569"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a5bc13ccfc9f3a8a691c87b294e569">&#9670;&nbsp;</a></span>Current</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html">IAuditService</a> ICSSoft.STORMNET.Business.Audit.AuditService.Current</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Текущий класс для работы с сервисом аудита. </p>
+
+</div>
+</div>
 <a id="a375725ccfe491ad448e5c0675c81c5dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a375725ccfe491ad448e5c0675c81c5dc">&#9670;&nbsp;</a></span>DetailedLogEnabled</h2>
 
@@ -1416,6 +1375,54 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>Flag indicates that this service uses LogService.LogInfo(object) and LogService.LogInfoFormat to log audit operation information. Default is <code>true</code>. </p>
+
+</div>
+</div>
+<a id="aa1e0664d0e24257013fe7b23c86aa0fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e0664d0e24257013fe7b23c86aa0fd">&#9670;&nbsp;</a></span>IsAuditEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.Business.Audit.AuditService.IsAuditEnabled</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Включён ли аудит для приложения. </p>
+
+</div>
+</div>
+<a id="ac92feed494a03abbb4b141689d0c2d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac92feed494a03abbb4b141689d0c2d5c">&#9670;&nbsp;</a></span>IsAuditRemote</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ICSSoft.STORMNET.Business.Audit.AuditService.IsAuditRemote</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выполняется ли аудит удалённо (то есть через вызов AuditWinService). </p>
 
 </div>
 </div>
@@ -1473,9 +1480,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_i_c_s_soft.html">ICSSoft</a></li><li class="navelem"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html">STORMNET</a></li><li class="navelem"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html">Business</a></li><li class="navelem"><a class="el" href="namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html">Audit</a></li><li class="navelem"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html">AuditService</a></li>
-    <li class="footer">Создано системой
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
