@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
+1. Update Microsoft.Spatial up to 7.10.0.
 
 ### Deprecated
 
