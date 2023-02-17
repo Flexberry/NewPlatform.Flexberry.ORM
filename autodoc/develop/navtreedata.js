@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Flexberry ORM 6.1.0", "index.html", [
+  [ "Flexberry ORM 7.0.0", "index.html", [
     [ "Пространства имен", "namespaces.html", [
       [ "Пространства имен", "namespaces.html", "namespaces_dup" ],
       [ "Члены пространств имен", "namespacemembers.html", [
