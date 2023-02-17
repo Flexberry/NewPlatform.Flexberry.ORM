@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+1. Building under .net6 and .net7.
 
 ### Changed
 1. Update Microsoft.Spatial up to 7.10.0.

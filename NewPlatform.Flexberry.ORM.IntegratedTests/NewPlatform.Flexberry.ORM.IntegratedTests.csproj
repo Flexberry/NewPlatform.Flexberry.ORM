@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net461;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
     <RootNamespace>NewPlatform.Flexberry.ORM.IntegratedTests</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.IntegratedTests</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Tests.snk</AssemblyOriginatorKeyFile>
