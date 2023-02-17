@@ -5,6 +5,24 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+1. Building under .net6 and .net7.
+
+### Changed
+1. Update Microsoft.Spatial up to 7.10.0.
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+### Performance
+
+## [6.1.0] - 2023-02-14
+
+### Added
 - `IComparableType` implementation to `WebFile` class.
 - Feature GeoDistance is implemented.
 - `IAuditService` UTC time enable flag as property.
@@ -14,10 +32,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Upgrade SharpZipLib@1.3.3.
 - Upgrade NewPlatform.Flexberry.LogService@2.1.0.
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 - Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 - Update data objects with static properties inherited from DataObject.
@@ -25,8 +39,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
 - Nullable bool isnull limit.
 - Fix `ExternalLangDef` concurrency.
-
-### Security
 
 ### Performance
 - Optimize query (select, update, delete) generation.
