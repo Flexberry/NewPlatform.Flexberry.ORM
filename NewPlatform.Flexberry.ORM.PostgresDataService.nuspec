@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>7.0.0</version>
+    <version>7.1.0-beta01</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,16 +13,12 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
       Added
-      1. Building under .net6 and .net7.
-      Performance
-      1. Remove `order by stormmainobjectkey` for inner query.
-      Fixed
-      1. Remove an external context from PutIdentifierIntoBrackets() method implementation.
+      1. Add asyncronous DataService interface.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2023</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="7.0.0" />
+      <dependency id="NewPlatform.Flexberry.ORM" version="7.1.0-beta01" />
       <dependency id="Npgsql" version="3.2.6" />
     </dependencies>
   </metadata>

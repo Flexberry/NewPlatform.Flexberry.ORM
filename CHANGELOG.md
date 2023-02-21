@@ -5,10 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-1. Building under .net6 and .net7.
+1. Add asyncronous DataService interface.
 
 ### Changed
-1. Update Microsoft.Spatial up to 7.10.0.
 
 ### Deprecated
 
@@ -19,6 +18,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 
 ### Performance
+
+## [7.0.0] - 2023-02-17
+
+### Added
+1. Building under .net6 and .net7.
+
+### Changed
+1. Update Microsoft.Spatial up to 7.10.0.
 
 ## [6.1.0] - 2023-02-14
 
