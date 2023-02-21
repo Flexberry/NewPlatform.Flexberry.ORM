@@ -77,6 +77,15 @@
         public override DbProviderFactory ProviderFactory => SqlClientFactory.Instance;
 
         /// <summary>
+        /// Вернуть объект <see cref="System.Data.Common.DbConnection"/>, предназначенный для работы с MSSQLServer и настроенный на строку соединения <see cref="SQLDataService.CustomizationString"/>.
+        /// </summary>
+        /// <returns>Соединение с БД.</returns>
+        public override System.Data.Common.DbConnection GetDbConnection()
+        {
+            return new System.Data.SqlClient.SqlConnection(CustomizationString);
+        }
+
+        /// <summary>
         /// Преобразовать значение в SQL строку.
         /// </summary>
         /// <param name="function">Функция.</param>
