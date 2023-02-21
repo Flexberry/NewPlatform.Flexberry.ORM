@@ -15,13 +15,16 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service 
     [ "GenerateSQLSelectByStorageStruct", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a93f644b307cca2d402ad8e0e1a881f77", null ],
     [ "GetConnection", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#aaf470ff284c13373aec6372ea393d349", null ],
     [ "GetConvertToTypeExpression", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a000ff19b6c6c07838659e5714b36d19c", null ],
+    [ "GetDbConnection", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a8ad9ffdd75e4d0cacc22a8404cab5be8", null ],
     [ "GetIfNullExpression", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#af72a689f5e6a54203488f2258319e715", null ],
     [ "GetObjectIndexesWithPks", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a55545af77bd23e8b8ed2f03164282886", null ],
     [ "IsTypesEquals", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1551d001b9079bfbff8f341862f07e37", null ],
     [ "PrepareIdentifier", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#aede3380d4b0abb8a8f3a7603837e2553", null ],
     [ "PutIdentifierIntoBrackets", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a6e2f88172fbdc775200cc5e7e004e219", null ],
     [ "PutIdentifierIntoBrackets", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a1da7896902be8a5bf177f1f2c9e1b924", null ],
+    [ "ReadByExtConnAsync", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a665a7542c58f4599e921a46cc86c4d97", null ],
     [ "ReadFirst", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a773b1b61869eb5e0f9aac6522490fd48", null ],
+    [ "ReadFirstByExtConn", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a06e8c5e632f159e2d552574a4a438a40", null ],
     [ "MaxNameLength", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#af7152b53889aabe5b5220cbbaeb77035", null ],
     [ "ProviderFactory", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#ab18a10d85a1d8b5457aeb296e8ba909d", null ]
 ];

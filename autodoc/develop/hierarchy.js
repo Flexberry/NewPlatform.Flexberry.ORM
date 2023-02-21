@@ -80,6 +80,8 @@ var hierarchy =
         [ "ICSSoft.STORMNET.Business.PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html", null ]
       ] ],
       [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
+      [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
+      [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
       [ "ICSSoft.STORMNET.Business.XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.Audit.HelpStructures.ConfigHelper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html", null ],
@@ -241,7 +243,14 @@ var hierarchy =
       [ "ICSSoft.STORMNET.Business.IDataService", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_data_service.html", [
         [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
         [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
+        [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
+        [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
         [ "ICSSoft.STORMNET.Business.XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", null ]
+      ] ],
+      [ "NewPlatform.Flexberry.ORM.IAsyncDataService", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_i_async_data_service.html", [
+        [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
+        [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ],
+        [ "ICSSoft.STORMNET.Business.SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", null ]
       ] ]
     ] ],
     [ "IComparable", null, [
@@ -277,7 +286,8 @@ var hierarchy =
     ] ],
     [ "ICSSoft.STORMNET.Business.Audit.IDataObjectWithAuditFields", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_data_object_with_audit_fields.html", null ],
     [ "IDisposable", null, [
-      [ "ICSSoft.STORMNET.Business.DbTransactionWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html", null ]
+      [ "ICSSoft.STORMNET.Business.DbTransactionWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html", null ],
+      [ "ICSSoft.STORMNET.Business.DbTransactionWrapperAsync", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper_async.html", null ]
     ] ],
     [ "IEnumerable", null, [
       [ "ICSSoft.STORMNET.Collections.TypesArrayList", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_types_array_list.html", null ],
@@ -330,9 +340,7 @@ var hierarchy =
     ] ],
     [ "NewPlatform.Flexberry.IODataExportService", "interface_new_platform_1_1_flexberry_1_1_i_o_data_export_service.html", null ],
     [ "IOrderedQueryable", null, [
-      [ "ICSSoft.STORMNET.Business.LINQProvider.Query< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_query.html", [
-        [ "ICSSoft.STORMNET.Business.LINQProvider.LcsQuery< T, Q >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query.html", null ]
-      ] ]
+      [ "ICSSoft.STORMNET.Business.LINQProvider.Query< T >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_query.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.IQueryModelVisitor", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_i_query_model_visitor.html", [
       [ "ICSSoft.STORMNET.Business.LINQProvider.LcsGeneratorQueryModelVisitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_generator_query_model_visitor.html", null ]
@@ -389,6 +397,7 @@ var hierarchy =
       [ "ICSSoft.STORMNET.UserDataTypes.NullableInt", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.KeyGen.KeyGenerator", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_generator.html", null ],
+    [ "ICSSoft.STORMNET.Business.LINQProvider.LcsQuery< T, Q >", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_lcs_query.html", null ],
     [ "ICSSoft.STORMNET.Business.LINQProvider.LinqToLcs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_linq_to_lcs.html", null ],
     [ "ICSSoft.STORMNET.Business.LockService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_lock_service.html", null ],
     [ "ICSSoft.STORMNET.Tools.MapiFileDesc", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_file_desc.html", null ],

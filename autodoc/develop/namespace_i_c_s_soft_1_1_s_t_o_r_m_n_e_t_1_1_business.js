@@ -27,6 +27,7 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business =
     [ "ObjectStringDataView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_object_string_data_view.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_object_string_data_view" ],
     [ "RowNumberDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_row_number_def.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_row_number_def" ],
     [ "DbTransactionWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper" ],
+    [ "DbTransactionWrapperAsync", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper_async.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper_async" ],
     [ "SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service" ],
     [ "ExecutingQueryException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception" ],
     [ "UpdaterObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object" ],
@@ -59,6 +60,11 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business =
       [ "Count", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3ae93f994f01c537c4e2f7d8528c3eb5e9", null ],
       [ "Any", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3aed36a1ef76a59ee3f15180e0441188ad", null ],
       [ "All", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a3456e6ae817fa261c1236af8692796d3ab1c94ca2fbc3e78fc30069c8d0f01680", null ]
+    ] ],
+    [ "QueryPriority", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#afb450761d82f60520030b8fafa2377da", [
+      [ "First", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#afb450761d82f60520030b8fafa2377daa7fb55ed0b7a30342ba6da306428cae04", null ],
+      [ "Normal", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#afb450761d82f60520030b8fafa2377daa960b44c579bc2f6818d2daaf9e4c16f0", null ],
+      [ "Last", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#afb450761d82f60520030b8fafa2377daad55b30607c2a9a2616347d6edb789f6b", null ]
     ] ],
     [ "SortOrder", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4", [
       [ "None", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html#a347e04d9d67667de0f7c334d5b28a5d4a6adf97f83acf6453d4a6a4b1070f3754", null ],

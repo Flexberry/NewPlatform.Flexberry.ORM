@@ -120,6 +120,7 @@ var annotated_dup =
           [ "ObjectStringDataView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_object_string_data_view.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_object_string_data_view" ],
           [ "RowNumberDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_row_number_def.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_row_number_def" ],
           [ "DbTransactionWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper" ],
+          [ "DbTransactionWrapperAsync", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper_async.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_db_transaction_wrapper_async" ],
           [ "SQLDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service" ],
           [ "ExecutingQueryException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_executing_query_exception" ],
           [ "UpdaterObject", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_updater_object" ],
@@ -372,7 +373,8 @@ var annotated_dup =
               [ "ValidationException", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_validation_exception.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_validation_exception" ]
             ] ],
             [ "DataObjectValidator", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_data_object_validator.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_data_object_validator" ]
-          ] ]
+          ] ],
+          [ "IAsyncDataService", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_i_async_data_service.html", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_i_async_data_service" ]
         ] ],
         [ "Orm", "namespace_new_platform_1_1_flexberry_1_1_orm.html", [
           [ "KeyGen", "namespace_new_platform_1_1_flexberry_1_1_orm_1_1_key_gen.html", [

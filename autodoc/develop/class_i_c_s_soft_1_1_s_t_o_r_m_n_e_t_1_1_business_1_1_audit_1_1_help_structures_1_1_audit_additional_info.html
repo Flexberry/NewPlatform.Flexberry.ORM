@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 <tr class="memdesc:aaf3e52bcbae65c6c965e355e9d80835f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструирование объекта для зачитывания исключительно свойств, которые имеют атрибут <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_disable_insert_property_attribute.html" title="Помещать ли свойство в Insert-ы.">DisableInsertPropertyAttribute</a>.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info.html#aaf3e52bcbae65c6c965e355e9d80835f">Подробнее...</a><br /></td></tr>
 <tr class="separator:aaf3e52bcbae65c6c965e355e9d80835f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad77678bc862397fea043d306ade9713b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info.html#ad77678bc862397fea043d306ade9713b">SetNewFieldValues</a> (IDbTransaction transaction, <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html">SQLDataService</a> sqlDataService)</td></tr>
-<tr class="memdesc:ad77678bc862397fea043d306ade9713b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Из БД вычитывается объект и определяются, какие значения после сохранения в БД приняли поля с атрибутом <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_disable_insert_property_attribute.html" title="Помещать ли свойство в Insert-ы.">DisableInsertPropertyAttribute</a>. Зачитка объекта идёт в той же транзакции, что и были обновлены объекты.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info.html#ad77678bc862397fea043d306ade9713b">Подробнее...</a><br /></td></tr>
+<tr class="memdesc:ad77678bc862397fea043d306ade9713b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Из БД вычитывается объект и определяются, какие значения после сохранения в БД приняли поля с атрибутом <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_disable_insert_property_attribute.html" title="Помещать ли свойство в Insert-ы.">DisableInsertPropertyAttribute</a>. вычитка объекта идёт в той же транзакции, что и были обновлены объекты.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_audit_additional_info.html#ad77678bc862397fea043d306ade9713b">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad77678bc862397fea043d306ade9713b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -347,11 +347,11 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 </table>
 </div><div class="memdoc">
 
-<p>Из БД вычитывается объект и определяются, какие значения после сохранения в БД приняли поля с атрибутом <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_disable_insert_property_attribute.html" title="Помещать ли свойство в Insert-ы.">DisableInsertPropertyAttribute</a>. Зачитка объекта идёт в той же транзакции, что и были обновлены объекты. </p>
+<p>Из БД вычитывается объект и определяются, какие значения после сохранения в БД приняли поля с атрибутом <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_disable_insert_property_attribute.html" title="Помещать ли свойство в Insert-ы.">DisableInsertPropertyAttribute</a>. вычитка объекта идёт в той же транзакции, что и были обновлены объекты. </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
-    <tr><td class="paramname">transaction</td><td>Транзакция, в рамках которой нужно производить зачитку.</td></tr>
-    <tr><td class="paramname">sqlDataService</td><td>Сервис данных, с помощью которого нужно проводить зачитку.</td></tr>
+    <tr><td class="paramname">transaction</td><td>Транзакция, в рамках которой нужно производить вычитку.</td></tr>
+    <tr><td class="paramname">sqlDataService</td><td>Сервис данных, с помощью которого нужно проводить вычитку.</td></tr>
   </table>
   </dd>
 </dl>
