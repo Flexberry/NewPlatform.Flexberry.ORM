@@ -27,7 +27,7 @@
         {
             foreach (var dataService in DataServices)
             {
-                var view = new View { DefineClassType = typeof(Кошка) };
+                View view = new View { DefineClassType = typeof(Кошка) };
 
                 view.AddProperty(Information.ExtractPropertyPath<Кошка>(x => x.Кличка));
                 view.AddProperty(Information.ExtractPropertyPath<Кошка>(x => x.Порода));
@@ -38,7 +38,7 @@
                     .Query<Кошка>(view)
                     .Where(x => x.Кличка == "Тузик" && x.Порода.__PrimaryKey.Equals("CD6058FF-0426-4C6E-86F3-3F62F5B9ABF0"));
 
-                query.FirstOrDefault();
+                Assert.Null(query.FirstOrDefault());
             }
         }
 

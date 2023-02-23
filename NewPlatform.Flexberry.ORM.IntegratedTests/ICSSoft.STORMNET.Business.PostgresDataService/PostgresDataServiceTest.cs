@@ -713,7 +713,7 @@
                 return;
             }
 
-            var masterRoot = new MasterRoot { MasterAttr = 234 };
+            MasterRoot masterRoot = new MasterRoot { MasterAttr = 234 };
 
             var мастерКласс01 = new МастерКлассДлинноеИмя { MasterAttr2 = true, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var мастерКласс02 = new МастерКлассДлинноеИмя { MasterAttr2 = false, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
@@ -732,6 +732,7 @@
 
             var clazz2 = new ДочернийКлассДлинноеИмя { __PrimaryKey = класс.__PrimaryKey };
             DataService.LoadObject(clazz2);
+            Assert.NotNull(clazz2);
         }
 
         /// <summary>

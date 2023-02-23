@@ -19,6 +19,7 @@
             str = Nullable.GetUnderlyingType(tBool).FullName;
             Console.WriteLine(str);
             Console.WriteLine(Nullable.GetUnderlyingType(typeof(int)) == null ? "null" : Nullable.GetUnderlyingType(typeof(int)).FullName);
+            Assert.Null(Nullable.GetUnderlyingType(typeof(int)));
         }
     }
 }

@@ -73,6 +73,32 @@
             {
                 Console.WriteLine(((OrderedCls)((DictionaryEntry)cls).Value).Name);
             }
+
+            IList myOrderList = sl.GetKeyList();
+            IList myValueList = sl.GetValueList();
+
+            foreach (DictionaryEntry entrysl in sl)
+            {
+                Assert.Equal("A", ((OrderedCls)entrysl.Value).Name);
+            }
+
+          //  Assert.Equal("A", ((OrderedCls)((DictionaryEntry)myValueList[0]).Value).Name);
+
+
+            //Assert.Equal("A", myValueList[0]);
+
+            //int index = 0;
+            //do
+            //{
+            //    Assert.Equal(1, ((OrderedCls)((usedOrderInd)sl[index]).Value).Order);
+            //    Assert.Equal(1, ((OrderedCls)(sl[index]).Value).Order);
+            //    Assert.Equal(1, ((OrderedCls)((DictionaryEntry)sl[index]).Value).Order);
+            //    Assert.Equal(2, ((OrderedCls)((DictionaryEntry)sl[index]).Value).Order);
+            //    Assert.Equal(1, ((OrderedCls)((DictionaryEntry)sl[index]).Value).Order);
+            //    Assert.Equal(1, ((OrderedCls)((DictionaryEntry)sl[index]).Value).Order);
+            //    index++;
+            //} while (index < sl.Count);
+
         }
 
         [Fact]

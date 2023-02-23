@@ -40,13 +40,13 @@
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской, ЛесОбитания = лес1 };
                 Медведь медв3 = new Медведь { Вес = 148, Пол = Пол.Мужской, ЛесОбитания = лес2 };
                 медв.ЛесОбитания = лес1;
-                var берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
-                var берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
-                var берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
+                Берлога берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
                 медв.Берлога.Add(берлога1);
                 медв.Берлога.Add(берлога2);
                 медв2.Берлога.Add(берлога3);
-                var objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, медв3, берлога2, берлога1, берлога3, лес1, лес2 };
+                DataObject[] objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, медв3, берлога2, берлога1, берлога3, лес1, лес2 };
                 var ds = (SQLDataService)dataService;
                 ds.UpdateObjects(ref objs);
                 var expr0 = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
@@ -56,24 +56,28 @@
                 var lcs1 = LinqToLcs.GetLcs(expr1.Expression, Медведь.Views.МедведьE);
                 lcs1.View = Медведь.Views.МедведьE;
                 lcs1.LoadingTypes = new Type[] { typeof(Медведь) };
-                var l1 = dataService.LoadObjects(lcs1);
+                DataObject[] l1 = dataService.LoadObjects(lcs1);
                 var expr2 = ds.Query<Медведь>(Медведь.Views.МедведьE).OrderByDescending(x => x.ЛесОбитания.Название);
                 var lcs2 = LinqToLcs.GetLcs(expr2.Expression, Медведь.Views.МедведьE);
                 lcs2.View = Медведь.Views.МедведьE;
                 lcs2.LoadingTypes = new Type[] { typeof(Медведь) };
-                var l2 = dataService.LoadObjects(lcs2);
+                DataObject[] l2 = dataService.LoadObjects(lcs2);
+                Assert.NotNull(l1);
+                Assert.NotNull(l2);
 
-                var lcs3 = new LoadingCustomizationStruct(null);
+                LoadingCustomizationStruct lcs3 = new LoadingCustomizationStruct(null);
                 lcs3.View = Медведь.Views.МедведьE;
                 lcs3.LoadingTypes = new Type[] { typeof(Медведь) };
                 lcs3.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Asc) };
-                var l3 = dataService.LoadObjects(lcs3);
+                DataObject[] l3 = dataService.LoadObjects(lcs3);
+                Assert.NotNull(l3);
 
-                var lcs4 = new LoadingCustomizationStruct(null);
+                LoadingCustomizationStruct lcs4 = new LoadingCustomizationStruct(null);
                 lcs4.View = Медведь.Views.МедведьE;
                 lcs4.LoadingTypes = new Type[] { typeof(Медведь) };
                 lcs4.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Desc) };
-                var l4 = dataService.LoadObjects(lcs4);
+                DataObject[] l4 = dataService.LoadObjects(lcs4);
+                Assert.NotNull(l4);
             }
         }
 
@@ -93,21 +97,22 @@
                 Лес лес1 = new Лес { Название = "Бор" };
                 Лес лес2 = new Лес { Название = "Березовая роща" };
                 медв.ЛесОбитания = лес1;
-                var берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
-                var берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
-                var берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
+                Берлога берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
                 медв.Берлога.Add(берлога1);
                 медв.Берлога.Add(берлога2);
                 медв2.Берлога.Add(берлога3);
-                var objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, берлога2, берлога1, берлога3, лес1, лес2 };
+                DataObject[] objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, берлога2, берлога1, берлога3, лес1, лес2 };
                 var ds = (SQLDataService)dataService;
                 ds.UpdateObjects(ref objs);
 
-                var v = new View(new ViewAttribute("AllProps", new string[] { "*" }), typeof(Кошка));
+                View v = new View(new ViewAttribute("AllProps", new string[] { "*" }), typeof(Кошка));
                 var ob = ds.LoadObjects(v);
 
                 var l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
                   x => x.Берлога.Cast<Берлога>().Any(o => o.Наименование == "Для хорошего настроения")).ToList();
+                Assert.Equal(2, l.Count);
             }
         }
 
@@ -126,6 +131,8 @@
 
                 var updateObjectsArray = new ICSSoft.STORMNET.DataObject[] { cls1, cls2 };
                 ds.UpdateObjects(ref updateObjectsArray);
+                Assert.NotNull(updateObjectsArray);
+
                 var view = Plant2.Views.Plant2E;
 
                 IQueryable<Plant2> limit;

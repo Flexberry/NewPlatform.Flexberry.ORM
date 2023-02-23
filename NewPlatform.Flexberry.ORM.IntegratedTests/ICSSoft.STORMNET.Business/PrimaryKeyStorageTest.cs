@@ -29,8 +29,9 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                var класс = new ForKeyStorageTest();
+                ForKeyStorageTest класс = new ForKeyStorageTest();
                 dataService.UpdateObject(класс);
+                Assert.True(класс.__PrimaryKey != null);
             }
         }
     }

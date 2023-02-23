@@ -114,6 +114,11 @@
                 ds.ExecuteNonQuery(query1);
                 ds.ExecuteNonQuery(query2);
                 ds.ExecuteNonQuery(query3);
+
+                Assert.DoesNotContain(query0, "LEFT JOIN");
+                Assert.DoesNotContain(query1, "LEFT JOIN");
+                Assert.DoesNotContain(query2, "LEFT JOIN");
+                Assert.DoesNotContain(query3, "LEFT JOIN");
             }
         }
     }

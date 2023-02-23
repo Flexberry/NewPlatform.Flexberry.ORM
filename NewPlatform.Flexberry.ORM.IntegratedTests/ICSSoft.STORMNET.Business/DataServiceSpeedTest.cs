@@ -2,7 +2,7 @@
 {
     using System;
     using System.Diagnostics;
-
+    using System.Linq;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
 
@@ -35,7 +35,7 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                var createdBear1 = new Медведь();
+                Медведь createdBear1 = new Медведь();
                 createdBear1.ЦветГлаз = "Косолапый Мишка 1";
                 dataService.UpdateObject(createdBear1);
 
@@ -50,12 +50,12 @@
                 do
                 {
                     // Чтобы медведь в БД точно был, создадим его.
-                    var createdBear = new Медведь();
+                    Медведь createdBear = new Медведь();
                     createdBear.ЦветГлаз = "Косолапый Мишка " + random.Next(101);
                     dataService.UpdateObject(createdBear);
 
                     // Теперь грузим его из БД.
-                    var медведь = new Медведь();
+                    Медведь медведь = new Медведь();
                     медведь.SetExistObjectPrimaryKey(createdBear.__PrimaryKey);
                     dataService.LoadObject(медведь, false, false);
 
@@ -71,6 +71,7 @@
 
                 stopwatch.Stop();
                 testOutputHelper.WriteLine($"{nameof(InsertSelectUpdateDeleteSpeedTest)}@{dataService.GetType().Name}: {i} iterations");
+                Assert.True(i >= 1);
             }
         }
     }
