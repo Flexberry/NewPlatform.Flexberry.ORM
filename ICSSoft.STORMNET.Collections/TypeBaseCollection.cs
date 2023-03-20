@@ -5,13 +5,13 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// коллекция со Type -  ключами
+    /// коллекция со Type -  ключами.
     /// </summary>
     [Serializable]
     public class TypeBaseCollection : ISerializable
     {
-        private System.Collections.ArrayList types = new System.Collections.ArrayList();
-        private System.Collections.ArrayList values = new System.Collections.ArrayList();
+        private readonly List<Type> types = new List<Type>();
+        private readonly List<object> values = new List<object>();
 
         /// <summary>
         ///
@@ -27,7 +27,7 @@
         /// <param name="context"></param>
         public TypeBaseCollection(SerializationInfo info, StreamingContext context)
         {
-            System.Type[] typesarr = (System.Type[])info.GetValue("types", typeof(Type[]));
+            Type[] typesarr = (Type[])info.GetValue("types", typeof(Type[]));
             object[] valuesarr = (object[])info.GetValue("values", typeof(object[]));
 
             lock (types)
@@ -50,21 +50,21 @@
         {
             lock (types)
             {
-                info.AddValue("types", types.ToArray(typeof(System.Type)));
+                info.AddValue("types", types.ToArray());
             }
 
             lock (values)
             {
-                info.AddValue("values", values.ToArray(typeof(object)));
+                info.AddValue("values", values.ToArray());
             }
         }
 
         /// <summary>
-        /// содержит ли ключ
+        /// содержит ли ключ.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool Contains(System.Type key)
+        public bool Contains(Type key)
         {
             lock (types)
             {
@@ -73,7 +73,7 @@
         }
 
         /// <summary>
-        /// почистить
+        /// почистить.
         /// </summary>
         public void Clear()
         {
@@ -89,7 +89,7 @@
         }
 
         /// <summary>
-        /// количество
+        /// количество.
         /// </summary>
         public int Count
         {
@@ -97,11 +97,11 @@
         }
 
         /// <summary>
-        /// добавить элемент
+        /// добавить элемент.
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Add(System.Type key, object value)
+        public void Add(Type key, object value)
         {
             if (!Contains(key))
             {
@@ -122,9 +122,9 @@
         }
 
         /// <summary>
-        /// доступ по ключу
+        /// доступ по ключу.
         /// </summary>
-        public object this[System.Type key]
+        public object this[Type key]
         {
             get
             {
@@ -165,7 +165,7 @@
         }
 
         /// <summary>
-        /// доступ по индексу
+        /// доступ по индексу.
         /// </summary>
         public object this[int index]
         {
@@ -207,12 +207,12 @@
         }
 
         /// <summary>
-        /// вставить элемент
+        /// вставить элемент.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Insert(int index, System.Type key, object value)
+        public void Insert(int index, Type key, object value)
         {
             if (!Contains(key))
             {
@@ -245,7 +245,7 @@
         }
 
         /// <summary>
-        /// удалить по индексу
+        /// удалить по индексу.
         /// </summary>
         /// <param name="index"></param>
         public void Remove(int index)
@@ -268,10 +268,10 @@
         }
 
         /// <summary>
-        /// удалить по ключу
+        /// удалить по ключу.
         /// </summary>
         /// <param name="key"></param>
-        public void Remove(System.Type key)
+        public void Remove(Type key)
         {
             if (Contains(key))
             {
@@ -280,11 +280,11 @@
         }
 
         /// <summary>
-        /// ключ по индексу
+        /// ключ по индексу.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public System.Type Key(int index)
+        public Type Key(int index)
         {
             lock (types)
             {
@@ -292,7 +292,7 @@
                 {
                     if (index >= 0 && index <= types.Count)
                     {
-                        return (System.Type)types[index];
+                        return (Type)types[index];
                     }
                     else
                     {
@@ -303,11 +303,11 @@
         }
 
         /// <summary>
-        /// вернуть по шаблону(наиболее подходящий)
+        /// вернуть по шаблону(наиболее подходящий).
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public object GetMostCompatible(System.Type key)
+        public object GetMostCompatible(Type key)
         {
             if (Contains(key))
             {
@@ -315,7 +315,7 @@
             }
             else
             {
-                System.Type objectType = typeof(object);
+                Type objectType = typeof(object);
                 while (key != objectType)
                 {
                     key = key.BaseType;
@@ -330,16 +330,16 @@
         }
 
         /// <summary>
-        /// вернуть по шаблону
+        /// вернуть по шаблону.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public object[] GetCompatible(System.Type key)
+        public object[] GetCompatible(Type key)
         {
-            System.Collections.ArrayList res = new System.Collections.ArrayList();
+            List<Type> res = new List<Type>();
             lock (types)
             {
-                foreach (System.Type curType in types)
+                foreach (Type curType in types)
                 {
                     if (curType == key || key.IsSubclassOf(curType))
                     {
@@ -348,15 +348,13 @@
                 }
             }
 
-            object[] resa = new object[res.Count];
-            res.CopyTo(resa);
-            return resa;
+            return res.ToArray();
         }
 
         /// <summary>
         /// Вернуть элементы коллекции в виде стандартного словаря.
         /// </summary>
-        /// <returns>Объект словаря System.Collections.Generic.Dictionary</returns>
+        /// <returns>Объект словаря System.Collections.Generic.Dictionary.</returns>
         public Dictionary<Type, object> ToDictionary()
         {
             var result = new Dictionary<Type, object>();

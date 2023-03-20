@@ -1,0 +1,12 @@
+version: '3.2'
+
+services:
+  postgres:
+    image: flexberry/alt.p8-postgresql-postgis
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdb:/var/lib/pgsql/data/
+      
+volumes:
+  pgdb:

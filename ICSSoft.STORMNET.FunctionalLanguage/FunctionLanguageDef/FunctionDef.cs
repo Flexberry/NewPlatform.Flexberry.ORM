@@ -5,10 +5,10 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     using ICSSoft.STORMNET;
 
     /// <summary>
-    /// Определение функции
+    /// Определение функции.
     /// </summary>
     [NotStored]
-    public class FunctionDef: TypedObject
+    public class FunctionDef : TypedObject
     {
         private DetailArrayOfFunctionalParameterDef fieldParameters;
         private string fieldUserViewFormat;
@@ -16,15 +16,16 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         private int fID = 0;
 
         /// <summary>
-        /// Целочисленный ключ определения функции
+        /// Целочисленный ключ определения функции.
         /// </summary>
         public int ID
         {
-            get { return fID; } set { fID = value; }
+            get { return fID; }
+            set { fID = value; }
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="returnType"></param>
@@ -41,7 +42,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="returnType"></param>
@@ -65,7 +66,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="returnType"></param>
@@ -91,7 +92,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Влияет на генерацию SQL-запроса. Если true, то добавляются все поля
+        /// Влияет на генерацию SQL-запроса. Если true, то добавляются все поля.
         /// </summary>
         public bool FreeQuery
         {
@@ -99,7 +100,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Тип возвращаемого значения
+        /// Тип возвращаемого значения.
         /// </summary>
         public ObjectType ReturnType
         {
@@ -107,7 +108,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Параметры функции
+        /// Параметры функции.
         /// </summary>
         public DetailArrayOfFunctionalParameterDef Parameters
         {
@@ -115,7 +116,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// формат отображения пользователю (используется на форме задания ограничений)
+        /// формат отображения пользователю (используется на форме задания ограничений).
         /// </summary>
         public string UserViewFormat
         {
@@ -125,22 +126,23 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         private FunctionalLanguageDef fieldLanguage;
 
         /// <summary>
-        /// Язык ограничений, в рамках которого существует данное определение функции (язык включает все определения как детейлы)
+        /// Язык ограничений, в рамках которого существует данное определение функции (язык включает все определения как детейлы).
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
         public FunctionalLanguageDef Language
         {
-            get { return fieldLanguage; } set { fieldLanguage = value; }
+            get { return fieldLanguage; }
+            set { fieldLanguage = value; }
         }
     }
 
     /// <summary>
-    /// массив параметров
+    /// массив параметров.
     /// </summary>
-    public class DetailArrayOfFunctionalParameterDef: DetailArray
+    public class DetailArrayOfFunctionalParameterDef : DetailArray
     {
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="masterObj"></param>
         public DetailArrayOfFunctionalParameterDef(FunctionDef masterObj)
@@ -149,7 +151,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// получить функцию по индексу
+        /// получить функцию по индексу.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -159,7 +161,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// добавление
+        /// добавление.
         /// </summary>
         /// <param name="dataobject"></param>
         public void Add(FunctionParameterDef dataobject)

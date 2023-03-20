@@ -16,7 +16,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         private int fValue;
 
         /// <summary>
-        /// Конструктор без параметров, нужен для Activator.CreateInstance
+        /// Конструктор без параметров, нужен для Activator.CreateInstance.
         /// </summary>
         public NullableInt()
         {
@@ -28,31 +28,31 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Преобразование возможно только явное, поскольку программист должен отдавать себе отчёт в том, что NullableInt может быть null, поэтому не забывайте проверять перед таким преобразованием
+        /// Преобразование возможно только явное, поскольку программист должен отдавать себе отчёт в том, что NullableInt может быть null, поэтому не забывайте проверять перед таким преобразованием.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator int(NullableInt value)
+        public static explicit operator int(NullableInt value)
         {
             return value.Value;
         }
 
         /// <summary>
-        /// Неявное преобразование тут можно использовать, поскольку невозможно сломать NullableInt засунув ему int
+        /// Неявное преобразование тут можно использовать, поскольку невозможно сломать NullableInt засунув ему int.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public implicit operator NullableInt(int value)
+        public static implicit operator NullableInt(int value)
         {
             return new NullableInt(value);
         }
 
         /// <summary>
-        /// Int64 в NullableInt
+        /// Int64 в NullableInt.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public implicit operator NullableInt(long value)
+        public static implicit operator NullableInt(long value)
         {
             int intValue = (int)Convert.ChangeType(value, typeof(int));
 
@@ -60,11 +60,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Преобразование возможно только явное, поскольку программист должен отдавать себе отчёт в том, что NullableInt может быть null, поэтому не забывайте проверять перед таким преобразованием
+        /// Преобразование возможно только явное, поскольку программист должен отдавать себе отчёт в том, что NullableInt может быть null, поэтому не забывайте проверять перед таким преобразованием.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator int?(NullableInt value)
+        public static explicit operator int?(NullableInt value)
         {
             if (value == null)
             {
@@ -75,11 +75,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Неявное преобразование тут можно использовать, поскольку невозможно сломать NullableInt засунув ему int
+        /// Неявное преобразование тут можно использовать, поскольку невозможно сломать NullableInt засунув ему int.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public implicit operator NullableInt(int? value)
+        public static implicit operator NullableInt(int? value)
         {
             if (value == null)
             {
@@ -90,27 +90,27 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// DBNull в NullableInt
+        /// DBNull в NullableInt.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableInt(DBNull value)
+        public static explicit operator NullableInt(DBNull value)
         {
             return null;
         }
 
         /// <summary>
-        /// Decimal в NullableInt
+        /// Decimal в NullableInt.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableInt(decimal value)
+        public static explicit operator NullableInt(decimal value)
         {
             return new NullableInt((int)value);
         }
 
         /// <summary>
-        /// в строку
+        /// в строку.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -119,7 +119,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Значение
+        /// Значение.
         /// </summary>
         public virtual int Value
         {
@@ -136,7 +136,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Разбор строки и создание NullableInt
+        /// Разбор строки и создание NullableInt.
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -151,7 +151,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Разбор строки и создание NullableInt с провайдером формата
+        /// Разбор строки и создание NullableInt с провайдером формата.
         /// </summary>
         /// <param name="s"></param>
         /// <param name="provider"></param>
@@ -167,7 +167,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Сравнение
+        /// Сравнение.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -182,7 +182,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// ==
+        /// ==.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -193,7 +193,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// !=
+        /// !=.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -204,7 +204,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// >
+        /// >.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -215,7 +215,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// >=
+        /// >=.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -226,7 +226,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// меньше
+        /// меньше.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -237,7 +237,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// меньше =
+        /// меньше =.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -248,7 +248,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// сравнение
+        /// сравнение.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -274,7 +274,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// сравнение
+        /// сравнение.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -284,7 +284,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -295,7 +295,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -306,7 +306,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -317,7 +317,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -328,7 +328,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -339,7 +339,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -362,7 +362,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -372,7 +372,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public DateTime ToDateTime(IFormatProvider provider)
         {
@@ -385,7 +385,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public bool ToBoolean(IFormatProvider provider)
         {
@@ -408,7 +408,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         string IConvertible.ToString(IFormatProvider provider)
         {
@@ -421,7 +421,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public char ToChar(IFormatProvider provider)
         {
@@ -434,7 +434,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public TypeCode GetTypeCode()
         {
@@ -447,7 +447,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public object ToType(Type conversionType, IFormatProvider provider)
         {
@@ -464,7 +464,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         #region IXmlSerializable Members
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public XmlSchema GetSchema()
         {
@@ -475,7 +475,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             string value = reader.ReadString();
 
-            if(!string.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(value))
             {
                 fValue = Parse(value).Value;
             }
@@ -500,7 +500,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         private decimal fValue;
 
         /// <summary>
-        /// Конструктор без параметров, нужен для Activator.CreateInstance
+        /// Конструктор без параметров, нужен для Activator.CreateInstance.
         /// </summary>
         public NullableDecimal()
         {
@@ -512,31 +512,31 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Явное преобразование к Decimal
+        /// Явное преобразование к Decimal.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator decimal(NullableDecimal value)
+        public static explicit operator decimal(NullableDecimal value)
         {
             return value.Value;
         }
 
         /// <summary>
-        /// Явное преобразование Decimal к NullableDecimal
+        /// Явное преобразование Decimal к NullableDecimal.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDecimal(decimal value)
+        public static explicit operator NullableDecimal(decimal value)
         {
             return new NullableDecimal(value);
         }
 
         /// <summary>
-        /// Явное преобразование к Decimal
+        /// Явное преобразование к Decimal.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator decimal?(NullableDecimal value)
+        public static explicit operator decimal?(NullableDecimal value)
         {
             if (value == null)
             {
@@ -547,11 +547,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Явное преобразование Decimal к NullableDecimal
+        /// Явное преобразование Decimal к NullableDecimal.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDecimal(decimal? value)
+        public static explicit operator NullableDecimal(decimal? value)
         {
             if (value == null)
             {
@@ -562,17 +562,17 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Явное преобразование DBNull к NullableDecimal
+        /// Явное преобразование DBNull к NullableDecimal.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDecimal(DBNull value)
+        public static explicit operator NullableDecimal(DBNull value)
         {
             return null;
         }
 
         /// <summary>
-        /// ==
+        /// ==.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -583,7 +583,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// !=
+        /// !=.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -594,7 +594,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// >
+        /// >.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -605,7 +605,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// >=
+        /// >=.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -616,7 +616,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// меньше
+        /// меньше.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -627,7 +627,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// меньше =
+        /// меньше =.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -638,7 +638,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// В строку
+        /// В строку.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -647,7 +647,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Собственно значение
+        /// Собственно значение.
         /// </summary>
         public virtual decimal Value
         {
@@ -664,7 +664,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Разобрать и получить NullableDecimal из строки
+        /// Разобрать и получить NullableDecimal из строки.
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -679,7 +679,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Разобрать и получить NullableDecimal из строки с провайдером формата
+        /// Разобрать и получить NullableDecimal из строки с провайдером формата.
         /// </summary>
         /// <param name="s"></param>
         /// <param name="provider"></param>
@@ -695,7 +695,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Разобрать и получить NullableDecimal из строки
+        /// Разобрать и получить NullableDecimal из строки.
         /// </summary>
         /// <param name="s"></param>
         /// <param name="result"></param>
@@ -709,7 +709,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Разобрать и получить NullableDecimal из строки с провайдером формата
+        /// Разобрать и получить NullableDecimal из строки с провайдером формата.
         /// </summary>
         /// <param name="s"></param>
         /// <param name="styles"></param>
@@ -725,7 +725,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Сравнение
+        /// Сравнение.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -747,7 +747,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Сравнение
+        /// Сравнение.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -767,7 +767,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// сравнение
+        /// сравнение.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -793,7 +793,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -804,7 +804,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -815,7 +815,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -826,7 +826,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -837,7 +837,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -848,7 +848,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -871,7 +871,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -881,7 +881,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public DateTime ToDateTime(IFormatProvider provider)
         {
@@ -894,7 +894,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public bool ToBoolean(IFormatProvider provider)
         {
@@ -917,7 +917,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         string IConvertible.ToString(IFormatProvider provider)
         {
@@ -930,7 +930,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public char ToChar(IFormatProvider provider)
         {
@@ -943,7 +943,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public TypeCode GetTypeCode()
         {
@@ -956,7 +956,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public object ToType(Type conversionType, IFormatProvider provider)
         {
@@ -973,7 +973,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         #region IXmlSerializable Members
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public XmlSchema GetSchema()
         {
@@ -984,7 +984,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             string value = reader.ReadString();
 
-            if(!string.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(value))
             {
                 fValue = Parse(value).Value;
             }

@@ -18,7 +18,6 @@
     /// Тесты, которые проверяют расширение представления по функции.
     /// Используемые в функции свойства должны попасть в представление.
     /// </summary>
-
     public class EnrichViewWithPropertiesUsedInFunctionTest
     {
         /// <summary>
@@ -87,7 +86,7 @@
         [Fact]
         public void AddPropertyByLimitFunctionWithExpression()
         {
-            var ds = (SQLDataService)DataServiceProvider.DataService;
+            var ds = new MSSQLDataService();
             var function = langdef.GetFunction(langdef.funcEQ, new VariableDef(langdef.GuidType, "МедведьСтрокой"), "Бум");
 
             var view = ViewPropertyAppender.GetViewWithPropertiesUsedInFunction(Медведь.Views.МедведьShort, function, ds);
@@ -107,6 +106,7 @@
         [Fact]
         public void EnrichDetailViewTest()
         {
+            var ds = new MSSQLDataService();
             var dvd = new DetailVariableDef();
             dvd.ConnectMasterPorp = Information.ExtractPropertyPath<Выплаты>(x => x.Кредит1);
             dvd.OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey };
@@ -121,7 +121,7 @@
                     langdef.GetFunction(langdef.funcEQ, new VariableDef(langdef.DateTimeType, Information.ExtractPropertyPath<Выплаты>(x => x.ДатаВыплаты)), DateTime.Now),
                     langdef.GetFunction(langdef.funcEQ, new VariableDef(langdef.NumericType, Information.ExtractPropertyPath<Выплаты>(x => x.СуммаВыплаты)), 123)));
 
-            ViewPropertyAppender.EnrichDetailViewInLimitFunction(function, DataServiceProvider.DataService);
+            ViewPropertyAppender.EnrichDetailViewInLimitFunction(function, ds);
             Assert.Equal(2, dvd.View.Properties.Count());
             Assert.Equal(Information.ExtractPropertyPath<Выплаты>(x => x.ДатаВыплаты), dvd.View.Properties[0].Name);
             Assert.Equal(Information.ExtractPropertyPath<Выплаты>(x => x.СуммаВыплаты), dvd.View.Properties[1].Name);

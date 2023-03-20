@@ -3,13 +3,24 @@
     using System;
     using ICSSoft.STORMNET;
     using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тесты для класса <see cref="DataObjectCache"/>.
     /// </summary>
-    
     public class DataObjectCacheTest
     {
+        private readonly ITestOutputHelper output;
+
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="output">Поток вывода теста.</param>
+        public DataObjectCacheTest(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         /// <summary>
         /// A test for DataObjectCache Constructor.
         /// </summary>
@@ -20,21 +31,19 @@
             Assert.NotNull(target);
         }
 
-        private  DataObjectCache cache = new DataObjectCache();
-
         /// <summary>
         /// Проверка работы кэша объектов данных.
         /// </summary>
         [Fact]
         public void DataObjectCacheMainTest()
         {
+            DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject();
-            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey);
+            DataObjectForTest dobj = PrvCreateDataObject(cache);
+            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj.__PrimaryKey);
             cache.StopCaching();
             Assert.NotNull(sdo);
-            Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo.Name));
-
+            output.WriteLine($"Getted from cache dataobject name = {sdo.Name}");
         }
 
         /// <summary>
@@ -43,75 +52,71 @@
         [Fact]
         public void DataObjectCacheParentTest()
         {
+            DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject();
+            DataObjectForTest dobj = PrvCreateDataObject(cache);
             cache.StartCaching(true);
-            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey);
+            DataObjectForTest sdo = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj.__PrimaryKey);
             cache.StopCaching();
             cache.StopCaching();
             Assert.Null(sdo);
-            Console.WriteLine(String.Format("Null when ClipParentCahce = true"));
+            output.WriteLine("Null when ClipParentCahce = true");
 
             cache.StartCaching(false);
-            object pkey1 = PrvCreateDataObject();
+            DataObjectForTest dobj1 = PrvCreateDataObject(cache);
             cache.StartCaching(false);
-            DataObjectForTest sdo1 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey1);
+            DataObjectForTest sdo1 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj1.__PrimaryKey);
             cache.StopCaching();
             cache.StopCaching();
             Assert.NotNull(sdo1);
-            Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo1.Name));
+            output.WriteLine($"Getted from cache dataobject name = {sdo1.Name}");
 
-            //проверим что будет, если создадим объект в дочернем кэше - доступен ли он будет после его остановки?
+            // проверим что будет, если создадим объект в дочернем кэше - доступен ли он будет после его остановки?
             cache.StartCaching(false);
             cache.StartCaching(false);
-            object pkey2 = PrvCreateDataObject();
+            DataObjectForTest dobj2 = PrvCreateDataObject(cache);
             cache.StopCaching();
-            DataObjectForTest sdo2 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), pkey2);
+            DataObjectForTest sdo2 = (DataObjectForTest)cache.GetLivingDataObject(typeof(DataObjectForTest), dobj2.__PrimaryKey);
             cache.StopCaching();
             Assert.NotNull(sdo2);
-            Console.WriteLine(String.Format("Объект создали в дочернем кеше, а читаем в родительском"));
-
+            output.WriteLine("Объект создали в дочернем кеше, а читаем в родительском");
         }
 
-
-        private object PrvCreateDataObject()
+        private DataObjectForTest PrvCreateDataObject(DataObjectCache cache)
         {
             DataObjectForTest sdo = new DataObjectForTest();
             sdo.Name = "Объект данных";
-            Console.WriteLine(String.Format("Created dataobject name = {0}", sdo.Name));
+            output.WriteLine($"Created dataobject name = {sdo.Name}");
             cache.AddDataObject(sdo);
-            return sdo.__PrimaryKey;
+            return sdo;
         }
 
         /// <summary>
-        /// Проверка работы кэша объектов данных
+        /// Проверка работы кэша объектов данных.
         /// </summary>
         [Fact]
-        
         public void DataObjectCacheCreatingTest()
         {
+            DataObjectCache cache = new DataObjectCache();
             cache.StartCaching(false);
-            object pkey = PrvCreateDataObject();
-            DataObjectForTest sdo = (DataObjectForTest)cache.CreateDataObject(typeof(DataObjectForTest), pkey);
+            DataObjectForTest dobj = PrvCreateDataObject(cache);
+            DataObjectForTest sdo = (DataObjectForTest)cache.CreateDataObject(typeof(DataObjectForTest), dobj.__PrimaryKey);
             cache.StopCaching();
             Assert.NotNull(sdo);
-            Console.WriteLine(String.Format("Getted from cache dataobject name = {0}", sdo.Name));
-
+            output.WriteLine($"Getted from cache dataobject name = {sdo.Name}");
         }
 
         /// <summary>
-        /// Проблема: загрузка детейла приводит к зачитке агрегатора, в том числе с обновлением соседних детейлов. Нужно читать так чтобы агрегатор взялся из кэша, а не из базы.
+        /// Проблема: загрузка детейла приводит к вычитке агрегатора, в том числе с обновлением соседних детейлов. Нужно читать так чтобы агрегатор взялся из кэша, а не из базы.
         /// </summary>
         [Fact]
         public void DataObjectLoadWithCacheTest()
         {
-
         }
 
-
         /// <summary>
-        ///A test for AddDataObject
-        ///</summary>
+        /// A test for AddDataObject.
+        /// </summary>
         [Fact(Skip = "A method that does not return a value cannot be verified.")]
         public void AddDataObjectTest()
         {
@@ -120,25 +125,24 @@
             target.AddDataObject(dobj);
         }
 
-
         /// <summary>
-        ///A test for ContextedLivingObjects
-        ///</summary>
+        /// A test for ContextedLivingObjects.
+        /// </summary>
         [Fact]
-        //[DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
+        // [DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
         public void ContextedLivingObjectsTest()
         {
-            //DataObjectCache_Accessor target = new DataObjectCache_Accessor(); // TODO: Initialize to an appropriate value
-            //SortedList expected = null; // TODO: Initialize to an appropriate value
-            //SortedList actual;
-            //actual = target.ContextedLivingObjects();
-            //Assert.Equal(expected, actual);
-            //Assert.Inconclusive("Verify the correctness of this test method.");
+            // DataObjectCache_Accessor target = new DataObjectCache_Accessor(); // TODO: Initialize to an appropriate value
+            // SortedList expected = null; // TODO: Initialize to an appropriate value
+            // SortedList actual;
+            // actual = target.ContextedLivingObjects();
+            // Assert.Equal(expected, actual);
+            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
-        ///A test for CreateDataObject
-        ///</summary>
+        /// A test for CreateDataObject.
+        /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
         public void CreateDataObjectTest()
         {
@@ -152,8 +156,8 @@
         }
 
         /// <summary>
-        ///A test for GetLivingDataObject
-        ///</summary>
+        /// A test for GetLivingDataObject.
+        /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
         public void GetLivingDataObjectTest()
         {
@@ -166,11 +170,9 @@
             Assert.Equal(expected, actual);
         }
 
-
-
         /// <summary>
-        ///A test for StartCaching
-        ///</summary>
+        /// A test for StartCaching.
+        /// </summary>
         [Fact(Skip = "A method that does not return a value cannot be verified.")]
         public void StartCachingTest()
         {
@@ -180,8 +182,8 @@
         }
 
         /// <summary>
-        ///A test for StopCaching
-        ///</summary>
+        /// A test for StopCaching.
+        /// </summary>
         [Fact(Skip = "A method that does not return a value cannot be verified.")]
         public void StopCachingTest()
         {
@@ -190,39 +192,39 @@
         }
 
         /// <summary>
-        ///A test for prvGetLivingDataObject
-        ///</summary>
+        /// A test for prvGetLivingDataObject.
+        /// </summary>
         [Fact]
-        //[DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
+        // [DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
         public void prvGetLivingDataObjectTest()
         {
-            //DataObjectCache_Accessor target = new DataObjectCache_Accessor(); // TODO: Initialize to an appropriate value
-            //Type typeofdataobject = null; // TODO: Initialize to an appropriate value
-            //object key = null; // TODO: Initialize to an appropriate value
-            //ICSSoft.STORMNET.DataObject expected = null; // TODO: Initialize to an appropriate value
-            //ICSSoft.STORMNET.DataObject actual;
-            //actual = target.prvGetLivingDataObject(typeofdataobject, key);
-            //Assert.Equal(expected, actual);
-            //Assert.Inconclusive("Verify the correctness of this test method.");
+            // DataObjectCache_Accessor target = new DataObjectCache_Accessor(); // TODO: Initialize to an appropriate value
+            // Type typeofdataobject = null; // TODO: Initialize to an appropriate value
+            // object key = null; // TODO: Initialize to an appropriate value
+            // ICSSoft.STORMNET.DataObject expected = null; // TODO: Initialize to an appropriate value
+            // ICSSoft.STORMNET.DataObject actual;
+            // actual = target.prvGetLivingDataObject(typeofdataobject, key);
+            // Assert.Equal(expected, actual);
+            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
-        ///A test for prvRemoveLivingDataObject
-        ///</summary>
+        /// A test for prvRemoveLivingDataObject.
+        /// </summary>
         [Fact]
-        //[DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
+        // [DeploymentItem("ICSSoft.STORMNET.DataObject.dll")]
         public void prvRemoveLivingDataObjectTest()
         {
-            //DataObjectCache_Accessor target = new DataObjectCache_Accessor(); // TODO: Initialize to an appropriate value
-            //Type typeofdataobject = null; // TODO: Initialize to an appropriate value
-            //object key = null; // TODO: Initialize to an appropriate value
-            //target.prvRemoveLivingDataObject(typeofdataobject, key);
-            //Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            // DataObjectCache_Accessor target = new DataObjectCache_Accessor(); // TODO: Initialize to an appropriate value
+            // Type typeofdataobject = null; // TODO: Initialize to an appropriate value
+            // object key = null; // TODO: Initialize to an appropriate value
+            // target.prvRemoveLivingDataObject(typeofdataobject, key);
+            // Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for Creator
-        ///</summary>
+        /// A test for Creator.
+        /// </summary>
         [Fact(Skip = "Verify the correctness of this test method.")]
         public void CreatorTest()
         {

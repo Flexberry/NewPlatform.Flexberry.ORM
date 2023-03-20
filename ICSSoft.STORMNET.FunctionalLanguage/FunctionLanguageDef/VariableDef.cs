@@ -3,23 +3,23 @@
 namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     /// <summary>
-    /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
+    /// Определение переменной в ограничении (обычно указывает на атрибут в объекте).
     /// </summary>
     [NotStored]
     public class VariableDef : TypedObject
     {
         /// <summary>
-        /// пустой конструктор
+        /// пустой конструктор.
         /// </summary>
         public VariableDef()
         {
         }
 
         /// <summary>
-        /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
+        /// Определение переменной в ограничении (обычно указывает на атрибут в объекте).
         /// </summary>
-        /// <param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType)</param>
-        /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
+        /// <param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType).</param>
+        /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение.</param>
         /// <param name="objCaption"></param>
         public VariableDef(ObjectType objType, string objStringedView, string objCaption)
             : base(objType, objStringedView, objCaption)
@@ -27,17 +27,17 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Самый распространённый конструктор, который используется при построении ограничений
+        /// Самый распространённый конструктор, который используется при построении ограничений.
         /// </summary>
-        /// <param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType)</param>
-        /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение</param>
+        /// <param name="objType">ObjectType-Тип переменной. (Например, langdef.StringType).</param>
+        /// <param name="objStringedView">Собственно имя свойства объекта, по которому собираемся строить ограничение.</param>
         public VariableDef(ObjectType objType, string objStringedView)
             : base(objType, objStringedView, objStringedView)
         {
         }
 
         /// <summary>
-        /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
+        /// Определение переменной в ограничении (обычно указывает на атрибут в объекте).
         /// </summary>
         /// <param name="baseType"></param>
         /// <param name="property"></param>
@@ -50,7 +50,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Определение переменной в ограничении (обычно указывает на атрибут в объекте)
+        /// Определение переменной в ограничении (обычно указывает на атрибут в объекте).
         /// </summary>
         /// <param name="baseType"></param>
         /// <param name="property"></param>
@@ -64,16 +64,17 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         private FunctionalLanguageDef fieldLanguage;
 
         /// <summary>
-        /// Язык описания ограничений
+        /// Язык описания ограничений.
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
         public FunctionalLanguageDef Language
         {
-            get { return fieldLanguage; } set { fieldLanguage = value; }
+            get { return fieldLanguage; }
+            set { fieldLanguage = value; }
         }
 
         /// <summary>
-        /// вместо сериализации
+        /// вместо сериализации.
         /// </summary>
         /// <returns></returns>
         public virtual object ToSimpleValue()
@@ -87,15 +88,15 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Делегат для получения типа по его имени в методе SimpleValueToDataObject
+        /// Делегат для получения типа по его имени в методе SimpleValueToDataObject.
         /// </summary>
         public static TypeResolveDelegate ExtraTypeResolver = null;
 
         /// <summary>
-        /// вместо десериализации (вполне может выдать Exception, если тип переменной не будет найден в ldef или Type.GetType((string[])value[0]), так что try-catch снаружи крайне рекомендуется)
+        /// вместо десериализации (вполне может выдать Exception, если тип переменной не будет найден в ldef или Type.GetType((string[])value[0]), так что try-catch снаружи крайне рекомендуется).
         /// </summary>
-        /// <param name="value">Массив в который закручен наш VariableDef</param>
-        /// <param name="ldef">Определение языка</param>
+        /// <param name="value">Массив в который закручен наш VariableDef.</param>
+        /// <param name="ldef">Определение языка.</param>
         public virtual void FromSimpleValue(object value, FunctionalLanguageDef ldef)
         {
             var vals = (string[])value;
@@ -137,7 +138,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
                     switch (s)
                     {
                         case "nullabledatetime":
-                        tp = System.Type.GetType("ICSSoft.STORMNET.UserDataTypes.NullableDateTime,ICSSoft.STORMNET.UserDataTypes");
+                            tp = System.Type.GetType("ICSSoft.STORMNET.UserDataTypes.NullableDateTime,ICSSoft.STORMNET.UserDataTypes");
                             break;
                         case "nullabledecimal":
                             tp = System.Type.GetType("ICSSoft.STORMNET.UserDataTypes.NullableDecimal,ICSSoft.STORMNET.UserDataTypes");
@@ -171,9 +172,9 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     }
 
     /// <summary>
-    /// Делегат для получения типа по его имени (используется в особых случаях, когда стандартные методы почему-то не помогают)
+    /// Делегат для получения типа по его имени (используется в особых случаях, когда стандартные методы почему-то не помогают).
     /// </summary>
     /// <param name="typeName">Имя типа.</param>
-    /// <returns> Сформированный по имени тип </returns>
+    /// <returns> Сформированный по имени тип. </returns>
     public delegate Type TypeResolveDelegate(string typeName);
 }

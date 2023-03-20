@@ -501,29 +501,6 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="GetPropertyDataFormat()"/>, получающего формат представления данных в свойстве.
-        /// </summary>
-        [Fact]
-        public void GetPropertyDataFormatTest()
-        {
-            // Ожидаемый результат: пустая строка.
-            var expected = string.Empty;
-
-            // Входные параметры: Тип данных: InformationTestClass, имя свойства: "stringPropertyForInformationTestClass".
-            var actual = Information.GetPropertyDataFormat(
-                typeof(InformationTestClass), Information.ExtractPropertyPath<InformationTestClass>(c => c.StringPropertyForInformationTestClass));
-            Assert.Equal(expected, actual);
-
-            // Ожидаемый результат: пустая строка.
-            var expected1 = string.Empty;
-
-            // Входные параметры: Тип данных: InformationTestClass2, имя свойства: "InformationTestClass.stringPropertyForInformationTestClass".
-            var actual1 = Information.GetPropertyDataFormat(
-                typeof(InformationTestClass2), Information.ExtractPropertyPath<InformationTestClass2>(c => c.InformationTestClass.StringPropertyForInformationTestClass));
-            Assert.Equal(expected1, actual1);
-        }
-
-        /// <summary>
         /// Тест метода <see cref="GetAlteredPropertyNamesWithNotStored()"/>, сравнивающего два объекта данных
         /// и возвращающего список различающихся .Net-свойств. (NotStored-атрибуты не игнорируются и тоже проверяются вместе с остальными).
         /// </summary>
@@ -966,21 +943,6 @@
         }
 
         /// <summary>
-        /// Тест выпадения исключения CantFindPropertyExceptionв методе GetPropertyDataFormat()
-        /// при попытке найти значение класса InformationTestClass в классе InformationTestClass2.
-        /// </summary>
-        [Fact]
-        public void GetPropertyDataFormatExceptionTest()
-        {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.GetPropertyDataFormat(
-                    typeof(InformationTestClass2), Information.ExtractPropertyName<InformationTestClass2>(c => c.InformationTestClass.StringPropertyForInformationTestClass));
-            });
-            Assert.IsType(typeof(CantFindPropertyException), exception);
-        }
-
-        /// <summary>
         /// Тест метода <see cref="GetAlteredProperyNames()"/>, cравнивающего два объекта данных и возвращающего список различающихся .Net-свойств.
         ///  (Объект или свойство с атрибутом NotStored проверяться не будет).
         /// </summary>
@@ -1110,7 +1072,7 @@
             var obj = new MasterClass
             {
                 InformationTestClass = new InformationTestClass { StringPropertyForInformationTestClass = "Ололо", PublicStringProperty = "Атата" },
-                InformationTestClass2 = new InformationTestClass2 { StringPropertyForInformationTestClass2 = "Ороро", InformationTestClass = new InformationTestClass { PublicStringProperty = "TTT" } }
+                InformationTestClass2 = new InformationTestClass2 { StringPropertyForInformationTestClass2 = "Ороро", InformationTestClass = new InformationTestClass { PublicStringProperty = "TTT" } },
             };
 
             var actual2 = Information.GetMastersForDataObjectByView(obj, "MasterClassL").ToList<object>();
@@ -1118,17 +1080,15 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyInfo()"/>, извлекающего свойство по типу.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по типу.
         /// Ловим исключение, послав null заместо лямбды.
         /// </summary>
         [Fact]
         public void ExtractPropertyInfoTest0()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.ExtractPropertyInfo<InformationTestClass>(null);
-            });
-            Assert.IsType(typeof(ArgumentNullException), exception);
+            // Assert.
+            Assert.Throws<ArgumentNullException>(
+                () => Information.ExtractPropertyName<InformationTestClass>(null));
         }
 
         /// <summary>
@@ -1143,7 +1103,7 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по наименованию.
         /// Ловим исключение, послав не Свойство (не Property), а просто поле.
         /// </summary>
         [Fact(Skip = "разобраться нужно ли это проверять")]
@@ -1159,7 +1119,7 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по наименованию.
         /// Ловим исключение, послав статическое свойство.
         /// </summary>
         [Fact(Skip = "разобраться нужно ли это проверять")]
@@ -1175,21 +1135,19 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по наименованию.
         /// Ловим исключение, послав null заместо лямбды.
         /// </summary>
         [Fact]
         public void ExtractPropertyNameTest1()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.ExtractPropertyName((Expression<Func<InformationTestClass2, object>>)null);
-            });
-            Assert.IsType(typeof(ArgumentNullException), exception);
+            // Assert.
+            Assert.Throws<ArgumentNullException>(
+                () => Information.ExtractPropertyName((Expression<Func<InformationTestClass2, object>>)null));
         }
 
         /// <summary>
-        /// Тест метода <see cref="ExtractPropertyName"/>, извлекающего свойства внутри текущего класса. 
+        /// Тест метода <see cref="ExtractPropertyName"/>, извлекающего свойства внутри текущего класса.
         /// Входные параметры: Тип класса: InformationTestClass, лямбда выражение: () =&gt; obj.stringPropertyForInformationTestClass.
         /// Ожидаемое значение: "stringPropertyForInformationTestClass".
         /// </summary>
@@ -1206,16 +1164,14 @@
         }
 
         /// <summary>
-        /// Тест на выпадения исключения ArgumentException в методе ExtractPropertyName() при некоектном значении лямбда-выражения.
+        /// Тест на выпадения исключения ArgumentException в методе <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" /> при некоектном значении лямбда-выражения.
         /// </summary>
         [Fact]
         public void ExtractPropertyNameTest3()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.ExtractPropertyPath<InformationTestClass>(() => null);
-            });
-            Assert.IsType(typeof(ArgumentException), exception);
+            // Assert.
+            Assert.Throws<ArgumentException>(
+                () => Information.ExtractPropertyPath<InformationTestClass>(() => null));
         }
 
         /// <summary>
@@ -1248,67 +1204,68 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="SetPropValueByName(DataObject obj, string propName, object PropValue)"/>, устанавливающего значение строкового свойства с отсечением пробелов.
+        /// Тест метода <see cref="Information.SetPropValueByName(DataObject, string, object)" />, устанавливающего значение строкового свойства с отсечением пробелов.
         /// </summary>
         [Fact]
         public void SetPropValueByNameTrimStringTest()
         {
             // Arrange.
             var obj = new InformationTestClass();
+            string propName = Information.ExtractPropertyPath<InformationTestClass>(c => c.StringPropertyForInformationTestClass);
 
             // Act.
-            Information.SetPropValueByName(
-                obj, Information.ExtractPropertyPath<InformationTestClass>(c => c.StringPropertyForInformationTestClass), " Test Value ");
+            Information.SetPropValueByName(obj, propName, " Test Value ");
 
             // Assert.
             // Строка-значение должна быть без оконечных пробелов.
             Assert.Equal("Test Value", obj.StringPropertyForInformationTestClass);
-         }
+        }
 
         /// <summary>
-        /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
+        /// Тест выпадения исключения в методе <see cref="Information.SetPropValueByName(DataObject, string, object)" />
         /// при несоответствии типов записываемого значения и свойства объекта, в который производится запись.
         /// </summary>
         [Fact]
         public void SetPropValueByNameExceptionTest1()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                var val = new object();
-                Information.SetPropValueByName(
-                    new InformationTestClass(), Information.ExtractPropertyName<InformationTestClass>(c => c.IntPropertyForInformationTestClass), val);
-            });
-            Assert.IsType(typeof(Exception), exception);
+            // Arrange.
+            object val = new object();
+            var obj = new InformationTestClass();
+            string propName = Information.ExtractPropertyName<InformationTestClass>(c => c.IntPropertyForInformationTestClass);
+
+            // Assert.
+            Assert.Throws<Exception>(
+                () => Information.SetPropValueByName(obj, propName, val));
         }
 
         /// <summary>
-        /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue).
+        /// Тест выпадения исключения в методе <see cref="Information.SetPropValueByName(DataObject, string, string)" />.
         /// </summary>
         [Fact]
         public void SetPropValueByNameExceptionTest2()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                var obj = new MasterClass();
-                Information.SetPropValueByName(
-                    obj, Information.ExtractPropertyPath<DetailClass>(c => c.MasterClass.StringMasterProperty), "property_value");
-            });
-            Assert.IsType(typeof(Exception), exception);
+            // Arrange.
+            var obj = new MasterClass();
+            string propName = Information.ExtractPropertyPath<DetailClass>(c => c.MasterClass.StringMasterProperty);
+
+            // Assert.
+            Assert.Throws<Exception>(
+                () => Information.SetPropValueByName(obj, propName, "property_value"));
         }
 
         /// <summary>
-        /// Тест выпадения системного исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
+        /// Тест выпадения системного исключения в методе <see cref="Information.SetPropValueByName(DataObject, string, string)" />
         /// при значении параметра DataObject равным null.
         /// </summary>
         [Fact]
         public void SetPropValueByNameExceptionTest()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.SetPropValueByName(
-                    null, Information.ExtractPropertyName<MasterClass>(c => c.StringMasterProperty), "StringMasterProperty");
-            });
-            Assert.IsType(typeof(Exception), exception);
+            // Arrange.
+            string propName = Information.ExtractPropertyName<MasterClass>(c => c.StringMasterProperty);
+
+            // Assert.
+            Assert.Throws<ArgumentNullException>(
+                () => Information.SetPropValueByName(null, propName, "StringMasterProperty"));
         }
 
         /// <summary>
@@ -1602,7 +1559,7 @@
             var list = new ArrayList
                            {
                                new PseudoDetailInExtendedView(
-                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty)
+                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty),
                            };
 
             list.AddRange(MasterClass.Views.MasterClassL.Properties);
@@ -1623,7 +1580,7 @@
                            {
                                MasterClass.Views.MasterClassL.Properties[0],
                                new PseudoDetailInExtendedView(
-                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty)
+                                   "Test_DetailClassE", typeof(DetailClass), string.Empty, string.Empty),
                            };
             list.AddRange(MasterClass.Views.MasterClassE.Details);
 
@@ -1767,7 +1724,7 @@
 
             [Caption("Val")]
             [EmptyEnumValue]
-            SwappedVal
+            SwappedVal,
         }
 
         /// <summary>
@@ -1787,7 +1744,7 @@
             [Caption("")]
             CaseINSENSITIVEVAL,
 
-            CASEINSENSITIVEVAL
+            CASEINSENSITIVEVAL,
         }
 
         /// <summary>
@@ -1805,7 +1762,7 @@
             Year2013,
 
             [Caption("")]
-            Year2014
+            Year2014,
         }
     }
 }

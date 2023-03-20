@@ -279,5 +279,21 @@
                 FunctionBuilder.BuildEquals(TestDataObject1),
                 FunctionBuilder.BuildIn(new List<TestDataObject> { TestDataObject1, TestDataObject1 })); // eq
         }
+
+        [Fact]
+        public void BuildInTest435()
+        {
+            Assert.Equal(
+                FunctionBuilder.BuildIn(SQLWhereLanguageDef.StormMainObjectKey, Guid1, Guid2),
+                FunctionBuilder.BuildIn(new List<Guid?> { Guid1, Guid2 })); // in
+        }
+
+        [Fact]
+        public void BuildInTest436()
+        {
+            Assert.Equal(
+                FunctionBuilder.BuildEquals(Guid1),
+                FunctionBuilder.BuildIn(new List<Guid?> { Guid1, Guid1 })); // eq
+        }
     }
 }

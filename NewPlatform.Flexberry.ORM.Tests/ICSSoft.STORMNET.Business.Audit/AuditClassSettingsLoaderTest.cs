@@ -13,7 +13,6 @@
     /// <summary>
     /// Unit test class for <see cref="TypeAuditClassSettingsLoader"/>.
     /// </summary>
-    
     public class AuditClassSettingsLoaderTest
     {
         /// <summary>
@@ -29,7 +28,7 @@
         public void TestHasSettings()
         {
             var settingsLoader = new TypeAuditClassSettingsLoader();
-            
+
             Assert.True(settingsLoader.HasSettings(typeof(AuditClassWithSettings)));
             Assert.False(settingsLoader.HasSettings(typeof(AuditClassWithoutSettings)));
         }
@@ -61,13 +60,13 @@
             Assert.True(settingsLoader.IsAuditEnabled(typeof(AuditClassWithSettings), tTypeOfAuditOperation.INSERT));
             Assert.True(settingsLoader.IsAuditEnabled(typeof(AuditClassWithSettings), tTypeOfAuditOperation.UPDATE));
             Assert.True(settingsLoader.IsAuditEnabled(typeof(AuditClassWithSettings), tTypeOfAuditOperation.DELETE));
-            //Assert.False(settingsLoader.IsAuditEnabled(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE));
+            // Assert.False(settingsLoader.IsAuditEnabled(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE));
 
             TestWithExpectedException(() => settingsLoader.IsAuditEnabled(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.SELECT));
             TestWithExpectedException(() => settingsLoader.IsAuditEnabled(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.INSERT));
             TestWithExpectedException(() => settingsLoader.IsAuditEnabled(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.UPDATE));
             TestWithExpectedException(() => settingsLoader.IsAuditEnabled(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.DELETE));
-            //TestWithExpectedException(() => settingsLoader.IsAuditEnabled(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.EXECUTE));
+            // TestWithExpectedException(() => settingsLoader.IsAuditEnabled(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.EXECUTE));
         }
 
         /// <summary>
@@ -139,13 +138,13 @@
             Assert.Equal("InsertAuditView", settingsLoader.GetAuditViewName(typeof(AuditClassWithSettings), tTypeOfAuditOperation.INSERT));
             Assert.Equal("UpdateAuditView", settingsLoader.GetAuditViewName(typeof(AuditClassWithSettings), tTypeOfAuditOperation.UPDATE));
             Assert.Equal("DeleteAuditView", settingsLoader.GetAuditViewName(typeof(AuditClassWithSettings), tTypeOfAuditOperation.DELETE));
-            //Assert.Equal("ExecuteAuditView", settingsLoader.GetAuditViewName(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE));
+            // Assert.Equal("ExecuteAuditView", settingsLoader.GetAuditViewName(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE));
 
             TestWithExpectedException(() => settingsLoader.GetAuditViewName(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.SELECT));
             TestWithExpectedException(() => settingsLoader.GetAuditViewName(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.INSERT));
             TestWithExpectedException(() => settingsLoader.GetAuditViewName(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.UPDATE));
             TestWithExpectedException(() => settingsLoader.GetAuditViewName(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.DELETE));
-            //TestWithExpectedException(() => settingsLoader.GetAuditViewName(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.EXECUTE));
+            // TestWithExpectedException(() => settingsLoader.GetAuditViewName(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.EXECUTE));
         }
 
         /// <summary>
@@ -161,8 +160,8 @@
             Assert.Equal("InsertAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.INSERT).Name);
             Assert.Equal("UpdateAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.UPDATE).Name);
             Assert.Equal("DeleteAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.DELETE).Name);
-            //Assert.Equal("ExecuteAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE).Name);
-            
+            // Assert.Equal("ExecuteAuditView", settingsLoader.GetAuditView(typeof(AuditClassWithSettings), tTypeOfAuditOperation.EXECUTE).Name);
+
             // Test throwing exception whe specified view hasn't been found.
             lock (_lock)
             {
@@ -185,7 +184,7 @@
                 finally
                 {
                     if (oldSelectAuditViewName != null)
-                    { 
+                    {
                         AuditClassWithSettings.AuditSettings.SelectAuditViewName = oldSelectAuditViewName;
                     }
                 }
@@ -195,7 +194,7 @@
             TestWithExpectedException(() => settingsLoader.GetAuditView(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.INSERT));
             TestWithExpectedException(() => settingsLoader.GetAuditView(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.UPDATE));
             TestWithExpectedException(() => settingsLoader.GetAuditView(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.DELETE));
-            //TestWithExpectedException(() => settingsLoader.GetAuditView(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.EXECUTE));
+            // TestWithExpectedException(() => settingsLoader.GetAuditView(typeof(AuditClassWithoutSettings), tTypeOfAuditOperation.EXECUTE));
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace ICSSoft.STORMNET
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.Concurrent;
 
     /// <summary>
     /// Класс для создания объектов. Скажи кого и я его создам.
@@ -11,7 +11,7 @@
         /// <summary>
         /// Кеш для хендлеров создания объектов указанного типа.
         /// </summary>
-        internal static readonly Dictionary<int, InstantiateObjectHandler> CacheInstantiateObjectHandler = new Dictionary<int, InstantiateObjectHandler>();
+        internal static readonly ConcurrentDictionary<int, InstantiateObjectHandler> CacheInstantiateObjectHandler = new ConcurrentDictionary<int, InstantiateObjectHandler>();
 
         /// <summary>
         /// Создать объект заданного типа.
@@ -20,24 +20,13 @@
         /// <returns>Созданный объект.</returns>
         public object CreateObject(Type tp)
         {
-            int key = tp.GetHashCode();
-            InstantiateObjectHandler instantiateObjectHandler;
-
-            if (!CacheInstantiateObjectHandler.TryGetValue(key, out instantiateObjectHandler))
+            if (tp == null)
             {
-                lock (CacheInstantiateObjectHandler)
-                {
-                    if (!CacheInstantiateObjectHandler.ContainsKey(key))
-                    {
-                        instantiateObjectHandler = DynamicMethodCompiler.CreateInstantiateObjectHandler(tp);
-                        CacheInstantiateObjectHandler.Add(key, instantiateObjectHandler);
-                    }
-                    else
-                    {
-                        CacheInstantiateObjectHandler.TryGetValue(key, out instantiateObjectHandler);
-                    }
-                }
+                throw new ArgumentNullException(nameof(tp));
             }
+
+            int key = tp.GetHashCode();
+            InstantiateObjectHandler instantiateObjectHandler = CacheInstantiateObjectHandler.GetOrAdd(key, k => DynamicMethodCompiler.CreateInstantiateObjectHandler(tp));
 
             return instantiateObjectHandler();
         }

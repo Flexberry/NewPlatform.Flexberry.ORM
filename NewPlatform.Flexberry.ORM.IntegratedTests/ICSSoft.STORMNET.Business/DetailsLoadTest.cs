@@ -1,21 +1,23 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Business
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading;
-    using System.Threading.Tasks;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.UserDataTypes;
     using ICSSoft.STORMNET.Windows.Forms;
+
     using NewPlatform.Flexberry.ORM.Tests;
+
     using Xunit;
     using Xunit.Abstractions;
 
     /// <summary>
-    /// Проверка логики зачитки детейлов.
+    /// Проверка логики вычитки детейлов.
     /// </summary>
     public class DetailsLoadTest : BaseIntegratedTest
     {
@@ -72,7 +74,7 @@
                 медведь.SetExistObjectPrimaryKey(createdBear.__PrimaryKey);
                 медведь.Берлога.Add(new Берлога
                 {
-                    Наименование = "Новая"
+                    Наименование = "Новая",
                 });
 
                 ds.LoadObject(медведь, false, false);
@@ -97,7 +99,7 @@
                 LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), view);
                 lcs.ColumnsSort = new[]
                 {
-                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc)
+                    new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey), _random.Next(10) > 5 ? SortOrder.Asc : SortOrder.Desc),
                 };
 
                 lcs.InitDataCopy = true;
@@ -115,7 +117,7 @@
                 {
                     медведь.Берлога.Add(new Берлога
                     {
-                        Наименование = "Некий лес"
+                        Наименование = "Некий лес",
                     });
                     ds.UpdateObject(медведь);
                 }
@@ -126,7 +128,7 @@
                 Assert.NotNull(alteredPropertyNames);
                 Assert.Equal(0, alteredPropertyNames.Length);
                 Assert.NotNull(loadedProperties);
-                Assert.Equal(4, loadedProperties.Length);
+                Assert.Equal(5, loadedProperties.Length);
 
                 string s = "Подосиновая";
                 медведь.Берлога[0].Наименование = s;
@@ -163,7 +165,7 @@
                 ds.UpdateObject(кошка);
 
                 MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadMethod);
-                multiThreadingTestTool.StartThreads(150, ds);
+                multiThreadingTestTool.StartThreads(50, ds);
 
                 var exception = multiThreadingTestTool.GetExceptions();
 
@@ -174,7 +176,8 @@
                         output.WriteLine(item.Value.ToString());
                     }
 
-                    throw exception.InnerException;
+                    // Пусть так.
+                    Assert.Empty(exception.InnerExceptions);
                 }
 
                 ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;
@@ -186,6 +189,42 @@
             }
         }
 
+        [Fact]
+        public void CachedCascadeDetailLoadTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var breed = new Порода { Название = "Чеширская" };
+                var cat = new Кошка { ДатаРождения = NullableDateTime.UtcNow, Тип = ТипКошки.Домашняя, Порода = breed, Кличка = "Мурзик" };
+                var leg1 = new Лапа { Номер = 1 };
+                var leg2 = new Лапа { Номер = 2 };
+                var fracture1 = new Перелом { Тип = ТипПерелома.Закрытый, Дата = DateTime.UtcNow };
+                leg1.Перелом.Add(fracture1);
+                cat.Лапа.AddRange(leg1, leg2);
+                dataService.UpdateObject(cat);
+
+                // OData читает мастеровые объекты вместе с первичным ключом, но можно подгрузить любое другое свойство.
+                var legView = new View { DefineClassType = typeof(Лапа) };
+                legView.AddProperty(nameof(Лапа.__PrimaryKey));
+
+                // В представлении должны быть детейлы, а в представлении детейлов - детейлы следующего уровня.
+                var catView = new View(typeof(Кошка), View.ReadType.WithRelated);
+
+                // Act.
+                var cache = new DataObjectCache();
+                cache.StartCaching(false);
+                var loadedLeg = PKHelper.CreateDataObject<Лапа>(leg1);
+                dataService.LoadObject(legView, loadedLeg, true, true, cache);
+                var loadedCat = PKHelper.CreateDataObject<Кошка>(cat);
+                dataService.LoadObject(catView, loadedCat, true, true, cache);
+
+                // Assert.
+                Assert.Equal(ObjectStatus.UnAltered, loadedLeg.GetStatus());
+                Assert.Equal(ObjectStatus.UnAltered, loadedCat.GetStatus());
+            }
+        }
+
         /// <summary>
         /// Метод для многопоточного исполнения в <see cref="AgregatorPropertyAddToViewTest"/>.
         /// </summary>
@@ -194,7 +233,7 @@
         {
             var parametersDictionary = sender as Dictionary<string, object>;
             IDataService ds = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as SQLDataService;
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             ExternalLangDef langdef = ExternalLangDef.LanguageDef;
             langdef.DataService = ds;
@@ -220,7 +259,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }

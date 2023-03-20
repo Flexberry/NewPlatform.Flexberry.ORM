@@ -157,40 +157,32 @@
         {
             KeyGuid result = null;
 
-            var guid = obj as KeyGuid;
-            if (guid != null)
+            var keyGuid = obj as KeyGuid;
+            if (keyGuid != null)
             {
-                result = guid;
+                result = keyGuid;
             }
             else
             {
-                if (obj is Guid)
+                if (obj is Guid guid)
                 {
-                    result = new KeyGuid((Guid)obj);
+                    result = new KeyGuid(guid);
                 }
-                else
+                else if (obj is DataObject o)
                 {
-                    var o = obj as DataObject;
-                    if (o != null)
+                    var kg = o.__PrimaryKey as KeyGuid;
+                    if (kg != null)
                     {
-                        var kg = o.__PrimaryKey as KeyGuid;
-                        if (kg != null)
-                        {
-                            result = kg;
-                        }
-                        else if (InOperatorsConverter.CanConvert(o.__PrimaryKey.GetType(), typeof(KeyGuid)))
-                        {
-                            result = InOperatorsConverter.Convert(o.__PrimaryKey, typeof(KeyGuid)) as KeyGuid;
-                        }
+                        result = kg;
                     }
-                    else
+                    else if (InOperatorsConverter.CanConvert(o.__PrimaryKey.GetType(), typeof(KeyGuid)))
                     {
-                        string s = obj as string;
-                        if (s != null && KeyGuid.IsGuid(s))
-                        {
-                            result = new KeyGuid(s);
-                        }
+                        result = InOperatorsConverter.Convert(o.__PrimaryKey, typeof(KeyGuid)) as KeyGuid;
                     }
+                }
+                else if (obj is string s && KeyGuid.IsGuid(s))
+                {
+                    result = new KeyGuid(s);
                 }
             }
 
@@ -215,15 +207,15 @@
                 {
                     res.Add(kg);
                 }
-
-                var guids = val as IEnumerable<Guid>;
-                if (guids != null)
+                else if (val is IEnumerable<Guid> guids)
                 {
                     res.AddRange(guids.Select(x => GetKeyByObject(x)));
                 }
-
-                var objs = val as IEnumerable<object>;
-                if (objs != null)
+                else if (val is IEnumerable<Guid?> nGuids)
+                {
+                    res.AddRange(nGuids.Select(x => GetKeyByObject(x)));
+                }
+                else if (val is IEnumerable<object> objs)
                 {
                     res.AddRange(objs.SelectMany(x => GetKeys(x)));
                 }

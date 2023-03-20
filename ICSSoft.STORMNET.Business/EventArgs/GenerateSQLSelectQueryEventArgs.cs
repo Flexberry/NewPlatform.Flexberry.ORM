@@ -12,22 +12,22 @@ namespace ICSSoft.STORMNET.Business
     using System;
 
     /// <summary>
-    /// Аргумент события при генерации SQL Select запроса
+    /// Аргумент события при генерации SQL Select запроса.
     /// </summary>
     public class GenerateSQLSelectQueryEventArgs : EventArgs
     {
         /// <summary>
-        /// Структура настройки сервиса данных <see cref="LoadingCustomizationStruct"/>
+        /// Структура настройки сервиса данных <see cref="LoadingCustomizationStruct"/>.
         /// </summary>
         public LoadingCustomizationStruct CustomizationStruct = null;
 
         /// <summary>
-        /// Структура загрузки <see cref="ICSSoft.STORMNET.Business.StorageStructForView"/>
+        /// Структура загрузки <see cref="ICSSoft.STORMNET.Business.StorageStructForView"/>.
         /// </summary>
         public StorageStructForView[] StorageStruct = null;
 
         /// <summary>
-        /// Запрос
+        /// Запрос.
         /// </summary>
         public string GeneratedQuery = string.Empty;
 

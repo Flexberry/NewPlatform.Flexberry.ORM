@@ -17,6 +17,8 @@
 
         private readonly Guid? ng1 = Guid.NewGuid();
 
+        private readonly Guid? ng2 = Guid.NewGuid();
+
         private readonly Guid g1 = Guid.NewGuid();
 
         private readonly Guid g2 = Guid.NewGuid();
@@ -166,8 +168,8 @@
         [Fact]
         public void EQDataObjectСравнениеПустогоИНепустогоОбъектов()
         {
-            Assert.True(!
-                PKHelper.EQDataObject(null, doft0, true),
+            Assert.True(
+                !PKHelper.EQDataObject(null, doft0, true),
                 "Пустой и непустой объекты сравнены неверно.");
         }
 
@@ -191,8 +193,8 @@
         public void EQDataObjectСравнениеНепустыхОбъектовРазныхТипов()
         {
             var obj1 = PKHelper.CreateDataObject<ClassWithCaptions>(kg1);
-            Assert.True(!
-                PKHelper.EQDataObject(doft1, obj1, true),
+            Assert.True(
+                !PKHelper.EQDataObject(doft1, obj1, true),
                 "Непустые объекты разных типов сравнены неверно.");
         }
 
@@ -211,16 +213,16 @@
         [Fact]
         public void EQDataObjectTСравнениеПустогоИНепустогоОбъектов()
         {
-            Assert.True(!
-                PKHelper.EQDataObject(null, doft0),
+            Assert.True(
+                !PKHelper.EQDataObject(null, doft0),
                 "Пустой и непустой объекты сравнены неверно.");
         }
 
         [Fact]
         public void EQDataObjectTСравнениеПустогоИНепустогоОбъектов1()
         {
-            Assert.True(!
-                PKHelper.EQDataObject(doft0, null),
+            Assert.True(
+                !PKHelper.EQDataObject(doft0, null),
                 "Пустой и непустой объекты сравнены неверно.");
         }
 
@@ -368,8 +370,8 @@
         [Fact]
         public void EQParentPKПустойОбъект()
         {
-            Assert.True(!
-                PKHelper.EQParentPK(
+            Assert.True(
+                !PKHelper.EQParentPK(
                     null,
                     kg1,
                     nameof(DataObjectWithKeyGuid.LinkToMaster1)),
@@ -403,7 +405,7 @@
             {
                 doft0,
                 doft1,
-                doft2
+                doft2,
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
             Assert.Equal(res, PKHelper.GetKeysString(list));
@@ -466,7 +468,7 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
             Assert.Equal(res, PKHelper.GetKeysString(list));
@@ -478,7 +480,7 @@
             var list = new List<DataObjectForTest>
             {
                 doft1,
-                doft2
+                doft2,
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
             Assert.Equal(res, PKHelper.GetKeysString(list));
@@ -490,7 +492,7 @@
             var list = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
             Assert.Equal(res, PKHelper.GetKeysString(list));
@@ -502,7 +504,7 @@
             var list = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
             Assert.Equal(res, PKHelper.GetKeysString(list));
@@ -514,7 +516,7 @@
             var list = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             string res = string.Join(",", list.Select(o => $"'{PKHelper.GetGuidByObject(o)}'"));
             Assert.Equal(res, PKHelper.GetKeysString(list));
@@ -618,7 +620,18 @@
             var list = new List<Guid>
             {
                 g1,
-                g2
+                g2,
+            };
+            Assert.Equal(PKHelper.GetKeys(list).Length, 2);
+        }
+
+        [Fact]
+        public void GetKeysSimpleIEnumerableNullableGuid()
+        {
+            var list = new List<Guid?>
+            {
+                ng1,
+                ng2,
             };
             Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
@@ -629,7 +642,7 @@
             var list = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
@@ -640,7 +653,7 @@
             var list = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
@@ -651,7 +664,7 @@
             var list = new List<DataObjectForTest>
             {
                 doft1,
-                doft2
+                doft2,
             };
             Assert.Equal(PKHelper.GetKeys(list).Length, 2);
         }
@@ -664,7 +677,7 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             Assert.Equal(PKHelper.GetKeys(list).Length, 4);
         }
@@ -675,7 +688,7 @@
             var list = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
             Assert.Equal(PKHelper.GetKeys(list, list).Length, 2);
         }
@@ -686,7 +699,7 @@
             var list = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             Assert.Equal(PKHelper.GetKeys(list, list).Length, 2);
         }
@@ -697,7 +710,7 @@
             var list = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             Assert.Equal(PKHelper.GetKeys(list, list).Length, 2);
         }
@@ -710,7 +723,7 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             Assert.Equal(PKHelper.GetKeys(list, list).Length, 4);
         }
@@ -721,24 +734,24 @@
             var listg = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
             var listkg = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             var liststr = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             var list = new List<object>
             {
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             Assert.Equal(PKHelper.GetKeys(list, listg, listkg, liststr).Length, 7);
         }
@@ -749,13 +762,13 @@
             var list = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
 
             var listlist = new List<List<Guid>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist).Length, 2);
         }
@@ -766,13 +779,13 @@
             var list = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
 
             var listlist = new List<List<KeyGuid>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist).Length, 2);
         }
@@ -783,13 +796,13 @@
             var list = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
 
             var listlist = new List<List<string>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist).Length, 2);
         }
@@ -802,13 +815,13 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
 
             var listlist = new List<List<object>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist).Length, 4);
         }
@@ -819,34 +832,34 @@
             var listg = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
             var listlistg = new List<List<Guid>>
             {
                 listg,
-                listg
+                listg,
             };
 
             var listkg = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             var listlistkg = new List<List<KeyGuid>>
             {
                 listkg,
-                listkg
+                listkg,
             };
 
             var liststr = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             var listliststr = new List<List<string>>
             {
                 liststr,
-                liststr
+                liststr,
             };
 
             var list = new List<object>
@@ -854,12 +867,12 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             var listlist = new List<List<object>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr).Length, 7);
         }
@@ -870,34 +883,34 @@
             var listg = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
             var listlistg = new List<List<Guid>>
             {
                 listg,
-                listg
+                listg,
             };
 
             var listkg = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             var listlistkg = new List<List<KeyGuid>>
             {
                 listkg,
-                listkg
+                listkg,
             };
 
             var liststr = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             var listliststr = new List<List<string>>
             {
                 liststr,
-                liststr
+                liststr,
             };
 
             var list = new List<object>
@@ -905,12 +918,12 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             var listlist = new List<List<object>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr, kg1, g1, str1, doft0).Length, 7);
         }
@@ -921,34 +934,45 @@
             var listg = new List<Guid>
             {
                 g1,
-                g2
+                g2,
             };
             var listlistg = new List<List<Guid>>
             {
                 listg,
-                listg
+                listg,
+            };
+
+            var listng = new List<Guid?>
+            {
+                ng1,
+                ng2,
+            };
+            var listlistng = new List<List<Guid?>>
+            {
+                listng,
+                listng,
             };
 
             var listkg = new List<KeyGuid>
             {
                 kg1,
-                kg2
+                kg2,
             };
             var listlistkg = new List<List<KeyGuid>>
             {
                 listkg,
-                listkg
+                listkg,
             };
 
             var liststr = new List<string>
             {
                 str1,
-                str2
+                str2,
             };
             var listliststr = new List<List<string>>
             {
                 liststr,
-                liststr
+                liststr,
             };
 
             var list = new List<object>
@@ -956,12 +980,12 @@
                 g1,
                 kg1,
                 doft0,
-                str1
+                str1,
             };
             var listlist = new List<List<object>>
             {
                 list,
-                list
+                list,
             };
             Assert.Equal(PKHelper.GetKeys(listlist, listlistg, listlistkg, listliststr, list, listg, listkg, liststr).Length, 7);
         }
