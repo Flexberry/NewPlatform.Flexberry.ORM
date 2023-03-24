@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.UserDataTypes;
+    using NewPlatform.Flexberry.ORM.IntegratedTests.Business;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
 
@@ -64,6 +66,8 @@
                 DataObject[] l2 = dataService.LoadObjects(lcs2);
                 Assert.NotNull(l1);
                 Assert.NotNull(l2);
+                Assert.Equal(3, l1.Length);
+                Assert.Equal(3, l2.Length);
 
                 LoadingCustomizationStruct lcs3 = new LoadingCustomizationStruct(null);
                 lcs3.View = Медведь.Views.МедведьE;
@@ -71,6 +75,7 @@
                 lcs3.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Asc) };
                 DataObject[] l3 = dataService.LoadObjects(lcs3);
                 Assert.NotNull(l3);
+                Assert.Equal(3, l3.Length);
 
                 LoadingCustomizationStruct lcs4 = new LoadingCustomizationStruct(null);
                 lcs4.View = Медведь.Views.МедведьE;
@@ -78,6 +83,7 @@
                 lcs4.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Desc) };
                 DataObject[] l4 = dataService.LoadObjects(lcs4);
                 Assert.NotNull(l4);
+                Assert.Equal(3, l4.Length);
             }
         }
 
@@ -90,8 +96,6 @@
             foreach (IDataService dataService in DataServices)
             {
                 ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
-                // if (dataService is MSSQLDataService)
-                //    continue;
                 Медведь медв = new Медведь { Вес = 48, Пол = Пол.Мужской };
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской };
                 Лес лес1 = new Лес { Название = "Бор" };
@@ -133,22 +137,21 @@
                 ds.UpdateObjects(ref updateObjectsArray);
                 Assert.NotNull(updateObjectsArray);
 
-                var view = Plant2.Views.Plant2E;
+                View plantView = Plant2.Views.Plant2E;
 
-                IQueryable<Plant2> limit;
-                // limit = ds.Query<Plant2>(view).Where(it => it.__PrimaryKey != null);
+                IQueryable<Plant2> plant2s = ds.Query<Plant2>(plantView)
+                    .Where(x => x.__PrimaryKey == cls1.__PrimaryKey);
 
-                LoadingCustomizationStruct lcs;
-                /*
-                lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                lcs.LoadingTypes = new Type[] { typeof(Plant2), typeof(Cabbage2) };
-                lcs.LoadingTypes = new Type[] { typeof(Cabbage2) };
-                lcs.View = view;
-                var list = ds.LoadObjects(lcs);
-                */
-                // limit = ds.Query<Plant2>(view).Where(it => typeof(Cabbage2).IsInstanceOfType(it));
-                // lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                // var list2 = ds.LoadObjects(lcs);
+                //Assert
+                Assert.NotNull(plant2s);
+
+                View cabbageView = Cabbage2.Views.Cabbage2E;
+
+                IQueryable<Cabbage2> cabbage2s = ds.Query<Cabbage2>(cabbageView)
+                    .Where(c => c.__PrimaryKey == cls2.__PrimaryKey);
+
+                //Assert
+                Assert.NotNull(cabbage2s);
             }
         }
 

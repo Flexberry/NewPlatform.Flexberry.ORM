@@ -31,7 +31,7 @@
             {
                 ForKeyStorageTest класс = new ForKeyStorageTest();
                 dataService.UpdateObject(класс);
-                Assert.True(класс.__PrimaryKey != null);
+                Assert.NotNull(класс.__PrimaryKey);
             }
         }
     }
