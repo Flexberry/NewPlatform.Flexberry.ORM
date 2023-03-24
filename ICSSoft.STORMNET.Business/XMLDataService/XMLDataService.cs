@@ -1,5 +1,11 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Exceptions;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
     using System;
     using System.Collections;
     using System.Collections.Specialized;
@@ -7,7 +13,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
@@ -402,8 +407,8 @@
         /// Загрузка одного объекта данных.
         /// </summary>
         /// <param name="dobject">объект данных, который требуется загрузить.</param>
-        /// <param name="clearDataObject">очищать ли объект.</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
         public virtual void LoadObject(DataObject dobject, bool clearDataObject, bool checkExistingObject)
         {
             LoadObject(dobject, clearDataObject, checkExistingObject, new DataObjectCache());
@@ -414,8 +419,8 @@
         /// </summary>
         /// <param name="dataObjectViewName">наименование представления.</param>
         /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="clearDataObject">очищать ли объект.</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
         public virtual void LoadObject(string dataObjectViewName, DataObject dobject,
                                        bool clearDataObject, bool checkExistingObject)
         {
@@ -427,8 +432,8 @@
         /// </summary>
         /// <param name="dataObjectView">представление.</param>
         /// <param name="dobject">бъект данных, который требуется загрузить.</param>
-        /// <param name="clearDataObject">очищать ли объект.</param>
-        /// <param name="checkExistingObject">проверять ли существование объекта в хранилище.</param>
+        /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+        /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
         public virtual void LoadObject(View dataObjectView, DataObject dobject,
                                        bool clearDataObject, bool checkExistingObject)
         {
@@ -460,7 +465,7 @@
         }
 
         public void LoadObjects(DataObject[] dataobjects, View dataObjectView,
-                                bool clearDataobject, DataObjectCache dataObjectCache)
+                                bool clearDataObject, DataObjectCache dataObjectCache)
         {
             dataObjectCache.StartCaching(false);
 
@@ -524,7 +529,7 @@
                         {
                             loadobjects[i] = dataobjects[(int)aLobjectsKeys.GetByIndex(indexobj)];
 
-                            if (clearDataobject)
+                            if (clearDataObject)
                             {
                                 loadobjects[i].Clear();
                             }
@@ -538,7 +543,7 @@
                     }
 
                     Utils.ProcessingRowsetDataRef(resValue, types, storageStruct, customizationStruct, loadobjects,
-                                                  this, null, clearDataobject, dataObjectCache, SecurityManager);
+                                                  this, null, clearDataObject, dataObjectCache, SecurityManager);
                 }
             }
             finally
@@ -638,9 +643,9 @@
             return LoadObjects(dataObjectView);
         }
 
-        public virtual void LoadObjects(DataObject[] dataobjects, View dataObjectView, bool clearDataobject)
+        public virtual void LoadObjects(DataObject[] dataobjects, View dataObjectView, bool clearDataObject)
         {
-            LoadObjects(dataobjects, dataObjectView, clearDataobject, new DataObjectCache());
+            LoadObjects(dataobjects, dataObjectView, clearDataObject, new DataObjectCache());
         }
 
         public virtual DataObject[] LoadObjects(View[] dataObjectViews)

@@ -3,11 +3,12 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
     using System.Globalization;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
@@ -47,12 +48,12 @@
                 new[] { "smallint", "int2" },
                 new[] { "smallserial", "serial2" },
                 new[] { "serial", "serial4" },
-                 };
+            };
 
         /// <summary>
         /// The postgres reserved words.
         /// </summary>
-        private static readonly List<string> PostgresReservedWords = new List<string>
+        private static readonly HashSet<string> PostgresReservedWords = new HashSet<string>
             {
                "WINDOW",
                "ALL",
@@ -170,7 +171,6 @@
         /// </summary>
         static PostgresDataService()
         {
-            PostgresReservedWords.Sort();
         }
 
         /// <summary>
@@ -275,7 +275,7 @@
         /// </returns>
         public static string PrepareIdentifier(string identifier)
         {
-            if (PostgresReservedWords.BinarySearch(identifier.ToUpper()) >= 0)
+            if (PostgresReservedWords.Contains(identifier.ToUpper()))
             {
                 identifier = "\"" + identifier + "\"";
             }
@@ -514,6 +514,18 @@
             return new NpgsqlConnection(CustomizationString);
         }
 
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => NpgsqlFactory.Instance;
+
+        /// <summary>
+        /// Get connection by Npgsql (DbConnection).
+        /// </summary>
+        /// <returns>Database connection.</returns>
+        public override System.Data.Common.DbConnection GetDbConnection()
+        {
+            return new NpgsqlConnection(CustomizationString);
+        }
+
         /// <summary>
         /// Put identifier into brackets.
         /// </summary>
@@ -606,6 +618,47 @@
         /// <returns>The readed objects from database.</returns>
         public override object[][] ReadFirst(string query, ref object state, int loadingBufferSize)
         {
+            PrepareQuery(ref query);
+
+            return base.ReadFirst(query, ref state, loadingBufferSize);
+        }
+
+        /// <summary>
+        /// Reading data from database: read first part (by external connection).
+        /// </summary>
+        /// <param name="query">The SQL query.</param>
+        /// <param name="state">The reading state.</param>
+        /// <param name="loadingBufferSize">The loading buffer size.</param>
+        /// <param name="connection">Connection to use (you have to open and close it yourself).</param>
+        /// <param name="transaction">Transaction to use.</param>
+        /// <returns>The readed objects from database.</returns>
+        public override object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, IDbConnection connection, IDbTransaction transaction)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadFirstByExtConn(query, ref state, loadingBufferSize, connection, transaction);
+        }
+
+        /// <summary>
+        /// Асинхронная вычитка данных.
+        /// </summary>
+        /// <param name="query">Запрос для вычитки.</param>
+        /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит соединение и транзакцию, в рамках которых нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
+        /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
+        protected override Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync);
+        }
+
+        /// <summary>
+        /// Предобработка запроса (функция конкретного датасервиса).
+        /// </summary>
+        /// <param name="query">Запрос который нужно подготовить.</param>
+        private void PrepareQuery(ref string query)
+        {
             query = query.Replace("count(*)", "cast(count(*) as int)");
 
             if (query.IndexOf("TOP ", StringComparison.InvariantCultureIgnoreCase) > -1)
@@ -623,8 +676,6 @@
                     }
                 }
             }
-
-            return base.ReadFirst(query, ref state, loadingBufferSize);
         }
 
         /// <summary>
@@ -901,6 +952,157 @@
         }
 
         /// <summary>
+        /// Создать join соединения.
+        /// </summary>
+        /// <param name="source">Источник с которого формируется соединение.</param>
+        /// <param name="parentAlias">Вышестоящий алиас.</param>
+        /// <param name="index">Индекс источника.</param>
+        /// <param name="keysandtypes">Ключи и типы.</param>
+        /// <param name="baseOutline">Смещение в запросе.</param>
+        /// <param name="joinscount">Количество соединений.</param>
+        /// <param name="FromPart">FROM-часть SQL-запроса.</param>
+        /// <param name="WherePart">WHERE-часть SQL-запроса.</param>
+        public override void CreateJoins(
+            StorageStructForView.PropSource source,
+            string parentAlias,
+            int index,
+            ArrayList keysandtypes,
+            string baseOutline,
+            out int joinscount,
+            out string FromPart,
+            out string WherePart)
+        {
+            string newOutLine = baseOutline + "\t";
+            joinscount = 0;
+            var fromParts = new List<string>();
+            WherePart = string.Empty;
+            foreach (StorageStructForView.PropSource subSource in source.LinckedStorages)
+            {
+                for (int j = 0; j < subSource.storage.Length; j++)
+                {
+                    StorageStructForView.ClassStorageDef classStorageDef = subSource.storage[j];
+                    if (classStorageDef.parentStorageindex == index)
+                    {
+                        joinscount++;
+                        string curAlias = subSource.Name + j;
+                        keysandtypes.Add(
+                            new string[]
+                            {
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.PrimaryKeyStorageName),
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.TypeStorageName),
+                                subSource.Name,
+                            });
+                        string link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.objectLinkStorageName);
+                        int subjoinscount;
+                        string subjoin = string.Empty;
+                        string temp;
+                        CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp);
+                        string fromStr, whereStr;
+
+                        // Проверка прав на мастера. Значение атрибута отображается пользователю,
+                        // если у данного пользователя есть права на операцию, описанную в специальном формате в DataServiceExpression,
+                        // иначе подставляем ссылку на фиктивного мастера - специальное значение из того же DataServiceExpression.
+                        if (SecurityManager.UseRightsOnAttribute)
+                        {
+                            string expression = Information.GetPropertyExpression(
+                                source.storage[index].ownerType,
+                                subSource.ObjectLink,
+                                this.GetType());
+
+                            if (!string.IsNullOrEmpty(expression) && !SecurityManager.CheckAccessToAttribute(expression, out string deniedAccessValue))
+                            {
+                                link = deniedAccessValue;
+                            }
+                        }
+
+                        string subTable = string.Concat(
+                            GenString("(", subjoinscount),
+                            " ",
+                            GetTableStorageExpression(classStorageDef.Storage, true));
+
+                        GetLeftJoinExpression(subTable, curAlias, link, classStorageDef.PrimaryKeyStorageName, subjoin, baseOutline, out fromStr, out whereStr);
+
+                        fromParts.Add(fromStr + ")");
+                    }
+                }
+            }
+
+            FromPart = string.Join(string.Empty, fromParts);
+        }
+
+        /// <summary>
+        /// создать join соединения.
+        /// </summary>
+        /// <param name="source">источник с которого формируется соединение.</param>
+        /// <param name="parentAlias">вышестоящий алиас.</param>
+        /// <param name="index">индекс источника.</param>
+        /// <param name="keysandtypes">ключи и типы.</param>
+        /// <param name="baseOutline">смещение в запросе.</param>
+        /// <param name="joinscount">количество соединений.</param>
+        /// <param name="FromPart">FROM-часть SQL-запроса.</param>
+        /// <param name="WherePart">WHERE-часть SQL-запроса.</param>
+        /// <param name="MustNewGenerate">Использовать генерацию SQL без вложенного подзапроса.</param>
+        public override void CreateJoins(
+            StorageStructForView.PropSource source,
+            string parentAlias,
+            int index,
+            ArrayList keysandtypes,
+            string baseOutline,
+            out int joinscount,
+            out string FromPart,
+            out string WherePart,
+            bool MustNewGenerate)
+        {
+            if (!MustNewGenerate)
+            {
+                CreateJoins(source, parentAlias, index, keysandtypes, baseOutline, out joinscount, out FromPart, out WherePart);
+                return;
+            }
+
+            string newOutLine = baseOutline + "\t";
+            joinscount = 0;
+            var fromParts = new List<string>();
+            WherePart = string.Empty;
+            foreach (StorageStructForView.PropSource subSource in source.LinckedStorages)
+            {
+                for (int j = 0; j < subSource.storage.Length; j++)
+                {
+                    StorageStructForView.ClassStorageDef classStorageDef = subSource.storage[j];
+                    if (classStorageDef.parentStorageindex == index)
+                    {
+                        joinscount++;
+                        string curAlias = subSource.Name + j;
+                        keysandtypes.Add(
+                            new string[]
+                            {
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.PrimaryKeyStorageName),
+                                PutIdentifierIntoBrackets(curAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.TypeStorageName),
+                                subSource.Name,
+                            });
+                        string link = PutIdentifierIntoBrackets(parentAlias) + "." + PutIdentifierIntoBrackets(classStorageDef.objectLinkStorageName);
+                        string subjoin = string.Empty;
+                        string temp;
+                        int subjoinscount = 0;
+                        string fromStr, whereStr;
+
+                        CreateJoins(subSource, curAlias, j, keysandtypes, newOutLine, out subjoinscount, out subjoin, out temp, MustNewGenerate);
+                        string subTable = GetTableStorageExpression(classStorageDef.Storage, true);
+
+                        GetLeftJoinExpression(subTable, curAlias, link, classStorageDef.PrimaryKeyStorageName, string.Empty, baseOutline, out fromStr, out whereStr);
+
+                        fromParts.Add(fromStr);
+                        if (!string.IsNullOrEmpty(subjoin))
+                        {
+                            fromParts.Add(subjoin);
+                        }
+                    }
+                }
+            }
+
+            FromPart = string.Join(string.Empty, fromParts);
+        }
+
+        /// <summary>
         /// Put identifier into brackets.
         /// </summary>
         /// <param name="identifier">Identifier in query.</param>
@@ -1022,6 +1224,22 @@
             }
 
             return ret;
+        }
+
+        private string GenString(string stringBlock, int count)
+        {
+            if (count == 0)
+            {
+                return string.Empty;
+            }
+
+            StringBuilder sb = new StringBuilder(stringBlock.Length * count);
+            for (int i = 0; i < count; i++)
+            {
+                sb.Append(stringBlock);
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>

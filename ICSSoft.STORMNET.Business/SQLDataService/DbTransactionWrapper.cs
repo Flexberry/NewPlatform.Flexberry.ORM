@@ -8,6 +8,9 @@
     /// </summary>
     public class DbTransactionWrapper : IDisposable
     {
+        /// <summary>
+        /// Транзакция.
+        /// </summary>
         private IDbTransaction _transaction;
 
         /// <summary>

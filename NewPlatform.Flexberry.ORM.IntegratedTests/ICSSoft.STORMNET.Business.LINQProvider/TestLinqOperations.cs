@@ -53,7 +53,8 @@
                     output.WriteLine(item.Value.ToString());
                 }
 
-                throw exception.InnerException;
+                // Пусть так.
+                Assert.Empty(exception.InnerExceptions);
             }
         }
 
@@ -121,7 +122,8 @@
                     output.WriteLine(item.Value.ToString());
                 }
 
-                throw exception.InnerException;
+                // Пусть так.
+                Assert.Empty(exception.InnerExceptions);
             }
         }
 

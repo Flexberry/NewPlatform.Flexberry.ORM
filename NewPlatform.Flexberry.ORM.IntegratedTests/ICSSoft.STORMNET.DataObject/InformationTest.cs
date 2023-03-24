@@ -1080,17 +1080,15 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyInfo()"/>, извлекающего свойство по типу.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по типу.
         /// Ловим исключение, послав null заместо лямбды.
         /// </summary>
         [Fact]
         public void ExtractPropertyInfoTest0()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.ExtractPropertyInfo<InformationTestClass>(null);
-            });
-            Assert.IsType(typeof(ArgumentNullException), exception);
+            // Assert.
+            Assert.Throws<ArgumentNullException>(
+                () => Information.ExtractPropertyName<InformationTestClass>(null));
         }
 
         /// <summary>
@@ -1105,7 +1103,7 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по наименованию.
         /// Ловим исключение, послав не Свойство (не Property), а просто поле.
         /// </summary>
         [Fact(Skip = "разобраться нужно ли это проверять")]
@@ -1121,7 +1119,7 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по наименованию.
         /// Ловим исключение, послав статическое свойство.
         /// </summary>
         [Fact(Skip = "разобраться нужно ли это проверять")]
@@ -1137,17 +1135,15 @@
         }
 
         /// <summary>
-        /// Тест для метода <see cref="ExtractPropertyName()"/>, извлекающего свойство по наименованию.
+        /// Тест для метода <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" />, извлекающего свойство по наименованию.
         /// Ловим исключение, послав null заместо лямбды.
         /// </summary>
         [Fact]
         public void ExtractPropertyNameTest1()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.ExtractPropertyName((Expression<Func<InformationTestClass2, object>>)null);
-            });
-            Assert.IsType(typeof(ArgumentNullException), exception);
+            // Assert.
+            Assert.Throws<ArgumentNullException>(
+                () => Information.ExtractPropertyName((Expression<Func<InformationTestClass2, object>>)null));
         }
 
         /// <summary>
@@ -1168,16 +1164,14 @@
         }
 
         /// <summary>
-        /// Тест на выпадения исключения ArgumentException в методе ExtractPropertyName() при некоектном значении лямбда-выражения.
+        /// Тест на выпадения исключения ArgumentException в методе <see cref="Information.ExtractPropertyPath{TProperty}(Expression{Func{TProperty}})" /> при некоектном значении лямбда-выражения.
         /// </summary>
         [Fact]
         public void ExtractPropertyNameTest3()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.ExtractPropertyPath<InformationTestClass>(() => null);
-            });
-            Assert.IsType(typeof(ArgumentException), exception);
+            // Assert.
+            Assert.Throws<ArgumentException>(
+                () => Information.ExtractPropertyPath<InformationTestClass>(() => null));
         }
 
         /// <summary>
@@ -1210,17 +1204,17 @@
         }
 
         /// <summary>
-        /// Тест метода <see cref="SetPropValueByName(DataObject obj, string propName, object PropValue)"/>, устанавливающего значение строкового свойства с отсечением пробелов.
+        /// Тест метода <see cref="Information.SetPropValueByName(DataObject, string, object)" />, устанавливающего значение строкового свойства с отсечением пробелов.
         /// </summary>
         [Fact]
         public void SetPropValueByNameTrimStringTest()
         {
             // Arrange.
             var obj = new InformationTestClass();
+            string propName = Information.ExtractPropertyPath<InformationTestClass>(c => c.StringPropertyForInformationTestClass);
 
             // Act.
-            Information.SetPropValueByName(
-                obj, Information.ExtractPropertyPath<InformationTestClass>(c => c.StringPropertyForInformationTestClass), " Test Value ");
+            Information.SetPropValueByName(obj, propName, " Test Value ");
 
             // Assert.
             // Строка-значение должна быть без оконечных пробелов.
@@ -1228,49 +1222,50 @@
         }
 
         /// <summary>
-        /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
+        /// Тест выпадения исключения в методе <see cref="Information.SetPropValueByName(DataObject, string, object)" />
         /// при несоответствии типов записываемого значения и свойства объекта, в который производится запись.
         /// </summary>
         [Fact]
         public void SetPropValueByNameExceptionTest1()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                var val = new object();
-                Information.SetPropValueByName(
-                    new InformationTestClass(), Information.ExtractPropertyName<InformationTestClass>(c => c.IntPropertyForInformationTestClass), val);
-            });
-            Assert.IsType(typeof(Exception), exception);
+            // Arrange.
+            object val = new object();
+            var obj = new InformationTestClass();
+            string propName = Information.ExtractPropertyName<InformationTestClass>(c => c.IntPropertyForInformationTestClass);
+
+            // Assert.
+            Assert.Throws<Exception>(
+                () => Information.SetPropValueByName(obj, propName, val));
         }
 
         /// <summary>
-        /// Тест выпадения исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue).
+        /// Тест выпадения исключения в методе <see cref="Information.SetPropValueByName(DataObject, string, string)" />.
         /// </summary>
         [Fact]
         public void SetPropValueByNameExceptionTest2()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                var obj = new MasterClass();
-                Information.SetPropValueByName(
-                    obj, Information.ExtractPropertyPath<DetailClass>(c => c.MasterClass.StringMasterProperty), "property_value");
-            });
-            Assert.IsType(typeof(Exception), exception);
+            // Arrange.
+            var obj = new MasterClass();
+            string propName = Information.ExtractPropertyPath<DetailClass>(c => c.MasterClass.StringMasterProperty);
+
+            // Assert.
+            Assert.Throws<Exception>(
+                () => Information.SetPropValueByName(obj, propName, "property_value"));
         }
 
         /// <summary>
-        /// Тест выпадения системного исключения в методе SetPropValueByName(DataObject obj, string propName, string PropValue)
+        /// Тест выпадения системного исключения в методе <see cref="Information.SetPropValueByName(DataObject, string, string)" />
         /// при значении параметра DataObject равным null.
         /// </summary>
         [Fact]
         public void SetPropValueByNameExceptionTest()
         {
-            var exception = Xunit.Record.Exception(() =>
-            {
-                Information.SetPropValueByName(
-                    null, Information.ExtractPropertyName<MasterClass>(c => c.StringMasterProperty), "StringMasterProperty");
-            });
-            Assert.IsType(typeof(Exception), exception);
+            // Arrange.
+            string propName = Information.ExtractPropertyName<MasterClass>(c => c.StringMasterProperty);
+
+            // Assert.
+            Assert.Throws<ArgumentNullException>(
+                () => Information.SetPropValueByName(null, propName, "StringMasterProperty"));
         }
 
         /// <summary>

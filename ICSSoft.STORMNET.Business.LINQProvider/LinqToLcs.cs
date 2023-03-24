@@ -49,7 +49,8 @@
         public static LoadingCustomizationStruct GetLcs<Q>(Expression queryExpression, View view, IEnumerable<View> resolvingViews)
             where Q : IQueryModelVisitor
         {
-            var queryModel = UtilsLcs.CreateQueryParser().GetParsedQuery(queryExpression);
+            var queryParser = UtilsLcs.CreateQueryParser();
+            var queryModel = queryParser.GetParsedQuery(queryExpression);
             return GetQueryModelVisitor<Q>(false, view, resolvingViews).GenerateLcs(queryModel);
         }
 
@@ -59,7 +60,8 @@
         /// <param name="queryExpression">Linq-выражение, по которому будет сформирован <see cref="LoadingCustomizationStruct"/>.</param>
         /// <returns><see cref="LoadingCustomizationStruct"/>, полученный для указанного linq-выражения с динамически созданным представлением.</returns>
         public static LoadingCustomizationStruct GetLcs<T, Q>(Expression queryExpression)
-            where T : DataObject where Q : IQueryModelVisitor
+            where T : DataObject
+            where Q : IQueryModelVisitor
         {
             return GetLcs<Q>(queryExpression, typeof(T));
         }
@@ -73,7 +75,8 @@
         public static LoadingCustomizationStruct GetLcs<Q>(Expression queryExpression, Type type)
             where Q : IQueryModelVisitor
         {
-            var queryModel = UtilsLcs.CreateQueryParser().GetParsedQuery(queryExpression);
+            var queryParser = UtilsLcs.CreateQueryParser();
+            var queryModel = queryParser.GetParsedQuery(queryExpression);
 
             if (!type.IsSubclassOf(typeof(DataObject)))
             {

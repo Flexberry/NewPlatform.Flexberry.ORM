@@ -43,6 +43,11 @@
         /// </summary>
         bool ShowPrimaryKey { get; set; }
 
+        /// <summary>
+        /// Флаг, указывающий, что в бд даты хранятся в формате UTC. Значение по умолчанию false.
+        /// </summary>
+        public bool PersistUtcDates { get; set; }
+
         #endregion Основные свойства
 
         #region Разное

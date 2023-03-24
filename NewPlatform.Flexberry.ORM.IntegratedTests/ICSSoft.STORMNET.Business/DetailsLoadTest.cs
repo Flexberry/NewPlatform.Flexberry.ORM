@@ -17,7 +17,7 @@
     using Xunit.Abstractions;
 
     /// <summary>
-    /// Проверка логики зачитки детейлов.
+    /// Проверка логики вычитки детейлов.
     /// </summary>
     public class DetailsLoadTest : BaseIntegratedTest
     {
@@ -176,7 +176,8 @@
                         output.WriteLine(item.Value.ToString());
                     }
 
-                    throw exception.InnerException;
+                    // Пусть так.
+                    Assert.Empty(exception.InnerExceptions);
                 }
 
                 ds.OnGenerateSQLSelect -= ThreadTesting_OnGenerateSQLSelect;

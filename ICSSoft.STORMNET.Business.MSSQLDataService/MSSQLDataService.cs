@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections;
-
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
@@ -41,6 +40,18 @@
         /// </summary>
         /// <returns>Соединение с БД.</returns>
         public override System.Data.IDbConnection GetConnection()
+        {
+            return new System.Data.SqlClient.SqlConnection(CustomizationString);
+        }
+
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => SqlClientFactory.Instance;
+
+        /// <summary>
+        /// Вернуть объект <see cref="System.Data.Common.DbConnection"/>, предназначенный для работы с MSSQLServer и настроенный на строку соединения <see cref="SQLDataService.CustomizationString"/>.
+        /// </summary>
+        /// <returns>Соединение с БД.</returns>
+        public override System.Data.Common.DbConnection GetDbConnection()
         {
             return new System.Data.SqlClient.SqlConnection(CustomizationString);
         }

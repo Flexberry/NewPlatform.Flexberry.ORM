@@ -61,8 +61,55 @@
         private static ConcurrentDictionary<long, GetHandler> cacheGetPropValueByName = new ConcurrentDictionary<long, GetHandler>();
 
         /// <summary>
+        /// Получить делегат <see cref="GetHandler" /> для быстрого доступа к свойствам.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="propInfo">Метаданные о свойстве.</param>
+        /// <returns>Делегат.</returns>
+        internal static GetHandler GetGetHandler(Type type, PropertyInfo propInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + propInfo.Name.GetHashCode();
+            return cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(type, propInfo));
+        }
+
+        /// <summary>
+        /// Получить делегат <see cref="GetHandler" /> для быстрого доступа к полям.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="fieldInfo">Метаданные о поле.</param>
+        /// <returns>Делегат.</returns>
+        internal static GetHandler GetGetHandler(Type type, FieldInfo fieldInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + fieldInfo.Name.GetHashCode();
+            return cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(type, fieldInfo));
+        }
+
+        /// <summary>
         /// Получить значение свойства объекта данных по имени этого свойства.
         /// </summary>
+        /// <param name="obj">Объект данных, значение свойства которого извлекается данным методом. </param>
+        /// <param name="propName">Имя свойства объекта данных, значение которого извлекается данным методом.</param>
+        /// <returns>Значение свойства объекта данных, которое извлечено данным методом.</returns>
         public static object GetPropValueByName(DataObject obj, string propName)
         {
             if (obj == null)
@@ -70,7 +117,12 @@
                 return null;
             }
 
-            int pointIndex = propName.IndexOf(".");
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
+            int pointIndex = propName.IndexOf(".", StringComparison.Ordinal);
             if (pointIndex >= 0)
             {
                 string masterName = propName.Substring(0, pointIndex);
@@ -93,8 +145,7 @@
             }
             else if (pi != null) // надо проверить что такое свойство есть
             {
-                long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-                GetHandler getHandler = cacheGetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateGetHandler(tp, pi));
+                GetHandler getHandler = GetGetHandler(tp, pi);
 
                 try
                 {
@@ -191,14 +242,25 @@
         /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом.</param>
         public static void SetPropValueByName(DataObject obj, string propName, string PropValue)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
             try
             {
-                int pointIndex = propName.IndexOf(".");
+                int pointIndex = propName.IndexOf(".", StringComparison.Ordinal);
                 if (pointIndex >= 0)
                 {
-                    string MasterName = propName.Substring(0, pointIndex);
+                    string masterName = propName.Substring(0, pointIndex);
+                    var masterValue = (DataObject)GetPropValueByName(obj, masterName);
                     propName = propName.Substring(pointIndex + 1);
-                    SetPropValueByName((DataObject)GetPropValueByName(obj, MasterName), propName, PropValue);
+                    SetPropValueByName(masterValue, propName, PropValue);
                 }
                 else
                 {
@@ -246,19 +308,7 @@
                         propType = Nullable.GetUnderlyingType(propType);
                     }
 
-                    long key = tp.GetHashCode() * 10000000000 + propName.GetHashCode();
-                    SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(
-                        key,
-                        k =>
-                        {
-                            SetHandler sh = null;
-                            if (pi != null && pi.CanWrite)
-                            {
-                                sh = DynamicMethodCompiler.CreateSetHandler(tp, pi);
-                            }
-
-                            return sh;
-                        });
+                    SetHandler setHandler = GetSetHandler(tp, pi);
 
                     if (propType == typeof(string))
                     {
@@ -377,23 +427,28 @@
             }
         }
 
-        private static SortedList stTypesList = new SortedList();
+        private static Hashtable stTypesList = new Hashtable();
 
         /// <summary>
         /// Проверка: является ли переданный тип определённым в namespace <see cref="System"/>.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        private static bool isSystemType(System.Type type)
+        /// <param name="type">Тип данных.</param>
+        /// <returns><see langword="true" /> если тип является системным.</returns>
+        private static bool IsSystemType(System.Type type)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             lock (stTypesList)
             {
-                string name = type.FullName;
-                object res = stTypesList[name];
+                object res = stTypesList[type];
                 if (res == null)
                 {
-                    stTypesList.Add(name, name.StartsWith("System.") && (name.IndexOf(".", 7) == -1));
-                    res = stTypesList[name];
+                    string name = type.FullName;
+                    res = name.StartsWith("System.", StringComparison.Ordinal) && (name.IndexOf(".", 7, StringComparison.Ordinal) == -1);
+                    stTypesList.Add(type, res);
                 }
 
                 return (bool)res;
@@ -403,25 +458,78 @@
         private static ConcurrentDictionary<long, SetHandler> cacheSetPropValueByName = new ConcurrentDictionary<long, SetHandler>();
 
         /// <summary>
+        /// Получить делегат <see cref="SetHandler" /> для быстрого доступа к свойствам.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="propInfo">Метаданные о свойстве.</param>
+        /// <returns>Делегат.</returns>
+        internal static SetHandler GetSetHandler(Type type, PropertyInfo propInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + propInfo.Name.GetHashCode();
+            return cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(type, propInfo));
+        }
+
+        /// <summary>
+        /// Получить делегат <see cref="SetHandler" /> для быстрого доступа к полям.
+        /// </summary>
+        /// <param name="type">Тип данных.</param>
+        /// <param name="fieldInfo">Метаданные о поле.</param>
+        /// <returns>Делегат.</returns>
+        internal static SetHandler GetSetHandler(Type type, FieldInfo fieldInfo)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + fieldInfo.Name.GetHashCode();
+            return cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(type, fieldInfo));
+        }
+
+        /// <summary>
         /// Установить значение свойства объекта данных по имени этого свойства,
         /// значение передаётся типизированно. Если попытка преобразования
         /// типа неудачна, возвращается сообщение об ошибке.
         /// </summary>
+        /// <param name="obj">Объект данных, значение свойства которого кстанавливается данным методом. </param>
+        /// <param name="propName">Имя свойства объекта данных, значение которого устанавливается данным методом.</param>
+        /// <param name="PropValue">Значение свойства объекта данных, которое будет установлено данным методом.</param>
         public static void SetPropValueByName(DataObject obj, string propName, object PropValue)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
             try
             {
-                if (obj == null)
-                {
-                    return;
-                }
-
-                int pointIndex = propName.IndexOf(".");
+                int pointIndex = propName.IndexOf(".", StringComparison.Ordinal);
                 if (pointIndex >= 0)
                 {
                     string masterName = propName.Substring(0, pointIndex);
+                    var masterValue = (DataObject)GetPropValueByName(obj, masterName);
                     propName = propName.Substring(pointIndex + 1);
-                    SetPropValueByName((DataObject)GetPropValueByName(obj, masterName), propName, PropValue);
+                    SetPropValueByName(masterValue, propName, PropValue);
                 }
                 else
                 {
@@ -430,9 +538,9 @@
                         PropValue = null;
                     }
 
-                    if ((PropValue != null) && (PropValue.GetType() == typeof(string)))
+                    if (PropValue is string value)
                     {
-                        SetPropValueByName(obj, propName, (string)PropValue);
+                        SetPropValueByName(obj, propName, value);
                     }
                     else
                     {
@@ -460,8 +568,7 @@
                                     propType = Nullable.GetUnderlyingType(propType);
                                 }
 
-                                long key = objType.GetHashCode() * 10000000000 + propName.GetHashCode();
-                                SetHandler setHandler = cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(objType, propInfo));
+                                SetHandler setHandler = GetSetHandler(objType, propInfo);
                                 if (propType.IsEnum && PropValue == null)
                                 {
                                     try
@@ -488,22 +595,26 @@
                                 {
                                     Type valType = PropValue.GetType();
 
-                                    if ((valType == propType) || (isSystemType(valType) && isSystemType(propType)) ||
-                                        (propType == typeof(object))
+                                    if ((valType == propType)
+                                        || (IsSystemType(valType) && IsSystemType(propType))
+                                        || (propType == typeof(object))
                                         || valType.IsSubclassOf(propType))
                                     {
-                                        if (valType != propType && valType.GetInterface("IConvertible") != null)
+                                        object convertedValue;
+                                        if (valType != propType && valType.GetInterface(nameof(IConvertible)) != null)
                                         {
-                                            setHandler(obj, Convert.ChangeType(PropValue, propType));
+                                            convertedValue = Convert.ChangeType(PropValue, propType);
                                         }
                                         else if (valType == typeof(byte[]) && propInfo.PropertyType == typeof(System.Guid) && (PropValue as byte[]).Length == 16)
                                         {
-                                            setHandler(obj, new Guid(PropValue as byte[]));
+                                            convertedValue = new Guid(PropValue as byte[]);
                                         }
                                         else
                                         {
-                                            setHandler(obj, PropValue);
+                                            convertedValue = PropValue;
                                         }
+
+                                        setHandler(obj, convertedValue);
                                     }
                                     else if (propType == typeof(bool))
                                     {
@@ -529,7 +640,8 @@
                                                 throw new InvalidCastException();
                                             }
 
-                                            setHandler(obj, Convertors.InOperatorsConverter.Convert(PropValue, propType));
+                                            object convertedValue = Convertors.InOperatorsConverter.Convert(PropValue, propType);
+                                            setHandler(obj, convertedValue);
                                         }
                                     }
                                     else
@@ -539,7 +651,8 @@
                                             throw new InvalidCastException();
                                         }
 
-                                        setHandler(obj, Convertors.InOperatorsConverter.Convert(PropValue, propType));
+                                        object convertedValue = Convertors.InOperatorsConverter.Convert(PropValue, propType);
+                                        setHandler(obj, convertedValue);
                                     }
                                 }
                             }
@@ -1723,7 +1836,7 @@
         /// <returns></returns>
         public static Type GetPropertyType(System.Type declarationType, string propname, string masterpref, Collections.NameObjectCollection masterTypes)
         {
-            int pointIndex = propname.IndexOf(".");
+            int pointIndex = propname.IndexOf(".", StringComparison.Ordinal);
             if (masterTypes != null && masterTypes.Count > 0)
             {
                 System.Type MasterType = (masterTypes == null) ? null : (Type)masterTypes[propname];
@@ -1829,10 +1942,8 @@
                 throw new ClassIsNotSubclassOfOtherException(type, view.DefineClassType);
             }
 
-            var pvs = new Queue(view.Properties);
-
             var retVal = new Business.StorageStructForView();
-            var props = new ArrayList();
+            var props = new List<Business.StorageStructForView.PropStorage>();
             retVal.sources.storage[0].Storage = GetClassStorageName(type);
             retVal.sources.storage[0].PrimaryKeyStorageName = GetPrimaryKeyStorageName(type);
             retVal.sources.storage[0].TypeStorageName = GetTypeStorageName(type);
@@ -1842,14 +1953,13 @@
             retVal.sources.Name = view.DefineClassType.Name;
             var addedProperties = new StringCollection();
 
-            int propsCount = pvs.Count;
-            while (pvs.Count > 0)
+            int propsCount = view.Properties.Length;
+            foreach (PropertyInView curprop in view.Properties)
             {
                 propsCount--;
                 var prop = new Business.StorageStructForView.PropStorage();
                 prop.AdditionalProp = propsCount < 0;
                 props.Add(prop);
-                var curprop = (PropertyInView)pvs.Dequeue();
                 if (!addedProperties.Contains(curprop.Name))
                 {
                     addedProperties.Add(curprop.Name);
@@ -1976,7 +2086,7 @@
                                     nextSource.storage[kindex].PrimaryKeyStorageName = GetPrimaryKeyStorageName(mtype);
                                     nextSource.storage[kindex].TypeStorageName = GetTypeStorageName(mtype);
                                     nextSource.storage[kindex].ownerType = mtype;
-                                    nextSource.storage[kindex].nullableLink = !propIsNotNull || masterTypes.Length > 0;
+                                    nextSource.storage[kindex].nullableLink = !propIsNotNull || masterTypes.Length > 1;
                                     nextSource.storage[kindex].objectLinkStorageName = storname;
                                     nextSource.storage[kindex].parentStorageindex = l;
                                 }
@@ -2044,7 +2154,7 @@
                 }
             }
 
-            retVal.props = (Business.StorageStructForView.PropStorage[])props.ToArray(typeof(Business.StorageStructForView.PropStorage));
+            retVal.props = props.ToArray();
 
             // строим структуру
             return retVal;
@@ -3091,7 +3201,7 @@
             }
         }
 
-        private static ConcurrentDictionary<string, bool> cacheIsStoredProp = new ConcurrentDictionary<string, bool>();
+        private static ConcurrentDictionary<long, bool> cacheIsStoredProp = new ConcurrentDictionary<long, bool>();
 
         /// <summary>
         /// Хранимое ли свойство.
@@ -3101,7 +3211,17 @@
         /// <returns></returns>
         public static bool IsStoredProperty(Type type, string propName)
         {
-            string key = type.FullName + "." + propName;
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
+            long key = (type.GetHashCode() * 10000000000) + propName.GetHashCode();
 
             return cacheIsStoredProp.GetOrAdd(key, k => IsStoredPropertyInternal(type, propName));
         }
@@ -3413,44 +3533,59 @@
         /// <param name="type">тип.</param>
         /// <param name="propName">свойство.</param>
         /// <returns></returns>
-        public static ICSSoft.STORMNET.Collections.TypeBaseCollection GetExpressionForProperty(System.Type type, string propName)
+        public static TypeBaseCollection GetExpressionForProperty(Type type, string propName)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
             lock (cacheGetExpressionForProperty)
             {
-                ICSSoft.STORMNET.Collections.TypeBaseCollection res = (ICSSoft.STORMNET.Collections.TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
+                TypeBaseCollection res = (TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
                 if (res != null)
                 {
                     return res;
                 }
-                else
+
+                int pntIndex = propName.LastIndexOf('.');
+                if (pntIndex >= 0)
                 {
-                    res = new ICSSoft.STORMNET.Collections.TypeBaseCollection();
-                    int pntIndex = propName.LastIndexOf('.');
-                    if (pntIndex >= 0)
-                    {
-                        string masterName = propName.Substring(0, pntIndex);
-                        type = GetPropertyType(type, masterName);
-                        propName = propName.Substring(pntIndex + 1);
-                    }
+                    string masterName = propName.Substring(0, pntIndex);
+                    type = GetPropertyType(type, masterName);
+                    propName = propName.Substring(pntIndex + 1);
+                }
 
-                    PropertyInfo prop = type.GetProperty(propName);
-                    if (prop != null)
-                    {
-                        object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
-                        foreach (DataServiceExpressionAttribute atr in myAttributes)
-                        {
-                            var key = atr.TypeofDataService;
-                            if (key != null)
-                            {
-                                res.Add(key, atr.Expression);
-                            }
-                        }
-
-                        cacheGetExpressionForProperty[type, propName] = res;
-                    }
-
+                // Снова ищем в кэше по новому пути.
+                res = (TypeBaseCollection)cacheGetExpressionForProperty[type, propName];
+                if (res != null)
+                {
                     return res;
                 }
+
+                res = new TypeBaseCollection();
+                PropertyInfo prop = type.GetProperty(propName);
+                if (prop != null)
+                {
+                    object[] myAttributes = prop.GetCustomAttributes(typeof(DataServiceExpressionAttribute), true);
+                    foreach (DataServiceExpressionAttribute atr in myAttributes)
+                    {
+                        var key = atr.TypeofDataService;
+                        if (key != null)
+                        {
+                            res.Add(key, atr.Expression);
+                        }
+                    }
+
+                    cacheGetExpressionForProperty[type, propName] = res;
+                }
+
+                return res;
             }
         }
 
