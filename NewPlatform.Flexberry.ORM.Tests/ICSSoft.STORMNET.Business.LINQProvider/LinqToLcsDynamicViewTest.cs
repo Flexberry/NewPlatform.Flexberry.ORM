@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Linq.Expressions;
+
     using ICSSoft.STORMNET.Windows.Forms;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;

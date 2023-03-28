@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.DataObject
 {
     using System;
+    using System.Configuration;
     using System.Linq;
 
     using ICSSoft.STORMNET;
@@ -8,8 +9,7 @@
     using ICSSoft.STORMNET.UserDataTypes;
     using Xunit;
 
-    using NewPlatform.Flexberry.ORM.Tests;
-    using System.Configuration;
+    using NewPlatform.Flexberry.ORM.Tests; 
 
     /// <summary>
     /// Класс, содержащий тестовые методы для проверки корректности работы ORM с атрибутами порядка у детейлов.

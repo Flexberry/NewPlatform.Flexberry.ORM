@@ -1,8 +1,9 @@
-﻿using System;
-using ICSSoft.STORMNET;
-
-namespace ICSSoft.STORMNET.FunctionalLanguage
+﻿namespace ICSSoft.STORMNET.FunctionalLanguage
 {
+    using System;
+
+    using ICSSoft.STORMNET;
+
     /// <summary>
     /// Расширение класса <see cref="ViewedObject"/> за счёт введения <see cref="ObjectType"/>-типа (атрибут Type).
     /// </summary>

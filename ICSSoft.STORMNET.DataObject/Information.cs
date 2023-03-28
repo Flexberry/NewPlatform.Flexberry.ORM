@@ -10,6 +10,8 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Text;
+
+    using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
     using Microsoft.Spatial;
 
