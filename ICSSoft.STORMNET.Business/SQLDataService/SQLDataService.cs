@@ -1532,7 +1532,7 @@
                 return;
             }
 
-            DataObjectCache.StartCaching(false);
+            dataObjectCache.StartCaching(false);
 
             try
             {
@@ -1700,7 +1700,7 @@
                                             selectString, ref state, customizationStruct.LoadingBufferSize, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
                 state = new object[] { state, dataObjectType, storageStruct, customizationStruct, CustomizationString };
                 DataObject[] res = null;
-                
+
                 if (resValue == null)
                 {
                     res = new DataObject[0];
