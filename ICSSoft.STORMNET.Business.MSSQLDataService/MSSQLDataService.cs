@@ -46,7 +46,7 @@
         }
 
         /// <inheritdoc />
-        public override DbProviderFactory ProviderFactory => SqlClientFactory.Instance;
+        public override System.Data.Common.DbProviderFactory ProviderFactory => System.Data.SqlClient.SqlClientFactory.Instance;
 
         /// <summary>
         /// Вернуть объект <see cref="System.Data.Common.DbConnection"/>, предназначенный для работы с MSSQLServer и настроенный на строку соединения <see cref="SQLDataService.CustomizationString"/>.

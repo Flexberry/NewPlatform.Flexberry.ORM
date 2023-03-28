@@ -9,7 +9,7 @@
     using ICSSoft.STORMNET.UserDataTypes;
     using Xunit;
 
-    using NewPlatform.Flexberry.ORM.Tests; 
+    using NewPlatform.Flexberry.ORM.Tests;
 
     /// <summary>
     /// Класс, содержащий тестовые методы для проверки корректности работы ORM с атрибутами порядка у детейлов.
