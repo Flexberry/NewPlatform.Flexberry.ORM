@@ -6,7 +6,8 @@
 
     using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
-
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using NewPlatform.Flexberry.ORM.CurrentUserService;
 
     /// <summary>
@@ -22,7 +23,7 @@
         /// <summary>
         /// Сервис доступа к данным текущего пользовтаеля.
         /// </summary>
-        private readonly ICurrentUserAccessor currentUserAccessor;
+        private readonly ICurrentUser currentUser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LockService" /> class.
@@ -30,13 +31,13 @@
         /// <param name="dataService">
         /// Сервис данных, через который по умолчанию нужно делать запрос к БД.
         /// </param>
-        /// <param name="currentUserAccessor">
+        /// <param name="currentUser">
         /// Сервис доступа к данным текущего пользовтаеля.
         /// </param>
-        public LockService(IDataService dataService, ICurrentUserAccessor currentUserAccessor)
+        public LockService(IDataService dataService, ICurrentUser currentUser)
         {
             this.dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
-            this.currentUserAccessor = currentUserAccessor ?? throw new ArgumentNullException(nameof(currentUserAccessor));
+            this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
         #region Constants and Fields
@@ -68,6 +69,36 @@
         #endregion
 
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Удалить все блокировки текущего юзера (какие есть в базе).
+        /// </summary>
+        public void ClearAllUserLocks()
+        {
+            var ds = dataService;
+
+            // убиваем все блокировки, оставшиеся с предыдущих времен
+            SQLWhereLanguageDef lg = SQLWhereLanguageDef.LanguageDef;
+            var vd = new VariableDef(lg.GetObjectTypeForNetType(typeof(string)), "UserName");
+
+            Function func = lg.GetFunction(
+                lg.funcEQ, vd, GetUserName() + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty));
+
+            LoadingCustomizationStruct lcs1 = new LoadingCustomizationStruct(0);
+
+            View view = new View(typeof(LockData), View.ReadType.WithRelated);
+
+            lcs1.Init(null, func, new[] { typeof(LockData) }, view, null);
+
+            DataObject[] arr = ds.LoadObjects(lcs1);
+
+            foreach (DataObject obj in arr)
+            {
+                obj.SetStatus(ObjectStatus.Deleted);
+            }
+
+            ds.UpdateObjects(ref arr);
+        }
 
         /// <summary>
         /// удалить все текущие блокировки (осуществимые текущим экземпляром сервиса).
@@ -496,7 +527,7 @@
         /// </returns>
         private string GetUserName()
         {
-            return currentUserAccessor.CurrentUser?.Login;
+            return currentUser?.Login;
         }
 
         /// <summary>

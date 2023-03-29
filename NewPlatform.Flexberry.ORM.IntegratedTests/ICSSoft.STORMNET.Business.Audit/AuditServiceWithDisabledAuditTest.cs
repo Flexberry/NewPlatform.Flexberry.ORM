@@ -77,8 +77,8 @@
         /// <returns>Returns instance of the <see cref="AuditService" /> class that will be used for the test.</returns>
         protected override AuditService GetAuditServiceForTest()
         {
-            var mockCurrentUserAccessor = new Mock<ICurrentUserAccessor>();
-            return new AuditService(mockCurrentUserAccessor.Object)
+            Mock<ICurrentUser> mockCurrentUser = new Mock<ICurrentUser>();
+            return new AuditService(mockCurrentUser.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = false },
                 Audit = new EmptyAudit(),

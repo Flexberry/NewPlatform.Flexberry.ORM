@@ -25,12 +25,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditService" /> class.
         /// </summary>
-        /// <param name="currentUserAccessor">
+        /// <param name="currentUse">
         /// Сервис доступа к данным текущего пользовтаеля.
         /// </param>
-        public AuditService(ICurrentUserAccessor currentUserAccessor)
+        public AuditService(ICurrentUser currentUser)
         {
-            _currentUserAccessor = currentUserAccessor ?? throw new ArgumentNullException(nameof(currentUserAccessor));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
         #endregion
@@ -40,7 +40,7 @@
         /// <summary>
         /// Сервис доступа к данным текущего пользовтаеля.
         /// </summary>
-        private readonly ICurrentUserAccessor _currentUserAccessor;
+        private readonly ICurrentUser _currentUser;
 
         /// <summary>
         /// Current audit settings loader for types.
@@ -1463,7 +1463,7 @@
             try
             {
                 // Данный метод должен отработать как в win, так и в web.
-                var currentUser = _currentUserAccessor.CurrentUser;
+                var currentUser = _currentUser;
                 if (currentUser != null)
                 {
                     if (needNameNotLogin)

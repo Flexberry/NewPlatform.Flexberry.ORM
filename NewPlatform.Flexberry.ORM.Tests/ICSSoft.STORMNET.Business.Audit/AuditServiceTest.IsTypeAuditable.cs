@@ -25,8 +25,8 @@
         public void TestIsTypeAuditableWithoutAuditSettings()
         {
             // Arrange.
-            var mockUserAccessor = new Mock<ICurrentUserAccessor>();
-            var auditService = new AuditService(mockUserAccessor.Object);
+            var mockUser = new Mock<ICurrentUser>();
+            var auditService = new AuditService(mockUser.Object);
 
             // Act && Assert.
             Assert.False(auditService.IsTypeAuditable(typeof(AuditClassWithSettings)));
@@ -42,8 +42,8 @@
         public void TestIsTypeAuditableWithDisabledAudit()
         {
             // Arrange.
-            var mockUserAccessor = new Mock<ICurrentUserAccessor>();
-            var auditService = new AuditService(mockUserAccessor.Object)
+            var mockUser = new Mock<ICurrentUser>();
+            var auditService = new AuditService(mockUser.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = false },
             };
@@ -62,8 +62,8 @@
         public void TestIsTypeAuditableWithEnabledAudit()
         {
             // Arrange.
-            var mockUserAccessor = new Mock<ICurrentUserAccessor>();
-            var auditService = new AuditService(mockUserAccessor.Object)
+            var mockUser = new Mock<ICurrentUser>();
+            var auditService = new AuditService(mockUser.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = true },
             };
