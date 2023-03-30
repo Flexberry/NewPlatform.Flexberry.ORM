@@ -12,7 +12,6 @@
     /// <summary>
     ///     Тесты класса <see cref="AuditService" />.
     /// </summary>
-    
     public partial class AuditServiceTest
     {
         /// <summary>
@@ -29,7 +28,7 @@
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.MasterObject.Login),
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.MasterObject.Name),
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.MasterObject.Surname),
-            Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.MasterObject.NameSurname)
+            Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.MasterObject.NameSurname),
         };
 
         /// <summary>
@@ -41,7 +40,7 @@
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.Login),
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.Name),
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.Surname),
-            Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.NameSurname)
+            Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.MasterObject.NameSurname),
         };
 
         /// <summary>
@@ -52,7 +51,7 @@
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.Login),
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.Name),
             Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.Surname),
-            Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.NameSurname)
+            Information.ExtractPropertyPath<AuditAgregatorObject>(x => x.NameSurname),
         };
 
         /// <summary>
@@ -649,8 +648,8 @@
             /// </summary>
             /// <param name="dataObjectView">Представление для загрузки.</param>
             /// <param name="dobject">Объект для загрузки.</param>
-            /// <param name="clearDataObject">Следует ли очистить объект перед загрузкой.</param>
-            /// <param name="checkExistingObject">Проводить проверку существования ссылочных объектов.</param>
+            /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+            /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
             public override void LoadObject(View dataObjectView, DataObject dobject, bool clearDataObject, bool checkExistingObject)
             {
                 SetViewProperties(dobject, dataObjectView, LoadedValue);

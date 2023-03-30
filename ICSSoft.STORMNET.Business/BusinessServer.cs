@@ -72,7 +72,7 @@
             DataObjectCache.Creator = creator;
         }
 
-        private System.Reflection.MethodInfo Method = null;
+        internal System.Reflection.MethodInfo Method = null;
 
         /// <summary>
         /// Определяем метод, в который записан бизнес-сервер для типа объекта.
@@ -84,17 +84,17 @@
         public void SetType(Type objectType)
         {
             const string BsMethodNameStart = "OnUpdate";
-            foreach (var methodInfo in GetType().GetMethods())
+            var onUpdateMethods = GetType().GetMethods()
+                .Where(mi => mi.Name.StartsWith(BsMethodNameStart) && mi.ReturnType == typeof(DataObject[]));
+            foreach (var methodInfo in onUpdateMethods)
             {
                 string methodinfoName = methodInfo.Name;
-                System.Reflection.ParameterInfo[] ps;
+                System.Reflection.ParameterInfo[] ps = methodInfo.GetParameters();
 
-                if (methodinfoName.StartsWith(BsMethodNameStart)
-                    && methodInfo.ReturnType == typeof(DataObject[])
-                    && (ps = methodInfo.GetParameters()).Length == 1
-                    && (
-                        (ps[0].ParameterType.IsSubclassOf(typeof(DataObject)) && ps[0].ParameterType == objectType) // Это на случай, если BS навешен непосредственно на класс или его предка.
-                        || (ps[0].ParameterType.IsInterface && objectType.GetInterfaces().Contains(ps[0].ParameterType))) // Это на случай, если BS навешен на интерфейс его предка.
+                if (ps.Length == 1
+                    && ps[0].ParameterType == objectType
+                    && (ps[0].ParameterType.IsSubclassOf(typeof(DataObject)) // Это на случай, если BS навешен непосредственно на класс или его предка.
+                        || ps[0].ParameterType.IsInterface) // Это на случай, если BS навешен на интерфейс его предка.
                     && BsMethodNameStart + ps[0].ParameterType.Name == methodinfoName
                     && ps[0].Name == "UpdatedObject")
                 {

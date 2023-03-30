@@ -7,7 +7,6 @@
     /// <summary>
     /// Тест для проверки <see cref="ObjectCreator"/>.
     /// </summary>
-    
     public class ObjectCreatorTest
     {
         /// <summary>
@@ -28,7 +27,7 @@
             object obj2 = objectCreator2.CreateObject(typeof(Страна));
             stopwatch.Stop();
             Debug.WriteLine(stopwatch.ElapsedTicks + "ticks with cache");
-            
+
             Assert.True(obj2 is Страна);
             int key = typeof(Страна).GetHashCode();
             Assert.True(ObjectCreator.CacheInstantiateObjectHandler.ContainsKey(key));

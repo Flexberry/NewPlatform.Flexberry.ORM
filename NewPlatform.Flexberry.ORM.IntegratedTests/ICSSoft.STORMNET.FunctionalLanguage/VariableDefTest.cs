@@ -12,13 +12,11 @@
     /// <summary>
     /// Проверка класса VariableDef.
     /// </summary>
-
     public class VariableDefTest
     {
         /// <summary>
         /// Проверка определения переменной в ограничении.
         /// </summary>
-        
         [Fact]
         public void VariableDefTest1()
         {
@@ -36,7 +34,6 @@
         /// <summary>
         /// Проверка определения переменной в ограничении.
         /// </summary>
-        
         [Fact]
         public void VariableDefTest2()
         {
@@ -52,7 +49,6 @@
         /// <summary>
         /// Проверка определения переменной в ограничении.
         /// </summary>
-        
         [Fact]
         public void VariableDefTest3()
         {
@@ -70,7 +66,6 @@
         /// <summary>
         /// Проверка определения переменной в ограничении.
         /// </summary>
-        
         [Fact]
         public void VariableDefTest4()
         {
@@ -86,7 +81,6 @@
         /// <summary>
         /// Проверка сериализации.
         /// </summary>
-        
         [Fact]
         public void VariableDefToSimpleValueTest()
         {
@@ -102,7 +96,6 @@
         /// <summary>
         /// Проверка десериализации.
         /// </summary>
-        
         [Fact]
         public void VariableDefFromSimpleValueTest()
         {
@@ -122,7 +115,6 @@
         /// <summary>
         /// Проверка исключения при десериализации.
         /// </summary>
-        
         [Fact]
         public void VariableDefFromSimpleValueExceptionTest()
         {
@@ -203,7 +195,7 @@
                     findType = "Decimal";
                     break;
 
-                // Различие десериализации в FromSimpleValue() "KeyGuid" -> "Guid" и 
+                // Различие десериализации в FromSimpleValue() "KeyGuid" -> "Guid" и
                 // "keyguid" -> "KeyGuid". В одном методе два оператора switch (инф добавил в отчет).
                 case "KeyGuid":
                     findType = "Guid";

@@ -14,7 +14,6 @@
     /// <summary>
     /// Класс для тестирования функциональности класса <see cref="InterfaceBusinessServer" />.
     /// </summary>
-
     public class InterfaceTests
     {
         /// <summary>
@@ -163,7 +162,7 @@
                 new Place2 { TodayTerritory = masterObject, TomorrowTeritory = otherCountry },
                 new Apparatus2 { Maker = otherCountry, Exporter = otherCountry },
                 new Human2 { TodayHome = otherCountry },
-                new Place2 { TodayTerritory = otherCountry, TomorrowTeritory = otherCountry }
+                new Place2 { TodayTerritory = otherCountry, TomorrowTeritory = otherCountry },
             };
 
             InterfaceBusinessServer.NullifyMasterReferences(masterObject, referencingDataObjects, resultList);

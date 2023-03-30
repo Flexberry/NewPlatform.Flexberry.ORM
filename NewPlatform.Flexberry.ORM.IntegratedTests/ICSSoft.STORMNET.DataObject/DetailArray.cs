@@ -2,13 +2,11 @@
 {
     using Xunit;
 
-    
     public class DetailArray
     {
-        //[Fact]
+        // [Fact]
         public void AddRangeTest()
         {
-
         }
     }
 }

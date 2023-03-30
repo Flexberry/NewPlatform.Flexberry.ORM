@@ -5,30 +5,29 @@ namespace ICSSoft.STORMNET.Business
     /// <summary>
     /// Summary description for DataServiceUsingTypeCustomizer.
     /// </summary>
-
     public struct PropertyUsingTypes
     {
         /// <summary>
-        /// тип объекта данных
+        /// тип объекта данных.
         /// </summary>
         public Type DataObjectType;
 
         /// <summary>
-        /// Свойство
+        /// Свойство.
         /// </summary>
         public string PropertyName;
 
         /// <summary>
-        /// типы которые можно использовать для этого свойства
+        /// типы которые можно использовать для этого свойства.
         /// </summary>
         public Type[] UsingTypes;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="doType"> тип объекта данных</param>
-        /// <param name="propName">Свойство</param>
-        /// <param name="usTypes">типы которые можно использовать для этого свойства</param>
+        /// <param name="doType"> тип объекта данных.</param>
+        /// <param name="propName">Свойство.</param>
+        /// <param name="usTypes">типы которые можно использовать для этого свойства.</param>
         public PropertyUsingTypes(Type doType, string propName, params Type[] usTypes)
         {
             DataObjectType = doType;
@@ -38,7 +37,7 @@ namespace ICSSoft.STORMNET.Business
     }
 
     /// <summary>
-    /// Настройка сервиса данных в части <see cref="PropertyUsingTypes"/>
+    /// Настройка сервиса данных в части <see cref="PropertyUsingTypes"/>.
     /// </summary>
     public class DataServiceUsingTypeCustomizer
     {

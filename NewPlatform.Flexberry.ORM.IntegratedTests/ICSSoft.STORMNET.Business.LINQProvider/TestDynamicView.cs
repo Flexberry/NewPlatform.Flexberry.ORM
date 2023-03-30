@@ -2,19 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
-
-    using Xunit;
-
-
-    using NewPlatform.Flexberry.ORM.Tests;
     using NewPlatform.Flexberry.ORM.IntegratedTests;
+    using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Класс для тестирования динамических представлений при работе с LINQProvider'ом.
     /// </summary>
-
     public class TestDynamicView : BaseIntegratedTest
     {
         /// <summary>

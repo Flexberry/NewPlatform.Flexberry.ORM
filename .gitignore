@@ -4,6 +4,11 @@
 **/.vs/
 *.coverage
 *.xml
+*.cache
+
+#Ignore thumbnails created by Windows
+Thumbs.db
 
 #Ignore files built by Visual Studio
 *.user
+*.suo

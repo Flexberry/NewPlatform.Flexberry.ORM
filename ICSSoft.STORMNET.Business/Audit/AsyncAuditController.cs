@@ -16,32 +16,32 @@
         #region Поля и свойства
 
         /// <summary>
-        /// Непосредственно аудит, которому будут передаваться запросы
+        /// Непосредственно аудит, которому будут передаваться запросы.
         /// </summary>
         private IAudit _audit;
 
         /// <summary>
-        /// Потоку пора остановиться
+        /// Потоку пора остановиться.
         /// </summary>
         private bool threadNeedToStop = false;
 
         /// <summary>
-        /// Поток по отправке данных для аудита
+        /// Поток по отправке данных для аудита.
         /// </summary>
         private Thread auditThread = null;
 
         /// <summary>
-        /// Список заявок для потока отправки сообщений аудиту
+        /// Список заявок для потока отправки сообщений аудиту.
         /// </summary>
         private List<AuditParametersBase> threadQueue = null;
 
         /// <summary>
-        /// Как долго спит поток, если нет заявок
+        /// Как долго спит поток, если нет заявок.
         /// </summary>
         private int? sleepTime = null;
 
         /// <summary>
-        /// Непосредственно аудит, которому будут передаваться запросы
+        /// Непосредственно аудит, которому будут передаваться запросы.
         /// </summary>
         public IAudit Audit
         {
@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// Как долго спит поток, если нет заявок
+        /// Как долго спит поток, если нет заявок.
         /// </summary>
         private int SleepTime
         {
@@ -78,7 +78,7 @@
         }
 
         /// <summary>
-        /// Список заявок для потока отправки сообщений аудиту
+        /// Список заявок для потока отправки сообщений аудиту.
         /// </summary>
         private List<AuditParametersBase> ThreadQueue
         {
@@ -91,9 +91,9 @@
         #endregion Поля и свойства
 
         /// <summary>
-        /// Записываем операции в очередь на аудит
+        /// Записываем операции в очередь на аудит.
         /// </summary>
-        /// <param name="auditParametersBase">Параметры для их записи на аудит</param>
+        /// <param name="auditParametersBase">Параметры для их записи на аудит.</param>
         public void WriteAuditOperationAsync(AuditParametersBase auditParametersBase)
         {
             ThreadQueue.Add(auditParametersBase);
@@ -101,7 +101,7 @@
         }
 
         /// <summary>
-        /// Если поток аудита не работает, то его запускают
+        /// Если поток аудита не работает, то его запускают.
         /// </summary>
         private void StartAuditThread()
         {
@@ -114,7 +114,7 @@
         }
 
         /// <summary>
-        /// На базе этого метода работает поток, который отправляет сообщения аудиту
+        /// На базе этого метода работает поток, который отправляет сообщения аудиту.
         /// </summary>
         private void SendToAuditAsync()
         {

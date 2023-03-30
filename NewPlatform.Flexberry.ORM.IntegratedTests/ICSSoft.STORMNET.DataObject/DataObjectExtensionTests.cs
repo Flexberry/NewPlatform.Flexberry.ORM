@@ -1,38 +1,77 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
+    using System.Linq.Expressions;
 
     using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.Business;
+
+    using NewPlatform.Flexberry.ORM.IntegratedTests;
 
     using Xunit;
 
     /// <summary>
     /// Тесты для класса <see cref="DataObjectExtension"/>.
     /// </summary>
-    public class DataObjectExtensionTests
+    public class DataObjectExtensionTests : BaseIntegratedTest
     {
         /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.CheckLoadedProperty{T}" />.
+        /// Конструктор.
         /// </summary>
-        [Fact]
-        public void CheckLoadedPropertyGenericTest1()
+        public DataObjectExtensionTests()
+            : base("DOETest")
         {
-            var client = new Клиент();
-
-            // Мы только создали объект, он не является загруженным.
-            Assert.False(client.CheckLoadedProperty(x => x.Прописка));
         }
 
         /// <summary>
         /// Тест Linq-расширения метода <see cref="DataObjectExtension.CheckLoadedProperty{T}" />.
         /// </summary>
         [Fact]
-        public void CheckLoadedPropertyGenericTest2()
+        public void CheckLoadedPropertyGenericTest1()
         {
-            var client = new Клиент { Прописка = "Knowhere" };
-            client.SetLoadedProperties(nameof(Клиент.Прописка));
+            foreach (IDataService dataService in DataServices)
+            {
+                var client = new Клиент { Прописка = "Knowhere" };
+                dataService.UpdateObject(client);
 
-            Assert.True(client.CheckLoadedProperty(x => x.Прописка));
+                Expression<Func<Клиент, object>> propertyExpression = x => x.Прописка;
+                var view = new View { DefineClassType = typeof(Клиент) };
+                view.AddProperty(Information.ExtractPropertyPath(propertyExpression));
+
+                // Act.
+                var loadedClient = PKHelper.CreateDataObject<Клиент>(client);
+                dataService.LoadObject(view, loadedClient);
+
+                Assert.True(client.CheckLoadedProperty(propertyExpression));
+            }
+        }
+
+        /// <summary>
+        /// Тест Linq-расширения метода <see cref="DataObjectExtension.CheckLoadedProperty{T}" />.
+        /// </summary>
+        [Fact]
+        public void CheckLoadedPropertyGenericMasterTest1()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var country = new Страна { Название = "РФ" };
+                var forest = new Лес { Страна = country };
+                dataService.UpdateObject(forest);
+
+                Expression<Func<Лес, object>> propertyExpression0 = x => x.Страна;
+                Expression<Func<Лес, object>> propertyExpression = x => x.Страна.Название;
+                var view = new View { DefineClassType = typeof(Лес) };
+                view.AddProperty(Information.ExtractPropertyPath(propertyExpression));
+
+                // Act.
+                var loadedForest = PKHelper.CreateDataObject<Лес>(forest);
+                dataService.LoadObject(view, loadedForest);
+
+                // Assert.
+                Assert.True(loadedForest.CheckLoadedProperty(propertyExpression0));
+                Assert.False(loadedForest.CheckLoadedProperty(propertyExpression));
+            }
         }
 
         /// <summary>
@@ -41,10 +80,21 @@
         [Fact]
         public void CheckLoadedPropertiesGenericTest1()
         {
-            var client = new Клиент();
+            foreach (IDataService dataService in DataServices)
+            {
+                var client = new Клиент { Прописка = "Knowhere" };
+                dataService.UpdateObject(client);
 
-            // Мы только создали объект, он не является загруженным.
-            Assert.False(client.CheckLoadedProperties(x => x.Прописка));
+                Expression<Func<Клиент, object>> propertyExpression = x => x.Прописка;
+                var view = new View { DefineClassType = typeof(Клиент) };
+                view.AddProperty(Information.ExtractPropertyPath(propertyExpression));
+
+                // Act.
+                var loadedClient = PKHelper.CreateDataObject<Клиент>(client);
+                dataService.LoadObject(view, loadedClient);
+
+                Assert.True(client.CheckLoadedProperties(propertyExpression));
+            }
         }
 
         /// <summary>
@@ -53,111 +103,23 @@
         [Fact]
         public void CheckLoadedPropertiesGenericTest2()
         {
-            var client = new Клиент { Прописка = "Knowhere" };
-            client.SetLoadedProperties(nameof(Клиент.Прописка));
+            foreach (IDataService dataService in DataServices)
+            {
+                var client = new Клиент { Прописка = "Knowhere", ФИО = "Mr. Nobody" };
+                dataService.UpdateObject(client);
 
-            Assert.True(client.CheckLoadedProperties(x => x.Прописка));
-        }
+                Expression<Func<Клиент, object>> propertyExpression = x => x.Прописка;
+                Expression<Func<Клиент, object>> propertyExpression1 = x => x.ФИО;
+                var view = new View { DefineClassType = typeof(Клиент) };
+                view.AddProperty(Information.ExtractPropertyPath(propertyExpression));
+                view.AddProperty(Information.ExtractPropertyPath(propertyExpression1));
 
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.CheckLoadedProperties{T}" />.
-        /// </summary>
-        [Fact]
-        public void CheckLoadedPropertiesGenericTest3()
-        {
-            var client = new Клиент { Прописка = "Knowhere", ФИО = "Mr. Nobody" };
-            client.SetLoadedProperties(nameof(Клиент.Прописка));
+                // Act.
+                var loadedClient = PKHelper.CreateDataObject<Клиент>(client);
+                dataService.LoadObject(view, loadedClient);
 
-            Assert.False(client.CheckLoadedProperties(x => x.Прописка, x => x.ФИО));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.CheckLoadedProperties{T}" />.
-        /// </summary>
-        [Fact]
-        public void CheckLoadedPropertiesGenericTest4()
-        {
-            var client = new Клиент { Прописка = "Knowhere", ФИО = "Mr. Nobody" };
-            client.SetLoadedProperties(nameof(Клиент.Прописка), nameof(Клиент.ФИО));
-
-            Assert.True(client.CheckLoadedProperties(x => x.Прописка, x => x.ФИО));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.IsAlteredProperty{T}" />.
-        /// </summary>
-        [Fact]
-        public void IsAlteredPropertyGenericTest1()
-        {
-            var client = new Клиент();
-
-            // Мы только создали объект, все свойства Altered.
-            Assert.True(client.IsAlteredProperty(x => x.Прописка));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.IsAlteredProperty{T}" />.
-        /// </summary>
-        [Fact]
-        public void IsAlteredPropertyGenericTest2()
-        {
-            var client = new Клиент();
-            client.SetExistObjectPrimaryKey(Guid.NewGuid());
-            client.InitDataCopy();
-
-            Assert.False(client.IsAlteredProperty(x => x.Прописка));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.IsAlteredProperties{T}" />.
-        /// </summary>
-        [Fact]
-        public void IsAlteredPropertiesGenericTest1()
-        {
-            var client = new Клиент();
-
-            // Мы только создали объект, все свойства Altered.
-            Assert.True(client.IsAlteredProperties(x => x.Прописка));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.IsAlteredProperties{T}" />.
-        /// </summary>
-        [Fact]
-        public void IsAlteredPropertiesGenericTest2()
-        {
-            var client = new Клиент();
-            client.SetExistObjectPrimaryKey(Guid.NewGuid());
-            client.InitDataCopy();
-
-            Assert.False(client.IsAlteredProperties(x => x.Прописка));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.IsAlteredProperties{T}" />.
-        /// </summary>
-        [Fact]
-        public void IsAlteredPropertiesGenericTest3()
-        {
-            var client = new Клиент();
-            client.SetExistObjectPrimaryKey(Guid.NewGuid());
-            client.InitDataCopy();
-            client.ФИО = "Mr. Nobody";
-
-            Assert.True(client.IsAlteredProperties(x => x.Прописка, x => x.ФИО));
-        }
-
-        /// <summary>
-        /// Тест Linq-расширения метода <see cref="DataObjectExtension.IsAlteredProperties{T}" />.
-        /// </summary>
-        [Fact]
-        public void IsAlteredPropertiesGenericTest4()
-        {
-            var client = new Клиент();
-            client.SetExistObjectPrimaryKey(Guid.NewGuid());
-            client.InitDataCopy();
-
-            Assert.False(client.IsAlteredProperties(x => x.Прописка, x => x.ФИО));
+                Assert.True(client.CheckLoadedProperties(propertyExpression, propertyExpression1));
+            }
         }
     }
 }

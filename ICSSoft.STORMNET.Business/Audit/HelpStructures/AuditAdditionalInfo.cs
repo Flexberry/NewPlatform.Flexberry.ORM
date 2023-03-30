@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.IO;
     using System.Linq;
     using System.Runtime.Serialization;
 
@@ -256,10 +255,10 @@
 
         /// <summary>
         /// Из БД вычитывается объект и определяются, какие значения после сохранения в БД приняли поля с атрибутом DisableInsertPropertyAttribute.
-        /// Зачитка объекта идёт в той же транзакции, что и были обновлены объекты.
+        /// вычитка объекта идёт в той же транзакции, что и были обновлены объекты.
         /// </summary>
-        /// <param name="transaction">Транзакция, в рамках которой нужно производить зачитку.</param>
-        /// <param name="sqlDataService">Сервис данных, с помощью которого нужно проводить зачитку.</param>
+        /// <param name="transaction">Транзакция, в рамках которой нужно производить вычитку.</param>
+        /// <param name="sqlDataService">Сервис данных, с помощью которого нужно проводить вычитку.</param>
         public void SetNewFieldValues(IDbTransaction transaction, SQLDataService sqlDataService)
         {
             if (_auditRecordPrimaryKey == null)
@@ -288,11 +287,8 @@
 
             foreach (var keptFieldsValue in _keptFieldsValues)
             {
-                var propertyValue = objectType.GetProperty(keptFieldsValue.Key).GetValue(objectInstanse, null);
-                _keptFieldsValues[keptFieldsValue.Key].NewValue =
-                    propertyValue == null
-                    ? null
-                    : propertyValue.ToString();
+                var propertyValue = Information.GetPropValueByName(objectInstanse, keptFieldsValue.Key);
+                _keptFieldsValues[keptFieldsValue.Key].NewValue = propertyValue?.ToString();
             }
         }
 

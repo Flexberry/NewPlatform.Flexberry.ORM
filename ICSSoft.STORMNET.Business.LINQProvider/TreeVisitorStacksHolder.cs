@@ -13,7 +13,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
     using ICSSoft.STORMNET.FunctionalLanguage;
 
     /// <summary>
-    /// Хранитель стеков для TreeVisitor
+    /// Хранитель стеков для TreeVisitor.
     /// </summary>
     public class TreeVisitorStacksHolder
     {
@@ -42,7 +42,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
             }
 
             var f = param as Function;
-            if(f == null)
+            if (f == null)
             {
                 throw new Exception("В этом месте ожидается параметр типа Function");
             }

@@ -1,21 +1,17 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.FunctionalLanguage
 {
-    using System;
     using System.Linq;
-    using Xunit;
-    
-    using System.Configuration;
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
-    using NewPlatform.Flexberry.ORM.Tests;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Windows.Forms;
-    using ICSSoft.STORMNET;
+    using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Тестирование разных вариантов загрузки char из БД.
     /// </summary>
-    
     public class LoadCharTest : BaseIntegratedTest
     {
         /// <summary>
@@ -43,8 +39,8 @@
 
             // 49 - это код символа '1'.
             lcs.LimitFunction = this.ldef.GetFunction(
-                this.ldef.funcEQ, 
-                new VariableDef(this.ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleChar)), 
+                this.ldef.funcEQ,
+                new VariableDef(this.ldef.StringType, Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleChar)),
                 49);
 
             LoadingCustomizationStruct lcs2 = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMainAgregator), FullTypesMainAgregator.Views.FullView);
@@ -81,7 +77,7 @@
             // Arrange.
             char testChar = '1';
             LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMainAgregator), FullTypesMainAgregator.Views.FullView);
-            
+
             // 49 - это код символа '1'.
             lcs.LimitFunction = this.ldef.GetFunction(
                 this.ldef.funcEQ,
