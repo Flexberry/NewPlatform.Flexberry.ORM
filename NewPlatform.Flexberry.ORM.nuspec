@@ -44,7 +44,7 @@
         <dependency id="Unity.Configuration" version="5.11.2" />
         <dependency id="Unity.Container" version="5.11.8" />
       </group>
-	<group targetFramework=".NETFramework4.6">
+	<group targetFramework=".NETFramework4.6.1">
 		<dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
 		<dependency id="Microsoft.Spatial" version="7.10.0" />
 		<dependency id="Remotion.Linq" version="2.2.0" />
@@ -63,7 +63,7 @@
         <dependency id="Unity.Container" version="5.11.8" />
         <dependency id="System.Reflection.Emit.Lightweight" version="4.6.0" />
       </group>
-		<group targetFramework=".NETCore3.1">
+		<group targetFramework=".NETCoreApp3.1">
 			<dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
 			<dependency id="Microsoft.Spatial" version="7.10.0" />
 			<dependency id="Remotion.Linq" version="2.2.0" />
@@ -73,7 +73,7 @@
 			<dependency id="Unity.Container" version="5.11.8" />
 			<dependency id="System.Reflection.Emit.Lightweight" version="4.6.0" />
 		</group>
-		<group targetFramework=".NET6.0">
+		<group targetFramework="net6.0">
 			<dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
 			<dependency id="Microsoft.Spatial" version="7.10.0" />
 			<dependency id="Remotion.Linq" version="2.2.0" />
@@ -83,7 +83,7 @@
 			<dependency id="Unity.Container" version="5.11.8" />
 			<dependency id="System.Reflection.Emit.Lightweight" version="4.6.0" />
 		</group>
-		<group targetFramework=".NET7.0">
+		<group targetFramework="net7.0">
 			<dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
 			<dependency id="Microsoft.Spatial" version="7.10.0" />
 			<dependency id="Remotion.Linq" version="2.2.0" />
