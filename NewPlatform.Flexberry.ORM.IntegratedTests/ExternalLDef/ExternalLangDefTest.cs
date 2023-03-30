@@ -1,10 +1,14 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.ExternalLDef
 {
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
     using ICSSoft.STORMNET.Windows.Forms;
-    using Xunit;
+    using Moq;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Тесты для ExternalLangDef.
@@ -14,7 +18,7 @@
         /// <summary>
         /// Экземпляр ExternalLangDef для тестов.
         /// </summary>
-        private static readonly ExternalLangDef ldef = ExternalLangDef.LanguageDef;
+        private static readonly ExternalLangDef ldef = new ExternalLangDef(new MSSQLDataService(new Mock<ISecurityManager>().Object, new Mock<IAuditService>().Object));
 
         /// <summary>
         /// Тест свойства <see cref="ExternalLangDef.paramYearDIFF"/>.
