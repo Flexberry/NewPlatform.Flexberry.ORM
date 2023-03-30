@@ -14,9 +14,17 @@
     public partial class ExternalLangDef : SQLWhereLanguageDef
     {
         /// <summary>
+        /// Сервис данных для построения подзапросов.
+        /// </summary>
+        private IDataService dataService;
+
+        private static ExternalLangDef langDef;
+
+        /// <summary>
         /// Внимание, используйте конструктор только в исключительных ситуациях.
         /// </summary>
-        public ExternalLangDef()
+        /// <param name="dataService">Сервис данных для построения подзапросов.</param>
+        public ExternalLangDef(IDataService dataService)
         {
             fieldDataObjectType.SimplificationValue = DataObjectToSimpleValue;
             fieldDataObjectType.UnSimplificationValue = SimpleValueToDataObject;
@@ -24,43 +32,33 @@
             {
                 "Count", "SUM", funcCountWithLimit, "ExistExact", "Exist", "AVG", "MAX", "MIN", funcSumWithLimit, funcAvgWithLimit, funcMaxWithLimit, funcMinWithLimit, "ExistAll", "ExistAllExact",
             };
+
+            this.dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
         }
 
         /// <summary>
         /// Статический ExternalLangDef, используется для получения функций.
         /// </summary>
-        public static ExternalLangDef LanguageDef { get; } = new ExternalLangDef();
-
-        /// <summary>
-        /// сервис данных для построения подзапросов.
-        /// </summary>
-        private Business.IDataService m_objDataService;
-
-        private readonly List<string> ChFuncNames;
-
-        /// <summary>
-        /// Сервис данных для построения подзапросов. Если не указан, используется DataServiceProvider.DataService.
-        /// </summary>
-        public Business.IDataService DataService
+        [Obsolete("It is better to use constructed entity of ExternalLangDef by new keyword.")]
+        public static new ExternalLangDef LanguageDef
         {
             get
             {
-                if (m_objDataService != null)
-                {
-                    return m_objDataService;
-                }
-                else
-                {
-                    m_objDataService = Business.DataServiceProvider.DataService;
-                    return m_objDataService;
-                }
+                return langDef ?? throw new NullReferenceException("ExternalLangDef.LanguageDef is not set.");
             }
 
             set
             {
-                m_objDataService = value;
+                if (langDef != null)
+                {
+                    throw new Exception("ExternalLangDef.LanguageDef should not be reset.");
+                }
+
+                langDef = value;
             }
         }
+
+        private readonly List<string> ChFuncNames;
 
         public string paramTrue
         {
@@ -555,7 +553,7 @@
                 v.AddProperty(prop);
             }
 
-            DataService.LoadObject(v, dobj);
+            dataService.LoadObject(v, dobj);
 
             return dobj;
         }

@@ -14,6 +14,8 @@
     /// </summary>
     public class DataServiceProvider
     {
+        private static IDataService dataService = null;
+
         /// <summary>
         /// Deny construct instance directly.
         /// </summary>
@@ -25,57 +27,22 @@
         /// Current <see cref="IDataService"/> instance.
         /// </summary>
         /// <exception cref="Exception">Throws if your configuration file has wrong parameters.</exception>
+        [Obsolete("It is needed to use proper varians of dependency injection.")]
         public static IDataService DataService
         {
             get
             {
-                // Может IDataService определено через Unity.
-                IUnityContainer container = UnityFactory.GetContainer();
-                if (container.IsRegistered<IDataService>())
-                {
-                    // Получаем тип сервиса данных.
-                    IDataService dataService = container.Resolve<IDataService>();
-
-                    if (dataService.CustomizationString == null)
-                    {
-                        // Пробуем получить строку соединения в web-стиле.
-                        string connectionStringName = ConfigurationManager.AppSettings["DefaultConnectionStringName"];
-                        string connectionString = null;
-                        if (!string.IsNullOrEmpty(connectionStringName))
-                        {
-                            ConnectionStringSettings connString = ConfigurationManager.ConnectionStrings[connectionStringName];
-                            if (connString != null)
-                            {
-                                string enc = ConfigurationManager.AppSettings["Encrypted"];
-                                if (!string.IsNullOrEmpty(enc) && enc.ToLower() == "true")
-                                {
-                                    connectionString = Decrypt(connString.ConnectionString, true);
-                                }
-                                else
-                                {
-                                    connectionString = connString.ConnectionString;
-                                }
-                            }
-                            else
-                            {
-                                LogService.LogError(string.Format("Connection string '{0}' not found at configuration file.", connectionStringName));
-                            }
-                        }
-
-                        dataService.CustomizationString = connectionString;
-                    }
-
-                    return dataService;
-                }
-                else
-                {
-                    throw new ConfigurationErrorsException("IDataService is not resolved. Check app configuration Unity section.");
-                }
+                return dataService ?? throw new NullReferenceException("DataServiceProvider.DataService is not set.");
             }
 
             set
             {
-                throw new ConfigurationErrorsException("Use Unity for configure IDataService type mapping");
+                if (dataService != null)
+                {
+                    throw new Exception("DataServiceProvider.DataService should not be reset.");
+                }
+
+                dataService = value;
             }
         }
 

@@ -5,18 +5,15 @@
     using System.Linq;
 
     using AdvLimit.ExternalLangDef;
-
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-    using ICSSoft.STORMNET.Windows.Forms;
-
-    using Xunit;
-    using ICSSoft.STORMNET;
-    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Security;
-
+    using ICSSoft.STORMNET.Windows.Forms;
     using Moq;
+    using Xunit;
 
     /// <summary>
     /// Тесты, которые проверяют расширение представления по функции.
@@ -24,11 +21,6 @@
     /// </summary>
     public class EnrichViewWithPropertiesUsedInFunctionTest
     {
-        /// <summary>
-        /// Описание языка lcs, используемое в тестах.
-        /// </summary>
-        private readonly ExternalLangDef langdef = new ExternalLangDef();
-
         [Fact]
         public void NullFunctionTest()
         {
@@ -43,6 +35,11 @@
         [Fact]
         public void SimpleDoubledPropertyTest()
         {
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            ExternalLangDef langdef = new ExternalLangDef(ds);
+
             var function = langdef.GetFunction(
                 langdef.funcAND,
                 langdef.GetFunction(langdef.funcEQ, langdef.GetFunction(langdef.funcYearPart, new VariableDef(langdef.DateTimeType, "ДатаВыдачи")), "2012"),
@@ -64,6 +61,11 @@
         [Fact]
         public void DetailInFunctionTest()
         {
+            var mockSecurityManager = new Mock<ISecurityManager>();
+            var mockAuditService = new Mock<IAuditService>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            ExternalLangDef langdef = new ExternalLangDef(ds);
+
             var dvd = new DetailVariableDef();
             dvd.ConnectMasterPorp = "Берлога";
             dvd.OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey };
@@ -93,6 +95,7 @@
             var mockSecurityManager = new Mock<ISecurityManager>();
             var mockAuditService = new Mock<IAuditService>();
             using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            ExternalLangDef langdef = new ExternalLangDef(ds);
             var function = langdef.GetFunction(langdef.funcEQ, new VariableDef(langdef.GuidType, "МедведьСтрокой"), "Бум");
 
             var view = ViewPropertyAppender.GetViewWithPropertiesUsedInFunction(Медведь.Views.МедведьShort, function, ds);
@@ -115,6 +118,7 @@
             var mockSecurityManager = new Mock<ISecurityManager>();
             var mockAuditService = new Mock<IAuditService>();
             using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            ExternalLangDef langdef = new ExternalLangDef(ds);
             var dvd = new DetailVariableDef();
             dvd.ConnectMasterPorp = Information.ExtractPropertyPath<Выплаты>(x => x.Кредит1);
             dvd.OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey };
