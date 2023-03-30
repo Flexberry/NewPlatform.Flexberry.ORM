@@ -2,11 +2,7 @@
 {
     using System;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.FunctionalLanguage;
-
-    using Unity;
-    using Unity.Exceptions;
 
     /// <summary>
     /// Определение переменной ограничения, предназначенное для описания детейлов.

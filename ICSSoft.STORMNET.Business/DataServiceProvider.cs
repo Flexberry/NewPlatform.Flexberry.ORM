@@ -1,13 +1,8 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-    using System.Configuration;
     using System.Security.Cryptography;
     using System.Text;
-
-    using ICSSoft.Services;
-
-    using Unity;
 
     /// <summary>
     /// <see cref="IDataService"/> service locator.
