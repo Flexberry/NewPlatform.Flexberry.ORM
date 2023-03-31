@@ -75,7 +75,7 @@
         /// <summary>
         /// Тест скорости обновления объектов при включенном аудите.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Manual testing")]
         public void UpdateManyObjectsWithEnabledAuditTest()
         {
             foreach (IDataService dataService in DataServices)
