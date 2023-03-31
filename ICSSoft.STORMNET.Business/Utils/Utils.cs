@@ -1,14 +1,15 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
+    using ICSSoft.STORMNET.Security;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data;
     using System.Linq;
-    using Security;
-    using STORMDO = STORMNET;
-    using STORMFunction = FunctionalLanguage.Function;
+
+    using STORMDO = ICSSoft.STORMNET;
+    using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
     /// Набор служебной логики для сервиса данных.
@@ -594,7 +595,7 @@
             ICSSoft.STORMNET.Business.StorageStructForView.PropSource source,
             System.Collections.SortedList sourceToDataObjectList,
             System.Collections.SortedList TypesByKeys,
-            DataObjectCache DataObjectCache)
+            DataObjectCache dataObjectCache)
         {
             foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
             {
@@ -605,7 +606,7 @@
                         if (dataObject == null)
                         {
                             keyindex++;
-                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, dataObjectCache);
                         }
                         else if (keysarr[keyindex] != null && keysarr[keyindex] != DBNull.Value)
                         {
@@ -619,12 +620,12 @@
                                     if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
                                         && exmasterobj.GetType() == subSource.storage[j].ownerType)
                                     {
-                                        DataObjectCache.AddDataObject(exmasterobj);
+                                        dataObjectCache.AddDataObject(exmasterobj);
                                         masterobj = exmasterobj;
                                     }
                                     else
                                     {
-                                        masterobj = DataObjectCache.CreateDataObject(
+                                        masterobj = dataObjectCache.CreateDataObject(
                                             subSource.storage[j].ownerType, masterkey);
 
                                         // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
@@ -639,12 +640,12 @@
                                     if (exmasterobj != null && exmasterobj.__PrimaryKey.Equals(masterkey)
                                         && exmasterobj.GetType() == (Type)TypesByKeys[mastertype])
                                     {
-                                        DataObjectCache.AddDataObject(exmasterobj);
+                                        dataObjectCache.AddDataObject(exmasterobj);
                                         masterobj = exmasterobj;
                                     }
                                     else
                                     {
-                                        masterobj = DataObjectCache.CreateDataObject(
+                                        masterobj = dataObjectCache.CreateDataObject(
                                             (Type)TypesByKeys[mastertype], masterkey);
 
                                         // Братчиков: костыль для исправления ситуации когда мастер является ещё и детейлом. При обработке детейла, если мастер был проинициализирован тут, проинициализируем его ещё раз
@@ -656,7 +657,7 @@
                                 {
                                     masterobj.SetLoadingState(LoadingState.LightLoaded);
                                     masterobj.SetStatus(ObjectStatus.UnAltered);
-                                    masterobj.InitDataCopy(DataObjectCache);
+                                    masterobj.InitDataCopy(dataObjectCache);
                                     masterobj.AddLoadedProperties("__PrimaryKey");
                                 }
 
@@ -671,12 +672,12 @@
                                 sourceToDataObjectList.Add(subSource, new object[] { masterobj, j });
                             }
 
-                            CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            CreateMastersStruct(masterobj, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, dataObjectCache);
                         }
                         else
                         {
                             keyindex++;
-                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, DataObjectCache);
+                            CreateMastersStruct(null, keysarr, ref keyindex, j, subSource, sourceToDataObjectList, TypesByKeys, dataObjectCache);
                         }
                     }
                 }
@@ -696,8 +697,8 @@
         /// <param name="сlearDataObjects">Очищать ли существующие объекты.</param>
         /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        /// <param name="connection">Коннекция, через которую желательно выполнять все зачитки объектов.</param>
-        /// <param name="transaction">Транзакция, через которую желательно выполнять все зачитки объектов.</param>
+        /// <param name="connection">Коннекция, через которую желательно выполнять все вычитки объектов.</param>
+        /// <param name="transaction">Транзакция, через которую желательно выполнять все вычитки объектов.</param>
         public static void ProcessingRowsetDataRef(
             object[][] value,
             Type[] dataObjectType,
@@ -761,7 +762,7 @@
                 detnames = Information.SortByLoadingOrder(customizationStruct.View.DefineClassType, detnames);
                 for (int i = 0; i < detnames.Length; i++)
                 {
-                    // Баг с зачиткой нехранимых детейлов в гроупэдите: проверю на хранимость детейла
+                    // Баг с вычиткой нехранимых детейлов в гроупэдите: проверю на хранимость детейла
                     if (!Information.IsStoredProperty(customizationStruct.View.DefineClassType, detnames[i]))
                     {
                         break; // если не хранимый, то пропустим
@@ -940,7 +941,7 @@
 
                                             DataObject[] detailObjects1 = (DataObject[])al.ToArray(typeof(DataObject));
 
-                                            // Братчиков 2009-07-08 - Баг при зачитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
+                                            // Братчиков 2009-07-08 - Баг при вычитке адаптивных детейлов. Представление не соответствует зачитываемым объектам. Антиглюк сделан по первому объекту в массиве (косяк выйдет если представление было всё-таки совместимым). Возможно всегда можно применять div.View.
                                             {
                                                 View view4Load = dcs.View;
                                                 if (detailObjects1.Length > 0 && !(detailObjects1[0].GetType().Equals(view4Load.DefineClassType) || detailObjects1[0].GetType().IsSubclassOf(view4Load.DefineClassType)))
@@ -1173,10 +1174,10 @@
         /// <param name="customizationStruct"></param>
         /// <param name="dataService"></param>
         /// <param name="TypesByKeys"></param>
-        /// <param name="DataObjectCache">Кэш объектов данных.</param>
+        /// <param name="dataObjectCache">Кэш объектов данных.</param>
         /// <param name="securityManager">Менеджер полномочий.</param>
-        /// <param name="connection">Коннекция, через которую желательно выполнять все зачитки объектов.</param>
-        /// <param name="transaction">Транзакция, через которую желательно выполнять все зачитки объектов.</param>
+        /// <param name="connection">Коннекция, через которую желательно выполнять все вычитки объектов.</param>
+        /// <param name="transaction">Транзакция, через которую желательно выполнять все вычитки объектов.</param>
         /// <returns></returns>
         public static ICSSoft.STORMNET.DataObject[] ProcessingRowsetData(
             object[][] value,
@@ -1185,14 +1186,14 @@
             LoadingCustomizationStruct customizationStruct,
             IDataService dataService,
             System.Collections.SortedList TypesByKeys,
-            DataObjectCache DataObjectCache,
+            DataObjectCache dataObjectCache,
             ISecurityManager securityManager,
             IDbConnection connection = null,
             IDbTransaction transaction = null)
         {
             var res = new DataObject[value.Length];
             ProcessingRowsetDataRef(
-                value, dataObjectType, StorageStruct, customizationStruct, res, dataService, TypesByKeys, true, DataObjectCache, securityManager, connection, transaction);
+                value, dataObjectType, StorageStruct, customizationStruct, res, dataService, TypesByKeys, true, dataObjectCache, securityManager, connection, transaction);
             return res;
         }
 
@@ -1302,7 +1303,7 @@
         /// </summary>
         /// <param name="dobj">объект.</param>
         /// <param name="UpLevel">верхнего ли уровня.</param>
-        public static void UpdateInternalDataInObjects(STORMDO.DataObject dobj, bool UpLevel, DataObjectCache DataObjectCache)
+        public static void UpdateInternalDataInObjects(STORMDO.DataObject dobj, bool UpLevel, DataObjectCache dataObjectCache)
         {
             STORMDO.ObjectStatus objestat = dobj.GetStatus(false);
             System.Type dobjtype = dobj.GetType();
@@ -1325,10 +1326,10 @@
                                     switch (os)
                                     {
                                         case STORMDO.ObjectStatus.Altered:
-                                            UpdateInternalDataInObjects(detobj, false, DataObjectCache);
+                                            UpdateInternalDataInObjects(detobj, false, dataObjectCache);
                                             break;
                                         case STORMDO.ObjectStatus.Created:
-                                            UpdateInternalDataInObjects(detobj, false, DataObjectCache);
+                                            UpdateInternalDataInObjects(detobj, false, dataObjectCache);
                                             break;
                                         case STORMDO.ObjectStatus.Deleted:
                                             da.RemoveByIndex(i);
@@ -1351,7 +1352,7 @@
                         dobj.SetStatus(STORMDO.ObjectStatus.UnAltered);
                         if (UpLevel)
                         {
-                            dobj.InitDataCopy(DataObjectCache);
+                            dobj.InitDataCopy(dataObjectCache);
                         }
                         else
                         {

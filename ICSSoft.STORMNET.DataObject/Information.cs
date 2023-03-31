@@ -2091,7 +2091,7 @@
                                     nextSource.storage[kindex].PrimaryKeyStorageName = GetPrimaryKeyStorageName(mtype);
                                     nextSource.storage[kindex].TypeStorageName = GetTypeStorageName(mtype);
                                     nextSource.storage[kindex].ownerType = mtype;
-                                    nextSource.storage[kindex].nullableLink = !propIsNotNull || masterTypes.Length > 0;
+                                    nextSource.storage[kindex].nullableLink = !propIsNotNull || masterTypes.Length > 1;
                                     nextSource.storage[kindex].objectLinkStorageName = storname;
                                     nextSource.storage[kindex].parentStorageindex = l;
                                 }

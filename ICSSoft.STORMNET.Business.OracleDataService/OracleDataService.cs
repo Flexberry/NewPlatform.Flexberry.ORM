@@ -1,18 +1,22 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections;
+    using System.Data;
+    using System.Data.Common;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Security.Cryptography;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using static Windows.Forms.ExternalLangDef;
-    using Services;
-    using System.Collections;
-    using Security;
-    using Audit;
+    using System.Threading.Tasks;
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
     using Oracle.ManagedDataAccess.Client;
+
+    using static ICSSoft.STORMNET.Windows.Forms.ExternalLangDef;
 
     /// <summary>
     /// Сервис данных для доступа к данным Oracle.
@@ -384,10 +388,20 @@
             return PrepareIdentifier(identifier);
         }
 
+        /// <inheritdoc />
         public override System.Data.IDbConnection GetConnection()
         {
-            return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
+            return new OracleConnection(this.CustomizationString);
         }
+
+        /// <inheritdoc cref="SQLDataService.GetDbConnection"/>
+        public override System.Data.Common.DbConnection GetDbConnection()
+        {
+            return new OracleConnection(this.CustomizationString);
+        }
+
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => OracleClientFactory.Instance;
 
         /// <summary>
         /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL).
@@ -418,7 +432,47 @@
             // может втсавлять TOP где угодно. Например, делает это в методе GetObjectIndexesWithPks.
             // Поскольку вместо TOP в оракле надо добавить ограничение в WHERE сделаем замену пока только в случае, когда TOP
             // в начале, т.е. ориентируясь только на конкретный код GetObjectIndexesWithPks.
+            PrepareQuery(ref query);
 
+            return base.ReadFirst(query, ref state, loadingBufferSize);
+        }
+
+        /// <summary>
+        /// Reading data from database: read first part (by external connection).
+        /// </summary>
+        /// <param name="query">The SQL query.</param>
+        /// <param name="state">The reading state.</param>
+        /// <param name="loadingBufferSize">The loading buffer size.</param>
+        /// <param name="connection">Connection to use (you have to open and close it yourself).</param>
+        /// <param name="transaction">Transaction to use.</param>
+        /// <returns>The readed objects from database.</returns>
+        public override object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, IDbConnection connection, IDbTransaction transaction)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadFirstByExtConn(query, ref state, loadingBufferSize, connection, transaction);
+        }
+
+        /// <summary>
+        /// Асинхронная вычитка данных.
+        /// </summary>
+        /// <param name="query">Запрос для вычитки.</param>
+        /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит соединение и транзакцию, в рамках которых нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
+        /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
+        protected override Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync);
+        }
+
+        /// <summary>
+        /// Предобработка запроса (функция конкретного датасервиса).
+        /// </summary>
+        /// <param name="query">Запрос который нужно подготовить.</param>
+        private void PrepareQuery(ref string query)
+        {
             if (query.StartsWith("SELECT TOP "))
             {
                 Regex regex = new Regex(@"TOP (?<topcnt>[0-9]+)");
@@ -429,8 +483,6 @@
                     query = string.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", query.Replace("TOP " + topcnt, string.Empty), topcnt);
                 }
             }
-
-            return base.ReadFirst(query, ref state, loadingBufferSize);
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>6.1.0-beta03</version>
+    <version>7.1.0-beta01</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,22 +12,33 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-      Performance
-      1. Remove `order by stormmainobjectkey` for inner query.
-      Fixed
-      1. Remove an external context from PutIdentifierIntoBrackets() method implementation.
+      Added
+      1. Add asyncronous DataService interface.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2021</copyright>
+    <copyright>Copyright New Platform Ltd 2023</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="6.0.0" />
-      <dependency id="Npgsql" version="3.2.6" />
+      <dependency id="NewPlatform.Flexberry.ORM" version="7.1.0-beta01" />
+      <dependency id="Npgsql" version="3.2.7" />
     </dependencies>
   </metadata>
   <files>
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net461\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net461\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net461\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net461\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
   </files>
 </package>

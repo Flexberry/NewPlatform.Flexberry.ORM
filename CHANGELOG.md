@@ -5,8 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-- `IComparableType` implementation to `WebFile` class.
-- Feature GeoDistance is implemented.
+1. Add asyncronous DataService interface.
 
 ### Changed
 
@@ -15,14 +14,39 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+
+### Security
+
+### Performance
+
+## [7.0.0] - 2023-02-17
+
+### Added
+1. Building under .net6 and .net7.
+2. Upgraded Npgsql version to 3.2.7 (PostgreSQL 14+ support).
+
+### Changed
+1. Update Microsoft.Spatial up to 7.10.0.
+
+## [6.1.0] - 2023-02-14
+
+### Added
+- `IComparableType` implementation to `WebFile` class.
+- Feature GeoDistance is implemented.
+- `IAuditService` UTC time enable flag as property.
+- New property `SQLDataService.ProviderFactory` to create the data source objects.
+
+### Changed
+- Upgrade SharpZipLib@1.3.3.
+- Upgrade NewPlatform.Flexberry.LogService@2.1.0.
+
+### Fixed
 - Resolve hierarchy references for `Created` master only (removed excess `UPDATE`).
 - Update data objects with static properties inherited from DataObject.
 - Remove an external context from PutIdentifierIntoBrackets() method implementation in PostgresDataService.
 - Fix the return value type of GisExtensions GeoDistance, GeomDistance LINQ gis-functions prototypes.
 - Nullable bool isnull limit.
 - Fix `ExternalLangDef` concurrency.
-
-### Security
 
 ### Performance
 - Optimize query (select, update, delete) generation.
@@ -106,7 +130,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Setting LoadingState.Loaded to DataObject after loading.
 - Objects updating order if exists cycle in dependencies graph of them.
 - DbTransactionWrapper commit and rollback over expired connections.
-- Null GetHandler or SetHandler via cache dictionary. 
+- Null GetHandler or SetHandler via cache dictionary.
 - Rethrowing exception while handling special scenario via UpdateObjects.
 - Fix loading __PrimaryKey property of NotStored master.
 - Fix InitDataCopy for already loaded details.
