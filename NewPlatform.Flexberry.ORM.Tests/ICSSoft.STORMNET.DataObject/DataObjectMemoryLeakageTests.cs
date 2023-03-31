@@ -32,7 +32,9 @@
                 wr =>
                 {
                     if (wr.IsAlive)
+                    {
                         throw new Exception("GC не смог освободить объект.");
+                    }
                 });
         }
 
