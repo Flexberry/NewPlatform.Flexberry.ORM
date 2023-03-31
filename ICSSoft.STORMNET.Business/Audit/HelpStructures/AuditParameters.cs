@@ -11,7 +11,7 @@
     using DataObject = ICSSoft.STORMNET.DataObject;
 
     /// <summary>
-    /// Базовый класс для установки в очередь сообщений при асинхронной записи аудита
+    /// Базовый класс для установки в очередь сообщений при асинхронной записи аудита.
     /// </summary>
     [DataContract]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(ICSSoft.STORMNET.Business.Audit.RatificationAuditParameters))]
@@ -53,12 +53,12 @@
         }
 
         /// <summary>
-        /// Конструирование объекта данных из xml
+        /// Конструирование объекта данных из xml.
         /// </summary>
-        /// <param name="typeOfObject"> Имя типа объекта данных </param>
-        /// <param name="assemblyOfObject"> Имя сборки объекта данных </param>
-        /// <param name="xmlValue"> Сериализованное представление в виде xml </param>
-        /// <returns>  Сконструированный объект данных </returns>
+        /// <param name="typeOfObject"> Имя типа объекта данных. </param>
+        /// <param name="assemblyOfObject"> Имя сборки объекта данных. </param>
+        /// <param name="xmlValue"> Сериализованное представление в виде xml. </param>
+        /// <returns>  Сконструированный объект данных. </returns>
         protected DataObject GetDataObjectFromXml(string typeOfObject, string assemblyOfObject, string xmlValue)
         {
             if (string.IsNullOrEmpty(xmlValue) || string.IsNullOrEmpty(typeOfObject) || string.IsNullOrEmpty(assemblyOfObject))

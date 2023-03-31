@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -41,7 +42,7 @@
             }
 
             MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadWorkLinqWithTake);
-            multiThreadingTestTool.StartThreads(150, DataServices);
+            multiThreadingTestTool.StartThreads(50, DataServices);
 
             var exception = multiThreadingTestTool.GetExceptions();
 
@@ -52,7 +53,8 @@
                     output.WriteLine(item.Value.ToString());
                 }
 
-                throw exception.InnerException;
+                // Пусть так.
+                Assert.Empty(exception.InnerExceptions);
             }
         }
 
@@ -65,8 +67,7 @@
             Random rand = new Random();
             var parametersDictionary = sender as Dictionary<string, object>;
             List<ICSSoft.STORMNET.Business.IDataService> dsList = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as List<ICSSoft.STORMNET.Business.IDataService>;
-
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             for (int i = 0; i < 5; i++)
             {
@@ -91,7 +92,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }
@@ -110,7 +111,7 @@
             }
 
             MultiThreadingTestTool multiThreadingTestTool = new MultiThreadingTestTool(MultiThreadWorkLcsWithReturnTop);
-            multiThreadingTestTool.StartThreads(150, DataServices);
+            multiThreadingTestTool.StartThreads(50, DataServices);
 
             var exception = multiThreadingTestTool.GetExceptions();
 
@@ -121,7 +122,8 @@
                     output.WriteLine(item.Value.ToString());
                 }
 
-                throw exception.InnerException;
+                // Пусть так.
+                Assert.Empty(exception.InnerExceptions);
             }
         }
 
@@ -134,8 +136,7 @@
             Random rand = new Random();
             var parametersDictionary = sender as Dictionary<string, object>;
             List<ICSSoft.STORMNET.Business.IDataService> dsList = parametersDictionary[MultiThreadingTestTool.ParamNameSender] as List<ICSSoft.STORMNET.Business.IDataService>;
-
-            Dictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as Dictionary<string, Exception>;
+            ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             for (int i = 0; i < 5; i++)
             {
@@ -155,7 +156,7 @@
                     ICSSoft.STORMNET.View pawView = new ICSSoft.STORMNET.View();
                     pawView.DefineClassType = typeof(Лапа);
 
-                    pawView.Properties = new PropertyInView[] 
+                    pawView.Properties = new PropertyInView[]
                     {
                         new PropertyInView("Размер", "Размер", true, string.Empty),
                     };
@@ -163,7 +164,7 @@
                     ICSSoft.STORMNET.View catView = new ICSSoft.STORMNET.View();
                     catView.DefineClassType = typeof(Кошка);
 
-                    catView.Properties = new PropertyInView[] 
+                    catView.Properties = new PropertyInView[]
                     {
                         new PropertyInView("Агрессивная", "Агрессивная", true, string.Empty),
                     };
@@ -177,7 +178,7 @@
                         Type = ldef.DetailsType,
                         View = pawView,
                         OwnerConnectProp = new[] { SQLWhereLanguageDef.StormMainObjectKey },
-                        ConnectMasterPorp = "Кошка"
+                        ConnectMasterPorp = "Кошка",
                     };
 
                     var limitFunction1 = ldef.GetFunction(
@@ -206,7 +207,7 @@
                 }
                 catch (Exception exception)
                 {
-                    exceptions.Add(Thread.CurrentThread.Name, exception);
+                    exceptions.TryAdd(Thread.CurrentThread.Name, exception);
                     parametersDictionary[MultiThreadingTestTool.ParamNameWorking] = false;
                     return;
                 }

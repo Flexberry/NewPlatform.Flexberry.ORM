@@ -3,27 +3,27 @@
     using System;
 
     /// <summary>
-    /// делегат для конвертации значений на FunctionalLanguage в значения на SQL
+    /// делегат для конвертации значений на FunctionalLanguage в значения на SQL.
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     public delegate string delegateConvertValueToQueryValueString(object value);
 
     /// <summary>
-    /// Делегат для помещения в скобки-кавычки идентификаторов
+    /// Делегат для помещения в скобки-кавычки идентификаторов.
     /// </summary>
-    /// <param name="identifier">идентификатор</param>
-    /// <returns>идентификатор в скобках-кавычках</returns>
+    /// <param name="identifier">идентификатор.</param>
+    /// <returns>идентификатор в скобках-кавычках.</returns>
     public delegate string delegatePutIdentifierToBrackets(string identifier);
 
     /// <summary>
-    /// Определение языка ограничений для конструирования ограничивающих функций
+    /// Определение языка ограничений для конструирования ограничивающих функций.
     /// </summary>
     [NotStored]
     public class SQLWhereLanguageDef : FunctionalLanguageDef
     {
         /// <summary>
-        /// Константа для STORMMainObjectKey
+        /// Константа для STORMMainObjectKey.
         /// </summary>
         public const string StormMainObjectKey = "STORMMainObjectKey";
 
@@ -31,6 +31,8 @@
         /// Имя типа IDataService.
         /// </summary>
         private const string TypeNameForIDataService = "ICSSoft.STORMNET.Business.IDataService, ICSSoft.STORMNET.Business, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c17bb360f7843f45";
+
+        private static readonly Type DataServiceType = Type.GetType(TypeNameForIDataService);
 
         /// <summary>
         /// Конструктор по-умолчанию (CaseInsensitive берётся из конфига с флагом CaseInsensitive).
@@ -55,14 +57,14 @@
         }
 
         /// <summary>
-        /// Описане языка - одно на всех
+        /// Описане языка - одно на всех.
         /// </summary>
-        static private SQLWhereLanguageDef _lngDef = null;
+        private static SQLWhereLanguageDef _lngDef = null;
 
         /// <summary>
-        /// Получить описание языка
+        /// Получить описание языка.
         /// </summary>
-        static public SQLWhereLanguageDef LanguageDef
+        public static SQLWhereLanguageDef LanguageDef
         {
             get
             {
@@ -86,7 +88,7 @@
         private bool _caseInsensitive = false;
 
         /// <summary>
-        /// Чувствительность к регистру при построении ограничений (зависит от настроек БД. Если БД чувствительна к регистру, то нужно вправлять это свойство чтобы получить не чувтвительную к регистру систему)
+        /// Чувствительность к регистру при построении ограничений (зависит от настроек БД. Если БД чувствительна к регистру, то нужно вправлять это свойство чтобы получить не чувтвительную к регистру систему).
         /// </summary>
         public bool CaseInsensitive
         {
@@ -95,16 +97,16 @@
         }
 
         /// <summary>
-        /// Получатель ObjectType по .NET-типу (для DataObject возвращается тип первичного ключа)
+        /// Получатель ObjectType по .NET-типу (для DataObject возвращается тип первичного ключа).
         /// </summary>
-        /// <param name="type">.NET-тип</param>
-        /// <returns>ObjectType-тип</returns>
+        /// <param name="type">.NET-тип.</param>
+        /// <returns>ObjectType-тип.</returns>
         public override ObjectType GetObjectTypeForNetType(Type type)
         {
             if (type.IsSubclassOf(typeof(DataObject)))
             {
                 // подменяем типом первичного ключа
-                type = ((KeyGen.BaseKeyGenerator)Activator.CreateInstance(Information.GetKeyGeneratorType(type))).KeyType;
+                type = KeyGen.KeyGenerator.KeyType(type);
             }
 
             if (type.IsEnum)
@@ -148,7 +150,7 @@
         private ObjectType fieldQueryType = new ObjectType("Query", "SQL выражение", typeof(object));
 
         /// <summary>
-        /// "Boolean","Логический"
+        /// "Boolean","Логический".
         /// </summary>
         public ObjectType BoolType
         {
@@ -156,7 +158,7 @@
         }
 
         /// <summary>
-        /// "Numeric","Число"
+        /// "Numeric","Число".
         /// </summary>
         public ObjectType NumericType
         {
@@ -164,7 +166,7 @@
         }
 
         /// <summary>
-        /// "String","Текст"
+        /// "String","Текст".
         /// </summary>
         public ObjectType StringType
         {
@@ -172,7 +174,7 @@
         }
 
         /// <summary>
-        /// "DateTime","Дата/Время"
+        /// "DateTime","Дата/Время".
         /// </summary>
         public ObjectType DateTimeType
         {
@@ -180,7 +182,7 @@
         }
 
         /// <summary>
-        /// "Guid","Идентификатор"
+        /// "Guid","Идентификатор".
         /// </summary>
         public ObjectType GuidType
         {
@@ -188,7 +190,7 @@
         }
 
         /// <summary>
-        /// "Query","SQL выражение"
+        /// "Query","SQL выражение".
         /// </summary>
         public ObjectType QueryType
         {
@@ -196,7 +198,7 @@
         }
 
         /// <summary>
-        /// ISNULL
+        /// ISNULL.
         /// </summary>
         public string funcIsNull
         {
@@ -204,7 +206,7 @@
         }
 
         /// <summary>
-        /// NOT
+        /// NOT.
         /// </summary>
         public string funcNOT
         {
@@ -212,7 +214,7 @@
         }
 
         /// <summary>
-        /// OR
+        /// OR.
         /// </summary>
         public string funcOR
         {
@@ -220,7 +222,7 @@
         }
 
         /// <summary>
-        /// AND
+        /// AND.
         /// </summary>
         public string funcAND
         {
@@ -228,7 +230,7 @@
         }
 
         /// <summary>
-        /// +
+        /// +.
         /// </summary>
         public string funcPlus
         {
@@ -236,7 +238,7 @@
         }
 
         /// <summary>
-        /// *
+        /// *.
         /// </summary>
         public string funcSub
         {
@@ -244,7 +246,7 @@
         }
 
         /// <summary>
-        /// -
+        /// -.
         /// </summary>
         public string funcMinus
         {
@@ -252,7 +254,7 @@
         }
 
         /// <summary>
-        /// /
+        /// /.
         /// </summary>
         public string funcDiv
         {
@@ -260,7 +262,7 @@
         }
 
         /// <summary>
-        /// LIKE
+        /// LIKE.
         /// </summary>
         public string funcLike
         {
@@ -268,7 +270,7 @@
         }
 
         /// <summary>
-        /// &lt;
+        /// &lt;.
         /// </summary>
         public string funcL
         {
@@ -276,7 +278,7 @@
         }
 
         /// <summary>
-        /// &lt;=
+        /// &lt;=.
         /// </summary>
         public string funcLEQ
         {
@@ -284,7 +286,7 @@
         }
 
         /// <summary>
-        /// =
+        /// =.
         /// </summary>
         public string funcEQ
         {
@@ -292,7 +294,7 @@
         }
 
         /// <summary>
-        /// &gt;=
+        /// &gt;=.
         /// </summary>
         public string funcGEQ
         {
@@ -300,7 +302,7 @@
         }
 
         /// <summary>
-        /// &gt;
+        /// &gt;.
         /// </summary>
         public string funcG
         {
@@ -308,7 +310,7 @@
         }
 
         /// <summary>
-        /// &lt;&gt;
+        /// &lt;&gt;.
         /// </summary>
         public string funcNEQ
         {
@@ -316,7 +318,7 @@
         }
 
         /// <summary>
-        /// IN
+        /// IN.
         /// </summary>
         public string funcIN
         {
@@ -324,7 +326,7 @@
         }
 
         /// <summary>
-        /// BETWEEN
+        /// BETWEEN.
         /// </summary>
         public string funcBETWEEN
         {
@@ -332,7 +334,7 @@
         }
 
         /// <summary>
-        /// SQL
+        /// SQL.
         /// </summary>
         public string funcSQL
         {
@@ -340,7 +342,7 @@
         }
 
         /// <summary>
-        /// Если в IN будет участвовать один объект, то IN заменится на =
+        /// Если в IN будет участвовать один объект, то IN заменится на =.
         /// </summary>
         public static bool OptimizeINOperator = true;
 
@@ -348,64 +350,71 @@
         private string fQueryLikeAnyCharacterSymbol = "_";
 
         /// <summary>
-        /// Получить символ, отвечающий за любую строку (по-умолчанию это "%")
+        /// Получить символ, отвечающий за любую строку (по-умолчанию это "%").
         /// </summary>
         public virtual string QueryLikeAnyStringSymbol
         {
-            get { return fQueryLikeAnyStringSymbol; } set { fQueryLikeAnyStringSymbol = value; }
+            get { return fQueryLikeAnyStringSymbol; }
+            set { fQueryLikeAnyStringSymbol = value; }
         }
 
         /// <summary>
-        /// Получить символ, отвечающий за любой символ в строке (по-умолчанию это "_")
+        /// Получить символ, отвечающий за любой символ в строке (по-умолчанию это "_").
         /// </summary>
         public virtual string QueryLikeAnyCharacterSymbol
         {
-            get { return fQueryLikeAnyCharacterSymbol; } set { fQueryLikeAnyCharacterSymbol = value; }
+            get { return fQueryLikeAnyCharacterSymbol; }
+            set { fQueryLikeAnyCharacterSymbol = value; }
         }
 
         private string fUserLikeAnyStringSymbol = "*";
         private string fUserLikeAnyCharacterSymbol = "_";
 
         /// <summary>
-        /// Символ, который вводит пользователь, чтобы обозначить любую строку (по-умолчанию это "*")
+        /// Символ, который вводит пользователь, чтобы обозначить любую строку (по-умолчанию это "*").
         /// </summary>
         public virtual string UserLikeAnyStringSymbol
         {
-            get { return fUserLikeAnyStringSymbol; } set { fUserLikeAnyStringSymbol = value; }
+            get { return fUserLikeAnyStringSymbol; }
+            set { fUserLikeAnyStringSymbol = value; }
         }
 
         /// <summary>
-        /// Символ, который вводит пользователь, чтобы обозначить любой символ (по-умолчанию это "_")
+        /// Символ, который вводит пользователь, чтобы обозначить любой символ (по-умолчанию это "_").
         /// </summary>
         public virtual string UserLikeAnyCharacterSymbol
         {
-            get { return fUserLikeAnyCharacterSymbol; } set { fUserLikeAnyCharacterSymbol = value; }
+            get { return fUserLikeAnyCharacterSymbol; }
+            set { fUserLikeAnyCharacterSymbol = value; }
         }
 
         /// <summary>
-        /// Перенаправитель для обработки параметров: value is Function или value is VariableDef или это просто значение
+        /// Перенаправитель для обработки параметров: value is Function или value is VariableDef или это просто значение.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="convertValue"></param>
-        /// <param name="convertIdentifier"></param>
-        /// <param name="dataService"></param>
+        /// <param name="value">Параметр для преобразования.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
+        /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        public virtual string SQLTranslSwitch(object value, delegateConvertValueToQueryValueString convertValue,
-            delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
+        public virtual string SQLTranslSwitch(
+            object value,
+            delegateConvertValueToQueryValueString convertValue,
+            delegatePutIdentifierToBrackets convertIdentifier,
+            object dataService = null)
         {
-            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
+            if (dataService != null && !DataServiceType.IsInstanceOfType(dataService))
             {
                 throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
             }
 
-            if (value is Function)
+            if (value is Function function)
             {
-                return ((value as Function).FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(value as Function, convertValue, convertIdentifier, dataService);
+                return (function.FunctionDef.Language as SQLWhereLanguageDef).SQLTranslFunction(function, convertValue, convertIdentifier, dataService);
             }
 
-            if (value is VariableDef)
+            if (value is VariableDef vardef)
             {
-                if ((value as VariableDef).Language != null)
+                if (vardef.Language != null)
                 {
                     // if ((value as VariableDef).Type==SQLWhereLanguageDef.LanguageDef.BoolType)
                     //                  {
@@ -413,23 +422,23 @@
                     //                  }
                     //                  else
                     //                  {
-                    return ((value as VariableDef).Language as SQLWhereLanguageDef).SQLTranslVariable(value as VariableDef, convertValue, convertIdentifier);
+                    return (vardef.Language as SQLWhereLanguageDef).SQLTranslVariable(vardef, convertValue, convertIdentifier);
 
                     // }
                 }
 
-                return SQLTranslVariable(value as VariableDef, convertValue, convertIdentifier);
+                return SQLTranslVariable(vardef, convertValue, convertIdentifier);
             }
 
             return convertValue(value);
         }
 
         /// <summary>
-        /// Транслировать в SQL переменную
+        /// Транслировать в SQL переменную.
         /// </summary>
-        /// <param name="value">переменная</param>
-        /// <param name="convertValue">конвертилка выражений</param>
-        /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
+        /// <param name="value">переменная.</param>
+        /// <param name="convertValue">конвертилка выражений.</param>
+        /// <param name="convertIdentifier">помещатель в скобки-кавычки.</param>
         /// <returns></returns>
         protected virtual string SQLTranslVariable(VariableDef value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier)
         {
@@ -437,11 +446,11 @@
         }
 
         /// <summary>
-        /// Транслировать в SQL функцию
+        /// Транслировать в SQL функцию.
         /// </summary>
-        /// <param name="value">функция</param>
-        /// <param name="convertValue">конвертилка выражений</param>
-        /// <param name="convertIdentifier">помещатель в скобки-кавычки</param>
+        /// <param name="value">функция.</param>
+        /// <param name="convertValue">конвертилка выражений.</param>
+        /// <param name="convertIdentifier">помещатель в скобки-кавычки.</param>
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
         protected virtual string SQLTranslFunction(Function value, delegateConvertValueToQueryValueString convertValue, delegatePutIdentifierToBrackets convertIdentifier, object dataService = null)
@@ -634,7 +643,7 @@
         }
 
         /// <summary>
-        /// Убирает все пробелы и удаляет скобки с краев, например, "(( ( 0))" превратится в "(0"
+        /// Убирает все пробелы и удаляет скобки с краев, например, "(( ( 0))" превратится в "(0".
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
@@ -662,9 +671,9 @@
         }
 
         /// <summary>
-        /// В зависимости от CaseInsensitive добавляет UPPER
+        /// В зависимости от CaseInsensitive добавляет UPPER.
         /// </summary>
-        /// <param name="value">Function.Parameters[i]</param>
+        /// <param name="value">Function.Parameters[i].</param>
         /// <param name="convertValue"></param>
         /// <param name="convertIdentifier"></param>
         /// <param name="dataService">Сервис данных.</param>
@@ -690,19 +699,20 @@
         }
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <param name="dataService">Сервис данных.</param>
         /// <returns></returns>
-        public static string ToSQLString(Function function,
+        public static string ToSQLString(
+            Function function,
             delegateConvertValueToQueryValueString convertValue,
             delegatePutIdentifierToBrackets convertIdentifier,
             object dataService = null)
         {
-            if (dataService != null && !Type.GetType(TypeNameForIDataService).IsAssignableFrom(dataService.GetType()))
+            if (dataService != null && !DataServiceType.IsInstanceOfType(dataService))
             {
                 throw new Exception("Параметр \"dataService\" не соответствует типу \"ICSSoft.STORMNET.Business.IDataService\"");
             }
@@ -711,7 +721,7 @@
         }
 
         /// <summary>
-        /// return null;
+        /// return null;.
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
@@ -721,7 +731,7 @@
         }
 
         /// <summary>
-        /// Количество функций (return 100)
+        /// Количество функций (return 100).
         /// </summary>
         public override int MaxFuncID
         {
@@ -734,7 +744,7 @@
         private static string _objNull = "CONST";
 
         /// <summary>
-        /// Инициализация определений функций языка (для определения связки количества и типов параметров)
+        /// Инициализация определений функций языка (для определения связки количества и типов параметров).
         /// </summary>
         protected override void InitializeDefs()
         {

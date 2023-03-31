@@ -5,27 +5,27 @@ using System.Reflection.Emit;
 namespace ICSSoft.STORMNET
 {
     /// <summary>
-    /// делегат для GetProperty
+    /// делегат для GetProperty.
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
     public delegate object GetHandler(object source);
 
     /// <summary>
-    /// делегат для SetProperty
+    /// делегат для SetProperty.
     /// </summary>
     /// <param name="source"></param>
     /// <param name="value"></param>
     public delegate void SetHandler(object source, object value);
 
     /// <summary>
-    /// Делегат для создания
+    /// Делегат для создания.
     /// </summary>
     /// <returns></returns>
     public delegate object InstantiateObjectHandler();
 
     /// <summary>
-    /// Класс для замены рефлекшена (работает быстрее)
+    /// Класс для замены рефлекшена (работает быстрее).
     /// </summary>
     public sealed class DynamicMethodCompiler
     {

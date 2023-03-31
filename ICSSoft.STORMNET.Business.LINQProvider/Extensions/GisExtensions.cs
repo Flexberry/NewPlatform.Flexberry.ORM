@@ -1,12 +1,9 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Extensions
 {
-#if NETFX_45
-    using Microsoft.Spatial;
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
+
+    using Microsoft.Spatial;
 
     /// <summary>
     /// Методы расширения Gis для LINQProvider.
@@ -14,27 +11,55 @@
     public static class GisExtensions
     {
         /// <summary>
+        /// Вычисляет расстояние между двумя объектами Geography.
+        /// Метод может использоваться только в запросе к LINQProvider,
+        /// в остальных случаях метод вызовет исключение NotImplementedException.
+        /// </summary>
+        /// <param name="geo1">Объект 1 Geography.</param>
+        /// <param name="geo2">Объект 2 Geography.</param>
+        /// <returns>Возвращает минимальное расстояние между двумя объектами.</returns>
+        public static double? GeoDistance(this Geography geo1, Geography geo2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Вычисляет расстояние между двумя объектами Geometry.
+        /// Метод может использоваться только в запросе к LINQProvider,
+        /// в остальных случаях метод вызовет исключение NotImplementedException.
+        /// </summary>
+        /// <param name="geo1">Объект 1 Geometry.</param>
+        /// <param name="geo2">Объект 2 Geometry.</param>
+        /// <returns>Возвращает минимальное расстояние между двумя объектами.</returns>
+        public static double? GeomDistance(this Geometry geo1, Geometry geo2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Тестирует пересечение двух объектов Geography.
-        /// Метод может использоваться только в запросе к LINQProvider. В остальных случаях всегда будет возвращать false.
+        /// Метод может использоваться только в запросе к LINQProvider,
+        /// в остальных случаях метод вызовет исключение NotImplementedException.
         /// </summary>
         /// <param name="geo1">Объект 1 Geography.</param>
         /// <param name="geo2">Объект 2 Geography.</param>
         /// <returns>Если существует пересечение двух объектов, то возвращает true, иначе false.</returns>
         public static bool GeoIntersects(this Geography geo1, Geography geo2)
         {
-            return false;
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Тестирует пересечение двух объектов Geometry.
-        /// Метод может использоваться только в запросе к LINQProvider. В остальных случаях всегда будет возвращать false.
+        /// Метод может использоваться только в запросе к LINQProvider,
+        /// в остальных случаях метод вызовет исключение NotImplementedException.
         /// </summary>
         /// <param name="geo1">Объект 1 Geometry.</param>
         /// <param name="geo2">Объект 2 Geometry.</param>
         /// <returns>Если существует пересечение двух объектов, то возвращает true, иначе false.</returns>
         public static bool GeomIntersects(this Geometry geo1, Geometry geo2)
         {
-            return false;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -125,5 +150,4 @@
             return geo.CoordinateSystem.Id;
         }
     }
-#endif
 }

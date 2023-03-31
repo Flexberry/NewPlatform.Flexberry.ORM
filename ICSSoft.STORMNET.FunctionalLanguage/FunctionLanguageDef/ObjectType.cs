@@ -3,12 +3,12 @@
 namespace ICSSoft.STORMNET.FunctionalLanguage
 {
     /// <summary>
-    /// проверить константу
+    /// проверить константу.
     /// </summary>
     public delegate bool CheckConstDelegate(ObjectType sender, ref string value);
 
     /// <summary>
-    /// Мета-описание типа (используется для описания типов операндов функций) (наследуется от ViewedObject)
+    /// Мета-описание типа (используется для описания типов операндов функций) (наследуется от ViewedObject).
     /// </summary>
     [NotStored]
     public class ObjectType : ViewedObject
@@ -18,7 +18,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         private bool fieldEditableInTextBox = true;
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="objStringedView"></param>
         /// <param name="objCaption"></param>
@@ -31,7 +31,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// конструктор
+        /// конструктор.
         /// </summary>
         /// <param name="objStringedView"></param>
         /// <param name="objCaption"></param>
@@ -46,7 +46,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// .NET тип для этого типа
+        /// .NET тип для этого типа.
         /// </summary>
         public virtual System.Type NetCompatibilityType
         {
@@ -54,7 +54,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Можно ли его поредактировать в текстбоксе
+        /// Можно ли его поредактировать в текстбоксе.
         /// </summary>
         public bool EditableInTextBox
         {
@@ -64,19 +64,20 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         private FunctionalLanguageDef fieldLanguage;
 
         /// <summary>
-        /// Язык, в рамках которого определён этот тип
+        /// Язык, в рамках которого определён этот тип.
         /// </summary>
         [ICSSoft.STORMNET.Agregator]
         public virtual FunctionalLanguageDef Language
         {
-            get { return fieldLanguage; } set { fieldLanguage = value; }
+            get { return fieldLanguage; }
+            set { fieldLanguage = value; }
         }
 
         /// <summary>
         /// Совместим с...
         /// </summary>
-        /// <param name="type">тип</param>
-        /// <returns>совместим ли</returns>
+        /// <param name="type">тип.</param>
+        /// <returns>совместим ли.</returns>
         public virtual bool CompatWith(ObjectType type)
         {
             if (this == type)
@@ -91,7 +92,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Получить только совпадающие типы
+        /// Получить только совпадающие типы.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -107,7 +108,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
             // bool retBool = CompatibilityTypeTest.Check(NetCompatibilityType, type.NetCompatibilityType) == TypesCompatibilities.Equal;
             bool retBool = NetCompatibilityType == type.NetCompatibilityType;
 
-            if(!retBool && type.NetCompatibilityType.IsGenericType && type.NetCompatibilityType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (!retBool && type.NetCompatibilityType.IsGenericType && type.NetCompatibilityType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 retBool = NetCompatibilityType == Nullable.GetUnderlyingType(type.NetCompatibilityType);
             }
@@ -116,17 +117,17 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// упрощение значения
+        /// упрощение значения.
         /// </summary>
         public SimplificationDelegate SimplificationValue;
 
         /// <summary>
-        /// разупрощение значения
+        /// разупрощение значения.
         /// </summary>
         public SimplificationDelegate UnSimplificationValue;
 
         /// <summary>
-        /// Значение в простое значение
+        /// Значение в простое значение.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -148,7 +149,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
         }
 
         /// <summary>
-        /// Простое значение в значение
+        /// Простое значение в значение.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -164,7 +165,7 @@ namespace ICSSoft.STORMNET.FunctionalLanguage
     }
 
     /// <summary>
-    /// упрощение
+    /// упрощение.
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>

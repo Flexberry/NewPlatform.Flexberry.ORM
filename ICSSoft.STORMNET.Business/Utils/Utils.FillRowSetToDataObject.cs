@@ -182,7 +182,7 @@
             DataObject curobj = (DataObject)tmp[2];
             DataObject curobjCopy = curobj.GetDataCopy();
             Type dobjectType = curobj.GetType();
-            SortedList curObjProperiesValues = new SortedList();
+            var curObjProperiesValues = new Dictionary<string, object>();
 
             List<string> loadedPropsColl = curobj.GetLoadedPropertiesList();
 
@@ -191,13 +191,13 @@
                 tmp = (object[])properiesValues[i];
                 if (tmp[2] == curobj)
                 {
-                    object tmp0 = tmp[0];
+                    string tmp0 = (string)tmp[0];
                     if (!curObjProperiesValues.ContainsKey(tmp0))
                     {
                         curObjProperiesValues.Add(tmp0, tmp[1]);
-                        if (!loadedPropsColl.Contains((string)tmp0))
+                        if (!loadedPropsColl.Contains(tmp0))
                         {
-                            loadedPropsColl.Add((string)tmp0);
+                            loadedPropsColl.Add(tmp0);
                         }
                     }
 
@@ -218,11 +218,10 @@
                 }
             }
 
-            int curObjPropertiesValuesCount = curObjProperiesValues.Count;
-            for (int i = 0; i < curObjPropertiesValuesCount; i++)
+            foreach (KeyValuePair<string, object> curObjPropPair in curObjProperiesValues)
             {
-                string propName = (string)curObjProperiesValues.GetKey(i);
-                object propValue = curObjProperiesValues.GetByIndex(i);
+                string propName = curObjPropPair.Key;
+                object propValue = curObjPropPair.Value;
                 Information.SetPropValueByName(curobj, propName, propValue);
 
                 // Смирнов: мастера инициализируются в методе CreateMastersStruct, придётся вручную записывать данные в копию.

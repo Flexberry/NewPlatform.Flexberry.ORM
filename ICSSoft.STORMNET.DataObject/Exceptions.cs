@@ -8,25 +8,25 @@
     }
 
     /// <summary>
-    /// Нет такого свойства (Исключительная ситуация)
+    /// Нет такого свойства (Исключительная ситуация).
     /// </summary>
     public class NoSuchPropertyException : Exception
     {
         /// <summary>
-        /// Где нет
+        /// Где нет.
         /// </summary>
         public Type Type;
 
         /// <summary>
-        /// Чего нет
+        /// Чего нет.
         /// </summary>
         public string PropName;
 
         /// <summary>
-        /// Нет такого свойства
+        /// Нет такого свойства.
         /// </summary>
-        /// <param name="Type">Где нет</param>
-        /// <param name="PropName">Чего нет</param>
+        /// <param name="Type">Где нет.</param>
+        /// <param name="PropName">Чего нет.</param>
         public NoSuchPropertyException(Type Type, string PropName)
         {
             this.Type = Type;
@@ -46,15 +46,15 @@
     }
 
     /// <summary>
-    /// Нет такого представления
+    /// Нет такого представления.
     /// </summary>
     public class CantFindViewException : Exception
     {
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
-        /// <param name="type">Тип</param>
-        /// <param name="viewName">Имя представления</param>
+        /// <param name="type">Тип.</param>
+        /// <param name="viewName">Имя представления.</param>
         public CantFindViewException(Type type, string viewName)
         {
             Type = type;
@@ -62,17 +62,17 @@
         }
 
         /// <summary>
-        /// Тип, в котором искали представление
+        /// Тип, в котором искали представление.
         /// </summary>
         public Type Type { get; set; }
 
         /// <summary>
-        /// Имя представления
+        /// Имя представления.
         /// </summary>
         public string ViewName { get; set; }
 
         /// <summary>
-        /// Сообщение
+        /// Сообщение.
         /// </summary>
         public override string Message
         {
@@ -84,7 +84,7 @@
     }
 
     /// <summary>
-    /// При разблокировке объекта используется неверный ключ
+    /// При разблокировке объекта используется неверный ключ.
     /// </summary>
     public class UnlockObjectDifferentKeyException : Exception
     {
@@ -97,7 +97,7 @@
     }
 
     /// <summary>
-    /// Объект заблокирован
+    /// Объект заблокирован.
     /// </summary>
     public class DataObjectIsReadOnlyException : Exception
     {
@@ -110,7 +110,7 @@
     }
 
     /// <summary>
-    /// Невозможно отсортировать объектв по этому свойству
+    /// Невозможно отсортировать объектв по этому свойству.
     /// </summary>
     public class NotSortableOrderColumnsType : Exception
     {
@@ -123,7 +123,7 @@
     }
 
     /// <summary>
-    /// Этот DetailArray нельзя отсортировать
+    /// Этот DetailArray нельзя отсортировать.
     /// </summary>
     public class NotSortableDetailArrayException : Exception
     {
@@ -136,7 +136,7 @@
     }
 
     /// <summary>
-    /// объект уже в DetailArray
+    /// объект уже в DetailArray.
     /// </summary>
     public class ObjectAlreadyInDetailArrayException : Exception
     {
@@ -149,7 +149,7 @@
     }
 
     /// <summary>
-    /// DetailArray уже содержиться объект с такимже калючем
+    /// DetailArray уже содержиться объект с такимже калючем.
     /// </summary>
     public class DetailArrayAlreadyContainsObjectWithThatKeyException : Exception
     {
@@ -162,7 +162,7 @@
     }
 
     /// <summary>
-    /// представление не подходит для класса
+    /// представление не подходит для класса.
     /// </summary>
     public class UncompatibleViewForClassException : Exception
     {
@@ -189,17 +189,17 @@
     }
 
     /// <summary>
-    /// Один класс не является потомком другого класса
+    /// Один класс не является потомком другого класса.
     /// </summary>
     public class ClassIsNotSubclassOfOtherException : Exception
     {
         /// <summary>
-        /// проверяемый
+        /// проверяемый.
         /// </summary>
         public System.Type checkedType;
 
         /// <summary>
-        /// с чем сравниваем
+        /// с чем сравниваем.
         /// </summary>
         public System.Type baseType;
 
@@ -217,25 +217,25 @@
     }
 
     /// <summary>
-    /// Не обнаружено свойство
+    /// Не обнаружено свойство.
     /// </summary>
     public class CantFindPropertyException : Exception
     {
         /// <summary>
-        /// имя свойства
+        /// имя свойства.
         /// </summary>
         public string propertyName;
 
         /// <summary>
-        /// в каком типе
+        /// в каком типе.
         /// </summary>
         public System.Type classType;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="prop">имя свойства</param>
-        /// <param name="type">в каком типе</param>
+        /// <param name="prop">имя свойства.</param>
+        /// <param name="type">в каком типе.</param>
         public CantFindPropertyException(string prop, Type type)
             : base("Cant find property <" + prop + "> in class " + type.FullName)
         {
@@ -245,7 +245,7 @@
     }
 
     /// <summary>
-    /// Агрегатор должен быть приводим к DataObject
+    /// Агрегатор должен быть приводим к DataObject.
     /// </summary>
     public class AgregatorPropertyMustBeDataObjectTypeException : Exception
     {
@@ -265,7 +265,7 @@
     }
 
     /// <summary>
-    /// при создании DetailArray необходимо передать объект-владелец
+    /// при создании DetailArray необходимо передать объект-владелец.
     /// </summary>
     public class OnCreationDetailArrayAgregatorObjectCantBeNullException : Exception
     {
@@ -278,7 +278,7 @@
     }
 
     /// <summary>
-    /// нет возможности обработать не DataObject
+    /// нет возможности обработать не DataObject.
     /// </summary>
     public class CantProcessingNonDataobjectTypeException : Exception
     {
@@ -304,7 +304,7 @@
     }
 
     /// <summary>
-    /// Неверный тип первичного ключа
+    /// Неверный тип первичного ключа.
     /// </summary>
     public class PrimaryKeyTypeException : Exception
     {
@@ -317,7 +317,7 @@
     }
 
     /// <summary>
-    /// Исключение,возникающее в операциях над представлениями пи несовместимости представлений
+    /// Исключение,возникающее в операциях над представлениями пи несовместимости представлений.
     /// </summary>
     public class IncompatibleTypesForViewOperationException : Exception
     {
@@ -344,7 +344,7 @@
     }
 
     /// <summary>
-    /// Исключение,возникающее программной несовмести типов (например при присваивании мастероваму свойству объекта типе, не включенного в UsingType)
+    /// Исключение,возникающее программной несовмести типов (например при присваивании мастероваму свойству объекта типе, не включенного в UsingType).
     /// </summary>
     public class IncompatibleTypeException : Exception
     {
@@ -356,10 +356,10 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="sObjectType">тип объекта в котором возникло исключение</param>
-        /// <param name="sPropName">свойство в котором возникло исключение</param>
-        /// <param name="sTypeName">имя типа на котором возникло исключение</param>
-        /// <param name="sMustBeTypes">должны бать следующие типы</param>
+        /// <param name="sObjectType">тип объекта в котором возникло исключение.</param>
+        /// <param name="sPropName">свойство в котором возникло исключение.</param>
+        /// <param name="sTypeName">имя типа на котором возникло исключение.</param>
+        /// <param name="sMustBeTypes">должны бать следующие типы.</param>
         public IncompatibleTypeException(string sObjectType, string sPropName, string sTypeName, string sMustBeTypes)
         {
             this.sObjectType = sObjectType;
@@ -369,7 +369,7 @@
         }
 
         /// <summary>
-        /// тип объекта в котором возникло исключение
+        /// тип объекта в котором возникло исключение.
         /// </summary>
         public string TypeName
         {
@@ -377,7 +377,7 @@
         }
 
         /// <summary>
-        /// олжны бать следующие типы
+        /// олжны бать следующие типы.
         /// </summary>
         public string MustBeTypes
         {
@@ -385,7 +385,7 @@
         }
 
         /// <summary>
-        /// имя типа на котором возникло исключение
+        /// имя типа на котором возникло исключение.
         /// </summary>
         public string ObjectType
         {
@@ -393,7 +393,7 @@
         }
 
         /// <summary>
-        /// свойство в котором возникло исключение
+        /// свойство в котором возникло исключение.
         /// </summary>
         public string PropName
         {
@@ -402,7 +402,7 @@
     }
 
     /// <summary>
-    ///  Тип проверяемого объекта не соответствует типу в TypeUsageAttribute
+    ///  Тип проверяемого объекта не соответствует типу в TypeUsageAttribute.
     /// </summary>
     public class IncomatibleCheckingTypeException : IncompatibleTypeException
     {
@@ -416,7 +416,7 @@
     }
 
     /// <summary>
-    /// Тип не является перечислимым типом
+    /// Тип не является перечислимым типом.
     /// </summary>
     public class NotEnumTypeException : Exception
     {
@@ -431,7 +431,7 @@
     }
 
     /// <summary>
-    /// не смогли найти свойство указывающее на объект-владелец
+    /// не смогли найти свойство указывающее на объект-владелец.
     /// </summary>
     public class NotFoundAggregatorProperty : Exception
     {
@@ -445,31 +445,31 @@
     }
 
     /// <summary>
-    /// Не нашли в типах
+    /// Не нашли в типах.
     /// </summary>
     public class NotFoundInTypeUsageException : Exception
     {
         /// <summary>
-        /// Тип для свойсва которого установлен TypeUsage
+        /// Тип для свойсва которого установлен TypeUsage.
         /// </summary>
         public Type ObjectType;
 
         /// <summary>
-        /// Свойство для которого установлен TypeUsage
+        /// Свойство для которого установлен TypeUsage.
         /// </summary>
         public string Property;
 
         /// <summary>
-        /// Проверяемый тип
+        /// Проверяемый тип.
         /// </summary>
         public Type CheckedType;
 
         /// <summary>
-        /// Не нашли в типах
+        /// Не нашли в типах.
         /// </summary>
-        /// <param name="objectType"> Тип для свойсва которого установлен TypeUsage</param>
-        /// <param name="property">Свойство для которого установлен TypeUsage</param>
-        /// <param name="checkedType">Проверяемый тип</param>
+        /// <param name="objectType"> Тип для свойсва которого установлен TypeUsage.</param>
+        /// <param name="property">Свойство для которого установлен TypeUsage.</param>
+        /// <param name="checkedType">Проверяемый тип.</param>
         public NotFoundInTypeUsageException(Type objectType, string property, Type checkedType)
         {
             ObjectType = objectType;

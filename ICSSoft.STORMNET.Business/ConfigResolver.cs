@@ -1,11 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Web;
-
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
 
@@ -17,10 +11,7 @@
         /// <inheritdoc cref="IConfigResolver"/>
         public string ResolveConnectionString(string connStringName)
         {
-            // Определяем, в каком режиме работает приложение - Web или Win.
-            var appMode = DataServiceProvider.IsWebApp ? AppMode.Web : AppMode.Win;
-
-            return ConfigHelper.GetConnectionString(appMode, connStringName);
+            return ConfigHelper.GetConnectionString(AppMode.Win, connStringName);
         }
     }
 }

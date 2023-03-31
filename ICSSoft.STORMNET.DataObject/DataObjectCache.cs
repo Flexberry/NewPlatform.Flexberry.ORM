@@ -56,7 +56,10 @@
         {
             get
             {
-                return _objectCaches == null || _objectCaches.Count == 0;
+                lock (_objectCaches)
+                {
+                    return _objectCaches == null || _objectCaches.Count == 0;
+                }
             }
         }
 

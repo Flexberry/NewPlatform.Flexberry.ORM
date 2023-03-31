@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web;
 
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
@@ -43,7 +42,7 @@
             _currentAuditService = service;
             Current.AppSetting = appSetting;
             Current.Audit = audit;
-            Current.ApplicationMode = HttpContext.Current != null ? AppMode.Web : AppMode.Win;
+            Current.ApplicationMode = AppMode.Win;
             Current.ShowPrimaryKey = false;
         }
 
@@ -65,11 +64,6 @@
         /// Контроллер для организации асинхронной записи аудита.
         /// </summary>
         private readonly AsyncAuditController _asyncAuditController = new AsyncAuditController();
-
-        /// <summary>
-        /// Контроллер для организации удалённой записи аудита.
-        /// </summary>
-        private readonly RemoteAuditController _remoteAuditController = new RemoteAuditController();
 
         /// <summary>
         /// Режим, в котором работает приложение: win или web.
@@ -169,6 +163,12 @@
         public bool PersistUtcDates { get; set; }
 
         /// <summary>
+        /// Flag indicates that this service uses <see cref="LogService.LogInfo(object)" /> and <see cref="LogService.LogInfoFormat" /> to log audit operation information.
+        /// Default is <see langword="true" />.
+        /// </summary>
+        public bool DetailedLogEnabled { get; set; } = true;
+
+        /// <summary>
         /// Элемент, реализующий логику аудита.
         /// </summary>
         public IAudit Audit
@@ -248,7 +248,7 @@
 
                 return _typeAuditSettingsLoader.GetAuditView(type, operation);
             }
-                catch (Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -340,7 +340,7 @@
                             FullUserLogin = GetCurrentUserInfo(ApplicationMode, false),
                             UserName = GetCurrentUserInfo(ApplicationMode, true),
                             OperationSource = GetSourceInfo(ApplicationMode),
-                            ThrowExceptions = throwExceptions
+                            ThrowExceptions = throwExceptions,
                         };
 
                 return CheckAndSendToAudit(checkedCustomAuditParameters);
@@ -504,12 +504,16 @@
                 if (commonAuditParameters != null)
                 {
                     var operatedObject = commonAuditParameters.OldVersionOperatedObject ?? commonAuditParameters.OperatedObject; // для UPDATE нужно взять старую версию.
-                    var auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
-                    auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(
-                        auditOperationId,
-                        operatedObject,
-                        ConvertTypeOfAudit(commonAuditParameters.TypeOfAuditOperation),
-                        commonAuditParameters.AuditView);
+                    if (operatedObject != null)
+                    {
+                        // При удалении OperatedObject может быть null, если не удалось найти объект данных в БД.
+                        var auditOperationId = CheckAndSendToAudit(commonAuditParameters, dataObjectType);
+                        auditAdditionalInfo = AuditAdditionalInfo.CreateRecord(
+                            auditOperationId,
+                            operatedObject,
+                            ConvertTypeOfAudit(commonAuditParameters.TypeOfAuditOperation),
+                            commonAuditParameters.AuditView);
+                    }
                 }
 
                 return auditAdditionalInfo;
@@ -550,68 +554,78 @@
                 CommonAuditParameters commonAuditParameters = null;
                 Type dataObjectType = operationedObject.GetType();
                 var objectStatus = operationedObject.GetStatus(false);
-                var typeOfAudit = ConvertObjectStatus(objectStatus);
-                if (_typeAuditSettingsLoader.HasSettings(dataObjectType)
-                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType)
-                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
+                if (objectStatus != ObjectStatus.UnAltered
+                    && _typeAuditSettingsLoader.HasSettings(dataObjectType)
+                    && _typeAuditSettingsLoader.IsAuditEnabled(dataObjectType))
                 {
-                    // Настройки вообще есть и аудит для приложения и для класса включён.
-                    LogService.LogInfoFormat("AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}", operationedObject, objectStatus, operationedObject.__PrimaryKey);
-
-                    // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
-                    string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
-                    classConnectionStringName = CheckHelper.IsNullOrWhiteSpace(classConnectionStringName)
-                        ? classConnectionStringName
-                        : (AppSetting.IsDatabaseLocal ? GetConnectionStringName(dataService) : AppSetting.AuditConnectionStringName);
-
-                    commonAuditParameters = GenerateBaseCommonAuditParameters(operationedObject, classConnectionStringName, throwExceptions);
-                    commonAuditParameters.AuditView = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, typeOfAudit);
-                    var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, typeOfAudit);
-
-                    switch (objectStatus)
+                    var typeOfAudit = ConvertObjectStatus(objectStatus);
+                    if (_typeAuditSettingsLoader.IsAuditEnabled(dataObjectType, typeOfAudit))
                     {
-                        case ObjectStatus.Deleted:
-                            var deletedObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
-                            if (deletedObject != null)
-                            {
-                                commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.DELETE;
-                                commonAuditParameters.OperatedObject = deletedObject;
-                            }
+                        // Настройки вообще есть и аудит для приложения и для класса включён.
+                        if (DetailedLogEnabled)
+                        {
+                            LogService.LogInfoFormat(
+                                "AuditService, WriteCommonAuditOperation: На аудит получен объект {2}:{0} со статусом {1}",
+                                operationedObject,
+                                objectStatus,
+                                operationedObject.__PrimaryKey);
+                        }
 
-                            break;
+                        // Пробуем вычитать имя строки соединения непосредственно из настроек класса. Если не получается, берём по старой схеме.
+                        string classConnectionStringName = _typeAuditSettingsLoader.GetAuditConnectionString(dataObjectType);
+                        classConnectionStringName = CheckHelper.IsNullOrWhiteSpace(classConnectionStringName)
+                            ? classConnectionStringName
+                            : (AppSetting.IsDatabaseLocal ? GetConnectionStringName(dataService) : AppSetting.AuditConnectionStringName);
 
-                        case ObjectStatus.Created:
-                            var createdObject = CopyNotSavedDataObject(operationedObject);
+                        commonAuditParameters = GenerateBaseCommonAuditParameters(operationedObject, classConnectionStringName, throwExceptions);
+                        commonAuditParameters.AuditView = _typeAuditSettingsLoader.GetAuditViewName(dataObjectType, typeOfAudit);
+                        var curView = _typeAuditSettingsLoader.GetAuditView(dataObjectType, typeOfAudit);
 
-                            commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
-                            commonAuditParameters.OperatedObject = createdObject;
+                        switch (objectStatus)
+                        {
+                            case ObjectStatus.Deleted:
+                                var deletedObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
+                                if (deletedObject != null)
+                                {
+                                    commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.DELETE;
+                                    commonAuditParameters.OperatedObject = deletedObject;
+                                }
 
-                            break;
+                                break;
 
-                        case ObjectStatus.Altered:
-                            // Текущая версия объекта.
-                            var newObject = CopyNotSavedDataObject(operationedObject);
+                            case ObjectStatus.Created:
+                                var createdObject = CopyNotSavedDataObject(operationedObject);
 
-                            // Хранимое в БД значение.
-                            var oldObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
-                            if (oldObject != null)
-                            {
-                                // Догружаем объект по представлению аудита, чтобы корректно записать все поля, особенно актуально для нехранимых полей.
-                                List<string> loadedProperties = CopyAlteredNotSavedDataObject(oldObject, newObject, curView, dataService, transaction);
-
-                                // Пишем аудит изменения.
-                                commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.UPDATE;
-                                commonAuditParameters.OperatedObject = newObject;
-                                commonAuditParameters.OldVersionOperatedObject = oldObject;
-                                commonAuditParameters.LoadedProperties = loadedProperties.ToArray();
-                            }
-                            else
-                            {
                                 commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
-                                commonAuditParameters.OperatedObject = newObject;
-                            }
+                                commonAuditParameters.OperatedObject = createdObject;
 
-                            break;
+                                break;
+
+                            case ObjectStatus.Altered:
+                                // Текущая версия объекта.
+                                var newObject = CopyNotSavedDataObject(operationedObject);
+
+                                // Хранимое в БД значение.
+                                var oldObject = LoadDatabaseCopy(operationedObject, curView, dataService, transaction);
+                                if (oldObject != null)
+                                {
+                                    // Догружаем объект по представлению аудита, чтобы корректно записать все поля, особенно актуально для нехранимых полей.
+                                    List<string> loadedProperties = CopyAlteredNotSavedDataObject(oldObject, newObject, curView, dataService, transaction);
+
+                                    // Пишем аудит изменения.
+                                    commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.UPDATE;
+                                    commonAuditParameters.OperatedObject = newObject;
+                                    commonAuditParameters.OldVersionOperatedObject = oldObject;
+                                    commonAuditParameters.LoadedProperties = loadedProperties.ToArray();
+                                }
+                                else
+                                {
+                                    commonAuditParameters.TypeOfAuditOperation = tTypeOfAuditOperation.INSERT;
+                                    commonAuditParameters.OperatedObject = newObject;
+                                }
+
+                                break;
+                        }
                     }
                 }
 
@@ -662,7 +676,8 @@
                         AppSetting.IsDatabaseLocal
                                         ? GetConnectionStringName(dataServiceConnectionString, dataServiceType)
                                         : AppSetting.AuditConnectionStringName,
-                        IsAuditRemote) { ThrowExceptions = throwExceptions };
+                        IsAuditRemote)
+                    { ThrowExceptions = throwExceptions };
 
                     CheckAndSendToAudit(auditRatifyParameters, checkClassAuditSettings);
                 }
@@ -692,11 +707,14 @@
 
             commonAuditParameters.WriteMode = currentWriteMode;
 
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
                     commonAuditParameters.OperatedObject.__PrimaryKey,
                     commonAuditParameters.OperatedObject,
                     currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            }
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -711,7 +729,7 @@
 
             if (IsAuditRemote)
             {
-                auditOperationId = _remoteAuditController.WriteAuditOperation(commonAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -742,11 +760,14 @@
         {
             var currentWriteMode = checkedCustomAuditParameters.WriteMode;
 
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0}:{1} отправляется {2}",
                     checkedCustomAuditParameters.AuditObjectPrimaryKey,
                     checkedCustomAuditParameters.AuditObjectTypeOrDescription,
                     currentWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно");
+            }
 
             Guid? auditOperationId = null;
             if (currentWriteMode == tWriteMode.Asynchronous)
@@ -761,7 +782,7 @@
 
             if (IsAuditRemote)
             {
-                auditOperationId = _remoteAuditController.WriteAuditOperation(checkedCustomAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -786,11 +807,14 @@
         /// <param name="checkClassAuditSettings">Следует ли проверять настройки аудита в классах.</param>
         protected virtual void CheckAndSendToAudit(RatificationAuditParameters ratificationAuditParameters, bool checkClassAuditSettings)
         {
-            LogService.LogInfoFormat(
+            if (DetailedLogEnabled)
+            {
+                LogService.LogInfoFormat(
                     "AuditService, CheckAndSendToAudit: {0} отправляется {1} со статусом {2}",
                     string.Join(", ", ratificationAuditParameters.AuditOperationInfoList.Select(x => x.ToString()).ToArray()),
                     AppSetting.DefaultWriteMode == tWriteMode.Synchronous ? "синхронно" : "асинхронно",
                     ratificationAuditParameters.ExecutionResult);
+            }
 
             if (AppSetting.DefaultWriteMode == tWriteMode.Asynchronous)
             {
@@ -800,7 +824,7 @@
 
             if (IsAuditRemote)
             {
-                _remoteAuditController.RatifyAuditOperation(ratificationAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -913,7 +937,7 @@
                 {
                     Audit = Audit,
                     ConnectionStringName = ratificationAuditParameters.AuditConnectionStringName,
-                    AuditAdditionalInfoList = standartAuditAdditionalInfos
+                    AuditAdditionalInfoList = standartAuditAdditionalInfos,
                 });
 
             foreach (ProperRatificationInfo properRatificationInfo in properRatificationInfos)
@@ -955,7 +979,7 @@
                 connectionStringName,
                 IsAuditRemote)
             {
-                ThrowExceptions = throwExceptions
+                ThrowExceptions = throwExceptions,
             };
         }
 
@@ -1009,17 +1033,17 @@
             {
                 resultConnectionStringName =
                     (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
-                        where CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
-                        select auditDsSetting.ConnStringName).FirstOrDefault();
+                     where CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
+                     select auditDsSetting.ConnStringName).FirstOrDefault();
             }
             else
             {
                 var auditDsSettingList = (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
-                    where
-                        string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
-                        && auditDsSetting.DataServiceType == dataServiceType
-                        && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
-                    select auditDsSetting.ConnStringName).ToList();
+                                          where
+                                              string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
+                                              && auditDsSetting.DataServiceType == dataServiceType
+                                              && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
+                                          select auditDsSetting.ConnStringName).ToList();
                 if (auditDsSettingList.Any())
                 {
                     resultConnectionStringName = auditDsSettingList[0];
@@ -1056,7 +1080,7 @@
             if (dataObjectWithAuditFields != null)
             {
                 // Добавляем поля, кто же изменил объект. //TODO: определить эту запись в правильное место.
-                operationedObject.AddLoadedProperties(new List<string> { "EditTime", "Editor" });
+                operationedObject.AddLoadedProperties(nameof(IDataObjectWithAuditFields.EditTime), nameof(IDataObjectWithAuditFields.Editor));
                 dataObjectWithAuditFields.EditTime = GetAuditOperationTime(operationedObject);
                 dataObjectWithAuditFields.Editor = GetCurrentUserInfo(ApplicationMode, true);
             }
@@ -1398,6 +1422,7 @@
 
         /// <summary>
         /// Вычитать из базы соответствующий объекту объект.
+        /// TODO: в большинстве ситуаций достаточно проверить, что объект уже загружен необходимыми свойствами (рекурсия по детейлам).
         /// </summary>
         /// <param name="operationedObject">Объект, чью копию будем вычитывать из БД.</param>
         /// <param name="curView">Представление, по которому будем вычитывать из БД.</param>
@@ -1411,10 +1436,10 @@
 
             try
             {
-                // TODO: потом добавить проверку по правам, убрать аудит зачитки.
+                // TODO: потом добавить проверку по правам, убрать аудит вычитки.
                 if (transaction == null)
                 {
-                    // Не передано никаких транзакций, поэтому можно выполнить зачитку традиционным образом.
+                    // Не передано никаких транзакций, поэтому можно выполнить вычитку традиционным образом.
                     dataService.LoadObject(curView, operationedDbObject, true, true);
                 }
                 else
@@ -1489,16 +1514,6 @@
                 LogService.LogError("AuditService, GetCurrentUserInfo: Произошла ошибка при работе с CurrentUserService", ex);
             }
 
-            // Потом, если web, по старинке через HttpContext.Current.User.Identity.
-            if (curMode == AppMode.Web
-                    && HttpContext.Current != null
-                    && HttpContext.Current.User != null
-                    && HttpContext.Current.User.Identity != null
-                    && !string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
-            {
-                return HttpContext.Current.User.Identity.Name;
-            }
-
             // TODO: подумать, что стоит делать.
             throw new DataNotFoundAuditException("не удалось определить текущего пользователя");
         }
@@ -1514,8 +1529,6 @@
             switch (curMode)
             {
                 case AppMode.Web:
-                    return $"IP: {HttpContext.Current.Request.UserHostAddress}; DNS: {HttpContext.Current.Request.UserHostName}";
-
                 case AppMode.Win:
                     return $"Имя компьютера: {Environment.MachineName}; Домен: {Environment.UserDomainName}; Пользователь: {Environment.UserName}";
             }

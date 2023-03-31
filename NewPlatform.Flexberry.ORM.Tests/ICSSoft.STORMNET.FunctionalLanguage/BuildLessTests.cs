@@ -195,7 +195,6 @@
         [Fact]
         public void BuildLessTest74()
         {
-
             Assert.Equal(
                 LangDef.GetFunction(LangDef.funcL, StringGenVarDef, StringGenVarDef2),
                 FunctionBuilder.BuildLess<TestDataObject>(x => x.Name, x => x.Hierarchy.Name));
