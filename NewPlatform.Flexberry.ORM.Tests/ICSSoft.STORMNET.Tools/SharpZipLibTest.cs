@@ -102,10 +102,14 @@
         private bool FilesAreEqual(FileInfo first, FileInfo second)
         {
             if (first.Length != second.Length)
+            {
                 return false;
+            }
 
             if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
+            {
                 return true;
+            }
 
             int iterations = (int)Math.Ceiling((double)first.Length / BYTESTOREAD);
 
@@ -121,7 +125,9 @@
                     fs2.Read(two, 0, BYTESTOREAD);
 
                     if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
+                    {
                         return false;
+                    }
                 }
             }
 
