@@ -6,24 +6,23 @@
     /// <summary>
     /// Проверка класса Image.cs.
     /// </summary>
-    
     public class ImageTest
     {
         /// <summary>
         /// Проверка метода Compare.
         /// </summary>
         [Fact]
-        
+
         public void ImageCompareTest()
         {
             var image = new Image()
-                { Data = "1234567", Format = "f", Height = 100, Width = 200, Name = "image", URL = "url-image" };
+            { Data = "1234567", Format = "f", Height = 100, Width = 200, Name = "image", URL = "url-image" };
             var image1 = new Image()
-                { Data = "7654321", Format = "t", Height = 200, Width = 100, Name = "egami", URL = "url-egami" };
+            { Data = "7654321", Format = "t", Height = 200, Width = 100, Name = "egami", URL = "url-egami" };
             var image2 = new Image()
-                { Data = "7654321", Format = "f", Height = 100, Width = 200, Name = "image", URL = "url-image" };
+            { Data = "7654321", Format = "f", Height = 100, Width = 200, Name = "image", URL = "url-image" };
             var image3 = new Image()
-                { Data = "1234567", Format = "f", Height = 100, Width = 200, Name = "image", URL = "url-imageNewUrl" };
+            { Data = "1234567", Format = "f", Height = 100, Width = 200, Name = "image", URL = "url-imageNewUrl" };
 
             Assert.Equal(image.Compare(image1), 1);
             Assert.Equal(image.Compare(image2), 1);
@@ -35,7 +34,7 @@
         /// Проверка явного преобразования Image в string.
         /// </summary>
         [Fact]
-        
+
         public void ImageExplicitImageToStringTest()
         {
             var testImage = new Image();
@@ -64,7 +63,7 @@
         /// Проверка явного преобразования string в Image.
         /// </summary>
         [Fact]
-        
+
         public void ImageExplicitStringToImageTest()
         {
             Assert.Null((Image)string.Empty);

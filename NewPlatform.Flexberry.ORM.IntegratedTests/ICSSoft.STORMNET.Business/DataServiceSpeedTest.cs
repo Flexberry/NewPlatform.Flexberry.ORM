@@ -2,24 +2,29 @@
 {
     using System;
     using System.Diagnostics;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
-    using Xunit;
+
     using NewPlatform.Flexberry.ORM.Tests;
-    using System.Configuration;
+
+    using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тест скорости сервиса данных.
     /// </summary>
-    
     public class DataServiceSpeedTest : BaseIntegratedTest
     {
+        private readonly ITestOutputHelper testOutputHelper;
+
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public DataServiceSpeedTest()
+        public DataServiceSpeedTest(ITestOutputHelper testOutputHelper)
             : base("DSSpeed")
         {
+            this.testOutputHelper = testOutputHelper;
         }
 
         /// <summary>
@@ -30,11 +35,9 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                var ds = (SQLDataService)dataService;
-
                 var createdBear1 = new Медведь();
                 createdBear1.ЦветГлаз = "Косолапый Мишка 1";
-                ds.UpdateObject(createdBear1);
+                dataService.UpdateObject(createdBear1);
 
                 Random random = new Random();
 
@@ -49,24 +52,25 @@
                     // Чтобы медведь в БД точно был, создадим его.
                     var createdBear = new Медведь();
                     createdBear.ЦветГлаз = "Косолапый Мишка " + random.Next(101);
-                    ds.UpdateObject(createdBear);
+                    dataService.UpdateObject(createdBear);
 
                     // Теперь грузим его из БД.
                     var медведь = new Медведь();
                     медведь.SetExistObjectPrimaryKey(createdBear.__PrimaryKey);
-                    ds.LoadObject(медведь, false, false);
+                    dataService.LoadObject(медведь, false, false);
 
                     медведь.ЦветГлаз = "Топтыгин " + random.Next(101);
 
-                    ds.UpdateObject(медведь);
+                    dataService.UpdateObject(медведь);
 
                     медведь.SetStatus(ObjectStatus.Deleted);
-                    ds.UpdateObject(медведь);
+                    dataService.UpdateObject(медведь);
                     i++;
-                } while (stopwatch.ElapsedMilliseconds < 1000);
+                }
+                while (stopwatch.ElapsedMilliseconds < 1000);
 
                 stopwatch.Stop();
-                Console.WriteLine(i + " instances.");
+                testOutputHelper.WriteLine($"{nameof(InsertSelectUpdateDeleteSpeedTest)}@{dataService.GetType().Name}: {i} iterations");
             }
         }
     }

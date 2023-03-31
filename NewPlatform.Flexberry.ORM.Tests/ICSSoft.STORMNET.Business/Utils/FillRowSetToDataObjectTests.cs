@@ -1,18 +1,28 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
+    using System.Diagnostics;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Security;
 
     using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Тесты метода <see cref="Utils.FillRowSetToDataObject" />.
     /// </summary>
     public class FillRowSetToDataObjectTests
     {
+        private readonly ITestOutputHelper testOutputHelper;
+
+        /// <inheritdoc cref="BaseSQLDataServiceTests" />
+        public FillRowSetToDataObjectTests(ITestOutputHelper testOutputHelper)
+        {
+            this.testOutputHelper = testOutputHelper;
+        }
+
         /// <summary>
         /// Тест проверяет статус загрузки мастерового объекта.
         /// </summary>
@@ -122,6 +132,46 @@
 
             // Assert.
             Assert.Equal(LoadingState.Loaded, forest.GetLoadingState());
+        }
+
+        /// <summary>
+        /// Проверка производительности для <see cref="Utils.FillRowSetToDataObject" /> по собственным полям объекта.
+        /// </summary>
+        [Fact]
+        public void ReadTypeOnlyThatObjectLoadedStatePerformanceTest()
+        {
+            // Arrange.
+            var sm = new EmptySecurityManager();
+            var view = new View(typeof(Лес), View.ReadType.OnlyThatObject);
+            var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Лес), view);
+
+            var guidCountry = new Guid("37ea8412-2b3a-49d1-a129-8e7e5dd56473");
+            var guidForest = new Guid("a1a31995-4322-47a8-8128-da251826b958");
+            var values = new object[8]
+                { "Черняевский", 500, false, DateTime.Today, guidCountry, guidForest, guidCountry, 0m };
+            var storageStruct = Information.GetStorageStructForView(
+                view,
+                view.DefineClassType,
+                StorageTypeEnum.SimpleStorage,
+                null,
+                typeof(SQLDataService));
+
+            // Act.
+            Stopwatch stopwatch = new Stopwatch();
+            int i = 0;
+            stopwatch.Start();
+
+            do
+            {
+                var forest = PKHelper.CreateDataObject<Лес>(guidForest);
+                var dataObjectCache = new DataObjectCache();
+                Utils.FillRowSetToDataObject(forest, values, storageStruct, lcs, null, lcs.AdvansedColumns, dataObjectCache, sm);
+                i++;
+            }
+            while (stopwatch.ElapsedMilliseconds < 1000);
+
+            stopwatch.Stop();
+            testOutputHelper.WriteLine($"{nameof(ReadTypeOnlyThatObjectLoadedStatePerformanceTest)}: {i} iterations");
         }
 
         /// <summary>

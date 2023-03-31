@@ -5,7 +5,7 @@
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
 
     /// <summary>
-    /// Класс для обработки возникших исключений
+    /// Класс для обработки возникших исключений.
     /// </summary>
     public static class ErrorProcesser
     {

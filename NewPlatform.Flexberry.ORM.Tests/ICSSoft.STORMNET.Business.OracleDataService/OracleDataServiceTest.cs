@@ -12,7 +12,7 @@
     public class OracleDataServiceTest
     {
         /// <summary>
-        /// Метод для создания OracleDataService для целей тестирования.       
+        /// Метод для создания OracleDataService для целей тестирования.
         /// </summary>
         /// <returns>Сконструированный OracleDataService.</returns>
         public static OracleDataService CreateOracleDataServiceForTests()
@@ -27,10 +27,10 @@
         /// </summary>
         [Fact]
         public void GetOraConnectionTest()
-        {           
+        {
             OracleDataService ds = CreateOracleDataServiceForTests();
             IDbConnection cnn = ds.GetConnection();
-            Assert.NotNull(cnn);                        
+            Assert.NotNull(cnn);
         }
     }
 }

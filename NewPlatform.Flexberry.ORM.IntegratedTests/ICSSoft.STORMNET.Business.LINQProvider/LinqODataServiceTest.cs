@@ -1,21 +1,18 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.LINQProvider
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.UserDataTypes;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
 
-    using System.Configuration;
-    using System.Linq.Expressions;
-    using System.Collections.Generic;
-    using ICSSoft.STORMNET;
     /// <summary>
     /// Проверка цепочного вызова Where при LINQ-запросах к сервису данных.
     /// </summary>
-
     public class LinqODataServiceTest : BaseIntegratedTest
     {
         /// <summary>
@@ -26,15 +23,17 @@
         {
         }
 
-
         [Fact]
         public void TestODataMasterFieldOrderby()
         {
             foreach (IDataService dataService in DataServices)
             {
-                //ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
+                // ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
                 if (dataService is MSSQLDataService)
+                {
                     continue;
+                }
+
                 Лес лес1 = new Лес { Название = "Бор" };
                 Лес лес2 = new Лес { Название = "Березовая роща" };
                 Медведь медв = new Медведь { Вес = 48, Пол = Пол.Мужской, ЛесОбитания = лес1 };
@@ -67,22 +66,19 @@
                 var lcs3 = new LoadingCustomizationStruct(null);
                 lcs3.View = Медведь.Views.МедведьE;
                 lcs3.LoadingTypes = new Type[] { typeof(Медведь) };
-                lcs3.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название)/*new ColumnsSortDef("ЛесОбитания.Название"*/, ICSSoft.STORMNET.Business.SortOrder.Asc) };
+                lcs3.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Asc) };
                 var l3 = dataService.LoadObjects(lcs3);
-
 
                 var lcs4 = new LoadingCustomizationStruct(null);
                 lcs4.View = Медведь.Views.МедведьE;
                 lcs4.LoadingTypes = new Type[] { typeof(Медведь) };
-                lcs4.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название)/*new ColumnsSortDef("ЛесОбитания.Название"*/, ICSSoft.STORMNET.Business.SortOrder.Desc) };
+                lcs4.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Desc) };
                 var l4 = dataService.LoadObjects(lcs4);
-
-
             }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Fact]
         public void TestODataAny()
@@ -90,7 +86,7 @@
             foreach (IDataService dataService in DataServices)
             {
                 ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
-                //if (dataService is MSSQLDataService)
+                // if (dataService is MSSQLDataService)
                 //    continue;
                 Медведь медв = new Медведь { Вес = 48, Пол = Пол.Мужской };
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской };
@@ -112,13 +108,11 @@
 
                 var l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
                   x => x.Берлога.Cast<Берлога>().Any(o => o.Наименование == "Для хорошего настроения")).ToList();
-
             }
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Fact]
         public void TestODataIsOf()
@@ -135,7 +129,7 @@
                 var view = Plant2.Views.Plant2E;
 
                 IQueryable<Plant2> limit;
-                //limit = ds.Query<Plant2>(view).Where(it => it.__PrimaryKey != null);
+                // limit = ds.Query<Plant2>(view).Where(it => it.__PrimaryKey != null);
 
                 LoadingCustomizationStruct lcs;
                 /*
@@ -145,9 +139,9 @@
                 lcs.View = view;
                 var list = ds.LoadObjects(lcs);
                 */
-                //limit = ds.Query<Plant2>(view).Where(it => typeof(Cabbage2).IsInstanceOfType(it));
-                //lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                //var list2 = ds.LoadObjects(lcs);
+                // limit = ds.Query<Plant2>(view).Where(it => typeof(Cabbage2).IsInstanceOfType(it));
+                // lcs = LinqToLcs.GetLcs(limit.Expression, view);
+                // var list2 = ds.LoadObjects(lcs);
             }
         }
 
@@ -161,10 +155,11 @@
             {
                 if (dataService is OracleDataService && typeof(SQLDataService).Assembly.ImageRuntimeVersion.StartsWith("v2"))
                 {
-                    ///TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
-                    ///Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
+                    // TODO: Исправить конвертацию для OracleDataService decimal в char, если используется System.Data.OracleClient (в Net3.5).
+                    // Для версии Net4.0 и выше используется Oracle.ManagedDataAccess.Client, для которого исправление не требуется.
                     continue;
                 }
+
                 var ds = (SQLDataService)dataService;
 
                 NullableDateTime date = new NullableDateTime();
@@ -207,9 +202,12 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                //TODO: Fix OracleDataService error. 
+                // TODO: Fix OracleDataService error.
                 if (dataService is OracleDataService)
+                {
                     continue;
+                }
+
                 // Arrange.
                 var ds = (SQLDataService)dataService;
 

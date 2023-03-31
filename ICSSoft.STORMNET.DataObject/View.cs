@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
@@ -14,7 +15,7 @@
     namespace Business
     {
         /// <summary>
-        /// Тип структуры хранения
+        /// Тип структуры хранения.
         /// </summary>
         public enum StorageTypeEnum
         {
@@ -27,57 +28,57 @@
             /// Иерархическое хранение (Хранятся только свои атрибуты,
             /// а атрибуты предка хранятся в его хранилище)
             /// </summary>
-            HierarchicalStorage
+            HierarchicalStorage,
         }
 
         #region Структура хранения
 
         /// <summary>
-        /// структура для отображения представления в данные
+        /// структура для отображения представления в данные.
         /// </summary>
         [Serializable]
         public class StorageStructForView : ISerializable
         {
             /// <summary>
-            /// описание хранилища для некоторого класса,в ветви наследованных объектов
+            /// описание хранилища для некоторого класса,в ветви наследованных объектов.
             /// </summary>
             [Serializable]
             public struct ClassStorageDef : ISerializable
             {
                 /// <summary>
-                /// название хранилища (ClassStorageName у класса)
+                /// название хранилища (ClassStorageName у класса).
                 /// </summary>
                 public string Storage;
 
                 /// <summary>
-                /// название хранилища для первичного ключа
+                /// название хранилища для первичного ключа.
                 /// </summary>
                 public string PrimaryKeyStorageName;
 
                 /// <summary>
-                /// название хранилища для свойства в классе,ссылающемся на данный
+                /// название хранилища для свойства в классе,ссылающемся на данный.
                 /// </summary>
                 public string objectLinkStorageName;
 
                 /// <summary>
-                /// индекс хранилища для класса ссылающегося на данный в объемлющем PropSource
+                /// индекс хранилища для класса ссылающегося на данный в объемлющем PropSource.
                 /// </summary>
                 public int parentStorageindex;
 
                 /// <summary>
-                /// тип класса с которым ассоциированно данное хранилище
+                /// тип класса с которым ассоциированно данное хранилище.
                 /// </summary>
                 public System.Type ownerType;
 
                 public bool nullableLink;
 
                 /// <summary>
-                /// Имя хранилища для типа
+                /// Имя хранилища для типа.
                 /// </summary>
                 public string TypeStorageName;
 
                 /// <summary>
-                /// Сздание при десериализации
+                /// Сздание при десериализации.
                 /// </summary>
                 /// <param name="info"></param>
                 /// <param name="context"></param>
@@ -93,7 +94,7 @@
                 }
 
                 /// <summary>
-                /// Данные для сериализации
+                /// Данные для сериализации.
                 /// </summary>
                 /// <param name="info"></param>
                 /// <param name="context"></param>
@@ -110,7 +111,7 @@
             }
 
             /// <summary>
-            /// хранилище для свойства
+            /// хранилище для свойства.
             /// </summary>
             [Serializable]
             public class PropStorage : ISerializable
@@ -123,57 +124,57 @@
                 }
 
                 /// <summary>
-                /// имя свойства в представлении
+                /// имя свойства в представлении.
                 /// </summary>
                 public string Name;
 
                 /// <summary>
-                /// в каком хранилище оно лежит
+                /// в каком хранилище оно лежит.
                 /// </summary>
                 public PropSource source;
 
                 /// <summary>
-                /// для совойств DataObject-ного типа список типов мастеров для каждой  ветви выборки
+                /// для совойств DataObject-ного типа список типов мастеров для каждой  ветви выборки.
                 /// </summary>
                 public System.Type[][] MastersTypes = null;
 
                 /// <summary>
-                /// для совойств DataObject-ного,количество объектов в <see cref="PropStorage.MastersTypes"/>
+                /// для совойств DataObject-ного,количество объектов в <see cref="PropStorage.MastersTypes"/>.
                 /// </summary>
                 public int MastersTypesCount = 0;
 
                 /// <summary>
-                /// имя хранилища свойства, для каждой  ветви выборки
+                /// имя хранилища свойства, для каждой  ветви выборки.
                 /// </summary>
                 public string[][] storage = new string[1][];
 
                 /// <summary>
-                /// имя свойств в объекте (без префикса доступа к объекту)
+                /// имя свойств в объекте (без префикса доступа к объекту).
                 /// </summary>
                 public string simpleName;
 
                 /// <summary>
-                /// хранимый ли атрибут
+                /// хранимый ли атрибут.
                 /// </summary>
                 public bool Stored = true;
 
                 /// <summary>
-                /// формула для хранения вычислимых атрибутов
+                /// формула для хранения вычислимых атрибутов.
                 /// </summary>
                 public string Expression = null;
 
                 /// <summary>
-                /// тип свойства
+                /// тип свойства.
                 /// </summary>
                 public Type propertyType = null;
 
                 /// <summary>
-                /// Используется ли это свойство несколько раз, и это уже не первый
+                /// Используется ли это свойство несколько раз, и это уже не первый.
                 /// </summary>
                 public bool MultipleProp = false;
 
                 /// <summary>
-                /// Добавочное свойство (для вычислимых свойств, использующих свойства не загружаемые в представлении)
+                /// Добавочное свойство (для вычислимых свойств, использующих свойства не загружаемые в представлении).
                 /// </summary>
                 public bool AdditionalProp = false;
 
@@ -226,33 +227,33 @@
             }
 
             /// <summary>
-            /// описание хранилища для некоторого класса,в ветви мастеров
+            /// описание хранилища для некоторого класса,в ветви мастеров.
             /// </summary>
             [Serializable]
             public class PropSource : ISerializable, IComparable
             {
                 /// <summary>
-                /// Связь по иерархии
+                /// Связь по иерархии.
                 /// </summary>
                 public bool HierarchicalLink = false;
 
                 /// <summary>
-                /// имя источника данных с учетом влложенности
+                /// имя источника данных с учетом влложенности.
                 /// </summary>
                 public string Name;
 
                 /// <summary>
-                /// имя мастера в объемдющем классе
+                /// имя мастера в объемдющем классе.
                 /// </summary>
                 public string ObjectLink;
 
                 /// <summary>
-                /// ветви наследования
+                /// ветви наследования.
                 /// </summary>
                 public ClassStorageDef[] storage = new ClassStorageDef[1];
 
                 /// <summary>
-                /// ветви мастеров
+                /// ветви мастеров.
                 /// </summary>
                 public PropSource[] LinckedStorages = new PropSource[0];
 
@@ -323,12 +324,12 @@
             }
 
             /// <summary>
-            /// свойства
+            /// свойства.
             /// </summary>
             public PropStorage[] props;
 
             /// <summary>
-            /// источники данных
+            /// источники данных.
             /// </summary>
             public PropSource sources = new PropSource();
 
@@ -341,12 +342,12 @@
             }
 
             /// <summary>
-            /// ключ
+            /// ключ.
             /// </summary>
             public long ID;
 
             /// <summary>
-            /// Конструктор для десериализации
+            /// Конструктор для десериализации.
             /// </summary>
             /// <param name="info"></param>
             /// <param name="context"></param>
@@ -358,7 +359,7 @@
             }
 
             /// <summary>
-            /// Данные для сериализации
+            /// Данные для сериализации.
             /// </summary>
             /// <param name="info"></param>
             /// <param name="context"></param>
@@ -370,12 +371,12 @@
             }
 
             /// <summary>
-            /// кличество раннее созданных
+            /// кличество раннее созданных.
             /// </summary>
             public static int Count;
 
             /// <summary>
-            /// Как строка
+            /// Как строка.
             /// </summary>
             /// <returns></returns>
             public override string ToString()
@@ -395,25 +396,24 @@
     #region class View
 
     /// <summary>
-    /// описание представления для детейла в представлении шапки
+    /// описание представления для детейла в представлении шапки.
     /// </summary>
     [Serializable]
     public struct DetailInView : ISerializable
     {
         /// <summary>
-        /// представление детейла
+        /// представление детейла.
         /// </summary>
         private View detailView;
 
         /// <summary>
-        /// имя детейла
+        /// имя детейла.
         /// </summary>
         private string detailName;
 
         /// <summary>
-        /// загружать ли детейл при загрузке шапки
+        /// загружать ли детейл при загрузке шапки.
         /// </summary>
-
         private bool detailLoadOnLoadAgregator;
         private bool detailvisible;
         private string detailcaption;
@@ -423,15 +423,16 @@
         private ICSSoft.STORMNET.Collections.TypeBaseCollection detailAdaptiveTypeViews;
 
         /// <summary>
-        /// использовать ли адаптивную настройку представлений при загрузке данных
+        /// использовать ли адаптивную настройку представлений при загрузке данных.
         /// </summary>
         public bool UseAdaptiveTypeLoading
         {
-            get { return detailUseAdaptiveTypeLoading; } set { detailUseAdaptiveTypeLoading = value; }
+            get { return detailUseAdaptiveTypeLoading; }
+            set { detailUseAdaptiveTypeLoading = value; }
         }
 
         /// <summary>
-        /// настройка адаптации
+        /// настройка адаптации.
         /// </summary>
         public Collections.TypeBaseCollection AdaptiveTypeViews
         {
@@ -454,13 +455,13 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="detailname">имя детейла</param>
-        /// <param name="detailview">представление детейла</param>
-        /// <param name="detailLoadOnLoadAgregator">загружать ли детейл при загрузке шапки</param>
-        /// <param name="detailPath">путь на форме</param>
-        /// <param name="caption">заголовок</param>
-        /// <param name="visible">видимость</param>
-        /// <param name="aggregationfunctions">агр.функции</param>
+        /// <param name="detailname">имя детейла.</param>
+        /// <param name="detailview">представление детейла.</param>
+        /// <param name="detailLoadOnLoadAgregator">загружать ли детейл при загрузке шапки.</param>
+        /// <param name="detailPath">путь на форме.</param>
+        /// <param name="caption">заголовок.</param>
+        /// <param name="visible">видимость.</param>
+        /// <param name="aggregationfunctions">агр.функции.</param>
         public DetailInView(string detailname, View detailview, bool detailLoadOnLoadAgregator, string detailPath, string caption, bool visible, string[] aggregationfunctions)
         {
             this.detailName = detailname;
@@ -511,15 +512,16 @@
         }
 
         /// <summary>
-        /// представление
+        /// представление.
         /// </summary>
         public View View
         {
-            get { return detailView; } set { detailView = value; }
+            get { return detailView; }
+            set { detailView = value; }
         }
 
         /// <summary>
-        /// Имя детейлового свойства
+        /// Имя детейлового свойства.
         /// </summary>
         public string Name
         {
@@ -527,7 +529,7 @@
         }
 
         /// <summary>
-        /// Заголовок для детейла
+        /// Заголовок для детейла.
         /// </summary>
         public string Caption
         {
@@ -535,7 +537,7 @@
         }
 
         /// <summary>
-        /// Путь на форме
+        /// Путь на форме.
         /// </summary>
         public string FormPath
         {
@@ -543,15 +545,16 @@
         }
 
         /// <summary>
-        /// загружать ли вместе с владельцем
+        /// загружать ли вместе с владельцем.
         /// </summary>
         public bool LoadOnLoadAgregator
         {
-            get { return detailLoadOnLoadAgregator; } set { detailLoadOnLoadAgregator = value; }
+            get { return detailLoadOnLoadAgregator; }
+            set { detailLoadOnLoadAgregator = value; }
         }
 
         /// <summary>
-        /// видимый-невидимый
+        /// видимый-невидимый.
         /// </summary>
         public bool Visible
         {
@@ -559,7 +562,7 @@
         }
 
         /// <summary>
-        /// используемые агрегиррующие функции
+        /// используемые агрегиррующие функции.
         /// </summary>
         public string[] AggregationFunctions
         {
@@ -568,7 +571,7 @@
     }
 
     /// <summary>
-    /// настройка мастера (для визуальной части)
+    /// настройка мастера (для визуальной части).
     /// </summary>
     [Serializable]
     public struct MasterInView : ISerializable
@@ -581,10 +584,10 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="mastername">имя мастера</param>
-        /// <param name="lookuptype">настройка лукапа</param>
-        /// <param name="customizationstring"> тип лукапа</param>
-        /// <param name="lookupProperty">свойство отображаемое при lookupe</param>
+        /// <param name="mastername">имя мастера.</param>
+        /// <param name="lookuptype">настройка лукапа.</param>
+        /// <param name="customizationstring"> тип лукапа.</param>
+        /// <param name="lookupProperty">свойство отображаемое при lookupe.</param>
         public MasterInView(string mastername, LookupTypeEnum lookuptype, string customizationstring, string lookupProperty)
         {
             masterName = mastername;
@@ -620,7 +623,7 @@
         }
 
         /// <summary>
-        /// имя мастера
+        /// имя мастера.
         /// </summary>
         public string MasterName
         {
@@ -628,7 +631,7 @@
         }
 
         /// <summary>
-        /// настройка лукапа
+        /// настройка лукапа.
         /// </summary>
         public string CustomizationString
         {
@@ -636,7 +639,7 @@
         }
 
         /// <summary>
-        /// тип лукапа
+        /// тип лукапа.
         /// </summary>
         public LookupTypeEnum LookupType
         {
@@ -644,7 +647,7 @@
         }
 
         /// <summary>
-        /// свойство отображаемое при lookupe
+        /// свойство отображаемое при lookupe.
         /// </summary>
         public string LookupProperty
         {
@@ -661,10 +664,10 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="name">имя свойства</param>
-        /// <param name="caption">заголовок</param>
-        /// <param name="visible">видимость</param>
-        /// <param name="formPath">путь на форме</param>
+        /// <param name="name">имя свойства.</param>
+        /// <param name="caption">заголовок.</param>
+        /// <param name="visible">видимость.</param>
+        /// <param name="formPath">путь на форме.</param>
         public PropertyInView(string name, string caption, bool visible, string formPath)
         {
             Name = (name == null) ? string.Empty : name;
@@ -705,28 +708,28 @@
         }
 
         /// <summary>
-        /// Имя аттрибута
+        /// Имя аттрибута.
         /// </summary>
         public string Name;
 
         /// <summary>
-        /// Заголовок для данного атрибута в данном представлении
+        /// Заголовок для данного атрибута в данном представлении.
         /// </summary>
         public string Caption;
 
         /// <summary>
-        /// видимость атрибута
+        /// видимость атрибута.
         /// </summary>
         public bool Visible;
 
         /// <summary>
-        /// Путь на форме
+        /// Путь на форме.
         /// </summary>
         public string FormPath;
     }
 
     /// <summary>
-    /// Определение представления
+    /// Определение представления.
     /// </summary>
     [Serializable]
     public sealed class View : ISerializable
@@ -742,7 +745,7 @@
         private Collections.NameObjectCollection masterTypeFilters;
 
         /// <summary>
-        /// Создание копии представления
+        /// Создание копии представления.
         /// </summary>
         /// <returns></returns>
         public View Clone()
@@ -759,7 +762,7 @@
         }
 
         /// <summary>
-        /// ограничения по типам для вычитывания данных
+        /// ограничения по типам для вычитывания данных.
         /// </summary>
         public Collections.NameObjectCollection MasterTypeFilters
         {
@@ -791,7 +794,7 @@
         }
 
         /// <summary>
-        /// создать "заготовку" для представления
+        /// создать "заготовку" для представления.
         /// </summary>
         public View()
         {
@@ -836,7 +839,7 @@
         }
 
         /// <summary>
-        /// создать представление по объекту (вычитанным свойствам объекта)
+        /// создать представление по объекту (вычитанным свойствам объекта).
         /// </summary>
         /// <param name="dobject"></param>
         public View(DataObject dobject)
@@ -869,7 +872,7 @@
         }
 
         /// <summary>
-        /// как строить проедставление
+        /// как строить проедставление.
         /// </summary>
         public enum ReadType
         {
@@ -881,14 +884,14 @@
             /// <summary>
             /// для класса со всеми детейлами
             /// </summary>
-            WithRelated
+            WithRelated,
         }
 
         /// <summary>
-        /// создать представление по типу и критерию построения
+        /// создать представление по типу и критерию построения.
         /// </summary>
-        /// <param name="DataObjectType">тип</param>
-        /// <param name="readType">как строить проедставление</param>
+        /// <param name="DataObjectType">тип.</param>
+        /// <param name="readType">как строить проедставление.</param>
         public View(System.Type DataObjectType, ReadType readType)
         {
             generatedByType = true;
@@ -931,16 +934,16 @@
                 details = new DetailInView[detailprops.Count];
                 for (int i = 0; i < detailprops.Count; i++)
                 {
-                    System.Type propType = Information.GetPropertyType(defineClass, detailprops[i]);
-                    details[i] = new DetailInView(detailprops[i], new View(Information.GetItemType(defineClass, detailprops[i]), ReadType.WithRelated), true, string.Empty, string.Empty, true, null);
+                    System.Type propType = Information.GetItemType(defineClass, detailprops[i]);
+                    details[i] = new DetailInView(detailprops[i], new View(propType, ReadType.WithRelated), true, string.Empty, string.Empty, true, null);
                 }
             }
         }
 
         /// <summary>
-        /// вернуть представление(ветку от текущего) для мастера
+        /// вернуть представление(ветку от текущего) для мастера.
         /// </summary>
-        /// <param name="master">имя свойства-мастера</param>
+        /// <param name="master">имя свойства-мастера.</param>
         /// <returns></returns>
         public View GetViewForMaster(string master)
         {
@@ -958,7 +961,7 @@
         }
 
         /// <summary>
-        /// вернуть описание мастера(настроичные данные)
+        /// вернуть описание мастера(настроичные данные).
         /// </summary>
         /// <param name="masterName"></param>
         /// <returns></returns>
@@ -989,7 +992,7 @@
         }
 
         /// <summary>
-        /// удалить мастера
+        /// удалить мастера.
         /// </summary>
         /// <param name="masterName"></param>
         public void RemoveMaster(string masterName)
@@ -1033,7 +1036,7 @@
         }
 
         /// <summary>
-        /// получить описание детейла
+        /// получить описание детейла.
         /// </summary>
         /// <param name="detailName"></param>
         /// <returns></returns>
@@ -1061,7 +1064,7 @@
         }
 
         /// <summary>
-        /// удалить детейл из представления
+        /// удалить детейл из представления.
         /// </summary>
         /// <param name="detailname"></param>
         public void RemoveDetail(string detailname)
@@ -1102,7 +1105,7 @@
         }
 
         /// <summary>
-        /// получить свойство из проедставления
+        /// получить свойство из проедставления.
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
@@ -1152,7 +1155,7 @@
         }
 
         /// <summary>
-        /// удалить свойство из представления
+        /// удалить свойство из представления.
         /// </summary>
         /// <param name="propName"></param>
         public void RemoveProperty(string propName)
@@ -1193,7 +1196,7 @@
         }
 
         /// <summary>
-        /// Добавить detail в представление
+        /// Добавить detail в представление.
         /// </summary>
         /// <param name="detailname"></param>
         /// <param name="detailview"></param>
@@ -1204,7 +1207,7 @@
         }
 
         /// <summary>
-        /// Добавить detail в представление
+        /// Добавить detail в представление.
         /// </summary>
         /// <param name="detailname"></param>
         /// <param name="detailview"></param>
@@ -1235,7 +1238,7 @@
         }
 
         /// <summary>
-        /// Добавить описание мастера в представление
+        /// Добавить описание мастера в представление.
         /// </summary>
         /// <param name="masterName"></param>
         /// <param name="lookupType"></param>
@@ -1271,7 +1274,7 @@
         }
 
         /// <summary>
-        /// Добавить описание мастера в представление
+        /// Добавить описание мастера в представление.
         /// </summary>
         /// <param name="masterName"></param>
         public void AddMasterInView(string masterName)
@@ -1280,9 +1283,9 @@
         }
 
         /// <summary>
-        /// Добавить свойства
+        /// Добавить свойства.
         /// </summary>
-        /// <param name="propertyNames">Имена свойств</param>
+        /// <param name="propertyNames">Имена свойств.</param>
         public void AddProperties(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
@@ -1292,7 +1295,7 @@
         }
 
         /// <summary>
-        /// Добавить свойство
+        /// Добавить свойство.
         /// </summary>
         /// <param name="propName"></param>
         public void AddProperty(string propName)
@@ -1309,6 +1312,16 @@
         /// <param name="propPath">Путь свойства на форме.</param>
         public void AddProperty(string propName, string propCaption, bool visible, string propPath)
         {
+            if (propName == null)
+            {
+                throw new ArgumentNullException(nameof(propName));
+            }
+
+            if (propCaption == null)
+            {
+                throw new ArgumentNullException(nameof(propCaption));
+            }
+
             lock (lockObject)
             {
                 // Проверим может оно уже есть.
@@ -1317,79 +1330,75 @@
                     properties = new PropertyInView[0];
                 }
 
-                for (int i = 0; i < properties.Length; i++)
+                if (properties.Any(p => p.Name == propName))
                 {
-                    if (properties[i].Name == propName)
-                    {
-                        return;
-                    }
+                    return;
                 }
 
                 // Увеличим количество свойств.
-                PropertyInView[] piv = properties;
-                properties = new PropertyInView[piv.Length + 1];
-                piv.CopyTo(properties, 0);
-                int propIndex = piv.Length;
+                List<PropertyInView> piv = new List<PropertyInView>(properties);
 
                 if (propCaption == string.Empty)
                 {
-                    if (!propName.EndsWith("*"))
+                    if (!propName.EndsWith("*", StringComparison.Ordinal))
                     {
                         propCaption = propName;
                     }
                 }
 
-                if (propName.EndsWith("*"))
+                if (propName.EndsWith("*", StringComparison.Ordinal))
                 {
-                    if (propCaption.EndsWith("*"))
+                    if (propCaption.EndsWith("*", StringComparison.Ordinal))
                     {
                         propCaption = propCaption.Substring(0, propCaption.Length - 1);
                     }
 
                     // Смотрим кто же это.
                     string pref = string.Empty;
-                    if (propName.LastIndexOf(".") >= 0)
+                    int lastDotIndex = propName.LastIndexOf(".", StringComparison.Ordinal);
+                    if (lastDotIndex >= 0)
                     {
-                        pref = propName.Substring(0, propName.LastIndexOf("."));
+                        pref = propName.Substring(0, lastDotIndex);
                     }
 
                     Type type = DefineClassType;
-                    string[] path = pref.Split('.');
                     if (pref != string.Empty)
                     {
+                        string[] path = pref.Split('.');
                         for (int pathind = 0; pathind < path.Length; pathind++)
                         {
                             type = Information.GetPropertyType(type, path[pathind]);
                         }
 
-                        pref = pref + ".";
+                        pref += ".";
+                        if (propCaption == string.Empty)
+                        {
+                            propCaption = pref;
+                        }
                     }
 
                     string[] allprops = Information.GetAllPropertyNames(type);
                     for (int propsind = 0; propsind < allprops.Length; propsind++)
                     {
-                        if (!Information.GetPropertyType(type, allprops[propsind]).IsSubclassOf(typeof(DetailArray)))
+                        string currprop = allprops[propsind];
+                        if (!Information.GetPropertyType(type, currprop).IsSubclassOf(typeof(DetailArray)))
                         {
-                            // Добавляем атрибут.
-                            if (propsind != 0)
+                            string currproppath = pref + currprop;
+                            if (properties.All(p => p.Name != currproppath))
                             {
-                                // Увеличим массив.
-                                piv = properties;
-                                properties = new PropertyInView[piv.Length + 1];
-                                piv.CopyTo(properties, 0);
-                            }
-
-                            if (propCaption == string.Empty && pref == string.Empty)
-                            {
-                                properties[propIndex++] = new PropertyInView(pref + allprops[propsind], propCaption + allprops[propsind], visible, propPath);
+                                var property = new PropertyInView(currproppath, propCaption + currprop, visible, propPath);
+                                piv.Add(property);
                             }
                         }
                     }
                 }
                 else
                 {
-                    properties[propIndex++] = new PropertyInView(propName, propCaption, visible, propPath);
+                    var property = new PropertyInView(propName, propCaption, visible, propPath);
+                    piv.Add(property);
                 }
+
+                properties = piv.ToArray();
             }
         }
 
@@ -1607,7 +1616,7 @@
         }
 
         /// <summary>
-        /// Адаптировать представления для детейлов (в зависимости от типа)
+        /// Адаптировать представления для детейлов (в зависимости от типа).
         /// </summary>
         public void LoadingAdaptation()
         {
@@ -1615,9 +1624,9 @@
         }
 
         /// <summary>
-        /// Адаптировать представления для детейлов (в зависимости от типа)
+        /// Адаптировать представления для детейлов (в зависимости от типа).
         /// </summary>
-        /// <param name="tp">тип по которому настраивать</param>
+        /// <param name="tp">тип по которому настраивать.</param>
         public void LoadingAdaptation(Type tp)
         {
             LoadingAdaptation(this, tp);
@@ -1658,7 +1667,7 @@
         }
 
         /// <summary>
-        /// Сделать все представление адаптируемым
+        /// Сделать все представление адаптируемым.
         /// </summary>
         public void SetAllAdaptive()
         {
@@ -1674,15 +1683,17 @@
         /// </summary>
         public string Name
         {
-            get { return viewName; } set { viewName = value; }
+            get { return viewName; }
+            set { viewName = value; }
         }
 
         /// <summary>
-        /// тип, для которого определено пердставление
+        /// тип, для которого определено пердставление.
         /// </summary>
         public System.Type DefineClassType
         {
-            get { return defineClass; } set { defineClass = value; }
+            get { return defineClass; }
+            set { defineClass = value; }
         }
 
         /// <summary>
@@ -1699,7 +1710,8 @@
         /// </summary>
         public MasterInView[] Masters
         {
-            get { return masters; } set { masters = value; }
+            get { return masters; }
+            set { masters = value; }
         }
 
         /// <summary>
@@ -1721,7 +1733,7 @@
         }
 
         /// <summary>
-        /// в строку
+        /// в строку.
         /// </summary>
         /// <param name="fullView"></param>
         /// <returns></returns>
@@ -1761,7 +1773,7 @@
         }
 
         /// <summary>
-        /// заготовка для 2-х представлений
+        /// заготовка для 2-х представлений.
         /// </summary>
         /// <param name="firstView"></param>
         /// <param name="secondView"></param>
@@ -1792,7 +1804,7 @@
         }
 
         /// <summary>
-        /// OR - Объединение
+        /// OR - Объединение.
         /// </summary>
         /// <param name="firstView"></param>
         /// <param name="secondView"></param>
@@ -1867,7 +1879,7 @@
         }
 
         /// <summary>
-        /// AND - Пересечение
+        /// AND - Пересечение.
         /// </summary>
         /// <param name="firstView"></param>
         /// <param name="secondView"></param>
@@ -1930,7 +1942,7 @@
         }
 
         /// <summary>
-        /// - Разность
+        /// - Разность.
         /// </summary>
         /// <param name="firstView"></param>
         /// <param name="secondView"></param>
@@ -1984,7 +1996,7 @@
         }
 
         /// <summary>
-        /// exclusive-OR
+        /// exclusive-OR.
         /// </summary>
         /// <param name="firstView"></param>
         /// <param name="secondView"></param>
@@ -2057,7 +2069,7 @@
         }
 
         /// <summary>
-        /// вернуть порядок упоминания свойств в представлении
+        /// вернуть порядок упоминания свойств в представлении.
         /// </summary>
         /// <param name="orderCols"></param>
         /// <returns></returns>
@@ -2070,10 +2082,10 @@
         /// Получить индекс свойства в представлении.
         /// Метод был добавлен для удобства работы с LoadStringedVeiw,
         /// но убедитесь, что это именно то представление, которое
-        /// использовалось при загрузке и его никто не изменял
+        /// использовалось при загрузке и его никто не изменял.
         /// </summary>
-        /// <param name="PropertyName">Имя свойства</param>
-        /// <returns>Индекс, начиная с 0. -1, если такого свойства нет</returns>
+        /// <param name="PropertyName">Имя свойства.</param>
+        /// <returns>Индекс, начиная с 0. -1, если такого свойства нет.</returns>
         public int GetPropertyIndex(string PropertyName)
         {
             int retInd = -1;
@@ -2145,7 +2157,7 @@
         }
 
         /// <summary>
-        /// вернуть общий базовый класс для представлений
+        /// вернуть общий базовый класс для представлений.
         /// </summary>
         /// <param name="views"></param>
         /// <returns></returns>
@@ -2180,11 +2192,11 @@
 
         /// <summary>
         /// Возвращает локализованную подпись свойства (в том числе и массива детейлов) из класса ресурсов Captions
-        /// из пространства имен сборки с объектами
+        /// из пространства имен сборки с объектами.
         /// </summary>
-        /// <param name="propertyName">Имя свойства</param>
-        /// <param name="culture">Культура (если не задать, то используется текущая культура)</param>
-        /// <returns>Подпись (если не найден ресурс, то возвращается обычная Caption)</returns>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <param name="culture">Культура (если не задать, то используется текущая культура).</param>
+        /// <returns>Подпись (если не найден ресурс, то возвращается обычная Caption).</returns>
         public string GetLocalizedPropertyCaption(string propertyName, CultureInfo culture = null)
         {
             if (DefineClassType == null)

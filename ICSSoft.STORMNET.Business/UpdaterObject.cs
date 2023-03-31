@@ -6,10 +6,10 @@ namespace ICSSoft.STORMNET.Business
 {
     /// <summary>
     /// Спецкласс, предназначенный для выполнения групповых операций
-    /// Update или Delete в источнике данных
+    /// Update или Delete в источнике данных.
     /// </summary>
     [NotStored]
-    public class UpdaterObject: DataObject
+    public class UpdaterObject : DataObject
     {
         private DataObject fTemplateObject;
         private Function fFunction;
@@ -35,7 +35,7 @@ namespace ICSSoft.STORMNET.Business
 
         /// <summary>
         /// Функция ограничения, в соответствии с которой происходит групповое
-        /// изменение объектов или удаление
+        /// изменение объектов или удаление.
         /// </summary>
         [NotStored]
         public Function Function
@@ -56,10 +56,10 @@ namespace ICSSoft.STORMNET.Business
         }
 
         /// <summary>
-        /// Конструктор шаблонного "изменятеля"
+        /// Конструктор шаблонного "изменятеля".
         /// </summary>
-        /// <param name="fTemplateObject">Объект-шаблон</param>
-        /// <param name="fFunction">Функция условия, по которому проводить удаление или обновление</param>
+        /// <param name="fTemplateObject">Объект-шаблон.</param>
+        /// <param name="fFunction">Функция условия, по которому проводить удаление или обновление.</param>
         public UpdaterObject(DataObject fTemplateObject, Function fFunction)
         {
             if (fFunction == null)
@@ -88,14 +88,14 @@ namespace ICSSoft.STORMNET.Business
 
         }*/
 
-// public override string[] GetAlteredPropertyNames()
-//      {
-//          return this.GetAlteredPropertyNames (true);
-//      }
-//
-//      public override string[] GetAlteredPropertyNames(bool Recount)
-//      {
-//          return TemplateObject.GetAlteredPropertyNames(true);
-//      }
+        // public override string[] GetAlteredPropertyNames()
+        //      {
+        //          return this.GetAlteredPropertyNames (true);
+        //      }
+        //
+        //      public override string[] GetAlteredPropertyNames(bool Recount)
+        //      {
+        //          return TemplateObject.GetAlteredPropertyNames(true);
+        //      }
     }
 }

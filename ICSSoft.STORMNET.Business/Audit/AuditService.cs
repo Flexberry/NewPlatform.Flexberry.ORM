@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web;
 
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
@@ -43,7 +42,7 @@
             _currentAuditService = service;
             Current.AppSetting = appSetting;
             Current.Audit = audit;
-            Current.ApplicationMode = HttpContext.Current != null ? AppMode.Web : AppMode.Win;
+            Current.ApplicationMode = AppMode.Win;
             Current.ShowPrimaryKey = false;
         }
 
@@ -65,11 +64,6 @@
         /// Контроллер для организации асинхронной записи аудита.
         /// </summary>
         private readonly AsyncAuditController _asyncAuditController = new AsyncAuditController();
-
-        /// <summary>
-        /// Контроллер для организации удалённой записи аудита.
-        /// </summary>
-        private readonly RemoteAuditController _remoteAuditController = new RemoteAuditController();
 
         /// <summary>
         /// Режим, в котором работает приложение: win или web.
@@ -254,7 +248,7 @@
 
                 return _typeAuditSettingsLoader.GetAuditView(type, operation);
             }
-                catch (Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -346,7 +340,7 @@
                             FullUserLogin = GetCurrentUserInfo(ApplicationMode, false),
                             UserName = GetCurrentUserInfo(ApplicationMode, true),
                             OperationSource = GetSourceInfo(ApplicationMode),
-                            ThrowExceptions = throwExceptions
+                            ThrowExceptions = throwExceptions,
                         };
 
                 return CheckAndSendToAudit(checkedCustomAuditParameters);
@@ -682,7 +676,8 @@
                         AppSetting.IsDatabaseLocal
                                         ? GetConnectionStringName(dataServiceConnectionString, dataServiceType)
                                         : AppSetting.AuditConnectionStringName,
-                        IsAuditRemote) { ThrowExceptions = throwExceptions };
+                        IsAuditRemote)
+                    { ThrowExceptions = throwExceptions };
 
                     CheckAndSendToAudit(auditRatifyParameters, checkClassAuditSettings);
                 }
@@ -734,7 +729,7 @@
 
             if (IsAuditRemote)
             {
-                auditOperationId = _remoteAuditController.WriteAuditOperation(commonAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -787,7 +782,7 @@
 
             if (IsAuditRemote)
             {
-                auditOperationId = _remoteAuditController.WriteAuditOperation(checkedCustomAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -829,7 +824,7 @@
 
             if (IsAuditRemote)
             {
-                _remoteAuditController.RatifyAuditOperation(ratificationAuditParameters, AppSetting.AuditWinServiceUrl);
+                throw new NotImplementedException("RemoteAuditController");
             }
             else
             {
@@ -942,7 +937,7 @@
                 {
                     Audit = Audit,
                     ConnectionStringName = ratificationAuditParameters.AuditConnectionStringName,
-                    AuditAdditionalInfoList = standartAuditAdditionalInfos
+                    AuditAdditionalInfoList = standartAuditAdditionalInfos,
                 });
 
             foreach (ProperRatificationInfo properRatificationInfo in properRatificationInfos)
@@ -984,7 +979,7 @@
                 connectionStringName,
                 IsAuditRemote)
             {
-                ThrowExceptions = throwExceptions
+                ThrowExceptions = throwExceptions,
             };
         }
 
@@ -1038,17 +1033,17 @@
             {
                 resultConnectionStringName =
                     (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
-                        where CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
-                        select auditDsSetting.ConnStringName).FirstOrDefault();
+                     where CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
+                     select auditDsSetting.ConnStringName).FirstOrDefault();
             }
             else
             {
                 var auditDsSettingList = (from AuditDSSetting auditDsSetting in detailArrayOfAuditDsSetting
-                    where
-                        string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
-                        && auditDsSetting.DataServiceType == dataServiceType
-                        && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
-                    select auditDsSetting.ConnStringName).ToList();
+                                          where
+                                              string.Equals(auditDsSetting.ConnString, dataServiceConnectionString, StringComparison.CurrentCultureIgnoreCase)
+                                              && auditDsSetting.DataServiceType == dataServiceType
+                                              && CheckHelper.IsNullOrWhiteSpace(auditDsSetting.ConnStringName)
+                                          select auditDsSetting.ConnStringName).ToList();
                 if (auditDsSettingList.Any())
                 {
                     resultConnectionStringName = auditDsSettingList[0];
@@ -1441,10 +1436,10 @@
 
             try
             {
-                // TODO: потом добавить проверку по правам, убрать аудит зачитки.
+                // TODO: потом добавить проверку по правам, убрать аудит вычитки.
                 if (transaction == null)
                 {
-                    // Не передано никаких транзакций, поэтому можно выполнить зачитку традиционным образом.
+                    // Не передано никаких транзакций, поэтому можно выполнить вычитку традиционным образом.
                     dataService.LoadObject(curView, operationedDbObject, true, true);
                 }
                 else
@@ -1519,16 +1514,6 @@
                 LogService.LogError("AuditService, GetCurrentUserInfo: Произошла ошибка при работе с CurrentUserService", ex);
             }
 
-            // Потом, если web, по старинке через HttpContext.Current.User.Identity.
-            if (curMode == AppMode.Web
-                    && HttpContext.Current != null
-                    && HttpContext.Current.User != null
-                    && HttpContext.Current.User.Identity != null
-                    && !string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
-            {
-                return HttpContext.Current.User.Identity.Name;
-            }
-
             // TODO: подумать, что стоит делать.
             throw new DataNotFoundAuditException("не удалось определить текущего пользователя");
         }
@@ -1544,8 +1529,6 @@
             switch (curMode)
             {
                 case AppMode.Web:
-                    return $"IP: {HttpContext.Current.Request.UserHostAddress}; DNS: {HttpContext.Current.Request.UserHostName}";
-
                 case AppMode.Win:
                     return $"Имя компьютера: {Environment.MachineName}; Домен: {Environment.UserDomainName}; Пользователь: {Environment.UserName}";
             }

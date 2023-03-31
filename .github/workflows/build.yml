@@ -1,0 +1,229 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the develop-v5.2 branch
+  push:
+    branches: [ develop, 'release*' ]
+  pull_request:
+    branches: [ develop, 'release*' ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  XUNIT_RUNNER: "2.4.1"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build-postgres"
+  build-postgres:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Service containers to run with `runner-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: flexberry/alt.p8-postgresql-postgis
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: p@ssw0rd
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+    env:
+      ConnectionStringPostgres: "SERVER=localhost;User ID=postgres;Password=p@ssw0rd;Port=5432;"
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Several .NET Core versions will be used during the test run.
+      # The lowest version gets installed first in order to prevent
+      # "a newer version is already installed" install errors.
+
+      - name: Install .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      # Building requires an up-to-date .NET SDK.
+
+      - name: Install .NET 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install .NET 7.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.x
+
+      - name: NuGet Restore
+        run: dotnet restore "Flexberry ORM.sln"
+        
+      - name: Install xunit.runner.console
+        run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
+        
+      - name: Compile code
+        run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
+
+      - name: Test on dotnet 3.1
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test on dotnet 6.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test on dotnet 7.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test under mono
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 6.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Integration test on dotnet 7.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Integration test under mono
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -Rf .ssh .github *
+  # This workflow contains a single job called "build-mssql"
+  build-mssql:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Service containers to run with `runner-job`
+    services:
+      # Label used to access the service container
+      mssql:
+        # Docker Hub image
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        # Provide the password for mssql
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: p@ssw0rd
+        # Set health checks to wait until mssql has started
+        options: >-
+          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${SA_PASSWORD} -Q 'SELECT 1' -b -o /dev/null"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 1433 on service container to the host
+          - 1433:1433
+    env:
+      ConnectionStringMssql: "SERVER=localhost;User ID=sa;Password=p@ssw0rd;"
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Several .NET Core versions will be used during the test run.
+      # The lowest version gets installed first in order to prevent
+      # "a newer version is already installed" install errors.
+
+      - name: Install .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      # Building requires an up-to-date .NET SDK.
+
+      - name: Install .NET 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install .NET 7.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.x
+
+      - name: NuGet Restore
+        run: dotnet restore "Flexberry ORM.sln"
+        
+      - name: Install xunit.runner.console
+        run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
+        
+      - name: Compile code
+        run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
+
+      - name: Test on dotnet 3.1
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test on dotnet 6.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test on dotnet 7.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test under mono
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 6.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Integration test on dotnet 7.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Integration test under mono
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+        
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -Rf .ssh .github *
+  # This workflow contains a single job called "doxygen"
+  doxygen:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Requiring dependent jobs to be successful
+    needs: [build-postgres, build-mssql]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        
+      - name: Install apt-get packages
+        run: sudo apt-get install -y doxygen
+
+      - name: Tune ssh-keys
+        env:
+            PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
+        run: |
+          set -x
+          export PRIVATE_KEY
+          # Setup SSH agent
+          export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          # Start ssh agent
+          ssh-agent -a $SSH_AUTH_SOCK #> /dev/null
+          ssh-add - <<< "${PRIVATE_KEY}"
+
+      - name: Update documentation
+        run: |
+          [ $GITHUB_EVENT_NAME == 'push' ] && 
+          ( [ $GITHUB_REF == "refs/heads/master" ] || [ $GITHUB_REF == "refs/heads/develop" ] ) &&
+          bash Doxygen/update-autodoc.sh
+          exit 0
+        
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -Rf .ssh .github *

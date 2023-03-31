@@ -8,7 +8,6 @@
     /// <summary>
     /// Тесты для класса <see cref="EnumCaption"/>.
     /// </summary>
-    
     public class EnumCaptionTest
     {
         /// <summary>
@@ -25,7 +24,7 @@
                 // Act.
                 EnumCaption.GetValueFor("notexist", enumType);
 
-                // Assert. 
+                // Assert.
                 // Ожидаем исключения.
             });
             Assert.IsType(typeof(ArgumentException), exception);
@@ -42,7 +41,7 @@
 
             // Act.
             object actual = EnumCaption.GetValueFor(null, enumType);
-            
+
             // Assert.
             Assert.Equal(NumberedYear.Year2014, actual);
         }
@@ -59,13 +58,13 @@
             // Act.
             // Входные параметры: пустая строка, тип данных NumberedYear.
             object actual = EnumCaption.GetValueFor(string.Empty, enumType);
-            
+
             // Assert.
             Assert.Equal(NumberedYear.Year2014, actual);
         }
-        
+
         /// <summary>
-        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку.  Проверка числа в качестве заголовка.     
+        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку.  Проверка числа в качестве заголовка.
         /// </summary>
         [Fact]
         public void EnumCaptionGetValueForNumberTest()
@@ -96,14 +95,14 @@
                 // Enum.Parse вернул бы 1ый элемент enum, а GetValueFor должен бросить exception.
                 EnumCaption.GetValueFor("1", enumType);
 
-                // Assert. 
+                // Assert.
                 // Ожидаем исключения.
             });
             Assert.IsType(typeof(ArgumentException), exception);
         }
 
         /// <summary>
-        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку. Проверяем перечисление на чувствительность к регистру в заголовке.     
+        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку. Проверяем перечисление на чувствительность к регистру в заголовке.
         /// </summary>
         [Fact]
         public void EnumCaptionGetValueForCaseInsensitivePriorityTest()
@@ -115,13 +114,13 @@
             // Входные параметры:  заголовок элемента перечисления "LAST DAY", тип элемента перечисления.
             object actual = EnumCaption.GetValueFor("LAST DAY", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Equal(CaseSensitiveEnum.Year9998, actual);
         }
 
         /// <summary>
-        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку. Проверяем перечисление на чувствительность к регистру в заголовке.   
-        /// </summary>       
+        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку. Проверяем перечисление на чувствительность к регистру в заголовке.
+        /// </summary>
         [Fact]
         public void EnumCaptionGetValueForCaseInsensitiveTest()
         {
@@ -132,12 +131,12 @@
             // Входные параметры:  заголовок элемента перечисления "Last day", тип элемента перечисления.
             object actual = EnumCaption.GetValueFor("Last day", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Equal(CaseSensitiveEnum.Year9999, actual);
         }
 
         /// <summary>
-        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку. Проверяем перечисление на чувствительность к регистру в заголовке.       
+        /// Тест метода <see cref="EnumCaption.GetValueFor(string,System.Type)"/>, позволяющего получить enum-значение по заголовку. Проверяем перечисление на чувствительность к регистру в заголовке.
         /// </summary>
         [Fact]
         public void EnumCaptionGetValueForCaseInsensitive2Test()
@@ -149,7 +148,7 @@
             // Входные параметры:  заголовок элемента перечисления "CaseINSENSITIVEVAL", тип элемента перечисления.
             object actual = EnumCaption.GetValueFor("caseinsensitive", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Equal(CaseSensitiveEnum.CaseInsensitive, actual);
         }
 
@@ -165,8 +164,8 @@
             // Act.
             // Входные параметры:  заголовок элемента перечисления "CaseINSENSITIVEVAL", тип элемента перечисления.
             object actual = EnumCaption.GetValueFor("CaseINSENSITIVEVAL", enumType);
-            
-            // Assert. 
+
+            // Assert.
             Assert.Equal(CaseSensitiveEnum.CaseINSENSITIVEVAL, actual);
         }
 
@@ -183,7 +182,7 @@
             // Входные параметры:  заголовок элемента перечисления "CaseINSENSITIVEVAL", тип элемента перечисления.
             object actual = EnumCaption.GetValueFor("CASEINSENSITIVEVAL", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Equal(CaseSensitiveEnum.CASEINSENSITIVEVAL, actual);
         }
 
@@ -199,8 +198,8 @@
             // Act.
             // Входные параметры: заголовок элемента перечисления "SwappedVal", тип элемента перечисления.
             object actual = EnumCaption.GetValueFor("SwappedVal", enumType);
-            
-            // Assert. 
+
+            // Assert.
             Assert.Equal(SwappedEnum.Val, actual);
         }
 
@@ -216,7 +215,7 @@
             // Act.
             object actual = EnumCaption.GetValueFor("Now", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Null(actual);
         }
 
@@ -232,7 +231,7 @@
             // Act.
             object actual = EnumCaption.GetValueFor("YeAr2012", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Equal(NumberedYear.Year2012, actual);
         }
 
@@ -248,7 +247,7 @@
             // Act.
             object actual = EnumCaption.GetValueFor("Year2012", enumType);
 
-            // Assert. 
+            // Assert.
             Assert.Equal(NumberedYear.Year2012, actual);
         }
 

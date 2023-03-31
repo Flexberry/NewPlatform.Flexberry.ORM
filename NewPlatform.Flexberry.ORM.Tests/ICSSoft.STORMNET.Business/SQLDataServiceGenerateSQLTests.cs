@@ -1,15 +1,22 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
+    using System.Diagnostics;
     using System.Text.RegularExpressions;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.FunctionalLanguage;
 
     using Xunit;
+    using Xunit.Abstractions;
 
     public class SQLDataServiceGenerateSQLTests : BaseSQLDataServiceTests
     {
+        /// <inheritdoc cref="BaseSQLDataServiceTests" />
+        public SQLDataServiceGenerateSQLTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper) { }
+
         /// <summary>
         /// Тест проверяет метод <see cref="SQLDataService.GenerateSQLSelect(LoadingCustomizationStruct,bool)"/>,
         /// чтобы в sql-запрос не добавляется left join, когда от мастера требуется только его первичный ключ.
@@ -178,6 +185,55 @@
                 Assert.Equal(from0, from1);
                 Assert.Equal(from0, from2);
                 Assert.Equal(from0, from3);
+            }
+        }
+
+        /// <summary>
+        /// Проверка производительности генерации select-запроса.
+        /// </summary>
+        [Fact]
+        public void GenerateSQLSelectAgregatorPerformanceTest()
+        {
+            foreach (SQLDataService dataService in DataServices)
+            {
+                // Arrange.
+                var lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(FullTypesMainAgregator), FullTypesMainAgregator.Views.FullView);
+                lcs.LimitFunction = FunctionBuilder.BuildOr(
+                    FunctionBuilder.BuildIsNull<FullTypesMainAgregator>(x => x.FullTypesMaster1),
+                    FunctionBuilder.BuildAnd(
+                        FunctionBuilder.BuildGreaterOrEqual<FullTypesMainAgregator>(x => x.PoleDateTime, DateTime.Today),
+                        FunctionBuilder.BuildExists(
+                            nameof(FullTypesDetail1.FullTypesMainAgregator),
+                            FullTypesDetail1.Views.FullDetailView,
+                            FunctionBuilder.BuildGreaterOrEqual<FullTypesDetail1>(x => x.PoleDateTime, DateTime.Today))),
+                    FunctionBuilder.BuildAnd(
+                        FunctionBuilder.BuildLess<FullTypesMainAgregator>(x => x.PoleDateTime, DateTime.Today),
+                        FunctionBuilder.BuildExists(
+                            nameof(FullTypesDetail2.FullTypesMainAgregator),
+                            FullTypesDetail2.Views.FullTypesDetail2E,
+                            FunctionBuilder.BuildLess<FullTypesDetail2>(x => x.PoleDateTime, DateTime.Today))));
+                lcs.ReturnTop = 100;
+                lcs.RowNumber = new RowNumberDef(200, 299);
+                lcs.ColumnsSort = new[]
+                {
+                    new ColumnsSortDef(nameof(FullTypesMainAgregator.PoleDateTime), SortOrder.Desc),
+                    new ColumnsSortDef(nameof(FullTypesMainAgregator.PoleDouble), SortOrder.Asc),
+                };
+
+                // Act.
+                Stopwatch stopwatch = new Stopwatch();
+                int i = 0;
+                stopwatch.Start();
+
+                do
+                {
+                    string query = dataService.GenerateSQLSelect(lcs, false);
+                    i++;
+                }
+                while (stopwatch.ElapsedMilliseconds < 1000);
+
+                stopwatch.Stop();
+                TestOutputHelper.WriteLine($"{nameof(GenerateSQLSelectAgregatorPerformanceTest)}@{dataService.GetType().Name}: {i} iterations");
             }
         }
     }

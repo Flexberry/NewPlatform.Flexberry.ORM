@@ -1,9 +1,10 @@
-﻿using System;
-using System.Xml;
-using System.Xml.Schema;
-
-namespace ICSSoft.STORMNET.UserDataTypes
+﻿namespace ICSSoft.STORMNET.UserDataTypes
 {
+    using System;
+    using System.Configuration;
+    using System.Xml;
+    using System.Xml.Schema;
+
     using ICSSoft.STORMNET.Windows.Forms.Binders;
 
     /// <summary>
@@ -23,21 +24,21 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Конструктор без параметров, нужен для Activator.CreateInstance
+        /// Конструктор без параметров, нужен для Activator.CreateInstance.
         /// </summary>
         public NullableDateTime()
         {
         }
 
         /// <summary>
-        /// Меньше
+        /// Меньше.
         /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>x меньше y</returns>
+        /// <param name="x">x.</param>
+        /// <param name="y">y.</param>
+        /// <returns>x меньше y.</returns>
         public static bool operator <(NullableDateTime x, NullableDateTime y)
         {
-            if((object)x == null)
+            if ((object)x == null)
             {
                 return (object)y != null;
             }
@@ -46,14 +47,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Меньше либо равно
+        /// Меньше либо равно.
         /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>x меньше либо равен y</returns>
+        /// <param name="x">x.</param>
+        /// <param name="y">y.</param>
+        /// <returns>x меньше либо равен y.</returns>
         public static bool operator <=(NullableDateTime x, NullableDateTime y)
         {
-            if((object)x == null)
+            if ((object)x == null)
             {
                 return true;
             }
@@ -62,14 +63,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Больше
+        /// Больше.
         /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>x больше y</returns>
+        /// <param name="x">x.</param>
+        /// <param name="y">y.</param>
+        /// <returns>x больше y.</returns>
         public static bool operator >(NullableDateTime x, NullableDateTime y)
         {
-            if((object)x == null)
+            if ((object)x == null)
             {
                 return false;
             }
@@ -78,11 +79,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Больше либо равно
+        /// Больше либо равно.
         /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>x больше либо равен y</returns>
+        /// <param name="x">x.</param>
+        /// <param name="y">y.</param>
+        /// <returns>x больше либо равен y.</returns>
         public static bool operator >=(NullableDateTime x, NullableDateTime y)
         {
             if ((object)x == null)
@@ -94,14 +95,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Равно
+        /// Равно.
         /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>x == y</returns>
+        /// <param name="x">x.</param>
+        /// <param name="y">y.</param>
+        /// <returns>x == y.</returns>
         public static bool operator ==(NullableDateTime x, NullableDateTime y)
         {
-            if((object)x == null)
+            if ((object)x == null)
             {
                 return (object)y == null;
             }
@@ -110,14 +111,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не равно
+        /// Не равно.
         /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>x != y</returns>
+        /// <param name="x">x.</param>
+        /// <param name="y">y.</param>
+        /// <returns>x != y.</returns>
         public static bool operator !=(NullableDateTime x, NullableDateTime y)
         {
-            if((object)x == null)
+            if ((object)x == null)
             {
                 return (object)y != null;
             }
@@ -126,21 +127,21 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Преобразование NullableDateTime в DateTime
+        /// Преобразование NullableDateTime в DateTime.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator DateTime(NullableDateTime value)
+        public static explicit operator DateTime(NullableDateTime value)
         {
             return value.Value;
         }
 
         /// <summary>
-        /// Преобразование NullableDateTime в DateTime?
+        /// Преобразование NullableDateTime в DateTime?.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator DateTime?(NullableDateTime value)
+        public static explicit operator DateTime?(NullableDateTime value)
         {
             if (value == null)
             {
@@ -151,11 +152,11 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Преобразование  DateTime? в NullableDateTime
+        /// Преобразование  DateTime? в NullableDateTime.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDateTime(DateTime? value)
+        public static explicit operator NullableDateTime(DateTime? value)
         {
             if (value == null)
             {
@@ -166,31 +167,31 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Преобразование DateTime в NullableDateTime
+        /// Преобразование DateTime в NullableDateTime.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDateTime(DateTime value)
+        public static explicit operator NullableDateTime(DateTime value)
         {
             return new NullableDateTime(value);
         }
 
         /// <summary>
-        /// Преобразование DBNull в NullableDateTime
+        /// Преобразование DBNull в NullableDateTime.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public explicit operator NullableDateTime(DBNull value)
+        public static explicit operator NullableDateTime(DBNull value)
         {
             return null;
         }
 
         /// <summary>
-        /// Разбор строки и создание NullableDateTime
+        /// Разбор строки и создание NullableDateTime.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        static public NullableDateTime Parse(string value)
+        public static NullableDateTime Parse(string value)
         {
             if (value == null || value == string.Empty)
             {
@@ -217,14 +218,14 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// В строку
+        /// В строку.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
             // if (format==null)
             string format = System.Configuration.ConfigurationManager.AppSettings["NullableDateTimeDefaultFormat"];
-            if(format != null)
+            if (format != null)
             {
                 return Value.ToString(format);
             }
@@ -233,7 +234,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Значение
+        /// Значение.
         /// </summary>
         public virtual DateTime Value
         {
@@ -250,7 +251,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Сегодня (DateTime.Today)
+        /// Сегодня (DateTime.Today).
         /// </summary>
         public static NullableDateTime Today
         {
@@ -261,7 +262,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// DateTime.Now
+        /// DateTime.Now.
         /// </summary>
         public static NullableDateTime Now
         {
@@ -272,7 +273,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// DateTime.UtcNow
+        /// DateTime.UtcNow.
         /// </summary>
         public static NullableDateTime UtcNow
         {
@@ -283,7 +284,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// сравнение
+        /// сравнение.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -308,7 +309,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             if (format == null)
             {
-                format = System.Configuration.ConfigurationSettings.AppSettings["NullableDateTimeDefaultFormat"];
+                format = ConfigurationManager.AppSettings["NullableDateTimeDefaultFormat"];
             }
 
             return Value.ToString(format, formatProvider);
@@ -319,7 +320,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         #region IComparable Members
 
         /// <summary>
-        /// сравнение
+        /// сравнение.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -327,7 +328,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         {
             NullableDateTime ndt = (NullableDateTime)obj;
 
-            if(ndt == null)
+            if (ndt == null)
             {
                 return 1;
             }
@@ -340,7 +341,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         #region IConvertible Members
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -350,7 +351,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -360,7 +361,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -370,7 +371,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// преобразование в DateTime
+        /// преобразование в DateTime.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -380,7 +381,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -390,7 +391,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -400,7 +401,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -410,7 +411,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -420,7 +421,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -430,7 +431,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -440,7 +441,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -450,7 +451,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -460,7 +461,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -470,7 +471,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <returns></returns>
         public TypeCode GetTypeCode()
@@ -479,7 +480,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -489,7 +490,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="conversionType"></param>
         /// <param name="provider"></param>
@@ -500,7 +501,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         }
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
@@ -514,7 +515,7 @@ namespace ICSSoft.STORMNET.UserDataTypes
         #region IXmlSerializable Members
 
         /// <summary>
-        /// Не реализовано
+        /// Не реализовано.
         /// </summary>
         public XmlSchema GetSchema()
         {

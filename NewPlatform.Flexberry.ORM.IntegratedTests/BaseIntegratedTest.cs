@@ -1,4 +1,4 @@
-﻿[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+﻿[assembly: Xunit.CollectionBehavior(MaxParallelThreads = 1, DisableTestParallelization = true)]
 
 namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
@@ -86,9 +86,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         {
             // ADO.NET doesn't close the connection with pooling. We have to disable it explicitly.
             // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
-            connectionStringPostgres = $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringPostgres"]}";
-            connectionStringMssql = $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringMssql"]}";
-            connectionStringOracle = $"{poolingFalseConst}{ConfigurationManager.ConnectionStrings["ConnectionStringOracle"]}";
+            connectionStringPostgres = $"{poolingFalseConst}{GetConnectionString("ConnectionStringPostgres")}";
+            connectionStringMssql = $"{poolingFalseConst}{GetConnectionString("ConnectionStringMssql")}";
+            connectionStringOracle = $"{poolingFalseConst}{GetConnectionString("ConnectionStringOracle")}";
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 }
             }
 
-            Assert.True(watchdogEmptyTest);
+            AssertWatchdog(watchdogEmptyTest);
         }
 
         /// <summary>
@@ -299,11 +299,14 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                     {
                         if (ds is PostgresDataService)
                         {
-                            using (var conn = new NpgsqlConnection(connectionStringPostgres))
+                            using (var connection = new NpgsqlConnection(connectionStringPostgres))
                             {
-                                conn.Open();
-                                using (var command = new NpgsqlCommand($"DROP DATABASE \"{_databaseName}\";", conn))
+                                connection.Open();
+                                using (var command = connection.CreateCommand())
                                 {
+                                    command.CommandText = $"SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'{_databaseName}\' AND pid <> pg_backend_pid();";
+                                    command.ExecuteNonQuery();
+                                    command.CommandText = $"DROP DATABASE \"{_databaseName}\";";
                                     command.ExecuteNonQuery();
                                 }
                             }
@@ -314,8 +317,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                             using (var connection = new SqlConnection(connectionStringMssql))
                             {
                                 connection.Open();
-                                using (var command = new SqlCommand($"DROP DATABASE {_databaseName}", connection))
+                                using (var command = connection.CreateCommand())
                                 {
+                                    command.CommandText = $"DROP DATABASE {_databaseName}";
                                     command.ExecuteNonQuery();
                                 }
                             }
@@ -352,6 +356,15 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
             Dispose(true);
         }
 
+        /// <summary>
+        /// Проверить создание сервисов данных.
+        /// </summary>
+        /// <param name="notEmpty"><see langword="true"/> если сервисы данных созданы.</param>
+        protected virtual void AssertWatchdog(bool notEmpty)
+        {
+            Assert.True(notEmpty);
+        }
+
         private static string ConnectionStringOracleDataSource
         {
             get
@@ -362,6 +375,11 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
                 // http://stackoverflow.com/questions/9033356/connection-still-idle-after-close
                 return $"{poolingFalseConst}{dataSource};";
             }
+        }
+
+        private static string GetConnectionString(string name)
+        {
+            return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.User) ?? Environment.GetEnvironmentVariable(name) ?? ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
 }

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Класс содержащий вспомогательные методы для работы с <see cref="Guid"/>
+    /// Класс содержащий вспомогательные методы для работы с <see cref="Guid"/>.
     /// </summary>
     public static class GuidExtensions
     {

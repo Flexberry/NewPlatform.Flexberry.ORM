@@ -4,7 +4,7 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// коллекция со строковыми ключами
+    /// коллекция со строковыми ключами.
     /// </summary>
     [Serializable]
     public class NameObjectCollection : System.Collections.Specialized.NameObjectCollectionBase, ISerializable
@@ -45,10 +45,10 @@
         }
 
         /// <summary>
-        /// добавить элемент
+        /// добавить элемент.
         /// </summary>
-        /// <param name="name">имя</param>
-        /// <param name="value">значение</param>
+        /// <param name="name">имя.</param>
+        /// <param name="value">значение.</param>
         public void Add(string name, object value)
         {
             lock (this) // (Колчанов 20150327) Добавил. Иначе падает при многопоточной работе, говорит иногда, что ключ уже добавлен.
@@ -63,7 +63,7 @@
 
         /// <summary>
         /// Добавить элемент, при этом ключом будет случайный Guid, приведённый к строке
-        /// (Сам метод нужен для того, чтобы работала XML-сериализация, логика не)
+        /// (Сам метод нужен для того, чтобы работала XML-сериализация, логика не).
         /// </summary>
         /// <param name="value"></param>
         public void Add(object value)
@@ -73,7 +73,7 @@
         }
 
         /// <summary>
-        /// очистить
+        /// очистить.
         /// </summary>
         public void Clear()
         {
@@ -82,7 +82,7 @@
         }
 
         /// <summary>
-        /// доступ по порядковому номеру
+        /// доступ по порядковому номеру.
         /// </summary>
         public object this[int index]
         {
@@ -98,7 +98,7 @@
         }
 
         /// <summary>
-        /// доступ по имени элемента
+        /// доступ по имени элемента.
         /// </summary>
         public object this[string name]
         {
@@ -114,7 +114,7 @@
         }
 
         /// <summary>
-        /// взять по индексу
+        /// взять по индексу.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -124,7 +124,7 @@
         }
 
         /// <summary>
-        /// взять по имени
+        /// взять по имени.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -134,7 +134,7 @@
         }
 
         /// <summary>
-        /// положить по индексу
+        /// положить по индексу.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="value"></param>
@@ -144,7 +144,7 @@
         }
 
         /// <summary>
-        /// положить по имени
+        /// положить по имени.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
@@ -154,7 +154,7 @@
         }
 
         /// <summary>
-        /// получить все ключи-имена
+        /// получить все ключи-имена.
         /// </summary>
         /// <returns></returns>
         public string[] GetAllKeys()
@@ -163,7 +163,7 @@
         }
 
         /// <summary>
-        /// получить все значения
+        /// получить все значения.
         /// </summary>
         /// <returns></returns>
         public object[] GetAllValues()
@@ -172,7 +172,7 @@
         }
 
         /// <summary>
-        /// получить все значения оперделенного типа
+        /// получить все значения оперделенного типа.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -182,7 +182,7 @@
         }
 
         /// <summary>
-        /// получить ключ по индексу
+        /// получить ключ по индексу.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -192,7 +192,7 @@
         }
 
         /// <summary>
-        /// есть ли непустые ключи
+        /// есть ли непустые ключи.
         /// </summary>
         /// <returns></returns>
         public bool HasKeys()
@@ -201,7 +201,7 @@
         }
 
         /// <summary>
-        /// удалить по имени
+        /// удалить по имени.
         /// </summary>
         /// <param name="name"></param>
         public void Remove(string name)
@@ -211,7 +211,7 @@
         }
 
         /// <summary>
-        /// удалить по индексу
+        /// удалить по индексу.
         /// </summary>
         /// <param name="index"></param>
         public void RemoveAt(int index)
@@ -221,7 +221,7 @@
         }
 
         /// <summary>
-        /// есть ли значение с заданным ключем
+        /// есть ли значение с заданным ключем.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>

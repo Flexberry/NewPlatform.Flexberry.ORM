@@ -12,19 +12,19 @@ namespace ICSSoft.STORMNET.Business
     using System;
 
     /// <summary>
-    /// Аргументы события создания команды
+    /// Аргументы события создания команды.
     /// </summary>
     public class CreateCommandEventArgs : EventArgs
     {
         /// <summary>
-        /// Команда
+        /// Команда.
         /// </summary>
         public System.Data.IDbCommand Command = null;
 
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
-        /// <param name="Cmnd">Команда</param>
+        /// <param name="Cmnd">Команда.</param>
         public CreateCommandEventArgs(System.Data.IDbCommand Cmnd)
         {
             Command = Cmnd;

@@ -39,11 +39,11 @@
             var bear = PKHelper.CreateDataObject<Медведь>(guidBear);
             var value = new object[1][]
             {
-                new object[7] { 500, guidForest, "Черняевский", guidBear, guidForest, guidForest, 0m }
+                new object[7] { 500, guidForest, "Черняевский", guidBear, guidForest, guidForest, 0m },
             };
             var storageStruct = new[]
             {
-                Information.GetStorageStructForView(viewBear, viewBear.DefineClassType, StorageTypeEnum.SimpleStorage, null, typeof(SQLDataService))
+                Information.GetStorageStructForView(viewBear, viewBear.DefineClassType, StorageTypeEnum.SimpleStorage, null, typeof(SQLDataService)),
             };
             var dataObjectCache = new DataObjectCache();
             var rrr = new DataObject[] { bear };
@@ -88,11 +88,11 @@
             var bear = PKHelper.CreateDataObject<Медведь>(guidBear);
             var value = new object[1][]
             {
-                new object[11] { 500, guidForest, "Черняевский", guidCountry, "РФ", guidBear, guidForest, guidCountry, guidForest, guidCountry, 0m }
+                new object[11] { 500, guidForest, "Черняевский", guidCountry, "РФ", guidBear, guidForest, guidCountry, guidForest, guidCountry, 0m },
             };
             var storageStruct = new[]
             {
-                Information.GetStorageStructForView(viewBear, viewBear.DefineClassType, StorageTypeEnum.SimpleStorage, null, typeof(SQLDataService))
+                Information.GetStorageStructForView(viewBear, viewBear.DefineClassType, StorageTypeEnum.SimpleStorage, null, typeof(SQLDataService)),
             };
             var dataObjectCache = new DataObjectCache();
             var rrr = new DataObject[] { bear };

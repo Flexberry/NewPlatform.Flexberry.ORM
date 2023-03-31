@@ -10,13 +10,13 @@
     using ICSSoft.STORMNET.Business.LINQProvider.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
 
-    using Remotion.Linq.Parsing.ExpressionTreeVisitors.Transformation;
+    using Remotion.Linq.Parsing.ExpressionVisitors.Transformation;
     using Remotion.Linq.Parsing.Structure;
     using Remotion.Linq.Parsing.Structure.ExpressionTreeProcessors;
     using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
     /// <summary>
-    ///     Вспомогательные методы
+    ///     Вспомогательные методы.
     /// </summary>
     public static class UtilsLcs
     {
@@ -56,6 +56,8 @@
         private static HashSet<string> symbolsToEscape =
             new HashSet<string>() { "{", "}", "?", "+", "(", ")", "[", "]", "|", "^", "$", "." };
 
+        private static readonly Lazy<CompoundNodeTypeProvider> nodeTypeProvider = new Lazy<CompoundNodeTypeProvider>(ExpressionTreeParser.CreateDefaultNodeTypeProvider);
+
         #region Static Fields
 
         /// <summary>
@@ -68,13 +70,13 @@
         #region Public Methods and Operators
 
         /// <summary>
-        /// Проверка актуальных параметров метода на соответствие ожидаемым
+        /// Проверка актуальных параметров метода на соответствие ожидаемым.
         /// </summary>
         /// <param name="expression">
-        /// Выражение-вызов метода
+        /// Выражение-вызов метода.
         /// </param>
         /// <param name="args">
-        /// Ожидаемый массив типов аргументов метода
+        /// Ожидаемый массив типов аргументов метода.
         /// </param>
         public static void CheckMethodArguments(MethodCallExpression expression, Type[] args)
         {
@@ -109,26 +111,25 @@
         /// </returns>
         public static IQueryParser CreateQueryParser()
         {
-            CompoundNodeTypeProvider nodeTypeProvider = ExpressionTreeParser.CreateDefaultNodeTypeProvider();
             var earlyTransformerRegistry = new ExpressionTransformerRegistry();
             earlyTransformerRegistry.Register(new DateTimeEarlyExpressionTransformer());
             CompoundExpressionTreeProcessor processor = CreateDefaultProcessor(earlyTransformerRegistry);
-            var expressionTreeParser = new ExpressionTreeParser(nodeTypeProvider, processor);
+            var expressionTreeParser = new ExpressionTreeParser(nodeTypeProvider.Value, processor);
             var queryParser = new QueryParser(expressionTreeParser);
             return queryParser;
         }
 
         /// <summary>
-        /// Проверка равен ли метод из expression заданному параметрами name и args
+        /// Проверка равен ли метод из expression заданному параметрами name и args.
         /// </summary>
         /// <param name="expression">
-        /// Expression
+        /// Expression.
         /// </param>
         /// <param name="name">
-        /// имя метода
+        /// имя метода.
         /// </param>
         /// <param name="args">
-        /// массив типов аргументов метода
+        /// массив типов аргументов метода.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
@@ -174,7 +175,7 @@
                                                          ExpressionType.GreaterThan,
                                                          ExpressionType.GreaterThanOrEqual,
                                                          ExpressionType.LessThan,
-                                                         ExpressionType.LessThanOrEqual
+                                                         ExpressionType.LessThanOrEqual,
                                                      };
             if (acceptableForNull.Contains(exprType))
             {
@@ -239,7 +240,7 @@
                 case ExpressionType.Divide:
                     return ldef.funcDiv;
 
-                    // TODO: Разобраться с константами funcSub и funcMinus
+                // TODO: Разобраться с константами funcSub и funcMinus
                 default:
                     throw new Exception("Нет соответствия типов");
             }
@@ -275,16 +276,16 @@
         }
 
         /// <summary>
-        /// возвращает lcs функцию по имени функции C#
+        /// возвращает lcs функцию по имени функции C#.
         /// </summary>
         /// <param name="name">
-        /// имя функции из C#
+        /// имя функции из C#.
         /// </param>
         /// <returns>
-        /// функция lcs
+        /// функция lcs.
         /// </returns>
         /// <exception cref="MethodSignatureException">
-        /// в lcs нет аналога этой функции
+        /// в lcs нет аналога этой функции.
         /// </exception>
         public static string GetFunctionByName(string name)
         {
@@ -357,7 +358,7 @@
         /// abc* => ^abc
         /// *abc => abc$
         /// abc*d => abc.*d
-        /// ab_c => ab.c
+        /// ab_c => ab.c.
         /// </summary>
         /// <param name="sqlString"> Строка, которая была в шаблоне поиска для sql-like. </param>
         /// <returns> Сформированный шаблон поиска для Regex. </returns>
@@ -632,7 +633,7 @@
         }
 
         /// <summary>
-        /// Проверяет, что объект - функция с определенным именем
+        /// Проверяет, что объект - функция с определенным именем.
         /// </summary>
         /// <param name="f">
         /// </param>
@@ -661,9 +662,14 @@
         /// <param name="viewIsDynamic">Является ли представление динамическим (если да, то в него можно добавлять недостающие свойства).</param>
         public static void AddPropertyToView(View view, string propertyName, bool viewIsDynamic)
         {
+            if (view == null)
+            {
+                throw new ArgumentNullException(nameof(view));
+            }
+
             if (string.IsNullOrEmpty(propertyName))
             {
-                throw new ArgumentNullException("propertyName");
+                throw new ArgumentNullException(nameof(propertyName));
             }
 
             // Если свойство содержит точки, то нужно проверить по всем уровням.
@@ -707,9 +713,9 @@
         /// Проверить, есть ли требуемый мастер в представлении.
         /// Если представление динамическое, то при отсутствии мастера он добавляется.
         /// </summary>
-        /// <param name="view">Представление</param>
-        /// <param name="masterName">Имя мастера</param>
-        /// <param name="viewIsDynamic">Является ли представление динамическим</param>
+        /// <param name="view">Представление.</param>
+        /// <param name="masterName">Имя мастера.</param>
+        /// <param name="viewIsDynamic">Является ли представление динамическим.</param>
         public static void AddMasterToView(View view, string masterName, bool viewIsDynamic)
         {
             // Нужно проверить содержание в представлении только самого мастера.
@@ -739,12 +745,12 @@
         /// Возвращает представление детейла из представления агрегатора.
         /// Если представление динамическое и в нем не оказалось нужного детейла, то
         /// добавляет его, задавая в качестве представления пустое представление (которое будет заполняться
-        /// при разборе подзапросов к данному детейлу)
+        /// при разборе подзапросов к данному детейлу).
         /// </summary>
-        /// <param name="view">Представление агрегатора</param>
-        /// <param name="detailName">Имя детейла</param>
-        /// <param name="viewIsDynamic">Является ли представление динамическим</param>
-        /// <returns>Представление детейла</returns>
+        /// <param name="view">Представление агрегатора.</param>
+        /// <param name="detailName">Имя детейла.</param>
+        /// <param name="viewIsDynamic">Является ли представление динамическим.</param>
+        /// <returns>Представление детейла.</returns>
         public static View AddDetailViewToView(View view, string detailName, bool viewIsDynamic)
         {
             if (!view.Details.Any(x => x.Name.Equals(detailName)))
@@ -753,10 +759,10 @@
                 {
                     var detailType = Information.GetItemType(view.DefineClassType, detailName);
                     var detailView = new View
-                        {
-                            DefineClassType = detailType,
-                            Name = GetNameForDynamicView(detailType)
-                        };
+                    {
+                        DefineClassType = detailType,
+                        Name = GetNameForDynamicView(detailType),
+                    };
                     view.AddDetailInView(detailName, detailView, true, string.Empty, false, string.Empty, null);
                 }
                 else

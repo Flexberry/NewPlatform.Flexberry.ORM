@@ -1,21 +1,25 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
-    using System.Data.OracleClient;
+    using System.Collections;
+    using System.Data;
+    using System.Data.Common;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Security.Cryptography;
-    using FunctionalLanguage.SQLWhere;
-    using FunctionalLanguage;
-    using Windows.Forms;
-    using static Windows.Forms.ExternalLangDef;
-    using Services;
-    using System.Collections;
-    using Security;
-    using Audit;
+    using System.Threading.Tasks;
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.FunctionalLanguage;
+    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Windows.Forms;
+
+    using Oracle.ManagedDataAccess.Client;
+
+    using static ICSSoft.STORMNET.Windows.Forms.ExternalLangDef;
 
     /// <summary>
-    /// Сервис данных для доступа к данным Oracle
+    /// Сервис данных для доступа к данным Oracle.
     /// </summary>
     public class OracleDataService : ICSSoft.STORMNET.Business.SQLDataService
     {
@@ -69,11 +73,11 @@
         }
 
         /// <summary>
-        /// Преобразовать значение в SQL строку
+        /// Преобразовать значение в SQL строку.
         /// </summary>
-        /// <param name="function">Функция</param>
-        /// <param name="convertValue">делегат для преобразования констант</param>
-        /// <param name="convertIdentifier">делегат для преобразования идентификаторов</param>
+        /// <param name="function">Функция.</param>
+        /// <param name="convertValue">делегат для преобразования констант.</param>
+        /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
         /// <returns></returns>
         public override string FunctionToSql(
             SQLWhereLanguageDef sqlLangDef,
@@ -94,27 +98,27 @@
                 value.FunctionDef.StringedView == "DayPart")
             {
                 return string.Format("EXTRACT ({0} FROM {1})", value.FunctionDef.StringedView.Substring(0, value.FunctionDef.StringedView.Length - 4),
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (
                 value.FunctionDef.StringedView == "hhPart")
             {
                 return string.Format("TO_CHAR({1}, \'{0}\')", "HH24",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "miPart")
             {
                 return string.Format("TO_CHAR({1}, \'{0}\')", "MI",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 // здесь требуется преобразование из DATASERVICE
                 return string.Format("TO_CHAR({1}, \'{0}\')", "D",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
@@ -125,14 +129,14 @@
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
             {
                 // здесь требуется преобразование из DATASERVICE
-                string.Format("to_char(last_day(to_date('01.'||{0}||'.'||{1},'dd.mm.yyyy')),'dd')", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier));
+                string.Format("to_char(last_day(to_date('01.'||{0}||'.'||{1},'dd.mm.yyyy')),'dd')", langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this), langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this));
                 return string.Empty;
             }
 
             if (value.FunctionDef.StringedView == "OnlyDate")
             {
                 return string.Format("TRUNC({0})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "CurrentUser")
@@ -140,47 +144,47 @@
                 return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
 
                 // у нее нет параметров
-                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
             {
                 return string.Format("TRUNC({0})",
-                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier));
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == "DATEDIFF")
             {
                 var ret = string.Empty;
-                if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Year")
+                if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Year")
                 {
                     ret = string.Format("EXTRACT (YEAR FROM {1}) - EXTRACT (YEAR FROM {0})",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Month")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Month")
                 {
                     ret = string.Format("(EXTRACT (YEAR FROM {1}) - EXTRACT (YEAR FROM {0})) * 12 + (EXTRACT (MONTH FROM {1}) - EXTRACT (MONTH FROM {0}))",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Week")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Week")
                 {
                     ret = string.Format("(TRUNC({1},'DAY') - TRUNC({0},'DAY'))/7",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "Day")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "Day")
                 {
                     ret = string.Format("TRUNC({1}) - TRUNC({0})",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
-                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier) == "quarter")
+                else if (langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this) == "quarter")
                 {
                     ret = string.Format("(EXTRACT (YEAR FROM {1}) - EXTRACT (YEAR FROM {0})) * 4 + (TO_CHAR({1}, 'Q') - TO_CHAR({0}, 'Q'))",
-                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier),
-                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier));
+                        langDef.SQLTranslSwitch(value.Parameters[1], convertValue, convertIdentifier, this),
+                        langDef.SQLTranslSwitch(value.Parameters[2], convertValue, convertIdentifier, this));
                 }
 
                 return ret;
@@ -211,7 +215,7 @@
 
                 // FunctionalLanguage.Function numFunc = (value.Parameters[1] as FunctionalLanguage.Function);
 
-                string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier);
+                string sumExpression = langDef.SQLTranslSwitch(par, convertValue, convertIdentifier, this);
 
                 string res = string.Empty;
                 res = string.Format(
@@ -279,7 +283,7 @@
                 {
                     return string.Format(
                         "SUBSTR(TO_CHAR({0}), 1, {1})",
-                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
+                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1]);
                 }
 
@@ -287,7 +291,7 @@
                 {
                     return string.Format(
                         "SUBSTR(TO_CHAR({0}, {2}), 1, {1})",
-                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier),
+                        langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1],
                         DateFormats.GetOracleDateFormat((int)value.Parameters[2]));
                 }
@@ -315,7 +319,7 @@
         /// <summary>
         /// Получить хэш-код идентификатора.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         public static int GetIdentifierHashCode(string identifier)
         {
             // В предыдущем варианте использовался  метод string.GetHashCode.
@@ -334,9 +338,9 @@
         }
 
         /// <summary>
-        /// Получить идентификатор, обработанный с учётом требований ORACLE на длину в 30 байт
+        /// Получить идентификатор, обработанный с учётом требований ORACLE на длину в 30 байт.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         public static string GenerateShortName(string identifier)
         {
             var encoding = Encoding.UTF8;
@@ -365,9 +369,9 @@
         }
 
         /// <summary>
-        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
+        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         public static string PrepareIdentifier(string identifier)
         {
             identifier = GenerateShortName(identifier);
@@ -375,24 +379,34 @@
         }
 
         /// <summary>
-        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину
+        /// Получить идентификатор, заключенный в кавычки, с учётом требований ORACLE на длину.
         /// </summary>
-        /// <param name="identifier">идентификатор</param>
+        /// <param name="identifier">идентификатор.</param>
         /// <returns></returns>
         public override string PutIdentifierIntoBrackets(string identifier)
         {
             return PrepareIdentifier(identifier);
         }
 
+        /// <inheritdoc />
         public override System.Data.IDbConnection GetConnection()
         {
-            return new Oracle.ManagedDataAccess.Client.OracleConnection(this.CustomizationString);
+            return new OracleConnection(this.CustomizationString);
         }
 
+        /// <inheritdoc cref="SQLDataService.GetDbConnection"/>
+        public override System.Data.Common.DbConnection GetDbConnection()
+        {
+            return new OracleConnection(this.CustomizationString);
+        }
+
+        /// <inheritdoc />
+        public override DbProviderFactory ProviderFactory => OracleClientFactory.Instance;
+
         /// <summary>
-        /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL)
+        /// Вернуть ifnull выражение (для ORACLE используется ф-я NVL).
         /// </summary>
-        /// <param name="identifiers">идентификаторы</param>
+        /// <param name="identifiers">идентификаторы.</param>
         /// <returns></returns>
         public override string GetIfNullExpression(params string[] identifiers)
         {
@@ -418,7 +432,47 @@
             // может втсавлять TOP где угодно. Например, делает это в методе GetObjectIndexesWithPks.
             // Поскольку вместо TOP в оракле надо добавить ограничение в WHERE сделаем замену пока только в случае, когда TOP
             // в начале, т.е. ориентируясь только на конкретный код GetObjectIndexesWithPks.
+            PrepareQuery(ref query);
 
+            return base.ReadFirst(query, ref state, loadingBufferSize);
+        }
+
+        /// <summary>
+        /// Reading data from database: read first part (by external connection).
+        /// </summary>
+        /// <param name="query">The SQL query.</param>
+        /// <param name="state">The reading state.</param>
+        /// <param name="loadingBufferSize">The loading buffer size.</param>
+        /// <param name="connection">Connection to use (you have to open and close it yourself).</param>
+        /// <param name="transaction">Transaction to use.</param>
+        /// <returns>The readed objects from database.</returns>
+        public override object[][] ReadFirstByExtConn(string query, ref object state, int loadingBufferSize, IDbConnection connection, IDbTransaction transaction)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadFirstByExtConn(query, ref state, loadingBufferSize, connection, transaction);
+        }
+
+        /// <summary>
+        /// Асинхронная вычитка данных.
+        /// </summary>
+        /// <param name="query">Запрос для вычитки.</param>
+        /// <param name="loadingBufferSize">Количество строк, которые нужно загрузить в рамках текущей вычитки (используется для повторной дочитки).</param>
+        /// <param name="dbTransactionWrapperAsync">Содержит соединение и транзакцию, в рамках которых нужно выполнить запрос (если соединение закрыто - оно откроется).</param>
+        /// <returns>Асинхронная операция (возвращает результат вычитки).</returns>
+        protected override Task<object[][]> ReadByExtConnAsync(string query, int loadingBufferSize, DbTransactionWrapperAsync dbTransactionWrapperAsync)
+        {
+            PrepareQuery(ref query);
+
+            return base.ReadByExtConnAsync(query, loadingBufferSize, dbTransactionWrapperAsync);
+        }
+
+        /// <summary>
+        /// Предобработка запроса (функция конкретного датасервиса).
+        /// </summary>
+        /// <param name="query">Запрос который нужно подготовить.</param>
+        private void PrepareQuery(ref string query)
+        {
             if (query.StartsWith("SELECT TOP "))
             {
                 Regex regex = new Regex(@"TOP (?<topcnt>[0-9]+)");
@@ -429,14 +483,12 @@
                     query = string.Format("SELECT * FROM ({0}) WHERE ROWNUM<={1}", query.Replace("TOP " + topcnt, string.Empty), topcnt);
                 }
             }
-
-            return base.ReadFirst(query, ref state, loadingBufferSize);
         }
 
         /// <summary>
         /// Перегрузка GenerateSQLSelect, связанная с необходимостью в ORACLE заменить TOP на ограничение rownum.
         /// </summary>
-        /// <returns>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE</returns>
+        /// <returns>Текст запроса на вычитку данных, модифицированный с учётом особенностей ORACLE.</returns>
         public override string GenerateSQLSelect(LoadingCustomizationStruct customizationStruct, bool ForReadValues, out StorageStructForView[] StorageStruct, bool Optimized)
         {
             // В предыдущей реализации вызывалась генерация с TOP, после чего данная подстрока вырезалась.
@@ -469,12 +521,12 @@
             else if (valType == typeof(Guid))
             {
                 // 382c74c3-721d-4f34-80e5-57657b6cbc27
-//              string res=value.ToString();
-//              res=res.Remove(23,1);
-//              res=res.Remove(18,1);
-//              res=res.Remove(13,1);
-//              res=res.Remove(8,1);
-//              return String.Format("HEXTORAW('{0}')",res);
+                //              string res=value.ToString();
+                //              res=res.Remove(23,1);
+                //              res=res.Remove(18,1);
+                //              res=res.Remove(13,1);
+                //              res=res.Remove(8,1);
+                //              return String.Format("HEXTORAW('{0}')",res);
                 byte[] byteArrGuid = new Guid(value).ToByteArray();
                 string hexGuidString = string.Empty;
                 foreach (byte b in byteArrGuid)
@@ -494,46 +546,55 @@
 
         public override string ConvertSimpleValueToQueryValueString(object value)
         {
-            if (value is DateTime)
+            if (value != null)
             {
-                return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss"));
-            }
-            else if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
-            {
-                // 382c74c3-721d-4f34-80e5-57657b6cbc27
-//              string res=value.ToString();
-//              res=res.Remove(23,1);
-//              res=res.Remove(18,1);
-//              res=res.Remove(13,1);
-//              res=res.Remove(8,1);
-                byte[] byteArrGuid = new Guid(value.ToString()).ToByteArray();
-                string hexGuidString = string.Empty;
-                foreach (byte b in byteArrGuid)
+                if (value is DateTime dt)
                 {
-                    hexGuidString += b.ToString("x2"); // Получаем строку байтов.
+                    return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", dt.ToString("yyyy-MM-dd HH:mm:ss"));
                 }
 
-                return string.Format("HEXTORAW('{0}')", hexGuidString);
+                Type valueType = value.GetType();
+
+                if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
+                {
+                    return $"TO_DATE('{value}', 'YYYY-MM-DD')";
+                }
+
+                if (value is ICSSoft.STORMNET.KeyGen.KeyGuid || value is System.Guid)
+                {
+                    // 382c74c3-721d-4f34-80e5-57657b6cbc27
+                    //string res = value.ToString();
+                    //res = res.Remove(23, 1);
+                    //res = res.Remove(18, 1);
+                    //res = res.Remove(13, 1);
+                    //res = res.Remove(8, 1);
+                    byte[] byteArrGuid = new Guid(value.ToString()).ToByteArray();
+                    string hexGuidString = string.Empty;
+                    foreach (byte b in byteArrGuid)
+                    {
+                        hexGuidString += b.ToString("x2"); // Получаем строку байтов.
+                    }
+
+                    return string.Format("HEXTORAW('{0}')", hexGuidString);
+                }
+
+                // Исключаем Error: ORA-01704: string literal too long
+                if (value is string && value.ToString().Length > 4000)
+                {
+                    string paramName = "param_" + arParams.Count;
+                    OracleParameter param = new OracleParameter(paramName, OracleDbType.Clob);
+                    param.Value = value;
+                    arParams.Add(param);
+                    return ':' + paramName;
+                }
             }
 
-            // Исключаем Error: ORA-01704: string literal too long
-            else if (value is string && value.ToString().Length > 4000)
-            {
-                string paramName = "param_" + arParams.Count;
-                OracleParameter param = new OracleParameter(paramName, OracleType.Clob);
-                param.Value = value;
-                arParams.Add(param);
-                return ':' + paramName;
-            }
-            else
-            {
-                return base.ConvertSimpleValueToQueryValueString(value);
-            }
+            return base.ConvertSimpleValueToQueryValueString(value);
         }
 
         protected override void CustomizeCommand(System.Data.IDbCommand cmd)
         {
-            foreach(OracleParameter param in arParams)
+            foreach (OracleParameter param in arParams)
             {
                 (cmd as OracleCommand).Parameters.Add(param);
             }
@@ -542,84 +603,84 @@
             base.CustomizeCommand(cmd);
         }
 
-////		/// <summary>
-////		/// создать join соединения
-////		/// </summary>
-////		/// <param name="source">источник с которого формируется соединение</param>
-////		/// <param name="parentAlias">вышестоящий алиас</param>
-////		/// <param name="index">индекс источника</param>
-////		/// <param name="keysandtypes">ключи и типы</param>
-////		/// <param name="baseOutline">смещение в запросе</param>
-////		/// <param name="joinscount">количество соединений</param>
-////		/// <returns></returns>
-////		public override void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
-////			string parentAlias,int index,
-////			System.Collections.ArrayList  keysandtypes,
-////			string baseOutline,out int joinscount,
-////			out string FromPart, out string WherePart)
-////		{
-////			string nl = Environment.NewLine+baseOutline;
-////			string newOutLine = baseOutline+"\t";
-////			joinscount = 0;
-////			FromPart = "";
-////			WherePart = "";
-////			foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
-////			{
-////				for (int j=0;j<subSource.storage.Length;j++)
-////				{
-////					if (subSource.storage[j].parentStorageindex == index)
-////					{
-////						joinscount++;
-////						string curAlias = subSource.Name+j.ToString();
-////						keysandtypes.Add(
-////							new string[]{
-////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
-////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName)
-////										}
-////
-////							);
-////						string Link = PutIdentifierIntoBrackets(parentAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);//+"_M"+(locindex++).ToString());
-////						int subjoinscount;
-////						string subjoin = "";string temp;
-////						CreateJoins(subSource,curAlias,j,keysandtypes,newOutLine,out subjoinscount,out subjoin,out temp);
-////						string FromStr,WhereStr;
-////
-////						if (subSource.storage[j].nullableLink)
-////							GetLeftJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
-////						else
-////							GetInnerJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
-////						FromPart +=FromStr+")";
-////					}
-////				}
-////			}
-////		}
-////
-////		public override void GetLeftJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
-////		{
-////
-////			/*
-////			string nl = Environment.NewLine+baseOutline;
-////			FromPart = string.Concat(nl ," LEFT JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
-////				subJoins,
-////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
-////			WherePart = "";*/
-////			FromPart = "";
-////			WherePart = "";
-////
-////		}
-////
-////		public override void GetInnerJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
-////		{
-////			/*
-////			string nl = Environment.NewLine+baseOutline;
-////			FromPart = String.Concat(nl ," INNER JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
-////				subJoins,
-////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
-////			WherePart = "";*/
-////
-////			FromPart = "";
-////			WherePart = "";
-////
-////		}
+        ////		/// <summary>
+        ////		/// создать join соединения
+        ////		/// </summary>
+        ////		/// <param name="source">источник с которого формируется соединение</param>
+        ////		/// <param name="parentAlias">вышестоящий алиас</param>
+        ////		/// <param name="index">индекс источника</param>
+        ////		/// <param name="keysandtypes">ключи и типы</param>
+        ////		/// <param name="baseOutline">смещение в запросе</param>
+        ////		/// <param name="joinscount">количество соединений</param>
+        ////		/// <returns></returns>
+        ////		public override void CreateJoins(STORMDO.Business.StorageStructForView.PropSource source,
+        ////			string parentAlias,int index,
+        ////			System.Collections.ArrayList  keysandtypes,
+        ////			string baseOutline,out int joinscount,
+        ////			out string FromPart, out string WherePart)
+        ////		{
+        ////			string nl = Environment.NewLine+baseOutline;
+        ////			string newOutLine = baseOutline+"\t";
+        ////			joinscount = 0;
+        ////			FromPart = "";
+        ////			WherePart = "";
+        ////			foreach (STORMDO.Business.StorageStructForView.PropSource subSource in source.LinckedStorages)
+        ////			{
+        ////				for (int j=0;j<subSource.storage.Length;j++)
+        ////				{
+        ////					if (subSource.storage[j].parentStorageindex == index)
+        ////					{
+        ////						joinscount++;
+        ////						string curAlias = subSource.Name+j.ToString();
+        ////						keysandtypes.Add(
+        ////							new string[]{
+        ////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].PrimaryKeyStorageName),
+        ////											PutIdentifierIntoBrackets(curAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].TypeStorageName)
+        ////										}
+        ////
+        ////							);
+        ////						string Link = PutIdentifierIntoBrackets(parentAlias)+"."+PutIdentifierIntoBrackets(subSource.storage[j].objectLinkStorageName);//+"_M"+(locindex++).ToString());
+        ////						int subjoinscount;
+        ////						string subjoin = "";string temp;
+        ////						CreateJoins(subSource,curAlias,j,keysandtypes,newOutLine,out subjoinscount,out subjoin,out temp);
+        ////						string FromStr,WhereStr;
+        ////
+        ////						if (subSource.storage[j].nullableLink)
+        ////							GetLeftJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
+        ////						else
+        ////							GetInnerJoinExpression(GenString("(",subjoinscount)+" "+ PutIdentifierIntoBrackets(subSource.storage[j].Storage),curAlias,Link,subSource.storage[j].PrimaryKeyStorageName,subjoin,baseOutline,out FromStr,out WhereStr);
+        ////						FromPart +=FromStr+")";
+        ////					}
+        ////				}
+        ////			}
+        ////		}
+        ////
+        ////		public override void GetLeftJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
+        ////		{
+        ////
+        ////			/*
+        ////			string nl = Environment.NewLine+baseOutline;
+        ////			FromPart = string.Concat(nl ," LEFT JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
+        ////				subJoins,
+        ////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
+        ////			WherePart = "";*/
+        ////			FromPart = "";
+        ////			WherePart = "";
+        ////
+        ////		}
+        ////
+        ////		public override void GetInnerJoinExpression(string subTable, string subTableAlias, string parentAliasWithKey, string subTableKey, string subJoins, string baseOutline, out string FromPart, out string WherePart)
+        ////		{
+        ////			/*
+        ////			string nl = Environment.NewLine+baseOutline;
+        ////			FromPart = String.Concat(nl ," INNER JOIN ",subTable, " " ,PutIdentifierIntoBrackets(subTableAlias),
+        ////				subJoins,
+        ////				nl , " ON " , parentAliasWithKey, " = ",PutIdentifierIntoBrackets(subTableAlias)+"."+PutIdentifierIntoBrackets(subTableKey));
+        ////			WherePart = "";*/
+        ////
+        ////			FromPart = "";
+        ////			WherePart = "";
+        ////
+        ////		}
     }
 }
