@@ -430,7 +430,7 @@
             int startIndexJoinedMasterKeys = columnsInfo.Count;
 
             // добавим дополнительные колонки для всех мастеров,
-            // которые необходимы для зачитки всех свойств представления
+            // которые необходимы для вычитки всех свойств представления
             for (int j = 0; j < linkedMasters.Count; j++)
             {
                 string colName = StormJoinedMasterKey + j;

@@ -20,7 +20,7 @@
         }
 
         /// <summary>
-        /// Проверка <see cref="DataObjectCache"/> на выполнение основной функции: инстанции мастеров после зачитки смотрят на один и тот же объект.
+        /// Проверка <see cref="DataObjectCache"/> на выполнение основной функции: инстанции мастеров после вычитки смотрят на один и тот же объект.
         /// </summary>
         [Fact]
         public void DataObjectCacheSingleMasterTest()

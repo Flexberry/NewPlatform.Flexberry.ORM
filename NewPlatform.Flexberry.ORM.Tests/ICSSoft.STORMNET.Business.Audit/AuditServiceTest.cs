@@ -648,8 +648,8 @@
             /// </summary>
             /// <param name="dataObjectView">Представление для загрузки.</param>
             /// <param name="dobject">Объект для загрузки.</param>
-            /// <param name="clearDataObject">Следует ли очистить объект перед загрузкой.</param>
-            /// <param name="checkExistingObject">Проводить проверку существования ссылочных объектов.</param>
+            /// <param name="clearDataObject">Флаг, указывающий на необходмость очистки объекта перед вычиткой (<see cref="DataObject.Clear"/>).</param>
+            /// <param name="checkExistingObject">Вызывать исключение если объекта нет в хранилище.</param>
             public override void LoadObject(View dataObjectView, DataObject dobject, bool clearDataObject, bool checkExistingObject)
             {
                 SetViewProperties(dobject, dataObjectView, LoadedValue);
