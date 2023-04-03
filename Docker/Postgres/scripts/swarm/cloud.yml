@@ -4,7 +4,7 @@ services:
   postgres:
     image: flexberry/alt.p8-postgresql
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - db:/var/lib/pgsql/data/
       - /etc/localtime:/etc/localtime 
