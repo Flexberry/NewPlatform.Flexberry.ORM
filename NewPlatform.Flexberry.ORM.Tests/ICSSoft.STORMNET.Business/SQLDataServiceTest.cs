@@ -193,12 +193,15 @@
             // Arrange.
             object supportedValue = new object();
 
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
             var mockConverter = new Mock<IConverterToQueryValueString>();
             mockConverter.Setup(m => m.IsSupported(typeof(object))).Returns(true);
             mockConverter.Setup(m => m.IsSupported(typeof(int))).Returns(false);
             mockConverter.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(string.Empty);
 
-            using var dataService = GetDataService();
+            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object, mockConverter.Object);
 
             // Act.
             dataService.ConvertSimpleValueToQueryValueString(supportedValue);
