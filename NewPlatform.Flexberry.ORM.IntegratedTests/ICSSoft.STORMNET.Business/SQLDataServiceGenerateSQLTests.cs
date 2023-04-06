@@ -115,10 +115,10 @@
                 ds.ExecuteNonQuery(query2);
                 ds.ExecuteNonQuery(query3);
 
-                Assert.DoesNotContain(query0.ToUpper(), "LEFT JOIN");
-                Assert.DoesNotContain(query1.ToUpper(), "LEFT JOIN");
-                Assert.DoesNotContain(query2.ToUpper(), "LEFT JOIN");
-                Assert.DoesNotContain(query3.ToUpper(), "LEFT JOIN");
+                Assert.DoesNotContain("LEFT JOIN", query0.ToUpper());
+                Assert.DoesNotContain("LEFT JOIN", query1.ToUpper());
+                Assert.DoesNotContain("LEFT JOIN", query2.ToUpper());
+                Assert.DoesNotContain("LEFT JOIN", query3.ToUpper());
             }
         }
     }

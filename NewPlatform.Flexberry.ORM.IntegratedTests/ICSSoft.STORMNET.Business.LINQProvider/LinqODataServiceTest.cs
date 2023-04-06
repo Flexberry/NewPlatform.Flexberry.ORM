@@ -112,7 +112,8 @@
                 ds.UpdateObjects(ref objs);
 
                 View v = new View(new ViewAttribute("AllProps", new string[] { "*" }), typeof(Кошка));
-                var ob = ds.LoadObjects(v);
+                DataObject[] ob = ds.LoadObjects(v);
+                Assert.NotNull(ob);
 
                 var l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
                   x => x.Берлога.Cast<Берлога>().Any(o => o.Наименование == "Для хорошего настроения")).ToList();
@@ -128,9 +129,10 @@
         {
             foreach (IDataService dataService in DataServices)
             {
+                const string name = "n1";
                 ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
                 var ds = (SQLDataService)dataService;
-                Plant2 cls1 = new Plant2() { Name = "n1" };
+                Plant2 cls1 = new Plant2() { Name = name };
                 Cabbage2 cls2 = new Cabbage2() { Name = "n2", Type = "type" };
 
                 var updateObjectsArray = new ICSSoft.STORMNET.DataObject[] { cls1, cls2 };
@@ -140,7 +142,7 @@
                 View plantView = Plant2.Views.Plant2E;
 
                 IQueryable<Plant2> plant2s = ds.Query<Plant2>(plantView)
-                    .Where(x => x.__PrimaryKey == cls1.__PrimaryKey);
+                     .Where(x => x.__PrimaryKey == cls1.__PrimaryKey);
 
                 //Assert
                 Assert.NotNull(plant2s);
@@ -152,6 +154,15 @@
 
                 //Assert
                 Assert.NotNull(cabbage2s);
+
+                Plant2 cl = new Plant2();
+                cl.SetExistObjectPrimaryKey(cls1.__PrimaryKey);
+                ds.LoadObject(plantView, cl);
+                Assert.NotNull(cl);
+
+                Assert.Equal(name, cl.Name);
+                Assert.Equal(cls1.__PrimaryKey, cl.__PrimaryKey);
+                Assert.NotNull(cl.Name);
             }
         }
 
