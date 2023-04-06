@@ -5,6 +5,7 @@
 
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
 
     using Moq;
@@ -26,11 +27,12 @@
         {
             TestOutputHelper = testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            _dataServices.Add(new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object));
-            _dataServices.Add(new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object));
-            _dataServices.Add(new OracleDataService(mockSecurityManager.Object, mockAuditService.Object));
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            _dataServices.Add(new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object));
+            _dataServices.Add(new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object));
+            _dataServices.Add(new OracleDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object));
         }
 
         /// <summary>

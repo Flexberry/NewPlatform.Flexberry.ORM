@@ -20,7 +20,7 @@ namespace ICSSoft.STORMNET.Business.Audit.IntegratedTests
         /// <returns>The <see cref="MSSQLDataService" /> instance.</returns>
         protected override MSSQLDataService CreateMssqlDataService(string connectionString)
         {
-            return new MSSQLDataService(new EmptySecurityManager(), GetAuditServiceForTest()) { CustomizationString = connectionString };
+            return new MSSQLDataService(new EmptySecurityManager(), GetAuditServiceForTest(), businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace ICSSoft.STORMNET.Business.Audit.IntegratedTests
         /// <returns>The <see cref="PostgresDataService" /> instance.</returns>
         protected override PostgresDataService CreatePostgresDataService(string connectionString)
         {
-            return new PostgresDataService(new EmptySecurityManager(), GetAuditServiceForTest()) { CustomizationString = connectionString };
+            return new PostgresDataService(new EmptySecurityManager(), GetAuditServiceForTest(), businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace ICSSoft.STORMNET.Business.Audit.IntegratedTests
         /// <returns>The <see cref="OracleDataService" /> instance.</returns>
         protected override OracleDataService CreateOracleDataService(string connectionString)
         {
-            return new OracleDataService(new EmptySecurityManager(), GetAuditServiceForTest()) { CustomizationString = connectionString };
+            return new OracleDataService(new EmptySecurityManager(), GetAuditServiceForTest(), businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>

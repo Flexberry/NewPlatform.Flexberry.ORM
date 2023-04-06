@@ -212,7 +212,7 @@
         /// <summary>
         /// Сервис получения бизнес-серверов для обрабатываемых объектов.
         /// </summary>
-        public IBusinessServerProvider BusinessServerProvider { get; set; } = new BusinessServerProvider();
+        public IBusinessServerProvider BusinessServerProvider { get; protected set; }
 
         /// <inheritdoc cref="IDataService" />
         public ISecurityManager SecurityManager { get; protected set; }
@@ -404,10 +404,15 @@
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service.</param>
-        protected SQLDataService(ISecurityManager securityManager, IAuditService auditService)
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
+        protected SQLDataService(
+            ISecurityManager securityManager,
+            IAuditService auditService,
+            IBusinessServerProvider businessServerProvider)
         {
             SecurityManager = securityManager ?? throw new ArgumentNullException(nameof(securityManager));
             AuditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
+            BusinessServerProvider = businessServerProvider ?? throw new ArgumentNullException(nameof(businessServerProvider));
         }
 
         /// <summary>
@@ -415,10 +420,12 @@
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service instance.</param>
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        protected SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
-            : this(securityManager, auditService)
+        protected SQLDataService(
+            ISecurityManager securityManager, IAuditService auditService, IBusinessServerProvider businessServerProvider, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
+            : this(securityManager, auditService, businessServerProvider)
         {
             ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
             NotifierUpdateObjects = notifierUpdateObjects;

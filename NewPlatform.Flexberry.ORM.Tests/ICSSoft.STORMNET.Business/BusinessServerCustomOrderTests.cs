@@ -8,7 +8,7 @@
     /// <summary>
     /// Тесты класса <see cref="BusinessServerProvider" /> для проверки порядка выполнения бизнес-серверов, если их порядок задается разработчиком.
     /// </summary>
-    public class BusinessServerCustomOrderTests
+    public class BusinessServerCustomOrderTests : BaseBusinessServerTests
     {
         /// <summary>
         /// Проверка установленного разработчиком порядка выполнения бизнес-серверов для класса Class1.
@@ -18,7 +18,7 @@
         {
             // Arrange.
             var type = typeof(Class1);
-            var provider = new BusinessServerProvider();
+            var provider = businessServerProvider;
 
             // Act.
             BusinessServer[] bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);

@@ -4,6 +4,7 @@
 
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
 
     using Moq;
@@ -21,9 +22,10 @@
         /// <returns>Сконструированный OracleDataService.</returns>
         public static OracleDataService CreateOracleDataServiceForTests()
         {
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new OracleDataService(mockSecurityManager.Object, mockAuditService.Object);
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            using var ds = new OracleDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
             ds.CustomizationString = "Data Source=dbserver-oracle;User ID=ora_tester;Password=pwd;";
             return ds;
         }

@@ -33,7 +33,7 @@
                 "Count", "SUM", funcCountWithLimit, "ExistExact", "Exist", "AVG", "MAX", "MIN", funcSumWithLimit, funcAvgWithLimit, funcMaxWithLimit, funcMinWithLimit, "ExistAll", "ExistAllExact",
             };
 
-            this.dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+            this.dataService = dataService;
         }
 
         /// <summary>

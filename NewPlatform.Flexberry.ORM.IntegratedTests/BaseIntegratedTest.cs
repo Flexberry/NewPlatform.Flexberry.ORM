@@ -11,6 +11,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
 
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
 
     using Moq;
@@ -21,6 +22,27 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
 
     public abstract class BaseIntegratedTest : IDisposable
     {
+        /// <summary>
+        /// Provider for injection to data services for test purposes.
+        /// </summary>
+        public static IBusinessServerProvider BSProvider
+        {
+            set
+            {
+                if (businessServerProvider != null)
+                {
+                    throw new Exception("BusinessServerProvider should not be initialized twice.");
+                }
+
+                businessServerProvider = value;
+            }
+        }
+
+        /// <summary>
+        /// Provider for injection to data services for test purposes.
+        /// </summary>
+        protected static IBusinessServerProvider businessServerProvider;
+
         private static string connectionStringOracle;
 
         private static string connectionStringPostgres;
@@ -265,7 +287,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         {
             var securityManager = new EmptySecurityManager();
             var mockAuditService = new Mock<IAuditService>();
-            return new MSSQLDataService(securityManager, mockAuditService.Object) { CustomizationString = connectionString };
+            return new MSSQLDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -277,7 +299,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         {
             var securityManager = new EmptySecurityManager();
             var mockAuditService = new Mock<IAuditService>();
-            return new PostgresDataService(securityManager, mockAuditService.Object) { CustomizationString = connectionString };
+            return new PostgresDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -289,7 +311,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         {
             var securityManager = new EmptySecurityManager();
             var mockAuditService = new Mock<IAuditService>();
-            return new OracleDataService(securityManager, mockAuditService.Object) { CustomizationString = connectionString };
+            return new OracleDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>

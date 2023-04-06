@@ -16,6 +16,21 @@
         private static readonly ConcurrentDictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>> atrCache = new ConcurrentDictionary<string, Dictionary<Type, IReadOnlyCollection<BusinessServerAttribute>>>();
 
         /// <summary>
+        /// Container for dependency injection.
+        /// </summary>
+        private IServiceProvider serviceProvider;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BusinessServerProvider"/> class with container for dependency injections.
+        /// This class is a factory so it allows using container straight forward.
+        /// </summary>
+        /// <param name="serviceProvider">A container for proper injection into <see cref="BusinessServer"/> entities.</param>
+        public BusinessServerProvider(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        }
+
+        /// <summary>
         /// Получить бизнес-сервер.
         /// </summary>
         /// <param name="dataObjectType">для объекта типа.</param>
@@ -44,7 +59,8 @@
         /// <returns>Экземпляр БСа.</returns>
         protected virtual BusinessServer CreateBusinessServer(Type bsType)
         {
-            return (BusinessServer)Activator.CreateInstance(bsType);
+            object bsFromProvider = serviceProvider.GetService(bsType);
+            return bsFromProvider == null ? (BusinessServer)Activator.CreateInstance(bsType) : (BusinessServer)bsFromProvider;
         }
 
         /// <summary>

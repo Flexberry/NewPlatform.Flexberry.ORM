@@ -8,6 +8,7 @@
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
@@ -35,9 +36,7 @@
         [Fact]
         public void SimpleDoubledPropertyTest()
         {
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using var ds = GetDataService();
             ExternalLangDef langdef = new ExternalLangDef(ds);
 
             var function = langdef.GetFunction(
@@ -61,9 +60,7 @@
         [Fact]
         public void DetailInFunctionTest()
         {
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using var ds = GetDataService();
             ExternalLangDef langdef = new ExternalLangDef(ds);
 
             var dvd = new DetailVariableDef();
@@ -92,9 +89,7 @@
         [Fact]
         public void AddPropertyByLimitFunctionWithExpression()
         {
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using var ds = GetDataService();
             ExternalLangDef langdef = new ExternalLangDef(ds);
             var function = langdef.GetFunction(langdef.funcEQ, new VariableDef(langdef.GuidType, "МедведьСтрокой"), "Бум");
 
@@ -115,9 +110,7 @@
         [Fact]
         public void EnrichDetailViewTest()
         {
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using var ds = GetDataService();
             ExternalLangDef langdef = new ExternalLangDef(ds);
             var dvd = new DetailVariableDef();
             dvd.ConnectMasterPorp = Information.ExtractPropertyPath<Выплаты>(x => x.Кредит1);
@@ -137,6 +130,14 @@
             Assert.Equal(2, dvd.View.Properties.Count());
             Assert.Equal(Information.ExtractPropertyPath<Выплаты>(x => x.ДатаВыплаты), dvd.View.Properties[0].Name);
             Assert.Equal(Information.ExtractPropertyPath<Выплаты>(x => x.СуммаВыплаты), dvd.View.Properties[1].Name);
+        }
+
+        private MSSQLDataService GetDataService()
+        {
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            return new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
         }
     }
 }

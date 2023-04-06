@@ -7,6 +7,7 @@
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
 
     using Moq;
@@ -24,9 +25,7 @@
         public void TranslateExpressionTest()
         {
             // Arrange.
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using MSSQLDataService ds = GetDataService();
             bool pointExistInSourceIdentifier;
 
             string expectedResult =
@@ -50,9 +49,7 @@
         public void TranslateExpressionForXmlPathTest()
         {
             // Arrange.
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using MSSQLDataService ds = GetDataService();
             bool pointExistInSourceIdentifier;
             string expectedResult = "(select '' as [@caption], [KP].[ФИО] as [@value] For XML PATH ('element'), TYPE)";
 
@@ -70,9 +67,7 @@
         public void AddPripertiesFromDataServiceExpressionToDynamicView1()
         {
             // Arrange.
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using MSSQLDataService ds = GetDataService();
             ds.AfterGenerateSQLSelectQuery += (sender, e) =>
             {
                 // Assert.
@@ -93,9 +88,7 @@
         public void AddPripertiesFromDataServiceExpressionToDynamicView2()
         {
             // Arrange.
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using MSSQLDataService ds = GetDataService();
             ds.AfterGenerateSQLSelectQuery += (sender, e) =>
             {
                 // Assert.
@@ -117,9 +110,7 @@
         public void AddPripertiesFromDataServiceExpressionToDynamicView3()
         {
             // Arrange.
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using MSSQLDataService ds = GetDataService();
             ds.AfterGenerateSQLSelectQuery += (sender, e) =>
             {
                 // Assert.
@@ -181,12 +172,10 @@
         public void TestConvertibleToQueryValueString()
         {
             // Arrange.
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
             var mock = new Mock<IConvertibleToQueryValueString>();
             mock.Setup(m => m.ConvertToQueryValueString()).Returns(string.Empty);
 
-            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            using MSSQLDataService dataService = GetDataService();
 
             // Act.
             dataService.ConvertSimpleValueToQueryValueString(mock.Object);
@@ -204,14 +193,12 @@
             // Arrange.
             object supportedValue = new object();
 
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
             var mockConverter = new Mock<IConverterToQueryValueString>();
             mockConverter.Setup(m => m.IsSupported(typeof(object))).Returns(true);
             mockConverter.Setup(m => m.IsSupported(typeof(int))).Returns(false);
             mockConverter.Setup(m => m.ConvertToQueryValueString(supportedValue)).Returns(string.Empty);
 
-            using var dataService = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockConverter.Object);
+            using var dataService = GetDataService();
 
             // Act.
             dataService.ConvertSimpleValueToQueryValueString(supportedValue);
@@ -231,13 +218,14 @@
         {
             var configResolver = new ConfigResolver();
 
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
             var dataServices = new List<SQLDataService>
             {
-                new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
-                new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
-                new OracleDataService(mockSecurityManager.Object, mockAuditService.Object) { ConfigResolver = configResolver, },
+                new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object) { ConfigResolver = configResolver, },
+                new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object) { ConfigResolver = configResolver, },
+                new OracleDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object) { ConfigResolver = configResolver, },
             };
 
             foreach (var dataService in dataServices)
@@ -253,6 +241,14 @@
                 // Assert.
                 Assert.Equal(expectedResult, actualResult);
             }
+        }
+
+        private MSSQLDataService GetDataService()
+        {
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            return new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
         }
     }
 }

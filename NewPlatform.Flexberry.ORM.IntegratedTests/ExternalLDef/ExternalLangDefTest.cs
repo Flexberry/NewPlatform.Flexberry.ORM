@@ -2,6 +2,7 @@
 {
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
@@ -18,7 +19,11 @@
         /// <summary>
         /// Экземпляр ExternalLangDef для тестов.
         /// </summary>
-        private static readonly ExternalLangDef ldef = new ExternalLangDef(new MSSQLDataService(new Mock<ISecurityManager>().Object, new Mock<IAuditService>().Object));
+        private static readonly ExternalLangDef ldef = new ExternalLangDef(
+                                                            new MSSQLDataService(
+                                                                new Mock<ISecurityManager>().Object,
+                                                                new Mock<IAuditService>().Object,
+                                                                new Mock<IBusinessServerProvider>().Object));
 
         /// <summary>
         /// Тест свойства <see cref="ExternalLangDef.paramYearDIFF"/>.

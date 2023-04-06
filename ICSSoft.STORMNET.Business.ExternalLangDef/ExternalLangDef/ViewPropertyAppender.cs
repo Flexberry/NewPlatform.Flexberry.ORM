@@ -224,8 +224,6 @@
                 throw new ArgumentNullException("function");
             }
 
-            SQLWhereLanguageDef langdef = ExternalLangDef.LanguageDef;
-
             // Создадим копию представления.
             // ToDo: При текущей реализации клонирования происходят аномалии, т.к. вложенные объекты не копируются полностью, копируются только ссылки. В TFS создана ошибка №30700.
             var enrichedView = view.Clone();

@@ -12,6 +12,7 @@
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
+    using ICSSoft.STORMNET.Business.Interfaces;
 
     /// <summary>
     ///     Тесты класса <see cref="AuditService" />.
@@ -225,9 +226,10 @@
             dataCopyObject.MasterObject = null;
             newObject.SetDataCopy(dataCopyObject);
 
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new LocalDataService(mockSecurityManager.Object, mockAuditService.Object);
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            using var ds = new LocalDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
 
             // Act.
             var loadedProperties = AuditService.CopyAlteredNotSavedDataObject(oldObject, newObject, auditView, ds, null);
@@ -599,9 +601,10 @@
             dataCopyObject.MasterObject = null;
             newObject.SetDataCopy(dataCopyObject);
 
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new LocalDataService(mockSecurityManager.Object, mockAuditService.Object);
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            using var ds = new LocalDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
 
             // Act.
             var loadedProperties = AuditService.CopyAlteredNotSavedDataObject(oldObject, newObject, auditView, ds, null);
@@ -657,8 +660,8 @@
             /// </summary>
             /// <param name="securityManager">Менеджер полномочий.</param>
             /// <param name="auditService">Сервис аудита.</param>
-            public LocalDataService(ISecurityManager securityManager, IAuditService auditService)
-                : base(securityManager, auditService)
+            public LocalDataService(ISecurityManager securityManager, IAuditService auditService, IBusinessServerProvider businessServerProvider)
+                : base(securityManager, auditService, businessServerProvider)
             {
             }
 

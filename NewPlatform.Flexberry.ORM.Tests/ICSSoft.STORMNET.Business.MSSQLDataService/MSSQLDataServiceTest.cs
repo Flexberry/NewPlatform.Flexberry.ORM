@@ -6,6 +6,7 @@
 
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
     using ICSSoft.STORMNET.UserDataTypes;
 
@@ -25,9 +26,10 @@
         /// <returns>Сконструированный MSSQLDataService.</returns>
         public static MSSQLDataService CreateMSSQLDataServiceForTests()
         {
-            var mockSecurityManager = new Mock<ISecurityManager>();
-            var mockAuditService = new Mock<IAuditService>();
-            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object);
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            using var ds = new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
             ds.CustomizationString = "SERVER=server;Trusted_connection=yes;DATABASE=test;";
             return ds;
         }

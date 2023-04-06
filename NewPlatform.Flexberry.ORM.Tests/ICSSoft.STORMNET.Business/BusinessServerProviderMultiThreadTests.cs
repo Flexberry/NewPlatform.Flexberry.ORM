@@ -16,7 +16,7 @@
     /// <summary>
     /// Тесты <see cref="BusinessServerProvider" />.
     /// </summary>
-    public class BusinessServerProviderMultiThreadTests
+    public class BusinessServerProviderMultiThreadTests : BaseBusinessServerTests
     {
         private readonly ITestOutputHelper Output;
 
@@ -75,7 +75,7 @@
             // Arrange.
             var processingObject = new ObjectsToUpdateMultiThreadClass();
             var processingObjects = new ArrayList { processingObject };
-            var provider = new BusinessServerProvider();
+            var provider = businessServerProvider;
 
             // Act.
             var bss = provider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), ObjectStatus.Created, null);
@@ -103,7 +103,7 @@
             // Arrange.
             var processingObject = new ObjectsToUpdateMultiThreadClass();
             var processingObjects = new ArrayList { processingObject };
-            var provider = new BusinessServerProvider();
+            var provider = businessServerProvider;
 
             // Act.
             var bss = provider.GetBusinessServer(typeof(ObjectsToUpdateMultiThreadClass), ObjectStatus.Created, null);
