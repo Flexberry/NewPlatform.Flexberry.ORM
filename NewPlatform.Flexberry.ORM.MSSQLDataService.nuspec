@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.MSSQLDataService</id>
-    <version>6.1.0-beta05</version>
+    <version>7.1.0-beta01</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,16 +13,16 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
       Added
-      1. DbProviderFactory
+      1. Add asyncronous DataService interface.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2021</copyright>
+    <copyright>Copyright New Platform Ltd 2023</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="NewPlatform.Flexberry.ORM" version="6.1.0-beta03" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="7.1.0-beta01" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="NewPlatform.Flexberry.ORM" version="6.1.0-beta03" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="7.1.0-beta01" />
         <dependency id="System.Data.SqlClient" version="4.6.1" />
       </group>
     </dependencies>
@@ -30,7 +30,20 @@
   <files>
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net45\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+	
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net461\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net461\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net461\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net461\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+	
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+	
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+	
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+	
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
   </files>
 </package>

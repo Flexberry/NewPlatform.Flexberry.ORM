@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET.Business</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Business.PostgresDataService</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Business.PostgresDataService.snk</AssemblyOriginatorKeyFile>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="3.2.6" />
+    <PackageReference Include="Npgsql" Version="3.2.7" />
   </ItemGroup>
 
   <ItemGroup>
