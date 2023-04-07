@@ -466,7 +466,7 @@
                 var медведиObj = dataService.LoadObjects(lcs);
                 var медведи = медведиObj.Cast<Медведь>().ToList();
 
-                Assert.Equal(1, медведиObj.Length);
+                Assert.Single(медведиObj);
                 Assert.Equal(testName, медведи[0].ЦветГлаз);
                 Assert.Null(медведи[0].Мама);
             }
