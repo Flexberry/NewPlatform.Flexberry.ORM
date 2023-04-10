@@ -114,8 +114,9 @@
                 View v = new View(new ViewAttribute("AllProps", new string[] { "*" }), typeof(Кошка));
                 DataObject[] ob = ds.LoadObjects(v);
                 Assert.NotNull(ob);
+                Assert.True(condition: ob.Length <= 0);
 
-                var l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
+                List<Медведь> l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
                   x => x.Берлога.Cast<Берлога>().Any(o => o.Наименование == "Для хорошего настроения")).ToList();
                 Assert.Equal(2, l.Count);
             }
@@ -140,20 +141,6 @@
                 Assert.NotNull(updateObjectsArray);
 
                 View plantView = Plant2.Views.Plant2E;
-
-                IQueryable<Plant2> plant2s = ds.Query<Plant2>(plantView)
-                     .Where(x => x.__PrimaryKey == cls1.__PrimaryKey);
-
-                //Assert
-                Assert.NotNull(plant2s);
-
-                View cabbageView = Cabbage2.Views.Cabbage2E;
-
-                IQueryable<Cabbage2> cabbage2s = ds.Query<Cabbage2>(cabbageView)
-                    .Where(c => c.__PrimaryKey == cls2.__PrimaryKey);
-
-                //Assert
-                Assert.NotNull(cabbage2s);
 
                 Plant2 cl = new Plant2();
                 cl.SetExistObjectPrimaryKey(cls1.__PrimaryKey);

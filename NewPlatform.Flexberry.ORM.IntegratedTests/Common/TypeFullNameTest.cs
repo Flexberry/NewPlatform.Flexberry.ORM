@@ -18,8 +18,9 @@
             System.Int32? i = 7;
             str = Nullable.GetUnderlyingType(tBool).FullName;
             Console.WriteLine(str);
-            Console.WriteLine(Nullable.GetUnderlyingType(typeof(int)) == null ? "null" : Nullable.GetUnderlyingType(typeof(int)).FullName);
-            Assert.Null(Nullable.GetUnderlyingType(typeof(int)));
+            Type? myValue = Nullable.GetUnderlyingType(typeof(int));
+            Console.WriteLine(myValue == null ? "null" : myValue.FullName);
+            Assert.Null(myValue);
         }
     }
 }
