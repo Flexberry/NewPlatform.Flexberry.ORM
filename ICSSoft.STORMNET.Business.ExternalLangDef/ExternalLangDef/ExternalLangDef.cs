@@ -49,11 +49,6 @@
 
             set
             {
-                if (langDef != null)
-                {
-                    throw new Exception("ExternalLangDef.LanguageDef should not be reset.");
-                }
-
                 langDef = value;
             }
         }
