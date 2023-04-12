@@ -5,10 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-1. Building under .net6 and .net7.
 
 ### Changed
-1. Update Microsoft.Spatial up to 7.10.0.
 
 ### Deprecated
 
@@ -19,6 +17,24 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 
 ### Performance
+
+## [7.1.0] - 2023-04-11
+
+### Added
+1. Add asyncronous DataService interface.
+2. Tests on SharpZipLib.
+3. Tests on memory leakage.
+
+### Changed
+1. Upgraded Npgsql version to 3.2.7 (PostgreSQL 14+ support).
+
+## [7.0.0] - 2023-02-17
+
+### Added
+1. Building under .net6 and .net7.
+
+### Changed
+1. Update Microsoft.Spatial up to 7.10.0.
 
 ## [6.1.0] - 2023-02-14
 
@@ -122,7 +138,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Setting LoadingState.Loaded to DataObject after loading.
 - Objects updating order if exists cycle in dependencies graph of them.
 - DbTransactionWrapper commit and rollback over expired connections.
-- Null GetHandler or SetHandler via cache dictionary. 
+- Null GetHandler or SetHandler via cache dictionary.
 - Rethrowing exception while handling special scenario via UpdateObjects.
 - Fix loading __PrimaryKey property of NotStored master.
 - Fix InitDataCopy for already loaded details.

@@ -17,31 +17,17 @@
         /// The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION.
         /// </summary>
         /// <param name="objects">Объекты для обновления.</param>
-        /// <param name="DataObjectCache">Кэш объектов данных.</param>
-        /// <param name="AlwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
-        public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache DataObjectCache, bool AlwaysThrowException)
+        /// <param name="dataObjectCache">Кэш объектов данных.</param>
+        /// <param name="alwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
+        public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException)
         {
-            if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
-            {
-                var tps = new List<Type>();
-                foreach (DataObject d in objects)
-                {
-                    Type t = d.GetType();
-                    if (!tps.Contains(t))
-                    {
-                        tps.Add(t);
-                    }
-                }
-
-                string cs = ChangeCustomizationString(tps.ToArray());
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
-            }
+            RunChangeCustomizationString(objects);
 
             using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
             {
                 try
                 {
-                    UpdateObjectsByExtConn(ref objects, DataObjectCache, AlwaysThrowException, dbTransactionWrapper);
+                    UpdateObjectsByExtConn(ref objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
                     dbTransactionWrapper.CommitTransaction();
                 }
                 catch (Exception)
@@ -57,10 +43,10 @@
         /// т.к. предполагается, что запросы должны быть выполнены в другом порядке.
         /// </summary>
         /// <param name="objects">Объекты данных для обновления.</param>
-        /// <param name="DataObjectCache">Кэш объектов данных.</param>
-        public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache DataObjectCache)
+        /// <param name="dataObjectCache">Кэш объектов данных.</param>
+        public virtual void UpdateObjects(ref DataObject[] objects, DataObjectCache dataObjectCache)
         {
-            UpdateObjects(ref objects, DataObjectCache, false);
+            UpdateObjects(ref objects, dataObjectCache, false);
         }
 
         /// <summary>
@@ -76,10 +62,10 @@
         /// Обновить хранилище по объектам.
         /// </summary>
         /// <param name="objects">Объекты данных для обновления.</param>
-        /// <param name="AlwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
-        public virtual void UpdateObjects(ref DataObject[] objects, bool AlwaysThrowException)
+        /// <param name="alwaysThrowException">Если произошла ошибка в базе данных, не пытаться выполнять других запросов, сразу взводить ошибку и откатывать транзакцию.</param>
+        public virtual void UpdateObjects(ref DataObject[] objects, bool alwaysThrowException)
         {
-            UpdateObjects(ref objects, new DataObjectCache(), AlwaysThrowException);
+            UpdateObjects(ref objects, new DataObjectCache(), alwaysThrowException);
         }
     }
 }

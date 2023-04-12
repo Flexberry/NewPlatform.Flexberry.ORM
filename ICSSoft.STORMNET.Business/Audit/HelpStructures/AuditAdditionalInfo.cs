@@ -255,10 +255,10 @@
 
         /// <summary>
         /// Из БД вычитывается объект и определяются, какие значения после сохранения в БД приняли поля с атрибутом DisableInsertPropertyAttribute.
-        /// Зачитка объекта идёт в той же транзакции, что и были обновлены объекты.
+        /// вычитка объекта идёт в той же транзакции, что и были обновлены объекты.
         /// </summary>
-        /// <param name="transaction">Транзакция, в рамках которой нужно производить зачитку.</param>
-        /// <param name="sqlDataService">Сервис данных, с помощью которого нужно проводить зачитку.</param>
+        /// <param name="transaction">Транзакция, в рамках которой нужно производить вычитку.</param>
+        /// <param name="sqlDataService">Сервис данных, с помощью которого нужно проводить вычитку.</param>
         public void SetNewFieldValues(IDbTransaction transaction, SQLDataService sqlDataService)
         {
             if (_auditRecordPrimaryKey == null)

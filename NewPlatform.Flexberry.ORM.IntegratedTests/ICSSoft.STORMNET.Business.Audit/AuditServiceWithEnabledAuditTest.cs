@@ -1,5 +1,10 @@
 ﻿namespace ICSSoft.STORMNET.Business.Audit.IntegratedTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+
     using ICSSoft.STORMNET.Business.Audit.Objects;
 
     using Xunit;
@@ -64,6 +69,62 @@
                 Assert.NotNull(d3.Creator);
                 Assert.NotNull(d3.Editor);
                 Assert.NotNull(d3.EditTime);
+            }
+        }
+
+        /// <summary>
+        /// Тест скорости обновления объектов при включенном аудите.
+        /// </summary>
+        [Fact(Skip = "Manual testing")]
+        public void UpdateManyObjectsWithEnabledAuditTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                Stopwatch stopwatch = new Stopwatch();
+
+                dataService.AuditService.DisableAudit();
+
+                // Шаг 1. Создание объектов и сохранение в БД.
+                const int count = 15000;
+                var list = new List<AuditClassWithSettings>();
+                for (int i = 0; i < count; i++)
+                {
+                    var obj = new AuditClassWithSettings { Name = $"Name{i}" };
+                    list.Add(obj);
+                }
+
+                DataObject[] arrList = list.ToArray();
+                dataService.UpdateObjects(ref arrList);
+
+                // Шаг 2. Помечаем все объекты как удаляемые.
+                foreach (var obj in list)
+                {
+                    obj.SetStatus(ObjectStatus.Deleted);
+                }
+
+                // Шаг 3. Первую половину объектов удаляем с выключенным аудитом.
+                arrList = list.Take(count / 2).ToArray();
+
+                stopwatch.Restart();
+                dataService.UpdateObjects(ref arrList);
+                stopwatch.Stop();
+
+                var timeWithoutAudit = stopwatch.ElapsedMilliseconds;
+
+                // Шаг 4. Вторую половину объектов удаляем с включенным аудитом.
+                arrList = list.Skip(count / 2).Take(count / 2).ToArray();
+
+                stopwatch.Restart();
+                dataService.AuditService.EnableAudit(false);
+                dataService.UpdateObjects(ref arrList);
+                stopwatch.Stop();
+
+                var timeWithAudit = stopwatch.ElapsedMilliseconds;
+
+                if (timeWithAudit > 180000)
+                {
+                    throw new Exception("Operation is timed out.");
+                }
             }
         }
 
