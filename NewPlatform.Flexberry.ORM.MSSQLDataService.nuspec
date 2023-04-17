@@ -12,8 +12,8 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-      Added
-      1. 
+      Changed
+      1. Updated NewPlatform.Flexberry.ORM up to 7.1.1-beta01.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2023</copyright>
     <tags>Flexberry ORM</tags>
