@@ -36,12 +36,21 @@ namespace NewPlatform.Flexberry.ORM.Tests
     {
         
         private string fName;
-        
+
         // *** Start programmer edit section *** (Plant2 CustomMembers)
+
+        [NotStored]
+        public virtual string AssocType
+        {
+            get
+            {
+                return GetType().Name;
+            }
+        }
 
         // *** End programmer edit section *** (Plant2 CustomMembers)
 
-        
+
         /// <summary>
         /// Name.
         /// </summary>

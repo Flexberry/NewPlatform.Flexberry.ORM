@@ -118,5 +118,30 @@
                 }
             }
         }
+
+        /// <summary>
+        /// Выполняется тестирование работы с нехранимым классом при наследовании.
+        /// </summary>
+        [Fact]
+        public void NotStoredTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                Tests.Cabbage2 cabbage = new Tests.Cabbage2 { Name = "Test" + DateTime.Now.ToString() };
+                var objsToUpdate = new DataObject[] { cabbage };
+                dataService.UpdateObjects(ref objsToUpdate, new DataObjectCache(), true);
+                View view = new View()
+                {
+                    DefineClassType = typeof(Tests.Cabbage2),
+                    Properties = new PropertyInView[] { new PropertyInView("AssocType", string.Empty, true, string.Empty) },
+                };
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Tests.Cabbage2), view);
+                int count;
+
+                DataObject[] result = dataService.LoadObjects(lcs);
+                Assert.NotNull(result);
+                Assert.Equal(1, result.Length);
+            }
+        }
     }
 }

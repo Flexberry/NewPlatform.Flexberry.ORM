@@ -42,12 +42,22 @@ namespace NewPlatform.Flexberry.ORM.Tests
         private string fType;
         
         private NewPlatform.Flexberry.ORM.Tests.DetailArrayOfCabbagePart2 fCabbageParts;
-        
+
         // *** Start programmer edit section *** (Cabbage2 CustomMembers)
+
+        [NotStored]
+        [DataServiceExpression(typeof(ICSSoft.STORMNET.Business.PostgresDataService), "'Association'")]
+        public override string AssocType
+        {
+            get
+            {
+                return base.AssocType;
+            }
+        }
 
         // *** End programmer edit section *** (Cabbage2 CustomMembers)
 
-        
+
         /// <summary>
         /// Type.
         /// </summary>

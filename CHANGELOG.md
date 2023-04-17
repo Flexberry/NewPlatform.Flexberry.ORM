@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+1. Error on loading with not stored attribute with inheritance.
 
 ### Security
 
