@@ -5,7 +5,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-1. Add asyncronous DataService interface.
 
 ### Changed
 
@@ -14,16 +13,26 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+1. Error on loading with not stored attribute with inheritance.
 
 ### Security
 
 ### Performance
 
+## [7.1.0] - 2023-04-11
+
+### Added
+1. Add asyncronous DataService interface.
+2. Tests on SharpZipLib.
+3. Tests on memory leakage.
+
+### Changed
+1. Upgraded Npgsql version to 3.2.7 (PostgreSQL 14+ support).
+
 ## [7.0.0] - 2023-02-17
 
 ### Added
 1. Building under .net6 and .net7.
-2. Upgraded Npgsql version to 3.2.7 (PostgreSQL 14+ support).
 
 ### Changed
 1. Update Microsoft.Spatial up to 7.10.0.

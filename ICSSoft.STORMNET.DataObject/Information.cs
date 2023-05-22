@@ -310,7 +310,7 @@
                         propType = Nullable.GetUnderlyingType(propType);
                     }
 
-                    SetHandler setHandler = GetSetHandler(tp, pi);
+                    SetHandler setHandler = GetSetHandler(tp, pi, true);
 
                     if (propType == typeof(string))
                     {
@@ -464,8 +464,9 @@
         /// </summary>
         /// <param name="type">Тип данных.</param>
         /// <param name="propInfo">Метаданные о свойстве.</param>
+        /// <param name="piCheck">Флаг, определяющий, что следует производить проверку возможности создания <see cref="SetHandler"/> перед созданием.</param>
         /// <returns>Делегат.</returns>
-        internal static SetHandler GetSetHandler(Type type, PropertyInfo propInfo)
+        internal static SetHandler GetSetHandler(Type type, PropertyInfo propInfo, bool piCheck = false)
         {
             if (type == null)
             {
@@ -478,7 +479,11 @@
             }
 
             long key = (type.GetHashCode() * 10000000000) + propInfo.Name.GetHashCode();
-            return cacheSetPropValueByName.GetOrAdd(key, k => DynamicMethodCompiler.CreateSetHandler(type, propInfo));
+            return cacheSetPropValueByName.GetOrAdd(
+                key,
+                k => {
+                        return (!piCheck || propInfo.CanWrite) ? DynamicMethodCompiler.CreateSetHandler(type, propInfo) : null;
+                    });
         }
 
         /// <summary>
