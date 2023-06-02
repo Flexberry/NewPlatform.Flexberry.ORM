@@ -11,14 +11,19 @@
     {
         private readonly IUnityContainer container;
 
+        /// <summary>
+        /// Init new instance of class <see cref="UnityServiceProvider"/>.
+        /// </summary>
+        /// <param name="container">Cantainer of type <see cref="IUnityContainer"/> for connection to <see cref="IServiceProvider"/>.</param>
         public UnityServiceProvider(IUnityContainer container)
         {
             this.container = container;
         }
 
+        /// <inheritdoc/>
         public object GetService(Type serviceType)
         {
-            return container.Resolve(serviceType);
+            return container.IsRegistered(serviceType) ? container.Resolve(serviceType) : null;
         }
     }
 }

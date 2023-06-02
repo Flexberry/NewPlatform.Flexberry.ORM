@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>7.2.0-alpha02</version>
+    <version>7.2.0-alpha03</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,27 +13,49 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
 		Added
-		1. Dependency injection of IAuditService and ISecurityManager throught the constructor of SQLDataService.
-		2. Dependency injection of IConfigResolver throught the property of SQLDataService.
-		3. Getting of Business Servers throught the abstraction IBusinessServerProvider.
-		Changed:
-		1. UnityFactory marked as obsolete.
-		2. DataServiceProvider.DataService marked as obsolete.
-		Removed:
-		1. [BREAKING CHANGE] Setting of STORMAdvLimit.User at setter of STORMAdvLimit.Publish.
-		2. Class DirectoryServices.
-		3. Class CurrentWindowsUser, CurrentUser, CurrentUserService.
-		4. Class DataServiceWrapper.
-		5. AppMode.
-		6. Getting of CommandTimeout throught configuration file.
+		1. Due to backward compatibility it is necessary now to initialize manually at start point:
 
-    Changed
-    1. Version of `NewPlatform.Flexberry.ORM` changed to `7.2.0-alpha02`.
+		`DataServiceProvider.DataService = ds; // ds - DataService.
+		ExternalLangDef.LanguageDef = new ExternalLangDef(ds); // ds - DataService.
+		DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenerator.`
 
-		Need extra manual initialization:
-		1. DataServiceProvider.DataService.
-		2. ExternalLangDef.LanguageDef.
-		3. DetailVariableDef.ViewGenerator.
+		2. Interface `IBusinessServerProvider`.
+		3. Public property `IBusinessServerProvider BusinessServerProvider { get; protected set; }` to class `SQLDataService`.
+		4. Class `NewPlatform.Flexberry.ORM.CurrentUserService.EmptyCurrentUser : ICurrentUser` (a stub for empty user).
+		5. Interface `NewPlatform.Flexberry.ORM.CurrentUserService.ICurrentUser` (user credentials).
+		6. Help class `UnityServiceProvider` (it helps to organize connection between `IUnityContainer` and `IServiceProvider` for tests).
+		7. Dependency injection of `IConfigResolver` throught the property of `SQLDataService`.
+
+		Changed
+		1. Method `LockService.ClearAllUserLocks` changed to unstatic.
+		2. Method `LockService.GetUserName` changed to unstatic.
+		3. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` on method `FunctionToSql` return `NotImplementedException` if `value.FunctionDef.StringedView == "CurrentUser"`.
+		4. Static class `CurrentUserServiceExtensions` renamed to `CurrentUserExtensions`.
+		5. Constructor of class `LockService`.
+		6. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
+		7. Constructor of class `XMLFileDataService`.
+		8. Constructor of class `AuditService`.
+		9. Constructor of class `BusinessServerProvider`.
+
+
+		Deprecated
+		1. `ExternalLangDef.LanguageDef` (correct way is creation of new instance of `ExternalLangDef` with proper DataService).
+		2. `UnityFactory`.
+		3. `DataServiceProvider.DataService`.
+
+		Removed
+		1. Using of `UnityFactory` at code (there can be used not only Unity but other variant of DI supporting `IServiceProvider` interface).
+		2. Public properties `Current`, `ApplicationMode` and static method `InitAuditService` removed from class `AuditService`.
+		3. Enum `ICSSoft.STORMNET.Business.Audit.AppMode`.
+		4. Class `DataServiceWrapper`.
+		5. Public method `CheckAccessToAttribute` from class `Information`.
+		6. Class `DirectoryServicesTools`.
+		7. Class `ICSSoft.Services.CurrentUser`.
+		8. Class `CurrentUserService`.
+		9. Class `CurrentWindowsUser`.
+		10. Interface `ICSSoft.Services.CurrentUserService.IUser`.
+		11. [BREAKING CHANGE] Setting of `STORMAdvLimit.User` at setter of `STORMAdvLimit.Publish`.
+		12. Getting of `CommandTimeout` throught configuration file.
 	</releaseNotes>
     <copyright>Copyright New Platform Ltd 2023</copyright>
     <tags>Flexberry ORM</tags>
