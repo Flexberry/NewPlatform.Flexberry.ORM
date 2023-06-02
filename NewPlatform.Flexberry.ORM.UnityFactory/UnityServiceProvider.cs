@@ -23,7 +23,14 @@
         /// <inheritdoc/>
         public object GetService(Type serviceType)
         {
-            return container.IsRegistered(serviceType) ? container.Resolve(serviceType) : null;
+            try
+            {
+                return container.Resolve(serviceType);
+            }
+            catch (Unity.ResolutionFailedException)
+            {
+                return null;
+            }
         }
     }
 }
