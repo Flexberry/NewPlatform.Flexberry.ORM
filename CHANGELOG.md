@@ -18,6 +18,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Performance
 
+## [7.1.1] - 2023-06-08
+
+### Fixed
+1. Error on loading with not stored attribute with inheritance.
+
 ## [7.1.0] - 2023-04-11
 
 ### Added

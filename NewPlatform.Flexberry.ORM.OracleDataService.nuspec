@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.OracleDataService</id>
-    <version>7.1.0</version>
+    <version>7.1.1</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,18 +12,20 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-      Added
-      1. Add asyncronous DataService interface.
+      Fixed
+      1. Error on loading with not stored attribute with inheritance.
+      Changed
+      1. Updated NewPlatform.Flexberry.ORM up to 7.1.1.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2023</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="NewPlatform.Flexberry.ORM" version="7.1.0" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="7.1.1" />
         <dependency id="Oracle.ManagedDataAccess" version="12.1.22" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="NewPlatform.Flexberry.ORM" version="7.1.0" />
+        <dependency id="NewPlatform.Flexberry.ORM" version="7.1.1" />
         <dependency id="Oracle.ManagedDataAccess.Core" version="2.19.3" />
       </group>
     </dependencies>
