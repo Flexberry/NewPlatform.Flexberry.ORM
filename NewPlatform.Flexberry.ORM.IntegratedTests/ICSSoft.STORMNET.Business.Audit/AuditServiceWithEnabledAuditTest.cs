@@ -141,6 +141,7 @@
             var mockCurrentUser = new Mock<ICurrentUser>();
             mockCurrentUser.SetupGet(m => m.Login)
                 .Returns("admin");
+
             return new AuditService(mockCurrentUser.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = true },

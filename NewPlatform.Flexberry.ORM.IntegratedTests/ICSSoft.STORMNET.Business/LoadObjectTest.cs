@@ -374,11 +374,11 @@
         public void LoadingObjectLoadStringedObjectViewTest()
         {
             // TODO: Обработать после выполнения задачи 4009
-            using var dataService = GetDataService();
+            using MSSQLDataService dataService = GetDataService();
             dataService.CustomizationString = "SERVER=rtc-storm;Trusted_connection=yes;DATABASE=dochitka_test;";
 
             // Cоздание тестовой записи.
-            var тестовыйМедведь = new Медведь() { ПорядковыйНомер = 15, Вес = 39 };
+            Медведь тестовыйМедведь = new Медведь() { ПорядковыйНомер = 15, Вес = 39 };
             dataService.UpdateObject(тестовыйМедведь);
 
             var view = new View { DefineClassType = typeof(Медведь) };
@@ -914,6 +914,7 @@
             Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
             Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
             Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+
             return new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
         }
     }

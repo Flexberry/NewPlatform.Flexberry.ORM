@@ -75,8 +75,6 @@
         /// </summary>
         public void ClearAllUserLocks()
         {
-            var ds = dataService;
-
             // убиваем все блокировки, оставшиеся с предыдущих времен
             SQLWhereLanguageDef lg = SQLWhereLanguageDef.LanguageDef;
             var vd = new VariableDef(lg.GetObjectTypeForNetType(typeof(string)), "UserName");
@@ -90,14 +88,14 @@
 
             lcs1.Init(null, func, new[] { typeof(LockData) }, view, null);
 
-            DataObject[] arr = ds.LoadObjects(lcs1);
+            DataObject[] arr = dataService.LoadObjects(lcs1);
 
             foreach (DataObject obj in arr)
             {
                 obj.SetStatus(ObjectStatus.Deleted);
             }
 
-            ds.UpdateObjects(ref arr);
+            dataService.UpdateObjects(ref arr);
         }
 
         /// <summary>

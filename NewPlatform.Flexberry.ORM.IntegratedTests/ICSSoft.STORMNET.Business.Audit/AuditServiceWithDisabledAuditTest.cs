@@ -78,6 +78,7 @@
         protected override AuditService GetAuditServiceForTest()
         {
             Mock<ICurrentUser> mockCurrentUser = new Mock<ICurrentUser>();
+
             return new AuditService(mockCurrentUser.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = false },

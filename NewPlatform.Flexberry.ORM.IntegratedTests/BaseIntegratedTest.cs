@@ -285,8 +285,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="MSSQLDataService"/> instance.</returns>
         protected virtual MSSQLDataService CreateMssqlDataService(string connectionString)
         {
-            var securityManager = new EmptySecurityManager();
-            var mockAuditService = new Mock<IAuditService>();
+            ISecurityManager securityManager = new EmptySecurityManager();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+
             return new MSSQLDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
@@ -297,8 +298,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="PostgresDataService"/> instance.</returns>
         protected virtual PostgresDataService CreatePostgresDataService(string connectionString)
         {
-            var securityManager = new EmptySecurityManager();
-            var mockAuditService = new Mock<IAuditService>();
+            ISecurityManager securityManager = new EmptySecurityManager();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+
             return new PostgresDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
@@ -309,8 +311,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="OracleDataService"/> instance.</returns>
         protected virtual OracleDataService CreateOracleDataService(string connectionString)
         {
-            var securityManager = new EmptySecurityManager();
-            var mockAuditService = new Mock<IAuditService>();
+            ISecurityManager securityManager = new EmptySecurityManager();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+
             return new OracleDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 

@@ -18,7 +18,7 @@
         /// <summary>
         /// Container for dependency injection.
         /// </summary>
-        private IServiceProvider serviceProvider;
+        private readonly IServiceProvider serviceProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BusinessServerProvider"/> class with container for dependency injections.
@@ -109,6 +109,7 @@
             }
 
             string key = dataObjectType.FullName + "." + dsevent;
+
             return atrCache.GetOrAdd(key, k => GetBusinessServerAttributesWithInherit(dataObjectType, dsevent));
         }
 
@@ -133,11 +134,11 @@
                 Type[] interfaces = dataObjectType.GetInterfaces().OrderBy(i => i.FullName).ToArray();
                 Type[] baseInterfaces = dataObjectType.BaseType?.GetInterfaces();
 
-                foreach (Type interf in interfaces)
+                foreach (Type interfaceCurrent in interfaces)
                 {
-                    if (baseInterfaces == null || !baseInterfaces.Contains(interf))
+                    if (baseInterfaces == null || !baseInterfaces.Contains(interfaceCurrent))
                     {
-                        atrs[interf] = GetBusinessServerAttributes(interf, dsevent);
+                        atrs[interfaceCurrent] = GetBusinessServerAttributes(interfaceCurrent, dsevent);
                     }
                 }
 

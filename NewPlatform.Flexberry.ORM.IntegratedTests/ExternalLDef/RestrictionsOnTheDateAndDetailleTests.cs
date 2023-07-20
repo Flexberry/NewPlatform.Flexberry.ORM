@@ -41,7 +41,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
-                ExternalLangDef _ldef = new ExternalLangDef(ds);
+                ExternalLangDef languageDef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 const int firstMonday = 1;
@@ -86,11 +86,11 @@
 
                 // Функция ограничения.
                 // Применение функции ограничения.
-                lcs.LimitFunction = _ldef.GetFunction(
-                    _ldef.funcEQ,
-                    _ldef.GetFunction(
-                        _ldef.funcDayOfWeek,
-                        new VariableDef(_ldef.DateTimeType,
+                lcs.LimitFunction = languageDef.GetFunction(
+                    languageDef.funcEQ,
+                    languageDef.GetFunction(
+                        languageDef.funcDayOfWeek,
+                        new VariableDef(languageDef.DateTimeType,
                             Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleDateTime))),
                     1);
                 // Act.

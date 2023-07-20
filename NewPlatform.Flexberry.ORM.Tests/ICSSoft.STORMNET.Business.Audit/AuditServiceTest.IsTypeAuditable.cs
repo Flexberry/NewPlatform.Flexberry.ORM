@@ -3,14 +3,10 @@
     using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.Objects;
-
     using Moq;
-
     using NewPlatform.Flexberry.ORM.CurrentUserService;
-
-    using Xunit;
-
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Unit tests for <see cref="AuditService.IsTypeAuditable"/>.

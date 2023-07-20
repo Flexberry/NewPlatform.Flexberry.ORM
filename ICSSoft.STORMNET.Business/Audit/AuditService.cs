@@ -25,12 +25,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditService" /> class.
         /// </summary>
-        /// <param name="currentUse">
+        /// <param name="currentUser">
         /// Сервис доступа к данным текущего пользовтаеля.
         /// </param>
         public AuditService(ICurrentUser currentUser)
         {
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+            this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
         #endregion
@@ -40,7 +40,7 @@
         /// <summary>
         /// Сервис доступа к данным текущего пользовтаеля.
         /// </summary>
-        private readonly ICurrentUser _currentUser;
+        private readonly ICurrentUser currentUser;
 
         /// <summary>
         /// Current audit settings loader for types.
@@ -1462,8 +1462,6 @@
             // Сначала пробуем определить имя пользователя через CurrentUserService.
             try
             {
-                // Данный метод должен отработать как в win, так и в web.
-                var currentUser = _currentUser;
                 if (currentUser != null)
                 {
                     if (needNameNotLogin)

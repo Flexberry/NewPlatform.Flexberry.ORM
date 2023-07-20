@@ -16,7 +16,7 @@
         /// <summary>
         /// Сервис данных для построения подзапросов.
         /// </summary>
-        private IDataService dataService;
+        private readonly IDataService dataService;
 
         private static ExternalLangDef langDef;
 
