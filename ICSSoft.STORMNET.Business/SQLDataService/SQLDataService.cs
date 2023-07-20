@@ -19,7 +19,7 @@
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.Security;
-
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
     using SpecColl = System.Collections.Specialized;
     using STORMDO = ICSSoft.STORMNET;
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
@@ -208,6 +208,12 @@
         /// Сервис разрешения строк соединения на основе файла конфигурации приложения.
         /// </summary>
         public IConfigResolver ConfigResolver { get; set; } = new ConfigResolver();
+
+        /// <summary>
+        /// Сервис разрешения текущего пользователя.
+        /// Требуется для корректного разрешения текущего пользователя, который  используется в запросах.
+        /// </summary>
+        public ICurrentUser CurrentUser { get; set; }
 
         /// <summary>
         /// Сервис получения бизнес-серверов для обрабатываемых объектов.

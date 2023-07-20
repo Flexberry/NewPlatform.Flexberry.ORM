@@ -12,7 +12,8 @@
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
-
+    using ICSSoft.STORMNET.Windows.Forms;
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
     using NewPlatform.Flexberry.ORM.Tests;
 
     using Xunit;
@@ -642,7 +643,7 @@
                 detail.Master = master;
                 ds.UpdateObject(aggregator);
 
-                var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+               var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
                 Assert.NotNull(aggregatorActual);
@@ -1240,6 +1241,48 @@
 
                 Assert.True(updateException == null, "При создании через UpdateObjectsOrdered не возникло исключений");
             }
+        }
+
+        /// <summary>
+        /// Test of how CurrentUser property of <see cref="SQLDataService"/> is used if defined and not.
+        /// </summary>
+        [Fact]
+        public void CheckUsingOfCurrentUserTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                SQLDataService ds = dataService as SQLDataService;
+                Лес forest = new Лес { Название = "Greate One" };
+                DataObject[] dataObjectsForUpdate = new DataObject[] { forest };
+                ds.UpdateObject(forest);
+
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Лес), Лес.Views.ЛесE);
+                ExternalLangDef languageDef = new ExternalLangDef(ds);
+                lcs.LimitFunction = languageDef.GetFunction(
+                    languageDef.funcEQ,
+                    new VariableDef(languageDef.StringType, nameof(Лес.Название)),
+                    languageDef.GetFunction(languageDef.funcCurrentUser));
+
+                ICurrentUser currentUser = new TestCurrentUser();
+                ds.CurrentUser = currentUser;
+                DataObject[] foundObjects = ds.LoadObjects(lcs);
+                Assert.Single(foundObjects);
+
+                ds.CurrentUser = null;
+                Assert.Throws<InvalidOperationException>(() => ds.LoadObjects(lcs));
+            }
+        }
+
+        /// <summary>
+        /// Helper class for checkoing how current user is used by data service.
+        /// </summary>
+        private class TestCurrentUser : ICurrentUser
+        {
+            public string Login { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            public string Domain { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            public string FriendlyName { get => "Greate One"; set => throw new NotImplementedException(); }
         }
     }
 }

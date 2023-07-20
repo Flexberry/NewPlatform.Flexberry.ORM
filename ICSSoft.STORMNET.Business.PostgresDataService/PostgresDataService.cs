@@ -355,8 +355,14 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                // return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
-                throw new NotImplementedException("Не реализована поддержка текущего пользователя");
+                if (CurrentUser != null)
+                {
+                    return string.Format("'{0}'", CurrentUser.FriendlyName);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Property CurrentUser is not defined for this data service. Add initialization for this property.");
+                }
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")

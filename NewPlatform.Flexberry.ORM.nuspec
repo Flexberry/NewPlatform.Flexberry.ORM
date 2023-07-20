@@ -29,7 +29,7 @@
 		Changed
 		1. Method `LockService.ClearAllUserLocks` changed to unstatic.
 		2. Method `LockService.GetUserName` changed to unstatic.
-		3. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` on method `FunctionToSql` return `NotImplementedException` if `value.FunctionDef.StringedView == "CurrentUser"`.
+		3. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
 		4. Static class `CurrentUserServiceExtensions` renamed to `CurrentUserExtensions`.
 		5. Constructor of class `LockService`.
 		6. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.

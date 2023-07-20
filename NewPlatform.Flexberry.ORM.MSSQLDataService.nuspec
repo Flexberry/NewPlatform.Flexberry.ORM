@@ -13,7 +13,7 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
 		Changed
-		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` on method `FunctionToSql` return `NotImplementedException` if `value.FunctionDef.StringedView == "CurrentUser"`.
+		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
 		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
 		3. Version of `NewPlatform.Flexberry.ORM` changed to `7.2.0-alpha03`.
 	</releaseNotes>

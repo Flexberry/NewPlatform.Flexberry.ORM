@@ -1,11 +1,14 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
-
+    using System.Collections.Generic;
+    using System.Data;
     using ICSSoft.Services;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Audit.HelpStructures;
+    using ICSSoft.STORMNET.Business.Audit.Objects;
     using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
     using Moq;
@@ -86,6 +89,30 @@
         }
 
         /// <summary>
+        /// Test with registration of CurrentUser as property of <see cref="SQLDataService"/> at Unity.
+        /// </summary>
+        [Fact]
+        public void TestRegistrationOfCurrentUserProperty()
+        {
+            // Arrange.
+            var container = new UnityContainer();
+            IServiceProvider serviceProvider = new UnityServiceProvider(container);
+            container.RegisterType<ICurrentUser, TestCurrentUser>();
+            container.RegisterFactory<IBusinessServerProvider>(new Func<IUnityContainer, object>(o => new BusinessServerProvider(new UnityServiceProvider(o))), FactoryLifetime.Singleton);
+            container.RegisterType<IDataService, MSSQLDataService>(new InjectionProperty(nameof(SQLDataService.CurrentUser), container.Resolve<ICurrentUser>()));
+            container.RegisterType<ISecurityManager, EmptySecurityManager>();
+            container.RegisterType<IAuditService, TestAuditService>();
+            IBusinessServerProvider businessServerProvider = (IBusinessServerProvider)serviceProvider.GetService(typeof(IBusinessServerProvider));
+
+            // Act.
+            IDataService ds = container.Resolve<IDataService>();
+
+            // Assert.
+            Assert.Equal(typeof(MSSQLDataService), ds.GetType());
+            Assert.NotNull(((SQLDataService)ds).CurrentUser);
+        }
+
+        /// <summary>
         /// Getting of mocked dataservice (it is not used on tests).
         /// </summary>
         /// <returns></returns>
@@ -98,35 +125,137 @@
         }
 
         /// <summary>
+        /// Test class for resolving interface <see cref="IAuditService"/>.
+        /// </summary>
+        private class TestAuditService : IAuditService
+        {
+            public bool IsAuditEnabled => throw new NotImplementedException();
+
+            public bool IsAuditRemote => throw new NotImplementedException();
+
+            public string AuditConnectionStringName => throw new NotImplementedException();
+
+            public bool ShowPrimaryKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public bool PersistUtcDates { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public AuditAppSetting AppSetting { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public IAudit Audit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            public void AddCreateAuditInformation(DataObject operationedObject)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void AddEditAuditInformation(DataObject operationedObject)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void DisableAudit()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EnableAudit(bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public View GetAuditViewByType(Type type, tTypeOfAuditOperation operationType)
+            {
+                throw new NotImplementedException();
+            }
+
+            public View GetViewByAuditRecord(IAuditRecord auditRecord)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool IsTypeAuditable(Type curType)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RatifyAuditOperation(tExecutionVariant executionVariant, List<Guid> auditOperationIdList, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RatifyAuditOperation(tExecutionVariant executionVariant, List<Guid> auditOperationIdList, string dataServiceConnectionString, Type dataServiceType, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RatifyAuditOperation(tExecutionVariant executionVariant, List<Guid> auditOperationIdList, IDataService dataService, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RatifyAuditOperationWithAutoFields(tExecutionVariant executionVariant, List<AuditAdditionalInfo> auditOperationInfoList, IDataService dataService, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Guid? WriteCommonAuditOperation(DataObject operationedObject, IDataService dataService, bool throwExceptions = true, IDbTransaction transaction = null)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void WriteCommonAuditOperationWithAutoFields(IEnumerable<DataObject> operationedObjects, ICollection<AuditAdditionalInfo> auditOperationInfoList, IDataService dataService, bool throwExceptions = true, IDbTransaction transaction = null)
+            {
+                throw new NotImplementedException();
+            }
+
+            public AuditAdditionalInfo WriteCommonAuditOperationWithAutoFields(DataObject operationedObject, IDataService dataService, bool throwExceptions = true, IDbTransaction transaction = null)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Guid? WriteCustomAuditOperation(CustomAuditParameters customAuditParameters, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Guid? WriteCustomAuditOperation(CustomAuditParameters customAuditParameters, IDataService dataService, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Guid? WriteCustomAuditOperation(CustomAuditParameters customAuditParameters, string dataServiceConnectionString, Type dataServiceType, bool throwExceptions)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
         /// Test class for resolving interface <see cref="ICurrentUser"/>.
         /// </summary>
-        public class TestCurrentUser : ICurrentUser
+        private class TestCurrentUser : ICurrentUser
         {
             public string Login { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
             public string Domain { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-            public string FriendlyName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public string FriendlyName { get => "Some User"; set => throw new NotImplementedException(); }
         }
 
         /// <summary>
         /// Another test class for resolving interface <see cref="ICurrentUser"/>.
         /// </summary>
-        public class TestCurrentUser2 : TestCurrentUser
+        private class TestCurrentUser2 : TestCurrentUser
         { }
 
         /// <summary>
         /// Test dataobject class with business server.
         /// </summary>
         [BusinessServer(typeof(FlexberryUserSettingForTestBS), DataServiceObjectEvents.OnAllEvents)]
-        public class FlexberryUserSettingForTest : DataObject
+        private class FlexberryUserSettingForTest : DataObject
         {
         }
 
         /// <summary>
         /// Business server that should be resolved just by unity.
         /// </summary>
-        public class FlexberryUserSettingForTestBS : BusinessServer
+        private class FlexberryUserSettingForTestBS : BusinessServer
         {
             public ICurrentUser currentUser;
 
