@@ -5,25 +5,25 @@
     using Unity;
 
     /// <summary>
-    /// Расширения для внедрения зависимостей.
+    /// Extensions for resolving dependencies.
     /// </summary>
     public static class DIExtensions
     {
         /// <summary>
-        /// Получить именованную зависимость с помощью IUnityContainer (IUnityContainer должен быть зарегистрирован в IServiceProvider).
+        /// Get a named dependency using IUnityContainer (IUnityContainer should be already registered at IServiceProvider).
         /// </summary>
-        /// <typeparam name="T">Тип.</typeparam>
-        /// <param name="serviceProvider">IServiceProvider.</param>
-        /// <param name="name">Имя зависимости.</param>
-        /// <returns>Разрешенная зависимость.</returns>
+        /// <typeparam name="T">Type to resolve.</typeparam>
+        /// <param name="serviceProvider">A service provider. IUnityContainer container should be already registered.</param>
+        /// <param name="name">Name of the dependency.</param>
+        /// <returns>Resolved dependency.</returns>
         /// <exception cref="InvalidOperationException">Ошибка получения именованной зависимости.</exception>
-        public static object GetService<T>(this IServiceProvider serviceProvider, string name)
+        public static T GetService<T>(this IServiceProvider serviceProvider, string name)
         {
             var unityContainer = serviceProvider.GetService(typeof(IUnityContainer));
 
             if (unityContainer == null)
             {
-                throw new InvalidOperationException($"Невозможно получить именнованную зависимость - IUnityContainer не зарегистрирован в этом ServiceProvider.");
+                throw new InvalidOperationException($"Unable to resolve - IUnityContainer not registered in this IServiceProvider.");
             }
             else
             {
