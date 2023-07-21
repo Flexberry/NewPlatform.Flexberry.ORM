@@ -1,12 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
-    using ICSSoft.Services;
-    using ICSSoft.STORMNET.Business.Audit;
-    using ICSSoft.STORMNET.Exceptions;
-    using ICSSoft.STORMNET.FunctionalLanguage;
-    using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
-    using ICSSoft.STORMNET.Security;
-
     using System;
     using System.Collections;
     using System.Collections.Specialized;
@@ -15,7 +8,9 @@
     using System.Linq;
     using System.Reflection;
 
+    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
@@ -41,11 +36,18 @@
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service.</param>
-        public XMLFileDataService(ISecurityManager securityManager, IAuditService auditService)
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
+        public XMLFileDataService(ISecurityManager securityManager, IAuditService auditService, IBusinessServerProvider businessServerProvider)
         {
             SecurityManager = securityManager;
             AuditService = auditService;
+            BusinessServerProvider = businessServerProvider;
         }
+
+        /// <summary>
+        /// Сервис получения бизнес-серверов для обрабатываемых объектов.
+        /// </summary>
+        public IBusinessServerProvider BusinessServerProvider { get; protected set; }
 
         /// <inheritdoc cref="IDataService" />
         public ISecurityManager SecurityManager { get; }
@@ -1537,7 +1539,7 @@
         /// <returns>Копии экземпляра сервиса данных.</returns>
         public object Clone()
         {
-            return new XMLFileDataService(SecurityManager, AuditService)
+            return new XMLFileDataService(SecurityManager, AuditService, BusinessServerProvider)
             {
                 _altdataSet = _altdataSet,
                 _changeViewForTypeDelegate = _changeViewForTypeDelegate,
