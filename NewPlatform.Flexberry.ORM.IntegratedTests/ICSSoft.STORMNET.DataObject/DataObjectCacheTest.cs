@@ -4,7 +4,6 @@
     using ICSSoft.STORMNET.Business;
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
-    using System.Configuration;
 
     /// <summary>
     /// Интеграционный тест для <see cref="DataObjectCache"/>.

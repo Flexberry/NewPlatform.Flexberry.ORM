@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.UserDataTypes;
+    using NewPlatform.Flexberry.ORM.IntegratedTests.Business;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;
 
@@ -40,13 +42,13 @@
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской, ЛесОбитания = лес1 };
                 Медведь медв3 = new Медведь { Вес = 148, Пол = Пол.Мужской, ЛесОбитания = лес2 };
                 медв.ЛесОбитания = лес1;
-                var берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
-                var берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
-                var берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
+                Берлога берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
                 медв.Берлога.Add(берлога1);
                 медв.Берлога.Add(берлога2);
                 медв2.Берлога.Add(берлога3);
-                var objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, медв3, берлога2, берлога1, берлога3, лес1, лес2 };
+                DataObject[] objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, медв3, берлога2, берлога1, берлога3, лес1, лес2 };
                 var ds = (SQLDataService)dataService;
                 ds.UpdateObjects(ref objs);
                 var expr0 = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
@@ -56,24 +58,32 @@
                 var lcs1 = LinqToLcs.GetLcs(expr1.Expression, Медведь.Views.МедведьE);
                 lcs1.View = Медведь.Views.МедведьE;
                 lcs1.LoadingTypes = new Type[] { typeof(Медведь) };
-                var l1 = dataService.LoadObjects(lcs1);
+                DataObject[] l1 = dataService.LoadObjects(lcs1);
                 var expr2 = ds.Query<Медведь>(Медведь.Views.МедведьE).OrderByDescending(x => x.ЛесОбитания.Название);
                 var lcs2 = LinqToLcs.GetLcs(expr2.Expression, Медведь.Views.МедведьE);
                 lcs2.View = Медведь.Views.МедведьE;
                 lcs2.LoadingTypes = new Type[] { typeof(Медведь) };
-                var l2 = dataService.LoadObjects(lcs2);
+                DataObject[] l2 = dataService.LoadObjects(lcs2);
+                Assert.NotNull(l1);
+                Assert.NotNull(l2);
+                Assert.Equal(3, l1.Length);
+                Assert.Equal(3, l2.Length);
 
-                var lcs3 = new LoadingCustomizationStruct(null);
+                LoadingCustomizationStruct lcs3 = new LoadingCustomizationStruct(null);
                 lcs3.View = Медведь.Views.МедведьE;
                 lcs3.LoadingTypes = new Type[] { typeof(Медведь) };
                 lcs3.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Asc) };
-                var l3 = dataService.LoadObjects(lcs3);
+                DataObject[] l3 = dataService.LoadObjects(lcs3);
+                Assert.NotNull(l3);
+                Assert.Equal(3, l3.Length);
 
-                var lcs4 = new LoadingCustomizationStruct(null);
+                LoadingCustomizationStruct lcs4 = new LoadingCustomizationStruct(null);
                 lcs4.View = Медведь.Views.МедведьE;
                 lcs4.LoadingTypes = new Type[] { typeof(Медведь) };
                 lcs4.ColumnsSort = new[] { new ColumnsSortDef(Information.ExtractPropertyPath<Медведь>(c => c.ЛесОбитания.Название), ICSSoft.STORMNET.Business.SortOrder.Desc) };
-                var l4 = dataService.LoadObjects(lcs4);
+                DataObject[] l4 = dataService.LoadObjects(lcs4);
+                Assert.NotNull(l4);
+                Assert.Equal(3, l4.Length);
             }
         }
 
@@ -86,28 +96,29 @@
             foreach (IDataService dataService in DataServices)
             {
                 ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
-                // if (dataService is MSSQLDataService)
-                //    continue;
                 Медведь медв = new Медведь { Вес = 48, Пол = Пол.Мужской };
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской };
                 Лес лес1 = new Лес { Название = "Бор" };
                 Лес лес2 = new Лес { Название = "Березовая роща" };
                 медв.ЛесОбитания = лес1;
-                var берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
-                var берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
-                var берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога1 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
+                Берлога берлога2 = new Берлога { Наименование = "Для плохого настроения", ЛесРасположения = лес2 };
+                Берлога берлога3 = new Берлога { Наименование = "Для хорошего настроения", ЛесРасположения = лес1 };
                 медв.Берлога.Add(берлога1);
                 медв.Берлога.Add(берлога2);
                 медв2.Берлога.Add(берлога3);
-                var objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, берлога2, берлога1, берлога3, лес1, лес2 };
+                DataObject[] objs = new ICSSoft.STORMNET.DataObject[] { медв, медв2, берлога2, берлога1, берлога3, лес1, лес2 };
                 var ds = (SQLDataService)dataService;
                 ds.UpdateObjects(ref objs);
 
-                var v = new View(new ViewAttribute("AllProps", new string[] { "*" }), typeof(Кошка));
-                var ob = ds.LoadObjects(v);
+                View v = new View(new ViewAttribute("AllProps", new string[] { "*" }), typeof(Кошка));
+                DataObject[] ob = ds.LoadObjects(v);
+                Assert.NotNull(ob);
+                Assert.True(condition: ob.Length <= 0);
 
-                var l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
+                List<Медведь> l = ds.Query<Медведь>(Медведь.Views.МедведьE).Where(
                   x => x.Берлога.Cast<Берлога>().Any(o => o.Наименование == "Для хорошего настроения")).ToList();
+                Assert.Equal(2, l.Count);
             }
         }
 
@@ -119,29 +130,26 @@
         {
             foreach (IDataService dataService in DataServices)
             {
+                const string name = "n1";
                 ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
                 var ds = (SQLDataService)dataService;
-                Plant2 cls1 = new Plant2() { Name = "n1" };
+                Plant2 cls1 = new Plant2() { Name = name };
                 Cabbage2 cls2 = new Cabbage2() { Name = "n2", Type = "type" };
 
                 var updateObjectsArray = new ICSSoft.STORMNET.DataObject[] { cls1, cls2 };
                 ds.UpdateObjects(ref updateObjectsArray);
-                var view = Plant2.Views.Plant2E;
+                Assert.NotNull(updateObjectsArray);
 
-                IQueryable<Plant2> limit;
-                // limit = ds.Query<Plant2>(view).Where(it => it.__PrimaryKey != null);
+                View plantView = Plant2.Views.Plant2E;
 
-                LoadingCustomizationStruct lcs;
-                /*
-                lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                lcs.LoadingTypes = new Type[] { typeof(Plant2), typeof(Cabbage2) };
-                lcs.LoadingTypes = new Type[] { typeof(Cabbage2) };
-                lcs.View = view;
-                var list = ds.LoadObjects(lcs);
-                */
-                // limit = ds.Query<Plant2>(view).Where(it => typeof(Cabbage2).IsInstanceOfType(it));
-                // lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                // var list2 = ds.LoadObjects(lcs);
+                Plant2 cl = new Plant2();
+                cl.SetExistObjectPrimaryKey(cls1.__PrimaryKey);
+                ds.LoadObject(plantView, cl);
+                Assert.NotNull(cl);
+
+                Assert.Equal(name, cl.Name);
+                Assert.Equal(cls1.__PrimaryKey, cl.__PrimaryKey);
+                Assert.NotNull(cl.Name);
             }
         }
 
