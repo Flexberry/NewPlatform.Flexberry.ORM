@@ -2,6 +2,7 @@
 {
 #if !NETCOREAPP
     using System;
+
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.Tools;

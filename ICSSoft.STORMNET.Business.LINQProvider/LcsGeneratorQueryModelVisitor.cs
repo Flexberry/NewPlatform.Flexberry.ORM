@@ -5,6 +5,7 @@ namespace ICSSoft.STORMNET.Business.LINQProvider
 {
     using System.Collections.Generic;
     using System.Linq.Expressions;
+
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
 

@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.DataObject
 {
     using System;
+
     using ICSSoft.STORMNET.KeyGen;
     using Xunit;
 
