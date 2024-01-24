@@ -643,17 +643,14 @@
                 detail.Master = master;
                 ds.UpdateObject(aggregator);
 
-                /*var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
+                var aggregatorActual = ds.Query<AggregatorUpdateObjectTest>(AggregatorUpdateObjectTest.Views.AggregatorUpdateObjectTestE)
                     .First(x => x.__PrimaryKey == aggregator.__PrimaryKey);
 
                 Assert.NotNull(aggregatorActual);
                 Assert.Equal(aggregator.__PrimaryKey, aggregatorActual.__PrimaryKey);
                 Assert.Equal(aggregator.AggregatorName, aggregatorActual.AggregatorName);
                 Assert.Equal(aggregator.Details.Count, aggregatorActual.Details.Count);
-                Assert.Equal(aggregator.Masters.Count, aggregatorActual.Masters.Count);*/
-
-                AggregatorUpdateObjectTest aggregatorActual = new AggregatorUpdateObjectTest();
-                aggregatorActual.SetExistObjectPrimaryKey(aggregator.__PrimaryKey);
+                Assert.Equal(aggregator.Masters.Count, aggregatorActual.Masters.Count);
 
                 aggregatorActual.SetStatus(ObjectStatus.Deleted);
                 ds.UpdateObject(aggregatorActual);
