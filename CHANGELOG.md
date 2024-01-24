@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+1. Fixed order of property processing for objects with details and masters of the same type.
 
 ### Security
 
