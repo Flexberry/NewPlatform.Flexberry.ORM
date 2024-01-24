@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+
     using NewPlatform.Flexberry.ORM.IntegratedTests;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;

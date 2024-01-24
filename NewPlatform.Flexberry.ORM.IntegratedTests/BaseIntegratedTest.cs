@@ -8,6 +8,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.Data.SqlClient;
     using System.Linq;
     using System.Threading;
+
     using ICSSoft.STORMNET.Business;
     using Npgsql;
     using Oracle.ManagedDataAccess.Client;
