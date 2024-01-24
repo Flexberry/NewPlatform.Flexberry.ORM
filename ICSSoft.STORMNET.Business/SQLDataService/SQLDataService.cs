@@ -4171,56 +4171,70 @@
             ObjectStatus? objectStatus = currentObject?.GetStatus();
 
             // Смотрим мастера и детейлы для выявления зависимостей.
+            // Порядок важен. Сначала мастера, потом детейлы.
+            List<string> details = new List<string>();
+            Dictionary<string, Type> masters = new Dictionary<string, Type>();
             foreach (string prop in props)
             {
                 Type propType = Information.GetPropertyType(currentType, prop);
                 if (propType.IsSubclassOf(typeof(DetailArray)))
                 {
-                    // Обрабатываем детейлы.
-                    Type[] types = Information.GetCompatibleTypesForDetailProperty(currentType, prop);
-                    foreach (Type type in types)
-                    {
-                        // Если этот детейл еще не обходили.
-                        if (!dependencies.ContainsKey(type))
-                        {
-                            AddDependencies(type, currentType, dependencies);
-
-                            // Для детейлов доформируем зависимости.
-                            GetDependencies(null, type, dependencies, extraUpdateList);
-                        }
-                    }
-
-                    if (objectStatus == ObjectStatus.Deleted)
-                    {
-                        foreach (DataObject detail in (DetailArray)Information.GetPropValueByName(currentObject, prop))
-                        {
-                            if (detail.ContainsAlteredProps())
-                            {
-                                extraUpdateList.Add(detail);
-                            }
-                        }
-                    }
+                    details.Add(prop);
                 }
                 else if (propType.IsSubclassOf(typeof(DataObject)))
                 {
-                    // Проверяем, есть ли детейловое свойство с таким-же типом.
-                    string detailProp = Information.GetDetailArrayPropertyName(currentType, propType);
-                    if (detailProp == null || (currentObject != null && Information.GetPropValueByName(currentObject, prop) != null))
-                    {
-                        // Обрабатываем мастера.
-                        AddDependencies(currentType, propType, dependencies);
+                    masters.Add(prop, propType);
+                }
+            }
 
-                        // Обрабатываем наследников мастера.
-                        Type[] propertyTypes = TypeUsageProvider.TypeUsage.GetUsageTypes(currentType, prop);
-                        foreach (Type type in propertyTypes)
+            foreach (string detailCurrent in details)
+            {
+                // Обрабатываем детейлы.
+                Type[] types = Information.GetCompatibleTypesForDetailProperty(currentType, detailCurrent);
+                foreach (Type type in types)
+                {
+                    // Если этот детейл еще не обходили.
+                    if (!dependencies.ContainsKey(type))
+                    {
+                        AddDependencies(type, currentType, dependencies);
+
+                        // Для детейлов доформируем зависимости.
+                        GetDependencies(null, type, dependencies, extraUpdateList);
+                    }
+                }
+
+                if (objectStatus == ObjectStatus.Deleted)
+                {
+                    foreach (DataObject detail in (DetailArray)Information.GetPropValueByName(currentObject, detailCurrent))
+                    {
+                        if (detail.ContainsAlteredProps())
                         {
-                            AddDependencies(currentType, type, dependencies);
+                            extraUpdateList.Add(detail);
                         }
                     }
-                    else if (objectStatus == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
+                }
+            }
+
+            foreach (string masterCurrent in masters.Keys)
+            {
+                // Проверяем, есть ли детейловое свойство с таким-же типом.
+                Type propType = masters[masterCurrent];
+                string detailProp = Information.GetDetailArrayPropertyName(currentType, propType);
+                if (detailProp == null || (currentObject != null && Information.GetPropValueByName(currentObject, masterCurrent) != null))
+                {
+                    // Обрабатываем мастера.
+                    AddDependencies(currentType, propType, dependencies);
+
+                    // Обрабатываем наследников мастера.
+                    Type[] propertyTypes = TypeUsageProvider.TypeUsage.GetUsageTypes(currentType, masterCurrent);
+                    foreach (Type type in propertyTypes)
                     {
-                        extraUpdateList.Add(currentObject);
+                        AddDependencies(currentType, type, dependencies);
                     }
+                }
+                else if (objectStatus == ObjectStatus.Deleted && currentObject.ContainsAlteredProps())
+                {
+                    extraUpdateList.Add(currentObject);
                 }
             }
         }
@@ -4760,7 +4774,7 @@
 
             foreach (DataObject processingObject in processingObjects)
             {
-                // Включем текущий объект в граф зависимостей.
+                // Включим текущий объект в граф зависимостей.
                 GetDependencies(processingObject, processingObject.GetType(), dependencies, extraUpdateList);
             }
 
