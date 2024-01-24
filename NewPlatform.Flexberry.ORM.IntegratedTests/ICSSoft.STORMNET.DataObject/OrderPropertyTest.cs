@@ -9,6 +9,7 @@
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
+
     using System.Configuration;
 
     /// <summary>

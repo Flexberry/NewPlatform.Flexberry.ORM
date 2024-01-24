@@ -7,6 +7,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.IO;
     using System.Reflection;
     using System.Text;
+
 #endif
     using Xunit.Abstractions;
     using Xunit.Sdk;

@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.Tools
 {
     using System;
+
     using ICSSoft.STORMNET.Tools;
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
