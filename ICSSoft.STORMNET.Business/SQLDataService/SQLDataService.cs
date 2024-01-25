@@ -4171,7 +4171,7 @@
             ObjectStatus? objectStatus = currentObject?.GetStatus();
 
             // Смотрим мастера и детейлы для выявления зависимостей.
-            // Порядок важен. Сначала мастера, потом детейлы.
+            // Порядок важен. Сначала детейлы, потом мастера.
             List<string> details = new List<string>();
             Dictionary<string, Type> masters = new Dictionary<string, Type>();
             foreach (string prop in props)
