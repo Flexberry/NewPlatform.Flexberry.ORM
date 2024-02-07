@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
+1. Upgrade NewPlatform.Flexberry.LogService@2.2.1.
 
 ### Deprecated
 
