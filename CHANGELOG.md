@@ -1,7 +1,6 @@
 # Flexberry ORM Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
-
 ## [Unreleased]
 
 ### Added
@@ -54,6 +53,19 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 ### Security
 
 ### Performance
+
+## [7.2.0] - 2024-03-20
+
+### Changed
+1. Upgrade NewPlatform.Flexberry.LogService up to 2.2.1.
+
+### Fixed
+1. Fixed order of property processing for objects with details and masters of the same type.
+
+## [7.1.1] - 2023-06-08
+
+### Fixed
+1. Error on loading with not stored attribute with inheritance.
 
 ## [7.1.0] - 2023-04-11
 

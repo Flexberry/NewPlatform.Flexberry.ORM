@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>7.2.0-alpha03</version>
+    <version>8.0.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -15,12 +15,12 @@
 		Changed
 		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
 		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
-		3. Version of `NewPlatform.Flexberry.ORM` changed to `7.2.0-alpha03`.
+		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0`.
 	</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2023</copyright>
+    <copyright>Copyright New Platform Ltd 2024</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="7.2.0-alpha03" />
+      <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
       <dependency id="Npgsql" version="3.2.7" />
     </dependencies>
   </metadata>
