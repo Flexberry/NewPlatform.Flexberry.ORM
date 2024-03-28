@@ -8,6 +8,7 @@
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
 
     /// <summary>
     /// Классический сервис блокировок.
@@ -17,26 +18,26 @@
         /// <summary>
         /// Сервис данных, через который по умолчанию нужно делать запрос к БД.
         /// </summary>
-        private IDataService dataService = DataServiceProvider.DataService;
+        private readonly IDataService dataService;
 
         /// <summary>
-        /// Конструктор без параметров. В качестве сервиса данных по умолчанию будет использоваться DataServiceProvider.DataService.
+        /// Сервис доступа к данным текущего пользовтаеля.
         /// </summary>
-        public LockService()
-            : this(null)
-        {
-        }
+        private readonly ICurrentUser currentUser;
 
         /// <summary>
-        /// Конструктор с определением сервиса данных.
+        /// Initializes a new instance of the <see cref="LockService" /> class.
         /// </summary>
         /// <param name="dataService">
         /// Сервис данных, через который по умолчанию нужно делать запрос к БД.
-        /// Если передан null, то будет использоваться DataServiceProvider.DataService.
         /// </param>
-        public LockService(IDataService dataService)
+        /// <param name="currentUser">
+        /// Сервис доступа к данным текущего пользовтаеля.
+        /// </param>
+        public LockService(IDataService dataService, ICurrentUser currentUser)
         {
-            this.dataService = dataService ?? DataServiceProvider.DataService;
+            this.dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+            this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
         #region Constants and Fields
@@ -71,13 +72,9 @@
 
         /// <summary>
         /// Удалить все блокировки текущего юзера (какие есть в базе).
-        /// В качестве сервиса данных используется переданный сервис данных.
-        /// <param name="dataService">Сервис данных.</param>
         /// </summary>
-        public static void ClearAllUserLocks(IDataService dataService)
+        public void ClearAllUserLocks()
         {
-            var ds = dataService ?? DataServiceProvider.DataService;
-
             // убиваем все блокировки, оставшиеся с предыдущих времен
             SQLWhereLanguageDef lg = SQLWhereLanguageDef.LanguageDef;
             var vd = new VariableDef(lg.GetObjectTypeForNetType(typeof(string)), "UserName");
@@ -85,30 +82,20 @@
             Function func = lg.GetFunction(
                 lg.funcEQ, vd, GetUserName() + (UseMachineNameInKey ? " @ " + Environment.MachineName : string.Empty));
 
-            var lcs1 = new LoadingCustomizationStruct(0);
+            LoadingCustomizationStruct lcs1 = new LoadingCustomizationStruct(0);
 
-            var view = new View(typeof(LockData), View.ReadType.WithRelated);
+            View view = new View(typeof(LockData), View.ReadType.WithRelated);
 
             lcs1.Init(null, func, new[] { typeof(LockData) }, view, null);
 
-            DataObject[] arr = ds.LoadObjects(lcs1);
+            DataObject[] arr = dataService.LoadObjects(lcs1);
 
             foreach (DataObject obj in arr)
             {
                 obj.SetStatus(ObjectStatus.Deleted);
             }
 
-            ds.UpdateObjects(ref arr);
-        }
-
-        /// <summary>
-        /// Удалить все блокировки текущего юзера (какие есть в базе).
-        /// В качестве сервиса данных используется DataServiceProvider.DataService.
-        /// Если нужно использовать другой DataService, используйте другую перегрузку метода.
-        /// </summary>
-        public static void ClearAllUserLocks()
-        {
-            ClearAllUserLocks(DataServiceProvider.DataService);
+            dataService.UpdateObjects(ref arr);
         }
 
         /// <summary>
@@ -536,9 +523,9 @@
         /// <returns>
         /// The get user name.
         /// </returns>
-        private static string GetUserName()
+        private string GetUserName()
         {
-            return Services.CurrentUserService.CurrentUser.Login;
+            return currentUser?.Login;
         }
 
         /// <summary>

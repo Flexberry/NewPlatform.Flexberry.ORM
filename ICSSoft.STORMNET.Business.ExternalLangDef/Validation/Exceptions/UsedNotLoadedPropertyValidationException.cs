@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Validation.Exceptions
 {
     using ExternalLangDef.Properties;
+
     using System;
 
     /// <summary>

@@ -1,5 +1,6 @@
 ﻿namespace ICSSoft.Services
 {
+    using System;
     using System.Configuration;
 
     using Microsoft.Practices.Unity.Configuration;
@@ -14,6 +15,7 @@
     /// you DI container at "composition root" of your application. Using singleton-based static approach is the best
     /// possible compromise for situations when you haven't got easy access to it (e.g. ASP.NET WebForms).
     /// </remarks>
+    [Obsolete("It is needed to use proper varians of dependency injection.")]
     public static class UnityFactory
     {
         /// <summary>

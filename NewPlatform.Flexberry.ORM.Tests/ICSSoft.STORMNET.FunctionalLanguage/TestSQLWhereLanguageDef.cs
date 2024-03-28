@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
     using System;
+
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Windows.Forms;
     using Xunit;

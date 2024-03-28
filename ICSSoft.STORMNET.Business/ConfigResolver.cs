@@ -1,6 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
-    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
 
     /// <summary>
@@ -11,7 +10,7 @@
         /// <inheritdoc cref="IConfigResolver"/>
         public string ResolveConnectionString(string connStringName)
         {
-            return ConfigHelper.GetConnectionString(AppMode.Win, connStringName);
+            return ConfigHelper.GetConnectionString(connStringName);
         }
     }
 }

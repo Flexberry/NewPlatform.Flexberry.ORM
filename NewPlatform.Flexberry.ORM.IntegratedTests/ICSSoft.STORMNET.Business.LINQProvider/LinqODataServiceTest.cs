@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;
@@ -85,9 +86,6 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
-                // if (dataService is MSSQLDataService)
-                //    continue;
                 Медведь медв = new Медведь { Вес = 48, Пол = Пол.Мужской };
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской };
                 Лес лес1 = new Лес { Название = "Бор" };
@@ -119,7 +117,6 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
                 var ds = (SQLDataService)dataService;
                 Plant2 cls1 = new Plant2() { Name = "n1" };
                 Cabbage2 cls2 = new Cabbage2() { Name = "n2", Type = "type" };

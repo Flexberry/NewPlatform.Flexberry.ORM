@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.FunctionalLanguage
 {
     using System.Linq;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.LINQProvider;

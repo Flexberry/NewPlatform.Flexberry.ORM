@@ -1,7 +1,8 @@
 ﻿namespace NewPlatform.Flexberry.Orm.KeyGen
 {
-    using ICSSoft.STORMNET.KeyGen;
     using System;
+
+    using ICSSoft.STORMNET.KeyGen;
 
     /// <summary>
     /// Генератор ключей типа GUID.

@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.FunctionalLanguage
 {
     using System;
+
     using ICSSoft.STORMNET.FunctionalLanguage;
     using Xunit;
 

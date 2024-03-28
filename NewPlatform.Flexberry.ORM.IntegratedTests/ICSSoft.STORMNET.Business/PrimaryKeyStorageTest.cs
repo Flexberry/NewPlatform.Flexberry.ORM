@@ -4,7 +4,9 @@
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
     using ICSSoft.STORMNET.Business;
+
     using System.Configuration;
+
     using NewPlatform.Flexberry.ORM.IntegratedTests;
 
     /// <summary>

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+
     using ICSSoft.STORMNET.Exceptions;
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;

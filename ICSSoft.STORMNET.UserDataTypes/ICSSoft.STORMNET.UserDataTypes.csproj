@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
-    <RootNamespace>ICSSoft.STORMNET.UserDataTypes</RootNamespace>
-    <AssemblyName>ICSSoft.STORMNET.UserDataTypes</AssemblyName>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
-	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+		<RootNamespace>ICSSoft.STORMNET.UserDataTypes</RootNamespace>
+		<AssemblyName>ICSSoft.STORMNET.UserDataTypes</AssemblyName>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<AssemblyVersion>1.0.0.1</AssemblyVersion>
+		<FileVersion>1.0.0.1</FileVersion>
+		<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
-    <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ICSSoft.STORMNET.Business\ICSSoft.STORMNET.Business.csproj" />
+		<ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
+		<ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
+	</ItemGroup>
 
 </Project>

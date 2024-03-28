@@ -4,6 +4,11 @@
     using System.Collections.Generic;
 
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
+    using ICSSoft.STORMNET.Security;
+
+    using Moq;
 
     using Xunit.Abstractions;
 
@@ -22,9 +27,12 @@
         {
             TestOutputHelper = testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
-            _dataServices.Add(new MSSQLDataService());
-            _dataServices.Add(new PostgresDataService());
-            _dataServices.Add(new OracleDataService());
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+            _dataServices.Add(new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object));
+            _dataServices.Add(new PostgresDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object));
+            _dataServices.Add(new OracleDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object));
         }
 
         /// <summary>

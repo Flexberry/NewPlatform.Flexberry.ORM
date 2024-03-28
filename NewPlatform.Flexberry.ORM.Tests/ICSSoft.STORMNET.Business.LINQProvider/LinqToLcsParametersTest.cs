@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System.Linq;
+
     using ICSSoft.STORMNET.Windows.Forms;
     using NewPlatform.Flexberry.ORM.Tests;
     using Xunit;

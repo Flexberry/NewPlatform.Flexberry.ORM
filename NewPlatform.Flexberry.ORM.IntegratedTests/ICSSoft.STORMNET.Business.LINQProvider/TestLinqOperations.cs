@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
@@ -150,7 +151,6 @@
                     IDataService ds = dsList[rand.Next(dsList.Count - 1)];
 
                     ExternalLangDef ldef = ExternalLangDef.LanguageDef;
-                    ldef.DataService = ds;
 
                     // Arrange.
                     ICSSoft.STORMNET.View pawView = new ICSSoft.STORMNET.View();

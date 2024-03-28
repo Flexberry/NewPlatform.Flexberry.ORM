@@ -1,6 +1,7 @@
 ﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests
 {
     using System.Linq;
+
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using NewPlatform.Flexberry.ORM.Tests;

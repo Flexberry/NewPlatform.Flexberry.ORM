@@ -70,4 +70,8 @@
     </None>
   </ItemGroup>
 
+  <Target Name="ConfigFile" AfterTargets="AfterBuild">
+    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
+  </Target>
+
 </Project>

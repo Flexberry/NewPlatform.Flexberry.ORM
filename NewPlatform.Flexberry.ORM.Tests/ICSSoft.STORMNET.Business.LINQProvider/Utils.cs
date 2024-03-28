@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business.LINQProvider.Tests
 {
     using System;
+
     using NewPlatform.Flexberry.ORM.Tests;
 
     /// <summary>
