@@ -21,10 +21,5 @@ var namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit =
     [ "IAuditService", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service" ],
     [ "IDataObjectWithAuditFields", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_data_object_with_audit_fields.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_data_object_with_audit_fields" ],
     [ "DataObject", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#aeac023c47d4ba8d8c2c2a6051e7a2dde", null ],
-    [ "View", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#a47a8837328b93d12def76d48bbfe1fd3", null ],
-    [ "AppMode", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46a", [
-      [ "Unknown", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aa88183b946cc5f0e8c96b2e66e1c74a7e", null ],
-      [ "Win", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aa119eac47719cc9be7b99124712e229da", null ],
-      [ "Web", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#ad789c2a9282e95dcb1fb3da30073b46aac6e190b284633c48e39e55049da3cce8", null ]
-    ] ]
+    [ "View", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit.html#a47a8837328b93d12def76d48bbfe1fd3", null ]
 ];

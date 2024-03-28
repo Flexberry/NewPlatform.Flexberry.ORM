@@ -8,11 +8,8 @@ var annotated_dup =
     [ "ICSSoft", "namespace_i_c_s_soft.html", [
       [ "Services", "namespace_i_c_s_soft_1_1_services.html", [
         [ "ChangesToSqlBTMonitor", "class_i_c_s_soft_1_1_services_1_1_changes_to_sql_b_t_monitor.html", "class_i_c_s_soft_1_1_services_1_1_changes_to_sql_b_t_monitor" ],
-        [ "CurrentUser", "class_i_c_s_soft_1_1_services_1_1_current_user.html", "class_i_c_s_soft_1_1_services_1_1_current_user" ],
-        [ "CurrentUserService", "class_i_c_s_soft_1_1_services_1_1_current_user_service.html", "class_i_c_s_soft_1_1_services_1_1_current_user_service" ],
-        [ "CurrentUserServiceExtensions", "class_i_c_s_soft_1_1_services_1_1_current_user_service_extensions.html", "class_i_c_s_soft_1_1_services_1_1_current_user_service_extensions" ],
-        [ "CurrentWindowsUser", "class_i_c_s_soft_1_1_services_1_1_current_windows_user.html", "class_i_c_s_soft_1_1_services_1_1_current_windows_user" ],
-        [ "UnityFactory", "class_i_c_s_soft_1_1_services_1_1_unity_factory.html", "class_i_c_s_soft_1_1_services_1_1_unity_factory" ]
+        [ "UnityFactory", "class_i_c_s_soft_1_1_services_1_1_unity_factory.html", "class_i_c_s_soft_1_1_services_1_1_unity_factory" ],
+        [ "UnityServiceProvider", "class_i_c_s_soft_1_1_services_1_1_unity_service_provider.html", "class_i_c_s_soft_1_1_services_1_1_unity_service_provider" ]
       ] ],
       [ "STORMNET", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t.html", [
         [ "Business", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business.html", [
@@ -62,6 +59,7 @@ var annotated_dup =
             [ "IAuditWcfService", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_wcf_service_library_1_1_i_audit_wcf_service.html", null ]
           ] ],
           [ "Interfaces", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces.html", [
+            [ "IBusinessServerProvider", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_i_business_server_provider.html", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_i_business_server_provider" ],
             [ "InterfaceBusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server" ],
             [ "IReferencesCascadeDelete", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_i_references_cascade_delete.html", null ],
             [ "IReferencesNullDelete", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_i_references_null_delete.html", null ]
@@ -100,15 +98,14 @@ var annotated_dup =
           [ "AdvansedColumn", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column" ],
           [ "CantApplyBusinessServerAttributeWithNotBusinessServiceTypeException", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_cant_apply_business_server_attribute_with_6207d43f91dd4c894e1d5a3f06125e44.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_cant_apply_business_server_attribute_with_6207d43f91dd4c894e1d5a3f06125e44" ],
           [ "BusinessServerAttribute", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_attribute.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_attribute" ],
-          [ "BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider" ],
           [ "BusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server" ],
+          [ "BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider" ],
           [ "BusinessTaskMonitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor" ],
           [ "ColumnsSortDef", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_columns_sort_def.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_columns_sort_def" ],
           [ "ConfigResolver", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_config_resolver" ],
           [ "DataServiceProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_provider.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_provider" ],
           [ "PropertyUsingTypes", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_property_using_types.html", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_property_using_types" ],
           [ "DataServiceUsingTypeCustomizer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer" ],
-          [ "DataServiceWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper" ],
           [ "CreateCommandEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_create_command_event_args.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_create_command_event_args" ],
           [ "DataObjectsEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_objects_event_args.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_objects_event_args" ],
           [ "GenerateSQLSelectQueryEventArgs", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_generate_s_q_l_select_query_event_args" ],
@@ -223,7 +220,6 @@ var annotated_dup =
         [ "Tools", "namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools.html", [
           [ "BinarySerializer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_binary_serializer.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_binary_serializer" ],
           [ "CaptionTool", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_caption_tool.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_caption_tool" ],
-          [ "DirectoryServicesTools", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_directory_services_tools.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_directory_services_tools" ],
           [ "GuidExtensions", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_guid_extensions.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_guid_extensions" ],
           [ "MAPIWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_m_a_p_i_wrapper" ],
           [ "MapiMessage", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_message.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_mapi_message" ],
@@ -365,6 +361,11 @@ var annotated_dup =
     [ "NewPlatform", "namespace_new_platform.html", [
       [ "Flexberry", "namespace_new_platform_1_1_flexberry.html", [
         [ "ORM", "namespace_new_platform_1_1_flexberry_1_1_o_r_m.html", [
+          [ "CurrentUserService", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service.html", [
+            [ "CurrentUserExtensions", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_current_user_extensions.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_current_user_extensions" ],
+            [ "EmptyCurrentUser", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_empty_current_user.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_empty_current_user" ],
+            [ "ICurrentUser", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_i_current_user.html", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_i_current_user" ]
+          ] ],
           [ "Validation", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation.html", [
             [ "Exceptions", "namespace_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions.html", [
               [ "InvalidParameterCountValidationException", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_invalid_parameter_count_validation_exception.html", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_exceptions_1_1_invalid_parameter_count_validation_exception" ],

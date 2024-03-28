@@ -1,6 +1,6 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_parameters =
 [
-    [ "AuditParameters", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_parameters.html#a0f167facf9bf8d537bdcd37afb2451c4", null ],
+    [ "AuditParameters", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_parameters.html#adfb9cbfe4a30c1514b3a82e54dcc5a24", null ],
     [ "GetAuditEntityGuid", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_parameters.html#a1dbea48c492e9f22123e13298f7105eb", null ],
     [ "GetDataObjectFromXml", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_parameters.html#a9f8dca5904e52ba43711d3e57973bac6", null ],
     [ "CurrentTime", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_parameters.html#ad262f8aee5edc36a718e97de0b3b12c8", null ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flexberry ORM 7.2.0: Класс ICSSoft.STORMNET.Information</title>
+<title>Flexberry ORM 8.0.0-beta01: Класс ICSSoft.STORMNET.Information</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Flexberry ORM 7.2.0
+   <div id="projectname">Flexberry ORM 8.0.0-beta01
    </div>
   </td>
  </tr>
@@ -341,9 +341,6 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
 <tr class="memitem:a2d56813d827f9896b95e9b1e28f01c3b"><td class="memItemLeft" align="right" valign="top">static object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a2d56813d827f9896b95e9b1e28f01c3b">ParsePropertyValue</a> (Type tp, string propertyName, string value)</td></tr>
 <tr class="memdesc:a2d56813d827f9896b95e9b1e28f01c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод преобразования строкового значения с объектное значение.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a2d56813d827f9896b95e9b1e28f01c3b">Подробнее...</a><br /></td></tr>
 <tr class="separator:a2d56813d827f9896b95e9b1e28f01c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c7642084e70a21fe21e6465e462a795"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a6c7642084e70a21fe21e6465e462a795">CheckAccessToAttribute</a> (Type type, string propertyName, out object deniedAccessValue)</td></tr>
-<tr class="memdesc:a6c7642084e70a21fe21e6465e462a795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка прав на атрибуты объекта. Метод является оберткой для метода CheckAccessToAttribute интерфейса ISecurityManager и используется для проверки прав в Get'ерах вычислимых свойств <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html" title="Базовый абстрактный класс, от которого наследуются все объекты данных STORM.NET.">DataObject</a>. Обработка мастеров не производится.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a6c7642084e70a21fe21e6465e462a795">Подробнее...</a><br /></td></tr>
-<tr class="separator:a6c7642084e70a21fe21e6465e462a795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aadc95c2868ae67bfe4b8538dc2f602"><td class="memItemLeft" align="right" valign="top">static string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a9aadc95c2868ae67bfe4b8538dc2f602">GetPropertiesInExpression</a> (string expression, string namespacewithpoint)</td></tr>
 <tr class="memdesc:a9aadc95c2868ae67bfe4b8538dc2f602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение свойств, входящих в состав выражения DataServiceExpression(считается, что свойство заключено в @). Код метода перенесен из <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html" title="Data service for SQL storage.">ICSSoft.STORMNET.Business.SQLDataService</a>.  <a href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_information.html#a9aadc95c2868ae67bfe4b8538dc2f602">Подробнее...</a><br /></td></tr>
 <tr class="separator:a9aadc95c2868ae67bfe4b8538dc2f602"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -639,59 +636,6 @@ $(document).ready(function(){initNavTree('class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1
   </dd>
 </dl>
 <dl class="section return"><dt>Возвращает</dt><dd>новый StorageName (если пустое или null, то возьмём оригинальное).</dd></dl>
-
-</div>
-</div>
-<a id="a6c7642084e70a21fe21e6465e462a795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c7642084e70a21fe21e6465e462a795">&#9670;&nbsp;</a></span>CheckAccessToAttribute()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool ICSSoft.STORMNET.Information.CheckAccessToAttribute </td>
-          <td>(</td>
-          <td class="paramtype">Type&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>propertyName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">out object&#160;</td>
-          <td class="paramname"><em>deniedAccessValue</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Проверка прав на атрибуты объекта. Метод является оберткой для метода CheckAccessToAttribute интерфейса ISecurityManager и используется для проверки прав в Get'ерах вычислимых свойств <a class="el" href="class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_data_object.html" title="Базовый абстрактный класс, от которого наследуются все объекты данных STORM.NET.">DataObject</a>. Обработка мастеров не производится. </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>Тип объекта данных.</td></tr>
-    <tr><td class="paramname">propertyName</td><td>Имя свойства объекта данных, на которое проверяются права.</td></tr>
-    <tr><td class="paramname">deniedAccessValue</td><td>Значение атрибута при отсутствии прав.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Возвращает</dt><dd>Если у текущего пользователя есть права на доступ к указанному свойству, то <code>true</code>, иначе - <code>false</code>.</dd></dl>
 
 </div>
 </div>

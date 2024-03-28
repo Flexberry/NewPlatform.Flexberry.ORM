@@ -7,5 +7,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variab
     [ "ToSimpleValue", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variable_def.html#a75e6c635cc8718b154ff0813c5a45610", null ],
     [ "ConnectMasterPorp", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variable_def.html#a1f748945351a3a65cf8da3c61bfee454", null ],
     [ "OwnerConnectProp", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variable_def.html#a096d12e20dd116fcdd14411905240de6", null ],
-    [ "View", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variable_def.html#a6e437fd55bf12d562524576f09af774c", null ]
+    [ "View", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variable_def.html#a6e437fd55bf12d562524576f09af774c", null ],
+    [ "ViewGenerator", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_detail_variable_def.html#a3f8b79506b86c5922c969b700e0a4d9c", null ]
 ];

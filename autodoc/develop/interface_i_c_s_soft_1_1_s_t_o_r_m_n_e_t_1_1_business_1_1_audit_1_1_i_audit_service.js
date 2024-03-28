@@ -17,7 +17,6 @@ var interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_
     [ "WriteCustomAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#aab8a81086ca9fc79e0167737d98af94d", null ],
     [ "WriteCustomAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a4868b14fa442e2ab654010e34cba1726", null ],
     [ "WriteCustomAuditOperation", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#ac213acfcfcd261bd015238dee20f72c9", null ],
-    [ "ApplicationMode", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#aabe32819745e2bedc5637d4fb54db02f", null ],
     [ "AppSetting", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#aad96b6a5f318bbf05e8aef946493e454", null ],
     [ "Audit", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#ae53d23c9065ae79aea744159b4f03203", null ],
     [ "AuditConnectionStringName", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html#a29bacfd166b7345895312409c52509e1", null ],

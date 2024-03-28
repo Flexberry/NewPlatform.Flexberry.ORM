@@ -1,5 +1,6 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service =
 [
+    [ "XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#adf7e89919031effc1debaeef1925686f", null ],
     [ "AddDataStructForTable", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a54d4caf3355676aeeb3a737f9bdd4058", null ],
     [ "ChangeType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a12a383da3590652267444ec8119dbdf7", null ],
     [ "ClearDataSet", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html#a2204f1638552c26b537ecce412eb7497", null ],

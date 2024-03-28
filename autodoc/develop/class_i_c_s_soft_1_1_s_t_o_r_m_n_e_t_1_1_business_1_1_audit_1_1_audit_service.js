@@ -1,5 +1,6 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service =
 [
+    [ "AuditService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3fa1f226314c825d4cd37ef9e72c2629", null ],
     [ "AddCreateAuditInformation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a15f5bd6218524a6d07dc6ad7a7907fc7", null ],
     [ "AddEditAuditInformation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aec67003ffb353d23c2501a896d6a8dfc", null ],
     [ "CheckAndSendToAudit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a45afbab0b9acb9e41ed9b67e28ca20bf", null ],
@@ -10,7 +11,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_servic
     [ "GetAuditViewByType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a524dc7e40dbc7782d9c5eecbf3f513eb", null ],
     [ "GetConnectionStringName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a741d55cc9bb6b24e83a3d289a81a0969", null ],
     [ "GetViewByAuditRecord", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ab9748577e2f68d2f0db14264eaa1ef92", null ],
-    [ "InitAuditService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a36a7295a96e67615e1479aaa17157067", null ],
     [ "IsTypeAuditable", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#acf55b1f734b9ad7fe7c1129168ead76a", null ],
     [ "RatifyAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3a41802f5d29d2ee9928a2625428a928", null ],
     [ "RatifyAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac37570bb14d56834b6ccbeedb14e6006", null ],
@@ -23,11 +23,9 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_servic
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aae55c6e15f4c147ce0823734dbcf8ed6", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a055df965dcb608335041bfaac00cc8b1", null ],
     [ "WriteCustomAuditOperation", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a9806c0116951c5afa3211feee5610aff", null ],
-    [ "ApplicationMode", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a3f3bbe88604fecc73c760d588365d261", null ],
     [ "AppSetting", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a5bd2ef836436bd5db477d62048a49eb0", null ],
     [ "Audit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a4888ae347e1151a2a1ca06a8e59d5215", null ],
     [ "AuditConnectionStringName", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac09c078055ad850d9c5d7f03ecd51194", null ],
-    [ "Current", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ad3a5bc13ccfc9f3a8a691c87b294e569", null ],
     [ "DetailedLogEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#a375725ccfe491ad448e5c0675c81c5dc", null ],
     [ "IsAuditEnabled", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#aa1e0664d0e24257013fe7b23c86aa0fd", null ],
     [ "IsAuditRemote", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html#ac92feed494a03abbb4b141689d0c2d5c", null ],

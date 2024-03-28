@@ -1,17 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#a7561a7d07cda2166c8a2584ddffc7ecf":[1,0,1,1,1,1,15],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#a7692b0eda9544adce293f67b5c3006cf":[1,0,1,1,1,1,3],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#a7f5c47ee1e731c6228aa562def2516df":[1,0,1,1,1,1,13],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#a9e605a884e0ecdb33cf59bcbfd3d2aaf":[1,0,1,1,1,1,12],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#abc67ff0538bbeed9c787fd224156d4fd":[1,0,1,1,1,1,14],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#ad7c3a61091fd5ad9090355ecb8e3f052":[1,0,1,1,1,1,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#ad8ab02f3ba1da362cad69ee0d410e0d3":[1,0,1,1,1,1,9],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#af3338c4bd56e2c0d71d985125e7ae1bd":[1,0,1,1,1,1,0],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html":[1,0,1,1,1,2],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a0175ae7e1744bd33e868ed5b7c405ba5":[1,0,1,1,1,2,10],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a0d46126815154d04125fd8da8a319642":[1,0,1,1,1,2,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a167030f2e06f256e3584179661f964d1":[1,0,1,1,1,2,5],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a2107256a78d9071633cb938860099491":[1,0,1,1,1,2,7],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a29b9cdddf76caebad9089bbdbd40d460":[1,0,1,1,1,2,8],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a2ebf3cf326d0dc224f56b1d0e0d84187":[1,0,1,1,1,2,4],
@@ -249,5 +237,17 @@ var NAVTREEINDEX4 =
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_view_exception.html#a3c64ad83758b9a41b74e503b5f8272ae":[1,0,1,1,4,7,2],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_view_exception.html#a4e7d811deef3b66f4c2faa76e48a7628":[1,0,1,1,4,7,0],
 "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_view_exception.html#a66535e648dd6ce90e941fcebd91d5cd1":[1,0,1,1,4,7,1],
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_view_exception.html#a8b989a68d8c661d8bdc7d3bf5002925b":[1,0,1,1,4,7,3]
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_find_view_exception.html#a8b989a68d8c661d8bdc7d3bf5002925b":[1,0,1,1,4,7,3],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_processing_non_dataobject_type_exception.html":[1,0,1,1,4,19],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_processing_non_dataobject_type_exception.html#a230a5181f3008b528cb4e8f7a192724d":[1,0,1,1,4,19,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html":[1,0,1,1,4,3],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#a14639f821b125972b5c5173523913fe9":[1,0,1,1,4,3,5],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#a2ba83924b0a6bab9360499a5d78e158d":[1,0,1,1,4,3,4],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#a384242dd2b48bbda9ce4a0b36c7b8cfa":[1,0,1,1,4,3,0],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#a47d3952302c92e6e35f3cdb280e546c1":[1,0,1,1,4,3,3],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#a5cb2c50a2c1d88edb1b28da5e342dbe6":[1,0,1,1,4,3,2],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#ad54308341eb9d1f1609a153bded60070":[1,0,1,1,4,3,1],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_update_not_loaded_properties_exception.html#aeaaae779cf5fa2651b4ece7d66cee411":[1,0,1,1,4,3,6],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_class_is_not_subclass_of_other_exception.html":[1,0,1,1,4,15],
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_class_is_not_subclass_of_other_exception.html#a7445aca8fdce88ca693e8b934ab02874":[1,0,1,1,4,15,2]
 };

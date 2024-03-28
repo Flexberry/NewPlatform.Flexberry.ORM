@@ -1,0 +1,4 @@
+var class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_current_user_extensions =
+[
+    [ "GetDownLevelLogonName", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_current_user_extensions.html#ae15e612b35e836b95d8549f8d3958905", null ]
+];

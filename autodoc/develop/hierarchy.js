@@ -66,7 +66,6 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Business.BusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server.html", [
       [ "ICSSoft.STORMNET.Business.Interfaces.InterfaceBusinessServer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_interface_business_server.html", null ]
     ] ],
-    [ "ICSSoft.STORMNET.Business.BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", null ],
     [ "ICSSoft.STORMNET.Business.BusinessTaskMonitor", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_task_monitor.html", null ],
     [ "ICSSoft.STORMNET.Tools.CaptionTool", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_caption_tool.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.HelpStructures.CheckHelper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_check_helper.html", null ],
@@ -85,8 +84,7 @@ var hierarchy =
       [ "ICSSoft.STORMNET.Business.XMLFileDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_x_m_l_file_data_service.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.Business.Audit.HelpStructures.ConfigHelper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_help_structures_1_1_config_helper.html", null ],
-    [ "ICSSoft.Services.CurrentUserService", "class_i_c_s_soft_1_1_services_1_1_current_user_service.html", null ],
-    [ "ICSSoft.Services.CurrentUserServiceExtensions", "class_i_c_s_soft_1_1_services_1_1_current_user_service_extensions.html", null ],
+    [ "NewPlatform.Flexberry.ORM.CurrentUserService.CurrentUserExtensions", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_current_user_extensions.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.CustomAuditField", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_custom_audit_field.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.CustomAuditFieldList", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_custom_audit_field_list.html", null ],
     [ "ICSSoft.STORMNET.Business.Audit.CustomAuditParameters", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_custom_audit_parameters.html", null ],
@@ -120,11 +118,9 @@ var hierarchy =
     [ "NewPlatform.Flexberry.ORM.Validation.DataObjectValidator", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_validation_1_1_data_object_validator.html", null ],
     [ "ICSSoft.STORMNET.Business.DataServiceProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_provider.html", null ],
     [ "ICSSoft.STORMNET.Business.DataServiceUsingTypeCustomizer", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_using_type_customizer.html", null ],
-    [ "ICSSoft.STORMNET.Business.DataServiceWrapper", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_data_service_wrapper.html", null ],
     [ "ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.DateFormats", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def_1_1_date_formats.html", null ],
     [ "ICSSoft.STORMNET.Windows.Forms.DatePart", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_date_part.html", null ],
     [ "AdvLimit.ExternalLangDef.ViewPropertyAppender.DetailVariableDefContainer", "class_adv_limit_1_1_external_lang_def_1_1_view_property_appender_1_1_detail_variable_def_container.html", null ],
-    [ "ICSSoft.STORMNET.Tools.DirectoryServicesTools", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_directory_services_tools.html", null ],
     [ "ICSSoft.STORMNET.DynamicMethodCompiler", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_dynamic_method_compiler.html", null ],
     [ "ICSSoft.STORMNET.EnumCaption", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_enum_caption.html", null ],
     [ "EqualityComparer", null, [
@@ -236,6 +232,9 @@ var hierarchy =
     [ "ICSSoft.STORMNET.Business.Audit.IAuditService", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_i_audit_service.html", [
       [ "ICSSoft.STORMNET.Business.Audit.AuditService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_audit_service.html", null ]
     ] ],
+    [ "ICSSoft.STORMNET.Business.Interfaces.IBusinessServerProvider", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_interfaces_1_1_i_business_server_provider.html", [
+      [ "ICSSoft.STORMNET.Business.BusinessServerProvider", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_business_server_provider.html", null ]
+    ] ],
     [ "ICSSoft.STORMNET.Business.IBusinessTaskMonitor", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_i_business_task_monitor.html", [
       [ "ICSSoft.Services.ChangesToSqlBTMonitor", "class_i_c_s_soft_1_1_services_1_1_changes_to_sql_b_t_monitor.html", null ]
     ] ],
@@ -281,6 +280,9 @@ var hierarchy =
       [ "ICSSoft.STORMNET.UserDataTypes.NullableInt", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html", null ]
     ] ],
     [ "ICSSoft.STORMNET.IConvertibleToQueryValueString", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_convertible_to_query_value_string.html", null ],
+    [ "NewPlatform.Flexberry.ORM.CurrentUserService.ICurrentUser", "interface_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_i_current_user.html", [
+      [ "NewPlatform.Flexberry.ORM.CurrentUserService.EmptyCurrentUser", "class_new_platform_1_1_flexberry_1_1_o_r_m_1_1_current_user_service_1_1_empty_current_user.html", null ]
+    ] ],
     [ "ICustomTypeDescriptor", null, [
       [ "ICSSoft.STORMNET.Design.ClassWithDinamicProperties", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_design_1_1_class_with_dinamic_properties.html", null ]
     ] ],
@@ -385,11 +387,10 @@ var hierarchy =
       [ "ICSSoft.STORMNET.PseudoDetailInExtendedView", "struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_pseudo_detail_in_extended_view.html", null ],
       [ "ICSSoft.STORMNET.View", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_view.html", null ]
     ] ],
-    [ "ICSSoft.STORMNET.ISpecialEmptyValue", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_special_empty_value.html", null ],
-    [ "ICSSoft.Services.CurrentUserService.IUser", "interface_i_c_s_soft_1_1_services_1_1_current_user_service_1_1_i_user.html", [
-      [ "ICSSoft.Services.CurrentUser", "class_i_c_s_soft_1_1_services_1_1_current_user.html", null ],
-      [ "ICSSoft.Services.CurrentWindowsUser", "class_i_c_s_soft_1_1_services_1_1_current_windows_user.html", null ]
+    [ "IServiceProvider", null, [
+      [ "ICSSoft.Services.UnityServiceProvider", "class_i_c_s_soft_1_1_services_1_1_unity_service_provider.html", null ]
     ] ],
+    [ "ICSSoft.STORMNET.ISpecialEmptyValue", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_special_empty_value.html", null ],
     [ "ICSSoft.STORMNET.Windows.Forms.IViewGenerator", "interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_i_view_generator.html", null ],
     [ "System.Xml.Serialization.IXmlSerializable", null, [
       [ "ICSSoft.STORMNET.UserDataTypes.NullableDateTime", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_date_time.html", null ],

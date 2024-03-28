@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Flexberry ORM 7.2.0", "index.html", [
+  [ "Flexberry ORM 8.0.0-beta01", "index.html", [
     [ "Пространства имен", "namespaces.html", [
       [ "Пространства имен", "namespaces.html", "namespaces_dup" ],
       [ "Члены пространств имен", "namespacemembers.html", [
@@ -52,18 +52,18 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a5a7f6ae4a9c8176c8b094ba94a91d05c",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail.html#a8b674229623905b57943026310a37370",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a59c4291644d97e2ab0345a4cb4dad0ad",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_case_sensivity_string_dictionary.html#a7561a7d07cda2166c8a2584ddffc7ecf",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_cant_processing_non_dataobject_type_exception.html",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_builder.html#ae142fbf44f359d568de6115a9f362115",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_g_u_i_d_generator.html#a92092ce01f45e62913a810818a7a5b77",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_transliteration.html#aacbd087597f70cc7326c175ddd0811bda5b512ee8a59deb284ad0a6a035ba10b1",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_decimal.html#ad2a7f6acc33692b2b801ca3eadc5203e",
-"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_s_t_o_r_m_adv_limit.html#ac32af735e044b0d8279964ec972c7320",
-"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_i_query_model_visitor.html",
-"namespace_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_u_i.html#af6e03bfebb1fac80ab22bb5b39d64f23"
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_audit_1_1_objects_1_1_audit_class_setting.html#a85a891f7ef5010378a79ed3815513555",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_l_i_n_q_provider_1_1_pseudo_detail.html#a956e4616d8eb78ee9d6dd594153fd557",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_s_q_l_data_service.html#a74bb5837d5f18935f80ece8e02ba1083",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_collections_1_1_name_object_collection.html#a2107256a78d9071633cb938860099491",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_exceptions_1_1_class_is_not_subclass_of_other_exception.html#ace47651a74ebefa9197172edffcaa63e",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_functional_language_1_1_function_def.html#a2f989dd993cfb0f99e07bc11795dbddf",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_key_gen_1_1_key_guid.html",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_tools_1_1_x_m_l_manager.html#a721ac34ca8a5922ff38d18ffcceae8c6",
+"class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_user_data_types_1_1_nullable_int.html#a16e2ff31690c9a9692d24b588b619f04",
+"class_i_c_s_soft_1_1_services_1_1_unity_service_provider.html#a37feaa254273a7d4f61a4a0bd9f39ce6",
+"interface_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_i_notify_update_objects.html",
+"struct_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_advansed_column.html#a07f64121dcedd554b64e7c8961f919e0"
 ];
 
 var SYNCONMSG = 'нажмите на выключить для синхронизации панелей';

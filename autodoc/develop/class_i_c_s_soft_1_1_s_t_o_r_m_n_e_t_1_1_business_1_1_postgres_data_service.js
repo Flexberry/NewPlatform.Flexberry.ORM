@@ -1,10 +1,7 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service =
 [
-    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#ae1842fe40ad929ad0cb08958881f5d2a", null ],
-    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a25d4cc535005b94a3e78c90c2859ac94", null ],
-    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#adcecd960d292b3f9dea1aaaadc8aefd9", null ],
-    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#aa8c8ce58dc5f89c400226b69b9d38855", null ],
-    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a78c5092b51117aba628c2e7b33fc2241", null ],
+    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a542194e994304e7c30bb9089dff875f9", null ],
+    [ "PostgresDataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#ad0c0962290605ea6170b7d87668a42e0", null ],
     [ "ConvertSimpleValueToQueryValueString", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#a5f1feb1a0fdec7057c195f892f33f5cc", null ],
     [ "CreateJoins", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#ab31852bdc0ca648733c4ac463ea2364e", null ],
     [ "CreateJoins", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_business_1_1_postgres_data_service.html#acc149b69715afb72a1232f602a7ba9bf", null ],

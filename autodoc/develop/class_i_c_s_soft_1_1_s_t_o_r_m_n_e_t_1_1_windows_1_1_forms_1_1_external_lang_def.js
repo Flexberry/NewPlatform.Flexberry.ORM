@@ -1,7 +1,7 @@
 var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def =
 [
     [ "DateFormats", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def_1_1_date_formats.html", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def_1_1_date_formats" ],
-    [ "ExternalLangDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a63b8cece9f5fc24af2c3e287840c447a", null ],
+    [ "ExternalLangDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a1c64bffbf061f0c8d021a61decdf2001", null ],
     [ "CheckConditionFunctionForExistDetails", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a4f94b9e7fb3115f88b234c173fb6694a", null ],
     [ "CheckParametersFunctionForExistDetails", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a3092ff0479d0cda7bc62826ee2f53548", null ],
     [ "delegateUserSQLTranslFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a1bb66acdaf306c105b43726145298b8d", null ],
@@ -19,7 +19,6 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang
     [ "retVars", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a30731b15410fe8f70cabc2791037557d", null ],
     [ "UserSQLTranslFunction", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ac31a2da609f31d6e1f66e853c574150f", null ],
     [ "DataObjectType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a67f1aa38746e7d605217431587b423f5", null ],
-    [ "DataService", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a1cb507a2a0a195bbf235af5214f62aa6", null ],
     [ "DatePartType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ae4030ffb9057e20072d33796656be572", null ],
     [ "DetailsType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ae27b5d9746a7cbd8c2f7346d13f9372b", null ],
     [ "funcAvgWithLimit", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ab143b762dfeda49b01e067e2c94c89cc", null ],
@@ -57,7 +56,7 @@ var class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang
     [ "funcYearPart", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ae8a3d3f596b0b760fd8410112fe76497", null ],
     [ "GeographyType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a9e114d4dc5619660cfe960d8cfcc6262", null ],
     [ "GeometryType", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a61d75ed414ea4aaa8764c9c09e16ea58", null ],
-    [ "LanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a2ffd3b75e21294577a18838f4268d08b", null ],
+    [ "LanguageDef", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#ad44c3d812a013e1e789d97b1134b072b", null ],
     [ "MaxFuncID", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a36ee62c6be7ff84035b642cb1a82ce14", null ],
     [ "paramDayDIFF", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#acf6f6a5de365310e23efb5938f93e6df", null ],
     [ "paramMonthDIFF", "class_i_c_s_soft_1_1_s_t_o_r_m_n_e_t_1_1_windows_1_1_forms_1_1_external_lang_def.html#a945f446cea0c7f257be94566be07b6f1", null ],
