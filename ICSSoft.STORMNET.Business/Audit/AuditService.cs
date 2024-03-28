@@ -5,11 +5,12 @@
     using System.Data;
     using System.Linq;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit.Exceptions;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
     using ICSSoft.STORMNET.Exceptions;
+
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
 
     using DataObject = ICSSoft.STORMNET.DataObject;
     using View = ICSSoft.STORMNET.View;
@@ -19,36 +20,27 @@
     /// </summary>
     public class AuditService : IAuditService
     {
-        #region Статические элементы
+        #region Конструкторы
 
         /// <summary>
-        /// Текущий класс для работы с сервисом аудита.
+        /// Initializes a new instance of the <see cref="AuditService" /> class.
         /// </summary>
-        private static IAuditService _currentAuditService;
-
-        /// <summary>
-        /// Текущий класс для работы с сервисом аудита.
-        /// </summary>
-        public static IAuditService Current => _currentAuditService ?? (_currentAuditService = new AuditService());
-
-        /// <summary>
-        /// Инициализация текущего сервиса аудита.
-        /// </summary>
-        /// <param name="appSetting">Настройки аудита приложения.</param>
-        /// <param name="audit">Элемент, реализующий логику аудита.</param>
-        /// <param name="service">Сервис аудита, который будет установлен как текущий.</param>
-        public static void InitAuditService(AuditAppSetting appSetting, IAudit audit, IAuditService service)
+        /// <param name="currentUser">
+        /// Сервис доступа к данным текущего пользовтаеля.
+        /// </param>
+        public AuditService(ICurrentUser currentUser)
         {
-            _currentAuditService = service;
-            Current.AppSetting = appSetting;
-            Current.Audit = audit;
-            Current.ApplicationMode = AppMode.Win;
-            Current.ShowPrimaryKey = false;
+            this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
-        #endregion Статические элементы
+        #endregion
 
         #region Поля и свойства
+
+        /// <summary>
+        /// Сервис доступа к данным текущего пользовтаеля.
+        /// </summary>
+        private readonly ICurrentUser currentUser;
 
         /// <summary>
         /// Current audit settings loader for types.
@@ -64,11 +56,6 @@
         /// Контроллер для организации асинхронной записи аудита.
         /// </summary>
         private readonly AsyncAuditController _asyncAuditController = new AsyncAuditController();
-
-        /// <summary>
-        /// Режим, в котором работает приложение: win или web.
-        /// </summary>
-        public AppMode ApplicationMode { get; set; } = AppMode.Unknown;
 
         /// <summary>
         /// Включён ли аудит для приложения.
@@ -101,10 +88,10 @@
                                 : AppSetting.AuditConnectionStringName;
 
                 // Проверяем, есть ли в конфиг-файле соответствующая строка соединения.
-                if (!CheckHelper.IsNullOrWhiteSpace(ConfigHelper.GetConnectionString(ApplicationMode, connectionStringName)))
+                if (!CheckHelper.IsNullOrWhiteSpace(ConfigHelper.GetConnectionString(connectionStringName)))
                 {
                     // Если не нашли, то возвращаем ту, что используется по умолчанию.
-                    connectionStringName = ConfigHelper.GetAppSetting(ApplicationMode, "DefaultConnectionStringName");
+                    connectionStringName = ConfigHelper.GetAppSetting("DefaultConnectionStringName");
                 }
 
                 return connectionStringName;
@@ -324,7 +311,6 @@
                         new CheckedCustomAuditParameters(
                             customAuditParameters.ExecutionResult,
                             customAuditParameters.OperationTime,
-                            ApplicationMode,
                             AppSetting.IsDatabaseLocal
                                 ? GetConnectionStringName(dataServiceConnectionString, dataServiceType)
                                 : AppSetting.AuditConnectionStringName,
@@ -337,9 +323,9 @@
                             WriteMode = customAuditParameters.UseDefaultWriteMode ?
                                         AppSetting.DefaultWriteMode :
                                         customAuditParameters.WriteMode,
-                            FullUserLogin = GetCurrentUserInfo(ApplicationMode, false),
-                            UserName = GetCurrentUserInfo(ApplicationMode, true),
-                            OperationSource = GetSourceInfo(ApplicationMode),
+                            FullUserLogin = GetCurrentUserInfo(false),
+                            UserName = GetCurrentUserInfo(true),
+                            OperationSource = GetSourceInfo(),
                             ThrowExceptions = throwExceptions,
                         };
 
@@ -672,7 +658,6 @@
                         PersistUtcDates ? DateTime.UtcNow : DateTime.Now,
                         auditOperationInfoList,
                         AppSetting.DefaultWriteMode,
-                        ApplicationMode,
                         AppSetting.IsDatabaseLocal
                                         ? GetConnectionStringName(dataServiceConnectionString, dataServiceType)
                                         : AppSetting.AuditConnectionStringName,
@@ -963,9 +948,9 @@
         private CommonAuditParameters GenerateBaseCommonAuditParameters(DataObject operatedObject, string connectionStringName, bool throwExceptions)
         {
             // В сам объект будет записываться имя того, кто совершил операцию, а не логин.
-            string fullUserLogin = GetCurrentUserInfo(ApplicationMode, false);
-            string userName = GetCurrentUserInfo(ApplicationMode, true);
-            string currentSourceInfo = GetSourceInfo(ApplicationMode);
+            string fullUserLogin = GetCurrentUserInfo(false);
+            string userName = GetCurrentUserInfo(true);
+            string currentSourceInfo = GetSourceInfo();
             DateTime operationTime = GetAuditOperationTime(operatedObject);
 
             return new CommonAuditParameters(
@@ -975,7 +960,6 @@
                 fullUserLogin,
                 userName,
                 operationTime,
-                ApplicationMode,
                 connectionStringName,
                 IsAuditRemote)
             {
@@ -1066,7 +1050,7 @@
             {
                 // Добавляем поля, кто же создал объект. //TODO: определить эту запись в правильное место.
                 dataObjectWithAuditFields.CreateTime = GetAuditOperationTime(operationedObject);
-                dataObjectWithAuditFields.Creator = GetCurrentUserInfo(ApplicationMode, true);
+                dataObjectWithAuditFields.Creator = GetCurrentUserInfo(true);
             }
         }
 
@@ -1082,7 +1066,7 @@
                 // Добавляем поля, кто же изменил объект. //TODO: определить эту запись в правильное место.
                 operationedObject.AddLoadedProperties(nameof(IDataObjectWithAuditFields.EditTime), nameof(IDataObjectWithAuditFields.Editor));
                 dataObjectWithAuditFields.EditTime = GetAuditOperationTime(operationedObject);
-                dataObjectWithAuditFields.Editor = GetCurrentUserInfo(ApplicationMode, true);
+                dataObjectWithAuditFields.Editor = GetCurrentUserInfo(true);
             }
         }
 
@@ -1470,17 +1454,14 @@
         /// <summary>
         /// Получение информации о текущем пользователе.
         /// </summary>
-        /// <param name="curMode">Текущий режим работы приложения.</param>
         /// <param name="needNameNotLogin">Данный метод должен постараться вернуть дружественное имя пользователя (логин выдаётся в крайнем случае).</param>
         /// <returns>Имя пользователя.</returns>
         /// <exception cref="Exception">Если задан неподдерживаемый режим, то произойдёт исключение.</exception>
-        private static string GetCurrentUserInfo(AppMode curMode, bool needNameNotLogin)
+        private string GetCurrentUserInfo(bool needNameNotLogin)
         {
             // Сначала пробуем определить имя пользователя через CurrentUserService.
             try
             {
-                // Данный метод должен отработать как в win, так и в web.
-                var currentUser = CurrentUserService.CurrentUser;
                 if (currentUser != null)
                 {
                     if (needNameNotLogin)
@@ -1521,19 +1502,10 @@
         /// <summary>
         /// Получение информации о том, откуда выполняется аудируемая операция.
         /// </summary>
-        /// <param name="curMode">Текущий режим работы приложения.</param>
         /// <returns> Информация о том, откуда выполняется аудируемая операция. </returns>
-        /// <exception cref="Exception">Если задан неподдерживаемый режим, то произойдёт исключение. </exception>
-        private static string GetSourceInfo(AppMode curMode)
+        private static string GetSourceInfo()
         {
-            switch (curMode)
-            {
-                case AppMode.Web:
-                case AppMode.Win:
-                    return $"Имя компьютера: {Environment.MachineName}; Домен: {Environment.UserDomainName}; Пользователь: {Environment.UserName}";
-            }
-
-            throw new NotImplementedException("работа аудита в неподдерживаемом режиме");
+            return $"Имя компьютера: {Environment.MachineName}; Домен: {Environment.UserDomainName}; Пользователь: {Environment.UserName}";
         }
 
         private static ObjectStatus ConvertTypeOfAudit(tTypeOfAuditOperation typeOfAudit)

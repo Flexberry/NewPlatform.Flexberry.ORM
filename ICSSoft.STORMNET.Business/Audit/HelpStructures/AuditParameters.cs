@@ -37,10 +37,9 @@
         public AuditParameters(
             tExecutionVariant executionResult,
             DateTime currentTime,
-            AppMode applicationMode,
             string auditConnectionStringName,
             bool needSerialization)
-            : base(auditConnectionStringName, applicationMode)
+            : base(auditConnectionStringName)
         {
             ExecutionResult = executionResult;
             CurrentTime = currentTime;

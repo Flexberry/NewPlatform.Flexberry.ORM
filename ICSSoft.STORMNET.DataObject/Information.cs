@@ -10,14 +10,10 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Text;
-    using System.Text.RegularExpressions;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
-    using ICSSoft.STORMNET.Security;
     using Microsoft.Spatial;
-    using Unity;
 
     #region class Information
 
@@ -4654,58 +4650,6 @@
 
             newPropVal = value;
             return newPropVal;
-        }
-
-        /// <summary>
-        /// Проверка прав на атрибуты объекта. Метод является оберткой для метода CheckAccessToAttribute интерфейса <see cref="ISecurityManager"/> и используется для проверки прав в Get'ерах вычислимых свойств DataObject.
-        /// Обработка мастеров не производится.
-        /// </summary>
-        /// <param name="type">Тип объекта данных.</param>
-        /// <param name="propertyName">Имя свойства объекта данных, на которое проверяются права.</param>
-        /// <param name="deniedAccessValue">Значение атрибута при отсутствии прав.</param>
-        /// <returns>Если у текущего пользователя есть права на доступ к указанному свойству, то <c>true</c>, иначе - <c>false</c>.</returns>
-        public static bool CheckAccessToAttribute(Type type, string propertyName, out object deniedAccessValue)
-        {
-            deniedAccessValue = null;
-
-            // Регулярное выражение для удаления кавычек и других символов из sql-константы значения по умолчанию.
-            const string sqlValuePattern = @"(?<=(['#])).*(?=\1)";
-
-            string expression = null;
-
-            var expressions = GetExpressionForProperty(type, propertyName);
-
-            // Определить какой из DataService используется не предоставляется возможным,
-            // в большинстве случаев DataServiceExpression будет один.
-            // В случае нескольких DataServiceExpression, права все равно должны совпадать.
-            if (expressions.Count > 0)
-            {
-                expression = (string)expressions[0];
-            }
-            else
-            {
-                return true;
-            }
-
-            string deniedAccessValueInString = null;
-
-            // Получаем текущую неименованную реализацию ISecurityManager из Unity.
-            IUnityContainer container = UnityFactory.GetContainer();
-            var securityManager = container.Resolve<ISecurityManager>();
-            var result = securityManager.CheckAccessToAttribute(expression, out deniedAccessValueInString);
-
-            if (!result && !string.IsNullOrEmpty(deniedAccessValueInString))
-            {
-                var match = Regex.Match(deniedAccessValueInString, sqlValuePattern);
-                if (match.Success)
-                {
-                    deniedAccessValueInString = match.Value;
-                }
-            }
-
-            deniedAccessValue = ParsePropertyValue(type, propertyName, deniedAccessValueInString);
-
-            return result;
         }
 
         /// <summary>

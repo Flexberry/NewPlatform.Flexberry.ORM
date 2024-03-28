@@ -15,8 +15,6 @@
     using System.Linq;
     using System.Reflection;
 
-    using Unity;
-
     using STORMFunction = ICSSoft.STORMNET.FunctionalLanguage.Function;
 
     /// <summary>
@@ -33,34 +31,21 @@
         private ChangeViewForTypeDelegate _changeViewForTypeDelegate;
 
         /// <summary>
-        /// Приватное поле для <see cref="SecurityManager"/>.
+        /// Initializes a new instance of the <see cref="XMLFileDataService"/> class with specified security manager and audit service.
         /// </summary>
-        private ISecurityManager _securityManager;
-
-        /// <summary>
-        /// Сервис подсистемы полномочий, который применяется для проверки прав доступа. Рекомендуется устанавливать его через конструктор.
-        /// </summary>
-        public ISecurityManager SecurityManager
+        /// <param name="securityManager">The security manager instance.</param>
+        /// <param name="auditService">The audit service.</param>
+        public XMLFileDataService(ISecurityManager securityManager, IAuditService auditService)
         {
-            get
-            {
-                if (_securityManager == null)
-                {
-                    IUnityContainer container = UnityFactory.GetContainer();
-                    _securityManager = container.Resolve<ISecurityManager>();
-                }
-
-                return _securityManager;
-            }
-
-            protected set
-            {
-                _securityManager = value;
-            }
+            SecurityManager = securityManager;
+            AuditService = auditService;
         }
 
-        /// <inheritdoc/>
-        public IAuditService AuditService => ICSSoft.STORMNET.Business.Audit.AuditService.Current;
+        /// <inheritdoc cref="IDataService" />
+        public ISecurityManager SecurityManager { get; }
+
+        /// <inheritdoc cref="IDataService" />
+        public IAuditService AuditService { get; }
 
         /// <summary>
         /// Путь до файлов с базой и схемой.
@@ -1546,7 +1531,7 @@
         /// <returns>Копии экземпляра сервиса данных.</returns>
         public object Clone()
         {
-            return new XMLFileDataService
+            return new XMLFileDataService(SecurityManager, AuditService)
             {
                 _altdataSet = _altdataSet,
                 _changeViewForTypeDelegate = _changeViewForTypeDelegate,

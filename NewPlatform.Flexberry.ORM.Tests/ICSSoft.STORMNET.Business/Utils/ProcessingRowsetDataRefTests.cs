@@ -23,7 +23,7 @@
         {
             // Arrange.
             var sm = new EmptySecurityManager();
-            var dsMock = new Mock<SQLDataService>();
+            var dsMock = new Mock<IDataService>();
             var dObjs = new DataObject[0];
             dsMock.Setup(d => d.LoadObjects(It.IsAny<LoadingCustomizationStruct>(), It.IsAny<DataObjectCache>()))
                 .Returns(dObjs);
@@ -69,7 +69,7 @@
         {
             // Arrange.
             var sm = new EmptySecurityManager();
-            var dsMock = new Mock<SQLDataService>();
+            var dsMock = new Mock<IDataService>();
             var dObjs = new DataObject[0];
             dsMock.Setup(d => d.LoadObjects(It.IsAny<LoadingCustomizationStruct>(), It.IsAny<DataObjectCache>()))
                 .Returns(dObjs);

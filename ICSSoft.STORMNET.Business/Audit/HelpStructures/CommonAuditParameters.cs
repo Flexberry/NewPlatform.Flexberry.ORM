@@ -152,10 +152,9 @@
             string fullUserLogin,
             string userName,
             DateTime currentTime,
-            AppMode applicationMode,
             string auditConnectionStringName,
             bool needSerialization)
-            : base(executionResult, currentTime, applicationMode, auditConnectionStringName, needSerialization)
+            : base(executionResult, currentTime, auditConnectionStringName, needSerialization)
         {
             NeedAnswer = needAnswer;
             OperationSource = operationSource;

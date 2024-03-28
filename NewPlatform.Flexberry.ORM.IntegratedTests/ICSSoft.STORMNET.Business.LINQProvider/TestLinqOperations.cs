@@ -34,7 +34,7 @@
         /// <summary>
         /// Работа LINQProvider'а с Take() в нескольких потоках.
         /// </summary>
-        [Fact(Skip = "Временно отключается тест для коррекции билда. Включить после починки.")]
+        [Fact]
         public void TestWorkLinqWithTake()
         {
             foreach (IDataService dataService in DataServices)
@@ -103,7 +103,7 @@
         /// <summary>
         /// Работа Lcs c ReturnTop в нескольких потоках (аналогичен тесту <see cref="TestWorkLinqWithTake"/>).
         /// </summary>
-        [Fact(Skip = "Временно отключается тест для коррекции билда. Включить после починки.")]
+        [Fact]
         public void TestWorkLcsWithReturnTop()
         {
             foreach (IDataService dataService in DataServices)
@@ -151,7 +151,6 @@
                     IDataService ds = dsList[rand.Next(dsList.Count - 1)];
 
                     ExternalLangDef ldef = ExternalLangDef.LanguageDef;
-                    ldef.DataService = ds;
 
                     // Arrange.
                     ICSSoft.STORMNET.View pawView = new ICSSoft.STORMNET.View();

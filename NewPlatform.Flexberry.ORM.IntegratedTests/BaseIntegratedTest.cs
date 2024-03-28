@@ -10,12 +10,39 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.Threading;
 
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
+    using ICSSoft.STORMNET.Security;
+
+    using Moq;
+
     using Npgsql;
     using Oracle.ManagedDataAccess.Client;
     using Xunit;
 
     public abstract class BaseIntegratedTest : IDisposable
     {
+        /// <summary>
+        /// Provider for injection to data services for test purposes.
+        /// </summary>
+        public static IBusinessServerProvider BSProvider
+        {
+            set
+            {
+                if (businessServerProvider != null)
+                {
+                    throw new Exception("BusinessServerProvider should not be initialized twice.");
+                }
+
+                businessServerProvider = value;
+            }
+        }
+
+        /// <summary>
+        /// Provider for injection to data services for test purposes.
+        /// </summary>
+        protected static IBusinessServerProvider businessServerProvider;
+
         private static string connectionStringOracle;
 
         private static string connectionStringPostgres;
@@ -258,7 +285,10 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="MSSQLDataService"/> instance.</returns>
         protected virtual MSSQLDataService CreateMssqlDataService(string connectionString)
         {
-            return new MSSQLDataService { CustomizationString = connectionString };
+            ISecurityManager securityManager = new EmptySecurityManager();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+
+            return new MSSQLDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -268,7 +298,10 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="PostgresDataService"/> instance.</returns>
         protected virtual PostgresDataService CreatePostgresDataService(string connectionString)
         {
-            return new PostgresDataService { CustomizationString = connectionString };
+            ISecurityManager securityManager = new EmptySecurityManager();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+
+            return new PostgresDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>
@@ -278,7 +311,10 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
         /// <returns>The <see cref="OracleDataService"/> instance.</returns>
         protected virtual OracleDataService CreateOracleDataService(string connectionString)
         {
-            return new OracleDataService { CustomizationString = connectionString };
+            ISecurityManager securityManager = new EmptySecurityManager();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+
+            return new OracleDataService(securityManager, mockAuditService.Object, businessServerProvider) { CustomizationString = connectionString };
         }
 
         /// <summary>

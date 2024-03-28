@@ -8,12 +8,17 @@
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Business.LINQProvider;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
+    using ICSSoft.STORMNET.Security;
     using ICSSoft.STORMNET.UserDataTypes;
-    using Xunit;
+
+    using Moq;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Xunit;
 
     /// <summary>
     /// Проверка логики по вычитке объектов.
@@ -369,12 +374,11 @@
         public void LoadingObjectLoadStringedObjectViewTest()
         {
             // TODO: Обработать после выполнения задачи 4009
-
-            var dataService = new MSSQLDataService();
+            using MSSQLDataService dataService = GetDataService();
             dataService.CustomizationString = "SERVER=rtc-storm;Trusted_connection=yes;DATABASE=dochitka_test;";
 
             // Cоздание тестовой записи.
-            var тестовыйМедведь = new Медведь() { ПорядковыйНомер = 15, Вес = 39 };
+            Медведь тестовыйМедведь = new Медведь() { ПорядковыйНомер = 15, Вес = 39 };
             dataService.UpdateObject(тестовыйМедведь);
 
             var view = new View { DefineClassType = typeof(Медведь) };
@@ -422,8 +426,7 @@
         public void LoadingObjectLoadObjectsTest()
         {
             // TODO: Обработать после выполнения задачи 4009
-
-            var dataService = new MSSQLDataService();
+            using var dataService = GetDataService();
             dataService.CustomizationString = ConfigurationManager.ConnectionStrings["TestAppNormal"]
                 .ConnectionString;
 
@@ -476,8 +479,7 @@
         public void LoadingObjectGetObjectsCount()
         {
             // TODO: Обработать после выполнения задачи 4009
-
-            var dataService = new MSSQLDataService();
+            using var dataService = GetDataService();
             dataService.CustomizationString = ConfigurationManager.ConnectionStrings["TestAppNormal"]
                 .ConnectionString;
 
@@ -905,6 +907,15 @@
         private void ds_AfterGenerateSQLSelectQuery(object sender, GenerateSQLSelectQueryEventArgs e)
         {
             Debug.WriteLine(e.GeneratedQuery);
+        }
+
+        private MSSQLDataService GetDataService()
+        {
+            Mock<ISecurityManager> mockSecurityManager = new Mock<ISecurityManager>();
+            Mock<IAuditService> mockAuditService = new Mock<IAuditService>();
+            Mock<IBusinessServerProvider> mockBusinessServerProvider = new Mock<IBusinessServerProvider>();
+
+            return new MSSQLDataService(mockSecurityManager.Object, mockAuditService.Object, mockBusinessServerProvider.Object);
         }
     }
 }

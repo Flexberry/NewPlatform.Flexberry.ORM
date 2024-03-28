@@ -4,12 +4,49 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+1. Due to backward compatibility it is necessary now to initialize manually at start point:
+
+`DataServiceProvider.DataService = ds; // ds - DataService.
+ExternalLangDef.LanguageDef = new ExternalLangDef(ds); // ds - DataService.
+DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenerator.`
+
+2. Interface `IBusinessServerProvider`.
+3. Public property `IBusinessServerProvider BusinessServerProvider { get; protected set; }` to class `SQLDataService`.
+4. Class `NewPlatform.Flexberry.ORM.CurrentUserService.EmptyCurrentUser : ICurrentUser` (a stub for empty user).
+5. Interface `NewPlatform.Flexberry.ORM.CurrentUserService.ICurrentUser` (user credentials).
+6. Help class `UnityServiceProvider` (it helps to organize connection between `IUnityContainer` and `IServiceProvider` for tests).
+7. Dependency injection of `IConfigResolver` throught the property of `SQLDataService`.
 
 ### Changed
+1. Method `LockService.ClearAllUserLocks` changed to unstatic.
+2. Method `LockService.GetUserName` changed to unstatic.
+3. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
+4. Static class `CurrentUserServiceExtensions` renamed to `CurrentUserExtensions`.
+5. Constructor of class `LockService`.
+6. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
+7. Constructor of class `XMLFileDataService`.
+8. Constructor of class `AuditService`.
+9. Constructor of class `BusinessServerProvider`.
+
 
 ### Deprecated
+1. `ExternalLangDef.LanguageDef` (correct way is creation of new instance of `ExternalLangDef` with proper DataService).
+2. `UnityFactory`.
+3. `DataServiceProvider.DataService`.
 
 ### Removed
+1. Using of `UnityFactory` at code (there can be used not only Unity but other variant of DI supporting `IServiceProvider` interface).
+2. Public properties `Current`, `ApplicationMode` and static method `InitAuditService` removed from class `AuditService`.
+3. Enum `ICSSoft.STORMNET.Business.Audit.AppMode`.
+4. Class `DataServiceWrapper`.
+5. Public method `CheckAccessToAttribute` from class `Information`.
+6. Class `DirectoryServicesTools`.
+7. Class `ICSSoft.Services.CurrentUser`.
+8. Class `CurrentUserService`.
+9. Class `CurrentWindowsUser`.
+10. Interface `ICSSoft.Services.CurrentUserService.IUser`.
+11. [BREAKING CHANGE] Setting of `STORMAdvLimit.User` at setter of `STORMAdvLimit.Publish`.
+12. Getting of `CommandTimeout` throught configuration file.
 
 ### Fixed
 

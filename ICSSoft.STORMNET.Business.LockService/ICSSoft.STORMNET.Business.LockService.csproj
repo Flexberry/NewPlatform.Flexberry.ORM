@@ -16,7 +16,6 @@
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
     <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj" />
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
 
 </Project>

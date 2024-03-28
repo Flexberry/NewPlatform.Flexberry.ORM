@@ -10,17 +10,16 @@
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using ICSSoft.STORMNET.Business.Audit.Objects;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.KeyGen;
     using ICSSoft.STORMNET.Security;
-
-    using Unity;
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
 
     using SpecColl = System.Collections.Specialized;
     using STORMDO = ICSSoft.STORMNET;
@@ -77,25 +76,9 @@
         private Guid prvInstanceId = Guid.NewGuid();
 
         /// <summary>
-        /// The prv storage type.
-        /// </summary>
-        private StorageTypeEnum prvStorageType = StorageTypeEnum.SimpleStorage;
-
-        /// <summary>
         /// Тип хранилища.
         /// </summary>
-        public StorageTypeEnum StorageType
-        {
-            get
-            {
-                return prvStorageType;
-            }
-
-            set
-            {
-                prvStorageType = value;
-            }
-        }
+        public StorageTypeEnum StorageType { get; set; } = StorageTypeEnum.SimpleStorage;
 
         /// <summary>
         /// An instance of the class responsible for converting values to a string for the SQL query.
@@ -112,6 +95,7 @@
         /// <summary>
         /// Преобразовать значение в SQL строку.
         /// </summary>
+        /// <param name="sqlLangDef">Язык ограничений.</param>
         /// <param name="function">Функция.</param>
         /// <param name="convertValue">делегат для преобразования констант.</param>
         /// <param name="convertIdentifier">делегат для преобразования идентификаторов.</param>
@@ -149,41 +133,12 @@
 
         ////-----------------------------------------------------
 
-        private string customizationString;
         private string _customizationStringName;
 
         /// <summary>
         /// Настроичная строка (строка соединения).
         /// </summary>
-        public string CustomizationString
-        {
-            get { return customizationString; }
-            set { customizationString = value; }
-        }
-
-        /// <summary>
-        /// Имплементация интерфейса <see cref="IPasswordHasher"/> для хеширования пароля.
-        /// </summary>
-        private IConfigResolver _configResolver;
-
-        /// <summary>
-        /// Получение инстации класса для разрешения свойств классов на основе данных из файла конфигурации приложения.
-        /// </summary>
-        private IConfigResolver ConfigResolver
-        {
-            get
-            {
-                if (_configResolver != null)
-                {
-                    return _configResolver;
-                }
-
-                IUnityContainer container = UnityFactory.GetContainer();
-                _configResolver = container.Resolve<IConfigResolver>();
-
-                return _configResolver;
-            }
-        }
+        public string CustomizationString { get; set; }
 
         /// <summary>
         /// Свойство для установки строки соединения по имени.
@@ -207,16 +162,10 @@
         /// </summary>
         public static ChangeCustomizationStringDelegate ChangeCustomizationString = null;
 
-        private bool _doNotChangeCustomizationString = false;
-
         /// <summary>
         /// Не менять строку соединения общим делегатом ChangeCustomizationString.
         /// </summary>
-        public bool DoNotChangeCustomizationString
-        {
-            get { return _doNotChangeCustomizationString; }
-            set { _doNotChangeCustomizationString = value; }
-        }
+        public bool DoNotChangeCustomizationString { get; set; }
 
         private System.Collections.SortedList prvTypesByKeys;
 
@@ -257,42 +206,26 @@
         }
 
         /// <summary>
-        /// Сервис подсистемы полномочий, который применяется для проверки прав доступа. Рекомендуется устанавливать его через конструктор, в противном случае используется настройка в Unity.
+        /// Сервис разрешения строк соединения на основе файла конфигурации приложения.
         /// </summary>
-        public ISecurityManager SecurityManager
-        {
-            get
-            {
-                if (_securityManager == null)
-                {
-                    IUnityContainer container = UnityFactory.GetContainer();
-                    _securityManager = container.Resolve<ISecurityManager>();
-                }
+        public IConfigResolver ConfigResolver { get; set; } = new ConfigResolver();
 
-                return _securityManager;
-            }
+        /// <summary>
+        /// Сервис разрешения текущего пользователя.
+        /// Требуется для корректного разрешения текущего пользователя, который  используется в запросах.
+        /// </summary>
+        public ICurrentUser CurrentUser { get; set; }
 
-            protected set
-            {
-                _securityManager = value;
-            }
-        }
+        /// <summary>
+        /// Сервис получения бизнес-серверов для обрабатываемых объектов.
+        /// </summary>
+        public IBusinessServerProvider BusinessServerProvider { get; protected set; }
 
-        private IAuditService _auditService;
+        /// <inheritdoc cref="IDataService" />
+        public ISecurityManager SecurityManager { get; protected set; }
 
-        /// <inheritdoc/>
-        public IAuditService AuditService
-        {
-            get
-            {
-                if (_auditService != null)
-                {
-                    return _auditService;
-                }
-
-                return ICSSoft.STORMNET.Business.Audit.AuditService.Current;
-            }
-        }
+        /// <inheritdoc cref="IDataService" />
+        public IAuditService AuditService { get; }
 
         /// <summary>
         /// Возвращает количество объектов удовлетворяющих запросу.
@@ -474,64 +407,19 @@
         }
 
         /// <summary>
-        /// Construct data service with default settings.
-        /// </summary>
-        public SQLDataService()
-        {
-            UseCommandTimeout = false;
-            string commandTimeout = null;
-
-            commandTimeout = System.Configuration.ConfigurationManager.AppSettings["SQLDataServiceCommandTimeout"];
-
-            if (commandTimeout == null) // lanin: Для совместимости с 2003-м Штормом.
-            {
-                commandTimeout = System.Configuration.ConfigurationManager.AppSettings["SqlCommandTimeout"];
-            }
-
-            if (commandTimeout != null)
-            {
-                try
-                {
-                    CommandTimeout = int.Parse(commandTimeout);
-                    UseCommandTimeout = true;
-                }
-                catch
-                {
-                    UseCommandTimeout = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager.
-        /// </summary>
-        /// <param name="securityManager">The security manager instance.</param>
-        public SQLDataService(ISecurityManager securityManager)
-            : this()
-        {
-            _securityManager = securityManager;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified converter.
-        /// </summary>
-        /// <param name="converterToQueryValueString">The converter instance.</param>
-        public SQLDataService(IConverterToQueryValueString converterToQueryValueString)
-            : this()
-        {
-            ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SQLDataService"/> class with specified security manager and audit service.
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service.</param>
-        public SQLDataService(ISecurityManager securityManager, IAuditService auditService)
-            : this()
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
+        protected SQLDataService(
+            ISecurityManager securityManager,
+            IAuditService auditService,
+            IBusinessServerProvider businessServerProvider)
         {
-            _securityManager = securityManager;
-            _auditService = auditService;
+            SecurityManager = securityManager ?? throw new ArgumentNullException(nameof(securityManager));
+            AuditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
+            BusinessServerProvider = businessServerProvider ?? throw new ArgumentNullException(nameof(businessServerProvider));
         }
 
         /// <summary>
@@ -539,10 +427,12 @@
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service instance.</param>
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        public SQLDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
-            : this(securityManager, auditService)
+        protected SQLDataService(
+            ISecurityManager securityManager, IAuditService auditService, IBusinessServerProvider businessServerProvider, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
+            : this(securityManager, auditService, businessServerProvider)
         {
             ConverterToQueryValueString = converterToQueryValueString ?? throw new ArgumentNullException(nameof(converterToQueryValueString));
             NotifierUpdateObjects = notifierUpdateObjects;
@@ -1657,6 +1547,7 @@
             }
 
             dataObjectCache.StartCaching(false);
+
             try
             {
                 RunChangeCustomizationString(dataObjects);
@@ -1773,7 +1664,7 @@
                 // Получаем данные.
                 object[][] resValue = ReadFirstByExtConn(
                                             selectString, ref state, customizationStruct.LoadingBufferSize, connection, transaction);
-                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, customizationString };
+                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, CustomizationString };
                 DataObject[] res = null;
                 if (resValue == null)
                 {
@@ -1818,12 +1709,12 @@
 
                 string selectString = string.Empty;
                 selectString = GenerateSQLSelect(customizationStruct, false, out storageStruct, false);
-
                 // Получаем данные.
                 object[][] resValue = ReadFirstByExtConn(
                                             selectString, ref state, customizationStruct.LoadingBufferSize, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
-                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, customizationString };
+                state = new object[] { state, dataObjectType, storageStruct, customizationStruct, CustomizationString };
                 DataObject[] res = null;
+
                 if (resValue == null)
                 {
                     res = new DataObject[0];
@@ -5117,31 +5008,15 @@
             }
         }
 
-        private bool m_bUseCommandTimeout = false;
-        private int m_iCommandTimeout = 0;
-
         /// <summary>
-        /// Приватное поле для <see cref="SecurityManager"/>.
+        /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout" />.
         /// </summary>
-        private ISecurityManager _securityManager;
-
-        /// <summary>
-        /// IDbCommand.CommandTimeout кроме установки этого таймаута не забудьте установить флаг <see cref="UseCommandTimeout"/>.
-        /// </summary>
-        public int CommandTimeout
-        {
-            get { return m_iCommandTimeout; }
-            set { m_iCommandTimeout = value; }
-        }
+        public int CommandTimeout { get; set; }
 
         /// <summary>
         /// Использовать ли атрибут <see cref="CommandTimeout"/> (если задан через конфиг, то будет true) по-умолчанию false.
         /// </summary>
-        public bool UseCommandTimeout
-        {
-            get { return m_bUseCommandTimeout; }
-            set { m_bUseCommandTimeout = value; }
-        }
+        public bool UseCommandTimeout { get; set; }
 
         protected virtual void CustomizeCommand(System.Data.IDbCommand cmd)
         {
@@ -5522,16 +5397,16 @@
         public virtual object Clone()
         {
             var instance = (SQLDataService)Activator.CreateInstance(GetType());
-            instance._doNotChangeCustomizationString = _doNotChangeCustomizationString;
-            instance.customizationString = customizationString;
+            instance.DoNotChangeCustomizationString = DoNotChangeCustomizationString;
+            instance.CustomizationString = CustomizationString;
             instance.DoNotChangeCustomizationString = DoNotChangeCustomizationString;
             instance.fchangeViewForTypeDelegate = fchangeViewForTypeDelegate;
-            instance.m_iCommandTimeout = m_iCommandTimeout;
+            instance.CommandTimeout = CommandTimeout;
             instance.fldTypeUsage = fldTypeUsage;
-            instance.m_bUseCommandTimeout = m_bUseCommandTimeout;
+            instance.UseCommandTimeout = UseCommandTimeout;
             instance.mustNewgenerate = mustNewgenerate;
             instance.prvInstanceId = prvInstanceId;
-            instance.prvStorageType = prvStorageType;
+            instance.StorageType = StorageType;
             instance.prvTypesByKeys = prvTypesByKeys;
 
             if (AfterGenerateSQLSelectQueryStatic != null)

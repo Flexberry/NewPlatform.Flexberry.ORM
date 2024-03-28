@@ -2,11 +2,7 @@
 {
     using System;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.FunctionalLanguage;
-
-    using Unity;
-    using Unity.Exceptions;
 
     /// <summary>
     /// Определение переменной ограничения, предназначенное для описания детейлов.
@@ -16,6 +12,8 @@
         private View fView;
         private string fConnectMasterPorp;
         private string[] fownerConnectProp;
+
+        private static IViewGenerator viewGenerator;
 
         public DetailVariableDef()
         {
@@ -49,6 +47,28 @@
         }
 
         /// <summary>
+        /// Динамический генератор ограничений.
+        /// Данная конструкция выполнена для очистки проекта от применения Unity напрямую.
+        /// </summary>
+        public static IViewGenerator ViewGenerator
+        {
+            private get
+            {
+                return viewGenerator;
+            }
+
+            set
+            {
+                if (viewGenerator != null)
+                {
+                    throw new Exception("DetailVariableDef.ViewGenerator should not be reset.");
+                }
+
+                viewGenerator = value;
+            }
+        }
+
+        /// <summary>
         /// Получение представления по его имени и типу.
         /// Если представление не найдено среди статических, то есть возможность сформировать его динамически (используется в редакторе ограничений).
         /// </summary>
@@ -62,17 +82,7 @@
             if (resultView == null)
             {
                 // Если не удалось получить представление для детейла стандартным методом, то пробуем сделать это другим способом.
-                IUnityContainer container = UnityFactory.GetContainer();
-                IViewGenerator resolvedType;
-
-                try
-                {
-                    resolvedType = container.Resolve<IViewGenerator>();
-                }
-                catch (ResolutionFailedException)
-                {
-                    resolvedType = null;
-                }
+                IViewGenerator resolvedType = ViewGenerator;
 
                 if (resolvedType != null)
                 {

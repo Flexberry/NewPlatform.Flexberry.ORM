@@ -8,14 +8,11 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.1</FileVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
 
 </Project>

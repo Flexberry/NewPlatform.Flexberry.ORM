@@ -13,7 +13,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Spatial" Version="7.10.0" />
     <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.2.1" />
-    <PackageReference Include="Unity.Abstractions" Version="5.11.6" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' ">
@@ -22,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Collections\ICSSoft.STORMNET.Collections.csproj" />
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
 
 </Project>
