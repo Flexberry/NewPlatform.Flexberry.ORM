@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+
     using ICSSoft.Services;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
@@ -136,8 +137,11 @@
             public string AuditConnectionStringName => throw new NotImplementedException();
 
             public bool ShowPrimaryKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
             public bool PersistUtcDates { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
             public AuditAppSetting AppSetting { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
             public IAudit Audit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
             public void AddCreateAuditInformation(DataObject operationedObject)

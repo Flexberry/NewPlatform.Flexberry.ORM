@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net6.0;net7.0;net8.0</TargetFrameworks>
     <RootNamespace>NewPlatform.Flexberry.ORM.IntegratedTests</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.IntegratedTests</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Tests.snk</AssemblyOriginatorKeyFile>
@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
     <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
