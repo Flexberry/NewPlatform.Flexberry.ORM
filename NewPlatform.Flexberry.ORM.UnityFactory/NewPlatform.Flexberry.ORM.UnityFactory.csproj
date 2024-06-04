@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0;net8.0</TargetFrameworks>
     <RootNamespace>ICSSoft.Services</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.UnityFactory</AssemblyName>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.ORM.UnityFactory.snk</AssemblyOriginatorKeyFile>
@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Unity.Abstractions" Version="5.11.6" />
     <PackageReference Include="Unity.Configuration" Version="5.11.2" />
-    <PackageReference Include="Unity.Container" Version="5.11.8" />
+    <PackageReference Include="Unity.Container" Version="5.11.8" />  
   </ItemGroup>
 
 </Project>
