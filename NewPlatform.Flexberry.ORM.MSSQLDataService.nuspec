@@ -42,6 +42,10 @@
 			<dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta01" />
 			<dependency id="System.Data.SqlClient" version="4.6.1" />
 		</group>
+		<group targetFramework="net8.0">
+			<dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta01" />
+			<dependency id="Microsoft.Data.SqlClient" version="5.0.0" />
+		</group>
     </dependencies>
   </metadata>
   <files>
@@ -62,5 +66,9 @@
 	
 	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
+	<file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
+
   </files>
 </package>
