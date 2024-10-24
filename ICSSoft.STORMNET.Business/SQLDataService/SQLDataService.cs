@@ -1862,10 +1862,11 @@
                     myCommand.CommandText = query;
                     myCommand.Transaction = transaction;
                     CustomizeCommand(myCommand);
-
-                    IDataReader myReader = myCommand.ExecuteReader();
-                    state = new object[] { connection, myReader };
-                    return ReadNextByExtConn(ref state, loadingBufferSize);
+                    using (IDataReader myReader = myCommand.ExecuteReader())
+                    {
+                        state = new object[] { connection, myReader };
+                        return ReadNextByExtConn(ref state, loadingBufferSize);
+                    }
                 }
             }
             catch (Exception e)
