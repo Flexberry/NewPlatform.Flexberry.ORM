@@ -69,6 +69,17 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
+      - name: Install .NET 8.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install .NET 9.0 Preview
+        uses: actions/setup-dotnet@v3
+        with:
+         dotnet-version: 9.0.100-preview.5
+         dotnet-quality: preview
+
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
         
@@ -95,6 +106,18 @@ jobs:
 
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+    
+      - name: Test on dotnet 8.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 8.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Integration test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -154,6 +177,17 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
+      - name: Install .NET 8.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install .NET 9.0 Preview
+        uses: actions/setup-dotnet@v3
+        with:
+         dotnet-version: 9.0.100-preview.5
+         dotnet-quality: preview
+
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
         
@@ -180,6 +214,18 @@ jobs:
 
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Test on dotnet 8.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 8.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Integration test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll

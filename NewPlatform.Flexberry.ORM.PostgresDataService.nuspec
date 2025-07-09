@@ -42,5 +42,9 @@
 
 	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net8.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net8.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net9.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
   </files>
 </package>

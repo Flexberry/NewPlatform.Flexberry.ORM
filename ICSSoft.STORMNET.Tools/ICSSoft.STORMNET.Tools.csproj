@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET.Tools</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Tools</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Tools.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
     <Reference Include="System.DirectoryServices" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0' ">
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
   </ItemGroup>
 
