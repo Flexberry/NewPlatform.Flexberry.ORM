@@ -70,9 +70,9 @@
 	
 	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net7.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net8.0\" />
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
 	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net8.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net9.0\" />
+	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
 	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net9.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
   </files>
 </package>

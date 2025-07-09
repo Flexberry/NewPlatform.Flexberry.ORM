@@ -286,7 +286,7 @@
 	<file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net8.0\ICSSoft.STORMNET.Business.LINQProvider.dll" />
 	<file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net8.0\ICSSoft.STORMNET.Business.LINQProvider.XML" />
 	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net8.0\ICSSoft.STORMNET.Business.LockService.dll" />
-	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net8.0\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net8.0\ICSSOft.STORMNET.Business.LockService.xml" />
+	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net8.0\ICSSoft.STORMNET.Business.LockService.xml" target="lib\net8.0\ICSSOft.STORMNET.Business.LockService.xml" />
 	<file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net8.0\ICSSoft.STORMNET.Collections.dll" target="lib\net8.0\ICSSoft.STORMNET.Collections.dll" />
 	<file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net8.0\ICSSoft.STORMNET.Collections.xml" target="lib\net8.0\ICSSoft.STORMNET.Collections.xml" />
 	<file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net8.0\ICSSoft.STORMNET.DataObject.dll" target="lib\net8.0\ICSSoft.STORMNET.DataObject.dll" />
