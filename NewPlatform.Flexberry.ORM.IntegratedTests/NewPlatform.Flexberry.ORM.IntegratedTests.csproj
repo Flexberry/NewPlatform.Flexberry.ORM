@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net6.0;net7.0;net9.0</TargetFrameworks>
     <RootNamespace>NewPlatform.Flexberry.ORM.IntegratedTests</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.IntegratedTests</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Tests.snk</AssemblyOriginatorKeyFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
+	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,13 +20,17 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP))">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.0" />
+	</ItemGroup> 
+
+		<ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP))">
+			<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+		</ItemGroup>
 
   <ItemGroup>
     <None Remove="SqlScripts\**" />
-  </ItemGroup>
+  </ItemGroup> 
 
   <ItemGroup>
     <EmbeddedResource Update="Resources.resx">
