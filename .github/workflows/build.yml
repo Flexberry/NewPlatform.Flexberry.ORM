@@ -112,7 +112,7 @@ jobs:
       # Label used to access the service container
       mssql:
         # Docker Hub image
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04 
         # Provide the password for mssql
         env:
           ACCEPT_EULA: Y
