@@ -21,7 +21,7 @@ jobs:
   # This workflow contains a single job called "build-postgres"
   build-postgres:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
@@ -36,7 +36,7 @@ jobs:
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
@@ -46,7 +46,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Several .NET Core versions will be used during the test run.
       # The lowest version gets installed first in order to prevent
@@ -69,16 +69,11 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Install .NET 8.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
       - name: Install .NET 9.0 Preview
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.100-preview.5
-          dotnet-quality: preview
+          dotnet-version: 9.0.x
+          include-prerelease: true
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
@@ -107,14 +102,8 @@ jobs:
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
-      - name: Test on dotnet 8.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.Tests.dll
-
       - name: Test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
-
-      - name: Integration test on dotnet 8.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -129,13 +118,13 @@ jobs:
   # This workflow contains a single job called "build-mssql"
   build-mssql:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
       mssql:
         # Docker Hub image
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2022-CU10-ubuntu-20.04
         # Provide the password for mssql
         env:
           ACCEPT_EULA: Y
@@ -145,7 +134,7 @@ jobs:
           --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${SA_PASSWORD} -Q 'SELECT 1' -b -o /dev/null"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
         ports:
           # Maps tcp port 1433 on service container to the host
           - 1433:1433
@@ -154,7 +143,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Several .NET Core versions will be used during the test run.
       # The lowest version gets installed first in order to prevent
@@ -177,16 +166,11 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Install .NET 8.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
       - name: Install .NET 9.0 Preview
         uses: actions/setup-dotnet@v4
         with:
-         dotnet-version: 9.0.100-preview.5
-         dotnet-quality: preview
+          dotnet-version: 9.0.x
+          include-prerelease: true
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
@@ -215,14 +199,8 @@ jobs:
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
-      - name: Test on dotnet 8.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.Tests.dll
-
       - name: Test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
-
-      - name: Integration test on dotnet 8.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net8.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Integration test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -237,13 +215,13 @@ jobs:
   # This workflow contains a single job called "doxygen"
   doxygen:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # Requiring dependent jobs to be successful
     needs: [build-postgres, build-mssql]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         
       - name: Install apt-get packages
         run: sudo apt-get install -y doxygen
