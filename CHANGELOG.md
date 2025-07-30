@@ -28,7 +28,6 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 8. Constructor of class `AuditService`.
 9. Constructor of class `BusinessServerProvider`.
 
-
 ### Deprecated
 1. `ExternalLangDef.LanguageDef` (correct way is creation of new instance of `ExternalLangDef` with proper DataService).
 2. `UnityFactory`.
@@ -49,6 +48,7 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 12. Getting of `CommandTimeout` throught configuration file.
 
 ### Fixed
+1. Disposing of `IDataReader` during data loading at `SQLDataService`.
 
 ### Security
 
