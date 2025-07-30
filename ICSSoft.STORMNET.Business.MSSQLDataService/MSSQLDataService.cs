@@ -45,11 +45,26 @@
         /// <returns>Соединение с БД.</returns>
         public override System.Data.IDbConnection GetConnection()
         {
+#if NET9_0
+             return new Microsoft.Data.SqlClient.SqlConnection(CustomizationString);
+#else
             return new System.Data.SqlClient.SqlConnection(CustomizationString);
+#endif
+
         }
 
         /// <inheritdoc />
-        public override System.Data.Common.DbProviderFactory ProviderFactory => System.Data.SqlClient.SqlClientFactory.Instance;
+        public override System.Data.Common.DbProviderFactory ProviderFactory
+        {
+            get
+            {
+#if NET9_0
+                return Microsoft.Data.SqlClient.SqlClientFactory.Instance;
+#else
+                return System.Data.SqlClient.SqlClientFactory.Instance;
+#endif
+            }
+        }
 
         /// <summary>
         /// Вернуть объект <see cref="System.Data.Common.DbConnection"/>, предназначенный для работы с MSSQLServer и настроенный на строку соединения <see cref="SQLDataService.CustomizationString"/>.
@@ -57,7 +72,11 @@
         /// <returns>Соединение с БД.</returns>
         public override System.Data.Common.DbConnection GetDbConnection()
         {
+#if NET9_0
+            return new Microsoft.Data.SqlClient.SqlConnection(CustomizationString);
+#else
             return new System.Data.SqlClient.SqlConnection(CustomizationString);
+#endif
         }
 
         /// <summary>
