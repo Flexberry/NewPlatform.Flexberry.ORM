@@ -139,7 +139,7 @@ jobs:
           # Maps tcp port 1433 on service container to the host
           - 1433:1433
     env:
-      ConnectionStringMssql: "SERVER=localhost;User ID=sa;Password=p@ssw0rd;"
+      ConnectionStringMssql: "SERVER=localhost;User ID=sa;Password=p@ssw0rd;TrustServerCertificate=true;"
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
