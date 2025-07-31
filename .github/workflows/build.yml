@@ -231,14 +231,13 @@ jobs:
             PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
         run: |
           set -x
-          export PRIVATE_KEY
-          # Setup SSH agent
-          export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+          # Setup SSH agent
+          export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
           # Start ssh agent
-          ssh-agent -a $SSH_AUTH_SOCK #> /dev/null
-          ssh-add - <<< "${PRIVATE_KEY}"
+          eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
+          echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
 
       - name: Update documentation
         run: |
