@@ -90,6 +90,9 @@ jobs:
           sudo apt-get install -y mono-complete mono-devel
           mono --version
 
+      - name: Install Nuget
+        run: sudo apt-get install -y nuget
+
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
         
@@ -200,6 +203,9 @@ jobs:
           # Устанавливаем полный набор Mono
           sudo apt-get install -y mono-complete mono-devel
           mono --version
+
+      - name: Install Nuget
+        run: sudo apt-get install -y nuget
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
