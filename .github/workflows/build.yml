@@ -233,8 +233,10 @@ jobs:
           set -x
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+
           # Setup SSH agent
           export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
+
           # Start ssh agent
           eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
           echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
