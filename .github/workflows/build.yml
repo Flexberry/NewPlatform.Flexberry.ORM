@@ -15,6 +15,7 @@ on:
 
 env:
   XUNIT_RUNNER: "2.4.1"
+  MONO_VERSION: "6.12.0.182"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -74,6 +75,19 @@ jobs:
         with:
           dotnet-version: 9.0.x
           include-prerelease: true
+
+      - name: Install Mono ${{ env.MONO_VERSION }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg ca-certificates
+          # Добавляем GPG ключ официального репозитория Mono
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+          # Добавляем репозиторий с конкретной стабильной версией Mono snapshot
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          sudo apt-get update
+          # Устанавливаем полный набор Mono
+          sudo apt-get install -y mono-complete mono-devel
+          mono --version
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
@@ -171,6 +185,19 @@ jobs:
         with:
           dotnet-version: 9.0.x
           include-prerelease: true
+
+      - name: Install Mono ${{ env.MONO_VERSION }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg ca-certificates
+          # Добавляем GPG ключ официального репозитория Mono
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+          # Добавляем репозиторий с конкретной стабильной версией Mono snapshot
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          sudo apt-get update
+          # Устанавливаем полный набор Mono
+          sudo apt-get install -y mono-complete mono-devel
+          mono --version
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
