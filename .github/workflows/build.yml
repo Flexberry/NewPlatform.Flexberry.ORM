@@ -253,6 +253,17 @@ jobs:
       - name: Install apt-get packages
         run: sudo apt-get install -y doxygen
 
+      - name: Debug PRIVATE_KEY length
+        env:
+            PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
+        run: |
+            echo "PRIVATE_KEY length: ${#PRIVATE_KEY}"
+            if [ -z "$PRIVATE_KEY" ]; then
+            echo "PRIVATE_KEY is empty!"
+            else
+            echo "PRIVATE_KEY is not empty"
+            fi
+
       - name: Tune ssh-keys
         env:
             PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
