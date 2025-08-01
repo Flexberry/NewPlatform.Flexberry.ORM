@@ -1,7 +1,17 @@
-﻿namespace ICSSoft.STORMNET.Business
+namespace ICSSoft.STORMNET.Business
 {
     using System;
     using System.Collections;
+
+#if NET9_0
+    using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
+    using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
+    using SqlClientFactory = Microsoft.Data.SqlClient.SqlClientFactory;
+#else
+    using SqlConnection = System.Data.SqlClient.SqlConnection;
+    using SqlCommand = System.Data.SqlClient.SqlCommand;
+    using SqlClientFactory = System.Data.SqlClient.SqlClientFactory;
+#endif
 
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Interfaces;
@@ -45,12 +55,7 @@
         /// <returns>Соединение с БД.</returns>
         public override System.Data.IDbConnection GetConnection()
         {
-#if NET9_0
-             return new Microsoft.Data.SqlClient.SqlConnection(CustomizationString);
-#else
-            return new System.Data.SqlClient.SqlConnection(CustomizationString);
-#endif
-
+            return new SqlConnection(CustomizationString);
         }
 
         /// <inheritdoc />
@@ -58,11 +63,7 @@
         {
             get
             {
-#if NET9_0
-                return Microsoft.Data.SqlClient.SqlClientFactory.Instance;
-#else
-                return System.Data.SqlClient.SqlClientFactory.Instance;
-#endif
+                return SqlClientFactory.Instance;
             }
         }
 
@@ -72,11 +73,7 @@
         /// <returns>Соединение с БД.</returns>
         public override System.Data.Common.DbConnection GetDbConnection()
         {
-#if NET9_0
-            return new Microsoft.Data.SqlClient.SqlConnection(CustomizationString);
-#else
-            return new System.Data.SqlClient.SqlConnection(CustomizationString);
-#endif
+            return new SqlConnection(CustomizationString);
         }
 
         /// <summary>

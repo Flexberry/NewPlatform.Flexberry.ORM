@@ -80,12 +80,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gnupg ca-certificates
-          # Добавляем GPG ключ официального репозитория Mono
+          # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GPG пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Mono
           sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          # Добавляем репозиторий с конкретной стабильной версией Mono snapshot
+          # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Mono snapshot
           echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
           sudo apt-get update
-          # Устанавливаем полный набор Mono
+          # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Mono
           sudo apt-get install -y mono-complete mono-devel
           mono --version
 
@@ -199,12 +199,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gnupg ca-certificates
-          # Добавляем GPG ключ официального репозитория Mono
+          # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GPG пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Mono
           sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          # Добавляем репозиторий с конкретной стабильной версией Mono snapshot
+          # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Mono snapshot
           echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
           sudo apt-get update
-          # Устанавливаем полный набор Mono
+          # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Mono
           sudo apt-get install -y mono-complete mono-devel
           mono --version
 
@@ -270,17 +270,6 @@ jobs:
         
       - name: Install apt-get packages
         run: sudo apt-get install -y doxygen
-
-      - name: Debug PRIVATE_KEY length
-        env:
-            PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
-        run: |
-            echo "PRIVATE_KEY length: ${#PRIVATE_KEY}"
-            if [ -z "$PRIVATE_KEY" ]; then
-            echo "PRIVATE_KEY is empty!"
-            else
-            echo "PRIVATE_KEY is not empty"
-            fi
 
       - name: Tune ssh-keys
         env:

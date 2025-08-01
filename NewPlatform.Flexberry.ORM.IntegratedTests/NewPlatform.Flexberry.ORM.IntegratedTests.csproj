@@ -21,13 +21,13 @@
     </PackageReference>
   </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-		<PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.0" />
-	</ItemGroup> 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+	<PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.0" />
+  </ItemGroup> 
 
-		<ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP))">
-			<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
-		</ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP))">
+	<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="SqlScripts\**" />
