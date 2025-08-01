@@ -78,13 +78,12 @@ jobs:
 
       - name: Install Mono ${{ env.MONO_VERSION }}
         run: |
-          sudo apt-get purge -y mono-runtime mono-devel mono-complete || true
           sudo apt-get update
           sudo apt-get install -y gnupg ca-certificates
           # Добавляем GPG ключ официального репозитория Mono
           sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
           # Добавляем репозиторий с конкретной стабильной версией Mono snapshot
-          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
           sudo apt-get update
           # Устанавливаем полный набор Mono
           sudo apt-get install -y mono-complete mono-devel
@@ -111,6 +110,9 @@ jobs:
       - name: Test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
 
+      - name: Wait before mono tests (to reduce SIGSEGV risk)
+        run: sleep 15
+
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
@@ -125,6 +127,9 @@ jobs:
 
       - name: Integration test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Wait before mono integration tests (to reduce SIGSEGV risk)
+        run: sleep 15
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -192,13 +197,12 @@ jobs:
 
       - name: Install Mono ${{ env.MONO_VERSION }}
         run: |
-          sudo apt-get purge -y mono-runtime mono-devel mono-complete || true
           sudo apt-get update
           sudo apt-get install -y gnupg ca-certificates
           # Добавляем GPG ключ официального репозитория Mono
           sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
           # Добавляем репозиторий с конкретной стабильной версией Mono snapshot
-          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
           sudo apt-get update
           # Устанавливаем полный набор Mono
           sudo apt-get install -y mono-complete mono-devel
@@ -225,6 +229,9 @@ jobs:
       - name: Test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
 
+      - name: Wait before mono tests (to reduce SIGSEGV risk)
+        run: sleep 15
+
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
@@ -239,6 +246,9 @@ jobs:
 
       - name: Integration test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Wait before mono integration tests (to reduce SIGSEGV risk)
+        run: sleep 15
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
