@@ -5,9 +5,16 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Data.SqlClient;
     using System.Linq;
     using System.Threading;
+
+#if NET9_0
+    using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
+    using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
+#else
+    using SqlConnection = System.Data.SqlClient.SqlConnection;
+    using SqlCommand = System.Data.SqlClient.SqlCommand;
+#endif
 
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Business.Audit;

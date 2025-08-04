@@ -1,7 +1,17 @@
-﻿namespace ICSSoft.STORMNET.Business
+namespace ICSSoft.STORMNET.Business
 {
     using System;
     using System.Collections;
+
+#if NET9_0
+    using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
+    using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
+    using SqlClientFactory = Microsoft.Data.SqlClient.SqlClientFactory;
+#else
+    using SqlConnection = System.Data.SqlClient.SqlConnection;
+    using SqlCommand = System.Data.SqlClient.SqlCommand;
+    using SqlClientFactory = System.Data.SqlClient.SqlClientFactory;
+#endif
 
     using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Interfaces;
@@ -45,11 +55,17 @@
         /// <returns>Соединение с БД.</returns>
         public override System.Data.IDbConnection GetConnection()
         {
-            return new System.Data.SqlClient.SqlConnection(CustomizationString);
+            return new SqlConnection(CustomizationString);
         }
 
         /// <inheritdoc />
-        public override System.Data.Common.DbProviderFactory ProviderFactory => System.Data.SqlClient.SqlClientFactory.Instance;
+        public override System.Data.Common.DbProviderFactory ProviderFactory
+        {
+            get
+            {
+                return SqlClientFactory.Instance;
+            }
+        }
 
         /// <summary>
         /// Вернуть объект <see cref="System.Data.Common.DbConnection"/>, предназначенный для работы с MSSQLServer и настроенный на строку соединения <see cref="SQLDataService.CustomizationString"/>.
@@ -57,7 +73,7 @@
         /// <returns>Соединение с БД.</returns>
         public override System.Data.Common.DbConnection GetDbConnection()
         {
-            return new System.Data.SqlClient.SqlConnection(CustomizationString);
+            return new SqlConnection(CustomizationString);
         }
 
         /// <summary>

@@ -15,13 +15,14 @@ on:
 
 env:
   XUNIT_RUNNER: "2.4.1"
+  MONO_VERSION: "6.12.0.182"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build-postgres"
   build-postgres:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
@@ -36,7 +37,7 @@ jobs:
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
@@ -46,28 +47,48 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Several .NET Core versions will be used during the test run.
       # The lowest version gets installed first in order to prevent
       # "a newer version is already installed" install errors.
 
       - name: Install .NET Core 3.1
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 3.1.x
 
       # Building requires an up-to-date .NET SDK.
 
       - name: Install .NET 6.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
 
       - name: Install .NET 7.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
+
+      - name: Install .NET 9.0 Preview
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+          dotnet-quality: preview
+
+      - name: Install Mono ${{ env.MONO_VERSION }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg ca-certificates
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          sudo apt-get update
+          sudo apt-get install -y mono-complete mono-devel
+          mono --version
+
+
+      - name: Install Nuget
+        run: sudo apt-get install -y nuget
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
@@ -87,6 +108,9 @@ jobs:
       - name: Test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
 
+      - name: Wait before mono tests (to reduce SIGSEGV risk)
+        run: sleep 15
+
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
@@ -95,6 +119,15 @@ jobs:
 
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Wait before mono integration tests (to reduce SIGSEGV risk)
+        run: sleep 15
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -106,13 +139,13 @@ jobs:
   # This workflow contains a single job called "build-mssql"
   build-mssql:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
       mssql:
         # Docker Hub image
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2022-CU10-ubuntu-20.04
         # Provide the password for mssql
         env:
           ACCEPT_EULA: Y
@@ -122,37 +155,57 @@ jobs:
           --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${SA_PASSWORD} -Q 'SELECT 1' -b -o /dev/null"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
         ports:
           # Maps tcp port 1433 on service container to the host
           - 1433:1433
     env:
-      ConnectionStringMssql: "SERVER=localhost;User ID=sa;Password=p@ssw0rd;"
+      ConnectionStringMssql: "SERVER=localhost;User ID=sa;Password=p@ssw0rd;TrustServerCertificate=true;"
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Several .NET Core versions will be used during the test run.
       # The lowest version gets installed first in order to prevent
       # "a newer version is already installed" install errors.
 
       - name: Install .NET Core 3.1
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 3.1.x
 
       # Building requires an up-to-date .NET SDK.
 
       - name: Install .NET 6.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
 
       - name: Install .NET 7.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
+
+      - name: Install .NET 9.0 Preview
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+          dotnet-quality: preview
+
+      - name: Install Mono ${{ env.MONO_VERSION }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg ca-certificates
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          sudo apt-get update
+          sudo apt-get install -y mono-complete mono-devel
+          mono --version
+
+
+      - name: Install Nuget
+        run: sudo apt-get install -y nuget
 
       - name: NuGet Restore
         run: dotnet restore "Flexberry ORM.sln"
@@ -172,6 +225,9 @@ jobs:
       - name: Test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
 
+      - name: Wait before mono tests (to reduce SIGSEGV risk)
+        run: sleep 15
+
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net461/NewPlatform.Flexberry.ORM.Tests.dll
 
@@ -180,6 +236,15 @@ jobs:
 
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
+
+      - name: Integration test on dotnet 9.0
+        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+
+      - name: Wait before mono integration tests (to reduce SIGSEGV risk)
+        run: sleep 15
 
       - name: Integration test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net461/NewPlatform.Flexberry.ORM.IntegratedTests.dll
@@ -191,13 +256,13 @@ jobs:
   # This workflow contains a single job called "doxygen"
   doxygen:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # Requiring dependent jobs to be successful
     needs: [build-postgres, build-mssql]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         
       - name: Install apt-get packages
         run: sudo apt-get install -y doxygen
@@ -207,14 +272,15 @@ jobs:
             PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
         run: |
           set -x
-          export PRIVATE_KEY
-          # Setup SSH agent
-          export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+          # Setup SSH agent
+          export SSH_AUTH_SOCK=/tmp/ssh_agent.sock
+
           # Start ssh agent
-          ssh-agent -a $SSH_AUTH_SOCK #> /dev/null
-          ssh-add - <<< "${PRIVATE_KEY}"
+          eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
+          echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
 
       - name: Update documentation
         run: |
