@@ -74,19 +74,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-          include-prerelease: true
+          dotnet-quality: preview
 
-      - name: Install Mono ${{ env.MONO_VERSION }}
+      - name: Install Mono
         run: |
           sudo apt-get update
-          sudo apt-get install -y gnupg ca-certificates
-          # ��������� GPG ���� ������������ ����������� Mono
-          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          # ��������� ����������� � ���������� ���������� ������� Mono snapshot
-          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-          sudo apt-get update
-          # ������������� ������ ����� Mono
-          sudo apt-get install -y mono-complete mono-devel
+          sudo apt-get install -y snapd
+          sudo snap install mono --classic
           mono --version
 
       - name: Install Nuget
@@ -193,19 +187,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-          include-prerelease: true
+          dotnet-quality: preview
 
-      - name: Install Mono ${{ env.MONO_VERSION }}
+      - name: Install Mono
         run: |
           sudo apt-get update
-          sudo apt-get install -y gnupg ca-certificates
-          # ��������� GPG ���� ������������ ����������� Mono
-          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          # ��������� ����������� � ���������� ���������� ������� Mono snapshot
-          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-          sudo apt-get update
-          # ������������� ������ ����� Mono
-          sudo apt-get install -y mono-complete mono-devel
+          sudo apt-get install -y snapd
+          sudo snap install mono --classic
           mono --version
 
       - name: Install Nuget
