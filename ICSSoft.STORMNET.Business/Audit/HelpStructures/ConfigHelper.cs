@@ -82,12 +82,12 @@
             return DataServiceCache.GetOrAdd(dataServiceCacheKey, _ =>
             {
                 List<ConstructorInfo> foundConstructors = dataServiceRealType.GetConstructors()
-                         .Where(x => x.GetParameters().Count() == 1 &&
-                                     x.GetParameters().All(y => y.ParameterType == typeof(ISecurityManager)))
+                         .Where(x => x.GetParameters().Count() == 3 &&
+                                     x.GetParameters().Any(y => y.ParameterType == typeof(ISecurityManager)))
                          .ToList();
 
                 IDataService dataService = foundConstructors.Count == 1
-                    ? (IDataService)foundConstructors[0].Invoke(new object[] { new EmptySecurityManager() })
+                    ? (IDataService)foundConstructors[0].Invoke(new object[] { new EmptySecurityManager(), new EmptyAuditService(), new EmptyBusinessServerProvider() })
                     : (IDataService)Activator.CreateInstance(dataServiceRealType);
 
                 dataService.CustomizationString = realDataServiceCustomizationString;
