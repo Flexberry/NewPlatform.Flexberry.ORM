@@ -691,11 +691,8 @@
 
 #if NETCOREAPP3_1
     // Исправление для Npgsql 6.0.10: литералы 'unknown' -> text
-    query = Regex.Replace(
-        query,
-        @"\('Association'\)\s+as\s+AssocType",
-        "('Association'::text) as AssocType",
-        RegexOptions.IgnoreCase);
+    query = query.Replace("('Association')", "('Association'::text)");
+    query = query.Replace("('Association') as AssocType", "('Association'::text) as AssocType");
 #endif
         }
 
