@@ -21,7 +21,6 @@
     <tags>Flexberry ORM</tags>
     <dependencies>
       <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta02" />
-      <dependency id="Npgsql" version="3.2.7" />
     </dependencies>
   </metadata>
   <files>
