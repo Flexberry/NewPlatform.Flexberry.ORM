@@ -708,19 +708,19 @@
         [Fact]
         public void LongNamesTest()
         {
+            const bool Attr3Value = true;
+
             if (DataService == null)
             {
                 return;
             }
 
-            var masterRoot = new MasterRoot { MasterAttr = 234 };
+            MasterRoot masterRoot = new MasterRoot { MasterAttr = 234 };
 
             var мастерКласс01 = new МастерКлассДлинноеИмя { MasterAttr2 = true, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var мастерКласс02 = new МастерКлассДлинноеИмя { MasterAttr2 = false, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var мастерКласс2 = new МастерКлассДлинноеИмя2 { MasterAttr2 = true, АтрибутМастерКласса01 = "АтрибутМастерКласса01", MasterRoot = masterRoot };
             var класс = new ДочернийКлассДлинноеИмя { MasterClass = мастерКласс01, МастерКлассДлинноеИмя01 = мастерКласс01, МастерКлассДлинноеИмя02 = мастерКласс2, Attr1 = "123", Attr2 = 55, Атрибут3 = true };
-
-            ////var класс2 = new ДочернийКлассДлинноеИмя2 { MasterClass = мастерКласс, МастерКлассДлинноеИмя = мастерКласс, МастерКлассДлинноеИмя2 = мастерКласс2, Attr1 = "abc", Attr2 = 55, Атрибут3 = true };
 
             var objsToUpdate = new DataObject[] { мастерКласс01, класс, мастерКласс02, masterRoot };
             DataService.UpdateObjects(ref objsToUpdate, new DataObjectCache(), true);
@@ -731,7 +731,12 @@
             var classes = DataService.LoadObjects(new[] { lcs });
 
             var clazz2 = new ДочернийКлассДлинноеИмя { __PrimaryKey = класс.__PrimaryKey };
-            DataService.LoadObject(clazz2);
+            DataService.LoadObject(ДочернийКлассДлинноеИмя.Views.TestView2, clazz2);
+            Assert.NotNull(clazz2);
+
+            Assert.Equal(Attr3Value, clazz2.Атрибут3);
+            Assert.NotNull(clazz2.МастерКлассДлинноеИмя01);
+            Assert.Equal(класс.МастерКлассДлинноеИмя01.__PrimaryKey, clazz2.МастерКлассДлинноеИмя01.__PrimaryKey);
         }
 
         /// <summary>

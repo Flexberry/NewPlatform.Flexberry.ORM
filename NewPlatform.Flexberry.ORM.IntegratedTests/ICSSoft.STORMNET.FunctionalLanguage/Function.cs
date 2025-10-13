@@ -8,6 +8,7 @@
     using ICSSoft.STORMNET.Windows.Forms;
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
+    using Unity.Injection;
 
     /// <summary>
     /// Класс для тестирования Function.cs.
@@ -24,14 +25,16 @@
         public void FunctionSerializeTst1()
         {
             ExternalLangDef eld = ExternalLangDef.LanguageDef;
+            Guid userId = Guid.NewGuid();
 
             Function f = eld.GetFunction(
                 eld.funcAND,
                 eld.GetFunction(eld.funcEQ, new VariableDef(eld.BoolType, "Актуально")),
-                eld.GetFunction(eld.funcEQ, new VariableDef(eld.GuidType, "Пользователь"), Guid.NewGuid()));
+                eld.GetFunction(eld.funcEQ, new VariableDef(eld.GuidType, "Пользователь"), userId));
             string s = f.ToUserFriendlyString();
 
             Console.WriteLine(s);
+            Assert.Equal("Актуально И Пользователь = " + userId.ToString(), s);
         }
 
         [Fact]
@@ -39,14 +42,16 @@
         public void FunctionSerializeTst2()
         {
             ExternalLangDef eld = ExternalLangDef.LanguageDef;
+            Guid userId = Guid.NewGuid();
 
             Function f = eld.GetFunction(
                 eld.funcAND,
                 eld.GetFunction(eld.funcEQ, new VariableDef(eld.StringType, "Актуально"), "Да"),
-                eld.GetFunction(eld.funcEQ, new VariableDef(eld.GuidType, "Пользователь"), Guid.NewGuid()));
+                eld.GetFunction(eld.funcEQ, new VariableDef(eld.GuidType, "Пользователь"), userId));
             string s = f.ToUserFriendlyString();
 
             Console.WriteLine(s);
+            Assert.Equal("Актуально = Да И Пользователь = " + userId.ToString(), s);
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-
     using Xunit;
 
     /// <summary>
@@ -18,13 +17,14 @@
         [Fact]
         public void ForeachWithMethodTesting()
         {
-            string str = "";
+            string str = string.Empty;
             foreach (string s in GetArray())
             {
-                str += (string.IsNullOrEmpty(str) ? "" : ",") + s;
+                str += (string.IsNullOrEmpty(str) ? string.Empty : ",") + s;
             }
 
             Console.WriteLine(str);
+            Assert.True(str != string.Empty);
         }
 
         private int count = 0;
@@ -46,38 +46,41 @@
         [Fact]
         public void ForeachWithPropertyTesting()
         {
-            string str = "";
+            string str = string.Empty;
             ForeachClass foreachClass = new ForeachClass();
             foreach (string s in foreachClass.Array)
             {
-                str += (string.IsNullOrEmpty(str) ? "" : ",") + s;
+                str += (string.IsNullOrEmpty(str) ? string.Empty : ",") + s;
             }
 
             Console.WriteLine(str);
+            Assert.True(str != string.Empty);
         }
 
         [Fact]
         public void ForeachWithPropAndMethodTesting()
         {
-            string str = "";
-            foreach (string s in (new ForeachClass1()).GetFC().Array)
+            string str = string.Empty;
+            foreach (string s in new ForeachClass1().GetFC().Array)
             {
-                str += (string.IsNullOrEmpty(str) ? "" : ",") + s;
+                str += (string.IsNullOrEmpty(str) ? string.Empty : ",") + s;
             }
 
             Console.WriteLine(str);
+            Assert.True(str != string.Empty);
         }
 
         [Fact]
         public void ForWithPropAndMethodTesting()
         {
-            string str = "";
-            for (int i = 0; i < (new ForeachClass1()).GetFC().Array.Length; i++)
+            string str = string.Empty;
+            for (int i = 0; i < new ForeachClass1().GetFC().Array.Length; i++)
             {
-                str += (string.IsNullOrEmpty(str) ? "" : ",") + "(new ForeachClass1()).GetFC().Array[i]";
+                str += (string.IsNullOrEmpty(str) ? string.Empty : ",") + "(new ForeachClass1()).GetFC().Array[i]";
             }
 
             Console.WriteLine(str);
+            Assert.NotEqual(str, string.Empty);
         }
 
         private class ForeachClass1
