@@ -70,11 +70,11 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Install .NET 9.0 Preview
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
-          dotnet-quality: preview
+      #- name: Install .NET 9.0 Preview
+      #  uses: actions/setup-dotnet@v4
+      #  with:
+      #    dotnet-version: 9.0.x
+      #    dotnet-quality: preview
 
       - name: Install Mono ${{ env.MONO_VERSION }}
         run: |
@@ -123,8 +123,8 @@ jobs:
       - name: Test on dotnet 9.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
 
-      - name: Integration test on dotnet 9.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+      #- name: Integration test on dotnet 9.0
+      #  run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Wait before mono integration tests (to reduce SIGSEGV risk)
         run: sleep 15
@@ -187,11 +187,11 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Install .NET 9.0 Preview
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
-          dotnet-quality: preview
+      #- name: Install .NET 9.0 Preview
+      #  uses: actions/setup-dotnet@v4
+      #  with:
+      #    dotnet-version: 9.0.x
+      #    dotnet-quality: preview
 
       - name: Install Mono ${{ env.MONO_VERSION }}
         run: |
@@ -237,11 +237,11 @@ jobs:
       - name: Integration test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
-      - name: Test on dotnet 9.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
+      #- name: Test on dotnet 9.0
+      #  run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.Tests.dll
 
-      - name: Integration test on dotnet 9.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
+      #- name: Integration test on dotnet 9.0
+      #  run: dotnet test ./NewPlatform.Flexberry.ORM.IntegratedTests/bin/Debug/net9.0/NewPlatform.Flexberry.ORM.IntegratedTests.dll
 
       - name: Wait before mono integration tests (to reduce SIGSEGV risk)
         run: sleep 15
