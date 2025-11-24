@@ -6,7 +6,8 @@
     using System.Configuration;
     using System.Linq;
     using System.Reflection;
-    using Security;
+
+    using ICSSoft.STORMNET.Security;
 
     /// <summary>
     /// Класс для получения данных из конфига.
