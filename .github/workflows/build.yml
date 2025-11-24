@@ -60,7 +60,7 @@ jobs:
           dotnet-version: 3.1.x
 
       - name: Restore for .NET 3.1
-        run: dotnet restore "Flexberry ORM.sln" --framework netcoreapp3.1
+        run: dotnet restore "Flexberry ORM.sln"
 
       - name: Build for .NET 3.1
         run: dotnet build "Flexberry ORM.sln" --no-restore -c Debug --framework netcoreapp3.1
@@ -184,7 +184,7 @@ jobs:
           dotnet-version: 3.1.x
 
       - name: Restore for .NET 3.1
-        run: dotnet restore "Flexberry ORM.sln" --framework netcoreapp3.1
+        run: dotnet restore "Flexberry ORM.sln"
 
       - name: Build for .NET 3.1
         run: dotnet build "Flexberry ORM.sln" --no-restore -c Debug --framework netcoreapp3.1
