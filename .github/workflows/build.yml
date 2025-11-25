@@ -53,22 +53,6 @@ jobs:
       # The lowest version gets installed first in order to prevent
       # "a newer version is already installed" install errors.
 
-      # === Этап 1: Только .NET 3.1 === (из-за несовместимости библиотек Microsoft.TestPlatform.CommunicationUtilities)
-      - name: Install .NET Core 3.1
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 3.1.x
-
-      - name: Restore for .NET 3.1
-        run: dotnet restore "Flexberry ORM.sln"
-
-      - name: Build for .NET 3.1
-        run: dotnet build "Flexberry ORM.sln" --no-restore -c Debug --framework netcoreapp3.1
-
-      - name: Test on dotnet 3.1
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/NewPlatform.Flexberry.ORM.Tests.csproj --no-build --framework netcoreapp3.1
-
-      # === Этап 2: Теперь можно ставить новые версии ===
       # Building requires an up-to-date .NET SDK.
 
       - name: Install .NET 6.0
@@ -177,24 +161,7 @@ jobs:
       # The lowest version gets installed first in order to prevent
       # "a newer version is already installed" install errors.
 
-      # === Этап 1: Только .NET 3.1 === (из-за несовместимости библиотек Microsoft.TestPlatform.CommunicationUtilities)
-      - name: Install .NET Core 3.1
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 3.1.x
-
-      - name: Restore for .NET 3.1
-        run: dotnet restore "Flexberry ORM.sln"
-
-      - name: Build for .NET 3.1
-        run: dotnet build "Flexberry ORM.sln" --no-restore -c Debug --framework netcoreapp3.1
-
-      - name: Test on dotnet 3.1
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/NewPlatform.Flexberry.ORM.Tests.csproj --no-build --framework netcoreapp3.1
-
-      # === Этап 2: Теперь можно ставить новые версии ===
       # Building requires an up-to-date .NET SDK.
-
       - name: Install .NET 6.0
         uses: actions/setup-dotnet@v4
         with:
