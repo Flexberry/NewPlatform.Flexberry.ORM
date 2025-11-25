@@ -25,7 +25,7 @@
 	<PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.0" />
   </ItemGroup> 
 
-  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP))">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net461'">
 	<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
 
