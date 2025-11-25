@@ -94,7 +94,7 @@ jobs:
         run: dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "Flexberry ORM.sln"
 
       - name: Test on dotnet 6.0
-        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net6.0/NewPlatform.Flexberry.ORM.Tests.dll
+        run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/NewPlatform.Flexberry.ORM.Tests.csproj -f net6.0 --no-build
 
       - name: Test on dotnet 7.0
         run: dotnet test ./NewPlatform.Flexberry.ORM.Tests/bin/Debug/net7.0/NewPlatform.Flexberry.ORM.Tests.dll
