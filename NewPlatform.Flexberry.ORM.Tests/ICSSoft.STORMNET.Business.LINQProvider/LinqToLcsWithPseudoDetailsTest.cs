@@ -109,7 +109,7 @@
         /// <summary>
         /// Проверка условий, которым должно отвечать ограничение.
         /// </summary>
-        [Fact(Skip = "вернуть выполнение этого теста.")]
+        [Fact]
         public void GetLcsByPseudoDetailLimitTestTryNotSubSubqueryLimit()
         {
             var exception = Xunit.Record.Exception(() =>
