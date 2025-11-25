@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0;net7.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0;net7.0;net10.0</TargetFrameworks>
     <RootNamespace>NewPlatform.Flexberry.ORM.IntegratedTests</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.ORM.IntegratedTests</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Tests.snk</AssemblyOriginatorKeyFile>
@@ -21,7 +21,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 	<PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.0" />
   </ItemGroup>
 
@@ -29,7 +29,7 @@
 	<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 	<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
   </ItemGroup>
 

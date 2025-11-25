@@ -3,7 +3,7 @@ namespace ICSSoft.STORMNET.Business
     using System;
     using System.Collections;
 
-#if NET9_0
+#if NET10_0
     using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
     using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
     using SqlClientFactory = Microsoft.Data.SqlClient.SqlClientFactory;

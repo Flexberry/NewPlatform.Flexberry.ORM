@@ -8,7 +8,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.Linq;
     using System.Threading;
 
-#if NET9_0
+#if NET10_0
     using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
     using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
 #else
