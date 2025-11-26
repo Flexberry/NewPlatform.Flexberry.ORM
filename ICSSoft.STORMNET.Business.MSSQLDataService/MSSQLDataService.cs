@@ -3,14 +3,12 @@ namespace ICSSoft.STORMNET.Business
     using System;
     using System.Collections;
 
-#if NET10_0
-    using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
-    using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
-    using SqlClientFactory = Microsoft.Data.SqlClient.SqlClientFactory;
-#else
-    using SqlConnection = System.Data.SqlClient.SqlConnection;
-    using SqlCommand = System.Data.SqlClient.SqlCommand;
+#if NETFRAMEWORK
     using SqlClientFactory = System.Data.SqlClient.SqlClientFactory;
+    using SqlConnection = System.Data.SqlClient.SqlConnection;
+#else
+    using SqlClientFactory = Microsoft.Data.SqlClient.SqlClientFactory;
+    using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
 #endif
 
     using ICSSoft.STORMNET.Business.Audit;
