@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0;net10.0</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.DataObject</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.DataObject.snk</AssemblyOriginatorKeyFile>
@@ -15,7 +15,7 @@
     <PackageReference Include="NewPlatform.Flexberry.LogService" Version="2.2.1" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net9.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net10.0' ">
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0" />
   </ItemGroup>
 

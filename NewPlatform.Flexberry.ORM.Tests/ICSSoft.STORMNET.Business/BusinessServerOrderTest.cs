@@ -1,6 +1,5 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
-    using OracleInternal.Secure.Network;
     using System;
     using System.Collections;
     using System.Collections.Generic;

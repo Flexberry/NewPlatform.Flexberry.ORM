@@ -121,7 +121,7 @@
 			<dependency id="Unity.Container" version="5.11.8" />
 			<dependency id="System.Reflection.Emit.Lightweight" version="4.6.0" />
 		</group>
-		<group targetFramework="net9.0">
+		<group targetFramework="net10.0">
 			<dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
 			<dependency id="Microsoft.Spatial" version="7.10.0" />
 			<dependency id="Remotion.Linq" version="2.2.0" />
@@ -272,28 +272,28 @@
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net7.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\net7.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net7.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\net7.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
 
-	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.dll" />
-	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.xml" target="lib\net9.0\ICSSoft.STORMNET.Business.xml" />
-	<file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
-	<file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" target="lib\net9.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" />
-	<file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.LINQProvider.dll" />
-	<file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net9.0\ICSSoft.STORMNET.Business.LINQProvider.XML" />
-	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.LockService.dll" />
-	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net9.0\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net9.0\ICSSOft.STORMNET.Business.LockService.xml" />
-	<file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net9.0\ICSSoft.STORMNET.Collections.dll" target="lib\net9.0\ICSSoft.STORMNET.Collections.dll" />
-	<file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net9.0\ICSSoft.STORMNET.Collections.xml" target="lib\net9.0\ICSSoft.STORMNET.Collections.xml" />
-	<file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net9.0\ICSSoft.STORMNET.DataObject.dll" target="lib\net9.0\ICSSoft.STORMNET.DataObject.dll" />
-	<file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net9.0\ICSSoft.STORMNET.DataObject.xml" target="lib\net9.0\ICSSoft.STORMNET.DataObject.xml" />
-	<file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\net9.0\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net9.0\ICSSoft.STORMNET.FunctionalLanguage.dll" />
-	<file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\net9.0\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net9.0\ICSSoft.STORMNET.FunctionalLanguage.xml" />
-	<file src="ICSSoft.STORMNET.Tools\bin\$configuration$\net9.0\ICSSoft.STORMNET.Tools.dll" target="lib\net9.0\ICSSoft.STORMNET.Tools.dll" />
-	<file src="ICSSoft.STORMNET.Tools\bin\$configuration$\net9.0\ICSSoft.STORMNET.Tools.xml" target="lib\net9.0\ICSSoft.STORMNET.Tools.xml" />
-	<file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\net9.0\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net9.0\ICSSoft.STORMNET.UserDataTypes.dll" />
-	<file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\net9.0\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net9.0\ICSSoft.STORMNET.UserDataTypes.XML" />
-	<file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net9.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" target="lib\net9.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" />
-	<file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net9.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\net9.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
-	<file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net9.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\net9.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
-	<file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net9.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\net9.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
+	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.dll" target="lib\net10.0\ICSSoft.STORMNET.Business.dll" />
+	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.xml" target="lib\net10.0\ICSSoft.STORMNET.Business.xml" />
+	<file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\net10.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
+	<file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" target="lib\net10.0\ICSSoft.STORMNET.Business.ExternalLangDef.XML" />
+	<file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.LINQProvider.dll" target="lib\net10.0\ICSSoft.STORMNET.Business.LINQProvider.dll" />
+	<file src="ICSSoft.STORMNET.Business.LINQProvider\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.LINQProvider.XML" target="lib\net10.0\ICSSoft.STORMNET.Business.LINQProvider.XML" />
+	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.LockService.dll" target="lib\net10.0\ICSSoft.STORMNET.Business.LockService.dll" />
+	<file src="ICSSoft.STORMNET.Business.LockService\bin\$configuration$\net10.0\ICSSOft.STORMNET.Business.LockService.xml" target="lib\net10.0\ICSSOft.STORMNET.Business.LockService.xml" />
+	<file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net10.0\ICSSoft.STORMNET.Collections.dll" target="lib\net10.0\ICSSoft.STORMNET.Collections.dll" />
+	<file src="ICSSoft.STORMNET.Collections\bin\$configuration$\net10.0\ICSSoft.STORMNET.Collections.xml" target="lib\net10.0\ICSSoft.STORMNET.Collections.xml" />
+	<file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net10.0\ICSSoft.STORMNET.DataObject.dll" target="lib\net10.0\ICSSoft.STORMNET.DataObject.dll" />
+	<file src="ICSSoft.STORMNET.DataObject\bin\$configuration$\net10.0\ICSSoft.STORMNET.DataObject.xml" target="lib\net10.0\ICSSoft.STORMNET.DataObject.xml" />
+	<file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\net10.0\ICSSoft.STORMNET.FunctionalLanguage.dll" target="lib\net10.0\ICSSoft.STORMNET.FunctionalLanguage.dll" />
+	<file src="ICSSoft.STORMNET.FunctionalLanguage\bin\$configuration$\net10.0\ICSSoft.STORMNET.FunctionalLanguage.xml" target="lib\net10.0\ICSSoft.STORMNET.FunctionalLanguage.xml" />
+	<file src="ICSSoft.STORMNET.Tools\bin\$configuration$\net10.0\ICSSoft.STORMNET.Tools.dll" target="lib\net10.0\ICSSoft.STORMNET.Tools.dll" />
+	<file src="ICSSoft.STORMNET.Tools\bin\$configuration$\net10.0\ICSSoft.STORMNET.Tools.xml" target="lib\net10.0\ICSSoft.STORMNET.Tools.xml" />
+	<file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\net10.0\ICSSoft.STORMNET.UserDataTypes.dll" target="lib\net10.0\ICSSoft.STORMNET.UserDataTypes.dll" />
+	<file src="ICSSoft.STORMNET.UserDataTypes\bin\$configuration$\net10.0\ICSSoft.STORMNET.UserDataTypes.XML" target="lib\net10.0\ICSSoft.STORMNET.UserDataTypes.XML" />
+	<file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net10.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" target="lib\net10.0\NewPlatform.Flexberry.ORM.CurrentUserService.dll" />
+	<file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net10.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\net10.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
+	<file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net10.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\net10.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
+	<file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net10.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\net10.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
 
 
 	  <file src="config.install.xdt" target="content\app.config.install.xdt" />

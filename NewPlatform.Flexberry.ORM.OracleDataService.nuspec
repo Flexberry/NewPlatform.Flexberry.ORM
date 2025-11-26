@@ -44,7 +44,7 @@
 			<dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta02" />
 			<dependency id="Oracle.ManagedDataAccess.Core" version="2.19.3" />
 		</group>
-		<group targetFramework="net9.0">
+		<group targetFramework="net10.0">
 			<dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta02" />
 			<dependency id="Oracle.ManagedDataAccess.Core" version="2.19.3" />
 		</group>
@@ -68,7 +68,7 @@
 	
 	<file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.OracleDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net7.0\ICSSoft.STORMNET.Business.OracleDataService.XML" />
-	<file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net9.0\ICSSoft.STORMNET.Business.OracleDataService.dll" />
-	<file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net9.0\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net9.0\ICSSoft.STORMNET.Business.OracleDataService.XML" />
+	<file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.OracleDataService.dll" target="lib\net10.0\ICSSoft.STORMNET.Business.OracleDataService.dll" />
+	<file src="ICSSoft.STORMNET.Business.OracleDataService\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.OracleDataService.XML" target="lib\net10.0\ICSSoft.STORMNET.Business.OracleDataService.XML" />
   </files>
 </package>
