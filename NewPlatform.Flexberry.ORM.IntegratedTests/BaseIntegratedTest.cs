@@ -8,12 +8,12 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using System.Linq;
     using System.Threading;
 
-#if NETFRAMEWORK
-    using SqlCommand = System.Data.SqlClient.SqlCommand;
-    using SqlConnection = System.Data.SqlClient.SqlConnection;
-#else
+#if NET10_0_OR_GREATER
     using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
     using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
+#else
+    using SqlCommand = System.Data.SqlClient.SqlCommand;
+    using SqlConnection = System.Data.SqlClient.SqlConnection;
 #endif
 
     using ICSSoft.STORMNET.Business;
