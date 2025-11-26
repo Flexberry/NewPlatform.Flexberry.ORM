@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>8.0.0-beta02</version>
+    <version>8.0.0-beta03</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,18 +13,20 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
 		Added
-		1. Due to backward compatibility it is necessary now to initialize manually at start point:
+		1. Support of Net10.
+		2. Due to backward compatibility it is necessary now to initialize manually at start point:
 
 		`DataServiceProvider.DataService = ds; // ds - DataService.
 		ExternalLangDef.LanguageDef = new ExternalLangDef(ds); // ds - DataService.
 		DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenerator.`
 
-		2. Interface `IBusinessServerProvider`.
-		3. Public property `IBusinessServerProvider BusinessServerProvider { get; protected set; }` to class `SQLDataService`.
-		4. Class `NewPlatform.Flexberry.ORM.CurrentUserService.EmptyCurrentUser : ICurrentUser` (a stub for empty user).
-		5. Interface `NewPlatform.Flexberry.ORM.CurrentUserService.ICurrentUser` (user credentials).
-		6. Help class `UnityServiceProvider` (it helps to organize connection between `IUnityContainer` and `IServiceProvider` for tests).
-		7. Dependency injection of `IConfigResolver` throught the property of `SQLDataService`.
+		3. Interface `IBusinessServerProvider`.
+		4. Public property `IBusinessServerProvider BusinessServerProvider { get; protected set; }` to class `SQLDataService`.
+		5. Class `NewPlatform.Flexberry.ORM.CurrentUserService.EmptyCurrentUser : ICurrentUser` (a stub for empty user).
+		6. Interface `NewPlatform.Flexberry.ORM.CurrentUserService.ICurrentUser` (user credentials).
+		7. Help class `UnityServiceProvider` (it helps to organize connection between `IUnityContainer` and `IServiceProvider` for tests).
+		8. Dependency injection of `IConfigResolver` throught the property of `SQLDataService`.
+		9. Added stub classes for `IAuditService`, `IBusinessServerProvider` (`EmptyAuditService`, `EmptyBusinessServerProvider`).
 
 		Changed
 		1. Method `LockService.ClearAllUserLocks` changed to unstatic.
@@ -36,7 +38,6 @@
 		7. Constructor of class `XMLFileDataService`.
 		8. Constructor of class `AuditService`.
 		9. Constructor of class `BusinessServerProvider`.
-
 
 		Deprecated
 		1. `ExternalLangDef.LanguageDef` (correct way is creation of new instance of `ExternalLangDef` with proper DataService).

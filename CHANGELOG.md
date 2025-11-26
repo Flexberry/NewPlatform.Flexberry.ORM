@@ -16,6 +16,8 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 5. Interface `NewPlatform.Flexberry.ORM.CurrentUserService.ICurrentUser` (user credentials).
 6. Help class `UnityServiceProvider` (it helps to organize connection between `IUnityContainer` and `IServiceProvider` for tests).
 7. Dependency injection of `IConfigResolver` throught the property of `SQLDataService`.
+8. Support of Net10.
+9. Added stub classes for `IAuditService`, `IBusinessServerProvider` (`EmptyAuditService`, `EmptyBusinessServerProvider`).
 
 ### Changed
 1. Method `LockService.ClearAllUserLocks` changed to unstatic.
