@@ -10,27 +10,13 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-	  <PackageReference Include="Npgsql" Version="3.2.7" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'net461' ">
+	  <PackageReference Include="Npgsql" Version="4.0.17" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-	  <PackageReference Include="Npgsql" Version="5.0.17" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-	  <PackageReference Include="Npgsql" Version="5.0.17" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-	  <PackageReference Include="Npgsql" Version="6.0.10" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' Or 
-                        '$(TargetFramework)' == 'net7.0' Or 
-                        '$(TargetFramework)' == 'net10.0'">
-	  <PackageReference Include="Npgsql" Version="8.0.2" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net10.0' ">
+	  <PackageReference Include="Npgsql" Version="5.0.18" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj" />
