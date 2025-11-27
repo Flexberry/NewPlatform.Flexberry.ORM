@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>8.0.0-beta04</version>
+    <version>8.0.0-beta05</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -131,6 +131,7 @@
 			<dependency id="Unity.Configuration" version="5.11.2" />
 			<dependency id="Unity.Container" version="5.11.8" />
 			<dependency id="System.Reflection.Emit.Lightweight" version="4.6.0" />
+			<dependency id="System.Runtime.Serialization.Formatters" version="10.0.0" />
 		</group>
     </dependencies>
   </metadata>
