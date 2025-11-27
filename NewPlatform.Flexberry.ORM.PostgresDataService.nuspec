@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>8.0.0-beta03</version>
+    <version>8.0.0-beta04</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,16 +12,47 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
+		Added
+		1. Support of NET 10.
+
 		Changed
 		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
 		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
-		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0-beta03`.
+		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0-beta04`.
+		4. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5` and to `5.0.18` for `.NETStandard2.0` and upper.
 	</releaseNotes>
     <copyright>Copyright New Platform Ltd 2025</copyright>
     <tags>Flexberry ORM</tags>
-    <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta03" />
-    </dependencies>
+	  <dependencies>
+		  <group targetFramework=".NETFramework4.5">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="4.0.17" />
+		  </group>
+		  <group targetFramework=".NETFramework4.6.1">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="4.0.17" />
+		  </group>
+		  <group targetFramework=".NETStandard2.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework=".NETCoreApp3.1">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework="net6.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework="net7.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework="net10.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta04" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+	  </dependencies>
   </metadata>
   <files>
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" />

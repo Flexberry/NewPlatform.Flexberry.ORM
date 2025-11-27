@@ -29,6 +29,8 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 7. Constructor of class `XMLFileDataService`.
 8. Constructor of class `AuditService`.
 9. Constructor of class `BusinessServerProvider`.
+10. Version of `Microsoft.Data.SqlClient` changed to `6.1.3`.
+11. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5` and to `5.0.18` for `.NETStandard2.0` and upper.
 
 ### Deprecated
 1. `ExternalLangDef.LanguageDef` (correct way is creation of new instance of `ExternalLangDef` with proper DataService).

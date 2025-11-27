@@ -688,12 +688,6 @@
                     }
                 }
             }
-
-#if NETCOREAPP3_1
-    // Исправление для Npgsql 6.0.10: литералы 'unknown' -> text
-    query = query.Replace("('Association')", "('Association'::text)");
-    query = query.Replace("('Association') as AssocType", "('Association'::text) as AssocType");
-#endif
         }
 
         /// <summary>
