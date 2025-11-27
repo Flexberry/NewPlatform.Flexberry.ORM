@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM</id>
-    <version>7.1.1</version>
+    <version>7.2.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,14 +12,17 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
+      Changed
+      1. Upgrade NewPlatform.Flexberry.LogService up to 2.2.1.
+
       Fixed
-      1. Error on loading with not stored attribute with inheritance.
+      1. Fixed order of property processing for objects with details and masters of the same type.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2023</copyright>
+    <copyright>Copyright New Platform Ltd 2024</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
+        <dependency id="NewPlatform.Flexberry.LogService" version="2.2.1" />
         <dependency id="Microsoft.Spatial" version="7.10.0" />
         <dependency id="Remotion.Linq" version="2.2.0" />
         <dependency id="SharpZipLib" version="1.3.3" />
@@ -28,7 +31,7 @@
         <dependency id="Unity.Container" version="5.11.8" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="NewPlatform.Flexberry.LogService" version="2.1.0" />
+        <dependency id="NewPlatform.Flexberry.LogService" version="2.2.1" />
         <dependency id="Microsoft.Spatial" version="7.10.0" />
         <dependency id="Remotion.Linq" version="2.2.0" />
         <dependency id="SharpZipLib" version="1.3.3" />
@@ -63,7 +66,7 @@
     <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\net45\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\net45\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net45\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\net45\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
-	
+
 	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net461\ICSSoft.STORMNET.Business.dll" target="lib\net461\ICSSoft.STORMNET.Business.dll" />
     <file src="ICSSoft.STORMNET.Business\bin\$configuration$\net461\ICSSoft.STORMNET.Business.xml" target="lib\net461\ICSSoft.STORMNET.Business.xml" />
     <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net461\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\net461\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
@@ -109,7 +112,7 @@
     <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\netstandard2.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
-	
+
 	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.dll" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.dll" />
     <file src="ICSSoft.STORMNET.Business\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.xml" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.xml" />
     <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
@@ -132,7 +135,7 @@
     <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\netcoreapp3.1\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\netcoreapp3.1\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\netcoreapp3.1\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\netcoreapp3.1\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\netcoreapp3.1\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\netcoreapp3.1\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
-	
+
 	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.dll" target="lib\net6.0\ICSSoft.STORMNET.Business.dll" />
     <file src="ICSSoft.STORMNET.Business\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.xml" target="lib\net6.0\ICSSoft.STORMNET.Business.xml" />
     <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\net6.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />
@@ -155,7 +158,7 @@
     <file src="NewPlatform.Flexberry.ORM.CurrentUserService\bin\$configuration$\net6.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" target="lib\net6.0\NewPlatform.Flexberry.ORM.CurrentUserService.xml" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net6.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" target="lib\net6.0\NewPlatform.Flexberry.ORM.UnityFactory.dll" />
     <file src="NewPlatform.Flexberry.ORM.UnityFactory\bin\$configuration$\net6.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" target="lib\net6.0\NewPlatform.Flexberry.ORM.UnityFactory.xml" />
-	
+
 	<file src="ICSSoft.STORMNET.Business\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.dll" />
     <file src="ICSSoft.STORMNET.Business\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.xml" target="lib\net7.0\ICSSoft.STORMNET.Business.xml" />
     <file src="ICSSoft.STORMNET.Business.ExternalLangDef\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.ExternalLangDef.dll" />

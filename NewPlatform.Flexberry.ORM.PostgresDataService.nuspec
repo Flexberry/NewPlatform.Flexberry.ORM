@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>7.1.1</version>
+    <version>7.2.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -13,14 +13,14 @@
     <description>Flexberry ORM package.</description>
     <releaseNotes>
       Fixed
-      1. Error on loading with not stored attribute with inheritance.
+      1. Fixed order of property processing for objects with details and masters of the same type.
       Changed
-      1. Updated NewPlatform.Flexberry.ORM up to 7.1.1.
+      1. Updated NewPlatform.Flexberry.ORM up to 7.2.0.
     </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2023</copyright>
+    <copyright>Copyright New Platform Ltd 2024</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="7.1.1" />
+      <dependency id="NewPlatform.Flexberry.ORM" version="7.2.0" />
       <dependency id="Npgsql" version="3.2.7" />
     </dependencies>
   </metadata>

@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.UserDataTypes
 {
     using System.IO;
+
     using ICSSoft.STORMNET.UserDataTypes;
     using Xunit;
 

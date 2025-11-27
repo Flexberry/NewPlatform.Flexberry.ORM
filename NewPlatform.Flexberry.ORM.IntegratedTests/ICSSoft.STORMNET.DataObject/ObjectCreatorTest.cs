@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Tests.TestClasses.DataObject
 {
     using System.Diagnostics;
+
     using Xunit;
     using NewPlatform.Flexberry.ORM.Tests;
 
