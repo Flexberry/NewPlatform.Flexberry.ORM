@@ -19,7 +19,7 @@
 		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
 		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
 		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0-beta05`.
-		4. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5` and to `5.0.18` for `.NETStandard2.0` and upper.
+		4. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5`, to `5.0.18` for `.NETStandard2.0` and upper, to `10.0.0 for `.NET10`.
 	</releaseNotes>
     <copyright>Copyright New Platform Ltd 2025</copyright>
     <tags>Flexberry ORM</tags>
@@ -50,7 +50,7 @@
 		  </group>
 		  <group targetFramework="net10.0">
 			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta05" />
-			  <dependency id="Npgsql" version="5.0.18" />
+			  <dependency id="Npgsql" version="10.0.0" />
 		  </group>
 	  </dependencies>
   </metadata>
