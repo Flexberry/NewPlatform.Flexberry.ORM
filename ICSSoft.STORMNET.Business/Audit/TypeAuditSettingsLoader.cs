@@ -8,7 +8,7 @@ namespace ICSSoft.STORMNET.Business.Audit
     /// <summary>
     /// Base class for loading audit settings for types.
     /// </summary>
-    internal abstract class TypeAuditSettingsLoader
+    public abstract class TypeAuditSettingsLoader
     {
         /// <summary>
         /// Determines whether the specified data object type has audit settings.

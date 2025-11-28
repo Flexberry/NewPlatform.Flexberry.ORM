@@ -14,8 +14,12 @@
 	  <PackageReference Include="Npgsql" Version="4.0.17" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net10.0' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0'">
 	  <PackageReference Include="Npgsql" Version="5.0.18" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
+		<PackageReference Include="Npgsql" Version="10.0.0" />
 	</ItemGroup>
 
   <ItemGroup>
