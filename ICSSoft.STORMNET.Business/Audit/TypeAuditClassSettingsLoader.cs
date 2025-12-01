@@ -12,7 +12,7 @@
     /// with audit settings in it.
     /// </summary>
     /// <seealso cref="TypeAuditSettingsLoader" />
-    public class TypeAuditClassSettingsLoader : TypeAuditSettingsLoader
+    internal class TypeAuditClassSettingsLoader : TypeAuditSettingsLoader
     {
         /// <summary>
         /// Determines whether the specified data object type has audit settings.
