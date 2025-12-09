@@ -5234,7 +5234,7 @@
         public virtual void UpdateObjectsByExtConn(
             ref DataObject[] objects, DataObjectCache dataObjectCache, bool alwaysThrowException, IDbConnection connection, IDbTransaction transaction)
         {
-            using DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
+            DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(connection, transaction);
             UpdateObjectsByExtConn(ref objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
         }
 
