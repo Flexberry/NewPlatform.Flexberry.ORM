@@ -34,10 +34,6 @@
         <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta06" />
 		  <dependency id="System.Data.SqlClient" version="4.9.0" />
       </group>
-		<group targetFramework=".NETCoreApp3.1">
-			<dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta06" />
-			<dependency id="System.Data.SqlClient" version="4.9.0" />
-		</group>
 		<group targetFramework="net6.0">
 			<dependency id="NewPlatform.Flexberry.ORM" version="8.0.0-beta06" />
 			<dependency id="System.Data.SqlClient" version="4.9.0" />
@@ -61,10 +57,7 @@
 	
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-	
-	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
-    <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
-	
+
 	  <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" target="lib\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.MSSQLDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" target="lib\net6.0\ICSSoft.STORMNET.Business.MSSQLDataService.xml" />
 	
