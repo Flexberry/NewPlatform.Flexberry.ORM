@@ -14,11 +14,12 @@
     <releaseNotes>
 		Added
 		1. Support of NET 10.
-		
+
 		Changed
 		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
 		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
 		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0-beta06`.
+		4. Removed support of NETCoreApp 3.1.
 	</releaseNotes>
     <copyright>Copyright New Platform Ltd 2025</copyright>
     <tags>Flexberry ORM</tags>

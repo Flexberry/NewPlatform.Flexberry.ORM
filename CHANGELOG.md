@@ -31,7 +31,6 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 9. Constructor of class `BusinessServerProvider`.
 10. Version of `Microsoft.Data.SqlClient` changed to `6.1.3`.
 11. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5`, to `5.0.18` for `.NETStandard2.0` and upper, to `10.0.0` for `.NET10`.
-12. Removed support of NETCoreApp 3.1.
 
 ### Deprecated
 1. `ExternalLangDef.LanguageDef` (correct way is creation of new instance of `ExternalLangDef` with proper DataService).
@@ -51,6 +50,7 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 10. Interface `ICSSoft.Services.CurrentUserService.IUser`.
 11. [BREAKING CHANGE] Setting of `STORMAdvLimit.User` at setter of `STORMAdvLimit.Publish`.
 12. Getting of `CommandTimeout` throught configuration file.
+13. Removed support of NETCoreApp 3.1.
 
 ### Fixed
 1. Disposing of `IDataReader` during data loading at `SQLDataService`.

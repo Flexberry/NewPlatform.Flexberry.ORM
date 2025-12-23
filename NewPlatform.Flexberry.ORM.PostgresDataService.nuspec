@@ -20,6 +20,7 @@
 		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
 		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0-beta06`.
 		4. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5`, to `5.0.18` for `.NETStandard2.0` and upper, to `10.0.0` for `.NET10`.
+		5. Removed support of NETCoreApp 3.1.
 	</releaseNotes>
     <copyright>Copyright New Platform Ltd 2025</copyright>
     <tags>Flexberry ORM</tags>
