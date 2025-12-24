@@ -50,7 +50,7 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 10. Interface `ICSSoft.Services.CurrentUserService.IUser`.
 11. [BREAKING CHANGE] Setting of `STORMAdvLimit.User` at setter of `STORMAdvLimit.Publish`.
 12. Getting of `CommandTimeout` throught configuration file.
-13. Removed support of NETCoreApp 3.1.
+13. Removed support of .NET Core 3.1.
 
 ### Fixed
 1. Disposing of `IDataReader` during data loading at `SQLDataService`.
