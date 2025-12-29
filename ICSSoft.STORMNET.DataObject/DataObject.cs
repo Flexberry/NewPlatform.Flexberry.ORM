@@ -139,7 +139,7 @@
         /// SetLoadedProperties("__PrimaryKey");.
         /// </summary>
         /// <param name="primaryKey">Первичный ключ.</param>
-        public void SetExistObjectPrimaryKey(object primaryKey)
+        public virtual void SetExistObjectPrimaryKey(object primaryKey)
         {
             Clear();
             __PrimaryKey = primaryKey;
