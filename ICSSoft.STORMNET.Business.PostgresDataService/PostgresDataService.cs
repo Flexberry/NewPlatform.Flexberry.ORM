@@ -594,6 +594,14 @@
                     return "timestamp'" + dt.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
                 }
 
+#if NET6_0_OR_GREATER
+                if (value is DateOnly)
+                { // Поддержка типа DateOnly только с .NET 6.
+                    DateOnly d = (DateOnly)value;
+                    return "date '" + d.ToString("yyyy-MM-dd") + "'";
+                }
+#endif
+
                 Type valueType = value.GetType();
 
                 if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
