@@ -598,7 +598,7 @@
                 if (value is DateOnly)
                 { // Поддержка типа DateOnly только с .NET 6.
                     DateOnly d = (DateOnly)value;
-                    return "date '" + d.ToString("yyyy-MM-dd") + "'";
+                    return "date '" + d.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "'";
                 }
 #endif
 
