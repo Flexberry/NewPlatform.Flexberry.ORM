@@ -33,3 +33,19 @@ Modification test objects made in Flexberry Designer and save into file `NewPlat
 ```
 .\CodeGen\start-code-gen.cmd
 ```
+
+Important: Manual SQL correction for the DateOnly type
+This rule applies if you are updating the CRP for the ICSSoft.STORMNET.Business.PostgresDataService test project. After regenerating the CRP.
+Flexberry Designer currently does not support the DateOnly type in .NET 6+. After updating the .crp file and running the code generator, the generated PostgreSQL SQL script will contain incorrect data types for the DateOnly table (for example, TIMESTAMP(3) or an invalid user-defined type instead of DATE).
+
+You must manually replace the DateOnly table creation script in the generated .sql file to ensure that the Attr column uses the correct DATE type. The table definition should look like this:
+
+```
+sql
+
+CREATE TABLE DateOnly (
+ primaryKey UUID NOT NULL,
+ Attr DATE NULL,
+ AttrDate DATE NULL,
+ AttrString STRING NULL,
+ ```

@@ -1,17 +1,17 @@
-﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
+﻿using System.Net.NetworkInformation;
+
+namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 {
     using System;
 
+    using Xunit;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
-
     using IIS.TestClassesForPostgres;
-
-    using Xunit;
 
     /// <summary>
     /// Юнит-тесты для PostgresDataService.
@@ -821,6 +821,49 @@
             {
                 Assert.True(false, "Object not saved.");
             }
+        }
+
+        /// <summary>
+        /// Тестирование операций с типом DateOnly.
+        /// </summary>
+        [Fact]
+        public void DateOnlyTest()
+        {
+            if (DataService == null)
+            {
+                return;
+            }
+
+#if NET6_0_OR_GREATER
+            var clazz = new Class_DateOnly
+            {
+                AttrDateOnly = new System.DateOnly(2026, 05, 20),
+                AttrDate = DateTime.Now,
+                AttrString = "DateOnly Hi!",
+            };
+
+            DataService.UpdateObject(clazz);
+
+            var clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+            DataService.LoadObject(clazz2);
+            Assert.Equal(clazz.AttrDateOnly, clazz2.AttrDateOnly);
+
+            clazz2.AttrDateOnly = clazz2.AttrDateOnly.AddMonths(1);
+            DataService.UpdateObject(clazz2);
+
+            clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+            DataService.LoadObject(clazz2);
+            Assert.NotEqual(clazz.AttrDateOnly, clazz2.AttrDateOnly);
+
+            clazz2.SetStatus(ObjectStatus.Deleted);
+            DataService.UpdateObject(clazz2);
+            clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
+#else
+            return;
+
+#endif
         }
     }
 }
