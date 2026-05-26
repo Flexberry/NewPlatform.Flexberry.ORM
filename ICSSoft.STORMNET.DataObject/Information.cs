@@ -576,6 +576,27 @@
                                 }
 
                                 SetHandler setHandler = GetSetHandler(objType, propInfo);
+
+#if NET6_0_OR_GREATER
+                                if (PropValue != null && PropValue is DateTime && (propInfo.PropertyType == typeof(DateOnly) || propInfo.PropertyType == typeof(DateOnly?)))
+                                {
+                                    var dt = (DateTime)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(DateOnly)
+                                        ? new DateOnly(dt.Year, dt.Month, dt.Day)
+                                        : new DateOnly?(new DateOnly(dt.Year, dt.Month, dt.Day));
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue.GetType() == typeof(DateTime?) && (propInfo.PropertyType == typeof(DateOnly) || propInfo.PropertyType == typeof(DateOnly?)))
+                                {
+                                    var dt = (DateTime?)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(DateOnly)
+                                        ? (dt.HasValue ? new DateOnly(dt.Value.Year, dt.Value.Month, dt.Value.Day) : default)
+                                        : (dt.HasValue ? new DateOnly?(new DateOnly(dt.Value.Year, dt.Value.Month, dt.Value.Day)) : null);
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+#endif
                                 if (propType.IsEnum && PropValue == null)
                                 {
                                     try
