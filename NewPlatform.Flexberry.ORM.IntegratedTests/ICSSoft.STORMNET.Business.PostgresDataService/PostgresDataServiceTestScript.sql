@@ -365,7 +365,7 @@ CREATE TABLE МастерКлассДлинноеИмя2 (
 CREATE TABLE Class_DateOnly (
  primaryKey UUID NOT NULL,
  AttrDate TIMESTAMP(3) NULL,
- AttrDateOnly TIMESTAMP(3) NULL,
+ AttrDateOnly DATE NULL,
  AttrString VARCHAR(255) NULL,
  PRIMARY KEY (primaryKey));
 
