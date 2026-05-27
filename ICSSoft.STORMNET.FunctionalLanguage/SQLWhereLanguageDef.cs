@@ -134,6 +134,15 @@
                 return DateTimeType;
             }
 
+            //TODO Здесь нужно добавить поддержку DateOnly для фильтрации
+            /*#if NET6_0_OR_GREATER
+
+                if (type == typeof(DateOnly))
+                {
+                    return DateTimeType; // DateOnly использует те же SQL-функции сравнения, что и DateTime
+                }
+            #endif*/
+
             if (type == typeof(bool))
             {
                 return BoolType;

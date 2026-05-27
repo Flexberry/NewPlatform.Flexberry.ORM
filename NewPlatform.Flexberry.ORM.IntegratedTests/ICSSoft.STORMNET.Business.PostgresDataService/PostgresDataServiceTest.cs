@@ -1,4 +1,6 @@
 ﻿using System.Net.NetworkInformation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 {
@@ -847,6 +849,25 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
             var clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
             DataService.LoadObject(clazz2);
             Assert.Equal(clazz.AttrDateOnly, clazz2.AttrDateOnly);
+
+            // Фильтрация по полю AttrDateOnly (DateOnly)
+            SQLWhereLanguageDef languageDef = SQLWhereLanguageDef.LanguageDef;
+
+            //TODO: (Backlog) Используется GetView(null, ...), так как у Class_DateOnly нет явного определения представлений.
+            View view = Information.GetView(null, typeof(Class_DateOnly));
+            LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Class_DateOnly), view);
+
+            //TODO: Используется костыль languageDef.DateTimeType вместо типа для DateOnly,
+            //т.к. в SQLWhereLanguageDef.GetObjectTypeForNetType пока нет поддержки DateOnly (см. TODO в SQLWhereLanguageDef.cs).
+            //После добавления поддержки DateOnly в фильтрацию нужно использовать: languageDef.GetObjectTypeForNetType(typeof(DateOnly))
+            lcs.LimitFunction = languageDef.GetFunction(
+                languageDef.funcEQ,
+                new VariableDef(languageDef.DateTimeType, Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrDateOnly)),
+                clazz.AttrDateOnly);
+            var loadedObjects = DataService.LoadObjects(lcs).Cast<Class_DateOnly>().ToList();
+            Assert.Equal(1, loadedObjects.Count);
+            Assert.Equal(clazz.AttrDateOnly, loadedObjects[0].AttrDateOnly);
+            Assert.Equal(clazz.AttrString, loadedObjects[0].AttrString);
 
             clazz2.AttrDateOnly = clazz2.AttrDateOnly.AddMonths(1);
             DataService.UpdateObject(clazz2);
