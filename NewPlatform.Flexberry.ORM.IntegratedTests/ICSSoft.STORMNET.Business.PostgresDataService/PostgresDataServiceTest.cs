@@ -853,8 +853,15 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
             // Фильтрация по полю AttrDateOnly (DateOnly)
             SQLWhereLanguageDef languageDef = SQLWhereLanguageDef.LanguageDef;
 
-            //TODO: (Backlog) Используется GetView(null, ...), так как у Class_DateOnly нет явного определения представлений.
-            View view = Information.GetView(null, typeof(Class_DateOnly));
+            // Создаем View на лету для фильтрации, так как в CRP у Class_DateOnly нет определенных представлений
+            View view = new View();
+            view.DefineClassType = typeof(Class_DateOnly);
+            view.Properties = new PropertyInView[]
+            {
+                new PropertyInView("AttrDateOnly", "AttrDateOnly", true, string.Empty),
+                new PropertyInView("AttrString", "AttrString", true, string.Empty),
+                new PropertyInView("AttrDate", "AttrDate", true, string.Empty),
+            };
             LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Class_DateOnly), view);
 
             //TODO: Используется костыль languageDef.DateTimeType вместо типа для DateOnly,
