@@ -1,17 +1,19 @@
-﻿namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
+﻿using System.Net.NetworkInformation;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 {
     using System;
 
+    using Xunit;
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Exceptions;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.UserDataTypes;
-
     using IIS.TestClassesForPostgres;
-
-    using Xunit;
 
     /// <summary>
     /// Юнит-тесты для PostgresDataService.
@@ -821,6 +823,143 @@
             {
                 Assert.True(false, "Object not saved.");
             }
+        }
+
+        /// <summary>
+        /// Тестирование операций с типом DateOnly.
+        /// </summary>
+        [Fact]
+        public void DateOnlyTest()
+        {
+            if (DataService == null)
+            {
+                return;
+            }
+
+#if NET6_0_OR_GREATER
+            var clazz = new Class_DateOnly
+            {
+                AttrDateOnly = new System.DateOnly(2026, 05, 20),
+                AttrDate = DateTime.Now,
+                AttrString = "DateOnly Hi!",
+            };
+
+            DataService.UpdateObject(clazz);
+
+            var clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+            DataService.LoadObject(clazz2);
+            Assert.Equal(clazz.AttrDateOnly, clazz2.AttrDateOnly);
+
+            // Фильтрация по полю AttrDateOnly (DateOnly)
+            SQLWhereLanguageDef languageDef = SQLWhereLanguageDef.LanguageDef;
+
+            // Создаем View на лету для фильтрации, так как в CRP у Class_DateOnly нет определенных представлений
+            View view = new View();
+            view.DefineClassType = typeof(Class_DateOnly);
+            view.Properties = new PropertyInView[]
+            {
+                new PropertyInView("AttrDateOnly", "AttrDateOnly", true, string.Empty),
+                new PropertyInView("AttrString", "AttrString", true, string.Empty),
+                new PropertyInView("AttrDate", "AttrDate", true, string.Empty),
+            };
+            LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Class_DateOnly), view);
+
+            //TODO: Используется костыль languageDef.DateTimeType вместо типа для DateOnly,
+            //т.к. в SQLWhereLanguageDef.GetObjectTypeForNetType пока нет поддержки DateOnly (см. TODO в SQLWhereLanguageDef.cs).
+            //После добавления поддержки DateOnly в фильтрацию нужно использовать: languageDef.GetObjectTypeForNetType(typeof(DateOnly))
+            lcs.LimitFunction = languageDef.GetFunction(
+                languageDef.funcEQ,
+                new VariableDef(languageDef.DateTimeType, Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrDateOnly)),
+                clazz.AttrDateOnly);
+            var loadedObjects = DataService.LoadObjects(lcs).Cast<Class_DateOnly>().ToList();
+            Assert.Equal(1, loadedObjects.Count);
+            Assert.Equal(clazz.AttrDateOnly, loadedObjects[0].AttrDateOnly);
+            Assert.Equal(clazz.AttrString, loadedObjects[0].AttrString);
+
+            clazz2.AttrDateOnly = clazz2.AttrDateOnly.AddMonths(1);
+            DataService.UpdateObject(clazz2);
+
+            clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+            DataService.LoadObject(clazz2);
+            Assert.NotEqual(clazz.AttrDateOnly, clazz2.AttrDateOnly);
+
+            clazz2.SetStatus(ObjectStatus.Deleted);
+            DataService.UpdateObject(clazz2);
+            clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
+#else
+            return;
+
+#endif
+        }
+
+        /// <summary>
+        /// Тестирование операций с типом TimeOnly.
+        /// </summary>
+        [Fact]
+        public void TimeOnlyTest()
+        {
+            if (DataService == null)
+            {
+                return;
+            }
+
+#if NET6_0_OR_GREATER
+            var clazz = new Class_DateOnly
+            {
+                AttrTimeOnly = new System.TimeOnly(14, 30, 45),
+                AttrDate = DateTime.Now,
+                AttrString = "TimeOnly Hi!",
+            };
+
+            DataService.UpdateObject(clazz);
+            var clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+            DataService.LoadObject(clazz2);
+            Assert.Equal(clazz.AttrTimeOnly, clazz2.AttrTimeOnly);
+
+            // Фильтрация по полю AttrTimeOnly (TimeOnly)
+            SQLWhereLanguageDef languageDef = SQLWhereLanguageDef.LanguageDef;
+
+            View viewTime = new View();
+            viewTime.DefineClassType = typeof(Class_DateOnly);
+            viewTime.Properties = new PropertyInView[]
+            {
+                  new PropertyInView("AttrTimeOnly", "AttrTimeOnly", true, string.Empty),
+                  new PropertyInView("AttrString", "AttrString", true, string.Empty),
+                  new PropertyInView("AttrDate", "AttrDate", true, string.Empty),
+            };
+            LoadingCustomizationStruct lcsTime = LoadingCustomizationStruct.GetSimpleStruct(typeof(Class_DateOnly), viewTime);
+
+            //TODO: Используется костыль languageDef.DateTimeType вместо типа для TimeOnly,
+            //т.к. в SQLWhereLanguageDef.GetObjectTypeForNetType пока нет поддержки TimeOnly.
+            lcsTime.LimitFunction = languageDef.GetFunction(
+                languageDef.funcEQ,
+                new VariableDef(languageDef.DateTimeType, Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrTimeOnly)),
+                clazz.AttrTimeOnly);
+            var loadedObjectsTime = DataService.LoadObjects(lcsTime).Cast<Class_DateOnly>().ToList();
+
+            Assert.Equal(1, loadedObjectsTime.Count);
+            Assert.Equal(clazz.AttrTimeOnly, loadedObjectsTime[0].AttrTimeOnly);
+            Assert.Equal(clazz.AttrString, loadedObjectsTime[0].AttrString);
+
+            clazz2.AttrTimeOnly = new System.TimeOnly(18, 45, 30);
+            DataService.UpdateObject(clazz2);
+
+            clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+            DataService.LoadObject(clazz2);
+            Assert.NotEqual(clazz.AttrTimeOnly, clazz2.AttrTimeOnly);
+
+            clazz2.SetStatus(ObjectStatus.Deleted);
+            DataService.UpdateObject(clazz2);
+            clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
+
+            Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
+
+#else
+            return;
+#endif
+
         }
     }
 }
