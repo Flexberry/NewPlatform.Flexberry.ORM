@@ -367,6 +367,7 @@ CREATE TABLE Class_DateOnly (
  AttrDate TIMESTAMP(3) NULL,
  AttrDateOnly DATE NULL,
  AttrString VARCHAR(255) NULL,
+ AttrTimeOnly TIME NULL,
  PRIMARY KEY (primaryKey));
 
 

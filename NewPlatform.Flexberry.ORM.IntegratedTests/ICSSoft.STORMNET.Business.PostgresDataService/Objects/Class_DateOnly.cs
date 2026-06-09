@@ -39,6 +39,12 @@ namespace IIS.TestClassesForPostgres
 
         private string fAttrString;
 
+#if NET6_0_OR_GREATER
+        private System.TimeOnly fAttrTimeOnly;
+#else
+        private System.DateTime fAttrTimeOnly;
+#endif
+
         // *** Start programmer edit section *** (Class_DateOnly CustomMembers)
 
         // *** End programmer edit section *** (Class_DateOnly CustomMembers)
@@ -143,6 +149,45 @@ namespace IIS.TestClassesForPostgres
                 // *** Start programmer edit section *** (Class_DateOnly.AttrString Set end)
 
                 // *** End programmer edit section *** (Class_DateOnly.AttrString Set end)
+            }
+        }
+
+        /// <summary>
+        /// AttrTimeOnly.
+        /// </summary>
+        // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly CustomAttributes)
+
+        // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly CustomAttributes)
+#if NET6_0_OR_GREATER
+        public virtual System.TimeOnly AttrTimeOnly
+#else
+        public virtual System.DateTime AttrTimeOnly
+#endif
+        {
+            get
+            {
+                // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Get start)
+
+                // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly Get start)
+#if NET6_0_OR_GREATER
+                System.TimeOnly result = this.fAttrTimeOnly;
+#else
+                System.DateTime result = this.fAttrTimeOnly;
+#endif
+                // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Get end)
+
+                // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly Get end)
+                return result;
+            }
+            set
+            {
+                // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Set start)
+
+                // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly Set start)
+                this.fAttrTimeOnly = value;
+                // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Set end)
+
+                // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly Set end)
             }
         }
     }
