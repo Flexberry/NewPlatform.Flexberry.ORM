@@ -38,25 +38,25 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <inheritdoc cref="INotifyUpdateObject"/>
         public void BeforeUpdateObject(DataObject dataObject, ObjectStatus status, IEnumerable<DataObject> dataObjects)
         {
-            dataObject.DynamicProperties.Add(nameof(BeforeUpdateObject), new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects));
+            dataObject.DynamicProperties[nameof(BeforeUpdateObject)] = new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects);
         }
 
         /// <inheritdoc cref="INotifyUpdateObject"/>
         public void AfterSuccessSqlUpdateObject(DataObject dataObject, ObjectStatus status, IEnumerable<DataObject> dataObjects)
         {
-            dataObject.DynamicProperties.Add(nameof(AfterSuccessSqlUpdateObject), new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects));
+            dataObject.DynamicProperties[nameof(AfterSuccessSqlUpdateObject)] = new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects);
         }
 
         /// <inheritdoc cref="INotifyUpdateObject"/>
         public void AfterSuccessUpdateObject(DataObject dataObject, ObjectStatus status, IEnumerable<DataObject> dataObjects)
         {
-            dataObject.DynamicProperties.Add(nameof(AfterSuccessUpdateObject), new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects));
+            dataObject.DynamicProperties[nameof(AfterSuccessUpdateObject)] = new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects);
         }
 
         /// <inheritdoc cref="INotifyUpdateObject"/>
         public void AfterFailUpdateObject(DataObject dataObject, ObjectStatus status, IEnumerable<DataObject> dataObjects)
         {
-            dataObject.DynamicProperties.Add(nameof(AfterFailUpdateObject), new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects));
+            dataObject.DynamicProperties[nameof(AfterFailUpdateObject)] = new Tuple<ObjectStatus, IEnumerable<DataObject>>(status, dataObjects);
         }
 
         // *** End programmer edit section *** (Homer CustomMembers)

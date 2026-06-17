@@ -5554,14 +5554,34 @@
                     foreach (DataObject dataObject in objects)
                     {
                         DataObject[] dObjs = new[] { dataObject };
-                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
                     }
 
                     dbTransactionWrapper.CommitTransaction();
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        for (int i = 0; i < dbTransactionWrapper.PendingAfterCommitOperationIds.Count; i++)
+                        {
+                            NotifierUpdateObjects.AfterCommitUpdateObjects(
+                                dbTransactionWrapper.PendingAfterCommitOperationIds[i],
+                                this,
+                                new[] { objects[i] });
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
                     dbTransactionWrapper.RollbackTransaction();
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (Guid opId in dbTransactionWrapper.PendingAfterCommitOperationIds)
+                        {
+                            NotifierUpdateObjects.CleanupStateStore(opId);
+                        }
+                    }
+
                     throw;
                 }
             }
@@ -5646,6 +5666,7 @@
                 {
                     operationUniqueId = Guid.NewGuid();
                     NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                    dbTransactionWrapper.PendingAfterCommitOperationIds.Add(operationUniqueId.Value);
                 }
 
                 if (AuditService.IsAuditEnabled)
