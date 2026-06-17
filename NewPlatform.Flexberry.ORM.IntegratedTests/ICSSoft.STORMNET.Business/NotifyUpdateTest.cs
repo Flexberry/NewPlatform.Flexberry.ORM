@@ -109,6 +109,47 @@
         }
 
         /// <summary>
+        /// Test for <see cref="INotifyUpdateObjects.AfterCommitUpdateObjects"/> with <see cref="SQLDataService.UpdateObjectsOrdered"/>.
+        /// </summary>
+        [Fact]
+        public void AfterCommitUpdateObjectsOrderedTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // Arrange.
+                var ds = (SQLDataService)dataService;
+                ds.NotifierUpdateObjects = new NotifyUpdateObjectsGeneratedMock();
+
+                // Act.
+                var bear = new Медведь() { ПорядковыйНомер = 7 };
+                var dataObjectForTest = new DataObjectForTest() { Name = "OrderedDOT" };
+                DataObject[] dataObjects = new DataObject[] { bear, dataObjectForTest };
+                ds.UpdateObjectsOrdered(ref dataObjects);
+
+                // Assert: both objects received AfterCommitUpdateObjects.
+                var bearFootprint = bear.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
+                Assert.NotNull(bearFootprint);
+                Assert.Equal(ds, bearFootprint.Item2);
+                Assert.Equal(bear, bearFootprint.Item3.First());
+                bear.DynamicProperties.Remove(nameof(INotifyUpdateObjects.AfterCommitUpdateObjects));
+
+                var dotFootprint = dataObjectForTest.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
+                Assert.NotNull(dotFootprint);
+                Assert.Equal(ds, dotFootprint.Item2);
+                Assert.Equal(dataObjectForTest, dotFootprint.Item3.First());
+
+                // Verify BeforeUpdateObjects and AfterCommitUpdateObjects share the same operationId per object.
+                var bearBeforeFootprint = bear.DynamicProperties[nameof(INotifyUpdateObjects.BeforeUpdateObjects)] as Tuple<Guid, IDataService, System.Data.IDbTransaction, IEnumerable<DataObject>>;
+                Assert.Equal(bearBeforeFootprint.Item1, bearFootprint.Item1);
+
+                // Clean up.
+                bear.DynamicProperties.Remove(nameof(INotifyUpdateObjects.BeforeUpdateObjects));
+                dataObjectForTest.DynamicProperties.Remove(nameof(INotifyUpdateObjects.AfterCommitUpdateObjects));
+                dataObjectForTest.DynamicProperties.Remove(nameof(INotifyUpdateObjects.BeforeUpdateObjects));
+            }
+        }
+
+        /// <summary>
         /// Test for <see cref="INotifyUpdateObject"/> intarface.
         /// </summary>
         [Fact]
@@ -340,11 +381,18 @@
             Assert.Equal(dataObject, afterSuccessUpdateObjectsFootprint.Item3.First());
             dataObject.DynamicProperties.Remove(nameof(INotifyUpdateObjects.AfterSuccessUpdateObjects));
 
+            var afterCommitUpdateObjectsFootprint = dataObject.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
+            Assert.NotNull(afterCommitUpdateObjectsFootprint);
+            Assert.Equal(dataService, afterCommitUpdateObjectsFootprint.Item2);
+            Assert.Equal(dataObject, afterCommitUpdateObjectsFootprint.Item3.First());
+            dataObject.DynamicProperties.Remove(nameof(INotifyUpdateObjects.AfterCommitUpdateObjects));
+
             var afterFailUpdateObjectsFootprint = dataObject.DynamicProperties[nameof(INotifyUpdateObjects.AfterFailUpdateObjects)] as Tuple<Guid, IDataService, System.Data.IDbTransaction, IEnumerable<DataObject>>;
             Assert.Null(afterFailUpdateObjectsFootprint);
 
             Assert.Equal(beforeUpdateObjectsFootprint.Item1, afterSuccessSqlUpdateObjectsFootprint.Item1);
             Assert.Equal(afterSuccessUpdateObjectsFootprint.Item1, afterSuccessSqlUpdateObjectsFootprint.Item1);
+            Assert.Equal(afterCommitUpdateObjectsFootprint.Item1, afterSuccessSqlUpdateObjectsFootprint.Item1);
         }
 
         /// <summary>
@@ -365,6 +413,9 @@
 
             var failedAfterSuccessUpdateObjectsFootprint = dataObject.DynamicProperties[nameof(INotifyUpdateObjects.AfterSuccessUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
             Assert.Null(failedAfterSuccessUpdateObjectsFootprint);
+
+            var failedAfterCommitUpdateObjectsFootprint = dataObject.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
+            Assert.Null(failedAfterCommitUpdateObjectsFootprint);
 
             var failedAfterFailUpdateObjectsFootprint = dataObject.DynamicProperties[nameof(INotifyUpdateObjects.AfterFailUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
             Assert.NotNull(failedAfterFailUpdateObjectsFootprint);

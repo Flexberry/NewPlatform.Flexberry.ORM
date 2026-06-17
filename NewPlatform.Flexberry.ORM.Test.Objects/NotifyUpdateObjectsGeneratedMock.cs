@@ -57,6 +57,14 @@ namespace NewPlatform.Flexberry.ORM.Tests
             dataObject.DynamicProperties.Add(nameof(AfterSuccessUpdateObjects), new Tuple<Guid, IDataService, IEnumerable<DataObject>>(operationId, dataService, dataObjects));
         }
 
+        /// <inheritdoc cref="INotifyUpdateObjects"/>
+        public void AfterCommitUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
+        {
+            var dataObject = dataObjects.First();
+
+            dataObject.DynamicProperties.Add(nameof(AfterCommitUpdateObjects), new Tuple<Guid, IDataService, IEnumerable<DataObject>>(operationId, dataService, dataObjects));
+        }
+
 
         /// <inheritdoc cref="INotifyUpdateObjects"/>
         public void AfterFailUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
@@ -64,6 +72,11 @@ namespace NewPlatform.Flexberry.ORM.Tests
             var dataObject = dataObjects.First();
 
             dataObject.DynamicProperties.Add(nameof(AfterFailUpdateObjects), new Tuple<Guid, IDataService, IEnumerable<DataObject>>(operationId, dataService, dataObjects));
+        }
+
+        /// <inheritdoc cref="INotifyUpdateObjects"/>
+        public void CleanupStateStore(Guid operationId)
+        {
         }
 
         // *** End programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)

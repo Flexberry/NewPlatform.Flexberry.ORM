@@ -41,25 +41,25 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <inheritdoc cref="INotifyUpdateProperty"/>
         public void BeforeUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
-            dataObject.DynamicProperties.Add(nameof(BeforeUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
+            dataObject.DynamicProperties[nameof(BeforeUpdateProperty)] = new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue);
         }
 
         /// <inheritdoc cref="INotifyUpdateProperty"/>
         public void AfterSuccessSqlUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
-            dataObject.DynamicProperties.Add(nameof(AfterSuccessSqlUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
+            dataObject.DynamicProperties[nameof(AfterSuccessSqlUpdateProperty)] = new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue);
         }
 
         /// <inheritdoc cref="INotifyUpdateProperty"/>
         public void AfterSuccessUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
-            dataObject.DynamicProperties.Add(nameof(AfterSuccessUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
+            dataObject.DynamicProperties[nameof(AfterSuccessUpdateProperty)] = new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue);
         }
 
         /// <inheritdoc cref="INotifyUpdateProperty"/>
         public void AfterFailUpdateProperty(DataObject dataObject, ObjectStatus status, string propertyName, object oldValue, object newValue)
         {
-            dataObject.DynamicProperties.Add(nameof(AfterFailUpdateProperty), new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue));
+            dataObject.DynamicProperties[nameof(AfterFailUpdateProperty)] = new Tuple<ObjectStatus, string, object, object>(status, propertyName, oldValue, newValue);
         }
 
         /// <inheritdoc cref="IComparableType"/>

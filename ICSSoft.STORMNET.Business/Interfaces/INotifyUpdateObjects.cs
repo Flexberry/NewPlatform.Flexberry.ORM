@@ -37,11 +37,26 @@
         void AfterSuccessUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects);
 
         /// <summary>
+        /// After commit update objects. Fires AFTER the transaction is committed.
+        /// </summary>
+        /// <param name="operationId">Unique operation Id.</param>
+        /// <param name="dataService">Data service.</param>
+        /// <param name="dataObjects">Data objects for update.</param>
+        void AfterCommitUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects);
+
+        /// <summary>
         /// After fail update objects.
         /// </summary>
         /// <param name="operationId">Unique operation Id.</param>
         /// <param name="dataService">Data service.</param>
         /// <param name="dataObjects">Data objects for update.</param>
         void AfterFailUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects);
+
+        /// <summary>
+        /// Remove all internal state captured for the specified operation.
+        /// Called on failure to prevent memory leaks.
+        /// </summary>
+        /// <param name="operationId">Unique operation Id.</param>
+        void CleanupStateStore(Guid operationId);
     }
 }

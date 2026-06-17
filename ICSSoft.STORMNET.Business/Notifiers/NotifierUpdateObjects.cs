@@ -382,6 +382,165 @@
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
                     Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
+
+                    notifyUpdateObject.AfterSuccessUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
+                }
+
+                List<string> alteredPropertyNames = new List<string>(dataObject.GetAlteredPropertyNames());
+
+                if (subscribedPropNotifiers != null && (subscribedPropNotifiers.ContainsKey(dataObjectType) || status == ObjectStatus.Deleted))
+                {
+                    IEnumerable<string> subscribedPropertyNames = subscribedPropNotifiers[dataObjectType];
+                    if (subscribedPropertyNames != null)
+                    {
+                        foreach (string propertyName in subscribedPropertyNames)
+                        {
+                            object oldValue = null;
+                            object newValue = null;
+                            bool notify = false;
+                            if (status == ObjectStatus.Deleted)
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (status == ObjectStatus.Created)
+                            {
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+                            else if (alteredPropertyNames.Contains(propertyName))
+                            {
+                                DataObject dataCopy = dataObject.GetDataCopy();
+                                if (dataCopy != null)
+                                {
+                                    oldValue = Information.GetPropValueByName(dataCopy, propertyName);
+                                }
+
+                                newValue = Information.GetPropValueByName(dataObject, propertyName);
+                                notify = true;
+                            }
+
+                            if (notify)
+                            {
+                                var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
+
+                                NotifierUpdatePropertyByType.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
+
+                IDictionary<string, Tuple<ObjectStatus, object, object>> dataFromStore = null;
+
+                if (stateStore.ContainsKey(operationId))
+                {
+                    IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>> typeDictionary = stateStore[operationId];
+
+                    if (typeDictionary.ContainsKey(dataObjectType))
+                    {
+                        IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>> primaryKeyDictionary = typeDictionary[dataObjectType];
+
+                        if (primaryKeyDictionary.ContainsKey(dataObject.__PrimaryKey))
+                        {
+                            dataFromStore = primaryKeyDictionary[dataObject.__PrimaryKey];
+                        }
+                    }
+                }
+
+                if (dataFromStore != null)
+                {
+                    string[] keys = new string[dataFromStore.Count];
+                    dataFromStore.Keys.CopyTo(keys, 0);
+                    foreach (string propertyName in keys)
+                    {
+                        if (!string.IsNullOrWhiteSpace(propertyName))
+                        {
+                            Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                            if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                            {
+                                Tuple<ObjectStatus, object, object> valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+                                if (valuesFromStateStore != null)
+                                {
+                                    ObjectStatus objectStatusFromStateStore = valuesFromStateStore.Item1;
+                                    INotifyUpdateProperty oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                    INotifyUpdateProperty newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+
+                                    INotifyUpdateProperty notifyUpdateProperty = newValue ?? oldValue;
+
+                                    if (notifyUpdateProperty != null)
+                                    {
+                                        notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, objectStatusFromStateStore, propertyName, oldValue, newValue);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (status == ObjectStatus.Deleted)
+                {
+                    string[] allPropertyNames = Information.GetAllPropertyNames(dataObjectType);
+
+                    foreach (string propertyName in allPropertyNames)
+                    {
+                        if (propertyName == nameof(DataObject.IsReadOnly) || propertyName == nameof(DataObject.DynamicProperties) || propertyName == nameof(DataObject.__PrototypeKey) || propertyName == nameof(DataObject.Prototyped) || propertyName == nameof(DataObject.__PrimaryKey))
+                        {
+                            continue;
+                        }
+
+                        Type propertyType = Information.GetPropertyType(dataObjectType, propertyName);
+
+                        if (typeof(INotifyUpdateProperty).IsAssignableFrom(propertyType))
+                        {
+                            INotifyUpdateProperty oldValue = null;
+                            INotifyUpdateProperty newValue = null;
+
+                            var valuesFromStateStore = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
+
+                            if (valuesFromStateStore != null)
+                            {
+                                oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
+                                newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
+                            }
+                            else
+                            {
+                                oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
+                            }
+
+                            INotifyUpdateProperty notifyUpdateProperty = oldValue;
+
+                            if (notifyUpdateProperty != null)
+                            {
+                                notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <inheritdoc cref="INotifyUpdateObjects"/>
+        public virtual void AfterCommitUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
+        {
+            if (dataObjects == null)
+            {
+                return;
+            }
+
+            if (!stateStore.ContainsKey(operationId))
+            {
+                return;
+            }
+
+            foreach (DataObject dataObject in dataObjects)
+            {
+                Type dataObjectType = dataObject.GetType();
+                ObjectStatus status = dataObject.GetStatus(false);
+
+                if (dataObject is INotifyUpdateObject notifyUpdateObject)
+                {
+                    Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
                     RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
 
                     notifyUpdateObject.AfterSuccessUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
@@ -523,6 +682,17 @@
                     }
                 }
             }
+
+            stateStore.Remove(operationId);
+        }
+
+        /// <summary>
+        /// Remove all stateStore data for the specified operation.
+        /// </summary>
+        /// <param name="operationId">Operation id.</param>
+        public virtual void CleanupStateStore(Guid operationId)
+        {
+            stateStore.Remove(operationId);
         }
 
         /// <inheritdoc cref="INotifyUpdateObjects"/>
