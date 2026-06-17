@@ -356,6 +356,32 @@
                                             return;
                                         }
 
+#if NET6_0_OR_GREATER
+                                        if (propType == typeof(DateOnly))
+                                        {
+                                            if (DateOnly.TryParse(propValString, out DateOnly doVal))
+                                            {
+                                                setHandler(obj, doVal);
+                                                return;
+                                            }
+
+                                            setHandler(obj, DateOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture));
+                                            return;
+                                        }
+
+                                        if (propType == typeof(TimeOnly))
+                                        {
+                                            if (TimeOnly.TryParse(propValString, out TimeOnly toVal))
+                                            {
+                                                setHandler(obj, toVal);
+                                                return;
+                                            }
+
+                                            setHandler(obj, TimeOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture));
+                                            return;
+                                        }
+#endif
+
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -593,6 +619,42 @@
                                     object convertedValue = propInfo.PropertyType == typeof(DateOnly)
                                         ? (dt.HasValue ? new DateOnly(dt.Value.Year, dt.Value.Month, dt.Value.Day) : default)
                                         : (dt.HasValue ? new DateOnly?(new DateOnly(dt.Value.Year, dt.Value.Month, dt.Value.Day)) : null);
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                } else // Npgsql 5.x (net6.0/net7.0) возвращает TimeSpan для столбцов time; Npgsql 10+ возвращает TimeOnly напрямую.
+                                if (PropValue != null && PropValue is TimeSpan && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var ts = (TimeSpan)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? TimeOnly.FromTimeSpan(ts)
+                                        : new TimeOnly?(TimeOnly.FromTimeSpan(ts));
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue.GetType() == typeof(TimeSpan?) && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var ts = (TimeSpan?)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? (ts.HasValue ? TimeOnly.FromTimeSpan(ts.Value) : default)
+                                        : (ts.HasValue ? new TimeOnly?(TimeOnly.FromTimeSpan(ts.Value)) : null);
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue is DateTime && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var dt = (DateTime)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? TimeOnly.FromDateTime(dt)
+                                        : new TimeOnly?(TimeOnly.FromDateTime(dt));
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue.GetType() == typeof(DateTime?) && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var dt = (DateTime?)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? (dt.HasValue ? TimeOnly.FromDateTime(dt.Value) : default)
+                                        : (dt.HasValue ? new TimeOnly?(TimeOnly.FromDateTime(dt.Value)) : null);
                                     setHandler(obj, convertedValue);
                                     return;
                                 }
@@ -4628,6 +4690,28 @@
                     var dtVal1 = DateTime.Parse(propValString, culture);
                     return dtVal1;
                 }
+
+#if NET6_0_OR_GREATER
+                if (propertyType == typeof(DateOnly))
+                {
+                    if (DateOnly.TryParse(propValString, out DateOnly doVal))
+                    {
+                        return doVal;
+                    }
+
+                    return DateOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+                if (propertyType == typeof(TimeOnly))
+                {
+                    if (TimeOnly.TryParse(propValString, out TimeOnly toVal))
+                    {
+                        return toVal;
+                    }
+
+                    return TimeOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture);
+                }
+#endif
 
                 if (propertyType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public, null, new Type[] { typeof(string), typeof(IFormatProvider) }, null) != null)
                 {

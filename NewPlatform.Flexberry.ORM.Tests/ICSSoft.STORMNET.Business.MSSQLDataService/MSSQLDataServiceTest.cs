@@ -129,5 +129,35 @@
             val = ds.ConvertSimpleValueToQueryValueString(intVal);
             Assert.Equal(intVal.ToString(CultureInfo.InvariantCulture), val);
         }
+
+#if NET6_0_OR_GREATER
+        [Fact]
+        public void ConvertSimpleValueToQueryValueStringDateOnlyTest()
+        {
+            using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+
+            var dateOnly = new DateOnly(2026, 5, 20);
+            string val = ds.ConvertSimpleValueToQueryValueString(dateOnly);
+            Assert.Equal("'20260520'", val);
+        }
+
+        [Fact]
+        public void ConvertSimpleValueToQueryValueStringDateOnlyMinValueTest()
+        {
+            using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+
+            string val = ds.ConvertSimpleValueToQueryValueString(DateOnly.MinValue);
+            Assert.Equal("'00010101'", val);
+        }
+
+        [Fact]
+        public void ConvertSimpleValueToQueryValueStringDateOnlyMaxValueTest()
+        {
+            using MSSQLDataService ds = CreateMSSQLDataServiceForTests();
+
+            string val = ds.ConvertSimpleValueToQueryValueString(DateOnly.MaxValue);
+            Assert.Equal("'99991231'", val);
+        }
+#endif
     }
 }

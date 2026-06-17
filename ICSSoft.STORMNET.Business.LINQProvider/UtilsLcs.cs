@@ -308,10 +308,14 @@
                 case "DayOfWeek":
                     return ldef.funcDayOfWeekZeroBased;
                 case "Second":
+                    return ldef.funcSSPart;
                 case "Millisecond":
                 case "Ticks":
-                case "DayOfYear":
                     throw new MethodSignatureException(string.Format("Функция {0} не поддерживается LCS", name));
+                case "DayOfYear":
+                    return ldef.funcDayOfYear;
+                case "DayNumber":
+                    return ldef.funcDayNumber;
                 default:
                     return string.Empty;
             }

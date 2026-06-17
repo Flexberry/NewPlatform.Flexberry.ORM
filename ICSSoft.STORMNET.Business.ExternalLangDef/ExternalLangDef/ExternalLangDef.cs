@@ -147,6 +147,22 @@
         }
 
         /// <summary>
+        /// Функция, возвращающая номер дня от 0001-01-01.
+        /// </summary>
+        public string funcDayNumber
+        {
+            get { return "DayNumber"; }
+        }
+
+        /// <summary>
+        /// Функция, возвращающая день года от DateTime.
+        /// </summary>
+        public string funcDayOfYear
+        {
+            get { return "DayOfYear"; }
+        }
+
+        /// <summary>
         /// Функция, возвращающая часы от DateTime.
         /// </summary>
         public string funcHHPart
@@ -160,6 +176,14 @@
         public string funcMIPart
         {
             get { return "miPart"; }
+        }
+
+        /// <summary>
+        /// Функция, возвращающая секунды от DateTime.
+        /// </summary>
+        public string funcSSPart
+        {
+            get { return "ssPart"; }
         }
 
         /// <summary>
@@ -758,6 +782,27 @@
                     "ДЕНЬ ({0})",
                     new FunctionParameterDef(DateTimeType)),
                 new FunctionDef(
+                    base.MaxFuncID + 57,
+                    NumericType,
+                    funcDayNumber,
+                    "День от 0001-01-01",
+                    "День от 0001-01-01 ({0})",
+                    new FunctionParameterDef(DateTimeType)),
+                new FunctionDef(
+                    base.MaxFuncID + 58,
+                    NumericType,
+                    funcDayOfYear,
+                    "День от начала года",
+                    "День от начала года ({0})",
+                    new FunctionParameterDef(DateTimeType)),
+                new FunctionDef(
+                    base.MaxFuncID + 59,
+                    NumericType,
+                    funcSSPart,
+                    "Секунда",
+                    "Секунда ({0})",
+                    new FunctionParameterDef(DateTimeType)),
+                new FunctionDef(
                     base.MaxFuncID + 37,
                     NumericType,
                     "hhPart",
@@ -1065,7 +1110,8 @@
                 return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 
-            if (value.FunctionDef.StringedView == "hhPart" || value.FunctionDef.StringedView == "miPart")
+            if (value.FunctionDef.StringedView == "hhPart" || value.FunctionDef.StringedView == "miPart"
+                || value.FunctionDef.StringedView == funcSSPart)
             {
                 // здесь требуется преобразование из DATASERVICE
                 return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
@@ -1080,6 +1126,16 @@
             if (value.FunctionDef.StringedView == funcDayOfWeekZeroBased)
             {
                 // здесь требуется преобразование из DATASERVICE
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
+            }
+
+            if (value.FunctionDef.StringedView == funcDayNumber)
+            {
+                return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
+            }
+
+            if (value.FunctionDef.StringedView == funcDayOfYear)
+            {
                 return DataServiceSwitch(value, convertValue, convertIdentifier, ds);
             }
 

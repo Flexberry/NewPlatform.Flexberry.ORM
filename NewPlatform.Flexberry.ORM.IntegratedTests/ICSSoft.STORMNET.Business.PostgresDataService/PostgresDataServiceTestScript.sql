@@ -368,6 +368,8 @@ CREATE TABLE Class_DateOnly (
  AttrDateOnly DATE NULL,
  AttrString VARCHAR(255) NULL,
  AttrTimeOnly TIME NULL,
+ AttrDateOnlyNullable DATE NULL,
+ AttrTimeOnlyNullable TIME NULL,
  PRIMARY KEY (primaryKey));
 
 
@@ -487,55 +489,55 @@ CREATE INDEX Index1f042255e425d1c8786b6b0103ae0d58d0c7c5ef on ДочернийК
  ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FK025ab81ce67de2ca987719c3157aeec161206272 FOREIGN KEY (МастерКлассДлинноеИмя02) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Index025ab81ce67de2ca987719c3157aeec161206272 on ДочернийКлассДлинноеИмя (МастерКлассДлинноеИмя02); 
 
- ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FK1818be36d46dfbb46e4c4511cf465a3dfe8fea56 FOREIGN KEY (MyClass2_m0) REFERENCES МастерКлассДлинноеИмя; 
+ ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FK1818be36d46dfbb46e4c4511cf465a3dfe8fea56 FOREIGN KEY (MyClass2_m0) REFERENCES MasterClass; 
 CREATE INDEX Index1818be36d46dfbb46e4c4511cf465a3dfe8fea56 on ДочернийКлассДлинноеИмя (MyClass2_m0); 
 
- ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FK39372e37588406730156fbfc58845420f97c106f FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя2; 
+ ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FK39372e37588406730156fbfc58845420f97c106f FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя; 
 CREATE INDEX Index39372e37588406730156fbfc58845420f97c106f on ДочернийКлассДлинноеИмя (MyClass2_m1); 
 
- ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FKd2bc4348adc393a5189d3c7476c05dfd6885b469 FOREIGN KEY (MyClass2_m2) REFERENCES MasterClass; 
+ ALTER TABLE ДочернийКлассДлинноеИмя ADD CONSTRAINT FKd2bc4348adc393a5189d3c7476c05dfd6885b469 FOREIGN KEY (MyClass2_m2) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Indexd2bc4348adc393a5189d3c7476c05dfd6885b469 on ДочернийКлассДлинноеИмя (MyClass2_m2); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FK77aa250364c053114540e0b96bccf70f47d3dd31 FOREIGN KEY (MyClass1_m0) REFERENCES ДочернийКлассДлинноеИмя; 
+ ALTER TABLE DetailClass ADD CONSTRAINT FK77aa250364c053114540e0b96bccf70f47d3dd31 FOREIGN KEY (MyClass1_m0) REFERENCES MyClass; 
 CREATE INDEX Index77aa250364c053114540e0b96bccf70f47d3dd31 on DetailClass (MyClass1_m0); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FK3ac0aa6f58aa1aff08d633343b2834bd961caac5 FOREIGN KEY (MyClass1_m1) REFERENCES ДочернийКлассДлинноеИмя2; 
+ ALTER TABLE DetailClass ADD CONSTRAINT FK3ac0aa6f58aa1aff08d633343b2834bd961caac5 FOREIGN KEY (MyClass1_m1) REFERENCES ДочернийКлассДлинноеИмя; 
 CREATE INDEX Index3ac0aa6f58aa1aff08d633343b2834bd961caac5 on DetailClass (MyClass1_m1); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FKca27ff105b842ef6cac7b5e7eba7772c8f74d712 FOREIGN KEY (MyClass1_m2) REFERENCES Класс; 
+ ALTER TABLE DetailClass ADD CONSTRAINT FKca27ff105b842ef6cac7b5e7eba7772c8f74d712 FOREIGN KEY (MyClass1_m2) REFERENCES ДочернийКлассДлинноеИмя2; 
 CREATE INDEX Indexca27ff105b842ef6cac7b5e7eba7772c8f74d712 on DetailClass (MyClass1_m2); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FKe789f6f4069ceb440ba166a1896bc86dd8a59f39 FOREIGN KEY (MyClass1_m3) REFERENCES РодительскийКлассДлинноеИмя; 
+ ALTER TABLE DetailClass ADD CONSTRAINT FKe789f6f4069ceb440ba166a1896bc86dd8a59f39 FOREIGN KEY (MyClass1_m3) REFERENCES Класс; 
 CREATE INDEX Indexe789f6f4069ceb440ba166a1896bc86dd8a59f39 on DetailClass (MyClass1_m3); 
 
- ALTER TABLE DetailClass ADD CONSTRAINT FKf01ef28579d81f1402ae693b56505dcefd2521d2 FOREIGN KEY (MyClass1_m4) REFERENCES MyClass; 
+ ALTER TABLE DetailClass ADD CONSTRAINT FKf01ef28579d81f1402ae693b56505dcefd2521d2 FOREIGN KEY (MyClass1_m4) REFERENCES РодительскийКлассДлинноеИмя; 
 CREATE INDEX Indexf01ef28579d81f1402ae693b56505dcefd2521d2 on DetailClass (MyClass1_m4); 
 
- ALTER TABLE Класс ADD CONSTRAINT FKfea81ad1e26c37dd1ebc8bda5dfc9f660d1305ed FOREIGN KEY (MyClass2_m0) REFERENCES МастерКлассДлинноеИмя; 
+ ALTER TABLE Класс ADD CONSTRAINT FKfea81ad1e26c37dd1ebc8bda5dfc9f660d1305ed FOREIGN KEY (MyClass2_m0) REFERENCES MasterClass; 
 CREATE INDEX Indexfea81ad1e26c37dd1ebc8bda5dfc9f660d1305ed on Класс (MyClass2_m0); 
 
- ALTER TABLE Класс ADD CONSTRAINT FKf6d2577ba3277cd2b1e7b52daa3934ce2007177c FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя2; 
+ ALTER TABLE Класс ADD CONSTRAINT FKf6d2577ba3277cd2b1e7b52daa3934ce2007177c FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя; 
 CREATE INDEX Indexf6d2577ba3277cd2b1e7b52daa3934ce2007177c on Класс (MyClass2_m1); 
 
- ALTER TABLE Класс ADD CONSTRAINT FK9d5d8518937c93de853b0a3df3ac15b45c228351 FOREIGN KEY (MyClass2_m2) REFERENCES MasterClass; 
+ ALTER TABLE Класс ADD CONSTRAINT FK9d5d8518937c93de853b0a3df3ac15b45c228351 FOREIGN KEY (MyClass2_m2) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Index9d5d8518937c93de853b0a3df3ac15b45c228351 on Класс (MyClass2_m2); 
 
- ALTER TABLE MyClass ADD CONSTRAINT FK74816bdce3deb319484f6140003df82c77b762fd FOREIGN KEY (MyClass2_m0) REFERENCES МастерКлассДлинноеИмя; 
+ ALTER TABLE MyClass ADD CONSTRAINT FK74816bdce3deb319484f6140003df82c77b762fd FOREIGN KEY (MyClass2_m0) REFERENCES MasterClass; 
 CREATE INDEX Index74816bdce3deb319484f6140003df82c77b762fd on MyClass (MyClass2_m0); 
 
- ALTER TABLE MyClass ADD CONSTRAINT FKd8127369ee55dc2097ed4b08708fe4afff5c089d FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя2; 
+ ALTER TABLE MyClass ADD CONSTRAINT FKd8127369ee55dc2097ed4b08708fe4afff5c089d FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя; 
 CREATE INDEX Indexd8127369ee55dc2097ed4b08708fe4afff5c089d on MyClass (MyClass2_m1); 
 
- ALTER TABLE MyClass ADD CONSTRAINT FK77c89e3e96ba71c677881fcf55fb30d26ae1003b FOREIGN KEY (MyClass2_m2) REFERENCES MasterClass; 
+ ALTER TABLE MyClass ADD CONSTRAINT FK77c89e3e96ba71c677881fcf55fb30d26ae1003b FOREIGN KEY (MyClass2_m2) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Index77c89e3e96ba71c677881fcf55fb30d26ae1003b on MyClass (MyClass2_m2); 
 
- ALTER TABLE DetailClass2 ADD CONSTRAINT FK875a6d0bf601df9ef292680f286b0f7e154b1796 FOREIGN KEY (DetailClass_m0) REFERENCES ДетейлКлассДлинноеИмя; 
+ ALTER TABLE DetailClass2 ADD CONSTRAINT FK875a6d0bf601df9ef292680f286b0f7e154b1796 FOREIGN KEY (DetailClass_m0) REFERENCES DetailClass; 
 CREATE INDEX Index875a6d0bf601df9ef292680f286b0f7e154b1796 on DetailClass2 (DetailClass_m0); 
 
- ALTER TABLE DetailClass2 ADD CONSTRAINT FK649ba5bbf29aa3c4891521e2112052f310811b1c FOREIGN KEY (DetailClass_m1) REFERENCES ДетейлКлассДлинноеИмя2; 
+ ALTER TABLE DetailClass2 ADD CONSTRAINT FK649ba5bbf29aa3c4891521e2112052f310811b1c FOREIGN KEY (DetailClass_m1) REFERENCES ДетейлКлассДлинноеИмя; 
 CREATE INDEX Index649ba5bbf29aa3c4891521e2112052f310811b1c on DetailClass2 (DetailClass_m1); 
 
- ALTER TABLE DetailClass2 ADD CONSTRAINT FK32445981adb4dffecfc22125b646f42251196089 FOREIGN KEY (DetailClass_m2) REFERENCES DetailClass; 
+ ALTER TABLE DetailClass2 ADD CONSTRAINT FK32445981adb4dffecfc22125b646f42251196089 FOREIGN KEY (DetailClass_m2) REFERENCES ДетейлКлассДлинноеИмя2; 
 CREATE INDEX Index32445981adb4dffecfc22125b646f42251196089 on DetailClass2 (DetailClass_m2); 
 
  ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK72ccad34380fa9a8138470858fb9168c88c13414 FOREIGN KEY (МастерКлассДлинноеИмя01_m0) REFERENCES МастерКлассДлинноеИмя; 
@@ -547,40 +549,40 @@ CREATE INDEX Indexe177a2dfbc86ccc50ee0b8cd62d549ed06d68d51 on ДочернийК
  ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FKa64728983324d4655fee3eb004d84b0dbe36b59a FOREIGN KEY (МастерКлассДлинноеИмя02) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Indexa64728983324d4655fee3eb004d84b0dbe36b59a on ДочернийКлассДлинноеИмя2 (МастерКлассДлинноеИмя02); 
 
- ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK21c052b11057689a8144f58330adb8473a76f35a FOREIGN KEY (MyClass2_m0) REFERENCES МастерКлассДлинноеИмя; 
+ ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK21c052b11057689a8144f58330adb8473a76f35a FOREIGN KEY (MyClass2_m0) REFERENCES MasterClass; 
 CREATE INDEX Index21c052b11057689a8144f58330adb8473a76f35a on ДочернийКлассДлинноеИмя2 (MyClass2_m0); 
 
- ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK38d41bfdbf84f871aaed5d0b13b796f52937d75a FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя2; 
+ ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK38d41bfdbf84f871aaed5d0b13b796f52937d75a FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя; 
 CREATE INDEX Index38d41bfdbf84f871aaed5d0b13b796f52937d75a on ДочернийКлассДлинноеИмя2 (MyClass2_m1); 
 
- ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK6bbbaa4b60fe8302a828332adc8478f3aac112b4 FOREIGN KEY (MyClass2_m2) REFERENCES MasterClass; 
+ ALTER TABLE ДочернийКлассДлинноеИмя2 ADD CONSTRAINT FK6bbbaa4b60fe8302a828332adc8478f3aac112b4 FOREIGN KEY (MyClass2_m2) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Index6bbbaa4b60fe8302a828332adc8478f3aac112b4 on ДочернийКлассДлинноеИмя2 (MyClass2_m2); 
 
- ALTER TABLE РодительскийКлассДлинноеИмя ADD CONSTRAINT FK3fbc6d2b1567480de8bfbdab07ef655d0837f3d2 FOREIGN KEY (MyClass2_m0) REFERENCES МастерКлассДлинноеИмя; 
+ ALTER TABLE РодительскийКлассДлинноеИмя ADD CONSTRAINT FK3fbc6d2b1567480de8bfbdab07ef655d0837f3d2 FOREIGN KEY (MyClass2_m0) REFERENCES MasterClass; 
 CREATE INDEX Index3fbc6d2b1567480de8bfbdab07ef655d0837f3d2 on РодительскийКлассДлинноеИмя (MyClass2_m0); 
 
- ALTER TABLE РодительскийКлассДлинноеИмя ADD CONSTRAINT FK328edfb0a80d816d0740593fb35cc3bb4f377ea0 FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя2; 
+ ALTER TABLE РодительскийКлассДлинноеИмя ADD CONSTRAINT FK328edfb0a80d816d0740593fb35cc3bb4f377ea0 FOREIGN KEY (MyClass2_m1) REFERENCES МастерКлассДлинноеИмя; 
 CREATE INDEX Index328edfb0a80d816d0740593fb35cc3bb4f377ea0 on РодительскийКлассДлинноеИмя (MyClass2_m1); 
 
- ALTER TABLE РодительскийКлассДлинноеИмя ADD CONSTRAINT FKc8a01f000e6d3853df28e996be984d75574254fd FOREIGN KEY (MyClass2_m2) REFERENCES MasterClass; 
+ ALTER TABLE РодительскийКлассДлинноеИмя ADD CONSTRAINT FKc8a01f000e6d3853df28e996be984d75574254fd FOREIGN KEY (MyClass2_m2) REFERENCES МастерКлассДлинноеИмя2; 
 CREATE INDEX Indexc8a01f000e6d3853df28e996be984d75574254fd on РодительскийКлассДлинноеИмя (MyClass2_m2); 
 
  ALTER TABLE MasterClass ADD CONSTRAINT FK9b21ec79a1a584907f5995af2d116cb5105bf343 FOREIGN KEY (MasterRoot) REFERENCES MasterRoot; 
 CREATE INDEX Index9b21ec79a1a584907f5995af2d116cb5105bf343 on MasterClass (MasterRoot); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK3f67af9786b09aecd623d68960d38b2165e7a588 FOREIGN KEY (MyClass1_m0) REFERENCES ДочернийКлассДлинноеИмя; 
+ ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK3f67af9786b09aecd623d68960d38b2165e7a588 FOREIGN KEY (MyClass1_m0) REFERENCES MyClass; 
 CREATE INDEX Index3f67af9786b09aecd623d68960d38b2165e7a588 on ДетейлКлассДлинноеИмя (MyClass1_m0); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FKcf9c6765ff8ff2b3301596f3631cad25138bd517 FOREIGN KEY (MyClass1_m1) REFERENCES ДочернийКлассДлинноеИмя2; 
+ ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FKcf9c6765ff8ff2b3301596f3631cad25138bd517 FOREIGN KEY (MyClass1_m1) REFERENCES ДочернийКлассДлинноеИмя; 
 CREATE INDEX Indexcf9c6765ff8ff2b3301596f3631cad25138bd517 on ДетейлКлассДлинноеИмя (MyClass1_m1); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK45b9c7772adb0cadcf2fd93308e935e3457b6e50 FOREIGN KEY (MyClass1_m2) REFERENCES Класс; 
+ ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK45b9c7772adb0cadcf2fd93308e935e3457b6e50 FOREIGN KEY (MyClass1_m2) REFERENCES ДочернийКлассДлинноеИмя2; 
 CREATE INDEX Index45b9c7772adb0cadcf2fd93308e935e3457b6e50 on ДетейлКлассДлинноеИмя (MyClass1_m2); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK4f6c37452e6b24fab968e00448e5c07ab02eebce FOREIGN KEY (MyClass1_m3) REFERENCES РодительскийКлассДлинноеИмя; 
+ ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK4f6c37452e6b24fab968e00448e5c07ab02eebce FOREIGN KEY (MyClass1_m3) REFERENCES Класс; 
 CREATE INDEX Index4f6c37452e6b24fab968e00448e5c07ab02eebce on ДетейлКлассДлинноеИмя (MyClass1_m3); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FKf3e6c33fadfae073b6cdf2263f1c8277e21d8a2e FOREIGN KEY (MyClass1_m4) REFERENCES MyClass; 
+ ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FKf3e6c33fadfae073b6cdf2263f1c8277e21d8a2e FOREIGN KEY (MyClass1_m4) REFERENCES РодительскийКлассДлинноеИмя; 
 CREATE INDEX Indexf3e6c33fadfae073b6cdf2263f1c8277e21d8a2e on ДетейлКлассДлинноеИмя (MyClass1_m4); 
 
  ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FK718d65f8c6d546050f7a5b88cae1ddcc0f5c1aec FOREIGN KEY (ДочернийКлассДлинноеИмя_m0) REFERENCES ДочернийКлассДлинноеИмя; 
@@ -589,19 +591,19 @@ CREATE INDEX Index718d65f8c6d546050f7a5b88cae1ddcc0f5c1aec on ДетейлКла
  ALTER TABLE ДетейлКлассДлинноеИмя ADD CONSTRAINT FKae1b763aa2b629c8639e395145e2d1b2dba7df8d FOREIGN KEY (ДочернийКлассДлинноеИмя_m1) REFERENCES ДочернийКлассДлинноеИмя2; 
 CREATE INDEX Indexae1b763aa2b629c8639e395145e2d1b2dba7df8d on ДетейлКлассДлинноеИмя (ДочернийКлассДлинноеИмя_m1); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKdf8e57a337fab38888526f4167082a15d0cc6028 FOREIGN KEY (MyClass1_m0) REFERENCES ДочернийКлассДлинноеИмя; 
+ ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKdf8e57a337fab38888526f4167082a15d0cc6028 FOREIGN KEY (MyClass1_m0) REFERENCES MyClass; 
 CREATE INDEX Indexdf8e57a337fab38888526f4167082a15d0cc6028 on ДетейлКлассДлинноеИмя2 (MyClass1_m0); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FK9da909b7c08b123983085d7fdcd0ff6920a22e0e FOREIGN KEY (MyClass1_m1) REFERENCES ДочернийКлассДлинноеИмя2; 
+ ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FK9da909b7c08b123983085d7fdcd0ff6920a22e0e FOREIGN KEY (MyClass1_m1) REFERENCES ДочернийКлассДлинноеИмя; 
 CREATE INDEX Index9da909b7c08b123983085d7fdcd0ff6920a22e0e on ДетейлКлассДлинноеИмя2 (MyClass1_m1); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FK6af18f448fcecf4f5f00b385413b301b74d13a38 FOREIGN KEY (MyClass1_m2) REFERENCES Класс; 
+ ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FK6af18f448fcecf4f5f00b385413b301b74d13a38 FOREIGN KEY (MyClass1_m2) REFERENCES ДочернийКлассДлинноеИмя2; 
 CREATE INDEX Index6af18f448fcecf4f5f00b385413b301b74d13a38 on ДетейлКлассДлинноеИмя2 (MyClass1_m2); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKe83f86f013aa00136d9d19d2fd4966f6142441cc FOREIGN KEY (MyClass1_m3) REFERENCES РодительскийКлассДлинноеИмя; 
+ ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKe83f86f013aa00136d9d19d2fd4966f6142441cc FOREIGN KEY (MyClass1_m3) REFERENCES Класс; 
 CREATE INDEX Indexe83f86f013aa00136d9d19d2fd4966f6142441cc on ДетейлКлассДлинноеИмя2 (MyClass1_m3); 
 
- ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKee0db2186ad87bca7be62195121979972f1e6387 FOREIGN KEY (MyClass1_m4) REFERENCES MyClass; 
+ ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKee0db2186ad87bca7be62195121979972f1e6387 FOREIGN KEY (MyClass1_m4) REFERENCES РодительскийКлассДлинноеИмя; 
 CREATE INDEX Indexee0db2186ad87bca7be62195121979972f1e6387 on ДетейлКлассДлинноеИмя2 (MyClass1_m4); 
 
  ALTER TABLE ДетейлКлассДлинноеИмя2 ADD CONSTRAINT FKddb7493d6a06284a041d7247daed16474b1ae259 FOREIGN KEY (ДочернийКлассДлинноеИмя_m0) REFERENCES ДочернийКлассДлинноеИмя; 

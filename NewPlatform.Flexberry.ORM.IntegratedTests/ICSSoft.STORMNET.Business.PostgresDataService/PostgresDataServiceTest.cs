@@ -825,6 +825,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
             }
         }
 
+#if NET6_0_OR_GREATER
         /// <summary>
         /// Тестирование операций с типом DateOnly.
         /// </summary>
@@ -836,7 +837,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
                 return;
             }
 
-#if NET6_0_OR_GREATER
             var clazz = new Class_DateOnly
             {
                 AttrDateOnly = new System.DateOnly(2026, 05, 20),
@@ -864,12 +864,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
             };
             LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Class_DateOnly), view);
 
-            //TODO: Используется костыль languageDef.DateTimeType вместо типа для DateOnly,
-            //т.к. в SQLWhereLanguageDef.GetObjectTypeForNetType пока нет поддержки DateOnly (см. TODO в SQLWhereLanguageDef.cs).
-            //После добавления поддержки DateOnly в фильтрацию нужно использовать: languageDef.GetObjectTypeForNetType(typeof(DateOnly))
             lcs.LimitFunction = languageDef.GetFunction(
                 languageDef.funcEQ,
-                new VariableDef(languageDef.DateTimeType, Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrDateOnly)),
+                new VariableDef(languageDef.GetObjectTypeForNetType(typeof(DateOnly)), Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrDateOnly)),
                 clazz.AttrDateOnly);
             var loadedObjects = DataService.LoadObjects(lcs).Cast<Class_DateOnly>().ToList();
             Assert.Equal(1, loadedObjects.Count);
@@ -888,10 +885,7 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
             clazz2 = new Class_DateOnly { __PrimaryKey = clazz.__PrimaryKey };
 
             Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
-#else
             return;
-
-#endif
         }
 
         /// <summary>
@@ -905,7 +899,6 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
                 return;
             }
 
-#if NET6_0_OR_GREATER
             var clazz = new Class_DateOnly
             {
                 AttrTimeOnly = new System.TimeOnly(14, 30, 45),
@@ -931,11 +924,9 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
             };
             LoadingCustomizationStruct lcsTime = LoadingCustomizationStruct.GetSimpleStruct(typeof(Class_DateOnly), viewTime);
 
-            //TODO: Используется костыль languageDef.DateTimeType вместо типа для TimeOnly,
-            //т.к. в SQLWhereLanguageDef.GetObjectTypeForNetType пока нет поддержки TimeOnly.
             lcsTime.LimitFunction = languageDef.GetFunction(
                 languageDef.funcEQ,
-                new VariableDef(languageDef.DateTimeType, Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrTimeOnly)),
+                new VariableDef(languageDef.GetObjectTypeForNetType(typeof(TimeOnly)), Information.ExtractPropertyPath<Class_DateOnly>(x => x.AttrTimeOnly)),
                 clazz.AttrTimeOnly);
             var loadedObjectsTime = DataService.LoadObjects(lcsTime).Cast<Class_DateOnly>().ToList();
 
@@ -956,10 +947,8 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 
             Assert.Throws<CantFindDataObjectException>(() => DataService.LoadObject(clazz2));
 
-#else
             return;
-#endif
-
         }
+#endif
     }
 }

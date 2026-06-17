@@ -1412,6 +1412,18 @@
                 return "'" + ((DateTime)value).ToString(System.Globalization.DateTimeFormatInfo.CurrentInfo.UniversalSortableDateTimePattern) + "'";
             }
 
+#if NET6_0_OR_GREATER
+            if (valType == typeof(DateOnly))
+            {
+                return "'" + ((DateOnly)value).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture) + "'";
+            }
+
+            if (valType == typeof(TimeOnly))
+            {
+                return "'" + ((TimeOnly)value).ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture) + "'";
+            }
+#endif
+
             if (valType.IsEnum)
             {
                 return "'" + EnumCaption.GetCaptionFor(value) + "'";

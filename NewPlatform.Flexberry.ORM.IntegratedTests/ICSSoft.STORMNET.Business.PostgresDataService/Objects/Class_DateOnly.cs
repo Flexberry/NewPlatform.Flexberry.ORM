@@ -45,6 +45,12 @@ namespace IIS.TestClassesForPostgres
         private System.DateTime fAttrTimeOnly;
 #endif
 
+#if NET6_0_OR_GREATER
+        private System.DateOnly? fAttrDateOnlyNullable;
+
+        private System.TimeOnly? fAttrTimeOnlyNullable;
+#endif
+
         // *** Start programmer edit section *** (Class_DateOnly CustomMembers)
 
         // *** End programmer edit section *** (Class_DateOnly CustomMembers)
@@ -183,13 +189,47 @@ namespace IIS.TestClassesForPostgres
             {
                 // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Set start)
 
-                // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly Set start)
+                // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Set start)
                 this.fAttrTimeOnly = value;
                 // *** Start programmer edit section *** (Class_DateOnly.AttrTimeOnly Set end)
 
                 // *** End programmer edit section *** (Class_DateOnly.AttrTimeOnly Set end)
             }
         }
+
+#if NET6_0_OR_GREATER
+        /// <summary>
+        /// AttrDateOnlyNullable.
+        /// </summary>
+        public virtual System.DateOnly? AttrDateOnlyNullable
+        {
+            get
+            {
+                return this.fAttrDateOnlyNullable;
+            }
+
+            set
+            {
+                this.fAttrDateOnlyNullable = value;
+            }
+        }
+
+        /// <summary>
+        /// AttrTimeOnlyNullable.
+        /// </summary>
+        public virtual System.TimeOnly? AttrTimeOnlyNullable
+        {
+            get
+            {
+                return this.fAttrTimeOnlyNullable;
+            }
+
+            set
+            {
+                this.fAttrTimeOnlyNullable = value;
+            }
+        }
+#endif
     }
 }
 

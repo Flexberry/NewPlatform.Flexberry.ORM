@@ -215,5 +215,31 @@
         {
             Assert.Equal(LangDef.NumericType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(NullableDecimal)).NetCompatibilityType);
         }
+
+#if NET6_0_OR_GREATER
+        [Fact]
+        public void GetObjectTypeTest60()
+        {
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DateOnly)).NetCompatibilityType);
+        }
+
+        [Fact]
+        public void GetObjectTypeTest61()
+        {
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(DateOnly?)).NetCompatibilityType);
+        }
+
+        [Fact]
+        public void GetObjectTypeTest62()
+        {
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(TimeOnly)).NetCompatibilityType);
+        }
+
+        [Fact]
+        public void GetObjectTypeTest63()
+        {
+            Assert.Equal(LangDef.DateTimeType.NetCompatibilityType, FunctionHelper.GetObjectType(typeof(TimeOnly?)).NetCompatibilityType);
+        }
+#endif
     }
 }

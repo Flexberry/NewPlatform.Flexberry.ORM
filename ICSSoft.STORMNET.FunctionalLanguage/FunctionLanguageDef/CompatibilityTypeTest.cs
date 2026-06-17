@@ -399,6 +399,20 @@
                     new Type[] { },
                     new[] { typeof(string) });
 
+#if NET6_0_OR_GREATER
+                // typeof(DateOnly)
+                AddPredifinedConvertion(
+                    typeof(DateOnly),
+                    new Type[] { },
+                    new[] { typeof(DateTime) });
+
+                // typeof(TimeOnly)
+                AddPredifinedConvertion(
+                    typeof(TimeOnly),
+                    new Type[] { },
+                    new[] { typeof(DateTime) });
+#endif
+
                 _initialized = true;
             }
         }

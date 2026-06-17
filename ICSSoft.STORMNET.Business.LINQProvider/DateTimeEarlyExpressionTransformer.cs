@@ -34,14 +34,20 @@
                         case "Year":
                         case "Hour":
                         case "Date":
+                        case "DayNumber":
+                        case "DayOfYear":
                             return expression;
                     }
 
-                    return PartialEvaluatingExpressionVisitor.EvaluateIndependentSubtrees(expression, new EvaluatableExpressionFilter()); // (Колчанов) второй параметр добавился в методе, не понимаю, что сюда писать, написал так
+                    return PartialEvaluatingExpressionVisitor.EvaluateIndependentSubtrees(expression, new EvaluatableExpressionFilter());
                 }
 
                 var member = UtilsLcs.GetObjectPropertyValue(expression, "Member");
+#if NET6_0_OR_GREATER
+                if (member.DeclaringType == typeof(DateTime) || member.DeclaringType == typeof(DateOnly) || member.DeclaringType == typeof(TimeOnly))
+#else
                 if (member.DeclaringType == typeof(DateTime))
+#endif
                 {
                     switch (member.Name)
                     {
@@ -54,7 +60,10 @@
                         case "Year":
                         case "Hour":
                         case "Minute":
+                        case "Second":
                         case "TimeOfDay":
+                        case "DayNumber":
+                        case "DayOfYear":
                             return expression;
                     }
                 }

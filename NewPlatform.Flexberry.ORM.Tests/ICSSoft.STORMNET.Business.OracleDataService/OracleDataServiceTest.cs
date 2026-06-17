@@ -1,5 +1,6 @@
 ﻿namespace ICSSoft.STORMNET.Business.OracleDataServiceTests
 {
+    using System;
     using System.Data;
 
     using ICSSoft.STORMNET.Business;
@@ -40,5 +41,32 @@
             IDbConnection cnn = ds.GetConnection();
             Assert.NotNull(cnn);
         }
+
+#if NET6_0_OR_GREATER
+        [Fact]
+        public void ConvertSimpleValueToQueryValueStringDateOnlyTest()
+        {
+            using OracleDataService ds = CreateOracleDataServiceForTests();
+            var dateOnly = new DateOnly(2026, 5, 20);
+            string val = ds.ConvertSimpleValueToQueryValueString(dateOnly);
+            Assert.Equal("TO_DATE('2026-05-20', 'YYYY-MM-DD')", val);
+        }
+
+        [Fact]
+        public void ConvertSimpleValueToQueryValueStringDateOnlyMinValueTest()
+        {
+            using OracleDataService ds = CreateOracleDataServiceForTests();
+            string val = ds.ConvertSimpleValueToQueryValueString(DateOnly.MinValue);
+            Assert.Equal("TO_DATE('0001-01-01', 'YYYY-MM-DD')", val);
+        }
+
+        [Fact]
+        public void ConvertSimpleValueToQueryValueStringDateOnlyMaxValueTest()
+        {
+            using OracleDataService ds = CreateOracleDataServiceForTests();
+            string val = ds.ConvertSimpleValueToQueryValueString(DateOnly.MaxValue);
+            Assert.Equal("TO_DATE('9999-12-31', 'YYYY-MM-DD')", val);
+        }
+#endif
     }
 }

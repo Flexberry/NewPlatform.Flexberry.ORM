@@ -92,6 +92,12 @@
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
+            if (value.FunctionDef.StringedView == langDef.funcSSPart)
+            {
+                return string.Format("TO_CHAR({1}, \'{0}\')", "SS",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 // здесь требуется преобразование из DATASERVICE
@@ -102,6 +108,18 @@
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
             {
                 throw new NotImplementedException(string.Format("Function {0} is not implemented for Oracle", langDef.funcDayOfWeekZeroBased));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayNumber)
+            {
+                return string.Format("{0} - DATE '0001-01-01'",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayOfYear)
+            {
+                return string.Format("TO_NUMBER(TO_CHAR({0}, 'DDD'))",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
@@ -534,6 +552,18 @@
                 {
                     return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", dt.ToString("yyyy-MM-dd HH:mm:ss"));
                 }
+
+#if NET6_0_OR_GREATER
+                if (value is DateOnly dateOnlyVal)
+                {
+                    return string.Format("TO_DATE('{0}', 'YYYY-MM-DD')", dateOnlyVal.ToString("yyyy-MM-dd"));
+                }
+
+                if (value is TimeOnly timeOnlyVal)
+                {
+                    return string.Format("TO_TIMESTAMP('{0}', 'HH24:MI:SS.FF3')", timeOnlyVal.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture));
+                }
+#endif
 
                 Type valueType = value.GetType();
 
