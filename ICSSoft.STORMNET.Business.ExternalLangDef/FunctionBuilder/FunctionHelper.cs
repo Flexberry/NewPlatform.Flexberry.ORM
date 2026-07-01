@@ -29,7 +29,18 @@
             { LangDef.BoolType, new[] { typeof(bool), typeof(bool?) } },
             { LangDef.StringType, new[] { typeof(string), typeof(Enum), typeof(WebFile), typeof(File) } },
             { LangDef.GuidType, new[] { typeof(Guid), typeof(Guid?), typeof(DataObject), typeof(KeyGuid) } },
-            { LangDef.DateTimeType, new[] { typeof(DateTime), typeof(DateTime?), typeof(NullableDateTime) } },
+            { LangDef.DateTimeType, new[]
+            {
+                typeof(DateTime),
+                typeof(DateTime?),
+                typeof(NullableDateTime),
+#if NET6_0_OR_GREATER
+                typeof(DateOnly),
+                typeof(DateOnly?),
+                typeof(TimeOnly),
+                typeof(TimeOnly?),
+#endif
+            } },
             {
                 LangDef.NumericType, new[]
                 {

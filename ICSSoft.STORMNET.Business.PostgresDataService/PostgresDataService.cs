@@ -319,9 +319,22 @@
 
             if (
                 value.FunctionDef.StringedView == "hhPart" ||
-                value.FunctionDef.StringedView == "miPart")
+                value.FunctionDef.StringedView == "miPart" ||
+                value.FunctionDef.StringedView == langDef.funcSSPart)
             {
-                string strView = value.FunctionDef.StringedView == "hhPart" ? "HOUR" : "MINUTE";
+                string strView;
+                if (value.FunctionDef.StringedView == "hhPart")
+                {
+                    strView = "HOUR";
+                }
+                else if (value.FunctionDef.StringedView == "miPart")
+                {
+                    strView = "MINUTE";
+                }
+                else
+                {
+                    strView = "SECOND";
+                }
 
                 return string.Format("EXTRACT ({0} FROM {1})", strView,
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
@@ -336,6 +349,18 @@
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
             {
                 return string.Format("EXTRACT ({0} FROM {1})", "DOW",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayNumber)
+            {
+                return string.Format("{0} - date '0001-01-01'",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayOfYear)
+            {
+                return string.Format("EXTRACT (DOY FROM {0})",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
@@ -571,6 +596,18 @@
                 return "cast(" + value + " as timestamp)";
             }
 
+#if NET6_0_OR_GREATER
+            if (valType == typeof(DateOnly))
+            {
+                return "cast(" + value + " as date)";
+            }
+
+            if (valType == typeof(TimeOnly))
+            {
+                return "cast(" + value + " as time)";
+            }
+#endif
+
             return string.Empty;
         }
 
@@ -599,6 +636,12 @@
                 { // Поддержка типа DateOnly только с .NET 6.
                     DateOnly d = (DateOnly)value;
                     return "date '" + d.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "'";
+                }
+
+                if (value is TimeOnly)
+                {
+                    TimeOnly t = (TimeOnly)value;
+                    return "time '" + t.ToString("HH:mm:ss.ffffff", CultureInfo.InvariantCulture) + "'";
                 }
 #endif
 

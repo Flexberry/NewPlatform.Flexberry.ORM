@@ -21,6 +21,8 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests
     using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.Security;
 
+    using PostgresDataService = global::ICSSoft.STORMNET.Business.PostgresDataService;
+
     using Moq;
 
     using Npgsql;

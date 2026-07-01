@@ -484,7 +484,10 @@
                 _stacksHolder.PushParam(new VariableDef(_ldef.BoolType, varname));
             }
             else if (memberType == typeof(DateTime) || memberType == typeof(DayOfWeek)
-                     || memberType == typeof(TimeSpan) || memberType == typeof(NullableDateTime))
+#if NET6_0_OR_GREATER
+                 || memberType == typeof(DateOnly) || memberType == typeof(TimeOnly)
+#endif
+                 || memberType == typeof(TimeSpan) || memberType == typeof(NullableDateTime))
             {
                 string memberName = varname;
                 if (expression.Expression is ConstantExpression)
@@ -492,7 +495,11 @@
                     var param = _stacksHolder.PopParam();
                     _stacksHolder.PushParam(_ldef.GetFunction(UtilsLcs.GetFunctionByName(memberName), param));
                 }
-                else if (declaringType == typeof(DateTime) || declaringType == typeof(TimeSpan) || declaringType == typeof(NullableDateTime))
+                else if (declaringType == typeof(DateTime) || declaringType == typeof(TimeSpan)
+#if NET6_0_OR_GREATER
+                     || declaringType == typeof(DateOnly) || declaringType == typeof(TimeOnly)
+#endif
+                     || declaringType == typeof(NullableDateTime))
                 {
                     switch (memberName)
                     {
@@ -1118,7 +1125,11 @@
                 return _ldef.NumericType;
             }
 
+#if NET6_0_OR_GREATER
+            if (memberType == typeof(DateTime) || memberType == typeof(NullableDateTime) || memberType == typeof(DateOnly) || memberType == typeof(TimeOnly))
+#else
             if (memberType == typeof(DateTime) || memberType == typeof(NullableDateTime))
+#endif
             {
                 return _ldef.DateTimeType;
             }
@@ -1179,8 +1190,14 @@
 
             // Если родитель этого Member предыдущий Member
             if (ReferenceEquals(_previosVisitedMemberExpression, expression.Expression) ||
-                value != null && value.Type == typeof(DateTime) && value.Member.Name == "Value" && // Добавлена поддержка для Nullable<DateTime> и NullableDateTime
-                ReferenceEquals(_previosVisitedMemberExpression, value.Expression)) // при обработке свойств DateTime (Day, Month, Year и т.д.).
+                value != null &&
+#if NET6_0_OR_GREATER
+                (value.Type == typeof(DateTime) || value.Type == typeof(DateOnly) || value.Type == typeof(TimeOnly)) &&
+#else
+                value.Type == typeof(DateTime) &&
+#endif
+                value.Member.Name == "Value" &&
+                ReferenceEquals(_previosVisitedMemberExpression, value.Expression))
             {
                 param = _stacksHolder.PopParam();
 

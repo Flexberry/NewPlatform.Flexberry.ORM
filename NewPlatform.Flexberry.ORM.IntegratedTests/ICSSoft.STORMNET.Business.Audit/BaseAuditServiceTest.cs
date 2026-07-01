@@ -1,9 +1,6 @@
 namespace ICSSoft.STORMNET.Business.Audit.IntegratedTests
 {
-    using System.Configuration;
-
     using ICSSoft.STORMNET.Security;
-
     using NewPlatform.Flexberry.ORM.IntegratedTests;
 
     public abstract class BaseAuditServiceTest : BaseIntegratedTest

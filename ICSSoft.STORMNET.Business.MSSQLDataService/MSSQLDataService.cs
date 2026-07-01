@@ -104,7 +104,8 @@ namespace ICSSoft.STORMNET.Business
 
             if (
                 value.FunctionDef.StringedView == "hhPart" ||
-                value.FunctionDef.StringedView == "miPart")
+                value.FunctionDef.StringedView == "miPart" ||
+                value.FunctionDef.StringedView == langDef.funcSSPart)
             {
                 return string.Format("datepart({0},{1})", value.FunctionDef.StringedView.Substring(0, value.FunctionDef.StringedView.Length - 4),
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
@@ -123,6 +124,19 @@ namespace ICSSoft.STORMNET.Business
                 return string.Format(
                     "(datepart({0}, {1})+@@DATEFIRST-1)%7",
                     "DW",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayNumber)
+            {
+                return string.Format(
+                    "DATEDIFF(day, CONVERT(datetime2, '0001-01-01'), CONVERT(datetime2, {0}))",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayOfYear)
+            {
+                return string.Format("DATEPART(dy, {0})",
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
@@ -370,6 +384,18 @@ namespace ICSSoft.STORMNET.Business
 
                     return "'" + dateTime.ToString("yyyyMMdd HH:mm:ss.fff") + "'";
                 }
+
+#if NET6_0_OR_GREATER
+                if (valueType == typeof(DateOnly))
+                {
+                    return "'" + ((DateOnly)value).ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture) + "'";
+                }
+
+                if (valueType == typeof(TimeOnly))
+                {
+                    return "'" + ((TimeOnly)value).ToString("HH\\:mm\\:ss\\.fff", System.Globalization.CultureInfo.InvariantCulture) + "'";
+                }
+#endif
 
                 if (valueType.FullName == "Microsoft.OData.Edm.Library.Date" || valueType.FullName == "Microsoft.OData.Edm.Date")
                 {
