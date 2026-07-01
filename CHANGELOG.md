@@ -18,7 +18,7 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 7. Dependency injection of `IConfigResolver` throught the property of `SQLDataService`.
 8. Support of Net10.
 9. Added stub classes for `IAuditService`, `IBusinessServerProvider` (`EmptyAuditService`, `EmptyBusinessServerProvider`).
-10. Support of type `DateOnly` for `PostgresDataService`.
+10. Support of types `DateOnly` and `TimeOnly` for `PostgresDataService`.
 
 ### Changed
 1. Method `LockService.ClearAllUserLocks` changed to unstatic.
