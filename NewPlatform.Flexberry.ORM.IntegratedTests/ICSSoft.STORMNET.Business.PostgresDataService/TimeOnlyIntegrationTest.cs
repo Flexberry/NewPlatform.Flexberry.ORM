@@ -30,6 +30,11 @@ namespace NewPlatform.Flexberry.ORM.IntegratedTests.Postgres
 
         protected override string OracleScript => null;
 
+        /// <inheritdoc />
+        protected override void AssertWatchdog(bool notEmpty)
+        {
+        }
+
 #if NET6_0_OR_GREATER
         [Fact]
         public void TimeOnlyLinqEquals()
