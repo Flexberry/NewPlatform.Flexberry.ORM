@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
@@ -372,6 +373,110 @@
         }
 
         /// <summary>
+        /// Test that <see cref="INotifyUpdateObjects.CleanupStateStore"/> is called on success.
+        /// </summary>
+        [Fact]
+        public void CleanupStateStoreOnSuccessTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var ds = (SQLDataService)dataService;
+                var mock = new NotifyUpdateObjectsGeneratedMock();
+                ds.NotifierUpdateObjects = mock;
+
+                var bear = new Медведь() { ПорядковыйНомер = 10 };
+                var dot = new DataObjectForTest() { Name = "CleanSuccess" };
+                DataObject[] objects = new DataObject[] { bear, dot };
+                ds.UpdateObjects(ref objects);
+
+                Assert.NotEmpty(mock.RecordedOperationIds);
+                foreach (Guid opId in mock.RecordedOperationIds)
+                {
+                    Assert.Contains(opId, mock.CleanedOperationIds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Test that <see cref="INotifyUpdateObjects.CleanupStateStore"/> is called on failure.
+        /// </summary>
+        [Fact]
+        public void CleanupStateStoreOnFailTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var ds = (SQLDataService)dataService;
+                var mock = new NotifyUpdateObjectsGeneratedMock();
+                ds.NotifierUpdateObjects = mock;
+
+                var bear = new Медведь();
+                for (int i = 0; i < 300; i++)
+                {
+                    bear.ЦветГлаз += "Ц";
+                }
+
+                try
+                {
+                    ds.UpdateObject(bear);
+                }
+                catch (Exception)
+                {
+                }
+
+                Assert.NotEmpty(mock.RecordedOperationIds);
+                foreach (Guid opId in mock.RecordedOperationIds)
+                {
+                    Assert.Contains(opId, mock.CleanedOperationIds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Test for <see cref="INotifyUpdateObjects"/> events via async path.
+        /// </summary>
+        [Fact]
+        public async Task AfterCommitUpdateObjectsAsyncTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                var ds = (SQLDataService)dataService;
+                var mock = new NotifyUpdateObjectsGeneratedMock();
+                ds.NotifierUpdateObjects = mock;
+
+                var bear = new Медведь() { ПорядковыйНомер = 11 };
+                var dot = new DataObjectForTest() { Name = "AsyncDOT" };
+                DataObject[] objects = new DataObject[] { bear, dot };
+
+                await ds.UpdateObjectsAsync(objects);
+
+                var bearFootprint = bear.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
+                Assert.NotNull(bearFootprint);
+                Assert.Equal(ds, bearFootprint.Item2);
+                Assert.Equal(bear, bearFootprint.Item3.First());
+                bear.DynamicProperties.Remove(nameof(INotifyUpdateObjects.AfterCommitUpdateObjects));
+
+                var dotFootprint = dot.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
+                Assert.NotNull(dotFootprint);
+                Assert.Equal(ds, dotFootprint.Item2);
+                Assert.Equal(dot, dotFootprint.Item3.First());
+
+                var bearBeforeFootprint = bear.DynamicProperties[nameof(INotifyUpdateObjects.BeforeUpdateObjects)] as Tuple<Guid, IDataService, System.Data.IDbTransaction, IEnumerable<DataObject>>;
+                Assert.Equal(bearBeforeFootprint.Item1, bearFootprint.Item1);
+
+                bear.DynamicProperties.Remove(nameof(INotifyUpdateObjects.BeforeUpdateObjects));
+                dot.DynamicProperties.Remove(nameof(INotifyUpdateObjects.AfterCommitUpdateObjects));
+                dot.DynamicProperties.Remove(nameof(INotifyUpdateObjects.BeforeUpdateObjects));
+
+                // Verify CleanupStateStore was also called on async path.
+                Assert.NotEmpty(mock.RecordedOperationIds);
+                foreach (Guid opId in mock.RecordedOperationIds)
+                {
+                    Assert.Contains(opId, mock.CleanedOperationIds);
+                }
+            }
+        }
+
+        /// <summary>
         /// Check success footprint for <see cref="Медведь"/>.
         /// </summary>
         /// <param name="dataService">Data service for update operation.</param>
@@ -558,4 +663,6 @@
             Assert.Equal(0, dataObject.DynamicProperties.Count);
         }
     }
+
+
 }

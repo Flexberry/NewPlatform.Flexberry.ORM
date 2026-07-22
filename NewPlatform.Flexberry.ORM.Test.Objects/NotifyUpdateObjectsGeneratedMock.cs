@@ -33,9 +33,21 @@ namespace NewPlatform.Flexberry.ORM.Tests
     {
         
         // *** Start programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)
+        /// <summary>
+        /// Operation IDs recorded in <see cref="BeforeUpdateObjects"/>.
+        /// </summary>
+        public List<Guid> RecordedOperationIds { get; } = new List<Guid>();
+
+        /// <summary>
+        /// Operation IDs passed to <see cref="CleanupStateStore"/>.
+        /// </summary>
+        public HashSet<Guid> CleanedOperationIds { get; } = new HashSet<Guid>();
+
         /// <inheritdoc cref="INotifyUpdateObjects"/>
         public void BeforeUpdateObjects(Guid operationId, IDataService dataService, System.Data.IDbTransaction transaction, IEnumerable<DataObject> dataObjects)
         {
+            RecordedOperationIds.Add(operationId);
+
             var dataObject = dataObjects.First();
 
             dataObject.DynamicProperties.Add(nameof(BeforeUpdateObjects), new Tuple<Guid, IDataService, System.Data.IDbTransaction, IEnumerable<DataObject>>(operationId, dataService, transaction, dataObjects));
@@ -77,6 +89,7 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <inheritdoc cref="INotifyUpdateObjects"/>
         public void CleanupStateStore(Guid operationId)
         {
+            CleanedOperationIds.Add(operationId);
         }
 
         // *** End programmer edit section *** (NotifyUpdateObjectsGeneratedMock CustomMembers)
