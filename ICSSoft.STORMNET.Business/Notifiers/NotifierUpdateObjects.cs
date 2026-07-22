@@ -383,7 +383,6 @@
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
                     Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
-                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
 
                     notifyUpdateObject.AfterSuccessUpdateObject(dataObject, stateStoreValue.Item1, dataObjects);
                 }
@@ -425,7 +424,6 @@
                             if (notify)
                             {
                                 var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
 
                                 NotifierUpdatePropertyByType.AfterSuccessUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                             }
@@ -475,8 +473,6 @@
                                     {
                                         notifyUpdateProperty.AfterSuccessUpdateProperty(dataObject, objectStatusFromStateStore, propertyName, oldValue, newValue);
                                     }
-
-                                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
                                 }
                             }
                         }
@@ -507,7 +503,6 @@
                             {
                                 oldValue = valuesFromStateStore.Item2 as INotifyUpdateProperty;
                                 newValue = valuesFromStateStore.Item3 as INotifyUpdateProperty;
-                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
                             }
                             else
                             {
@@ -542,7 +537,6 @@
                 if (dataObject is INotifyUpdateObject notifyUpdateObject)
                 {
                     Tuple<ObjectStatus, object, object> stateStoreValue = GetFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
-                    RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, string.Empty);
 
                     if (stateStoreValue != null)
                     {
@@ -587,8 +581,6 @@
                             if (notify)
                             {
                                 var stateStoreValue = new Tuple<ObjectStatus, object, object>(status, oldValue, newValue);
-
-                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
 
                                 NotifierUpdatePropertyByType.AfterFailUpdateProperty(dataObject, status, propertyName, oldValue, newValue);
                             }
@@ -670,8 +662,6 @@
                             else
                             {
                                 oldValue = Information.GetPropValueByName(dataObject, propertyName) as INotifyUpdateProperty;
-
-                                RemoveFromStateStore(operationId, dataObjectType, dataObject.__PrimaryKey, propertyName);
                             }
 
                             INotifyUpdateProperty notifyUpdateProperty = oldValue;
@@ -684,6 +674,20 @@
                     }
                 }
             }
+        }
+
+        /// <inheritdoc cref="INotifyUpdateObjects"/>
+        public virtual void AfterCommitUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
+        {
+        }
+
+        /// <summary>
+        /// Remove all stateStore data for the specified operation.
+        /// </summary>
+        /// <param name="operationId">Operation id.</param>
+        public virtual void CleanupStateStore(Guid operationId)
+        {
+            stateStore.Remove(operationId);
         }
 
         /// <summary>
@@ -754,39 +758,6 @@
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Remove data from state store.
-        /// </summary>
-        /// <param name="operationId">Operation id.</param>
-        /// <param name="dataObjectType">Data object type.</param>
-        /// <param name="dataObjectPrimaryKey">Data object primaryKey.</param>
-        /// <param name="propertyName">Property name.</param>
-        /// <returns>Operation result.</returns>
-        private bool RemoveFromStateStore(Guid operationId, Type dataObjectType, object dataObjectPrimaryKey, string propertyName)
-        {
-            if (stateStore.ContainsKey(operationId))
-            {
-                IDictionary<Type, IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>>> typeDictionary = stateStore[operationId];
-
-                if (typeDictionary.ContainsKey(dataObjectType))
-                {
-                    IDictionary<object, IDictionary<string, Tuple<ObjectStatus, object, object>>> primaryKeyDictionary = typeDictionary[dataObjectType];
-
-                    if (primaryKeyDictionary.ContainsKey(dataObjectPrimaryKey))
-                    {
-                        IDictionary<string, Tuple<ObjectStatus, object, object>> propertyNameDictionary = primaryKeyDictionary[dataObjectPrimaryKey];
-
-                        if (propertyNameDictionary.ContainsKey(propertyName))
-                        {
-                            return propertyNameDictionary.Remove(propertyName);
-                        }
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }

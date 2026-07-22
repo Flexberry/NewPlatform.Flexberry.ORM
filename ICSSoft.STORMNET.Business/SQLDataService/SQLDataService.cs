@@ -5068,20 +5068,51 @@
             using (var dbTransactionWrapper = new DbTransactionWrapper(this))
             {
                 var dataObjectCache = new DataObjectCache();
+                var operationToObjectMap = new Dictionary<Guid, DataObject>();
+                bool committed = false;
                 try
                 {
                     foreach (DataObject dataObject in objects)
                     {
                         DataObject[] dObjs = new[] { dataObject };
-                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper.Connection, dbTransactionWrapper.Transaction);
+                        int beforeCount = dbTransactionWrapper.PendingAfterCommitOperationIds.Count;
+                        UpdateObjectsByExtConn(ref dObjs, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
+                        if (dbTransactionWrapper.PendingAfterCommitOperationIds.Count > beforeCount)
+                        {
+                            Guid newOpId = dbTransactionWrapper.PendingAfterCommitOperationIds[dbTransactionWrapper.PendingAfterCommitOperationIds.Count - 1];
+                            operationToObjectMap[newOpId] = dataObject;
+                        }
                     }
 
                     dbTransactionWrapper.CommitTransaction();
+                    committed = true;
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (var kvp in operationToObjectMap)
+                        {
+                            NotifierUpdateObjects.AfterCommitUpdateObjects(kvp.Key, this, new[] { kvp.Value });
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    dbTransactionWrapper.RollbackTransaction();
+                    if (!committed)
+                    {
+                        dbTransactionWrapper.RollbackTransaction();
+                    }
+
                     throw;
+                }
+                finally
+                {
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (Guid opId in dbTransactionWrapper.PendingAfterCommitOperationIds)
+                        {
+                            NotifierUpdateObjects.CleanupStateStore(opId);
+                        }
+                    }
                 }
             }
         }
@@ -5143,6 +5174,7 @@
                 {
                     operationUniqueId = Guid.NewGuid();
                     NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, dbTransactionWrapper.Transaction, objects);
+                    dbTransactionWrapper.PendingAfterCommitOperationIds.Add(operationUniqueId.Value);
                 }
 
                 if (AuditService.IsAuditEnabled)
