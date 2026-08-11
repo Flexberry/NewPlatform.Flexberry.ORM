@@ -62,7 +62,7 @@
 		Fixed
 		1. Disposing of `IDataReader` during data loading at `SQLDataService`.
 	</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2025</copyright>
+    <copyright>Copyright New Platform Ltd 2026</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">

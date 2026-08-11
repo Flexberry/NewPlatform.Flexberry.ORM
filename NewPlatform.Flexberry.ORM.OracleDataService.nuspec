@@ -21,7 +21,7 @@
 		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0`.
 		4. Removed support of .NET Core 3.1.
 	</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2025</copyright>
+    <copyright>Copyright New Platform Ltd 2026</copyright>
     <tags>Flexberry ORM</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
