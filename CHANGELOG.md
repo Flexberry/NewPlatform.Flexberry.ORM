@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+### Performance
+
 ## [8.0.0] - 2026-08-11
 
 ### Added
@@ -57,9 +71,6 @@ DetailVariableDef.ViewGenerator = null; // or resolving of interface IViewGenera
 ### Fixed
 1. Disposing of `IDataReader` during data loading at `SQLDataService`.
 
-### Security
-
-### Performance
 
 ## [7.2.0] - 2024-03-20
 
