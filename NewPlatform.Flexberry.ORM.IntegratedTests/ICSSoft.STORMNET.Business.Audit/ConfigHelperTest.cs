@@ -1,6 +1,5 @@
 ﻿namespace NewPlatform.Flexberry.ORM.Tests
 {
-    using ICSSoft.STORMNET.Business.Audit;
     using ICSSoft.STORMNET.Business.Audit.HelpStructures;
     using Xunit;
 
@@ -10,7 +9,7 @@
     public class ConfigHelperTest
     {
         /// <summary>
-        /// Тест для проверки получения строки соединения по имени <see cref="ConfigHelper.GetConnectionString(AppMode, string)"/>.
+        /// Тест для проверки получения строки соединения по имени <see cref="ConfigHelper.GetConnectionString(string)"/>.
         /// </summary>
         [Fact]
         public void GetConnectionStringTest()
@@ -20,7 +19,7 @@
             string expectedResult = @"SERVER=.\SQLEXPRESS;Trusted_connection=yes;DATABASE=Test;";
 
             // Act.
-            string actualResult = ConfigHelper.GetConnectionString(AppMode.Win, connectionStringName);
+            string actualResult = ConfigHelper.GetConnectionString(connectionStringName);
 
             // Assert.
             Assert.Equal(expectedResult, actualResult);

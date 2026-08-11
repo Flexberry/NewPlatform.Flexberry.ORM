@@ -2,6 +2,10 @@
 {
     using ICSSoft.STORMNET.Business.Audit.Objects;
 
+    using Moq;
+
+    using NewPlatform.Flexberry.ORM.CurrentUserService;
+
     using Xunit;
 
     using NewPlatform.Flexberry.ORM.Tests;
@@ -73,10 +77,11 @@
         /// <returns>Returns instance of the <see cref="AuditService" /> class that will be used for the test.</returns>
         protected override AuditService GetAuditServiceForTest()
         {
-            return new AuditService
+            Mock<ICurrentUser> mockCurrentUser = new Mock<ICurrentUser>();
+
+            return new AuditService(mockCurrentUser.Object)
             {
                 AppSetting = new AuditAppSetting { AuditEnabled = false },
-                ApplicationMode = AppMode.Win,
                 Audit = new EmptyAudit(),
             };
         }

@@ -57,6 +57,7 @@
             foreach (string s in _log)
             {
                 Console.WriteLine(s);
+                Assert.True(true);
             }
         }
 
@@ -600,6 +601,7 @@
             // Выходные параметры: дата и время.
             var actual = Information.RetrieveLinkerTimestamp();
             System.Diagnostics.Debug.WriteLine(actual);
+            Assert.True(actual <= DateTime.UtcNow);
         }
 
         /// <summary>

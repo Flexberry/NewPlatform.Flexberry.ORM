@@ -565,7 +565,7 @@
 
             cs.Init(new ColumnsSortDef[0], func, new Type[] { view.DefineClassType }, view, new string[0]);
             object state = null;
-            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
+            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, ObjectStatus.Deleted, this);
             if (bs != null && bs.Length > 0)
             {
                 // Если на детейловые объекты навешены бизнес-сервера, то тогда детейлы будут подгружены
@@ -666,7 +666,7 @@
             LoadingCustomizationStruct cs = new LoadingCustomizationStruct(GetInstanceId());
 
             cs.Init(new ColumnsSortDef[0], func, new Type[] { view.DefineClassType }, view, new string[0]);
-            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, DataServiceObjectEvents.OnDeleteFromStorage, this);
+            BusinessServer[] bs = BusinessServerProvider.GetBusinessServer(view.DefineClassType, ObjectStatus.Deleted, this);
 
             if (bs != null && bs.Length > 0)
             {
@@ -796,7 +796,7 @@
             {
                 var types = dataObjects.Select(x => x.GetType()).Distinct().ToArray();
                 string cs = ChangeCustomizationString(types);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
         }
 
@@ -809,7 +809,7 @@
             if (!DoNotChangeCustomizationString && ChangeCustomizationString != null)
             {
                 string cs = ChangeCustomizationString(types);
-                customizationString = string.IsNullOrEmpty(cs) ? customizationString : cs;
+                CustomizationString = string.IsNullOrEmpty(cs) ? CustomizationString : cs;
             }
         }
     }

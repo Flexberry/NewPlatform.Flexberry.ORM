@@ -2,6 +2,7 @@
 {
     using ICSSoft.STORMNET;
     using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.Interfaces;
 
     using Xunit;
 
@@ -11,16 +12,17 @@
     /// Подтверждение к https://flexberry.github.io/ru/fo_order-calls-bs.html#content
     /// </remarks>
     /// </summary>
-    public class BusinessServerDefaultOrderTests
+    public class BusinessServerDefaultOrderTests : BaseBusinessServerTests
     {
         [Fact]
         public void GetBusinessServerOrderForClass3()
         {
             // Arrange.
             var type = typeof(Class3);
+            IBusinessServerProvider provider = businessServerProvider;
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Single(bss);
@@ -33,9 +35,10 @@
         {
             // Arrange.
             var type = typeof(Class2);
+            IBusinessServerProvider provider = businessServerProvider;
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Equal(3, bss.Length);
@@ -52,9 +55,10 @@
         {
             // Arrange.
             var type = typeof(Class1);
+            IBusinessServerProvider provider = businessServerProvider;
 
             // Act.
-            var bss = BusinessServerProvider.GetBusinessServer(type, DataServiceObjectEvents.OnInsertToStorage, null);
+            var bss = provider.GetBusinessServer(type, ObjectStatus.Created, null);
 
             // Assert.
             Assert.Equal(6, bss.Length);

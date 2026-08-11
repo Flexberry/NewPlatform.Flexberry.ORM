@@ -134,6 +134,14 @@
                 return DateTimeType;
             }
 
+#if NET6_0_OR_GREATER
+            if (type == typeof(DateOnly) || type == typeof(DateOnly?)
+                || type == typeof(TimeOnly) || type == typeof(TimeOnly?))
+            {
+                return DateTimeType;
+            }
+#endif
+
             if (type == typeof(bool))
             {
                 return BoolType;

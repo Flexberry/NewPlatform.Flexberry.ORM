@@ -236,7 +236,6 @@
             ConcurrentDictionary<string, Exception> exceptions = parametersDictionary[MultiThreadingTestTool.ParamNameExceptions] as ConcurrentDictionary<string, Exception>;
 
             ExternalLangDef langdef = ExternalLangDef.LanguageDef;
-            langdef.DataService = ds;
 
             // Use a custom number of iterations: less time and false positives or more time and a guaranteed result.
             for (int i = 0; i < 5; i++)

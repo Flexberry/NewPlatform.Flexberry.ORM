@@ -42,6 +42,18 @@
                 Console.WriteLine(cls.Name + cls.Order);
             }
 
+            Assert.Equal(1, lst[0].Order);
+            Assert.Equal(2, lst[1].Order);
+            Assert.Equal(3, lst[2].Order);
+            Assert.Equal(3, lst[3].Order);
+            Assert.Equal(4, lst[4].Order);
+
+            Assert.Equal("A", lst[0].Name);
+            Assert.Equal("B", lst[1].Name);
+            Assert.Equal("C", lst[2].Name);
+            Assert.Equal("D", lst[3].Name);
+            Assert.Equal("E", lst[4].Name);
+
             Console.WriteLine("");
 
             var bss = new ArrayList();
@@ -59,6 +71,19 @@
                 Console.WriteLine(cls.Name);
             }
 
+            // Real actual value can be in other order, so it should be checked.
+            Assert.Equal(1, (bss[0] as OrderedCls).Order);
+            Assert.Equal(1, (bss[1] as OrderedCls).Order);
+            Assert.Equal(2, (bss[2] as OrderedCls).Order);
+            Assert.Equal(2, (bss[3] as OrderedCls).Order);
+            Assert.Equal(10, (bss[4] as OrderedCls).Order);
+
+            Assert.Equal("A", (bss[0] as OrderedCls).Name);
+            Assert.Equal("B", (bss[1] as OrderedCls).Name);
+            Assert.Equal("C", (bss[2] as OrderedCls).Name);
+            Assert.Equal("E", (bss[3] as OrderedCls).Name);
+            Assert.Equal("D", (bss[4] as OrderedCls).Name);
+
             Console.WriteLine("");
 
             var sl = new SortedList();
@@ -73,6 +98,18 @@
             {
                 Console.WriteLine(((OrderedCls)((DictionaryEntry)cls).Value).Name);
             }
+
+            Assert.Equal(1, (sl.GetByIndex(0) as OrderedCls).Order);
+            Assert.Equal(1, (sl.GetByIndex(1) as OrderedCls).Order);
+            Assert.Equal(2, (sl.GetByIndex(2) as OrderedCls).Order);
+            Assert.Equal(1, (sl.GetByIndex(3) as OrderedCls).Order);
+            Assert.Equal(1, (sl.GetByIndex(4) as OrderedCls).Order);
+
+            Assert.Equal("A", (sl.GetByIndex(0) as OrderedCls).Name);
+            Assert.Equal("B", (sl.GetByIndex(1) as OrderedCls).Name);
+            Assert.Equal("C", (sl.GetByIndex(2) as OrderedCls).Name);
+            Assert.Equal("D", (sl.GetByIndex(3) as OrderedCls).Name);
+            Assert.Equal("E", (sl.GetByIndex(4) as OrderedCls).Name);
         }
 
         [Fact]
@@ -94,6 +131,18 @@
             {
                 Console.WriteLine(cls.Name);
             }
+
+            Assert.Equal(1, (bss[0] as OrderedCls).Order);
+            Assert.Equal(1, (bss[1] as OrderedCls).Order);
+            Assert.Equal(2, (bss[2] as OrderedCls).Order);
+            Assert.Equal(2, (bss[3] as OrderedCls).Order);
+            Assert.Equal(10, (bss[4] as OrderedCls).Order);
+
+            Assert.Equal("A", (bss[0] as OrderedCls).Name);
+            Assert.Equal("B", (bss[1] as OrderedCls).Name);
+            Assert.Equal("C", (bss[2] as OrderedCls).Name);
+            Assert.Equal("E", (bss[3] as OrderedCls).Name);
+            Assert.Equal("D", (bss[4] as OrderedCls).Name);
         }
 
         [Fact]
@@ -138,6 +187,18 @@
             {
                 Console.WriteLine(cls.Name);
             }
+
+            Assert.Equal(1, (bss[0] as OrderedCls).Order);
+            Assert.Equal(1, (bss[1] as OrderedCls).Order);
+            Assert.Equal(1, (bss[2] as OrderedCls).Order);
+            Assert.Equal(1, (bss[3] as OrderedCls).Order);
+            Assert.Equal(2, (bss[4] as OrderedCls).Order);
+
+            Assert.Equal("A", (bss[0] as OrderedCls).Name);
+            Assert.Equal("B", (bss[1] as OrderedCls).Name);
+            Assert.Equal("D", (bss[2] as OrderedCls).Name);
+            Assert.Equal("E", (bss[3] as OrderedCls).Name);
+            Assert.Equal("C", (bss[4] as OrderedCls).Name);
         }
 
         public class OrderedCls

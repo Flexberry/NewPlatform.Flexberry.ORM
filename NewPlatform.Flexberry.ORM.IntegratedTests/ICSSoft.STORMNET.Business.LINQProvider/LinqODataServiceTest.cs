@@ -86,9 +86,6 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
-                // if (dataService is MSSQLDataService)
-                //    continue;
                 Медведь медв = new Медведь { Вес = 48, Пол = Пол.Мужской };
                 Медведь медв2 = new Медведь { Вес = 148, Пол = Пол.Мужской };
                 Лес лес1 = new Лес { Название = "Бор" };
@@ -120,29 +117,24 @@
         {
             foreach (IDataService dataService in DataServices)
             {
-                ICSSoft.STORMNET.Windows.Forms.ExternalLangDef.LanguageDef.DataService = dataService;
+                const string name = "n1";
                 var ds = (SQLDataService)dataService;
-                Plant2 cls1 = new Plant2() { Name = "n1" };
+                Plant2 cls1 = new Plant2() { Name = name };
                 Cabbage2 cls2 = new Cabbage2() { Name = "n2", Type = "type" };
 
                 var updateObjectsArray = new ICSSoft.STORMNET.DataObject[] { cls1, cls2 };
                 ds.UpdateObjects(ref updateObjectsArray);
-                var view = Plant2.Views.Plant2E;
+                Assert.NotNull(updateObjectsArray);
+                View plantView = Plant2.Views.Plant2E;
 
-                IQueryable<Plant2> limit;
-                // limit = ds.Query<Plant2>(view).Where(it => it.__PrimaryKey != null);
+                Plant2 cl = new Plant2();
+                cl.SetExistObjectPrimaryKey(cls1.__PrimaryKey);
+                ds.LoadObject(plantView, cl);
+                Assert.NotNull(cl);
 
-                LoadingCustomizationStruct lcs;
-                /*
-                lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                lcs.LoadingTypes = new Type[] { typeof(Plant2), typeof(Cabbage2) };
-                lcs.LoadingTypes = new Type[] { typeof(Cabbage2) };
-                lcs.View = view;
-                var list = ds.LoadObjects(lcs);
-                */
-                // limit = ds.Query<Plant2>(view).Where(it => typeof(Cabbage2).IsInstanceOfType(it));
-                // lcs = LinqToLcs.GetLcs(limit.Expression, view);
-                // var list2 = ds.LoadObjects(lcs);
+                Assert.Equal(name, cl.Name);
+                Assert.Equal(cls1.__PrimaryKey, cl.__PrimaryKey);
+                Assert.NotNull(cl.Name);
             }
         }
 

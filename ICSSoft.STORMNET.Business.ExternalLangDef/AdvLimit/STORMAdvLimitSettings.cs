@@ -1,7 +1,5 @@
 ﻿namespace ICSSoft.STORMNET.Windows.Forms
 {
-    using ICSSoft.Services;
-
     /// <summary>
     /// Объектное представление сохраняемого в базе ограничения.
     /// Не содержит логики по десериализации.
@@ -26,7 +24,6 @@
             set
             {
                 fPublished = value;
-                User = value ? null : CurrentUserService.CurrentUser.FriendlyName;
             }
         }
     }

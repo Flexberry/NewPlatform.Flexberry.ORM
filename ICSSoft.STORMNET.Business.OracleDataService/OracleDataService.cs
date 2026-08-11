@@ -8,8 +8,8 @@
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Business.Audit;
+    using ICSSoft.STORMNET.Business.Interfaces;
     using ICSSoft.STORMNET.FunctionalLanguage;
     using ICSSoft.STORMNET.FunctionalLanguage.SQLWhere;
     using ICSSoft.STORMNET.Security;
@@ -27,37 +27,13 @@
         public const int MaxBytes = 30;
 
         /// <summary>
-        /// Создание сервиса данных для Oracle без параметров.
-        /// </summary>
-        public OracleDataService()
-        {
-        }
-
-        /// <summary>
-        /// Создание сервиса данных для Oracle с указанием настроек проверки полномочий.
-        /// </summary>
-        /// <param name="securityManager">Сконструированный менеджер полномочий.</param>
-        public OracleDataService(ISecurityManager securityManager)
-            : base(securityManager)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OracleDataService"/> class with specified converter.
-        /// </summary>
-        /// <param name="converterToQueryValueString">The converter instance.</param>
-        public OracleDataService(IConverterToQueryValueString converterToQueryValueString)
-            : base(converterToQueryValueString)
-        {
-        }
-
-        /// <summary>
         /// Создание сервиса данных для Oracle с указанием настроек проверки полномочий.
         /// </summary>
         /// <param name="securityManager">Сенеджер полномочий.</param>
         /// <param name="auditService">Сервис аудита.</param>
-        public OracleDataService(ISecurityManager securityManager, IAuditService auditService)
-            : base(securityManager, auditService)
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
+        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IBusinessServerProvider businessServerProvider)
+            : base(securityManager, auditService, businessServerProvider)
         {
         }
 
@@ -66,10 +42,11 @@
         /// </summary>
         /// <param name="securityManager">The security manager instance.</param>
         /// <param name="auditService">The audit service instance.</param>
+        /// <param name="businessServerProvider">The provider for <see cref="BusinessServer"/> creation.</param>
         /// <param name="converterToQueryValueString">The converter instance.</param>
         /// <param name="notifierUpdateObjects">An instance of the class for custom process updated objects.</param>
-        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects)
-            : base(securityManager, auditService, converterToQueryValueString, notifierUpdateObjects)
+        public OracleDataService(ISecurityManager securityManager, IAuditService auditService, IBusinessServerProvider businessServerProvider, IConverterToQueryValueString converterToQueryValueString, INotifyUpdateObjects notifierUpdateObjects = null)
+            : base(securityManager, auditService, businessServerProvider, converterToQueryValueString, notifierUpdateObjects)
         {
         }
 
@@ -115,6 +92,12 @@
                     langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
+            if (value.FunctionDef.StringedView == langDef.funcSSPart)
+            {
+                return string.Format("TO_CHAR({1}, \'{0}\')", "SS",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
             if (value.FunctionDef.StringedView == "DayOfWeek")
             {
                 // здесь требуется преобразование из DATASERVICE
@@ -125,6 +108,18 @@
             if (value.FunctionDef.StringedView == langDef.funcDayOfWeekZeroBased)
             {
                 throw new NotImplementedException(string.Format("Function {0} is not implemented for Oracle", langDef.funcDayOfWeekZeroBased));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayNumber)
+            {
+                return string.Format("{0} - DATE '0001-01-01'",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+            }
+
+            if (value.FunctionDef.StringedView == langDef.funcDayOfYear)
+            {
+                return string.Format("TO_NUMBER(TO_CHAR({0}, 'DDD'))",
+                    langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
             }
 
             if (value.FunctionDef.StringedView == langDef.funcDaysInMonth)
@@ -142,10 +137,14 @@
 
             if (value.FunctionDef.StringedView == "CurrentUser")
             {
-                return string.Format("'{0}'", CurrentUserService.CurrentUser.FriendlyName);
-
-                // у нее нет параметров
-                // langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this));
+                if (CurrentUser != null)
+                {
+                    return string.Format("'{0}'", CurrentUser.FriendlyName);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Property CurrentUser is not defined for this data service. Add initialization for this property.");
+                }
             }
 
             if (value.FunctionDef.StringedView == "OnlyTime")
@@ -294,7 +293,7 @@
                         "SUBSTR(TO_CHAR({0}, {2}), 1, {1})",
                         langDef.SQLTranslSwitch(value.Parameters[0], convertValue, convertIdentifier, this),
                         value.Parameters[1],
-                        DateFormats.GetOracleDateFormat((int)value.Parameters[2]));
+                        ExternalLangDef.DateFormats.GetOracleDateFormat((int)value.Parameters[2]));
                 }
             }
             else
@@ -553,6 +552,18 @@
                 {
                     return string.Format("TO_DATE('{0}', 'YYYY-MM-DD HH24:MI:SS')", dt.ToString("yyyy-MM-dd HH:mm:ss"));
                 }
+
+#if NET6_0_OR_GREATER
+                if (value is DateOnly dateOnlyVal)
+                {
+                    return string.Format("TO_DATE('{0}', 'YYYY-MM-DD')", dateOnlyVal.ToString("yyyy-MM-dd"));
+                }
+
+                if (value is TimeOnly timeOnlyVal)
+                {
+                    return string.Format("TO_TIMESTAMP('{0}', 'HH24:MI:SS.FF3')", timeOnlyVal.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture));
+                }
+#endif
 
                 Type valueType = value.GetType();
 

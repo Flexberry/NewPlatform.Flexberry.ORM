@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>NewPlatform.Flexberry.ORM.PostgresDataService</id>
-    <version>7.2.0</version>
+    <version>8.0.0</version>
     <title>Flexberry ORM</title>
     <authors>New Platform Ltd</authors>
     <owners>New Platform Ltd</owners>
@@ -12,17 +12,45 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Flexberry ORM package.</description>
     <releaseNotes>
-      Fixed
-      1. Fixed order of property processing for objects with details and masters of the same type.
-      Changed
-      1. Updated NewPlatform.Flexberry.ORM up to 7.2.0.
-    </releaseNotes>
-    <copyright>Copyright New Platform Ltd 2024</copyright>
+		Added
+		1. Support of NET 10.
+		2. Support of types `DateOnly` and `TimeOnly`.
+
+		Changed
+		1. Data services `MSSQLDataService`, `OracleDataService`, `PostgresDataService` need initialization of property `CurrentUser` if `value.FunctionDef.StringedView == "CurrentUser"`.
+		2. Constructor of class `SQLDataService` (`DRDataService`, `MSSQLDataService`, `OracleDataService`, `PostgresDataService`): added dependency injection of `IAuditService` and `ISecurityManager` throught the constructor of `SQLDataService`.
+		3. Version of `NewPlatform.Flexberry.ORM` changed to `8.0.0`.
+		4. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5`, to `5.0.18` for `.NETStandard2.0` and upper, to `10.0.0` for `.NET10`.
+		5. Removed support of .NET Core 3.1.
+	</releaseNotes>
+    <copyright>Copyright New Platform Ltd 2026</copyright>
     <tags>Flexberry ORM</tags>
-    <dependencies>
-      <dependency id="NewPlatform.Flexberry.ORM" version="7.2.0" />
-      <dependency id="Npgsql" version="3.2.7" />
-    </dependencies>
+	  <dependencies>
+		  <group targetFramework=".NETFramework4.5">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
+			  <dependency id="Npgsql" version="4.0.17" />
+		  </group>
+		  <group targetFramework=".NETFramework4.6.1">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
+			  <dependency id="Npgsql" version="4.0.17" />
+		  </group>
+		  <group targetFramework=".NETStandard2.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework="net6.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework="net7.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
+			  <dependency id="Npgsql" version="5.0.18" />
+		  </group>
+		  <group targetFramework="net10.0">
+			  <dependency id="NewPlatform.Flexberry.ORM" version="8.0.0" />
+			  <dependency id="Npgsql" version="10.0.0" />
+		  </group>
+	  </dependencies>
   </metadata>
   <files>
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net45\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
@@ -34,13 +62,12 @@
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\netstandard2.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
 
-	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
-    <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\netcoreapp3.1\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
-
 	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net6.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
 
 	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
     <file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net7.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" target="lib\net10.0\ICSSoft.STORMNET.Business.PostgresDataService.dll" />
+	<file src="ICSSoft.STORMNET.Business.PostgresDataService\bin\$configuration$\net10.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" target="lib\net10.0\ICSSoft.STORMNET.Business.PostgresDataService.XML" />
   </files>
 </package>

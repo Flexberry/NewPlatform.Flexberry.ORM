@@ -110,10 +110,9 @@
         public CheckedCustomAuditParameters(
             tExecutionVariant executionResult,
             DateTime currentTime,
-            AppMode applicationMode,
             string auditConnectionStringName,
             bool needSerialization)
-            : base(executionResult, currentTime, applicationMode, auditConnectionStringName, needSerialization)
+            : base(executionResult, currentTime, auditConnectionStringName, needSerialization)
         {
         }
 

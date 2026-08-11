@@ -27,11 +27,6 @@
         }
 
         /// <summary>
-        /// Описание языка ограничений, используемое в тестах.
-        /// </summary>
-        private ExternalLangDef _ldef = new ExternalLangDef();
-
-        /// <summary>
         /// Проверка функции <see cref="ExternalLangDef.funcDayOfWeek"/> (вывести только те числа которые попали на понедельник).
         /// Сейчас данный тест работает только с одним DataService. Как исправят баг 94309, выполните TODO.
         /// </summary>
@@ -46,6 +41,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef languageDef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 const int firstMonday = 1;
@@ -90,11 +86,11 @@
 
                 // Функция ограничения.
                 // Применение функции ограничения.
-                lcs.LimitFunction = _ldef.GetFunction(
-                    _ldef.funcEQ,
-                    _ldef.GetFunction(
-                        _ldef.funcDayOfWeek,
-                        new VariableDef(_ldef.DateTimeType,
+                lcs.LimitFunction = languageDef.GetFunction(
+                    languageDef.funcEQ,
+                    languageDef.GetFunction(
+                        languageDef.funcDayOfWeek,
+                        new VariableDef(languageDef.DateTimeType,
                             Information.ExtractPropertyPath<FullTypesMainAgregator>(x => x.PoleDateTime))),
                     1);
                 // Act.
@@ -126,6 +122,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 DateTime controlDate = new DateTime(2016, 2, 2);
@@ -215,6 +212,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 DateTime controlDate = new DateTime(2016, 2, 2);
@@ -304,6 +302,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 DateTime controlDate = new DateTime(2016, 2, 2);
@@ -393,6 +392,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 DateTime controlDate = new DateTime(2016, 2, 2);
@@ -482,6 +482,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 DateTime controlDate = new DateTime(2016, 2, 2);
@@ -571,6 +572,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 const int controlInt = 1;
@@ -652,6 +654,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 const int controlInt = 1;
@@ -731,6 +734,7 @@
             {
                 // Arrange.
                 var ds = (SQLDataService)dataService;
+                ExternalLangDef _ldef = new ExternalLangDef(ds);
 
                 // Контрольные значене.
                 const int controlInt = 1;

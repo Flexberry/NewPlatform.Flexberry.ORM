@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.0;net6.0;net7.0;net10.0</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET.Business</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Business.LockService</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Business.LockService.snk</AssemblyOriginatorKeyFile>
@@ -16,7 +16,6 @@
     <ProjectReference Include="..\ICSSoft.STORMNET.DataObject\ICSSoft.STORMNET.DataObject.csproj" />
     <ProjectReference Include="..\ICSSoft.STORMNET.FunctionalLanguage\ICSSoft.STORMNET.FunctionalLanguage.csproj" />
     <ProjectReference Include="..\NewPlatform.Flexberry.ORM.CurrentUserService\NewPlatform.Flexberry.ORM.CurrentUserService.csproj" />
-    <ProjectReference Include="..\NewPlatform.Flexberry.ORM.UnityFactory\NewPlatform.Flexberry.ORM.UnityFactory.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.0;net6.0;net7.0;net10.0</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET.Business</RootNamespace>
     <AssemblyName>ICSSoft.STORMNET.Business.PostgresDataService</AssemblyName>
     <AssemblyOriginatorKeyFile>ICSSoft.STORMNET.Business.PostgresDataService.snk</AssemblyOriginatorKeyFile>
@@ -10,9 +10,17 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Npgsql" Version="3.2.7" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'net461' ">
+	  <PackageReference Include="Npgsql" Version="4.0.17" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0'">
+	  <PackageReference Include="Npgsql" Version="5.0.18" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
+		<PackageReference Include="Npgsql" Version="10.0.0" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ICSSoft.STORMNET.Business.ExternalLangDef\ICSSoft.STORMNET.Business.ExternalLangDef.csproj" />

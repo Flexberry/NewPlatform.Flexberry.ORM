@@ -10,14 +10,10 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Text;
-    using System.Text.RegularExpressions;
 
-    using ICSSoft.Services;
     using ICSSoft.STORMNET.Collections;
     using ICSSoft.STORMNET.Exceptions;
-    using ICSSoft.STORMNET.Security;
     using Microsoft.Spatial;
-    using Unity;
 
     #region class Information
 
@@ -360,6 +356,32 @@
                                             return;
                                         }
 
+#if NET6_0_OR_GREATER
+                                        if (propType == typeof(DateOnly))
+                                        {
+                                            if (DateOnly.TryParse(propValString, out DateOnly doVal))
+                                            {
+                                                setHandler(obj, doVal);
+                                                return;
+                                            }
+
+                                            setHandler(obj, DateOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture));
+                                            return;
+                                        }
+
+                                        if (propType == typeof(TimeOnly))
+                                        {
+                                            if (TimeOnly.TryParse(propValString, out TimeOnly toVal))
+                                            {
+                                                setHandler(obj, toVal);
+                                                return;
+                                            }
+
+                                            setHandler(obj, TimeOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture));
+                                            return;
+                                        }
+#endif
+
                                         if (propType == typeof(Geography))
                                         {
                                             WellKnownTextSqlFormatter wktFormatter = WellKnownTextSqlFormatter.Create();
@@ -580,6 +602,63 @@
                                 }
 
                                 SetHandler setHandler = GetSetHandler(objType, propInfo);
+
+#if NET6_0_OR_GREATER
+                                if (PropValue != null && PropValue is DateTime && (propInfo.PropertyType == typeof(DateOnly) || propInfo.PropertyType == typeof(DateOnly?)))
+                                {
+                                    var dt = (DateTime)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(DateOnly)
+                                        ? new DateOnly(dt.Year, dt.Month, dt.Day)
+                                        : new DateOnly?(new DateOnly(dt.Year, dt.Month, dt.Day));
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue.GetType() == typeof(DateTime?) && (propInfo.PropertyType == typeof(DateOnly) || propInfo.PropertyType == typeof(DateOnly?)))
+                                {
+                                    var dt = (DateTime?)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(DateOnly)
+                                        ? (dt.HasValue ? new DateOnly(dt.Value.Year, dt.Value.Month, dt.Value.Day) : default)
+                                        : (dt.HasValue ? new DateOnly?(new DateOnly(dt.Value.Year, dt.Value.Month, dt.Value.Day)) : null);
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                } else // Npgsql 5.x (net6.0/net7.0) возвращает TimeSpan для столбцов time; Npgsql 10+ возвращает TimeOnly напрямую.
+                                if (PropValue != null && PropValue is TimeSpan && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var ts = (TimeSpan)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? TimeOnly.FromTimeSpan(ts)
+                                        : new TimeOnly?(TimeOnly.FromTimeSpan(ts));
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue.GetType() == typeof(TimeSpan?) && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var ts = (TimeSpan?)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? (ts.HasValue ? TimeOnly.FromTimeSpan(ts.Value) : default)
+                                        : (ts.HasValue ? new TimeOnly?(TimeOnly.FromTimeSpan(ts.Value)) : null);
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue is DateTime && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var dt = (DateTime)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? TimeOnly.FromDateTime(dt)
+                                        : new TimeOnly?(TimeOnly.FromDateTime(dt));
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+                                else if (PropValue != null && PropValue.GetType() == typeof(DateTime?) && (propInfo.PropertyType == typeof(TimeOnly) || propInfo.PropertyType == typeof(TimeOnly?)))
+                                {
+                                    var dt = (DateTime?)PropValue;
+                                    object convertedValue = propInfo.PropertyType == typeof(TimeOnly)
+                                        ? (dt.HasValue ? TimeOnly.FromDateTime(dt.Value) : default)
+                                        : (dt.HasValue ? new TimeOnly?(TimeOnly.FromDateTime(dt.Value)) : null);
+                                    setHandler(obj, convertedValue);
+                                    return;
+                                }
+#endif
                                 if (propType.IsEnum && PropValue == null)
                                 {
                                     try
@@ -4612,6 +4691,28 @@
                     return dtVal1;
                 }
 
+#if NET6_0_OR_GREATER
+                if (propertyType == typeof(DateOnly))
+                {
+                    if (DateOnly.TryParse(propValString, out DateOnly doVal))
+                    {
+                        return doVal;
+                    }
+
+                    return DateOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+                if (propertyType == typeof(TimeOnly))
+                {
+                    if (TimeOnly.TryParse(propValString, out TimeOnly toVal))
+                    {
+                        return toVal;
+                    }
+
+                    return TimeOnly.Parse(propValString, System.Globalization.CultureInfo.InvariantCulture);
+                }
+#endif
+
                 if (propertyType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public, null, new Type[] { typeof(string), typeof(IFormatProvider) }, null) != null)
                 {
                     try
@@ -4654,58 +4755,6 @@
 
             newPropVal = value;
             return newPropVal;
-        }
-
-        /// <summary>
-        /// Проверка прав на атрибуты объекта. Метод является оберткой для метода CheckAccessToAttribute интерфейса <see cref="ISecurityManager"/> и используется для проверки прав в Get'ерах вычислимых свойств DataObject.
-        /// Обработка мастеров не производится.
-        /// </summary>
-        /// <param name="type">Тип объекта данных.</param>
-        /// <param name="propertyName">Имя свойства объекта данных, на которое проверяются права.</param>
-        /// <param name="deniedAccessValue">Значение атрибута при отсутствии прав.</param>
-        /// <returns>Если у текущего пользователя есть права на доступ к указанному свойству, то <c>true</c>, иначе - <c>false</c>.</returns>
-        public static bool CheckAccessToAttribute(Type type, string propertyName, out object deniedAccessValue)
-        {
-            deniedAccessValue = null;
-
-            // Регулярное выражение для удаления кавычек и других символов из sql-константы значения по умолчанию.
-            const string sqlValuePattern = @"(?<=(['#])).*(?=\1)";
-
-            string expression = null;
-
-            var expressions = GetExpressionForProperty(type, propertyName);
-
-            // Определить какой из DataService используется не предоставляется возможным,
-            // в большинстве случаев DataServiceExpression будет один.
-            // В случае нескольких DataServiceExpression, права все равно должны совпадать.
-            if (expressions.Count > 0)
-            {
-                expression = (string)expressions[0];
-            }
-            else
-            {
-                return true;
-            }
-
-            string deniedAccessValueInString = null;
-
-            // Получаем текущую неименованную реализацию ISecurityManager из Unity.
-            IUnityContainer container = UnityFactory.GetContainer();
-            var securityManager = container.Resolve<ISecurityManager>();
-            var result = securityManager.CheckAccessToAttribute(expression, out deniedAccessValueInString);
-
-            if (!result && !string.IsNullOrEmpty(deniedAccessValueInString))
-            {
-                var match = Regex.Match(deniedAccessValueInString, sqlValuePattern);
-                if (match.Success)
-                {
-                    deniedAccessValueInString = match.Value;
-                }
-            }
-
-            deniedAccessValue = ParsePropertyValue(type, propertyName, deniedAccessValueInString);
-
-            return result;
         }
 
         /// <summary>

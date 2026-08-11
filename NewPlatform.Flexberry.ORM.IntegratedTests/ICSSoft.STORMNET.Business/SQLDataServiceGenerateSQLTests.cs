@@ -114,6 +114,11 @@
                 ds.ExecuteNonQuery(query1);
                 ds.ExecuteNonQuery(query2);
                 ds.ExecuteNonQuery(query3);
+
+                Assert.Contains("LEFT JOIN", query0.ToUpper());
+                Assert.Contains("LEFT JOIN", query1.ToUpper());
+                Assert.Contains("LEFT JOIN", query2.ToUpper());
+                Assert.Contains("LEFT JOIN", query3.ToUpper());
             }
         }
     }
