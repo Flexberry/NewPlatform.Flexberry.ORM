@@ -1,7 +1,8 @@
 # Flexberry ORM Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
-## [Unreleased]
+
+## [8.0.0] - 2026-08-11
 
 ### Added
 1. Due to backward compatibility it is necessary now to initialize manually at start point:

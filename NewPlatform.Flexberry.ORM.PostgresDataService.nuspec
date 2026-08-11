@@ -23,7 +23,7 @@
 		4. Version of `Npgsql` changed to `4.0.17` for `.NETFramework4.5`, to `5.0.18` for `.NETStandard2.0` and upper, to `10.0.0` for `.NET10`.
 		5. Removed support of .NET Core 3.1.
 	</releaseNotes>
-    <copyright>Copyright New Platform Ltd 2025</copyright>
+    <copyright>Copyright New Platform Ltd 2026</copyright>
     <tags>Flexberry ORM</tags>
 	  <dependencies>
 		  <group targetFramework=".NETFramework4.5">
