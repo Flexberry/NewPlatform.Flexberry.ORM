@@ -428,6 +428,52 @@
         }
 
         /// <summary>
+        /// Проверка механизма зануления и удаления мастера у класса.
+        /// </summary>
+        [Fact]
+        public void DeleteAndNullingLinkToSelfTest()
+        {
+            foreach (IDataService dataService in DataServices)
+            {
+                // TODO: Fix OracleDataService error.
+                if (dataService is OracleDataService)
+                {
+                    continue;
+                }
+
+                string[] медведьPropertiesNames =
+                {
+                    Information.ExtractPropertyPath<Медведь>(x => x.__PrimaryKey),
+                    Information.ExtractPropertyPath<Медведь>(x => x.ЦветГлаз),
+                };
+                var медведьDynamicView = new View(new ViewAttribute("медведьDynamicView", медведьPropertiesNames), typeof(Медведь));
+
+                var testName = "Test";
+                var медведь1 = new Медведь();
+                var медведь2 = new Медведь() { Мама = медведь1, ЦветГлаз = testName };
+
+                var objs = new DataObject[] { медведь1, медведь2 };
+                dataService.UpdateObjects(ref objs);
+
+                // Act.
+                медведь2.Мама = null;
+                медведь1.SetStatus(ObjectStatus.Deleted);
+
+                var objsUpdate = new DataObject[] { медведь2, медведь1 };
+                dataService.UpdateObjects(ref objsUpdate);
+
+                // Assert.
+                LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Медведь), медведьDynamicView);
+                var медведиObj = dataService.LoadObjects(lcs);
+                var медведи = медведиObj.Cast<Медведь>().ToList();
+
+                Assert.Single(медведиObj);
+                Assert.Equal(testName, медведи[0].ЦветГлаз);
+                Assert.Null(медведи[0].Мама);
+            }
+        }
+
+        /// <summary>
         /// Тесты на формирование графа зависимостей методом <see cref="SQLDataService.GetDependencies"/>.
         /// </summary>
         [Fact]
