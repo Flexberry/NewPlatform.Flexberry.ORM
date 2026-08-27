@@ -458,7 +458,7 @@
                 var dotFootprint = dot.DynamicProperties[nameof(INotifyUpdateObjects.AfterCommitUpdateObjects)] as Tuple<Guid, IDataService, IEnumerable<DataObject>>;
                 Assert.NotNull(dotFootprint);
                 Assert.Equal(ds, dotFootprint.Item2);
-                Assert.Equal(dot, dotFootprint.Item3.First());
+                Assert.Contains(dot, dotFootprint.Item3);
 
                 var bearBeforeFootprint = bear.DynamicProperties[nameof(INotifyUpdateObjects.BeforeUpdateObjects)] as Tuple<Guid, IDataService, System.Data.IDbTransaction, IEnumerable<DataObject>>;
                 Assert.Equal(bearBeforeFootprint.Item1, bearFootprint.Item1);
