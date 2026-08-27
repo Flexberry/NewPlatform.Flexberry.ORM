@@ -81,9 +81,10 @@ namespace NewPlatform.Flexberry.ORM.Tests
         /// <inheritdoc cref="INotifyUpdateObjects"/>
         public void AfterCommitUpdateObjects(Guid operationId, IDataService dataService, IEnumerable<DataObject> dataObjects)
         {
-            var dataObject = dataObjects.First();
-
-            dataObject.DynamicProperties.Add(nameof(AfterCommitUpdateObjects), new Tuple<Guid, IDataService, IEnumerable<DataObject>>(operationId, dataService, dataObjects));
+            foreach (var dataObject in dataObjects)
+            {
+                dataObject.DynamicProperties.Add(nameof(AfterCommitUpdateObjects), new Tuple<Guid, IDataService, IEnumerable<DataObject>>(operationId, dataService, dataObjects));
+            }
         }
 
         /// <inheritdoc cref="INotifyUpdateObjects"/>
