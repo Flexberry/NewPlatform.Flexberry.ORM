@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Business
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.Common;
     using System.Threading.Tasks;
@@ -10,6 +11,11 @@
     /// </summary>
     public class DbTransactionWrapperAsync : IDisposable
     {
+        /// <summary>
+        /// Operation IDs pending post-commit notification via <see cref="INotifyUpdateObjects.AfterCommitUpdateObjects"/>.
+        /// </summary>
+        public List<Guid> PendingAfterCommitOperationIds { get; } = new List<Guid>();
+
         private DbTransaction _transaction;
 
         /// <summary>

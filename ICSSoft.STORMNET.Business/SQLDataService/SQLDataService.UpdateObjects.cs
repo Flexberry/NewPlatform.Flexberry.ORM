@@ -25,15 +25,40 @@
 
             using (DbTransactionWrapper dbTransactionWrapper = new DbTransactionWrapper(this))
             {
+                DataObject[] allObjects = objects;
+                bool committed = false;
                 try
                 {
                     UpdateObjectsByExtConn(ref objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper);
                     dbTransactionWrapper.CommitTransaction();
+                    committed = true;
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (Guid opId in dbTransactionWrapper.PendingAfterCommitOperationIds)
+                        {
+                            NotifierUpdateObjects.AfterCommitUpdateObjects(opId, this, allObjects);
+                        }
+                    }
                 }
                 catch (Exception)
                 {
-                    dbTransactionWrapper.RollbackTransaction();
+                    if (!committed)
+                    {
+                        dbTransactionWrapper.RollbackTransaction();
+                    }
+
                     throw;
+                }
+                finally
+                {
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (Guid opId in dbTransactionWrapper.PendingAfterCommitOperationIds)
+                        {
+                            NotifierUpdateObjects.CleanupStateStore(opId);
+                        }
+                    }
                 }
             }
         }

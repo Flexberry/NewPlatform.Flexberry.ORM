@@ -37,6 +37,8 @@
 
             using (DbTransactionWrapperAsync dbTransactionWrapper = new DbTransactionWrapperAsync(this))
             {
+                DataObject[] allObjects = objects;
+                bool committed = false;
                 try
                 {
                     await UpdateObjectsByExtConnAsync(objects, dataObjectCache, alwaysThrowException, dbTransactionWrapper)
@@ -47,16 +49,39 @@
 #else
                     dbTransactionWrapper.CommitTransaction();
 #endif
+                    committed = true;
+
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (Guid opId in dbTransactionWrapper.PendingAfterCommitOperationIds)
+                        {
+                            NotifierUpdateObjects.AfterCommitUpdateObjects(opId, this, allObjects);
+                        }
+                    }
                 }
                 catch (Exception)
                 {
+                    if (!committed)
+                    {
 #if NETSTANDARD2_1
-                    await dbTransactionWrapper.RollbackTransaction()
-                        .ConfigureAwait(false);
+                        await dbTransactionWrapper.RollbackTransaction()
+                            .ConfigureAwait(false);
 #else
-                    dbTransactionWrapper.RollbackTransaction();
+                        dbTransactionWrapper.RollbackTransaction();
 #endif
+                    }
+
                     throw;
+                }
+                finally
+                {
+                    if (NotifierUpdateObjects != null)
+                    {
+                        foreach (Guid opId in dbTransactionWrapper.PendingAfterCommitOperationIds)
+                        {
+                            NotifierUpdateObjects.CleanupStateStore(opId);
+                        }
+                    }
                 }
             }
         }
@@ -133,6 +158,7 @@
                     operationUniqueId = Guid.NewGuid();
                     var transaction = await dbTransactionWrapperAsync.GetTransactionAsync().ConfigureAwait(false);
                     NotifierUpdateObjects.BeforeUpdateObjects(operationUniqueId.Value, this, transaction, objects);
+                    dbTransactionWrapperAsync.PendingAfterCommitOperationIds.Add(operationUniqueId.Value);
                 }
 
                 if (AuditService.IsAuditEnabled)
